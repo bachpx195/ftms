@@ -7,8 +7,7 @@ end
 Rails.application.routes.draw do
   mount Ckeditor::Engine => "/ckeditor"
   devise_for :users
-  root "dashboards#index"
-
   draw :api
   draw :admin
+  root "dashboards#index"
 end

@@ -112,6 +112,12 @@ ActiveRecord::Schema.define(version: 20170211131502) do
     t.index ["user_id"], name: "index_moving_histories_on_user_id", using: :btree
   end
 
+  create_table "organization_hierarchies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "parent_id"
