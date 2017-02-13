@@ -1,8 +1,9 @@
 class Admin::OrganizationsController < ApplicationController
-  before_action :authenticate_user!
   before_action :find_organization, except: [:index, :new, :create]
+  before_action :authorize, except: :index
 
   def index
+    authorize Organization
     @organizations = Organization.all
   end
 
@@ -85,5 +86,9 @@ class Admin::OrganizationsController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize
+    admin_authorize @organization
   end
 end

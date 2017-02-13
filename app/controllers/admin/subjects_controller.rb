@@ -1,9 +1,10 @@
 class Admin::SubjectsController < ApplicationController
-
   before_action :find_training_standard, except: [:index, :new]
   before_action :find_subject, except: [:index, :new, :create]
+  before_action :authorize, except: :index
 
   def index
+    authorize Subject
     @subjects = Subject.all
   end
 
@@ -101,5 +102,9 @@ class Admin::SubjectsController < ApplicationController
         end
       end
     end
-  end 
+  end
+
+  def authorize
+    admin_authorize @subject
+  end
 end

@@ -1,8 +1,9 @@
 class Admin::TraineeTypesController < ApplicationController
-  before_action :authenticate_user!
   before_action :find_trainee_type, except: [:index, :new, :create]
+  before_action :authorize, except: :index
 
   def index
+    authorize TraineeType
     @trainee_types = TraineeType.all
   end
 
@@ -87,5 +88,9 @@ class Admin::TraineeTypesController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize
+    admin_authorize @trainee_type
   end
 end
