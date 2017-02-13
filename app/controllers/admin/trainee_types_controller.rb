@@ -1,28 +1,28 @@
-class Admin::UniversitiesController < ApplicationController
+class Admin::TraineeTypesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_university, except: [:index, :new, :create]
+  before_action :find_trainee_type, except: [:index, :new, :create]
 
   def index
-    @universities = University.all
+    @trainee_types = TraineeType.all
   end
 
   def new
   end
 
   def create
-    @university = University.new university_params
+    @trainee_type = TraineeType.new trainee_type_params
     respond_to do |format|
-      if @university.save
-        format.html {redirect_to [:admin, @university]}
+      if @trainee_type.save
+        format.html {redirect_to [:admin, @trainee_type]}
         format.json do
           render json: {message: flash_message("created"),
-            university: @university}
+            trainee_type: @trainee_type}
         end
       else
         format.html {render :new}
         format.json do
           render json: {message: flash_message("not_created"),
-            errors: @university.errors}, status: :unprocessable_entity
+            errors: @trainee_type.errors}, status: :unprocessable_entity
         end
       end
     end
@@ -34,34 +34,34 @@ class Admin::UniversitiesController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {university: @university}}
+      format.json {render json: {trainee_type: @trainee_type}}
     end
   end
 
   def update
     respond_to do |format|
-      if @university.update_attributes university_params
-        format.html {redirect_to [:admin, @university]}
+      if @trainee_type.update_attributes trainee_type_params
+        format.html {redirect_to [:admin, @trainee_type]}
         format.json do
           render json: {message: flash_message("updated"),
-            university: @university}
+            trainee_type: @trainee_type}
         end
       else
         format.html {render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
-            errors: @university.errors}, status: :unprocessable_entity
+            errors: @trainee_type.errors}, status: :unprocessable_entity
         end
       end
     end
   end
 
   def destroy
-    @university.destroy
+    @trainee_type.destroy
     respond_to do |format|
-      format.html {redirect_to admin_universities_path}
+      format.html {redirect_to admin_trainee_types_path}
       format.json do
-        if @university.deleted?
+        if @trainee_type.deleted?
           render json: {message: flash_message("deleted")}
         else
           render json: {message: flash_message("not_deleted")},
@@ -72,15 +72,15 @@ class Admin::UniversitiesController < ApplicationController
   end
 
   private
-  def university_params
-    params.require(:university).permit University::ATTRIBUTE_PARAMS
+  def trainee_type_params
+    params.require(:trainee_type).permit TraineeType::ATTRIBUTE_PARAMS
   end
 
-  def find_university
-    @university = University.find_by id: params[:id]
-    unless @university
+  def find_trainee_type
+    @trainee_type = TraineeType.find_by id: params[:id]
+    unless @trainee_type
       respond_to do |format|
-        format.html {redirect_to admin_universities_path}
+        format.html {redirect_to admin_trainee_types_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

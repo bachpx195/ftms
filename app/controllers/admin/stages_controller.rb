@@ -73,7 +73,7 @@ class Admin::StagesController < ApplicationController
 
   private
   def stage_params
-    params.require(:stage).permit :name
+    params.require(:stage).permit Stage::ATTRIBUTE_PARAMS
   end
 
   def find_stage
