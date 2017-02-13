@@ -3,4 +3,5 @@ namespace :admin do
   resources :stages
   resources :trainee_types
   resources :organizations
+  resources :languages
 end
