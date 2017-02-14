@@ -1,5 +1,8 @@
 class Program < ApplicationRecord
   acts_as_paranoid
+  acts_as_tree order: "created_at DESC", dependent: :destroy
+
+  ATTRIBUTE_PARAMS = [:name, :program_type, :organization_id, :parent_id]
 
   belongs_to :organization
 
