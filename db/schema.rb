@@ -161,6 +161,14 @@ ActiveRecord::Schema.define(version: 20170212150636) do
     t.index ["user_status_id"], name: "index_profiles_on_user_status_id", using: :btree
   end
 
+  create_table "program_hierarchies", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+    t.index ["ancestor_id", "descendant_id", "generations"], name: "program_anc_desc_idx", unique: true, using: :btree
+    t.index ["descendant_id"], name: "program_desc_idx", using: :btree
+  end
+
   create_table "programs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "program_type"
