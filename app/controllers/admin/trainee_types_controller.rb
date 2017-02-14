@@ -3,7 +3,7 @@ class Admin::TraineeTypesController < ApplicationController
   before_action :authorize, except: :index
 
   def index
-    authorize TraineeType
+    admin_authorize TraineeType
     @trainee_types = TraineeType.all
   end
 

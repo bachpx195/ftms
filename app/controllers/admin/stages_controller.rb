@@ -3,7 +3,7 @@ class Admin::StagesController < ApplicationController
   before_action :authorize, except: :index
 
   def index
-    authorize Stage
+    admin_authorize Stage
     @stages = Stage.all
   end
 

@@ -3,7 +3,7 @@ class Admin::UniversitiesController < ApplicationController
   before_action :authorize, except: :index
 
   def index
-    authorize University
+    admin_authorize University
     @universities = University.all
   end
 

@@ -12,3 +12,11 @@ functions:
   - create
   - update
   - destroy
+during_time:
+  course: 60
+  project_1: 10
+  project_2: 7
+  git_tutorial: 2
+  mysql: 2
+  tutorial_book: 10
+  javascript: 4

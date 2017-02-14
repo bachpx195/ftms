@@ -3,7 +3,7 @@ class Admin::OrganizationsController < ApplicationController
   before_action :authorize, except: :index
 
   def index
-    authorize Organization
+    admin_authorize Organization
     @organizations = Organization.all
   end
 
