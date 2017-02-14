@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211131502) do
+ActiveRecord::Schema.define(version: 20170212150636) do
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
@@ -305,6 +305,7 @@ ActiveRecord::Schema.define(version: 20170211131502) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token",   limit: 30
+    t.string   "name"
     t.string   "avatar"
     t.integer  "trainer_id"
     t.string   "type",                              default: "Trainee"

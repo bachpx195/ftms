@@ -1,9 +1,10 @@
 class Admin::LanguagesController < ApplicationController
-  before_action :authenticate_user!
   before_action :find_language, except: [:index, :new, :create]
+  before_action :authorize, except: :index
 
   def index
     @languages = Language.all
+    authorize Language
   end
 
   def new
@@ -87,5 +88,9 @@ class Admin::LanguagesController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize
+    admin_authorize @language
   end
 end

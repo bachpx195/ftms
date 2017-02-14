@@ -46,6 +46,7 @@ config/environments/*.local.yml
 
 # Ignore application configuration
 /config/application.yml
+config/settings/*.yml
 .idea/
 # React on Rails
 npm-debug.log*
