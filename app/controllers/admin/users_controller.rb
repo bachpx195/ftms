@@ -1,29 +1,29 @@
-class Admin::SubjectsController < ApplicationController
-  before_action :find_subject, except: [:index, :new, :create]
+class Admin::UsersController < ApplicationController
+  before_action :find_user, except: [:index, :new, :create]
   before_action :authorize, except: :index
 
   def index
-    authorize Subject
-    @subjects = Subject.all
+    @users = User.all
+    admin_authorize User
   end
 
   def new
   end
 
   def create
-    @subject = Subject.subjects.build subject_params
+    @user = User.new user_params
     respond_to do |format|
-      if @subject.save
-        format.html {redirect_to [:admin, @subject]}
+      if @user.save
+        format.html {redirect_to [:admin, @user]}
         format.json do
           render json: {message: flash_message("created"),
-            subject: @subject}
+            user: @user}
         end
       else
         format.html {render :new}
         format.json do
           render json: {message: flash_message("not_created"),
-            errors: @subject.errors}, status: :unprocessable_entity
+            errors: @user.errors}, status: :unprocessable_entity
         end
       end
     end
@@ -35,34 +35,34 @@ class Admin::SubjectsController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {subject: @subject}}
+      format.json {render json: {user: @user}}
     end
   end
 
   def update
     respond_to do |format|
-      if @subject.update_attributes subject_params
-        format.html {redirect_to [:admin, @subject]}
+      if @user.update_attributes user_params
+        format.html {redirect_to [:admin, @user]}
         format.json do
           render json: {message: flash_message("updated"),
-            subject: @subject}
+            user: @user}
         end
       else
         format.html {render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
-            errors: @subject.errors}, status: :unprocessable_entity
+            errors: @user.errors}, status: :unprocessable_entity
         end
       end
     end
   end
 
   def destroy
-    @subject.destroy
+    @user.destroy
     respond_to do |format|
-      format.html {redirect_to admin_subjects_path}
+      format.html {redirect_to admin_users_path}
       format.json do
-        if @subject.deleted?
+        if @user.deleted?
           render json: {message: flash_message("deleted")}
         else
           render json: {message: flash_message("not_deleted")},
@@ -73,16 +73,15 @@ class Admin::SubjectsController < ApplicationController
   end
 
   private
-  def subject_params
-    params.require(:subject).permit :name, :image, :description,
-      :content, :training_standard_id
+  def user_params
+    params.require(:user).permit :name, :email, :avatar, :password, :password_confirmation
   end
 
-  def find_subject
-    @subject = Subject.find_by id: params[:id]
-    unless @subject
+  def find_user
+    @user = User.find_by id: params[:id]
+    unless @user
       respond_to do |format|
-        format.html {redirect_to admin_subjects_path}
+        format.html {redirect_to admin_users_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -92,6 +91,6 @@ class Admin::SubjectsController < ApplicationController
   end
 
   def authorize
-    admin_authorize @subject
+    admin_authorize @user
   end
 end

@@ -6,7 +6,7 @@ namespace :admin do
     resources :programs
   end
   resources :languages
-  resources :training_standards do
-    resources :subjects
-  end
+  resources :training_standards
+  resources :subjects
+  resources :users
 end
