@@ -1,0 +1,6 @@
+en:
+  universities:
+    titles:
+      all: "All universities"
+    headers:
+      name: "Name"
