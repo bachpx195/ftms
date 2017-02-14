@@ -4,7 +4,7 @@ class Admin::LanguagesController < ApplicationController
 
   def index
     @languages = Language.all
-    authorize Language
+    admin_authorize Language
   end
 
   def new

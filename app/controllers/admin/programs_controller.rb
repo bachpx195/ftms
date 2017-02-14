@@ -1,8 +1,10 @@
 class Admin::ProgramsController < ApplicationController
   before_action :find_organization
   before_action :find_program, except: [:index, :new, :create]
+  before_action :authorize
 
   def index
+    admin_authorize Program
     @programs = @organization.programs
   end
 
@@ -99,5 +101,9 @@ class Admin::ProgramsController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize
+    admin_authorize @program
   end
 end

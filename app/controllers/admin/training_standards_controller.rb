@@ -3,7 +3,7 @@ class Admin::TrainingStandardsController < ApplicationController
   before_action :authorize, except: :index
 
   def index
-    authorize TrainingStandard
+    admin_authorize TrainingStandard
     @training_standards = TrainingStandard.all
   end
 

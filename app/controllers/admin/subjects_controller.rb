@@ -3,7 +3,7 @@ class Admin::SubjectsController < ApplicationController
   before_action :authorize, except: :index
 
   def index
-    authorize Subject
+    admin_authorize Subject
     @subjects = Subject.all
   end
 
