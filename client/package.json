@@ -28,7 +28,8 @@
     "react-dom": "^15.4.1",
     "react-on-rails": "6.5.1",
     "webpack": "^1.14.0",
-    "axios": "^0.15.2"
+    "axios": "^0.15.2",
+    "griddle-react": "^0.7.1"
   },
   "devDependencies": {
   }
