@@ -1,1 +1,1 @@
-json.subjects @subjects, :name
+json.subjects @subjects, :name, :id

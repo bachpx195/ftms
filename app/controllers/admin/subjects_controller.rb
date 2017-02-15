@@ -11,7 +11,7 @@ class Admin::SubjectsController < ApplicationController
   end
 
   def create
-    @subject = Subject.subjects.build subject_params
+    @subject = Subject.new subject_params
     respond_to do |format|
       if @subject.save
         format.html {redirect_to [:admin, @subject]}
