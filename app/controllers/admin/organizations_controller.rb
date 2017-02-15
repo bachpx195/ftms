@@ -1,9 +1,9 @@
 class Admin::OrganizationsController < ApplicationController
   before_action :find_organization, except: [:index, :new, :create]
-  before_action :authorize, except: :index
+  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    admin_authorize Organization
     @organizations = Organization.all
   end
 
@@ -90,5 +90,9 @@ class Admin::OrganizationsController < ApplicationController
 
   def authorize
     admin_authorize @organization
+  end
+
+  def authorize_class
+    admin_authorize Organization
   end
 end

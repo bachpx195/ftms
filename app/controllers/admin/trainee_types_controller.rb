@@ -1,9 +1,9 @@
 class Admin::TraineeTypesController < ApplicationController
   before_action :find_trainee_type, except: [:index, :new, :create]
-  before_action :authorize, except: :index
+  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    admin_authorize TraineeType
     @trainee_types = TraineeType.all
   end
 
@@ -92,5 +92,9 @@ class Admin::TraineeTypesController < ApplicationController
 
   def authorize
     admin_authorize @trainee_type
+  end
+
+  def authorize_class
+    admin_authorize TraineeType
   end
 end

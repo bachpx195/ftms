@@ -1,9 +1,9 @@
 class Admin::TrainingStandardsController < ApplicationController
   before_action :find_training_standard, except: [:index, :new, :create]
-  before_action :authorize, except: :index
+  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize, only: [:index, :new, :create]
 
   def index
-    admin_authorize TrainingStandard
     @training_standards = TrainingStandard.all
   end
 
@@ -92,5 +92,9 @@ class Admin::TrainingStandardsController < ApplicationController
 
   def authorize
     admin_authorize @training_standard
+  end
+
+  def authorize_class
+    admin_authorize TrainingStandard
   end
 end

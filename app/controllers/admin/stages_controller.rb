@@ -1,9 +1,9 @@
 class Admin::StagesController < ApplicationController
   before_action :find_stage, except: [:index, :new, :create]
-  before_action :authorize, except: :index
+  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    admin_authorize Stage
     @stages = Stage.all
   end
 
@@ -92,5 +92,9 @@ class Admin::StagesController < ApplicationController
 
   def authorize
     admin_authorize @stage
+  end
+
+  def authorize_class
+    admin_authorize Stage
   end
 end

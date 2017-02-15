@@ -1,9 +1,9 @@
 class Admin::UniversitiesController < ApplicationController
   before_action :find_university, except: [:index, :new, :create]
-  before_action :authorize, except: :index
+  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    admin_authorize University
     @universities = University.all
   end
 
@@ -92,5 +92,9 @@ class Admin::UniversitiesController < ApplicationController
 
   def authorize
     admin_authorize @university
+  end
+
+  def authorize_class
+    admin_authorize University
   end
 end
