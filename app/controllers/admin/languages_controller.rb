@@ -74,7 +74,7 @@ class Admin::LanguagesController < ApplicationController
 
   private
   def language_params
-    params.require(:language).permit :name
+    params.require(:language).permit Language::ATTRIBUTE_PARAMS
   end
 
   def find_language

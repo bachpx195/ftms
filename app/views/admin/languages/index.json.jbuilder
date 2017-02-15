@@ -1,1 +1,1 @@
-json.languages @languages, :name
+json.languages @languages, :name, :id
