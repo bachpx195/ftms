@@ -1,9 +1,9 @@
 class Admin::SubjectsController < ApplicationController
   before_action :find_subject, except: [:index, :new, :create]
-  before_action :authorize, except: :index
+  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    admin_authorize Subject
     @subjects = Subject.all
   end
 
@@ -93,5 +93,9 @@ class Admin::SubjectsController < ApplicationController
 
   def authorize
     admin_authorize @subject
+  end
+
+  def authorize_class
+    admin_authorize Subject
   end
 end

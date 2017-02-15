@@ -1,10 +1,10 @@
 class Admin::LanguagesController < ApplicationController
   before_action :find_language, except: [:index, :new, :create]
-  before_action :authorize, except: :index
+  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
     @languages = Language.all
-    admin_authorize Language
   end
 
   def new
@@ -92,5 +92,9 @@ class Admin::LanguagesController < ApplicationController
 
   def authorize
     admin_authorize @language
+  end
+
+  def authorize_class
+    admin_authorize Language
   end
 end
