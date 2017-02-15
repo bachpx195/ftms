@@ -10,5 +10,5 @@ class Organization < ApplicationRecord
   has_many :users, through: :profiles
   has_many :programs, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
 end

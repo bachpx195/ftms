@@ -1,0 +1,6 @@
+en:
+  trainee_type:
+    titles:
+      all: "All Trainee Types"
+    headers:
+      name: "Name"
