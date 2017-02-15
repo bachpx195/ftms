@@ -1,1 +1,1 @@
-json.university @university, :name
+json.university @university, :name, :id
