@@ -4,10 +4,12 @@ import UniversityItem from './university_item';
 
 export default class UniversityLists extends React.Component {
   renderItems() {
-    const props = _.omit(this.props, 'universities')
+    const props = _.omit(this.props, 'universities');
 
-    return _.map(this.props.universities, university => <UniversityItem key={university.id}
-      {...university} {...props} />)
+    return _.map(this.props.universities, university => {
+      return <UniversityItem key={university.id}
+        university={university} {...props} />
+    });
   }
 
   render () {

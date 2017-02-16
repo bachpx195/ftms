@@ -18,13 +18,14 @@ export default class UniversityItem extends React.Component {
   }
 
   renderLanguagesSection() {
-    const name = this.props.language.name;
+    const {name} = this.props.language;
+
     if (this.state.isEditing) {
       return (
         <td>
           <form onSubmit={this.onSaveClick.bind(this)}>
             <div className='form-group'>
-              <input type='text' className='form-control' name="name"
+              <input type='text' className='form-control' name='name'
                 defaultValue={name} ref='nameField' />
               <Errors errors={this.getErrors('name')} />
             </div>
@@ -116,6 +117,7 @@ export default class UniversityItem extends React.Component {
 
   onDeleteClick(event) {
     event.preventDefault();
+
     if(confirm(I18n.t('data.confirm_delete'))) {
       axios.delete(LANGUAGE_URL + '/' + this.props.language.id, {
         params: {

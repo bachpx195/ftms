@@ -65,19 +65,21 @@ export default class LanguageBox extends React.Component {
   }
 
   afterUpdate(old_language, new_language) {
-    let found_item = _.findIndex(this.state.languages, language => language.id === old_language.id);
+    let found_item = _.findIndex(this.state.languages,
+      language => language.id === old_language.id);
     this.state.languages[found_item] = new_language;
     this.setState({languages: this.state.languages});
   }
 
   afterDelete(deleted_language) {
-    _.remove(this.state.languages, language => language.id === deleted_language.id);
-    this.setState({ languages: this.state.languages });
+    _.remove(this.state.languages,
+      language => language.id === deleted_language.id);
+    this.setState({languages: this.state.languages});
   }
 
   fetchLanguages() {
     axios.get(LANGUAGE_URL + '.json')
-      .then(response => this.setState({ languages: response.data.languages }))
+      .then(response => this.setState({languages: response.data.languages}))
       .catch(response => console.log(response));
   }
 }

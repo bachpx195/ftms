@@ -1,14 +1,13 @@
 import React from 'react';
-import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 
 import CreateForm from './create_form';
 import UniversityLists from './university_lists';
 
 import * as app_constants from 'constants/app_constants';
-import * as university_contants from './university_contants';
+import * as university_constants from './university_constants';
 
-const UNIVERSITY_URL = app_constants.APP_NAME + university_contants.ADMIN_UNIVERSITY_PATH;
+const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.ADMIN_UNIVERSITY_PATH;
 
 export default class UniversityBox extends React.Component {
   constructor(props) {
@@ -44,10 +43,7 @@ export default class UniversityBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <CreateForm
-                    universities={this.state.universities}
-                    createUniversity={this.createUniversity.bind(this)}
-                  />
+                  <CreateForm afterCreate={this.afterCreate.bind(this)} />
                 </div>
               </div>
             </div>
@@ -55,9 +51,8 @@ export default class UniversityBox extends React.Component {
             <div className='box-footer'>
               <UniversityLists
                 universities={this.state.universities}
-                updateUniversity={this.updateUniversity.bind(this)}
-                deleteUniversity={this.deleteUniversity.bind(this)}
-              />
+                afterUpdate={this.afterUpdate.bind(this)}
+                afterDelete={this.afterDelete.bind(this)} />
             </div>
           </div>
         </div>
@@ -65,73 +60,27 @@ export default class UniversityBox extends React.Component {
     );
   }
 
-  createUniversity(name) {
-    axios.post(UNIVERSITY_URL, {
-      university: {
-        name: name
-      },
-      authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
-    .then(response => {
-      this.state.universities.push(response.data.university);
-      this.setState({universities: this.state.universities});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  afterCreate(university) {
+    this.state.universities.push(university);
+    this.setState({universities: this.state.universities});
   }
 
-  updateUniversity(university, newName) {
-    axios.patch(UNIVERSITY_URL + '/' + university.id, {
-      university: {
-        name: newName
-      },
-      authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
-    .then(response => {
-      const foundItem = _.find(this.state.universities, university => university.id === response.data.university.id);
-      foundItem.name = newName;
-      this.setState({universities: this.state.universities});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  afterUpdate(old_university, new_university) {
+    let found_item = _.findIndex(this.state.universities,
+      university => university.id === old_university.id);
+    this.state.universities[found_item] = new_university;
+    this.setState({universities: this.state.universities});
   }
 
-  deleteUniversity(universityDelete) {
-    // axios.delete(UNIVERSITY_URL + '/' + universityDelete.id, {
-    //   params: {
-    //     authenticity_token: ReactOnRails.authenticityToken()
-    //   }
-    // }, app_constants.AXIOS_CONFIG)
-    // .then(response => {
-    //   _.remove(this.state.universities, university => university.id === universityDelete.id);
-    //   this.setState({ universites: this.state.universities });
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-
-    axios({
-      method: 'delete',
-      url: UNIVERSITY_URL + '/' + universityDelete.id,
-      data: {
-        authenticity_token: ReactOnRails.authenticityToken()
-      },
-      headers: {'Accept': 'application/json'}
-    })
-    .then(response => {
-      _.remove(this.state.universities, university => university.id === universityDelete.id);
-      this.setState({ universites: this.state.universities });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  afterDelete(deleted_university) {
+    _.remove(this.state.universities,
+      university => university.id === deleted_university.id);
+    this.setState({universities: this.state.universities});
   }
 
   fetchUniversities() {
     axios.get(UNIVERSITY_URL + '.json')
-      .then(response => this.setState({ universities: response.data.universities }))
+      .then(response => this.setState({universities: response.data.universities}))
       .catch(response => console.log(response));
   }
 }

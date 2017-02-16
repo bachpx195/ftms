@@ -4,11 +4,10 @@ import LanguageItem from './language_item';
 
 export default class LanguageLists extends React.Component {
   renderItems() {
-    const props = _.omit(this.props, 'languages')
+    const props = _.omit(this.props, 'languages');
 
     return _.map(this.props.languages, language => {
-      return <LanguageItem key={language.id}
-        language={language} {...props} />
+      return <LanguageItem key={language.id} language={language} {...props} />
     });
   }
 

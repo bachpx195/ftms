@@ -23,7 +23,7 @@ export default class LanguageCreateForm extends React.Component {
         <Errors errors={this.state.errors} />
         <div className='form-group'>
           <input type='text' placeholder={I18n.t('languages.headers.name')}
-            value={this.state.name} className='form-control' name="name"
+            value={this.state.name} className='form-control' name='name'
             onChange={this.handleChange.bind(this)} />
         </div>
         <div className='form-group'>
