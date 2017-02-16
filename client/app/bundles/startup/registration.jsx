@@ -4,6 +4,7 @@ import Header from '../components/dashboards/header';
 import Sidebar from '../components/dashboards/sidebar';
 import Footer from '../components/dashboards/footer';
 import UniversityBox from '../components/universities/universities_box';
+import LanguageBox from '../components/languages/languages_box';
 
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
@@ -11,4 +12,5 @@ ReactOnRails.register({
   Sidebar,
   Footer,
   UniversityBox,
+  LanguageBox
 });

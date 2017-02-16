@@ -131,7 +131,7 @@ export default class UniversityBox extends React.Component {
 
   fetchUniversities() {
     axios.get(UNIVERSITY_URL + '.json')
-      .then(response => this.setState({ universities:response.data.universities }))
+      .then(response => this.setState({ universities: response.data.universities }))
       .catch(response => console.log(response));
   }
 }

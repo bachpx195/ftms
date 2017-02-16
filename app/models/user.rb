@@ -18,5 +18,4 @@ class User < ApplicationRecord
   has_many :user_courses, dependent: :destroy
   has_many :user_programs, dependent: :destroy
   has_many :user_subjects, dependent: :destroy
-  has_many :properties, as: :objectable, dependent: :destroy
 end
