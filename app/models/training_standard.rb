@@ -7,4 +7,6 @@ class TrainingStandard < ApplicationRecord
 
   has_many :courses, dependent: :destroy
   has_many :subjects, dependent: :destroy
+
+  validates :name, presence: true
 end
