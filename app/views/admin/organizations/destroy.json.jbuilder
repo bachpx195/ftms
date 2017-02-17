@@ -1,3 +1,4 @@
+json.message @message
 json.organizations do
   json.array! @organizations do |organization|
     json.extract! organization, :name, :id

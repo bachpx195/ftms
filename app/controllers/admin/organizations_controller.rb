@@ -12,7 +12,7 @@ class Admin::OrganizationsController < ApplicationController
 
   def create
     @organization = if params[:organization][:parent_id].present?
-      parent = Organization.find_by id: params[:organization].delete[:parent_id]
+      parent = Organization.find_by id: params[:organization].delete(:parent_id)
       parent.children.build organization_params.merge(owner: current_user)
     else
       current_user.organizations.build organization_params
@@ -20,9 +20,9 @@ class Admin::OrganizationsController < ApplicationController
 
     respond_to do |format|
       if @organization.save
+        @message = flash_message "created"
         format.html{redirect_to [:admin, @organization]}
-        format.json{render json: {message: flash_message("created"),
-          organization: @organization}}
+        format.json
       else
         format.html{render :new}
         format.json{render json: {message: flash_message("not_created"),
@@ -44,12 +44,12 @@ class Admin::OrganizationsController < ApplicationController
   def update
     respond_to do |format|
       if @organization.update_attributes organization_params
+        @message = flash_message "updated"
         format.html{redirect_to [:admin, @organization]}
-        format.json{render json: {message: flash_message("updated"),
-          organization: @organization}}
+        format.json
       else
         format.html{render :edit}
-        format.json{ render json: {message: flash_message("not_updated"),
+        format.json{render json: {message: flash_message("not_updated"),
           errors: @organization.errors}, status: :unprocessable_entity}
       end
     end
@@ -61,7 +61,8 @@ class Admin::OrganizationsController < ApplicationController
       format.html{redirect_to admin_organizations_path}
       format.json do
         if @organization.deleted?
-          render json: {message: flash_message("deleted")}
+          @message = flash_message "deleted"
+          @organizations = Organization.all
         else
           render json: {message: flash_message("not_deleted")},
             status: :unprocessable_entity

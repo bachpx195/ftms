@@ -1,0 +1,7 @@
+en:
+  organizations:
+    titles:
+      all: "All organizations"
+    headers:
+      name: "Name"
+    parent_name: "Parent Name"
