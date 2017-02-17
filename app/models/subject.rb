@@ -9,4 +9,6 @@ class Subject < ApplicationRecord
     class_name: StaticProperty.name, dependent: :destroy
   has_many :property_subjects, as: :propertiable,
     class_name: StaticProperty.name, dependent: :destroy
+
+  validates :name, presence: true
 end
