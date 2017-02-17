@@ -1,0 +1,6 @@
+en:
+  stages:
+    titles:
+      all: "All stages"
+    headers:
+      name: "Name"

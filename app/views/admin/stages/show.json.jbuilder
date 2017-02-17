@@ -1,1 +1,1 @@
-json.stage @stage, :name
+json.stage @stage, :name, :id
