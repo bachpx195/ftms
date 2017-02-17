@@ -1,1 +1,1 @@
-json.trainee_types @trainee_types, :name
+json.trainee_types @trainee_types, :name, :id
