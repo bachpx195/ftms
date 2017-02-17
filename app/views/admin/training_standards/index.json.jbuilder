@@ -1,1 +1,1 @@
-json.training_standards @training_standards, :name
+json.training_standards @training_standards, :name, :id
