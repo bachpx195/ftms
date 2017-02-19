@@ -1,1 +1,1 @@
-json.organization @organization, :name
+json.organization @organization, :name, :id

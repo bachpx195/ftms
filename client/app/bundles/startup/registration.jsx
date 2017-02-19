@@ -9,6 +9,7 @@ import SubjectBox from '../components/subjects/subjects_box';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
 import TrainingStandardBox from '../components/training_standards/training_standards_box';
 import StageBox from '../components/stages/stages_box';
+import OrganizationBox from '../components/organizations/organizations_box';
 
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
@@ -21,4 +22,5 @@ ReactOnRails.register({
   TraineeTypeBox,
   TrainingStandardBox,
   StageBox,
+  OrganizationBox
 });
