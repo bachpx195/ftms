@@ -1,0 +1,16 @@
+en:
+  programs:
+    titles:
+      all: "All Programs"
+    headers:
+      name: "Name"
+    parent_name: "Parent Name: "
+    modals:
+      header_edit: "Program"
+    create_sub: "Create Sub Program"
+    id: "ID"
+    name: "Program Name"
+    parent: "Parent Name"
+    sub_program: "Sub Program"
+    edit: "Edit"
+    delete: "Delete"

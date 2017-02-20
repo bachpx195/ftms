@@ -22,12 +22,11 @@ class Admin::ProgramsController < ApplicationController
 
     respond_to do |format|
       if @program.save
-        format.html{redirect_to [:admin, @program]}
-        format.json{render json: {message: flash_message("created"),
-          program: @program}}
+        format.html {redirect_to [:admin, @program]}
+        format.json
       else
-        format.html{render :new}
-        format.json{render json: {message: flash_message("not_created"),
+        format.html {render :new}
+        format.json {render json: {message: flash_message("not_created"),
           errors: @program.errors}, status: :unprocessable_entity}
       end
     end
@@ -46,12 +45,11 @@ class Admin::ProgramsController < ApplicationController
   def update
     respond_to do |format|
       if @program.update_attributes program_params
-        format.html{redirect_to [:admin, @program]}
-        format.json{render json: {message: flash_message("updated"),
-          program: @program}}
+        format.html {redirect_to [:admin, @program]}
+        format.json
       else
-        format.html{render :edit}
-        format.json{ render json: {message: flash_message("not_updated"),
+        format.html {render :edit}
+        format.json {render json: {message: flash_message("not_updated"),
           errors: @program.errors}, status: :unprocessable_entity}
       end
     end
@@ -60,10 +58,11 @@ class Admin::ProgramsController < ApplicationController
   def destroy
     @program.destroy
     respond_to do |format|
-      format.html{redirect_to admin_programs_path}
+      format.html {redirect_to admin_programs_path}
       format.json do
         if @program.deleted?
-          render json: {message: flash_message("deleted")}
+          @message = flash_message "deleted"
+          @programs = @organization.programs
         else
           render json: {message: flash_message("not_deleted")},
             status: :unprocessable_entity
