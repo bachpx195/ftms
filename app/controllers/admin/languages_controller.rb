@@ -4,7 +4,7 @@ class Admin::LanguagesController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @languages = Language.all
+    @languages = Language.select :id, :name
   end
 
   def new

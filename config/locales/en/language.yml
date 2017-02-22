@@ -3,4 +3,7 @@ en:
     titles:
       all: "All Languages"
     headers:
+      id: "ID"
       name: "Name"
+    modals:
+      header_edit: "Edit language"

@@ -1,0 +1,13 @@
+.griddle-head {
+  margin: 10px 0;
+
+  .griddle-page-select, .griddle-previous-button, .griddle-next-button {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0 5px;
+    color: #649;
+    border: 1px solid #649;
+    height: 32px;
+    background: transparent;
+  }
+}
