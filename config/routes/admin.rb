@@ -1,4 +1,5 @@
 namespace :admin do
+  root "dashboard#index"
   resources :universities
   resources :stages
   resources :trainee_types

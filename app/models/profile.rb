@@ -2,6 +2,7 @@ class Profile < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :user
+  belongs_to :trainee, class_name: User.name, foreign_key: :user_id
   belongs_to :university
   belongs_to :language
   belongs_to :trainee_type

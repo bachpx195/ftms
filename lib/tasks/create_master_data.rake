@@ -43,7 +43,9 @@ namespace :db do
 
     puts "1. Create languages"
     ["Ruby", "PHP", "Android", "Java", "iOS"].each do |name|
-      Language.create! name: name
+      Language.create! name: name, description: "Master your Ruby skills and increase your Rails street cred by learning to build dynamic, sustainable applications for the web.",
+        image: File.open(File.join(Rails.root,
+        "app/assets/images/languages/#{name.downcase}.png"))
     end
 
     puts "2. Create Universities"
@@ -82,7 +84,6 @@ namespace :db do
         {name: "Ta Quang Buu Lab", user_id: user.id, parent_id: 5},
         {name: "Janpan JAV Education", user_id: user.id, parent_id: nil}])
     end
-
 
     puts "7. Create program"
     Program.create!([

@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   devise_for :users
   draw :api
   draw :admin
-  root "dashboards#index"
+  root "static_pages#show"
+  resources :static_pages
 end

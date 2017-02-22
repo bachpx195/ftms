@@ -1,0 +1,111 @@
+en:
+  staticpages:
+    framgia: "Framgia Trainning Management System"
+    profile: "Profile"
+    logout: "Logout"
+    login: "Sign in"
+    signup: "Sign up"
+    member: "Already a member?"
+    home: "Home"
+    about: "About"
+    learning_programs:
+      title: "Learning programs"
+      intern_name: "Intern"
+      open_edu_name: "Open Education"
+      new_dev_name: "New Dev"
+      new_dev_description: "You are graduated and want to \"MAKE IT AWESOME\" with us."
+      open_edu_description: "You are student and want to experience our ideal working environment."
+      intern_description: "You are student and searching for an internship opportunity."
+    counters:
+      title: "Developing Developers"
+      content: "Master new skills in programming, design and product building."
+      learning: "Learning"
+      completed: "Completed"
+      manage: "Manage"
+    open_edu:
+      title: "Open Education"
+      git:
+        title: "Git"
+        duration: "2 days"
+        body: "Learn how to work with Git"
+      tutorial:
+        title: "Tutorial"
+        duration: "10 days"
+        body: "Learn tutorials about the languages."
+      project1:
+        title: "Project 1"
+        duration: "10 days"
+        body: "Use what you've learned to build a project."
+    intern:
+      title: "Internal Trainning"
+      git:
+        title: "Git"
+        duration: "2 days"
+        body: "Learn how to work with Git"
+      tutorial:
+        title: "Tutorial"
+        duration: "10 days"
+        body: "Learn tutorials about the languages."
+      project1:
+        title: "Project 1"
+        duration: "10 days"
+        body: "Use what you've learned to build a project."
+      mysql:
+        title: "MySQL"
+        duration: "2 days"
+        body: "Learn MySQL."
+      project2:
+        title: "Project 2"
+        duration: "10 days"
+        body: "Use what you've learned to build a project."
+    new_dev:
+      title: "New Dev"
+      git:
+        title: "Git"
+        duration: "2 days"
+        body: "Learn how to work with Git"
+      tutorial:
+        title: "Tutorial"
+        duration: "10 days"
+        body: "Learn tutorials about the languages."
+      project1:
+        title: "Project 1"
+        duration: "10 days"
+        body: "Use what you've learned to build a project."
+      mysql:
+        title: "MySQL"
+        duration: "2 days"
+        body: "Learn MySQL."
+      project2:
+        title: "Project 2"
+        duration: "10 days"
+        body: "Use what you've learned to build a project."
+    programming_languages:
+      title: "Programming languages"
+      trainee: "trainee"
+      course: "course"
+    counters:
+      title: "Developing Developers"
+      content: "Master new skills in programming, design and product building."
+      learning: "Learning"
+      completed: "Completed"
+      manage: "Manage"
+  courses:
+    trainees: "TRAINEES"
+    trainers: "TRAINERS"
+  feed_backs:
+    title: "Feed back"
+  layouts:
+    footer:
+      street: "13F Keangnam Landmark 72 Tower, Plot E6, Pham Hung Road, Nam Tu Liem, Ha Noi, Viet Nam"
+      phone: "84-4-3795-5417"
+      mail_to: "hr_team@framgia.com"
+      about_us: "About Framgia Viet Nam"
+      content_about_us: "Framgia Vietnam is a company 100% Japan funded specializing in design, development applications such as mobile phone software, games, social and website applications."
+      home: "Home |"
+      blog: "Blog |"
+      about: "About |"
+      faq: "Faq |"
+      contact: "Contact |"
+      copy_right: "Copyright 2016 Framgia, Inc. All rights reserved."
+      company: "FramgiaVietNam"
