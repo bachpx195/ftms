@@ -1,5 +1,6 @@
 en:
   layouts:
     framgia: In Side Out
+    courses: "COURSES"
   data:
     confirm_delete: "Are you sure?"
