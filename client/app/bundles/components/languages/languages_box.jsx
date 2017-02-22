@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import CreateForm from './create_form';
 import LanguageLists from './language_lists';
+import Form from './form';
 
 import * as app_constants from 'constants/app_constants';
 import * as language_constants from './language_constants';
@@ -14,12 +14,11 @@ export default class LanguageBox extends React.Component {
     super(props);
 
     this.state = {
-      languages: []
+      languages: props.languages,
+      language: {
+        name: ''
+      }
     };
-  }
-
-  componentWillMount() {
-    this.fetchLanguages();
   }
 
   render() {
@@ -43,15 +42,16 @@ export default class LanguageBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <CreateForm afterCreate={this.afterCreate.bind(this)} />
+                  <Form language={this.state.language} url={LANGUAGE_URL}
+                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
 
             <div className='box-footer'>
               <LanguageLists languages={this.state.languages}
-                afterUpdate={this.afterUpdate.bind(this)}
-                afterDelete={this.afterDelete.bind(this)} />
+                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>
           </div>
         </div>
@@ -59,27 +59,31 @@ export default class LanguageBox extends React.Component {
     );
   }
 
-  afterCreate(language) {
+  handleAfterCreated(language) {
     this.state.languages.push(language);
-    this.setState({languages: this.state.languages});
+    this.setState({
+      languages: this.state.languages,
+      language: {
+        name: ''
+      }
+    });
   }
 
-  afterUpdate(old_language, new_language) {
-    let found_item = _.findIndex(this.state.languages,
-      language => language.id === old_language.id);
-    this.state.languages[found_item] = new_language;
-    this.setState({languages: this.state.languages});
+  handleAfterUpdated(new_language) {
+    let index = this.state.languages
+      .findIndex(language => language.id === new_language.id);
+    this.state.languages[index] = new_language;
+    this.setState({
+      languages: this.state.languages,
+      language: {
+        name: ''
+      }
+    });
   }
 
-  afterDelete(deleted_language) {
+  handleAfterDeleted(deleted_language) {
     _.remove(this.state.languages,
       language => language.id === deleted_language.id);
     this.setState({languages: this.state.languages});
-  }
-
-  fetchLanguages() {
-    axios.get(LANGUAGE_URL + '.json')
-      .then(response => this.setState({languages: response.data.languages}))
-      .catch(response => console.log(response));
   }
 }

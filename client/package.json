@@ -29,7 +29,7 @@
     "react-on-rails": "6.5.1",
     "webpack": "^1.14.0",
     "axios": "^0.15.2",
-    "griddle-react": "^0.7.1"
+    "griddle-react": "^1.0.0"
   },
   "devDependencies": {
   }
