@@ -4,3 +4,11 @@ en:
     courses: "COURSES"
   data:
     confirm_delete: "Are you sure?"
+  sessions:
+    email: "Email"
+    password: "Password"
+    login: "Login"
+  signins:
+    not_member: "Not member"
+    forgot_password: "Forgot password"
+    remember: "Remember"

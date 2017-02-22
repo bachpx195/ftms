@@ -6,7 +6,9 @@ end
 
 Rails.application.routes.draw do
   mount Ckeditor::Engine => "/ckeditor"
-  devise_for :users
+  devise_for :users, path: "auth",
+    controllers: {sessions: "sessions", passwords: "passwords"},
+    path_names: {sign_in: "login", sign_out: "logout"}
   draw :api
   draw :admin
   root "static_pages#show"

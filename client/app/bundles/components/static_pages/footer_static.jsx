@@ -64,7 +64,7 @@ export default class FooterStatic extends React.Component {
             </a>
             <a href='#'><i className='fa fa-twitter'></i></a>
             <a href='https://www.linkedin.com/company/3341218?trk=tyah&trkInfo=clickedVertical%3Acompany%2CclickedEntityId%3A3341218%2Cidx%3A2-1-2%2CtarId%3A1465497556522%2Ctas%3Aframgia%20vietnam' target='_blank'>
-              <i class='fa fa-linkedin'></i>
+              <i className='fa fa-linkedin'></i>
             </a>
             <a href='https://github.com/framgia/' target='_blank'><i className='fa fa-github'></i></a>
           </div>
