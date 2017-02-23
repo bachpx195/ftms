@@ -2,10 +2,21 @@ import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
 import * as static_page_constants from './static_page_constants';
+import ReactOnRails from 'react-on-rails';
+import axios from 'axios';
 
 const ROOT_URL = app_constants.APP_NAME + app_constants.ROOT_PATH;
 
 export default class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      signed_in: false,
+      errors: null
+    };
+  }
+
   renderPrograms () {
     let programs = ['new_dev', 'intern', 'open_edu'];
     return _.map(programs, program => {
@@ -329,7 +340,90 @@ export default class HomePage extends React.Component {
             </div>
           </div>
         </section>
+        {this.renderModalSignIn()}
       </div>
+    );
+  }
+
+  renderModalSignIn() {
+    return (
+      <div className="modal fade" id="login-modal" tabIndex="-1"
+        role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div id="div-forms">
+            <div id="login-form">
+              <div className="content-top">{I18n.t("sessions.login")}</div>
+              <div className="content-body">
+                <div className="line-or"></div>
+                <div className="form-modal">
+                  {this.renderSessionNew()}
+                </div>
+              </div>
+              <div className="content-footer">
+                <a id="login_lost_btn" className="see-more pull-right">
+                  {I18n.t("signins.forgot_password")}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderSessionNew() {
+    return (
+      <form onSubmit={this.handleSubmit.bind(this)} data-remote="true">
+        <div className="form-group">
+          <input name="email" type="text" placeholder={I18n.t("sessions.email")}
+            className="form-control" />
+        </div>
+        <div className="form-group">
+          <input name="password" type="password" placeholder={I18n.t("sessions.password")}
+            className="form-control" autoComplete="off" />
+        </div>
+        <div className="checkbox">
+          <span>
+            <label className="fixed-label" name="remember_me">
+              <input type="checkbox" name="remember_me"
+                className="character-checkbox" />
+              {I18n.t("signins.remember")}
+            </label>
+            <label className="text-right text-danger">
+              {this.state.errors}
+            </label>
+          </span>
+        </div>
+        <input type="submit" className="btn btn-custom btn-lg btn-block"
+          value={I18n.t("sessions.login")} />
+      </form>
+    );
+  }
+
+  handleSubmit(event) {
+    axios.post('auth/login', {
+      user: {
+        email: event.target.email.value,
+        password: event.target.password.value,
+        remember_me: event.target.remember_me.checked
+      },
+      authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
+    .then(response => {
+      if (response.data.success) {
+        this.setState({
+          signed_in: true,
+          errors: response.data.data.message
+        });
+        window.location.reload();
+      } else {
+        this.setState({errors: response.data.data.message});
+      }
+    })
+    .catch(
+      error => {
+        this.setState({errors: error.response.data.errors})
+      }
     );
   }
 }

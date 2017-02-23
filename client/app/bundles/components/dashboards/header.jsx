@@ -1,4 +1,8 @@
 import React, { PropTypes } from 'react';
+import * as app_constants from 'constants/app_constants';
+import * as dashboard_constands from './dashboard_constands';
+
+const LOGOUT_URL = app_constants.APP_NAME + dashboard_constands.LOGOUT_PATH;
 
 export default class Header extends React.Component {
   render () {
@@ -35,7 +39,7 @@ export default class Header extends React.Component {
                       </a>
                     </div>
                     <div className="pull-right">
-                      <a href="#" className="btn btn-default btn-flat ev-default">
+                      <a href={LOGOUT_URL} data-method="delete" className="btn btn-default btn-flat ev-default">
                         {I18n.t("header.sign_out")}
                       </a>
                     </div>
