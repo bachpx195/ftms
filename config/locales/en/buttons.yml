@@ -5,3 +5,5 @@ en:
     delete: Delete
     cancel: Cancel
     new_sub_organization: "New Sub Organization"
+    new_sub_program: "New Sub Organization"
+    create_sub_program: "Create sub program"

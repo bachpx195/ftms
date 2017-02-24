@@ -11,6 +11,7 @@ import TrainingStandardBox from '../components/training_standards/training_stand
 import StageBox from '../components/stages/stages_box';
 import OrganizationBox from '../components/organizations/organizations_box';
 import StaticPageBox from '../components/static_pages/static_pages_box';
+import ProgramsBox from '../components/programs/programs_box';
 
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
@@ -25,4 +26,5 @@ ReactOnRails.register({
   StageBox,
   OrganizationBox,
   StaticPageBox,
+  ProgramsBox,
 });
