@@ -4,7 +4,8 @@ class Admin::LanguagesController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @languages = Language.select :id, :name
+    @languages = Language.select :id, :name, :image, :description
+    @languages.map{|language| language[:image] = {url: language.image.url}}
   end
 
   def new
@@ -16,6 +17,7 @@ class Admin::LanguagesController < ApplicationController
       if @language.save
         format.html {redirect_to [:admin, @language]}
         format.json do
+          @language[:image] = {url: @language.image.url}
           render json: {message: flash_message("created"),
             language: @language}
         end
@@ -35,7 +37,10 @@ class Admin::LanguagesController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {language: @language}}
+      format.json do
+        @language[:image] = {url: @language.image.url}
+        render json: {language: @language}
+      end
     end
   end
 
@@ -44,6 +49,7 @@ class Admin::LanguagesController < ApplicationController
       if @language.update_attributes language_params
         format.html {redirect_to [:admin, @language]}
         format.json do
+          @language[:image] = {url: @language.image.url}
           render json: {message: flash_message("updated"),
             language: @language}
         end

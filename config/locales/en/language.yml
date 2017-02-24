@@ -5,5 +5,7 @@ en:
     headers:
       id: "ID"
       name: "Name"
+      image: "Image"
+      description: "Description"
     modals:
       header_edit: "Edit language"

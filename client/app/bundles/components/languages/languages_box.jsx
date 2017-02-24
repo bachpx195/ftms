@@ -11,17 +11,17 @@ const LANGUAGE_URL = app_constants.APP_NAME + language_constants.ADMIN_LANGUAGE_
 
 export default class LanguageBox extends React.Component {
   constructor(props) {
+    console.log('LanguageBox constructor()');
     super(props);
 
     this.state = {
       languages: props.languages,
-      language: {
-        name: ''
-      }
+      language: {}
     };
   }
 
   render() {
+    console.log('LanguageBox render()');
     return (
       <div className='row languages'>
         <div className='col-md-12'>
@@ -60,28 +60,27 @@ export default class LanguageBox extends React.Component {
   }
 
   handleAfterCreated(language) {
+    console.log('LanguageBox handleAfterCreated()');
     this.state.languages.push(language);
     this.setState({
       languages: this.state.languages,
-      language: {
-        name: ''
-      }
+      language: {}
     });
   }
 
   handleAfterUpdated(new_language) {
+    console.log('LanguageBox handleAfterUpdated()');
     let index = this.state.languages
       .findIndex(language => language.id === new_language.id);
     this.state.languages[index] = new_language;
     this.setState({
       languages: this.state.languages,
-      language: {
-        name: ''
-      }
+      language: {}
     });
   }
 
   handleAfterDeleted(deleted_language) {
+    console.log('LanguageBox handleAfterDeleted()');
     _.remove(this.state.languages,
       language => language.id === deleted_language.id);
     this.setState({languages: this.state.languages});
