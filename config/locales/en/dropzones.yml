@@ -1,0 +1,4 @@
+en:
+  dropzones:
+    instruction: "Try dropping some files here, or click to select files to upload."
+    select_files: "Select files"

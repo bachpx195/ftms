@@ -1,0 +1,18 @@
+#admin-languages {
+  .image-preview {
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .thumbnail-image {
+    width: 100px;
+  }
+
+  .dropzone {
+    padding: 10px 0;
+    .btn-select-file {
+      margin-top: 10px;
+    }
+  }
+}
