@@ -24,7 +24,7 @@ export default class UniversityBox extends React.Component {
 
   render () {
     return (
-      <div className='row'>
+      <div className='row universities'>
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>

@@ -16,3 +16,10 @@ en:
   sidebar:
     main_nav: "MAIN NAVIGATION"
     dashboard: "Dashboard"
+    languages: "Languages"
+    organizations: "Organizations"
+    stages: "Stages"
+    subjects: "Subjects"
+    trainee_types: "Trainee Types"
+    training_standards: "Training Standards"
+    universities: "Universities"
