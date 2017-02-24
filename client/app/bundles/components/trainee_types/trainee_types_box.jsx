@@ -31,7 +31,7 @@ export default class TraineeTypeBox extends React.Component {
 
   render() {
     return (
-      <div className='row'>
+      <div className='row trainee_types'>
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>
@@ -65,7 +65,7 @@ export default class TraineeTypeBox extends React.Component {
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     );
   }
 

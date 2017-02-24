@@ -31,7 +31,7 @@ export default class TrainingStandardBox extends React.Component {
 
   render() {
     return (
-      <div className='row'>
+      <div className='row training_standards'>
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>
