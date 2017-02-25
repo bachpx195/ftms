@@ -135,7 +135,9 @@ export default class ProgramLists extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       programs: nextProps.programs,
-      organization: nextProps.organization
+      organization: nextProps.organization,
+      program: null,
+      parent: null
     });
   }
 
