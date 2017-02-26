@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import Modal from './modal';
 import Form from './form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
@@ -59,23 +60,11 @@ export default class LanguageLists extends React.Component {
     );
 
     let modalEdit = null;
-    if(this.state.language){
+    if(this.state.language.id){
       modalEdit = (
-        <div id='modalEdit' className='modal fade in' role='dialog'>
-          <div className='modal-dialog'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <button type='button' className='close' data-dismiss='modal'>&times;</button>
-                <h4 className='modal-title'>{I18n.t('languages.modals.header_edit')}</h4>
-              </div>
-              <div className='modal-body'>
-                <Form language={this.state.language}
-                  url={LANGUAGE_URL + '/' + this.state.language.id}
-                  handleAfterSaved={this.handleAfterUpdated.bind(this)} />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Modal url={LANGUAGE_URL + '/' + this.state.language.id}
+          language={this.state.language}
+          handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );
     }
 
@@ -98,9 +87,15 @@ export default class LanguageLists extends React.Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      language: {}
+    });
+  }
+
   componentDidUpdate(prevProps, prevState) {
     console.log('LanguageLists componentDidUpdate()');
-    if(this.state.language.id) {
+    if(this.state.language.id){
       $('#modalEdit').modal();
     }
   }
@@ -114,7 +109,7 @@ export default class LanguageLists extends React.Component {
     });
   }
 
-  handleDelete(event){
+  handleDelete(event) {
     console.log('LanguageLists handleDelete()');
     let $target = $(event.target);
     $target.blur();
@@ -136,7 +131,7 @@ export default class LanguageLists extends React.Component {
     }
   }
 
-  handleAfterUpdated(new_language){
+  handleAfterUpdated(new_language) {
     console.log('LanguageLists handleAfterUpdated()');
     this.setState({
       language: {}

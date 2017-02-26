@@ -35,13 +35,16 @@ export default class Form extends React.Component {
         <Errors errors={this.state.errors} />
         <div className='form-group'>
           <div className='dropzone'>
-            <Dropzone onDrop={this.onDrop.bind(this)} ref='dropzoneField'>
-              <div>{I18n.t('dropzones.instruction')}</div>
-            </Dropzone>
-            <button type='button' className='btn btn-danger btn-select-file'
-              onClick={this.onOpenClick.bind(this)}>
-              <i className='fa fa-upload'></i> {I18n.t('dropzones.select_files')}
-            </button>
+            <div className='form-group'>
+              <button type='button' className='btn btn-danger btn-select-file'
+                onClick={this.onOpenClick.bind(this)}>
+                <i className='fa fa-upload'></i> {I18n.t('dropzones.select_image')}
+              </button>
+            </div>
+          </div>
+          <div className='hidden'>
+            <Dropzone onDrop={this.onDrop.bind(this)} ref='dropzoneField'
+              multiple={false} accept='image/*' />
           </div>
           <div className='image-preview'>
             {image}
@@ -100,7 +103,6 @@ export default class Form extends React.Component {
     event.preventDefault();
     console.log('Form handleSubmit()');
     let language = _.omit(this.state, 'errors');
-    console.log(this.state);
     if(!this.state.changeImage) {
       language = _.omit(language, 'image');
     }
