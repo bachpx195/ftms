@@ -1,5 +1,6 @@
 class Admin::SubjectsController < ApplicationController
   before_action :find_subject, except: [:index, :new, :create]
+  before_action :find_organization, except: [:index, :new, :create]
   before_action :authorize, except: [:index, :new, :create]
   before_action :authorize_class, only: [:index, :new, :create]
 
@@ -32,6 +33,7 @@ class Admin::SubjectsController < ApplicationController
   end
 
   def show
+    @supports = Supports::SubjectSupport.new
   end
 
   def edit
@@ -88,6 +90,19 @@ class Admin::SubjectsController < ApplicationController
     unless @subject
       respond_to do |format|
         format.html {redirect_to admin_subjects_path}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
+  end
+
+  def find_organization
+    @organization = Organization.find_by id: params[:organization_id]
+    unless @organization
+      respond_to do |format|
+        format.html {redirect_to admin_organizations_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

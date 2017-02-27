@@ -5,6 +5,7 @@ namespace :admin do
   resources :trainee_types
   resources :organizations do
     resources :programs
+    resources :subjects
   end
   resources :languages
   resources :training_standards do
