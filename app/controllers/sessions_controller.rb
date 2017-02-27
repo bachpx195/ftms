@@ -12,7 +12,8 @@ class SessionsController < Devise::SessionsController
 
     yield resource if block_given?
 
-    return render json: {success: true, login: true, data: {message: message}}
+    return render json: {success: true, login: true, data: {message: message,
+      current_user: current_user}}
   end
 
   def failure
