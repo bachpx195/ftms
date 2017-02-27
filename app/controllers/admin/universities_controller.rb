@@ -4,7 +4,7 @@ class Admin::UniversitiesController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @universities = University.all
+    @universities = University.select :id, :name
   end
 
   def new

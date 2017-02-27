@@ -1,6 +1,12 @@
 en:
   stages:
     titles:
-      all: "All stages"
+      all: "All Stages"
     headers:
       name: "Name"
+    modals:
+      header_edit: "Edit stage"
+    id: "ID"
+    name: "Name"
+    edit: "Edit"
+    delete: "Delete"

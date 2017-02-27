@@ -4,7 +4,7 @@ class Admin::StagesController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @stages = Stage.all
+    @stages = Stage.select :id, :name
   end
 
   def new

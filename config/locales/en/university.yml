@@ -1,6 +1,12 @@
 en:
   universities:
     titles:
-      all: "All universities"
+      all: "All Universities"
     headers:
       name: "Name"
+    modals:
+      header_edit: "Edit university"
+    id: "ID"
+    name: "Name"
+    edit: "Edit"
+    delete: "Delete"
