@@ -1,6 +1,12 @@
 en:
-  trainee_type:
+  trainee_types:
     titles:
       all: "All Trainee Types"
     headers:
       name: "Name"
+    modals:
+      header_edit: "Edit Trainee Type"
+    id: "ID"
+    name: "Name"
+    edit: "Edit"
+    delete: "Delete"
