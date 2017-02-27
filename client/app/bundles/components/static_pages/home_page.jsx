@@ -415,6 +415,7 @@ export default class HomePage extends React.Component {
           signed_in: true,
           errors: response.data.data.message
         });
+        this.setLocalStorage(response);
         window.location.reload();
       } else {
         this.setState({errors: response.data.data.message});
@@ -422,8 +423,16 @@ export default class HomePage extends React.Component {
     })
     .catch(
       error => {
-        this.setState({errors: error.response.data.errors})
+        this.setState({errors: error.response.data.error})
       }
     );
+  }
+
+  setLocalStorage(response) {
+    if (localStorage.current_user == undefined ||
+      typeof localStorage.current_user === typeof undefined) {
+      localStorage.setItem('current_user',
+        JSON.stringify(response.data.data.current_user));
+    }
   }
 }
