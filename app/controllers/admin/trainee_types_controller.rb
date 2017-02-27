@@ -4,7 +4,7 @@ class Admin::TraineeTypesController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @trainee_types = TraineeType.all
+    @trainee_types = TraineeType.select :id, :name
   end
 
   def new
