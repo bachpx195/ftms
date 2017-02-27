@@ -4,7 +4,8 @@ class Admin::SubjectsController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @subjects = Subject.all
+    @subjects = Subject.select :id, :name, :image, :description
+    @subjects.map{|subject| subject[:image] = {url: subject.image.url}}
   end
 
   def new
@@ -16,6 +17,7 @@ class Admin::SubjectsController < ApplicationController
       if @subject.save
         format.html {redirect_to [:admin, @subject]}
         format.json do
+          @subject[:image] = {url: @subject.image.url}
           render json: {message: flash_message("created"),
             subject: @subject}
         end
@@ -35,7 +37,10 @@ class Admin::SubjectsController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {subject: @subject}}
+      format.json do
+        @subject[:image] = {url: @subject.image.url}
+        render json: {subject: @subject}
+      end
     end
   end
 
@@ -44,6 +49,7 @@ class Admin::SubjectsController < ApplicationController
       if @subject.update_attributes subject_params
         format.html {redirect_to [:admin, @subject]}
         format.json do
+          @subject[:image] = {url: @subject.image.url}
           render json: {message: flash_message("updated"),
             subject: @subject}
         end
@@ -74,8 +80,7 @@ class Admin::SubjectsController < ApplicationController
 
   private
   def subject_params
-    params.require(:subject).permit :name, :image, :description,
-      :content, :training_standard_id
+    params.require(:subject).permit Subject::ATTRIBUTE_PARAMS
   end
 
   def find_subject

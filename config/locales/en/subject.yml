@@ -1,6 +1,11 @@
 en:
   subjects:
     titles:
-      all: "All subjects"
+      all: "All Subjects"
     headers:
+      id: "ID"
       name: "Name"
+      image: "Image"
+      description: "Description"
+    modals:
+      header_edit: "Edit subject"
