@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import CreateForm from './create_form';
 import UniversityLists from './university_lists';
+import Form from './form';
 
 import * as app_constants from 'constants/app_constants';
 import * as university_constants from './university_constants';
@@ -14,15 +14,12 @@ export default class UniversityBox extends React.Component {
     super(props);
 
     this.state = {
-      universities: []
+      universities: props.universities,
+      university: {}
     };
   }
 
-  componentWillMount() {
-    this.fetchUniversities();
-  }
-
-  render () {
+  render() {
     return (
       <div className='row universities'>
         <div className='col-md-12'>
@@ -43,16 +40,17 @@ export default class UniversityBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <CreateForm afterCreate={this.afterCreate.bind(this)} />
+                  <Form 
+                    university={this.state.university} 
+                    url={UNIVERSITY_URL}
+                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
-
             <div className='box-footer'>
-              <UniversityLists
-                universities={this.state.universities}
-                afterUpdate={this.afterUpdate.bind(this)}
-                afterDelete={this.afterDelete.bind(this)} />
+              <UniversityLists universities={this.state.universities}
+                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>
           </div>
         </div>
@@ -60,27 +58,27 @@ export default class UniversityBox extends React.Component {
     );
   }
 
-  afterCreate(university) {
+  handleAfterCreated(university) {
     this.state.universities.push(university);
-    this.setState({universities: this.state.universities});
+    this.setState({
+      universities: this.state.universities,
+      university: {}
+    });
   }
 
-  afterUpdate(old_university, new_university) {
-    let found_item = _.findIndex(this.state.universities,
-      university => university.id === old_university.id);
-    this.state.universities[found_item] = new_university;
-    this.setState({universities: this.state.universities});
+  handleAfterUpdated(new_university) {
+    let index = this.state.universities
+      .findIndex(university => university.id === new_university.id);
+    this.state.universities[index] = new_university;
+    this.setState({
+      universities: this.state.universities,
+      university: {}
+    });
   }
 
-  afterDelete(deleted_university) {
+  handleAfterDeleted(deleted_university) {
     _.remove(this.state.universities,
       university => university.id === deleted_university.id);
     this.setState({universities: this.state.universities});
-  }
-
-  fetchUniversities() {
-    axios.get(UNIVERSITY_URL + '.json')
-      .then(response => this.setState({universities: response.data.universities}))
-      .catch(response => console.log(response));
   }
 }

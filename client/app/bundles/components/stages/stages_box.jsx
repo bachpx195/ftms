@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import CreateForm from './create_form';
 import StageLists from './stage_lists';
+import Form from './form';
 
 import * as app_constants from 'constants/app_constants';
 import * as stage_constants from './stage_constants';
@@ -14,15 +14,12 @@ export default class StageBox extends React.Component {
     super(props);
 
     this.state = {
-      stages: []
+      stages: props.stages,
+      stage: {}
     };
   }
 
-  componentWillMount() {
-    this.fetchStages();
-  }
-
-  render () {
+  render() {
     return (
       <div className='row stages'>
         <div className='col-md-12'>
@@ -43,15 +40,17 @@ export default class StageBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <CreateForm afterCreate={this.afterCreate.bind(this)}/>
+                  <Form 
+                    stage={this.state.stage} 
+                    url={STAGE_URL}
+                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
-
             <div className='box-footer'>
               <StageLists stages={this.state.stages}
-                afterUpdate={this.afterUpdate.bind(this)}
-                afterDelete={this.afterDelete.bind(this)} />
+                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>
           </div>
         </div>
@@ -59,27 +58,27 @@ export default class StageBox extends React.Component {
     );
   }
 
-  afterCreate(stage) {
+  handleAfterCreated(stage) {
     this.state.stages.push(stage);
-    this.setState({stages: this.state.stages});
+    this.setState({
+      stages: this.state.stages,
+      stage: {}
+    });
   }
 
-  afterUpdate(old_stage, new_stage) {
-    let found_item = _.findIndex(this.state.stages,
-      stage => stage.id === old_stage.id);
-    this.state.stages[found_item] = new_stage;
-    this.setState({stages: this.state.stages});
+  handleAfterUpdated(new_stage) {
+    let index = this.state.stages
+      .findIndex(stage => stage.id === new_stage.id);
+    this.state.stages[index] = new_stage;
+    this.setState({
+      stages: this.state.stages,
+      stage: {}
+    });
   }
 
-  afterDelete(deleted_stage) {
+  handleAfterDeleted(deleted_stage) {
     _.remove(this.state.stages,
       stage => stage.id === deleted_stage.id);
     this.setState({stages: this.state.stages});
-  }
-
-  fetchStages() {
-    axios.get(STAGE_URL + '.json')
-      .then(response => this.setState({stages: response.data.stages}))
-      .catch(response => console.log(response));
   }
 }
