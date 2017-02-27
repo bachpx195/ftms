@@ -1,25 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 
-import CreateForm from './create_form';
 import SubjectLists from './subject_lists';
+import Form from './form';
 
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.ADMIN_SUBJECT_PATH;
 
-export default class subjectBox extends React.Component {
+export default class SubjectBox extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      subjects: []
+      subjects: props.subjects,
+      subject: {}
     };
-  }
-
-  componentWillMount() {
-    this.fetchSubjects();
   }
 
   render() {
@@ -43,15 +40,16 @@ export default class subjectBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <CreateForm afterCreate={this.afterCreate.bind(this)} />
+                  <Form subject={this.state.subject} url={SUBJECT_URL}
+                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
 
             <div className='box-footer'>
               <SubjectLists subjects={this.state.subjects}
-                afterUpdate={this.afterUpdate.bind(this)}
-                afterDelete={this.afterDelete.bind(this)} />
+                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>
           </div>
         </div>
@@ -59,25 +57,27 @@ export default class subjectBox extends React.Component {
     );
   }
 
-  afterCreate(subject) {
+  handleAfterCreated(subject) {
     this.state.subjects.push(subject);
+    this.setState({
+      subjects: this.state.subjects,
+      subject: {}
+    });
+  }
+
+  handleAfterUpdated(new_subject) {
+    let index = this.state.subjects
+      .findIndex(subject => subject.id === new_subject.id);
+    this.state.subjects[index] = new_subject;
+    this.setState({
+      subjects: this.state.subjects,
+      subject: {}
+    });
+  }
+
+  handleAfterDeleted(deleted_subject) {
+    _.remove(this.state.subjects,
+      subject => subject.id === deleted_subject.id);
     this.setState({subjects: this.state.subjects});
-  }
-
-  afterUpdate(old_subject, new_subject) {
-    let found_item = _.findIndex(this.state.subjects, subject => subject.id === old_subject.id);
-    this.state.subjects[found_item] = new_subject;
-    this.setState({subjects: this.state.subjects});
-  }
-
-  afterDelete(deleted_subject) {
-    _.remove(this.state.subjects, subject => subject.id === deleted_subject.id);
-    this.setState({ subjects: this.state.subjects });
-  }
-
-  fetchSubjects() {
-    axios.get(SUBJECT_URL + '.json')
-      .then(response => this.setState({ subjects: response.data.subjects }))
-      .catch(response => console.log(response));
   }
 }
