@@ -1,6 +1,14 @@
 en:
-  training_standard:
+  training_standards:
     titles:
       all: "All Training Standard"
     headers:
       name: "Name"
+      description: "Description"
+    modals:
+      header_edit: "Edit Training Standard"
+    id: "ID"
+    name: "Name"
+    description: "Description"
+    edit: "Edit"
+    delete: "Delete"

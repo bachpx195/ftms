@@ -4,7 +4,7 @@ class Admin::TrainingStandardsController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @training_standards = TrainingStandard.all
+    @training_standards = TrainingStandard.select :id, :name, :description
   end
 
   def new
