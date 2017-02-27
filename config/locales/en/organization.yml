@@ -5,3 +5,10 @@ en:
     headers:
       name: "Name"
     parent_name: "Parent Name"
+    create_sub: "Create Sub Organization"
+    id: "ID"
+    name: "Organization Name"
+    parent: "Parent Name"
+    sub_organization: "Sub Organization"
+    edit: "Edit"
+    delete: "Delete"

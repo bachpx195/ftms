@@ -22,7 +22,7 @@ export default class TrainingStandardCreateForm extends React.Component {
       <form onSubmit={this.handleCreate.bind(this)}>
         <Errors errors={this.state.errors} />
         <div className='form-group'>
-          <input type='text' placeholder={I18n.t('training_statndard.headers.name')}
+          <input type='text' placeholder={I18n.t('training_standard.headers.name')}
             value={this.state.name} className='form-control' name='name'
             onChange={this.handleChange.bind(this)} />
         </div>
