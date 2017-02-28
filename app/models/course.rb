@@ -5,6 +5,8 @@ class Course < ApplicationRecord
   belongs_to :program
   belongs_to :training_standard
 
+  mount_uploader :image, ImageUploader
+
   has_many :user_courses, dependent: :destroy
   has_many :course_subjects, dependent: :destroy
   has_many :user_subjects, through: :course_subjects

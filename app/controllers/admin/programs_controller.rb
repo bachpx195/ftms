@@ -33,6 +33,7 @@ class Admin::ProgramsController < ApplicationController
   end
 
   def show
+    @supports = Supports::Program.new @program
   end
 
   def edit
