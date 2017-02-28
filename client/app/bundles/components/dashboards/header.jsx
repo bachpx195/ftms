@@ -33,6 +33,7 @@ export default class Header extends React.Component {
                 <img src={current_user.avatar}
                   className="user-image" alt={I18n.t("header.user_image_alt")} />
                 <span className="hidden-xs">{current_user.name}</span>
+                <span className="caret"></span>
               </a>
               <ul className="dropdown-menu">
                 <li className="user-header">
@@ -70,6 +71,7 @@ export default class Header extends React.Component {
                 <img src="#" className="user-image"
                   alt={I18n.t("header.user_image_alt")} />
                 <span className="hidden-xs">{I18n.t("header.no_name")}</span>
+                <span className="caret"></span>
               </a>
               <ul className="dropdown-menu">
                 <li className="user-header">

@@ -60,6 +60,15 @@ export default class ProgramLists extends React.Component {
       </button>
     );
 
+    const LinkToProgram = ({value, griddleKey}) => (
+      <a href={PROGRAM_URL + "/" + this.state.organization.id +
+        "/programs/" + this.state.programs[griddleKey].id}>{value}</a>
+    );
+
+    const LinkToProgramParent =({value, griddleKey}) => (
+      <a href={PROGRAM_URL + "/" + this.state.organization.id +
+        "/programs/" + this.getParent(value)}>{value}</a>
+    );
 
     let modalEdit = null;
     const url = PROGRAM_URL + "/" + this.state.organization.id + "/programs";
@@ -116,9 +125,9 @@ export default class ProgramLists extends React.Component {
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
             <ColumnDefinition id="id" title={I18n.t("programs.id")} />
-            <ColumnDefinition id="name" title={I18n.t("programs.name")} />
+            <ColumnDefinition id="name" title={I18n.t("programs.name")} customComponent={LinkToProgram} />
             <ColumnDefinition id="parent_name"
-              title={I18n.t("programs.parent")} />
+              title={I18n.t("programs.parent")} customComponent={LinkToProgramParent} />
             <ColumnDefinition id="SubProgram" customComponent={ButtonSubProgram}
               title={I18n.t("programs.sub_program")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
@@ -144,6 +153,14 @@ export default class ProgramLists extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.program || this.state.parent) {
       $("#modalEdit").modal();
+    }
+  }
+
+  getParent(parent_name){
+    let index = this.state.programs
+      .findIndex(program => program.name === parent_name);
+    if (this.state.programs[index]) {
+      return this.state.programs[index].id
     }
   }
 

@@ -60,7 +60,13 @@ export default class OrganizationLists extends React.Component {
         {I18n.t("buttons.create_sub_organization")}
       </button>
     );
+    const LinkShowOrganization = ({value, griddleKey}) => (
+      <a href={ORGANIZATION_URL + "/" + this.props.organizations[griddleKey].id + "/programs"}>{value}</a>
+    );
 
+    const LinkParent = ({value, griddleKey}) => (
+      <a href={ORGANIZATION_URL + "/" + this.getParent(value) + "/programs"}>{value}</a>
+    );
 
     let modalEdit = null;
     if(this.state.parent) {
@@ -113,9 +119,12 @@ export default class OrganizationLists extends React.Component {
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
             <ColumnDefinition id="id" title={I18n.t("organizations.id")} />
-            <ColumnDefinition id="name" title={I18n.t("organizations.name")} />
+            <ColumnDefinition id="name" title={I18n.t("organizations.name")}
+              customComponent={LinkShowOrganization} />
             <ColumnDefinition id="parent_name"
-              title={I18n.t("organizations.parent")} />
+              title={I18n.t("organizations.parent")}
+              customComponent={LinkParent}
+               />
             <ColumnDefinition id="SubOrganizations" customComponent={ButtonSubOrganizations}
               title={I18n.t("organizations.sub_organization")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
@@ -138,6 +147,14 @@ export default class OrganizationLists extends React.Component {
         name: ''
       }
     });
+  }
+
+  getParent(parent_name){
+    let index = this.state.organizations
+      .findIndex(organization => organization.name === parent_name);
+    if (this.state.organizations[index]) {
+      return this.state.organizations[index].id
+    }
   }
 
   handleEdit(event) {

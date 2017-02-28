@@ -33,7 +33,7 @@ export default class ProgramBox extends React.Component {
         this.setState({programs: response.data.programs});
       })
       .catch(error => {
-          console(error);
+          console.log(error);
         }
       );
   }
