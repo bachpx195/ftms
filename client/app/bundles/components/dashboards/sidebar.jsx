@@ -27,21 +27,7 @@ export default class Sidebar extends React.Component {
     return (
       <aside className='main-sidebar'>
         <section className='sidebar'>
-          <div className='user-panel'>
-            <div className='pull-left image'>
-              <img src='http://www.w3schools.com/css/trolltunga.jpg'
-                className='img-circle' alt={I18n.t('header.user_image_alt')} />
-            </div>
-            <div className='pull-left info'>
-              <p>{I18n.t('header.test_name')}</p>
-              <a href='#'>
-                <i className='fa fa-circle text-success'></i>
-                {I18n.t('header.test_online')}
-              </a>
-            </div>
-          </div>
           <ul className='sidebar-menu td-admin-sidebar'>
-            <li className='header'>{I18n.t('sidebar.main_nav')}</li>
             <li className='active' data-page='languages'>
               <a href={ADMIN_LANGUAGES_URL} onClick={this.onClick.bind(this)}>
                 <i className='fa fa-book'></i>
