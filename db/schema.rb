@@ -242,13 +242,11 @@ ActiveRecord::Schema.define(version: 20170301152427) do
     t.string   "name"
     t.string   "image"
     t.string   "description"
-    t.text     "content",              limit: 65535
-    t.integer  "training_standard_id"
+    t.text     "content",     limit: 65535
     t.datetime "deleted_at"
     t.integer  "during_time"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.index ["training_standard_id"], name: "index_subjects_on_training_standard_id", using: :btree
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "team_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -406,7 +404,6 @@ ActiveRecord::Schema.define(version: 20170301152427) do
   add_foreign_key "role_functions", "roles"
   add_foreign_key "standard_subjects", "subjects"
   add_foreign_key "standard_subjects", "training_standards"
-  add_foreign_key "subjects", "training_standards"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "training_standards", "programs"

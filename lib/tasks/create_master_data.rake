@@ -114,14 +114,14 @@ namespace :db do
 
     puts "9. Create subject"
     Subject.create!([
-      {name: "Ruby on Rails Tutorial Book", 
+      {name: "Ruby on Rails Tutorial Book",
         description: "Learn the basic building blocks of Ruby, all in the browser.\r\n",
         content: "<p>Get an introduction to numbers, Strings, properties, and methods,&nbsp;
           Learn about conversions, arrays, variables, and more methods</p>\r\n",
           during_time: Settings.during_time.tutorial_book,
           image: File.open(File.join(Rails.root,
             "app/assets/images/subject.jpeg"))},
-      {name: "Ruby's Project 1", 
+      {name: "Ruby's Project 1",
         description: "Start Project 1 for Ruby on Rails today.\r\n",
         content: "<p>Get an introduction to redmine, requirement, design database</p>\r\n",
         during_time: Settings.during_time.project_1,
@@ -162,7 +162,7 @@ namespace :db do
         image: File.open(File.join(Rails.root,
             "app/assets/images/subject.jpeg"))},
 
-      {name: "PHP Tutorial Book", 
+      {name: "PHP Tutorial Book",
         description: "PHP is a server scripting language, and a powerful tool
           for making dynamic and interactive Web pages.\r\n",
         content: "<p>Get an introduction to numbers, Strings, properties, and methods,&nbsp;
@@ -221,21 +221,28 @@ namespace :db do
     ])
 
     puts "12. Create user subject"
-      UserSubject.create!([
-        {user_id: 1, start_date: '01/09/2016', end_date: '01/01/2021', 
-          status: 0},
-        {user_id: 2, start_date: '01/09/2016', end_date: '01/01/2021', 
-          status: 0}
-      ])
+    UserSubject.create!([
+      {user_id: 1, start_date: '01/09/2016', end_date: '01/01/2021',
+        status: 0},
+      {user_id: 2, start_date: '01/09/2016', end_date: '01/01/2021',
+        status: 0}
+    ])
 
     puts"13. Create function"
     Function.create!([
-      {controller_name: 'languages', action: 'index', 
+      {controller_name: 'languages', action: 'index',
         humanize_name: 'languages/index', parent_id: nil},
-      {controller_name: 'languages', action: 'new', 
+      {controller_name: 'languages', action: 'new',
         humanize_name: 'languages/new', parent_id: nil},
       {controller_name: 'organizations', action: 'show',
         humanize_name: 'organizations/show', parent_id: nil}
       ])
+
+    puts"14. Create role"
+    Role.create!([
+      {name: "admin"},
+      {name: "organization supervior", parent_id: 1},
+      {name: "program supervior", parent_id: 1}
+    ])
   end
 end
