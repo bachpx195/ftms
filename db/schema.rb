@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214013215) do
+ActiveRecord::Schema.define(version: 20170223065229) do
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(version: 20170214013215) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["training_standard_id"], name: "index_evaluation_templates_on_training_standard_id", using: :btree
+  end
+
+  create_table "functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "humanize_name"
+    t.string   "controller_name"
+    t.string   "action"
+    t.integer  "parent_id"
+    t.integer  "row_order"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "languages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -195,6 +205,22 @@ ActiveRecord::Schema.define(version: 20170214013215) do
     t.index ["propertiable_type", "propertiable_id"], name: "index_properties_on_propertiable_type_and_propertiable_id", using: :btree
   end
 
+  create_table "role_functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "role_id"
+    t.integer  "function_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["function_id"], name: "index_role_functions_on_function_id", using: :btree
+    t.index ["role_id"], name: "index_role_functions_on_role_id", using: :btree
+  end
+
+  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "deleted_at"
@@ -268,6 +294,15 @@ ActiveRecord::Schema.define(version: 20170214013215) do
     t.index ["user_id"], name: "index_user_courses_on_user_id", using: :btree
   end
 
+  create_table "user_functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "function_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["function_id"], name: "index_user_functions_on_function_id", using: :btree
+    t.index ["user_id"], name: "index_user_functions_on_user_id", using: :btree
+  end
+
   create_table "user_programs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "program_id"
     t.integer  "user_id"
@@ -276,6 +311,15 @@ ActiveRecord::Schema.define(version: 20170214013215) do
     t.datetime "updated_at", null: false
     t.index ["program_id"], name: "index_user_programs_on_program_id", using: :btree
     t.index ["user_id"], name: "index_user_programs_on_user_id", using: :btree
+  end
+
+  create_table "user_roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_user_roles_on_role_id", using: :btree
+    t.index ["user_id"], name: "index_user_roles_on_user_id", using: :btree
   end
 
   create_table "user_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -348,14 +392,20 @@ ActiveRecord::Schema.define(version: 20170214013215) do
   add_foreign_key "profiles", "user_statuses"
   add_foreign_key "profiles", "users"
   add_foreign_key "programs", "organizations"
+  add_foreign_key "role_functions", "functions"
+  add_foreign_key "role_functions", "roles"
   add_foreign_key "subjects", "training_standards"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "training_standards", "programs"
   add_foreign_key "user_courses", "courses"
   add_foreign_key "user_courses", "users"
+  add_foreign_key "user_functions", "functions"
+  add_foreign_key "user_functions", "users"
   add_foreign_key "user_programs", "programs"
   add_foreign_key "user_programs", "users"
+  add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "users"
   add_foreign_key "user_subjects", "course_subjects"
   add_foreign_key "user_subjects", "subjects"
   add_foreign_key "user_subjects", "user_courses"
