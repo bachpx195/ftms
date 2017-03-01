@@ -3,6 +3,8 @@ class User < ApplicationRecord
   require_dependency "trainer"
   require_dependency "trainee"
 
+  mount_uploader :avatar, ImageUploader
+
   acts_as_token_authenticatable
   acts_as_paranoid
 
