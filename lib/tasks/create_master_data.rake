@@ -1,7 +1,7 @@
-Rake::Task["db:migrate:reset"].invoke
 namespace :db do
   desc "remake database data"
   task create_master_data: :environment do
+    Rake::Task["db:migrate:reset"].invoke
     puts "0.Creating User"
     Admin.create!([
       {name: "Chu Anh Tuấn",
