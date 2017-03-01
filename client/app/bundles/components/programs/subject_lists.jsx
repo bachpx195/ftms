@@ -54,7 +54,6 @@ export default class SubjectLists extends React.Component {
         <div className='box box-warning'>
           <div className='box-header with-border'>
             <h3 className='box-title'>
-              {this.state.program_name}
               {I18n.t('programs.list_subjects')}
             </h3>
 

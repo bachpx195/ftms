@@ -13,7 +13,7 @@ export default class ProgramsShowBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      program_detail: []
+      program_detail: {}
     };
   }
 
@@ -31,14 +31,12 @@ export default class ProgramsShowBox extends React.Component {
         });
       })
       .catch(error => {
-          console(error);
+          console.log(error);
         }
       );
   }
 
   render() {
-    const url = PROGRAM_URL + '/' + this.props.organization.id + '/programs' + '/' +
-      this.props.program.id;;
     return (
       <div className='row padding-top'>
         <div className='col-lg-3 col-xs-6'>
@@ -46,7 +44,7 @@ export default class ProgramsShowBox extends React.Component {
             <div className='inner'>
               <h3>{this.state.program_detail.user_counts}</h3>
 
-              <p>{I18n.t("programs.users")}</p>
+              <b>{I18n.t("programs.users")}</b>
             </div>
             <div className='icon'>
               <i className='ion fa fa-users' aria-hidden='true'></i>
@@ -58,7 +56,7 @@ export default class ProgramsShowBox extends React.Component {
             <div className='inner'>
               <h3>{this.state.program_detail.course_counts}</h3>
 
-              <p>{I18n.t("programs.courses")}</p>
+              <b>{I18n.t("programs.courses")}</b>
             </div>
             <div className='icon'>
               <i className='ion fa fa-object-group' aria-hidden='true'></i>
@@ -70,7 +68,7 @@ export default class ProgramsShowBox extends React.Component {
             <div className='inner'>
               <h3>{this.state.program_detail.program_subject_counts}</h3>
 
-              <p>{I18n.t("programs.subjects")}</p>
+              <b>{I18n.t("programs.subjects")}</b>
             </div>
             <div className='icon'>
               <i className='ion fa fa-file-text-o' aria-hidden='true'></i>

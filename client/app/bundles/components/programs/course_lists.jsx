@@ -54,8 +54,7 @@ export default class CourseLists extends React.Component {
         <div className='box box-success'>
           <div className='box-header with-border'>
             <h3 className='box-title'>
-              <span>{this.state.program_name}</span>
-              <span>{I18n.t('programs.list_courses')}</span>
+              {I18n.t('programs.list_courses')}
             </h3>
 
             <div className='box-tools pull-right'>
