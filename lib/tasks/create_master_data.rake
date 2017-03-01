@@ -1,3 +1,4 @@
+Rake::Task["db:migrate:reset"].invoke
 namespace :db do
   desc "remake database data"
   task create_master_data: :environment do
@@ -5,55 +6,53 @@ namespace :db do
     Admin.create!([
       {name: "Chu Anh Tuấn",
         email: "chu.anh.tuan@framgia.com", password: "12345678",
-        password_confirmation: "12345678"},
+        password_confirmation: "12345678",
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Admin", email: "admin@tms.com", password: "admin@tms.com",
-        password_confirmation: "admin@tms.com"}
+        password_confirmation: "admin@tms.com",
+      avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
     ])
 
     Trainer.create!([
       {name: "Nguyễn Bình Diệu",
         email: "nguyen.binh.dieu@framgia.com", password: "12345678",
-        password_confirmation: "12345678"},
+        password_confirmation: "12345678",
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Mai Tuấn Việt",
         email: "mai.tuan.viet@framgia.com", password: "12345678",
-        password_confirmation: "12345678"},
+        password_confirmation: "12345678",
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Hoàng Nhạc Trung",
         email: "hoang.nhac.trung@framgia.com", password: "12345678",
-        password_confirmation: "12345678"},
+        password_confirmation: "12345678",
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Nguyễn Tiến Trung",
         email: "nguyen.tien.trung@framgia.com", password: "12345678",
-        password_confirmation: "12345678"},
+        password_confirmation: "12345678",
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Hoàng Thị Nhung",
         email: "hoang.thi.nhung@framgia.com", password: "12345678",
-        password_confirmation: "12345678"},
+        password_confirmation: "12345678",
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Nguyễn Văn Trần Anh",
         email: "nguyen.van.tran.anh@framgia.com", password: "12345678",
-        password_confirmation: "12345678"},
+        password_confirmation: "12345678",
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Trần Xuân Thắng",
         email: "tran.xuan.thang@framgia.com", password: "12345678",
-        password_confirmation: "12345678"}
+        password_confirmation: "12345678",
+      avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
     ])
 
-    Trainee.create!([
-      {name: "Vũ Hữu Tuấn ",
-        email: "vu.huu.tuan@framgia.com", password: "12345678",
+    10.times do |n|
+      Trainee.create!(
+        name: "Vũ Hữu Tuấn #{n+1}",
+        email: "vu.huu.tuan-#{n+1}@framgia.com", password: "12345678",
         password_confirmation: "12345678",
         created_at: "01/09/2016".to_date, updated_at: "01/09/2016".to_date,
         avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))
-      },
-      {name: "Vũ Hữu Tuấn 2 ",
-        email: "vu.huu.tuan2@framgia.com", password: "12345678",
-        password_confirmation: "12345678",
-        created_at: "01/09/2016".to_date, updated_at: "01/09/2016".to_date,
-        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))
-      },
-      {name: "Vũ Hữu Tuấn 3 ",
-        email: "vu.huu.tuan3@framgia.com", password: "12345678",
-        password_confirmation: "12345678",
-        created_at: "01/09/2016".to_date, updated_at: "01/09/2016".to_date,
-        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))
-      }
-    ])
+      )
+    end
 
     puts "1. Create languages"
     ["Ruby", "PHP", "Android", "Java", "iOS"].each do |name|
@@ -193,14 +192,17 @@ namespace :db do
             "app/assets/images/subject.jpeg"))}
     ])
     puts "10. Create user programs"
-    UserProgram.create!([
-      {program_id: 1, user_id: 10},
-      {program_id: 1, user_id: 11},
-      {program_id: 1, user_id: 12},
-      {program_id: 2, user_id: 10},
-      {program_id: 2, user_id: 11},
-      {program_id: 2, user_id: 12},
-    ])
+    2.times do |n|
+      UserProgram.create! program_id: n+1,  user_id: 1
+      UserProgram.create! program_id: n+1,  user_id: 4
+      UserProgram.create! program_id: n+1,  user_id: 5
+      UserProgram.create! program_id: n+1,  user_id: 6
+    end
+
+    10.times do |n|
+      UserProgram.create! program_id: 1,  user_id: n+10
+      UserProgram.create! program_id: 2,  user_id: n+10
+    end
 
     puts "11. Create courses"
     Course.create!([

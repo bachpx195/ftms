@@ -6,9 +6,9 @@ export default class UserLists extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      users: [],
-      user_counts: null,
-      program_name: '',
+      users: props.users,
+      user_counts: props.user_counts,
+      program_name: props.program_name,
     }
   }
 
@@ -21,10 +21,22 @@ export default class UserLists extends React.Component {
   }
 
   renderListUsers () {
+    let user_example = (this.state.users || []).slice(0, 7);
+    return _.map(user_example, user => {
+      return (
+        <li key={user.id} className='td-program-list-user'>
+          <img src={`${user.avatar}`} alt='User Image'
+            title={`${user.name}\n${user.type}`}/>
+        </li>
+      );
+    });
+  }
+
+  renderListUsersFull () {
     return _.map(this.state.users, user => {
       return (
-        <li key={user.id} className='col-xs-3'>
-          <img src={`${user.avatar}`} alt='User Image' />
+        <li key={user.id}>
+          <img src={`${user.avatar}`} alt='User Image' className='img-responsive'/>
           <p className='users-list-name'>{user.name}</p>
           <span className='users-list-date'>{user.type}</span>
         </li>
@@ -56,30 +68,38 @@ export default class UserLists extends React.Component {
         className='thumbnail-image td-user-avatar'/>
     );
 
-    return (
-      <div className='col-md-12'>
-        <div className='box box-info'>
-          <div className='box-header with-border'>
-            <h3 className='box-title'>
-              {this.state.program_name}
-              {I18n.t('programs.list_users')}
-            </h3>
+    let user_list_counts = this.state.user_counts - 7
 
-            <div className='box-tools pull-right'>
-              <button type='button' className='btn btn-box-tool' data-widget='collapse'>
-                <i className='fa fa-minus'></i>
-              </button>
-              <button type='button' className='btn btn-box-tool' data-widget='remove'>
-                <i className='fa fa-times'></i>
-              </button>
+    return (
+      <div className='col-lg-3 col-xs-6'>
+        <ul className='users-list clearfix td-program-users'>
+          {this.renderListUsers()}
+          <li className='td-user-list-modal' data-toggle='modal'
+            data-target='#user_lists_modal'>
+            <b>{user_list_counts}+</b>
+          </li>
+        </ul>
+        <div id='user_lists_modal' className='modal fade' role='dialog'>
+          <div className='modal-dialog width-70'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <button type='button' className='close' data-dismiss='modal'>&times;</button>
+                <h4 className='modal-title'>
+                  {I18n.t('programs.member')}
+                </h4>
+              </div>
+              <div className='modal-body'>
+                <ul className='users-list-fix clearfix'>
+                  {this.renderListUsersFull()}
+                </ul>
+              </div>
+              <div className='modal-footer'>
+                <button type='button' className='btn btn-default' data-dismiss='modal'>
+                  {I18n.t('programs.close')}
+                </button>
+              </div>
             </div>
-          </div>
-          <div className='box-body'>
-            <div className='row'>
-              <ul className='users-list clearfix'>
-                {this.renderListUsers()}
-              </ul>
-            </div>
+
           </div>
         </div>
       </div>
