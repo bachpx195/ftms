@@ -8,7 +8,6 @@ import * as app_constants from 'constants/app_constants';
 
 export default class Form extends React.Component {
   constructor(props) {
-    console.log('Form constructor()');
     super(props);
 
     this.state = {
@@ -21,7 +20,6 @@ export default class Form extends React.Component {
   }
 
   render() {
-    console.log('Form render()');
     let image = null;
     if(this.state.image){
       if(this.state.image.url) {
@@ -38,7 +36,8 @@ export default class Form extends React.Component {
             <div className='form-group'>
               <button type='button' className='btn btn-danger btn-select-file'
                 onClick={this.onOpenClick.bind(this)}>
-                <i className='fa fa-upload'></i> {I18n.t('dropzones.select_image')}
+                <i className='fa fa-upload'></i>
+                {I18n.t('dropzones.select_image')}
               </button>
             </div>
           </div>
@@ -62,7 +61,8 @@ export default class Form extends React.Component {
         </div>
         <div className='form-group'>
           <div className='text-right'>
-            <button type='submit' className='btn btn-primary'>
+            <button type='submit' className='btn btn-primary'
+              disabled={!this.formValid()}>
               {I18n.t('buttons.save')}</button>
           </div>
         </div>
@@ -71,7 +71,6 @@ export default class Form extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('Form componentWillReceiveProps()');
     this.setState({
       name: nextProps.language.name || '',
       description: nextProps.language.description || '',
@@ -88,6 +87,10 @@ export default class Form extends React.Component {
     });
   }
 
+  formValid(){
+    return this.state.name != '' && this.state.image && this.state.description;
+  }
+
   onDrop(acceptedFiles, rejectedFiles) {
     this.setState({
       image: acceptedFiles[0],
@@ -101,7 +104,6 @@ export default class Form extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('Form handleSubmit()');
     let language = _.omit(this.state, 'errors');
     if(!this.state.changeImage) {
       language = _.omit(language, 'image');
