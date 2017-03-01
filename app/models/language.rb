@@ -10,4 +10,6 @@ class Language < ApplicationRecord
   has_many :trainees, through: :profiles
 
   validates :name, presence: true
+  validates :image, presence: true
+  validates :description, presence: true
 end

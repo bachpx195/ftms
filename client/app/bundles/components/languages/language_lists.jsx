@@ -11,7 +11,6 @@ const LANGUAGE_URL = app_constants.APP_NAME + language_constants.ADMIN_LANGUAGE_
 
 export default class LanguageLists extends React.Component {
   constructor(props) {
-    console.log('LanguageLists constructor()');
     super(props);
 
     this.state = {
@@ -21,7 +20,6 @@ export default class LanguageLists extends React.Component {
   }
 
   render() {
-    console.log('LanguageLists render()');
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className='col-md-12'>
         <div className='row'>
@@ -74,12 +72,16 @@ export default class LanguageLists extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="id" />
-            <ColumnDefinition id="name" />
-            <ColumnDefinition id="image" customComponent={Image} />
-            <ColumnDefinition id="description" />
-            <ColumnDefinition id="edit" customComponent={ButtonEdit} />
-            <ColumnDefinition id="delete" customComponent={ButtonDelete} />
+            <ColumnDefinition id='name'
+              title={I18n.t('languages.headers.name')} />
+            <ColumnDefinition id='image' customComponent={Image}
+              title={I18n.t('languages.headers.image')} />
+            <ColumnDefinition id='description'
+              title={I18n.t('languages.headers.description')}  />
+            <ColumnDefinition id='edit' title=' '
+              customComponent={ButtonEdit} />
+            <ColumnDefinition id='delete' title='  '
+              customComponent={ButtonDelete} />
           </RowDefinition>
         </Griddle>
         {modalEdit}
@@ -94,14 +96,12 @@ export default class LanguageLists extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('LanguageLists componentDidUpdate()');
     if(this.state.language.id){
       $('#modalEdit').modal();
     }
   }
 
   handleEdit(event) {
-    console.log('LanguageLists handleEdit()');
     let $target = $(event.target);
     $target.blur();
     this.setState({
@@ -110,7 +110,6 @@ export default class LanguageLists extends React.Component {
   }
 
   handleDelete(event) {
-    console.log('LanguageLists handleDelete()');
     let $target = $(event.target);
     $target.blur();
     let language = this.props.languages[$target.data('index')];
@@ -127,12 +126,11 @@ export default class LanguageLists extends React.Component {
         });
         this.props.handleAfterDeleted(language);
       })
-      .catch(error => console.log(error));
+
     }
   }
 
   handleAfterUpdated(new_language) {
-    console.log('LanguageLists handleAfterUpdated()');
     this.setState({
       language: {}
     });
