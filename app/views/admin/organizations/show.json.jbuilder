@@ -1,8 +1,8 @@
-json.parent_organization do 
+json.parent_organization do
   if @organization.parent
     json.extract! @organization.parent, :id, :name
   else
-    ''
+    json.null!
   end
 end
 json.programs do

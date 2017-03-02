@@ -23,17 +23,17 @@ export default class OrganizationLists extends React.Component {
 
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className="col-md-12">
-        <div className="row">
-          <div className="griddle-head clearfix">
-            <div className="col-md-6">
+      <div className='col-md-12'>
+        <div className='row'>
+          <div className='griddle-head clearfix'>
+            <div className='col-md-6'>
               <Filter />
             </div>
-            <div className="col-md-6 text-right">
+            <div className='col-md-6 text-right'>
               <Pagination />
             </div>
           </div>
-          <div className="col-md-12">
+          <div className='col-md-12'>
             <Table />
           </div>
         </div>
@@ -41,99 +41,92 @@ export default class OrganizationLists extends React.Component {
     );
 
     const ButtonEdit = ({griddleKey}) => (
-      <button className="btn btn-info" data-index={griddleKey}
+      <button className='btn btn-info' data-index={griddleKey}
         onClick={this.handleEdit.bind(this)}>
-        {I18n.t("buttons.edit")}
+        {I18n.t('buttons.edit')}
       </button>
     );
 
     const ButtonDelete = ({griddleKey}) => (
-      <button className="btn btn-danger" data-index={griddleKey}
+      <button className='btn btn-danger' data-index={griddleKey}
         onClick={this.handleDelete.bind(this)}>
-        {I18n.t("buttons.delete")}
+        {I18n.t('buttons.delete')}
       </button>
     );
 
     const ButtonSubOrganizations = ({griddleKey}) => (
-      <button className="btn btn-info" data-index={griddleKey}
+      <button className='btn btn-info' data-index={griddleKey}
         onClick={this.handleCreateSubOrganization.bind(this)}>
-        {I18n.t("buttons.create_sub_organization")}
+        {I18n.t('buttons.create_sub_organization')}
       </button>
     );
+
     const LinkShowOrganization = ({value, griddleKey}) => (
-      <a href={ORGANIZATION_URL + "/" + this.props.organizations[griddleKey].id + "/programs"}>{value}</a>
+      <a href={ORGANIZATION_URL + '/' + this.props.organizations[griddleKey].id + '/programs'}>{value}</a>
     );
 
-    const LinkParent = ({value, griddleKey}) => (
-      <a href={ORGANIZATION_URL + "/" + this.getParent(value) + "/programs"}>{value}</a>
-    );
+    const LinkParent = ({griddleKey}) => {
+      let parent = this.state.organizations[griddleKey].parent;
+      if(parent){
+        return <a href={ORGANIZATION_URL + '/' + parent.id + '/programs'}>{parent.name}</a>
+      }
+      return null;
+    };
 
-    let modalEdit = null;
-    if(this.state.parent) {
-       modalEdit = (
-          <div id="modalEdit" className="modal fade in" role="dialog">
-            <div className="modal-dialog">
-              <div className="modal-content">
-
-                <div className="modal-header">
-                  <button type="button" className="close"
-                    data-dismiss="modal">&times;</button>
-                  <h4 className="modal-title">{this.state.parent.name}</h4>
-                </div>
-
-                <div className="modal-body">
-                  <FormCreate
-                    parent={this.state.parent}
-                    url={ORGANIZATION_URL}
-                    handleAfterSaved={this.handleAfterUpdated.bind(this)} />
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-    }else {
-       modalEdit = (
-        <div id="modalEdit" className="modal fade in" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close"
-                  data-dismiss="modal">&times;</button>
-                <h4 className="modal-title">{I18n.t("organizations.edit")}</h4>
-              </div>
-              <div className="modal-body">
-                <FormEdit
-                  organization={this.state.organization}
-                  url={ORGANIZATION_URL}
-                  handleAfterSaved={this.handleAfterUpdated.bind(this)} />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
     return (
       <div>
-        <Griddle data={this.state.organizations} plugins={[plugins.LocalPlugin]}
+        <Griddle data={this.state.organizations}
+          plugins={[plugins.LocalPlugin]}
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="id" title={I18n.t("organizations.id")} />
-            <ColumnDefinition id="name" title={I18n.t("organizations.name")}
+            <ColumnDefinition id='name' title={I18n.t('organizations.name')}
               customComponent={LinkShowOrganization} />
-            <ColumnDefinition id="parent_name"
-              title={I18n.t("organizations.parent")}
-              customComponent={LinkParent}
-               />
-            <ColumnDefinition id="SubOrganizations" customComponent={ButtonSubOrganizations}
-              title={I18n.t("organizations.sub_organization")} />
-            <ColumnDefinition id="edit" customComponent={ButtonEdit}
-              title={I18n.t("organizations.edit")} />
-            <ColumnDefinition id="delete" customComponent={ButtonDelete}
-              title={I18n.t("organizations.delete")} />
+            <ColumnDefinition id='parent_name'
+              title={I18n.t('organizations.parent')}
+              customComponent={LinkParent} />
+            <ColumnDefinition id='SubOrganizations'
+              customComponent={ButtonSubOrganizations}
+              title={I18n.t('organizations.sub_organization')} />
+            <ColumnDefinition id='edit' customComponent={ButtonEdit}
+              title={I18n.t('organizations.edit')} />
+            <ColumnDefinition id='delete' customComponent={ButtonDelete}
+              title={I18n.t('organizations.delete')} />
           </RowDefinition>
         </Griddle>
-        {modalEdit}
+        {this.renderModal()}
+      </div>
+    );
+  }
+
+  renderModal(){
+    let title = '';
+    let form = null;
+    if(this.state.parent) {
+      title = this.state.parent.name;
+      form = (<FormCreate parent={this.state.parent} url={ORGANIZATION_URL}
+        handleAfterSaved={this.handleAfterCreated.bind(this)} />);
+    } else {
+      title = I18n.t('organizations.edit');
+      form = (<FormEdit organization={this.state.organization}
+        organizations={this.state.organizations} url={ORGANIZATION_URL}
+        handleAfterSaved={this.handleAfterUpdated.bind(this)} />);
+    }
+
+    return (
+      <div id='modal' className='modal fade in' role='dialog'>
+        <div className='modal-dialog'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <button type='button' className='close'
+                data-dismiss='modal'>&times;</button>
+              <h4 className='modal-title'>{title}</h4>
+            </div>
+            <div className='modal-body'>
+              {form}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -147,14 +140,7 @@ export default class OrganizationLists extends React.Component {
         name: ''
       }
     });
-  }
-
-  getParent(parent_name){
-    let index = this.state.organizations
-      .findIndex(organization => organization.name === parent_name);
-    if (this.state.organizations[index]) {
-      return this.state.organizations[index].id
-    }
+    $('#modal').modal();
   }
 
   handleEdit(event) {
@@ -164,31 +150,20 @@ export default class OrganizationLists extends React.Component {
       parent: null,
       organization: this.props.organizations[$target.data('index')]
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.organization.name != '' || this.state.parent) {
-      $("#modalEdit").modal();
-    }
+    $('#modal').modal();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      organization: {
-        name: ''
-      },
-      parent: null,
-      organizations: nextProps.organizations,
+      organizations: nextProps.organizations
      });
   }
 
+  handleAfterCreated(new_organization) {
+    this.props.handleAfterCreated(new_organization);
+  }
 
   handleAfterUpdated(new_organization) {
-    this.setState({
-      organization: {
-        name: '' },
-      parent: null
-    });
     this.props.handleAfterUpdated(new_organization);
   }
 
@@ -196,31 +171,17 @@ export default class OrganizationLists extends React.Component {
     let $target = $(event.target);
     $target.blur();
     let organization = this.props.organizations[$target.data('index')];
-    if (confirm(I18n.t("data.confirm_delete"))) {
-      axios.delete(ORGANIZATION_URL + "/" + organization.id, {
+    if (confirm(I18n.t('data.confirm_delete'))) {
+      axios.delete(ORGANIZATION_URL + '/' + organization.id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },
         headers: {'Accept': 'application/json'}
       })
-        .then(response => {
-          this.fetchOrganizations();
-        })
-        .catch(error => console.log(error)
-      );
-    }
-  }
-
-
-  fetchOrganizations() {
-    axios.get(ORGANIZATION_URL + ".json")
       .then(response => {
-        this.setState({organizations: response.data.organizations});
-        this.props.handleAfterDeleted(this.state.organizations);
+        this.props.handleAfterDeleted(organization);
       })
-      .catch(error => {
-        console.log(error)
-      }
-    );
+      .catch(error => console.log(error));
+    }
   }
 }
