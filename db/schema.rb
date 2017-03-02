@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20170323035408) do
 
+  create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "question_id"
+    t.string   "content"
+    t.boolean  "is_correct",  default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "name",            limit: 65535
     t.text     "content",         limit: 65535
@@ -21,6 +29,13 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.datetime "updated_at",                    null: false
     t.index ["creator_id"], name: "index_assignments_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_assignments_on_organization_id", using: :btree
+  end
+
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -64,7 +79,6 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
     t.integer  "owner_id"
-    t.string   "document"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["creator_id"], name: "index_courses_on_creator_id", using: :btree
@@ -91,6 +105,16 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["creator_id"], name: "index_evaluation_templates_on_creator_id", using: :btree
+  end
+
+  create_table "exams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "status"
+    t.integer  "spend_time"
+    t.datetime "started_at"
+    t.integer  "score"
+    t.integer  "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -235,16 +259,34 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.index ["task_id"], name: "index_projects_on_task_id", using: :btree
   end
 
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "category_id"
+    t.string   "content"
+    t.integer  "level"
+    t.integer  "type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "requirements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "name",       limit: 65535
     t.integer  "priority"
     t.integer  "project_id"
+    t.integer  "task_id"
     t.integer  "creator_id"
-    t.datetime "deleted_at"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["creator_id"], name: "index_requirements_on_creator_id", using: :btree
     t.index ["project_id"], name: "index_requirements_on_project_id", using: :btree
+    t.index ["task_id"], name: "index_requirements_on_task_id", using: :btree
+  end
+
+  create_table "results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "exam_id"
+    t.integer  "question_id"
+    t.integer  "answer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "role_functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -259,6 +301,39 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rule_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "rule_id"
+    t.integer  "category_id"
+    t.integer  "number_question"
+    t.integer  "easy"
+    t.integer  "normal"
+    t.integer  "hard"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["category_id"], name: "index_rule_categories_on_category_id", using: :btree
+    t.index ["rule_id"], name: "index_rule_categories_on_rule_id", using: :btree
+  end
+
+  create_table "rule_questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "rule_id"
+    t.integer  "question_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["question_id"], name: "index_rule_questions_on_question_id", using: :btree
+    t.index ["rule_id"], name: "index_rule_questions_on_rule_id", using: :btree
+  end
+
+  create_table "rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "total_question"
+    t.integer  "time_of_test"
+    t.integer  "min_score_for_pass"
+    t.integer  "opportunity"
+    t.integer  "number_of_test"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

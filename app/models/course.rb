@@ -22,6 +22,7 @@ class Course < ApplicationRecord
   has_many :course_subjects, dependent: :destroy
   has_many :user_subjects, through: :course_subjects
   has_many :subjects, through: :course_subjects
+
   has_many :sources, as: :sourceable,
     class_name: MovingHistory.name, dependent: :destroy
   has_many :destinations, as: :destinationable,
@@ -56,4 +57,7 @@ class Course < ApplicationRecord
   validates :name, presence: true
   validates :training_standard, presence: true
   validates :owner, presence: true
+
+  has_many :rule_exams, through: :static_properties, source: :propertiable,
+    source_type: Rule.name
 end
