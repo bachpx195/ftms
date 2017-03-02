@@ -2,10 +2,27 @@ en:
   subjects:
     titles:
       all: "All Subjects"
+      user_subject_list: "User Subjects List"
     headers:
       id: "ID"
       name: "Name"
+      user_name: "User name"
       image: "Image"
       description: "Description"
+      days: " (days)"
+      start_date: "Start Date"
+      end_date: "End Date"
+      status: "Status"
+      current_progress: "Progress"
+      workings_day: "Working day: "
+      training_standard: "Training Standard: "
     modals:
       header_edit: "Edit subject"
+    buttons:
+      edit: "Edit"
+      delete: "Delete"
+    status:
+      init: "Init"
+      progress: "Progress"
+      waiting: "Waiting"
+      finish: "Finish"
