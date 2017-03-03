@@ -20,4 +20,10 @@ class User < ApplicationRecord
   has_many :user_courses, dependent: :destroy
   has_many :user_programs, dependent: :destroy
   has_many :user_subjects, dependent: :destroy
+  has_many :user_roles, dependent: :destroy
+  has_many :roles, through: :user_roles
+  has_many :user_functions, dependent: :destroy
+  has_many :functions, through: :user_functions
+
+  accepts_nested_attributes_for :user_functions, allow_destroy: true
 end
