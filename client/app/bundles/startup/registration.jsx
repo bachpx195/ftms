@@ -1,5 +1,6 @@
 import ReactOnRails from 'react-on-rails';
 
+//admin
 import Header from '../components/dashboards/header';
 import Sidebar from '../components/dashboards/sidebar';
 import Footer from '../components/dashboards/footer';
@@ -20,6 +21,8 @@ import RoleBox from '../components/roles/roles_box';
 import UserShowBox from '../components/users/user_show_box';
 import SupervisorProgramsShowBox from '../components/programs/supervisor_programs_show_box';
 
+//supervisor
+import SubOrganizationShowBox from '../components/sub_organizations/show_box';
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
   Header,
@@ -41,4 +44,5 @@ ReactOnRails.register({
   RoleBox,
   UserShowBox,
   SupervisorProgramsShowBox,
+  SubOrganizationShowBox,
 });

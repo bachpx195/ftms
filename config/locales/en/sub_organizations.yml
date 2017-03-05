@@ -1,0 +1,12 @@
+en: 
+  sub_organizations:
+    all_program: "All programs of organization"
+    all_sub_program: "Show all Sub Programs"
+    menu_manager_program: "Menu manager program"
+    update_program: "Update program"
+    delete_program: "Delete Program"
+    new_sub_program: "New sub program"
+    sub_program: "%{number} sub programs"
+    nothing: "Nothing to show"
+    create: "Create a program"
+    name: "Name: "

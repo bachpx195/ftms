@@ -12,12 +12,13 @@ Rails.application.routes.draw do
   draw :api
   draw :admin
   draw :assign_program
-
   root "static_pages#show"
   resources :static_pages
   resources :organizations do
     resources :programs
   end
+
+  resources :sub_organizations
 
   resources :languages
 end

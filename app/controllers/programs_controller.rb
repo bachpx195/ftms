@@ -27,7 +27,7 @@ class ProgramsController < ApplicationController
     respond_to do |format|
       if @program.save
         format.html {redirect_to [:admin, @program]}
-        format.json
+        format.json {render json: {program: @program}}
       else
         format.html {render :new}
         format.json {render json: {message: flash_message("not_created"),
@@ -50,8 +50,8 @@ class ProgramsController < ApplicationController
   def update
     respond_to do |format|
       if @program.update_attributes program_params
-        format.html {redirect_to [:admin, @program]}
-        format.json
+        format.html {redirect_to @program}
+        format.json {render json: {program: @program}}
       else
         format.html {render :edit}
         format.json {render json: {message: flash_message("not_updated"),

@@ -1,0 +1,27 @@
+#programs_of_organization {
+  .sub-node {
+    margin-left: 40px;
+    margin-top: 5px;
+    ul.list-group {
+      margin-bottom: 0;
+    }
+  }
+  .cursor {
+    cursor: pointer;
+  }
+
+  ul.animation {
+    transition: left 1s ease-in-out;
+  }
+
+  .fa-minus, .fa-plus{
+    margin-top: 3px;
+    margin-right: 10px;
+  }
+  .badge {
+    margin-left: 20px;
+  }
+  .list-group {
+    margin-bottom: 0px;
+  }
+}
