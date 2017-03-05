@@ -2,6 +2,12 @@ json.organizations do
   json.array! @organizations do |organization|
     json.id organization.id
     json.name organization.name
-    organization.parent ? (json.parent_name organization.parent.name) : (json.parent_name '')
+    json.parent do
+      if organization.parent
+        json.extract! organization.parent, :id, :name
+      else
+        json.null!
+      end
+    end
   end
 end

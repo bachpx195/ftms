@@ -8,16 +8,24 @@ export default class FormEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      organization: this.props.organization,
+      organization: props.organization,
       errors: null,
-      organizations: []
+      organizations: props.organizations
     };
   }
 
   render() {
+    let parent = this.state.organization.parent || {};
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <Errors errors={this.state.errors} />
+        <div className="form-group">
+          <select className="form-control" ref="parentIdField" name="parent"
+            value={parent.id} onChange={this.handleChange.bind(this)}>
+            <option value="">{I18n.t('organizations.select_parent')}</option>
+            {this.renderOptions()}
+          </select>
+        </div>
         <div className="form-group">
           <input type="text" placeholder={I18n.t("organizations.edit")}
             className="form-control" name="name" ref="nameField"
@@ -34,16 +42,31 @@ export default class FormEdit extends React.Component {
     );
   }
 
+  renderOptions(){
+    let organizations = this.state.organizations;
+    return organizations.map(organization => {
+      return <option key={organization.id}
+        value={organization.id}>{organization.name}</option>;
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       organization: nextProps.organization,
-      errors: null
+      errors: null,
+      organizations: nextProps.organizations
     });
   }
 
   handleChange(event) {
     let attribute = event.target.name;
-    let organization = Object.assign({}, this.state.organization,{[attribute]: event.target.value});
+    let value = event.target.value;
+    if(attribute == 'parent') {
+      value = this.props.organizations
+        .find(organization => organization == event.target.value);
+    }
+    let organization = Object.assign({}, this.state.organization,
+      {[attribute]: value});
     this.setState({
       organization: organization
     });
@@ -54,35 +77,19 @@ export default class FormEdit extends React.Component {
   }
 
   handleSubmit(event) {
-    let request = null;
     event.preventDefault();
-    if (this.state.organization) {
-      request = axios.patch(this.props.url + "/" + this.state.organization.id, {
-        organization: {
-          name: this.refs.nameField.value
-        }, authenticity_token: ReactOnRails.authenticityToken()
-      }, app_constants.AXIOS_CONFIG);
-    }
-
-    request.then(response => {
-      $('#modalEdit').modal('hide');
-      this.fetchAllOrganization();
+    axios.patch(this.props.url + "/" + this.state.organization.id, {
+      organization: {
+        parent_id: this.refs.parentIdField.value,
+        name: this.refs.nameField.value
+      }, authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
+    .then(response => {
+      $('#modal').modal('hide');
+      this.props.handleAfterSaved(response.data.organization);
     })
     .catch(error => {
       console.log(error)
     })
-  }
-
-  fetchAllOrganization() {
-    const url = this.props.url;
-    axios.get(url + '.json')
-      .then(response => {
-        this.setState({organizations: response.data.organizations});
-        this.props.handleAfterSaved(this.state.organizations);
-      })
-      .catch(error => {
-          console.log(error)
-      }
-    );
   }
 }

@@ -89,24 +89,13 @@ export default class LanguageLists extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      language: {}
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.language.id){
-      $('#modalEdit').modal();
-    }
-  }
-
   handleEdit(event) {
     let $target = $(event.target);
     $target.blur();
     this.setState({
       language: this.props.languages[$target.data('index')]
     });
+    $('#modalEdit').modal();
   }
 
   handleDelete(event) {

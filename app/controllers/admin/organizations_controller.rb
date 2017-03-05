@@ -61,8 +61,7 @@ class Admin::OrganizationsController < ApplicationController
       format.html{redirect_to admin_organizations_path}
       format.json do
         if @organization.deleted?
-          @message = flash_message "deleted"
-          @organizations = Organization.all
+          render json: {message: flash_message("deleted")}
         else
           render json: {message: flash_message("not_deleted")},
             status: :unprocessable_entity

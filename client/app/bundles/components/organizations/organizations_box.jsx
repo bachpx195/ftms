@@ -18,7 +18,7 @@ export default class OrganizationBox extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchOrganizations();
   }
 
@@ -59,16 +59,16 @@ export default class OrganizationBox extends React.Component {
                   <FormCreate
                     url={ORGANIZATION_URL}
                     parent={this.state.parent}
-                    handleAfterSaved={this.handleAfterHandle.bind(this)} />
+                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
-
             <div className='box-footer'>
               <OrganizationLists
                 organizations={this.state.organizations}
-                handleAfterUpdated={this.handleAfterHandle.bind(this)}
-                handleAfterDeleted={this.handleAfterHandle.bind(this)} />
+                handleAfterCreated={this.handleAfterCreated.bind(this)}
+                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>
 
           </div>
@@ -77,9 +77,49 @@ export default class OrganizationBox extends React.Component {
     );
   }
 
-  handleAfterHandle(organizations) {
+  handleAfterCreated(organization) {
+    this.state.organizations.push(organization);
     this.setState({
-      organizations: organizations,
+      organizations: this.state.organizations,
+      parent: null
+    });
+  }
+
+  handleAfterUpdated(new_organization) {
+    for(let i = 0; i < this.state.organizations.length; i++){
+      let parent = this.state.organizations[i].parent;
+      if(parent && parent.id == new_organization.id) {
+        this.state.organizations[i].parent = new_organization;
+      }
+    }
+    let index = this.state.organizations
+      .findIndex(organization => organization.id === new_organization.id);
+    this.state.organizations[index] = new_organization;
+    this.setState({
+      organizations: this.state.organizations,
+      parent: null
+    });
+  }
+
+  handleAfterDeleted(organization) {
+    this.removeChildren(organization);
+    _.remove(this.state.organizations, _organization => {
+      return _organization.id == organization.id;
+    });
+    this.setState({
+      organizations: this.state.organizations,
+      parent: null
+    });
+  }
+
+  removeChildren(parent) {
+    for(let organization of this.state.organizations) {
+      if(organization.parent && organization.parent.id == parent.id) {
+        this.removeChildren(organization);
+      }
+    };
+    _.remove(this.state.organizations, organization => {
+      return organization.parent && organization.parent.id == parent.id;
     });
   }
 }
