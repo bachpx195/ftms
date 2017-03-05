@@ -13,4 +13,5 @@ namespace :admin do
   end
   resources :subjects
   resources :users
+  resources :standard_subjects, only: [:index, :create, :destroy]
 end
