@@ -227,5 +227,15 @@ namespace :db do
         {user_id: 2, start_date: '01/09/2016', end_date: '01/01/2021', 
           status: 0}
       ])
+
+    puts"13. Create function"
+    Function.create!([
+      {controller_name: 'languages', action: 'index', 
+        humanize_name: 'languages/index', parent_id: nil},
+      {controller_name: 'languages', action: 'new', 
+        humanize_name: 'languages/new', parent_id: nil},
+      {controller_name: 'organizations', action: 'show',
+        humanize_name: 'organizations/show', parent_id: nil}
+      ])
   end
 end
