@@ -12,12 +12,13 @@ const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constan
 export default class TrainingStandardLists extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      training_standards: props.training_standards,
-      training_standard: {}
-    }
+    this.state = {...props}
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({...nextProps});
+  }
+
 
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
@@ -40,6 +41,7 @@ export default class TrainingStandardLists extends React.Component {
 
     const ButtonEdit = ({griddleKey}) => (
       <button className='btn btn-info' data-index={griddleKey}
+        title={I18n.t('buttons.edit')}
         onClick={this.handleEdit.bind(this)}>
         {I18n.t('buttons.edit')}
       </button>
@@ -47,9 +49,15 @@ export default class TrainingStandardLists extends React.Component {
 
     const ButtonDelete = ({griddleKey}) => (
       <button className='btn btn-danger' data-index={griddleKey}
+        title={I18n.t('buttons.delete')}
         onClick={this.handleDelete.bind(this)}>
         {I18n.t('buttons.delete')}
       </button>
+    );
+
+    const LinkToStandardShow = ({value, griddleKey}) => (
+      <a data-index={griddleKey} href={TRAINING_STANDARD_URL + "/" + 
+        this.state.training_standards[griddleKey].id} title={value}>{value}</a>
     );
 
     let modalEdit = null;
@@ -67,7 +75,8 @@ export default class TrainingStandardLists extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("training_standards.name")} />
+            <ColumnDefinition id="name" title={I18n.t("training_standards.name")} 
+              customComponent={LinkToStandardShow}/>
             <ColumnDefinition id="description" title={I18n.t("training_standards.description")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
               title=" "/>
@@ -78,12 +87,6 @@ export default class TrainingStandardLists extends React.Component {
         {modalEdit}
       </div>
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      training_standard: {}
-    });
   }
 
   componentDidUpdate(prevProps, prevState) {

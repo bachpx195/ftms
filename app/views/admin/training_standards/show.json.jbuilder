@@ -1,1 +1,1 @@
-json.training_standard @training_standard, :name, :id
+json.selected_subjects @supports.selected_subjects, :id, :name

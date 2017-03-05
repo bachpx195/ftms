@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223065229) do
+ActiveRecord::Schema.define(version: 20170301152427) do
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
@@ -402,7 +402,6 @@ ActiveRecord::Schema.define(version: 20170223065229) do
   add_foreign_key "programs", "organizations"
   add_foreign_key "role_functions", "functions"
   add_foreign_key "role_functions", "roles"
-  add_foreign_key "subjects", "training_standards"
   add_foreign_key "standard_subjects", "subjects"
   add_foreign_key "standard_subjects", "training_standards"
   add_foreign_key "team_members", "teams"
