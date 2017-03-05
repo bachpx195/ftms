@@ -8,13 +8,18 @@ import * as app_constants from 'constants/app_constants';
 import * as training_standard_constants from './training_standard_constants';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_TRAINING_STANDARD_PATH;
+const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_STANDARD_SUBECTS_PATH;
 
 export default class TrainingStandardBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       training_standards: props.training_standards,
-      training_standard: {}
+      training_standard: {},
+      subjects: props.subjects,
+      standard_subjects : [],
+      selected_subjects: [],
+      training_standard_assign: {}
     };
   }
 
@@ -39,7 +44,7 @@ export default class TrainingStandardBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <Form 
+                  <Form
                     url={TRAINING_STANDARD_URL}
                     training_standard={this.state.training_standard} 
                     handleAfterSaved={this.handleAfterCreated.bind(this)} />
@@ -47,10 +52,12 @@ export default class TrainingStandardBox extends React.Component {
               </div>
             </div>
             <div className='box-footer'>
-              <TrainingStandardLists 
+              <TrainingStandardLists
+                training_standard={this.state.training_standard}
                 training_standards={this.state.training_standards}
                 handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)}
+              />
             </div>
           </div>
         </div>
