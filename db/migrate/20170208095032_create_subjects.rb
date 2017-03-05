@@ -5,7 +5,6 @@ class CreateSubjects < ActiveRecord::Migration[5.0]
       t.string :image
       t.string :description
       t.text :content
-      t.belongs_to :training_standard, foreign_key: true
       t.datetime :deleted_at
       t.integer :during_time
 

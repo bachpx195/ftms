@@ -12,3 +12,5 @@ en:
     description: "Description"
     edit: "Edit"
     delete: "Delete"
+    assign: "Assign Subject"
+    reject: "Reject subject"

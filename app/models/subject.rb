@@ -5,7 +5,8 @@ class Subject < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  belongs_to :training_standard
+  has_many :standard_subjects, dependent: :destroy
+  has_many :training_standards, through: :standard_subjects, dependent: :destroy
 
   has_many :course_subjects, dependent: :destroy
   has_many :user_subjects, dependent: :destroy

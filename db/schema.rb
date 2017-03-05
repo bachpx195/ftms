@@ -228,17 +228,25 @@ ActiveRecord::Schema.define(version: 20170223065229) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "standard_subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "subject_id"
+    t.integer  "training_standard_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["subject_id"], name: "index_standard_subjects_on_subject_id", using: :btree
+    t.index ["training_standard_id"], name: "index_standard_subjects_on_training_standard_id", using: :btree
+  end
+
   create_table "subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "image"
     t.string   "description"
-    t.text     "content",              limit: 65535
-    t.integer  "training_standard_id"
+    t.text     "content",     limit: 65535
     t.datetime "deleted_at"
     t.integer  "during_time"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.index ["training_standard_id"], name: "index_subjects_on_training_standard_id", using: :btree
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "team_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -395,6 +403,8 @@ ActiveRecord::Schema.define(version: 20170223065229) do
   add_foreign_key "role_functions", "functions"
   add_foreign_key "role_functions", "roles"
   add_foreign_key "subjects", "training_standards"
+  add_foreign_key "standard_subjects", "subjects"
+  add_foreign_key "standard_subjects", "training_standards"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "training_standards", "programs"
