@@ -1,0 +1,9 @@
+en:
+  functions:
+    titles:
+      all: "All functions"
+    controller_name: "Controller Name"
+    action: "Action"
+    parent: "Parent"
+    table_position: "#"
+    humanize_name: "Humanize Name"
