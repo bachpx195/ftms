@@ -21,6 +21,7 @@ import FunctionsBox from '../components/functions/functions_box';
 import RoleBox from '../components/roles/roles_box';
 import UserShowBox from '../components/users/user_show_box';
 import SupervisorProgramsShowBox from '../components/programs/supervisor_programs_show_box';
+import ProfileShowBox from '../components/users/profile_show_box';
 
 //supervisor
 import SubOrganizationShowBox from '../components/sub_organizations/show_box';
@@ -48,5 +49,6 @@ ReactOnRails.register({
   UserShowBox,
   SupervisorProgramsShowBox,
   SubOrganizationShowBox,
-  EvaluationTemplatesBox
+  EvaluationTemplatesBox,
+  ProfileShowBox
 });

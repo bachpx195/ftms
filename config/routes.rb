@@ -24,4 +24,7 @@ Rails.application.routes.draw do
   resources :training_standards do
     resource :evaluation_template
   end
+  namespace :change_profile do
+    resources :users, only: [:show, :edit, :update]
+  end
 end
