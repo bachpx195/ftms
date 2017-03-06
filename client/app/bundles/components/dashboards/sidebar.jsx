@@ -13,6 +13,8 @@ const ADMIN_TRAINING_STANDARDS_URL = app_constants.APP_NAME +
   dashboard_constands.ADMIN_TRAINING_STANDARDS_PATH;
 const ADMIN_UNIVERSITIES_URL = app_constants.APP_NAME +
   dashboard_constands.ADMIN_UNIVERSITIES_PATH;
+const FUNCTIONS_URL = app_constants.APP_NAME +
+  dashboard_constands.FUNCTIONS_PATH;
 
 
 export default class Sidebar extends React.Component {
@@ -21,6 +23,11 @@ export default class Sidebar extends React.Component {
     if(!localStorage.getItem('page')) {
       localStorage.setItem('page', 'languages');
     }
+
+    if(localStorage.getItem('roles_menu'))
+      this.state = {roles_menu: localStorage.getItem('roles_menu')};
+    else
+      this.state = {roles_menu: 'hiddened'};
   }
 
   render () {
@@ -76,6 +83,21 @@ export default class Sidebar extends React.Component {
                 <span>{I18n.t('sidebar.universities')}</span>
               </a>
             </li>
+
+            <li>
+              <a href="#" onClick={this.onClickSubMenu.bind(this)}>
+                <i className="glyphicon glyphicon-th-list" aria-hidden="true"></i>
+                <span>{I18n.t('sidebar.mange_role')}</span>
+                <span className="fa fa-chevron-down"></span>
+              </a>
+              <ul className={this.state.roles_menu}>
+                <li data-page="functions">
+                  <a href={ADMIN_FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
+                    <span>{I18n.t('sidebar.all_functions')}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </section>
       </aside>
@@ -84,6 +106,17 @@ export default class Sidebar extends React.Component {
 
   onClick(event) {
     localStorage.setItem('page', $(event.target).closest('li').data('page'));
+  }
+
+  onClickSubMenu(event){
+    event.preventDefault();
+    if(this.state.roles_menu == 'showed'){
+      this.setState({roles_menu: 'hiddened'});
+      localStorage.setItem('roles_menu', 'hiddened');
+    } else if(this.state.roles_menu == 'hiddened'){
+      this.setState({roles_menu: 'showed'});
+      localStorage.setItem('roles_menu', 'showed');
+    }
   }
 
   componentDidMount(){
