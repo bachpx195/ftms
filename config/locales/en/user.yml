@@ -1,0 +1,9 @@
+en:
+  users:
+    user_profile: "User profile"
+    name: "Name: "
+    email: "Email:"
+    type: "Type: "
+    edit_user: "Edit this user"
+    delete_user: "Delete user"
+    edit_role: "Edit role"

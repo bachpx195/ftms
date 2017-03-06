@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class UsersController < ApplicationController
   before_action :find_user, except: [:index, :new, :create]
   before_action :authorize, except: [:index, :new, :create]
   before_action :authorize_class, only: [:index, :new, :create]
@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new user_params
     respond_to do |format|
       if @user.save
-        format.html {redirect_to [:admin, @user]}
+        format.html {redirect_to @user}
         format.json do
           render json: {message: flash_message("created"),
             user: @user}
@@ -42,7 +42,7 @@ class Admin::UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update_attributes user_params
-        format.html {redirect_to [:admin, @user]}
+        format.html {redirect_to @user}
         format.json do
           render json: {message: flash_message("updated"),
             user: @user}
@@ -60,7 +60,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html {redirect_to admin_users_path}
+      format.html {redirect_to users_path}
       format.json do
         if @user.deleted?
           render json: {message: flash_message("deleted")}
@@ -81,7 +81,7 @@ class Admin::UsersController < ApplicationController
     @user = User.find_by id: params[:id]
     unless @user
       respond_to do |format|
-        format.html {redirect_to admin_users_path}
+        format.html {redirect_to users_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
