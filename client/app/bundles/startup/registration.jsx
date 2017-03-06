@@ -15,7 +15,8 @@ import ProgramsBox from '../components/programs/programs_box';
 import ProgramsShowBox from '../components/programs/programs_show_box';
 import SubjectsShowBox from  '../components/subjects/subjects_show_box';
 import StandardShow from '../components/training_standards/standard_show';
-import FunctionsBox from '../components/functions/functions_box'
+import FunctionsBox from '../components/functions/functions_box';
+import RoleBox from '../components/roles/roles_box';
 
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
@@ -34,5 +35,6 @@ ReactOnRails.register({
   ProgramsShowBox,
   SubjectsShowBox,
   StandardShow,
-  FunctionsBox
+  FunctionsBox,
+  RoleBox
 });

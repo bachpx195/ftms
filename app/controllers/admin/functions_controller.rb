@@ -2,7 +2,7 @@ class Admin::FunctionsController < ApplicationController
   before_action :find_function, except: [:index, :new, :create]
   before_action :authorize, except: [:index, :new, :create]
   before_action :authorize_class, only: [:index, :new, :create]
- 
+
   def index
     @functions = Function.select :id, :controller_name, :action, :parent_id,
       :humanize_name
@@ -76,7 +76,7 @@ class Admin::FunctionsController < ApplicationController
   end
 
   def find_function
-    @function = Funtion.find_by id: params[:id]
+    @function = Function.find_by id: params[:id]
     unless @function
       respond_to do |format|
         format.html {redirect_to admin_functions_path}
