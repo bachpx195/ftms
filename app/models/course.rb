@@ -16,4 +16,5 @@ class Course < ApplicationRecord
   has_many :destinations, as: :destinationable,
     class_name: MovingHistory.name, dependent: :destroy
   has_many :static_properties, as: :ownerable, dependent: :destroy
+  has_many :course_managers, dependent: :destroy
 end
