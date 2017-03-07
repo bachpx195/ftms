@@ -13,7 +13,7 @@ namespace :admin do
     resources :evaluation_templates
   end
   resources :subjects
-  resources :users
   resources :standard_subjects, only: [:index, :create, :destroy]
   resources :functions
 end
+resources :users

@@ -92,7 +92,7 @@ export default class Sidebar extends React.Component {
               </a>
               <ul className={this.state.roles_menu}>
                 <li data-page="functions">
-                  <a href={ADMIN_FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
+                  <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.all_functions')}</span>
                   </a>
                 </li>
