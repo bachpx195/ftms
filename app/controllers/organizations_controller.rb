@@ -1,7 +1,5 @@
-class Admin::OrganizationsController < ApplicationController
+class OrganizationsController < ApplicationController
   before_action :find_organization, except: [:index, :new, :create]
-  before_action :authorize, except: [:index, :new, :create]
-  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
     @organizations = Organization.all
@@ -58,7 +56,7 @@ class Admin::OrganizationsController < ApplicationController
   def destroy
     @organization.destroy
     respond_to do |format|
-      format.html{redirect_to admin_organizations_path}
+      format.html{redirect_to organizations_path}
       format.json do
         if @organization.deleted?
           render json: {message: flash_message("deleted")}
@@ -79,20 +77,12 @@ class Admin::OrganizationsController < ApplicationController
     @organization = Organization.find_by id: params[:id]
     unless @organization
       respond_to do |format|
-        format.html {redirect_to admin_organizations_path}
+        format.html {redirect_to organizations_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
         end
       end
     end
-  end
-
-  def authorize
-    admin_authorize @organization
-  end
-
-  def authorize_class
-    admin_authorize Organization
   end
 end

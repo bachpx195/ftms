@@ -9,17 +9,11 @@ export default class Form extends React.Component {
     super(props);
     this.state = {
       parent: props.parent,
-      errors: null,
+      errors: [],
       program: {
         name: ''
       }
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      parent: nextProps.parent
-    });
   }
 
   render() {
@@ -50,7 +44,6 @@ export default class Form extends React.Component {
         <form onSubmit={this.handleSubmit.bind(this)}>
           <Errors errors={this.state.errors} />
           <div className="form-group">
-
             <input type="text" placeholder={I18n.t("programs.headers.name")}
               className="form-control" name="name" ref="nameField"
               onChange={this.handleChange.bind(this)} />
@@ -68,6 +61,12 @@ export default class Form extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      parent: nextProps.parent
+    });
+  }
+
   formValid(){
     return this.state.program.name != '';
   }
@@ -76,39 +75,23 @@ export default class Form extends React.Component {
     this.setState({
       program: {
         name: event.target.value
-      } 
+      }
     });
   }
 
   handleSubmit(event) {
-    let request = null;
     event.preventDefault();
     axios.post(this.props.url, {
       program: {
         name: this.refs.nameField.value,
-        parent_id: this.props.parent.id
+        parent_id: this.props.parent ? this.props.parent.id : ''
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
       .then(response => {
-        this.refs.nameField.value = '';
         $('#modalEdit').modal('hide');
-        this.setState({parent: ''});
-        this.fetchAllProgram();
+        this.refs.nameField.value = '';
+        this.props.handleAfterSaved(response.data.program);
       })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  fetchAllProgram() {
-    const url = this.props.url;
-    axios.get(url + '.json')
-      .then(response => {
-        this.setState({programs: response.data.programs});
-        this.props.handleAfterSaved(this.state.programs);
-      })
-      .catch(error => {
-        console.log(error)
-      });
+      .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }

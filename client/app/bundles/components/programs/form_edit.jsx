@@ -4,12 +4,11 @@ import axios from 'axios';
 import Errors from '../shareds/errors';
 import * as app_constants from 'constants/app_constants';
 
-export default class Form extends React.Component {
+export default class FormEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      parent: this.props.parent,
-      program: this.props.program,
+      program: this.props.program || {name: ''},
       errors: null
     };
   }
@@ -36,7 +35,7 @@ export default class Form extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      program: nextProps.program,
+      program: nextProps.program || {name: ''},
       errors: null
     });
   }
@@ -57,34 +56,16 @@ export default class Form extends React.Component {
   handleSubmit(event) {
     let request = null;
     event.preventDefault();
-    if (this.state.program) {
-      request = axios.patch(this.props.url + "/" + this.state.program.id, {
-        program: {
-          name: this.refs.nameField.value
-        },
-        authenticity_token: ReactOnRails.authenticityToken()
-      }, app_constants.AXIOS_CONFIG);
-    }
-
-    request.then(response => {
-      $('#modalEdit').modal('hide');
-      this.fetchAllProgram();
-    })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
-  fetchAllProgram() {
-    const url = this.props.url;
-    axios.get(url + '.json')
+    axios.patch(this.props.url + "/" + this.state.program.id, {
+      program: {
+        name: this.refs.nameField.value
+      },
+      authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
       .then(response => {
-        this.setState({programs: response.data.programs});
-        this.props.handleAfterEdited(this.state.programs);
+        $('#modalEdit').modal('hide');
+        this.props.handleAfterSaved(response.data.program);
       })
-      .catch(error => {
-          console.log(error)
-        }
-      );
+      .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }
