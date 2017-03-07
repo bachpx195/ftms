@@ -10,5 +10,10 @@
     "postinstall": "cd client && npm install",
     "rails-server": "echo 'visit http://localhost:3000' && foreman start -f Procfile.dev",
     "test": "rspec"
+  },
+  "devDependencies": {
+    "css-loader": "^0.26.2",
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.13.2"
   }
 }

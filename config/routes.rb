@@ -13,4 +13,8 @@ Rails.application.routes.draw do
   draw :admin
   root "static_pages#show"
   resources :static_pages
+  resources :organizations do
+    resources :programs
+    resources :subjects
+  end
 end

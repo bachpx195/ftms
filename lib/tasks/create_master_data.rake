@@ -247,5 +247,33 @@ namespace :db do
       {name: "organization supervior", parent_id: 1},
       {name: "program supervior", parent_id: 1}
     ])
+
+    puts"15.CourseManager Create function"
+    Function.create!([
+      {controller_name: 'languages', action: 'index',
+        humanize_name: 'languages/index', parent_id: nil},
+      {controller_name: 'languages', action: 'new',
+        humanize_name: 'languages/new', parent_id: nil},
+      {controller_name: 'organizations', action: 'show',
+        humanize_name: 'organizations/show', parent_id: nil}
+    ])
+
+    puts "16. create CourseManager"
+    CourseManager.create!([
+      {user_id: 4, course_id: 1, status: "process"},
+      {user_id: 4, course_id: 2, status: "process"},
+      {user_id: 4, course_id: 3, status: "process"},
+      {user_id: 6, course_id: 1, status: "process"},
+      {user_id: 6, course_id: 2, status: "process"},
+      {user_id: 6, course_id: 3, status: "process"},
+    ])
+
+    puts "17. create Profile"
+    Profile.create!([
+      {user_id: 4, language_id: 1, organization_id: 2, program_id: 1,
+        staff_code: "B123456"},
+      {user_id: 6, language_id: 1, organization_id: 2, program_id: 1,
+        staff_code: "B123457"},
+    ])
   end
 end
