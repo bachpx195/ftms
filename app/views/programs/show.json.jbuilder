@@ -19,9 +19,15 @@ json.program_detail do
   json.user_counts @supports.users.count
 
   json.courses @supports.courses do |course|
-    json.extract! course, :id, :name, :description, :start_date, :end_date
-    json.image course.image.url
-    json.language course.language.name
+    json.extract! course, :id, :name, :image, :description, :status,
+      :training_standard_id, :language_id, :program_id, :start_date, :end_date
+    json.image do
+      if course.image
+        json.extract! course.image.url
+      else
+        json.null!
+      end
+    end
     json.course_managers do
       json.array! course.course_managers do |course_manager|
         json.user_avatar course_manager.user.avatar.url
@@ -40,4 +46,6 @@ json.program_detail do
     json.image program_subject.image.url
   end
   json.program_subject_counts @supports.program_subjects.count
+  json.languages @supports.languages
+  json.statuses @supports.statuses
 end

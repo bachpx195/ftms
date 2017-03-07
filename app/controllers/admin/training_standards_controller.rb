@@ -99,6 +99,6 @@ class Admin::TrainingStandardsController < ApplicationController
   end
 
   def supports
-    @supports = Supports::TrainingStandard.new @training_standard
+    @supports = Supports::TrainingStandardSupport.new training_standard: @training_standard
   end
 end

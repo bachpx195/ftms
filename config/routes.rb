@@ -15,17 +15,19 @@ Rails.application.routes.draw do
   root "static_pages#show"
   resources :static_pages
   resources :organizations do
-    resources :programs
+    resources :programs do
+      resources :courses
+    end
+    resources :subjects
   end
-
   resources :sub_organizations
-
   resources :languages
   resources :training_standards do
     resource :evaluation_template
   end
   namespace :change_profile do
     resources :users, only: [:show, :edit, :update]
+  end
   resources :evaluation_templates do
     resources :evaluation_standards
   end

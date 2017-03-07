@@ -35,7 +35,7 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    @supports = Supports::Program.new @program
+    @supports = Supports::ProgramSupport.new program: @program
   end
 
   def edit
@@ -96,7 +96,7 @@ class ProgramsController < ApplicationController
     @program = Program.find_by id: params[:id]
     unless @program
       respond_to do |format|
-        format.html {redirect_to programs_path}
+        format.html {redirect_to :back}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

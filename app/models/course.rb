@@ -4,6 +4,12 @@ class Course < ApplicationRecord
   belongs_to :language
   belongs_to :program
   belongs_to :training_standard
+  belongs_to :creator, class_name: User.name, foreign_key: :creator_id
+
+  ATTRIBUTE_PARAMS = [:name, :image, :description, :status, :start_date,
+    :language_id, :program_id, :end_date]
+
+  enum status: [:init, :in_progress, :finished]
 
   mount_uploader :image, ImageUploader
 
@@ -17,4 +23,6 @@ class Course < ApplicationRecord
     class_name: MovingHistory.name, dependent: :destroy
   has_many :static_properties, as: :ownerable, dependent: :destroy
   has_many :course_managers, dependent: :destroy
+
+  validates :name, presence: true
 end

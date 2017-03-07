@@ -3,11 +3,15 @@
   .td-program-list-course {
     padding: 0 15px;
     position: relative;
+    margin-bottom: 30px;
+    height: 200px;
     .td-course-box {
       box-shadow: 0 0 3px 2px #dfdfdf;
       background-color: #FFF;
       position: relative;
       z-index: 3;
+      padding-bottom: 20px;
+      height: 200px;
       .td-course-image-manager {
         position: relative;
         height: 36px;
@@ -51,20 +55,64 @@
           text-align: center;
           color: #637b81;
           font-weight: 400;
+          display: block;
+          width: 90%;
+          margin: auto auto;
           margin-top: 0 !important;
+          margin-bottom: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;  
         }
         .td-course-content {
-          .td-course-description {
-            p {
-              font-size: 16px;
-              line-height: 20px;
-              color: #989898;
-              margin-bottom: 20px;
-              -webkit-box-flex: 1;
-              -ms-flex-positive: 1;
-              flex-grow: 1;
+          .td-course-content-left {
+            position: relative;
+            height: 100px;
+            .td-course-description {
+              display: block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              height: 60px;
+              p {
+                font-size: 16px;
+                line-height: 20px;
+                color: #989898;
+                margin-bottom: 20px;
+                -webkit-box-flex: 1;
+                -ms-flex-positive: 1;
+                flex-grow: 1;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-wrap: break-word;
+                height: auto;
+              }
+            }
+
+            .td-course-edit-delete {
+              position: absolute;
+              width: 95%;
+              bottom: 0;
+              left: 0;
+              a {
+                margin-left: 5px;
+                span {
+                  &.glyphicon {
+                    font-size: 19px;
+                    margin-right: 5px;
+                  }
+                }
+              }
+
             }
           }
+
+          .td-course-image {
+            img {
+              height: 100px !important;
+            }
+          }
+
         }
       }
     }
@@ -94,3 +142,12 @@
     }
   }
 }
+.col-sm-6 {
+  &.course-start-date {
+    padding-left: 0px;
+  }
+  &.course-end-date {
+    padding-right: 0px;
+  }
+}
+
