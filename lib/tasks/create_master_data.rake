@@ -228,17 +228,20 @@ namespace :db do
         status: 0}
     ])
 
-    puts"13. Create function"
-    Function.create!([
-      {controller_name: 'languages', action: 'index',
-        humanize_name: 'languages/index', parent_id: nil},
-      {controller_name: 'languages', action: 'new',
-        humanize_name: 'languages/new', parent_id: nil},
-      {controller_name: 'organizations', action: 'show',
-        humanize_name: 'organizations/show', parent_id: nil}
-      ])
+    puts "13. Crawl function"
+    functions = []
+    def check_supply object
+      object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) && object[:controller] != "sessions"
+    end
+    Rails.application.routes.routes.map do |router|
+      functions.push controller_name: router.defaults[:controller],
+        action: router.defaults[:action] if check_supply router.defaults
+    end
+    functions.uniq.each do |f|
+      Function.create! f
+    end
 
-    puts"14. Create role"
+    puts "14. Create role"
     Role.create!([
       {name: "admin"},
       {name: "organization supervior", parent_id: 1},
