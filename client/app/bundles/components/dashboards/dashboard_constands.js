@@ -6,5 +6,5 @@ export const ADMIN_SUBJECTS_PATH = 'admin/subjects';
 export const ADMIN_TRAINEE_TYPES_PATH = 'admin/trainee_types';
 export const ADMIN_TRAINING_STANDARDS_PATH = 'admin/training_standards';
 export const ADMIN_UNIVERSITIES_PATH = 'admin/universities';
-export const ADMIN_ROOT_PATH = 'admin';
+export const ROOT_PATH = '';
 export const ADMIN_FUNCTIONS_PATH = 'functions';

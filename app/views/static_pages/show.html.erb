@@ -1,1 +1,5 @@
-<%= react_component "StaticPageBox" %>
+<% if user_signed_in? %>
+  <%= react_component "#{current_user.find_base_component}", prerender: false %>
+<% else %>
+  <%= react_component "StaticPageBox" %>
+<% end %>

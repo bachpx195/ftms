@@ -1,7 +1,4 @@
 class User < ApplicationRecord
-  require_dependency "admin"
-  require_dependency "trainer"
-  require_dependency "trainee"
 
   mount_uploader :avatar, ImageUploader
 
@@ -26,4 +23,15 @@ class User < ApplicationRecord
   has_many :functions, through: :user_functions
 
   accepts_nested_attributes_for :user_functions, allow_destroy: true
+
+  def find_base_component
+    function = self.functions.order_by_parent_id.first
+    controller = function.controller_name
+    action = function.action
+    if action == "show"
+      controller.split("/").first.capitalize.singularize + "ShowBox"
+    else
+      controller.split("/").first.capitalize.singularize + "Box"
+    end
+  end
 end

@@ -3,13 +3,13 @@ import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';
 
 const LOGOUT_URL = app_constants.APP_NAME + dashboard_constands.LOGOUT_PATH;
-const ADMIN_ROOT_URL = app_constants.APP_NAME + dashboard_constands.ADMIN_ROOT_PATH;
+const ROOT_URL = app_constants.APP_NAME + dashboard_constands.ROOT_PATH;
 
 export default class Header extends React.Component {
   render () {
     return (
       <header className="main-header">
-        <a href={`${ADMIN_ROOT_URL}`} className="logo">
+        <a href={`${ROOT_URL}`} className="logo">
           <span className="logo-mini"><b>{I18n.t("header.short_logo")}</b></span>
           <span className="logo-lg"><b>{I18n.t("header.long_logo")}</b></span>
         </a>

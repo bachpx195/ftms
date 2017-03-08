@@ -35,7 +35,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :avatar
       t.integer :trainer_id
-      t.string :type, default: "Trainee"
+      t.string :type
       t.datetime :deleted_at
 
       t.timestamps null: false

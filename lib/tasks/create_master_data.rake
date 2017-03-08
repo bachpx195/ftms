@@ -3,17 +3,14 @@ namespace :db do
   task create_master_data: :environment do
     Rake::Task["db:migrate:reset"].invoke
     puts "0.Creating User"
-    Admin.create!([
+    User.create!([
       {name: "Chu Anh Tuấn",
         email: "chu.anh.tuan@framgia.com", password: "12345678",
         password_confirmation: "12345678",
         avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Admin", email: "admin@tms.com", password: "admin@tms.com",
         password_confirmation: "admin@tms.com",
-      avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
-    ])
-
-    Trainer.create!([
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))},
       {name: "Nguyễn Bình Diệu",
         email: "nguyen.binh.dieu@framgia.com", password: "12345678",
         password_confirmation: "12345678",
@@ -41,11 +38,11 @@ namespace :db do
       {name: "Trần Xuân Thắng",
         email: "tran.xuan.thang@framgia.com", password: "12345678",
         password_confirmation: "12345678",
-      avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
+        avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
     ])
 
     10.times do |n|
-      Trainee.create!(
+      User.create!(
         name: "Vũ Hữu Tuấn #{n+1}",
         email: "vu.huu.tuan-#{n+1}@framgia.com", password: "12345678",
         password_confirmation: "12345678",
@@ -248,16 +245,6 @@ namespace :db do
       {name: "program supervior", parent_id: 1}
     ])
 
-    puts"15.CourseManager Create function"
-    Function.create!([
-      {controller_name: 'languages', action: 'index',
-        humanize_name: 'languages/index', parent_id: nil},
-      {controller_name: 'languages', action: 'new',
-        humanize_name: 'languages/new', parent_id: nil},
-      {controller_name: 'organizations', action: 'show',
-        humanize_name: 'organizations/show', parent_id: nil}
-    ])
-
     puts "16. create CourseManager"
     CourseManager.create!([
       {user_id: 4, course_id: 1, status: "process"},
@@ -282,6 +269,28 @@ namespace :db do
       {training_standard_id: 2, name: "Evaluation template 2"},
       {training_standard_id: 3, name: "Evaluation template 3"},
       {training_standard_id: 4, name: "Evaluation template 4"}
-    ]);
+    ])
+
+    puts "18. create Role"
+    Role.create!([
+      {name: "admin"},
+      {name: "GL"},
+      {name: "trainer"},
+      {name: "trainee"}
+    ])
+
+    puts "19. create RoleFunction"
+    Role.all.each do |role|
+      Function.all.each do |function|
+        RoleFunction.create! role_id: role.id, function_id: function.id
+      end
+    end
+
+    puts "20. create UserRole"
+    role = Role.find_by id: 1
+    User.all.limit(9).each do |user|
+      UserRole.create! user_id: user.id, role_id: 1
+      user.functions = role.functions
+    end
   end
 end
