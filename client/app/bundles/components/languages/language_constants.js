@@ -1,1 +1,1 @@
-export const ADMIN_LANGUAGE_PATH = 'admin/languages';
+export const LANGUAGE_PATH = 'languages';

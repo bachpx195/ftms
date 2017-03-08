@@ -7,7 +7,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as language_constants from './language_constants';
 
-const LANGUAGE_URL = app_constants.APP_NAME + language_constants.ADMIN_LANGUAGE_PATH;
+const LANGUAGE_URL = app_constants.APP_NAME + language_constants.LANGUAGE_PATH;
 
 export default class LanguageLists extends React.Component {
   constructor(props) {

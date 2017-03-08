@@ -7,7 +7,6 @@ namespace :admin do
     resources :subjects
   end
   resources :roles
-  resources :languages
   resources :training_standards do
     resources :evaluation_templates
   end

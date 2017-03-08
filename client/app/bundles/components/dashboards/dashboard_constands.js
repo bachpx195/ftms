@@ -1,5 +1,5 @@
 export const LOGOUT_PATH = 'auth/logout';
-export const ADMIN_LANGUAGES_PATH = 'admin/languages';
+export const LANGUAGES_PATH = 'languages';
 export const ORGANIZATIONS_PATH = 'organizations';
 export const ADMIN_STAGES_PATH = 'admin/stages';
 export const ADMIN_SUBJECTS_PATH = 'admin/subjects';
