@@ -41,14 +41,16 @@ export default class SupervisorProgramsShowBox extends React.Component {
   renderListCourses () {
     return _.map(this.state.program_detail.courses, course => {
       let course_managers = course.course_managers.slice(0, 5);
-      let images = course_managers.map(course_manager => {
-        return <img src={course_manager.user_avatar}
+      let images = course_managers.map((course_manager, index) => {
+        return <img key={`${course.id}_${index}`}
+          src={course_manager.user_avatar}
           className='td-course-manager-avatar' />;
       });
 
       return (
-        <div className='col-md-4 col-xs-4 col-lg-4 td-program-list-course'>
-          <div className="td-fuck">
+        <div key={course.id}
+          className='col-md-4 col-xs-4 col-lg-4 td-program-list-course'>
+          <div className="td-course-box">
             <div className="td-course-image-manager">
               {images}
               <div className="clearfix"></div>
@@ -75,8 +77,8 @@ export default class SupervisorProgramsShowBox extends React.Component {
             <div className="clearfix"></div>
           </div>
           <div className="clearfix"></div>
-          <div className="td-fuck-before"></div>
-          <div className="td-fuck-after"></div>
+          <div className="td-course-box-before"></div>
+          <div className="td-course-box-after"></div>
         </div>
       );
     });

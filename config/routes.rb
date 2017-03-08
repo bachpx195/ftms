@@ -15,6 +15,5 @@ Rails.application.routes.draw do
   resources :static_pages
   resources :organizations do
     resources :programs
-    resources :subjects
   end
 end

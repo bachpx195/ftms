@@ -21,7 +21,7 @@ export default class SubjectBox extends React.Component {
 
   render() {
     return (
-      <div className='row subjects'>
+      <div className='row subjects' id='admin-subjects'>
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>

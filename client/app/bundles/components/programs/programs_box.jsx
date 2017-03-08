@@ -7,7 +7,7 @@ import FormCreate from './form_create';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './program_constants';
 
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.ADMIN_PROGRAM_PATH;
+const PROGRAM_URL = app_constants.APP_NAME + program_constants.PROGRAM_PATH;
 
 export default class ProgramBox extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class ProgramBox extends React.Component {
         name: ''
       },
       organization: this.props.organization,
-      parent: ''
+      parent: null
     };
   }
 
@@ -39,7 +39,7 @@ export default class ProgramBox extends React.Component {
   }
 
   render() {
-    const url = PROGRAM_URL + "/" + this.props.organization.id + "/programs";
+    const url = PROGRAM_URL + '/' + this.props.organization.id + '/programs';
     return (
       <div className="row">
         <div className="col-md-12">
@@ -62,11 +62,9 @@ export default class ProgramBox extends React.Component {
             <div className="box-body no-padding">
               <div className="row">
                 <div className="col-md-8 col-md-offset-2">
-                  <FormCreate
-                    program={this.state.program}
-                    url={url}
+                  <FormCreate program={this.state.program} url={url}
                     parent={this.state.parent}
-                    handleAfterSaved={this.handleAfterHandle.bind(this)} />
+                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
@@ -75,20 +73,59 @@ export default class ProgramBox extends React.Component {
               <ProgramLists
                 programs={this.state.programs}
                 organization={this.state.organization}
-                handleAfterUpdated={this.handleAfterHandle.bind(this)}
-                handleAfterDeleted={this.handleAfterHandle.bind(this)} />
+                handleAfterCreated={this.handleAfterCreated.bind(this)}
+                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>
-
           </div>
         </div>
       </div>
     );
   }
 
-  handleAfterHandle(program) {
+  handleAfterCreated(program) {
+    this.state.programs.push(program);
     this.setState({
-      programs: program,
-      program: ''
+      programs: this.state.programs,
+      parent: null
+    });
+  }
+
+  handleAfterUpdated(new_program) {
+    for(let i = 0; i < this.state.programs.length; i++){
+      let parent = this.state.programs[i].parent;
+      if(parent && parent.id == new_program.id) {
+        this.state.programs[i].parent = new_program;
+      }
+    }
+    let index = this.state.programs
+      .findIndex(program => program.id === new_program.id);
+    this.state.programs[index] = new_program;
+    this.setState({
+      programs: this.state.programs,
+      parent: null
+    });
+  }
+
+  handleAfterDeleted(program) {
+    this.removeChildren(program);
+    _.remove(this.state.programs, _program => {
+      return _program.id == program.id;
+    });
+    this.setState({
+      programs: this.state.programs,
+      parent: null
+    });
+  }
+
+  removeChildren(parent) {
+    for(let program of this.state.programs) {
+      if(program.parent && program.parent.id == parent.id) {
+        this.removeChildren(program);
+      }
+    };
+    _.remove(this.state.programs, program => {
+      return program.parent && program.parent.id == parent.id;
     });
   }
 }

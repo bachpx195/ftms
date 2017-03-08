@@ -7,7 +7,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './program_constants';
 
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.ADMIN_PROGRAM_PATH;
+const PROGRAM_URL = app_constants.APP_NAME + program_constants.PROGRAM_PATH;
 
 export default class ProgramLists extends React.Component {
   constructor(props) {
@@ -60,63 +60,29 @@ export default class ProgramLists extends React.Component {
       </button>
     );
 
-    const LinkToProgram = ({value, griddleKey}) => (
-      <a href={PROGRAM_URL + "/" + this.state.organization.id +
-        "/programs/" + this.state.programs[griddleKey].id}>{value}</a>
-    );
-
-    const LinkToProgramParent =({value, griddleKey}) => (
-      <a href={PROGRAM_URL + "/" + this.state.organization.id +
-        "/programs/" + this.getParent(value)}>{value}</a>
-    );
-
-    let modalEdit = null;
-    const url = PROGRAM_URL + "/" + this.state.organization.id + "/programs";
-    if (this.state.program) {
-      modalEdit = (
-        <div id="modalEdit" className="modal fade in" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close"
-                  data-dismiss="modal">&times;</button>
-                <h4 className="modal-title">{I18n.t("programs.edit")}</h4>
-              </div>
-              <div className="modal-body">
-                <FormEdit
-                  program={this.state.program}
-                  url={url}
-                  handleAfterEdited={this.handleAfterUpdated.bind(this)} />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      if (this.state.parent) {
-        modalEdit = (
-          <div id="modalEdit" className="modal fade in" role="dialog">
-            <div className="modal-dialog">
-              <div className="modal-content">
-
-                <div className="modal-header">
-                  <button type="button" className="close"
-                    data-dismiss="modal">&times;</button>
-                  <h4 className="modal-title">{this.state.parent.name}</h4>
-                </div>
-
-                <div className="modal-body">
-                  <FormCreate
-                    parent={this.state.parent}
-                    url={url}
-                    handleAfterSaved={this.handleAfterUpdated.bind(this)} />
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+    const LinkToProgram = ({value, griddleKey}) => {
+      let program = this.state.programs[griddleKey];
+      let link = '#';
+      if(program.organization) {
+        link = PROGRAM_URL + '/' + program.organization.id +
+          '/programs/' + program.id;
       }
-    }
+      return <a href={link}>{value}</a>;
+    };
+
+    const LinkToParentProgram = ({griddleKey}) => {
+      let program = this.state.programs[griddleKey].parent;
+      if(program) {
+        let link = '#';
+        if(program.organization) {
+          link = PROGRAM_URL + '/' + program.organization.id +
+            '/programs/' + program.id;
+        }
+        return <a href={link}>{program.name}</a>;
+      } else {
+        return null;
+      }
+    };
 
     return (
       <div>
@@ -124,11 +90,11 @@ export default class ProgramLists extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="id" title={I18n.t("programs.id")} />
-            <ColumnDefinition id="name" title={I18n.t("programs.name")} customComponent={LinkToProgram} />
-            <ColumnDefinition id="parent_name"
-              title={I18n.t("programs.parent")} customComponent={LinkToProgramParent} />
-            <ColumnDefinition id="SubProgram" customComponent={ButtonSubProgram}
+            <ColumnDefinition id="name" title={I18n.t("programs.name")}
+              customComponent={LinkToProgram} />
+            <ColumnDefinition id="parent_name" title={I18n.t("programs.parent")}
+              customComponent={LinkToParentProgram} />
+            <ColumnDefinition id="sub_program" customComponent={ButtonSubProgram}
               title={I18n.t("programs.sub_program")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
               title={I18n.t("programs.edit")} />
@@ -136,32 +102,45 @@ export default class ProgramLists extends React.Component {
               title={I18n.t("programs.delete")} />
           </RowDefinition>
         </Griddle>
-        {modalEdit}
+        {this.renderModal()}
       </div>
     );
+  }
+
+  renderModal() {
+    let modalEdit = null;
+    const url = PROGRAM_URL + "/" + this.state.organization.id + "/programs";
+    let title = this.state.parent ? this.state.parent.name : I18n.t("programs.edit");
+    let form = null;
+    if(this.state.parent) {
+      form = <FormCreate parent={this.state.parent} url={url}
+        handleAfterSaved={this.handleAfterCreated.bind(this)} />;
+    } else {
+      form = <FormEdit program={this.state.program} url={url}
+        handleAfterSaved={this.handleAfterUpdated.bind(this)} />
+    }
+
+    return (<div id="modalEdit" className="modal fade in" role="dialog">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <button type="button" className="close"
+              data-dismiss="modal">&times;</button>
+            <h4 className="modal-title">{title}</h4>
+          </div>
+          <div className="modal-body">
+            {form}
+          </div>
+        </div>
+      </div>
+    </div>);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       programs: nextProps.programs,
-      organization: nextProps.organization,
-      program: null,
-      parent: null
+      organization: nextProps.organization
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.program || this.state.parent) {
-      $("#modalEdit").modal();
-    }
-  }
-
-  getParent(parent_name){
-    let index = this.state.programs
-      .findIndex(program => program.name === parent_name);
-    if (this.state.programs[index]) {
-      return this.state.programs[index].id
-    }
   }
 
   handleEdit(event) {
@@ -171,6 +150,7 @@ export default class ProgramLists extends React.Component {
       parent: null,
       program: this.props.programs[$target.data('index')]
     });
+    $("#modalEdit").modal();
   }
 
   handleCreateSubProgram(event) {
@@ -180,46 +160,33 @@ export default class ProgramLists extends React.Component {
       parent: this.props.programs[$target.data('index')],
       program: null
     });
+    $("#modalEdit").modal();
+  }
+
+  handleAfterCreated(new_program) {
+    this.props.handleAfterCreated(new_program);
   }
 
   handleAfterUpdated(new_program) {
-    this.setState({
-      program: null,
-      parent: null
-    });
     this.props.handleAfterUpdated(new_program);
   }
 
   handleDelete(event) {
-    const url = PROGRAM_URL + "/" + this.state.organization.id + "/programs";
-
     let $target = $(event.target);
     $target.blur();
     let program = this.props.programs[$target.data('index')];
     if (confirm(I18n.t("data.confirm_delete"))) {
-      axios.delete(url + "/" + program.id, {
+      const url = PROGRAM_URL + '/' + this.state.organization.id + '/programs';
+      axios.delete(url + '/' + program.id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },
         headers: {'Accept': 'application/json'}
       })
         .then(response => {
-          this.fetchPrograms();
+          this.props.handleAfterDeleted(program);
         })
         .catch(error => console.log(error));
     }
-  }
-
-
-  fetchPrograms() {
-    const url = PROGRAM_URL + "/" + this.state.organization.id + "/programs";
-    axios.get(url + ".json")
-      .then(response => {
-        this.setState({programs: response.data.programs});
-        this.props.handleAfterDeleted(this.state.programs);
-      })
-      .catch(error => {
-        console.log(error)
-      });
   }
 }

@@ -4,7 +4,6 @@ namespace :admin do
   resources :stages
   resources :trainee_types
   resources :organizations do
-    resources :programs
     resources :subjects
   end
   resources :roles

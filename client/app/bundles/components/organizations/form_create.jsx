@@ -9,7 +9,7 @@ export default class FormCreate extends React.Component {
     super(props);
     this.state = {
       parent: props.parent,
-      errors: null,
+      errors: [],
       organizations: [],
       organization: {
         name: ''
@@ -85,14 +85,11 @@ export default class FormCreate extends React.Component {
         parent_id: this.state.parent ? this.state.parent.id : ''
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
-    .then(response => {
-      $('#modal').modal('hide');
-      this.refs.nameField.value = '';
-      this.setState({parent: null});
-      this.props.handleAfterSaved(response.data.organization);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      .then(response => {
+        $('#modal').modal('hide');
+        this.refs.nameField.value = '';
+        this.props.handleAfterSaved(response.data.organization);
+      })
+      .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }
