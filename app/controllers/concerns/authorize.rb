@@ -14,4 +14,9 @@ module Authorize
       raise error
     end
   end
+
+   def authorize_class
+    check = params[:controller].classify.constantize
+    authorize check
+  end
 end

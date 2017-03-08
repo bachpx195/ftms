@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, except: [:index, :new, :create]
-  before_action :authorize, except: [:index, :new, :create]
-  before_action :authorize_class, only: [:index, :new, :create]
+  before_action :authorize_class
 
   def index
     @users = User.all
@@ -88,13 +87,5 @@ class UsersController < ApplicationController
         end
       end
     end
-  end
-
-  def authorize
-    admin_authorize @user
-  end
-
-  def authorize_class
-    admin_authorize User
   end
 end

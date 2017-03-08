@@ -1,1 +1,1 @@
-export const ADMIN_ORGANIZATION_PATH = 'organizations';
+export const ORGANIZATION_PATH = 'organizations';
