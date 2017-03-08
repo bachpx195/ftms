@@ -4,6 +4,7 @@ en:
     courses: "COURSES"
   data:
     confirm_delete: "Are you sure?"
+    confirm_unassign: "Confirm unassign?"
   sessions:
     email: "Email"
     password: "Password"

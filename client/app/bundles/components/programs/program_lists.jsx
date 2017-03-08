@@ -17,13 +17,25 @@ export default class ProgramLists extends React.Component {
       programs: props.programs,
       program: null,
       organization: props.organization,
+      not_assigned_programs: props.not_assigned_programs
     }
   }
 
   render() {
+    const ButtonAssignProgram = () => (
+      <button className="btn btn-info"
+        onClick={this.handleAssignProgram.bind(this)}>
+        {I18n.t('buttons.assign_program')}
+      </button>
+    )
+
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className="col-md-12">
         <div className="row">
+          <div className="col-md-12">
+            <ButtonAssignProgram />
+          </div>
+          <div className="clearfix"></div>
           <div className="griddle-head clearfix">
             <div className="col-md-6">
               <Filter />
@@ -42,21 +54,28 @@ export default class ProgramLists extends React.Component {
     const ButtonEdit = ({griddleKey}) => (
       <button className="btn btn-info" data-index={griddleKey}
         onClick={this.handleEdit.bind(this)}>
-        {I18n.t("buttons.edit")}
+        {I18n.t('buttons.edit')}
       </button>
     );
 
     const ButtonDelete = ({griddleKey}) => (
       <button className="btn btn-danger" data-index={griddleKey}
         onClick={this.handleDelete.bind(this)}>
-        {I18n.t("buttons.delete")}
+        {I18n.t('buttons.delete')}
       </button>
     );
 
     const ButtonSubProgram = ({griddleKey}) => (
       <button className="btn btn-info" data-index={griddleKey}
         onClick={this.handleCreateSubProgram.bind(this)}>
-        {I18n.t("buttons.create_sub_program")}
+        {I18n.t('buttons.create_sub_program')}
+      </button>
+    );
+
+    const ButtonUnassign = ({griddleKey}) => (
+      <button className="btn btn-warning" data-index={griddleKey}
+        onClick={this.handleUnassignProgram.bind(this)}>
+        {I18n.t('buttons.unassign')}
       </button>
     );
 
@@ -100,9 +119,12 @@ export default class ProgramLists extends React.Component {
               title={I18n.t("programs.edit")} />
             <ColumnDefinition id="delete" customComponent={ButtonDelete}
               title={I18n.t("programs.delete")} />
+            <ColumnDefinition id="unassign" customComponent={ButtonUnassign}
+              title={I18n.t("programs.unassign")} />
           </RowDefinition>
         </Griddle>
         {this.renderModal()}
+        {this.renderModalAssignProgram()}
       </div>
     );
   }
@@ -136,10 +158,56 @@ export default class ProgramLists extends React.Component {
     </div>);
   }
 
+  renderModalAssignProgram() {
+    let options = this.state.not_assigned_programs.map(program => {
+      return <li key={program.id} className="list-group-item">
+        <input type="checkbox" name="program" value={program.id}/> {program.name}
+      </li>;
+    });
+
+    return (<div id="modalAssign" className="modal fade in" role="dialog">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <button type="button" className="close"
+              data-dismiss="modal">&times;</button>
+            <h4 className="modal-title">{I18n.t('buttons.assign_program')}</h4>
+          </div>
+          <div className="modal-body">
+            <form onSubmit={this.handleSubmitAssign.bind(this)}>
+              <ul className="list-group checked-list-box">
+                {options}
+              </ul>
+              <div className="text-right">
+                <button className="btn btn-primary">
+                  {I18n.t('buttons.save')}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>);
+  }
+
+  componentDidMount() {
+    $(document).on('click', '.list-group-item', function(){
+      let $checkbox = $(this).find('input[type="checkbox"]');
+      let checked = $checkbox.is(':checked');
+      $checkbox.prop('checked', !checked);
+      if(checked) {
+        $(this).removeClass('active');
+      } else {
+        $(this).addClass('active');
+      }
+    })
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       programs: nextProps.programs,
-      organization: nextProps.organization
+      organization: nextProps.organization,
+      not_assigned_programs: nextProps.not_assigned_programs
     });
   }
 
@@ -185,6 +253,48 @@ export default class ProgramLists extends React.Component {
       })
         .then(response => {
           this.props.handleAfterDeleted(program);
+        })
+        .catch(error => console.log(error));
+    }
+  }
+
+  handleAssignProgram() {
+    $('#modalAssign').modal();
+  }
+
+  handleSubmitAssign(event) {
+    event.preventDefault();
+    let program_ids = [];
+    $('input:checked', $(event.target))
+      .each((index, program) => program_ids[index] = parseInt($(program).val()));
+    let url = app_constants.APP_NAME + program_constants.ASSIGN_PROGRAM_PATH + '.json';
+    axios.post(url, {
+      id: this.props.organization.id,
+      'program_ids': program_ids,
+      authenticity_token: ReactOnRails.authenticityToken()
+    })
+      .then(response => {
+        $('#modalAssign').modal('hide');
+        this.props.handleAfterAssignProgram(program_ids);
+      })
+      .catch(error => console.log(error));
+  }
+
+  handleUnassignProgram(event) {
+    let $target = $(event.target);
+    $target.blur();
+    let program = this.state.programs[$target.data('index')];
+    if(confirm(I18n.t('data.confirm_unassign'))) {
+      let url = app_constants.APP_NAME + program_constants.ASSIGN_PROGRAM_PATH +
+        '/' + this.props.organization.id + '.json';
+      axios.delete(url, {
+        params: {
+          program_id: program.id,
+          authenticity_token: ReactOnRails.authenticityToken()
+        }
+      })
+        .then(response => {
+          this.props.handleAfterUnassignProgram(program.id);
         })
         .catch(error => console.log(error));
     }

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     path_names: {sign_in: "login", sign_out: "logout"}
   draw :api
   draw :admin
+  draw :assign_program
+
   root "static_pages#show"
   resources :static_pages
   resources :organizations do

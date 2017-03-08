@@ -16,4 +16,6 @@ class Program < ApplicationRecord
     class_name: MovingHistory.name, dependent: :destroy
   has_many :destinations, as: :destinationable,
     class_name: MovingHistory.name, dependent: :destroy
+
+  scope :not_assigned_programs, ->{where organization_id: nil}
 end

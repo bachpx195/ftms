@@ -11,4 +11,8 @@ class Organization < ApplicationRecord
   has_many :programs, dependent: :destroy
 
   validates :name, presence: true
+
+  def assign_programs program_ids
+    self.program_ids = self.program_ids + program_ids
+  end
 end
