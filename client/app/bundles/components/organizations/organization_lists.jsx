@@ -7,7 +7,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as organization_constants from './organization_constants';
 
-const ORGANIZATION_URL = app_constants.APP_NAME + organization_constants.ADMIN_ORGANIZATION_PATH;
+const ORGANIZATION_URL = app_constants.APP_NAME + organization_constants.ORGANIZATION_PATH;
 
 export default class OrganizationLists extends React.Component {
   constructor(props) {

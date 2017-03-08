@@ -11,7 +11,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = if params[:organization][:parent_id].present?
       parent = Organization.find_by id: params[:organization].delete(:parent_id)
-      parent.children.build organization_params.merge(owner: current_user)
+      parent.children.build organization_params.merge(owner_id: current_user.id)
     else
       current_user.organizations.build organization_params
     end
@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       if @organization.save
         @message = flash_message "created"
-        format.html{redirect_to [:admin, @organization]}
+        format.html{redirect_to @organization}
         format.json
       else
         format.html{render :new}
@@ -43,7 +43,7 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       if @organization.update_attributes organization_params
         @message = flash_message "updated"
-        format.html{redirect_to [:admin, @organization]}
+        format.html{redirect_to @organization}
         format.json
       else
         format.html{render :edit}
