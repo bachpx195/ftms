@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';
 
-const ADMIN_LANGUAGES_URL = app_constants.APP_NAME + dashboard_constands.ADMIN_LANGUAGES_PATH;
+const LANGUAGES_URL = app_constants.APP_NAME + dashboard_constands.LANGUAGES_PATH;
 const ORGANIZATIONS_URL = app_constants.APP_NAME +
   dashboard_constands.ORGANIZATIONS_PATH;
 const ADMIN_STAGES_URL = app_constants.APP_NAME + dashboard_constands.ADMIN_STAGES_PATH;
@@ -36,7 +36,7 @@ export default class Sidebar extends React.Component {
         <section className='sidebar'>
           <ul className='sidebar-menu td-admin-sidebar'>
             <li className='active' data-page='languages'>
-              <a href={ADMIN_LANGUAGES_URL} onClick={this.onClick.bind(this)}>
+              <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
                 <i className='fa fa-book'></i>
                 <span>{I18n.t('sidebar.languages')}</span>
               </a>

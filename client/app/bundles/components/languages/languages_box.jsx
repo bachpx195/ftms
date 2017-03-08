@@ -7,7 +7,7 @@ import Form from './form';
 import * as app_constants from 'constants/app_constants';
 import * as language_constants from './language_constants';
 
-const LANGUAGE_URL = app_constants.APP_NAME + language_constants.ADMIN_LANGUAGE_PATH;
+const LANGUAGE_URL = app_constants.APP_NAME + language_constants.LANGUAGE_PATH;
 
 export default class LanguageBox extends React.Component {
   constructor(props) {

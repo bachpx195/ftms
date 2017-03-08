@@ -1,7 +1,7 @@
-class Admin::EvaluationTemplatesController < ApplicationController
+class EvaluationTemplatesController < ApplicationController
   before_action :find_training_standard
   before_action :find_evaluation_template, except: [:index, :new, :create]
-  before_action :authorize, except: [:index, :new, :create]
+  before_action :authorize_class
 
   def index
     @evaluation_template = @training_standard.evaluation_template
@@ -21,7 +21,7 @@ class Admin::EvaluationTemplatesController < ApplicationController
 
     respond_to do |format|
       if @evaluation_template.save
-        format.html{redirect_to [:admin, @training_standard, @evaluation_template]}
+        format.html{redirect_to  @training_standard, @evaluation_template}
         format.json{render json: {message: flash_message("created"),
           evaluation_template: @evaluation_template}}
       else
@@ -45,7 +45,7 @@ class Admin::EvaluationTemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @evaluation_template.update_attributes evaluation_template_params
-        format.html{redirect_to [:admin, @training_standard, @evaluation_template]}
+        format.html{redirect_to @training_standard, @evaluation_template}
         format.json{render json: {message: flash_message("updated"),
           evaluation_template: @evaluation_template}}
       else
@@ -59,7 +59,7 @@ class Admin::EvaluationTemplatesController < ApplicationController
   def destroy
     @evaluation_template.destroy
     respond_to do |format|
-      format.html{redirect_to admin_training_standard_evaluation_templates_path}
+      format.html{redirect_to training_standard_evaluation_templates_path}
       format.json do
         if @evaluation_template.deleted?
           render json: {message: flash_message("deleted")}
@@ -80,7 +80,7 @@ class Admin::EvaluationTemplatesController < ApplicationController
     @training_standard = TrainingStandard.find_by id: params[:training_standard_id]
     unless @training_standard
       respond_to do |format|
-        format.html {redirect_to admin_training_standards_path}
+        format.html {redirect_to training_standards_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -93,16 +93,12 @@ class Admin::EvaluationTemplatesController < ApplicationController
     @evaluation_template = @training_standard.evaluation_templates.find_by id: params[:id]
     unless @evaluation_template
       respond_to do |format|
-        format.html {redirect_to admin_training_standard_evaluation_templates_path}
+        format.html {redirect_to training_standard_evaluation_templates_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
         end
       end
     end
-  end
-
-  def authorize
-    admin_authorize @evaluation_template
   end
 end
