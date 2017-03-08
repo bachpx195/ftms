@@ -1,4 +1,8 @@
 class Role < ApplicationRecord
+
+  ATTRIBUTE_PARAMS = [:name, :parent_id,
+    role_functions_attributes: [:id, :role_id, :function_id, :_destroy]]
+
   has_many :user_roles, dependent: :destroy
   has_many :users, through: :user_roles
   has_many :role_functions, dependent: :destroy
