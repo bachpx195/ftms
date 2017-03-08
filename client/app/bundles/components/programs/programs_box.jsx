@@ -18,6 +18,7 @@ export default class ProgramBox extends React.Component {
         name: ''
       },
       organization: this.props.organization,
+      not_assigned_programs: [],
       parent: null
     };
   }
@@ -27,10 +28,13 @@ export default class ProgramBox extends React.Component {
   }
 
   fetchPrograms() {
-    const url = PROGRAM_URL + "/" + this.props.organization.id + "/programs";
+    const url = PROGRAM_URL + '/' + this.props.organization.id + '/programs';
     axios.get(url + '.json')
       .then(response => {
-        this.setState({programs: response.data.programs});
+        this.setState({
+          programs: response.data.programs,
+          not_assigned_programs: response.data.not_assigned_programs
+        });
       })
       .catch(error => {
           console.log(error);
@@ -72,10 +76,13 @@ export default class ProgramBox extends React.Component {
             <div className='box-footer'>
               <ProgramLists
                 programs={this.state.programs}
+                not_assigned_programs={this.state.not_assigned_programs}
                 organization={this.state.organization}
                 handleAfterCreated={this.handleAfterCreated.bind(this)}
                 handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
+                handleAfterDeleted={this.handleAfterDeleted.bind(this)}
+                handleAfterAssignProgram={this.handleAfterAssignProgram.bind(this)}
+                handleAfterUnassignProgram={this.handleAfterUnassignProgram.bind(this)} />
             </div>
           </div>
         </div>
@@ -126,6 +133,35 @@ export default class ProgramBox extends React.Component {
     };
     _.remove(this.state.programs, program => {
       return program.parent && program.parent.id == parent.id;
+    });
+  }
+
+  handleAfterAssignProgram(program_ids) {
+    let assigned_programs = this.state.not_assigned_programs.filter(program => {
+      return program_ids.indexOf(program.id) >= 0;
+    });
+    _.remove(this.state.not_assigned_programs, program => {
+      return program_ids.indexOf(program.id) >= 0;
+    });
+    this.state.programs = _.union(this.state.programs, assigned_programs);
+    this.setState({
+      not_assigned_programs: this.state.not_assigned_programs,
+      programs: this.state.programs
+    });
+  }
+
+  handleAfterUnassignProgram(program_id) {
+    let unassigned_program = this.state.programs.filter(program => {
+      return program.id == program_id;
+    });
+    _.remove(this.state.programs, program => {
+      return program.id == program_id;
+    });
+    this.state.not_assigned_programs = _.union(this.state.not_assigned_programs,
+      unassigned_program);
+    this.setState({
+      not_assigned_programs: this.state.not_assigned_programs,
+      programs: this.state.programs
     });
   }
 }

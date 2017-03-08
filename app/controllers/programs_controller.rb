@@ -10,6 +10,7 @@ class ProgramsController < ApplicationController
         @programs << sub_program
       end
     end
+    @not_assigned_programs = Program.not_assigned_programs
   end
 
   def new

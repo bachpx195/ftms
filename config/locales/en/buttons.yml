@@ -8,4 +8,5 @@ en:
     new_sub_program: "New Sub Organization"
     create_sub_program: "Create sub program"
     create_sub_organization: "Create sub organization"
-
+    assign_program: "Assign program"
+    unassign: "Unassign"
