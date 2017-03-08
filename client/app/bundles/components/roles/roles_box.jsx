@@ -12,10 +12,9 @@ const ROLE_FUNCTION_URL = app_constants.APP_NAME + role_constants.ROLE_FUNCTION_
 export default class RoleBox extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       myDiagram: null,
-      dataRole: {functions: []},
+      dataRole: {functions: [], role: {}},
       data: {
         class: 'go.TreeModel',
         nodeDataArray: []
@@ -48,7 +47,8 @@ export default class RoleBox extends React.Component {
       <div className='row functions'>
         <div ref='myDiagramDiv' id='myDiagramDiv'></div>
         <button id='SaveButton' onClick={this.onSave.bind(this)}>{I18n.t("buttons.save")}</button>
-        <RoleDetail dataRole={this.state.dataRole}/>
+        <RoleDetail updateRoleDiagram={this.updateRoleDiagram.bind(this)} functions={this.state.dataRole.functions}
+          role={this.state.dataRole.role}/>
       </div>
     );
   }
@@ -216,6 +216,17 @@ export default class RoleBox extends React.Component {
 
   textStyle() {
     return {font: '9pt  Segoe UI,sans-serif', stroke: 'white'};
+  }
+
+  updateRoleDiagram(role){
+    var nodeDataArray = this.state.data.nodeDataArray;
+    for (var index in nodeDataArray){
+      if(nodeDataArray[index].key == role.id) {
+        nodeDataArray[index].name = role.name;
+      }
+    }
+    Object.assign(this.state.data, {nodeDataArray: this.state.data.nodeDataArray});
+    this.state.myDiagram.model = go.Model.fromJson(JSON.stringify(this.state.data));
   }
 
   editRole(e, obj){

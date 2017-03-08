@@ -9,10 +9,10 @@ const ROLE_FUNCTION_URL = app_constants.APP_NAME + role_constants.ROLE_FUNCTION_
 export default class RoleDetail extends React.Component {
   constructor(props) {
     super(props);
-    var role = props.dataRole.role || {name: ''};
     this.state = ({
-      dataRole: props.dataRole,
-      name: role.name
+      functions: props.functions,
+      role: props.role,
+      name: props.role.name
     });
   }
 
@@ -31,11 +31,11 @@ export default class RoleDetail extends React.Component {
               <div className="role_name form-inline">
                 <label>{I18n.t("edit_role.name")}: </label>
                 <input type='text' placeholder={I18n.t('edit_role.name')}
-                  value={this.state.name} ref='nameField'
+                  value={this.state.name || ''}
                   onChange={this.handleChange.bind(this)}
-                  className='form-control' name='name'/>
+                  className='form-control'/>
               </div>
-              <RoleFunctions dataRole={this.state.dataRole}/>
+              <RoleFunctions functions={this.state.functions}/>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-default" data-dismiss="modal"
@@ -50,7 +50,7 @@ export default class RoleDetail extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({dataRole: nextProps.dataRole, name: nextProps.dataRole.role.name});
+    this.setState({functions: nextProps.functions, role: nextProps.role, name: nextProps.role.name});
   }
 
   cancel_button(event){
@@ -59,23 +59,22 @@ export default class RoleDetail extends React.Component {
   }
 
   handleChange(event){
-    let attribute = event.target.name;
     this.setState({
-      [attribute]: event.target.value
+      name: event.target.value
     });
   }
 
   save_button(){
-    var dataRole ={};
-    dataRole['role_id'] = this.state.dataRole.role.id;
+    var dataRole = {};
+    dataRole['role_id'] = this.state.role.id;
     dataRole['name'] = this.state.name;
     dataRole['authenticity_token'] = ReactOnRails.authenticityToken();
     var rel_func = [];
-    var props = this.state.dataRole;
+    var functions = this.state.functions;
     var role_checkbox = JSON.parse(localStorage.getItem('role_checkbox'));
     $.each(role_checkbox, function (key, value) {
-      var function_id = props.functions[key].id;
-      var role_func_id = props.functions[key].role_func_id;
+      var function_id = functions[key].id;
+      var role_func_id = functions[key].role_func_id;
       value = (value == true) ? 0: 1;
       rel_func.push({id: role_func_id, role_id: dataRole['role_id'], function_id: function_id, _destroy: value});
     });
@@ -83,7 +82,11 @@ export default class RoleDetail extends React.Component {
     axios.patch(ROLE_FUNCTION_URL + '/' + dataRole['role_id'], dataRole)
       .then(response => {
         console.log('Update successed');
-        this.setState({dataRole: response.data});
+        this.setState({functions: response.data.functions});
+        this.props.updateRoleDiagram(response.data.role);
+      })
+      .catch(error => {
+        console.log(error);
       });
     localStorage.setItem('role_checkbox', '{}');
   }
