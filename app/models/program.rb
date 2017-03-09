@@ -18,4 +18,5 @@ class Program < ApplicationRecord
     class_name: MovingHistory.name, dependent: :destroy
 
   scope :not_assigned_programs, ->{where organization_id: nil}
+  scope :not_parent, -> {where parent_id: nil}
 end
