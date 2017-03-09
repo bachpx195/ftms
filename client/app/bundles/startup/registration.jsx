@@ -10,6 +10,7 @@ import SubjectBox from '../components/subjects/subjects_box';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
 import TrainingStandardBox from '../components/training_standards/training_standards_box';
 import StageBox from '../components/stages/stages_box';
+import ShowOrganizationBox from '../components/show_organizations/organizations_box';
 import OrganizationBox from '../components/organizations/organizations_box';
 import StaticPageBox from '../components/static_pages/static_pages_box';
 import ProgramsBox from '../components/programs/programs_box';
@@ -35,6 +36,7 @@ ReactOnRails.register({
   TrainingStandardBox,
   StageBox,
   OrganizationBox,
+  ShowOrganizationBox,
   StaticPageBox,
   ProgramsBox,
   ProgramsShowBox,
