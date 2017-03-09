@@ -70,7 +70,6 @@ export default class OrganizationBox extends React.Component {
                 handleAfterUpdated={this.handleAfterUpdated.bind(this)}
                 handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>
-
           </div>
         </div>
       </div>
