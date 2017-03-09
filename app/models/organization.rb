@@ -9,6 +9,8 @@ class Organization < ApplicationRecord
   has_many :profiles, dependent: :destroy
   has_many :users, through: :profiles
   has_many :programs, dependent: :destroy
+  has_many :standard_organizations, dependent: :destroy
+  has_many :training_standards, through: :standard_organizations, source: :training_standard
 
   validates :name, presence: true
 

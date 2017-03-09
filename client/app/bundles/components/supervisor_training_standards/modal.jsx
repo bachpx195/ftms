@@ -12,8 +12,7 @@ export default class Modal extends React.Component {
               <h4 className='modal-title'>{I18n.t('training_standards.modals.header_edit')}</h4>
             </div>
             <div className='modal-body'>
-              <Form
-                training_standard={this.props.training_standard} url={this.props.url}
+              <Form standard_organization={this.props.standard_organization} url={this.props.url}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)} />
             </div>
           </div>
@@ -22,7 +21,7 @@ export default class Modal extends React.Component {
     );
   }
 
-  handleAfterUpdated(training_standard) {
-    this.props.handleAfterUpdated(training_standard);
+  handleAfterUpdated(standard_organization) {
+    this.props.handleAfterUpdated(standard_organization);
   }
 }

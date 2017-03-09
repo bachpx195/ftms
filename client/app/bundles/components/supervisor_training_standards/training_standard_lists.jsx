@@ -7,7 +7,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as training_standard_constants from './training_standard_constants';
 
-const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_TRAINING_STANDARD_PATH;
+const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
 
 export default class TrainingStandardLists extends React.Component {
   constructor(props) {
@@ -16,7 +16,9 @@ export default class TrainingStandardLists extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({...nextProps});
+    this.setState({
+      standard_organizations: nextProps.standard_organizations,
+    });
   }
 
 
@@ -55,28 +57,23 @@ export default class TrainingStandardLists extends React.Component {
       </button>
     );
 
-    const LinkToStandardShow = ({value, griddleKey}) => (
-      <a data-index={griddleKey} href={TRAINING_STANDARD_URL + "/" +
-        this.state.training_standards[griddleKey].id} title={value}>{value}</a>
-    );
 
     let modalEdit = null;
-    if(this.state.training_standard.id){
+    if(this.state.standard_organization.id){
       modalEdit = (
-        <Modal url={TRAINING_STANDARD_URL + '/' + this.state.training_standard.id}
-          training_standard={this.state.training_standard}
+        <Modal url={TRAINING_STANDARD_URL + '/' + this.state.standard_organization.id}
+          standard_organization={this.state.standard_organization}
           handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );
     }
 
     return (
       <div>
-        <Griddle data={this.state.training_standards} plugins={[plugins.LocalPlugin]}
+        <Griddle data={this.state.standard_organizations} plugins={[plugins.LocalPlugin]}
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("training_standards.name")}
-              customComponent={LinkToStandardShow}/>
+            <ColumnDefinition id="name" title={I18n.t("training_standards.name")}/>
             <ColumnDefinition id="description" title={I18n.t("training_standards.description")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
               title=" "/>
@@ -90,7 +87,7 @@ export default class TrainingStandardLists extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.training_standard.id){
+    if(this.state.standard_organization.id){
       $('#modalEdit').modal();
     }
   }
@@ -99,16 +96,16 @@ export default class TrainingStandardLists extends React.Component {
     let $target = $(event.target);
     $target.blur();
     this.setState({
-      training_standard: this.props.training_standards[$target.data('index')]
+      standard_organization: this.props.standard_organizations[$target.data('index')]
     });
   }
 
   handleDelete(event) {
     let $target = $(event.target);
     $target.blur();
-    let training_standard = this.props.training_standards[$target.data('index')];
+    let standard_organization = this.props.standard_organizations[$target.data('index')];
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(TRAINING_STANDARD_URL + '/' + training_standard.id, {
+      axios.delete(TRAINING_STANDARD_URL + '/' + standard_organization.id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },
@@ -116,18 +113,18 @@ export default class TrainingStandardLists extends React.Component {
       })
       .then(response => {
         this.setState({
-          training_standard: {}
+          standard_organization: {}
         });
-        this.props.handleAfterDeleted(training_standard);
+        this.props.handleAfterDeleted(standard_organization);
       })
       .catch(error => console.log(error));
     }
   }
 
-  handleAfterUpdated(new_training_standard) {
+  handleAfterUpdated(new_standard_organization) {
     this.setState({
-      training_standard: {}
+      standard_organization: {}
     });
-    this.props.handleAfterUpdated(new_training_standard);
+    this.props.handleAfterUpdated(new_standard_organization);
   }
 }

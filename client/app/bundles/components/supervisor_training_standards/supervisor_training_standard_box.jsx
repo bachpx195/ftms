@@ -1,25 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 
-import TrainingStandardLists from './training_standard_lists';
 import Form from './form';
+import TrainingStandardLists from './training_standard_lists';
 
 import * as app_constants from 'constants/app_constants';
 import * as training_standard_constants from './training_standard_constants';
 
-const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_TRAINING_STANDARD_PATH;
-const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_STANDARD_SUBECTS_PATH;
+const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
 
 export default class TrainingStandardBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      training_standards: props.training_standards,
-      training_standard: {},
-      subjects: props.subjects,
-      standard_subjects : [],
-      selected_subjects: [],
-      training_standard_assign: {}
+      standard_organizations: props.standard_organizations,
+      standard_organization: {},
     };
   }
 
@@ -46,15 +41,15 @@ export default class TrainingStandardBox extends React.Component {
                 <div className='col-md-8 col-md-offset-2'>
                   <Form
                     url={TRAINING_STANDARD_URL}
-                    training_standard={this.state.training_standard}
+                    standard_organization={this.state.standard_organization}
                     handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
             <div className='box-footer'>
               <TrainingStandardLists
-                training_standard={this.state.training_standard}
-                training_standards={this.state.training_standards}
+                standard_organization={this.state.standard_organization}
+                standard_organizations={this.state.standard_organizations}
                 handleAfterUpdated={this.handleAfterUpdated.bind(this)}
                 handleAfterDeleted={this.handleAfterDeleted.bind(this)}
               />
@@ -65,27 +60,27 @@ export default class TrainingStandardBox extends React.Component {
     );
   }
 
-  handleAfterCreated(training_standard) {
-    this.state.training_standards.push(training_standard);
+  handleAfterCreated(standard_organization) {
+    this.state.standard_organizations.push(standard_organization);
     this.setState({
-      training_standards: this.state.training_standards,
-      training_standard: {}
+      standard_organizations: this.state.standard_organizations,
+      standard_organization: {}
     });
   }
 
-  handleAfterUpdated(new_training_standard) {
-    let index = this.state.training_standards
-      .findIndex(training_standard => training_standard.id === new_training_standard.id);
-    this.state.training_standards[index] = new_training_standard;
+  handleAfterUpdated(new_standard_organization) {
+    let index = this.state.standard_organizations
+      .findIndex(standard_organization => standard_organization.id === new_standard_organization.id);
+    this.state.standard_organizations[index] = new_standard_organization;
     this.setState({
-      training_standards: this.state.training_standards,
-      training_standard: {}
+      standard_organizations: this.state.standard_organizations,
+      standard_organization: {}
     });
   }
 
-  handleAfterDeleted(deleted_training_standard) {
-    _.remove(this.state.training_standards,
-      training_standard => training_standard.id === deleted_training_standard.id);
-    this.setState({training_standards: this.state.training_standards});
+  handleAfterDeleted(deleted_standard_organization) {
+    _.remove(this.state.standard_organizations,
+      standard_organization => standard_organization.id === deleted_standard_organization.id);
+    this.setState({standard_organizations: this.state.standard_organizations});
   }
 }
