@@ -23,6 +23,11 @@ class EvaluationTemplatesController < ApplicationController
   end
 
   def show
+    @evaluation_standards = if @training_standard.evaluation_template
+      @training_standard.evaluation_template.evaluation_standards
+    else
+      []
+    end
   end
 
   def edit
@@ -35,7 +40,7 @@ class EvaluationTemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @evaluation_template.update_attributes evaluation_template_params
-        format.html{redirect_to training_standard_evaluation_templates_path(@training_standard)}
+        format.html{redirect_to training_standard_evaluation_template_path(@training_standard)}
         format.json{render json: {message: flash_message("updated"),
           evaluation_template: @evaluation_template}}
       else
@@ -49,7 +54,7 @@ class EvaluationTemplatesController < ApplicationController
   def destroy
     @evaluation_template.destroy
     respond_to do |format|
-      format.html{redirect_to training_standard_evaluation_templates_path(@training_standard)}
+      format.html{redirect_to training_standard_evaluation_template_path(@training_standard)}
       format.json do
         if @evaluation_template.deleted?
           render json: {message: flash_message("deleted")}
@@ -83,7 +88,7 @@ class EvaluationTemplatesController < ApplicationController
     @evaluation_template = @training_standard.evaluation_template
     unless @evaluation_template
       respond_to do |format|
-        format.html {redirect_to training_standard_evaluation_templates_path}
+        format.html {redirect_to training_standard_evaluation_template_path(@training_standard)}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

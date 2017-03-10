@@ -26,5 +26,7 @@ Rails.application.routes.draw do
   end
   namespace :change_profile do
     resources :users, only: [:show, :edit, :update]
+  resources :evaluation_templates do
+    resources :evaluation_standards
   end
 end
