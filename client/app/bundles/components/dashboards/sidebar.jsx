@@ -14,7 +14,9 @@ const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
 const ADMIN_UNIVERSITIES_URL = app_constants.APP_NAME +
   dashboard_constands.ADMIN_UNIVERSITIES_PATH;
 const FUNCTIONS_URL = app_constants.APP_NAME +
-  dashboard_constands.FUNCTIONS_PATH;
+  dashboard_constands.ADMIN_FUNCTIONS_PATH;
+const ROLES_URL = app_constants.APP_NAME +
+  dashboard_constands.ROLES_PATH;
 
 
 export default class Sidebar extends React.Component {
@@ -91,6 +93,11 @@ export default class Sidebar extends React.Component {
                 <span className="fa fa-chevron-down"></span>
               </a>
               <ul className={this.state.roles_menu}>
+                <li data-page="roles">
+                  <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
+                    <span>{I18n.t('sidebar.roles')}</span>
+                  </a>
+                </li>
                 <li data-page="functions">
                   <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.all_functions')}</span>
@@ -125,5 +132,6 @@ export default class Sidebar extends React.Component {
     if($('li[data-page="' + page + '"]')){
       $('li[data-page="' + page + '"]').addClass('active');
     }
+    localStorage.setItem('role_checkbox', '{}');
   }
 }

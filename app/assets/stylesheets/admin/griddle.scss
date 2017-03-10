@@ -16,3 +16,24 @@
   cursor: pointer;
   background-color: #85C1E9;
 }
+
+#role_detail .modal-dialog{
+  width: 80%;
+
+  .modal-header{
+    border-bottom: none;
+  }
+
+  .modal-body{
+    padding: 5px;
+
+    .role_name{
+      width: 30%;
+      margin-left: 20px;
+
+      input{
+        padding-left: 10px
+      }
+    }
+  }
+}

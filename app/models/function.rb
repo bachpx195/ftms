@@ -8,4 +8,13 @@ class Function < ApplicationRecord
   has_many :users, through: :user_functions
 
   scope :order_by_parent_id, ->{order parent_id: :ASC}
+
+  class << self
+    def functions_with_role role_id
+      connection = ActiveRecord::Base.connection
+      sql = Settings.sql_function_role.gsub("$role_id", role_id.to_s)
+      result = connection.exec_query(sql)
+      result.to_hash
+    end
+  end
 end

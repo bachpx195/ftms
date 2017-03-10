@@ -6,7 +6,6 @@ namespace :admin do
   resources :organizations do
     resources :subjects
   end
-  resources :roles
   resources :training_standards do
     resources :evaluation_templates
   end
@@ -15,3 +14,5 @@ namespace :admin do
   resources :functions
 end
 resources :users
+resources :roles
+resources :role_functions

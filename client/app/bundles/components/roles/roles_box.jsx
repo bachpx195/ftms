@@ -1,14 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 import go from 'gojs';
+import RoleDetail from './role_detail';
+import * as app_constants from 'constants/app_constants';
+import * as role_constants from './role_constants'
+
 const goObj = go.GraphObject.make;
+const ROLE_URL = app_constants.APP_NAME + role_constants.ROLE_PATH;
+const ROLE_FUNCTION_URL = app_constants.APP_NAME + role_constants.ROLE_FUNCTION_PATH;
 
 export default class RoleBox extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log(props);
     this.state = {
       myDiagram: null,
+      dataRole: {functions: []},
       data: {
         class: 'go.TreeModel',
         nodeDataArray: []
@@ -40,7 +47,8 @@ export default class RoleBox extends React.Component {
     return (
       <div className='row functions'>
         <div ref='myDiagramDiv' id='myDiagramDiv'></div>
-        <button id='SaveButton' onClick={this.onSave.bind(this)}>Save</button>
+        <button id='SaveButton' onClick={this.onSave.bind(this)}>{I18n.t("buttons.save")}</button>
+        <RoleDetail dataRole={this.state.dataRole}/>
       </div>
     );
   }
@@ -146,7 +154,15 @@ export default class RoleBox extends React.Component {
             new go.Binding('text', 'name').makeTwoWay()
           ),
 
-          goObj(go.TextBlock, this.textStyle(),
+          goObj('Button',
+            {
+              row: 1, column: 0, columnSpan: 5,
+              minSize: new go.Size(10, 16),
+              click: this.editRole.bind(this)
+            },
+            goObj(go.TextBlock, I18n.t('buttons.edit'))),
+
+          goObj(go.TextBlock, this.textStyle(), this.textStyle(),
             {
               row: 3, column: 0, columnSpan: 5,
               font: 'italic 9pt sans-serif',
@@ -200,5 +216,17 @@ export default class RoleBox extends React.Component {
 
   textStyle() {
     return {font: '9pt  Segoe UI,sans-serif', stroke: 'white'};
+  }
+
+  editRole(e, obj){
+   $('#role_detail').modal('show');
+   axios.get(ROLE_URL + '/' + obj.part.data.key + '.json')
+    .then(response => {
+      this.setState({dataRole: response.data});
+      console.log(response.data);
+    })
+   .catch(error => {
+      console.log(error);
+   });
   }
 }
