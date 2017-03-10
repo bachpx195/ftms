@@ -33,6 +33,7 @@ export default class TreeNode extends React.Component{
     let show = this.state.visible ? 'fa fa-plus':'fa fa-minus';
     let parent = this.props.parent ? 'parent list-group-item': 'parent list-group-item info'
     let number_sub;
+    let suborganization_number;
     if(this.state.organization.sub_organizations != null){
       sub_organization = this.state.organization.sub_organizations.map((organization) => {
         let child = organization.sub_organizations.length > 0 ? 'parent-children':'children';
@@ -50,8 +51,18 @@ export default class TreeNode extends React.Component{
     }else{
       show = "fa fa-minus";
     }
-    if(!number_sub){
-      number_sub = 0;
+    if(number_sub > 0){
+      suborganization_number = (
+        <div className="number-suborganization">
+          <small>{number_sub} {I18n.t('organizations.sub_organization')}</small>
+        </div>
+      )
+    }else{
+      suborganization_number = (
+        <div className="number-suborganization">
+          <small>{I18n.t('organizations.nothing')}</small> 
+        </div>
+      )
     }
     return(
       <div className="list-organization list-group">
@@ -87,9 +98,7 @@ export default class TreeNode extends React.Component{
           </div>
           <div className="clearfix"></div>
         </div>
-        <div className="number-suborganization">
-          {number_sub} {I18n.t('organizations.sub_organization')} 
-        </div>
+        {suborganization_number}
         <div className="list-children list-group hidden">
           {sub_organization}
         </div>
