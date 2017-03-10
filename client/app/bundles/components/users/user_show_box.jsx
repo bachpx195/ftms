@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
+import FormEdit from './form_edit';
 
 const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
 
@@ -10,7 +11,9 @@ export default class UserShowBox extends React.Component {
     super(props);
 
     this.state = {
-      user_detail: {},
+      user_detail: {
+        avatar: {}
+      },
     }
   }
 
@@ -30,13 +33,52 @@ export default class UserShowBox extends React.Component {
     })
   }
 
+
+  renderModal(){
+    let title = '';
+    title = I18n.t('users.edit_info_user');
+    return (
+      <div id='modal' className='modal fade in' role='dialog'>
+        <div className='modal-dialog'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <button type='button' className='close'
+                data-dismiss='modal'>&times;</button>
+              <h4 className='modal-title'>{title}</h4>
+            </div>
+            <div className='modal-body'>
+              <FormEdit user={this.state.user_detail} url={USER_URL}
+                handleAfterSaved={this.handleAfterUpdated.bind(this)}
+                avatar={this.state.user_detail.avatar}/>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  handleAfterUpdated(new_user) {
+    this.setState({
+      user_detail: new_user
+    })
+  }
+
+  handleEdit(event) {
+    let $target = $(event.target);
+    $target.blur();
+    this.setState({
+      user: this.props.user[$target.data('show')]
+    });
+    $('#modal').modal();
+  }
+
   render() {
     return(
       <div className='user-profile'>
         <div className='panel panel-info'>
           <div className='panel panel-heading'>
             <span className='pull-right'>
-              <a href='#' data-original-title={I18n.t('users.edit_user')}
+              <a onClick={this.handleEdit.bind(this)} data-original-title={I18n.t('users.edit_user')}
                 data-toggle='tooltip' type='button' className='btn btn-md btn-success'>
                 <i className='glyphicon glyphicon-edit'></i>
               </a>
@@ -49,11 +91,12 @@ export default class UserShowBox extends React.Component {
           </div>
           <div className='panel panel-body'>
             <div className='col-md-3'>
-              <img src={this.state.user_detail.avatar}
+              <img src={this.state.user_detail.avatar.url}
                 className='img-circle img-responsive'/>
             </div>
             <div className='col-md-9'>
               <table className='table table-user-information'>
+
                 <tbody>
                   <tr>
                     <td>{I18n.t('users.name')}</td>
@@ -63,16 +106,13 @@ export default class UserShowBox extends React.Component {
                     <td>{I18n.t('users.email')}</td>
                     <td>{this.state.user_detail.email}</td>
                   </tr>
-                  <tr>
-                    <td>{I18n.t('users.type')}</td>
-                    <td>{this.state.user_detail.type}</td>
-                  </tr>
                 </tbody>
               </table>
               <a href='' className='btn btn-lg btn-primary'>{I18n.t('users.edit_role')}</a>
             </div>
           </div>
         </div>
+      {this.renderModal()}
       </div>
     )
   }

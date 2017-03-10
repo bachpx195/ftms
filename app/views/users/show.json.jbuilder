@@ -1,4 +1,3 @@
 json.user_detail do
-  json.extract! @user, :name, :email, :trainer_id, :type
-  json.avatar @user.avatar.url
+  json.extract! @user, :id, :name, :email, :trainer_id, :type, :avatar
 end
