@@ -1,27 +1,17 @@
 class EvaluationTemplatesController < ApplicationController
   before_action :find_training_standard
-  before_action :find_evaluation_template, except: [:index, :new, :create]
-  before_action :authorize_class
-
-  def index
-    @evaluation_template = @training_standard.evaluation_template
-  end
+  before_action :find_evaluation_template, only: [:update, :destroy]
 
   def new
   end
 
   def create
-    @evaluation_template = if params[:evaluation_template][:parent_id].present?
-      parent = @training_standard.evaluation_templates
-        .find_by id: params[:evaluation_template].delete[:parent_id]
-      parent.children.build evaluation_template_params.merge(training_standard: @training_standard)
-    else
-      @training_standard.evaluation_templates.build evaluation_template_params
-    end
+    @evaluation_template = EvaluationTemplate.new evaluation_template_params
+      .merge(training_standard_id: @training_standard.id)
 
     respond_to do |format|
       if @evaluation_template.save
-        format.html{redirect_to  @training_standard, @evaluation_template}
+        format.html{redirect_to @training_standard, @evaluation_template}
         format.json{render json: {message: flash_message("created"),
           evaluation_template: @evaluation_template}}
       else
@@ -45,7 +35,7 @@ class EvaluationTemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @evaluation_template.update_attributes evaluation_template_params
-        format.html{redirect_to @training_standard, @evaluation_template}
+        format.html{redirect_to training_standard_evaluation_templates_path(@training_standard)}
         format.json{render json: {message: flash_message("updated"),
           evaluation_template: @evaluation_template}}
       else
@@ -59,7 +49,7 @@ class EvaluationTemplatesController < ApplicationController
   def destroy
     @evaluation_template.destroy
     respond_to do |format|
-      format.html{redirect_to training_standard_evaluation_templates_path}
+      format.html{redirect_to training_standard_evaluation_templates_path(@training_standard)}
       format.json do
         if @evaluation_template.deleted?
           render json: {message: flash_message("deleted")}
@@ -73,7 +63,7 @@ class EvaluationTemplatesController < ApplicationController
 
   private
   def evaluation_template_params
-    params.require(:evaluation_template).permit evaluation_template::ATTRIBUTE_PARAMS
+    params.require(:evaluation_template).permit EvaluationTemplate::ATTRIBUTE_PARAMS
   end
 
   def find_training_standard
@@ -90,7 +80,7 @@ class EvaluationTemplatesController < ApplicationController
   end
 
   def find_evaluation_template
-    @evaluation_template = @training_standard.evaluation_templates.find_by id: params[:id]
+    @evaluation_template = @training_standard.evaluation_template
     unless @evaluation_template
       respond_to do |format|
         format.html {redirect_to training_standard_evaluation_templates_path}

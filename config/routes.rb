@@ -21,4 +21,7 @@ Rails.application.routes.draw do
   resources :sub_organizations
 
   resources :languages
+  resources :training_standards do
+    resource :evaluation_template
+  end
 end

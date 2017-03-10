@@ -275,5 +275,13 @@ namespace :db do
       {user_id: 6, language_id: 1, organization_id: 2, program_id: 1,
         staff_code: "B123457"},
     ])
+
+    puts "18. Create Evaluation templates"
+    EvaluationTemplate.create!([
+      {training_standard_id: 1, name: "Evaluation template 1"},
+      {training_standard_id: 2, name: "Evaluation template 2"},
+      {training_standard_id: 3, name: "Evaluation template 3"},
+      {training_standard_id: 4, name: "Evaluation template 4"}
+    ]);
   end
 end
