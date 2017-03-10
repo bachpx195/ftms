@@ -4,7 +4,7 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :image
       t.string :description
-      t.integer :status
+      t.integer :status, default: 0, null: false
       t.belongs_to :language, foreign_key: true
       t.date :start_date
       t.date :end_date

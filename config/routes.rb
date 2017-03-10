@@ -14,9 +14,7 @@ Rails.application.routes.draw do
   root "static_pages#show"
   resources :static_pages
   resources :organizations do
-    resources :programs do
-      resources :courses
-    end
+    resources :programs
     resources :subjects
   end
   resources :subjects
@@ -33,7 +31,7 @@ Rails.application.routes.draw do
     resources :evaluation_standards
   end
   resources :programs do
-    resources :courses, only: :show
+    resources :courses
   end
   resources :standard_subjects, only: [:index, :create, :destroy]
   resources :stages

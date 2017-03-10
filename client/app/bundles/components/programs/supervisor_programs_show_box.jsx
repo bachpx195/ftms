@@ -17,6 +17,7 @@ require('../sass/program_show.scss');
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
 const ASSIGN_STANDARD_URL = app_constants.APP_NAME + program_constants.ASSIGN_STANDARD_PATH;
+const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
 
 export default class SupervisorProgramsShowBox extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
       program_detail: {},
       training_standards:[],
       courses: [],
-      course: {}
+      image: '',
     };
   }
 
@@ -51,8 +52,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
       );
   }
 
-
-
   renderListCourses () {
     return _.map(this.state.program_detail.courses, course => {
       let course_managers = course.course_managers ?
@@ -64,18 +63,19 @@ export default class SupervisorProgramsShowBox extends React.Component {
             className='td-course-manager-avatar' />;
         });
       }
-
+      let course_path = COURSE_URL + this.props.program.id +'/courses/' +
+        course.id;
       return (
         <div key={course.id}
           className='col-md-4 col-xs-4 col-lg-4 td-program-list-course'>
           <div className="td-course-box">
             <div className="td-course-image-manager">
-              {images}
+              <a href={course_path}>{images}</a>
               <div className="clearfix"></div>
             </div>
             <div className='td-card-course-inner'>
               <h3>
-                {course.name}
+                <a href={course_path}>{course.name}</a>
               </h3>
               <div className='td-course-content'>
                 <div className='td-course-image col-xs-4'>
@@ -85,20 +85,8 @@ export default class SupervisorProgramsShowBox extends React.Component {
                   <div className="td-course-description">
                     <p>{course.description}</p>
                   </div>
-                  <div className="td-course-edit-delete">
-                    <a onClick={this.handlEdit.bind(this, course)}>
-                      <span className="glyphicon glyphicon-edit pull-right"
-                        aria-hidden="true">
-                      </span>
-                    </a>
-                    <a onClick={this.handleDelete.bind(this, course)}>
-                      <span className="glyphicon glyphicon-trash pull-right"
-                        aria-hidden="true">
-                      </span>
-                    </a>
-                    <span className='pull-left'>
-                      {course.subject_count} {I18n.t('programs.subjects')}
-                    </span>
+                  <div>
+                    <p>{course.training_standard.name}</p>
                   </div>
                 </div>
               </div>
@@ -114,17 +102,12 @@ export default class SupervisorProgramsShowBox extends React.Component {
   }
 
   render() {
-    let url = PROGRAM_URL + '/' + this.props.organization.id + '/programs/' +
-      this.props.program.id + '/courses';
-
     let modalEdit = (
-        <Modal program_detail={this.state.program_detail}
-          url={url}
-          program={this.props.program}
-          course={this.state.course}
-          handleAfterEdit={this.handleAfterUpdate.bind(this)}
-          handleAfterCreated={this.handleAfterSubmit.bind(this)} />
-      );
+      <Modal program_detail={this.state.program_detail}
+        url={COURSE_URL + this.props.program.id +'/courses'}
+        image={this.state.image} program={this.props.program}
+        handleAfterCreated={this.handleAfterSubmit.bind(this)} />
+    );
 
     return (
       <div>
@@ -207,9 +190,9 @@ export default class SupervisorProgramsShowBox extends React.Component {
   }
 
   handleCreate(event){
+    $('#modalEdit').find('select,input').val('');
     this.setState({
       courses: [],
-      course: {},
       modal: {}
     });
   }
@@ -269,39 +252,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
     this.setState({
       program_detail: this.state.program_detail,
       courses: this.state.program_detail.courses,
-      course: {},
-      modal: ''
-    })
-  }
-
-  handleDelete(event, data) {
-    let course = event;
-    if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(this.props.program.id + '/courses' + '/' + course.id, {
-        params: {
-          program_id: course.program_id,
-          authenticity_token: ReactOnRails.authenticityToken()
-        },
-        headers: {'Accept': 'application/json'}
-      })
-      .then(response => {
-        _.remove(this.state.program_detail.courses, _course => {
-          return _course.id == course.id;
-        });
-        this.setState({
-          program_detail: this.state.program_detail,
-          courses: this.state.program_detail.courses,
-          modal: ''
-        })
-      })
-      .catch(error => this.setState({errors: error.response.data.errors}));
-    }
-  }
-
-  handlEdit(event, data){
-    this.setState({
-      modal: {},
-      course: event
+      modal: '',
     });
   }
 }

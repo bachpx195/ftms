@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Errors from '../shareds/errors';
 import _ from 'lodash';
+import * as app_constants from 'constants/app_constants';
 
 require('../sass/program_show.scss');
 
@@ -13,16 +14,14 @@ export default class FormCourse extends React.Component {
 
     this.state = {
       program_detail: {},
-      course: {},
-      id: props.course.id || '',
-      image: props.course.image || '',
+      image: this.props.image,
       changeImage: false,
       errors: null,
     };
   }
 
   render() {
-    let image = null;
+    let image = '';
     if(this.state.image){
       if(this.state.image.url) {
         image = <img src={this.state.image.url} />;
@@ -48,57 +47,48 @@ export default class FormCourse extends React.Component {
               ref='dropzoneField'
               multiple={false} accept='image/*' />
           </div>
-          <div className='image-preview'>
+          <div className='image-preview image-course'>
             {image}
           </div>
         </div>
         <div className="form-group">
           <select className="form-control" name="language_id"
-            value={this.state.course.language_id || ''} ref="nameField"
             onChange={this.handleChange.bind(this)}>
             <option value="">{I18n.t('course.select_languages')}</option>
             {this.renderOptions(this.state.program_detail.languages)}
           </select>
         </div>
+        <div className="form-group">
+          <select className="form-control" name="training_standard_id"
+            onChange={this.handleChange.bind(this)}>
+            <option value="">
+              {I18n.t('course.select_training_standard')}
+            </option>
+            {this.renderOptions(this.state.program_detail.training_standards)}
+          </select>
+        </div>
         <div className='form-group'>
           <input type='text' placeholder={I18n.t('course.headers.name')}
-            value={this.state.course.name || ''} ref="nameField"
             onChange={this.handleChange.bind(this)}
             className='form-control' name='name' />
         </div>
         <div className='form-group'>
           <input type='text' placeholder={I18n.t('course.headers.description')}
-            value={this.state.course.description || ''} ref="nameField"
             onChange={this.handleChange.bind(this)}
             className='form-control' name='description' />
         </div>
-        <div className='form-group'>
-          <input type='hidden' onChange={this.handleChange.bind(this)}
-            value={this.props.program.id} name='program_id' />
-        </div>
-        <div className="form-group">
-          <select className="form-control" name="status"
-            value={this.state.course.status || ''} ref="nameField"
-            onChange={this.handleChange.bind(this)}>
-            <option value="">{I18n.t('course.select_status')}</option>
-            {this.renderOptionStatus()}
-          </select>
-        </div>
-
         <div className='col-sm-6 course-start-date'>
           <label>{I18n.t('course.start_date')}</label>
           <input type='date' onChange={this.handleChange.bind(this)}
-            value={this.state.course.start_date || ''} name='start_date' 
-            className='form-control' ref="nameField" />
+            name='start_date' className='form-control'/>
         </div>
 
         <div className='col-sm-6 course-end-date'>
           <label>{I18n.t('course.end_date')}</label>
           <input type='date' onChange={this.handleChange.bind(this)}
-            value={this.state.course.end_date || ''} name='end_date' 
-            className='form-control' ref="nameField" />
+            name='end_date' className='form-control' />
         </div>
-       
+
         <div className='form-group'>
           <div className='text-right'>
             <button type='submit' className='btn btn-primary'>
@@ -109,20 +99,9 @@ export default class FormCourse extends React.Component {
     );
   }
 
-  renderOptionStatus(){
-    let statuses = this.state.program_detail.statuses;
-    if (statuses){
-      return Object.keys(statuses).map(key => {
-        return <option key={statuses[key]}
-          value={key}>{I18n.t('course.' + key)}</option>;
-      });
-    }
-    return null;
-  }
-
-  renderOptions(Objects){
-    if (Objects){
-      return Objects.map(object => {
+  renderOptions(objects){
+    if (objects){
+      return objects.map(object => {
         return <option key={object.id}
           value={object.id}>{object.name}</option>;
       });
@@ -133,9 +112,7 @@ export default class FormCourse extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       program_detail: nextProps.program_detail,
-      course: nextProps.course,
-      id: nextProps.course.id || '',
-      image: nextProps.course.image || '',
+      image: nextProps.image,
       changeImage: false,
       errors: null
     });
@@ -143,9 +120,8 @@ export default class FormCourse extends React.Component {
 
   handleChange(event) {
     let attribute = event.target.name;
-    Object.assign(this.state.course, {[attribute]: event.target.value});
     this.setState({
-      course: this.state.course
+      [attribute]: event.target.value
     });
   }
 
@@ -162,44 +138,27 @@ export default class FormCourse extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    var form_data = $('form').serializeArray();
-    let formData = new FormData();
-    for(let obj of form_data) {
-      formData.append('course[' + obj.name + ']', obj.value);
-    }
     let course = _.omit(this.state, 'errors');
     if(this.state.changeImage) {
-      formData.append('course[image]', course.image);
+      course = _.omit(subject, 'image');
+    }
+    let formData = new FormData();
+    for(let key of Object.keys(course)) {
+      formData.append('course[' + key + ']', course[key]);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let methd = this.props.course.id ? 'PUT' : 'POST';
-    let path = this.props.url;
-    if (this.props.course.id){
-      path = this.props.url + '/' + this.state.id;
-    }
-    axios({
-      url: path,
-      method: methd,
-      data: formData,
-      headers: {'Accept': 'application/json'}
-    })
+    axios.post(this.props.url,
+      formData
+    , app_constants.AXIOS_CONFIG)
     .then(response => {
       $('#modalEdit').modal('hide');
-      this.refs.nameField.value = '';
       this.setState({
         program_detail: {},
-        course: {},
-        image: null,
-        errors: null,
-        changeImage: false
+        image: '',
+        changeImage: false,
       });
-      if(this.state.id){
-        this.props.handleAfterUpdate(response.data.course)
-      }
-      else{
-        this.props.handleAfterSaved(response.data.course);
-      }
+      this.props.handleAfterSaved(response.data.course);
     })
-    .catch(error => console.log(error));
+    .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }

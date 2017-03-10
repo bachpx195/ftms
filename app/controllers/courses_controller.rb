@@ -20,7 +20,7 @@ class CoursesController < ApplicationController
         format.json do
           @course[:image] = {url: @course.image.url}
           render json: {message: flash_message("created"),
-            course: @course}
+            course: @course.as_json(include: :training_standard)}
         end
       else
         format.html {render :new}
