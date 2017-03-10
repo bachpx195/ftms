@@ -1,5 +1,6 @@
 en:
   buttons:
+    new: "New"
     save: Save
     edit: Edit
     delete: Delete

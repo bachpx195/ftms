@@ -24,6 +24,7 @@ import SupervisorProgramsShowBox from '../components/programs/supervisor_program
 
 //supervisor
 import SubOrganizationShowBox from '../components/sub_organizations/show_box';
+import EvaluationTemplatesBox from '../components/evaluation_templates/evaluation_templates_box';
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
   Header,
@@ -47,4 +48,5 @@ ReactOnRails.register({
   UserShowBox,
   SupervisorProgramsShowBox,
   SubOrganizationShowBox,
+  EvaluationTemplatesBox
 });

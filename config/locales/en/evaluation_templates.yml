@@ -1,0 +1,5 @@
+en:
+  evaluation_templates:
+    title: "Evaluation template"
+    headers:
+      name: "Name"

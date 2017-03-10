@@ -89,6 +89,16 @@ export default class ProgramLists extends React.Component {
       return <a href={link}>{value}</a>;
     };
 
+    const LinkToOrganization = ({griddleKey}) => {
+      let organization = this.state.programs[griddleKey].organization;
+      let link = '#';
+      if(organization) {
+        link = PROGRAM_URL + '/' + organization.id + '/programs/';
+        return <a href={link}>{organization.name}</a>;
+      }
+      return null;
+    };
+
     const LinkToParentProgram = ({griddleKey}) => {
       let program = this.state.programs[griddleKey].parent;
       if(program) {
@@ -113,6 +123,9 @@ export default class ProgramLists extends React.Component {
               customComponent={LinkToProgram} />
             <ColumnDefinition id="parent_name" title={I18n.t("programs.parent")}
               customComponent={LinkToParentProgram} />
+            <ColumnDefinition id="assigned_to_organization"
+              title={I18n.t("programs.assigned_to_organization")}
+              customComponent={LinkToOrganization} />
             <ColumnDefinition id="sub_program" customComponent={ButtonSubProgram}
               title={I18n.t("programs.sub_program")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}

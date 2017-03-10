@@ -6,9 +6,7 @@ class ProgramsController < ApplicationController
     @programs = []
     @organization.programs.each do |program|
       @programs << program
-      program.children.each do |sub_program|
-        @programs << sub_program
-      end
+      @programs = @programs + load_sub_programs(program)
     end
     @not_assigned_programs = Program.not_assigned_programs
   end
@@ -105,5 +103,14 @@ class ProgramsController < ApplicationController
         end
       end
     end
+  end
+
+  def load_sub_programs program
+    programs = []
+    program.children.each do |sub_program|
+      programs << sub_program
+      programs = programs + load_sub_programs(sub_program)
+    end
+    programs
   end
 end
