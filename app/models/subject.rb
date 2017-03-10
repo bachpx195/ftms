@@ -15,5 +15,7 @@ class Subject < ApplicationRecord
   has_many :property_subjects, as: :propertiable,
     class_name: StaticProperty.name, dependent: :destroy
 
+  scope :find_remain_subjects, -> ids {where.not id: ids}
+
   validates :name, presence: true
 end

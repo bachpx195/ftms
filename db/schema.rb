@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20170308093335) do
     t.integer  "language_id"
     t.date     "start_date"
     t.date     "end_date"
+    t.integer  "creator_id"
     t.integer  "program_id"
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
@@ -284,13 +285,11 @@ ActiveRecord::Schema.define(version: 20170308093335) do
 
   create_table "training_standards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.integer  "organization_id"
-    t.integer  "creator_id"
     t.integer  "program_id"
-    t.text     "description",     limit: 65535
+    t.text     "description", limit: 65535
     t.datetime "deleted_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["program_id"], name: "index_training_standards_on_program_id", using: :btree
   end
 
