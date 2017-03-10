@@ -6,12 +6,4 @@ class Supports::StaticPage
   def courses
     @courses = Course.all
   end
-
-  def trainees
-    @trainees = Trainee.all
-  end
-
-  def trainers
-    @trainers = Trainer.all
-  end
 end
