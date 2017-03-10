@@ -25,10 +25,23 @@ Rails.application.routes.draw do
   resources :training_standards do
     resource :evaluation_template
   end
+
   namespace :change_profile do
     resources :users, only: [:show, :edit, :update]
   end
   resources :evaluation_templates do
     resources :evaluation_standards
+  end
+
+  namespace :change_profile do
+    resources :users, only: [:show, :edit, :update]
+  end
+
+  resources :evaluation_templates do
+    resources :evaluation_standards
+  end
+
+  resources :programs do
+    resources :courses, only: :show
   end
 end

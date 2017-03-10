@@ -39,12 +39,13 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.string   "subject_name"
     t.string   "subject_description"
     t.text     "subject_content",     limit: 65535
-    t.string   "image"
+    t.string   "subject_image"
     t.integer  "course_id"
     t.string   "github_link"
     t.string   "heroku_link"
     t.string   "redmine_link"
     t.datetime "deleted_at"
+    t.integer  "status"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.index ["course_id"], name: "index_course_subjects_on_course_id", using: :btree
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.integer  "program_id"
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
+    t.integer  "owner_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["language_id"], name: "index_courses_on_language_id", using: :btree
@@ -72,13 +74,13 @@ ActiveRecord::Schema.define(version: 20170310090508) do
 
   create_table "evaluation_standards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.float    "max_point",              limit: 24
-    t.float    "min_point",              limit: 24
-    t.float    "average_point",          limit: 24
+    t.float    "max_point",              limit: 24, default: 0.0
+    t.float    "min_point",              limit: 24, default: 0.0
+    t.float    "average_point",          limit: 24, default: 0.0
     t.integer  "evaluation_template_id"
     t.datetime "deleted_at"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.index ["evaluation_template_id"], name: "index_evaluation_standards_on_evaluation_template_id", using: :btree
   end
 

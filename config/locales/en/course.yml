@@ -12,7 +12,7 @@ en:
     id: "ID"
     create_course: "Create course"
     language: "Language"
-    training_standard: "Training Standard"    
+    training_standard: "Training Standard"
     select_status: "Select status"
     status: "Status"
     name: "Course Name"
@@ -33,3 +33,16 @@ en:
     init: "Init"
     in_progress: "In progress"
     finished: "Finished"
+    no_content: "No content"
+    note: "Course Notes"
+    time: "Course's Time is from %{start_date} to %{end_date}"
+    during_time: '%{during_time} days'
+    member:
+      trainees: "Trainees"
+      trainers: "Trainers"
+      member_details: "Member Detail"
+      title: Members
+    creator:
+      title: Creator
+    owner:
+      title: Owner

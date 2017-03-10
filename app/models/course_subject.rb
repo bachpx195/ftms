@@ -6,4 +6,6 @@ class CourseSubject < ApplicationRecord
 
   has_many :user_subjects, dependent: :destroy
   has_many :course_subject_teams, dependent: :destroy
+
+  enum status: [:init, :in_progress, :finished]
 end

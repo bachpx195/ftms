@@ -1,0 +1,228 @@
+#course-show {
+  .subject {
+    background-color: white;
+    margin-top: 15px;
+    padding: 5px 2px;
+    border-bottom-left-radius: 100px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    margin: 7px 0px;
+  }
+
+  .node--connected::after {
+    background: #e2e8e8;
+    bottom: 18px;
+    content: "";
+    height: 125px;
+    left: 28px;
+    position: absolute;
+    width: 6px;
+    z-index: -1;
+  }
+
+  .node {
+    border: 3px solid white;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    margin-top: 46px;
+  }
+
+  .subject-image {
+    padding-left: 5px;
+    padding-right: 0px;
+  }
+
+  .infor {
+    padding-top: 13px;
+    margin-right: 0px;
+  }
+
+  .subject-name {
+    font-size: 20px;
+    color: #21abc7;
+    font-weight: 300;
+    margin: 4px 0px;
+  }
+
+  .image-course-header {
+    display: flex;
+
+    .img-circle {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+
+    .course-header {
+      display: block;
+      margin-left: 20px;
+
+      .header-title {
+        font-size: 200%;
+        color: #575a5b;
+        font-weight: 700;
+      }
+
+      .label-status {
+        border-radius: 3px;
+        color: white;
+        font-weight: 500;
+        padding: 0px 3px 1px 5px;
+      }
+    }
+  }
+
+  #tiny-calendar .fc-head-container .ui-widget-header {
+    background: darkcyan;
+  }
+
+  .info-panel {
+    .user-list {
+      padding-left: 3px;
+
+      li {
+        margin: 6px;
+        list-style: none;
+        float: left;
+      }
+    }
+
+    .plus-node {
+      background-color: #b3b3b3;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 2;
+      color: white;
+      a {
+        color: WHITE;
+      }
+    }
+
+    .plus-node:hover {
+      background-color: #E0E1DD;
+    }
+
+    .doc-field {
+      padding-left: 28px;
+      list-style-type: circle;
+
+      a {
+        text-decoration: underline !important;
+      }
+
+      abbr[title] {
+        border-bottom: none;
+      }
+    }
+
+    .box-title {
+      color: #575a5b;
+      margin: 0px;
+    }
+
+    .section-content {
+      .box-primary {
+        border-top-color: #3c8dbc;
+      }
+
+      .box {
+        position: relative;
+        border-radius: 3px;
+        background: #ffffff;
+        border-top: 3px solid #d2d6de;
+        margin-bottom: 20px;
+        width: 100%;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      }
+
+      .box-header {
+        color: #444;
+        display: block;
+        padding: 10px;
+        position: relative;
+      }
+
+      .box-body {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+.infor {
+  color: #000;
+}
+
+.subject-list {
+  padding-top: 30px;
+}
+
+$init_color: GREEN;
+$progress_color: BLUE;
+$finish_color: #ccc;
+$waiting_color: #DF8B14;
+$testing_color: #5bc0de;
+$pass_color: GREEN;
+$fail_color: RED;
+
+.init-color {
+  color: $init_color;
+}
+
+.init-background-color {
+  background-color: $init_color !important;
+}
+
+.init-border-color {
+  border: 1px solid $init_color;
+}
+
+.progress-color, .in_progress-color, .inprogress-color {
+  color: $progress_color;
+}
+
+.waiting-background-color {
+  background-color: $waiting_color !important;
+}
+
+.testing-background-color {
+  background-color: $testing_color !important;
+}
+
+.progress-background-color, .in_progress-background-color {
+  background-color: $progress_color !important;
+}
+
+.pass-background-color {
+  background-color: $pass_color;
+}
+
+.fail-background-color {
+  background-color: $fail_color;
+}
+
+.progress-border-color {
+  border: 1px solid $progress_color;
+}
+
+
+.finish-color, .finished-color, .complete-color {
+  color: $finish_color;
+}
+
+.finish-background-color, .finished-background-color {
+  background-color: $finish_color !important;
+}
+
+.finish-border-color {
+  border: 1px solid $finish_color;
+}

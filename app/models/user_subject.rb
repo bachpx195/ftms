@@ -7,4 +7,6 @@ class UserSubject < ApplicationRecord
   belongs_to :subject
 
   has_many :properties, as: :objectable, dependent: :destroy
+
+  enum status: [:init, :in_progress, :waiting, :finished]
 end
