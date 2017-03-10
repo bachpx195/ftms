@@ -1,7 +1,5 @@
-class Admin::FunctionsController < ApplicationController
+class FunctionsController < ApplicationController
   before_action :find_function, except: [:index, :new, :create]
-  before_action :authorize, except: [:index, :new, :create]
-  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
     @functions = Function.select :id, :controller_name, :action, :parent_id,
@@ -86,13 +84,5 @@ class Admin::FunctionsController < ApplicationController
         end
       end
     end
-  end
-
-  def authorize
-    admin_authorize @function
-  end
-
-  def authorize_class
-    admin_authorize Function
   end
 end

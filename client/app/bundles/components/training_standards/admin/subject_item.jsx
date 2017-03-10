@@ -2,9 +2,10 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from './training_standard_constants';
+import * as training_standard_constants from '../training_standard_constants';
 
-const STANDARD_SUBECTS_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_STANDARD_SUBECTS_PATH;
+const STANDARD_SUBECTS_URL = app_constants.APP_NAME +
+  training_standard_constants.STANDARD_SUBECTS_PATH;
 
 export default class SubjectItem extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class SubjectItem extends React.Component {
   render() {
     let {name} = this.props.subject
     return(
-      <li className="list-group-item" 
+      <li className="list-group-item"
         onClick={this.onClickSubjectItem.bind(this)}
         title={this.props.subject.name}>
         <input type="checkbox" value={this.props.subject.id}

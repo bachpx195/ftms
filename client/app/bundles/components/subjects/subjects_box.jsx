@@ -7,7 +7,7 @@ import Form from './form';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
 
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.ADMIN_SUBJECT_PATH;
+const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
 export default class SubjectBox extends React.Component {
   constructor(props) {

@@ -19,7 +19,7 @@ export default class FunctionLists extends React.Component {
     });
   }
 
-  
+
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className="col-md-12">
@@ -45,13 +45,11 @@ export default class FunctionLists extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="id" 
+            <ColumnDefinition id="id"
               title={I18n.t("functions.table_position")}/>
-            <ColumnDefinition id="humanize_name" 
-              title={I18n.t("functions.humanize_name")} />
-            <ColumnDefinition id="controller_name" 
+            <ColumnDefinition id="controller_name"
               title={I18n.t("functions.controller_name")}/>
-            <ColumnDefinition id="action" 
+            <ColumnDefinition id="action"
               title={I18n.t("functions.action")} />
           </RowDefinition>
         </Griddle>

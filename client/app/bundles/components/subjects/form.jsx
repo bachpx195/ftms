@@ -106,7 +106,9 @@ export default class Form extends React.Component {
     for(let key of Object.keys(subject)) {
       formData.append('subject[' + key + ']', subject[key]);
     }
+
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
+
     let method = this.props.subject.id ? 'PUT' : 'POST';
     axios({
       url: this.props.url,

@@ -1,4 +1,4 @@
-class Admin::StandardSubjectsController < ApplicationController
+class StandardSubjectsController < ApplicationController
   def index
     @standard_subjects = StandardSubject.select :id, :training_standard_id, :subject_id
     respond_to do |format|

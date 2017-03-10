@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
 import UserSubjectList from './user_subject_list';
 
-const APP_URL = app_constants.APP_NAME;
+import * as app_constants from 'constants/app_constants';
+import * as subject_constants from './subject_constants';
+
+const ORGANIZATION_URL = app_constants.APP_NAME + subject_constants +
+  subject_constants.ORGANIZATION_PATH;
 
 export default class SubjectsShowBox extends React.Component {
   constructor(props) {
@@ -22,8 +25,7 @@ export default class SubjectsShowBox extends React.Component {
   }
 
   fetchSubject() {
-    const url = APP_URL + 'admin/organizations/' +
-      this.props.organization.id + '/subjects/' + this.props.subject.id;
+    const url = ORGANIZATION_URL + '/' + this.props.organization.id + '/subjects/' + this.props.subject.id;
     axios.get(url + '.json')
     .then(response => {
       this.setState({

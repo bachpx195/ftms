@@ -12,7 +12,9 @@ export default class Modal extends React.Component {
               <h4 className='modal-title'>{I18n.t('subjects.modals.header_edit')}</h4>
             </div>
             <div className='modal-body'>
-              <Form subject={this.props.subject} url={this.props.url}
+              <Form
+                subject={this.props.subject}
+                url={this.props.url}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)} />
             </div>
           </div>

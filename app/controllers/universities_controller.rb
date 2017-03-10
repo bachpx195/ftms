@@ -1,7 +1,5 @@
-class Admin::UniversitiesController < ApplicationController
+class UniversitiesController < ApplicationController
   before_action :find_university, except: [:index, :new, :create]
-  before_action :authorize, except: [:index, :new, :create]
-  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
     @universities = University.select :id, :name
@@ -88,13 +86,5 @@ class Admin::UniversitiesController < ApplicationController
         end
       end
     end
-  end
-
-  def authorize
-    admin_authorize @university
-  end
-
-  def authorize_class
-    admin_authorize University
   end
 end

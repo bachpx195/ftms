@@ -1,1 +1,1 @@
-export const ADMIN_UNIVERSITY_PATH = 'admin/universities';
+export const UNIVERSITY_PATH = 'universities';

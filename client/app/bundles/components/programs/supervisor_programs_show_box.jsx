@@ -11,7 +11,7 @@ import * as program_constants from './program_constants';
 
 require('../sass/program_show.scss');
 
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.PROGRAM_PATH;
+const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 
 export default class SupervisorProgramsShowBox extends React.Component {
   constructor(props) {
@@ -116,7 +116,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
           handleAfterEdit={this.handleAfterUpdate.bind(this)}
           handleAfterCreated={this.handleAfterSubmit.bind(this)} />
       );
-    
+
     return (
       <div>
         <div className='pull-left'>
@@ -186,7 +186,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
           program_detail: this.state.program_detail,
           courses: this.state.program_detail.courses,
           modal: ''
-        }) 
+        })
       })
       .catch(error => this.setState({errors: error.response.data.errors}));
     }

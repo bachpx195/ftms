@@ -1,1 +1,1 @@
-export const ADMIN_TRAINEE_TYPE_PATH = 'admin/trainee_types';
+export const TRAINEE_TYPE_PATH = 'trainee_types';
