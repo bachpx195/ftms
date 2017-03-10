@@ -5,7 +5,7 @@ import * as dashboard_constands from './dashboard_constands';
 const LANGUAGES_URL = app_constants.APP_NAME + dashboard_constands.LANGUAGES_PATH;
 const ORGANIZATIONS_URL = app_constants.APP_NAME +
   dashboard_constands.ORGANIZATIONS_PATH;
-const ADMIN_STAGES_URL = app_constants.APP_NAME + dashboard_constands.ADMIN_STAGES_PATH;
+const STAGES_URL = app_constants.APP_NAME + dashboard_constands.STAGES_PATH;
 const ADMIN_SUBJECTS_URL = app_constants.APP_NAME + dashboard_constands.ADMIN_SUBJECTS_PATH;
 const ADMIN_TRAINEE_TYPES_URL = app_constants.APP_NAME +
   dashboard_constands.ADMIN_TRAINEE_TYPES_PATH;
@@ -52,7 +52,7 @@ export default class Sidebar extends React.Component {
             </li>
 
             <li data-page='stages'>
-              <a href={ADMIN_STAGES_URL} onClick={this.onClick.bind(this)}>
+              <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
                 <i className='fa fa-dashboard'></i>
                 <span>{I18n.t('sidebar.stages')}</span>
               </a>

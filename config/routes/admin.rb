@@ -1,7 +1,6 @@
 namespace :admin do
   root "organizations#index"
   resources :universities
-  resources :stages
   resources :trainee_types
   resources :organizations do
     resources :subjects

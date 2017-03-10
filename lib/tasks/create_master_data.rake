@@ -230,13 +230,15 @@ namespace :db do
     ])
 
     puts "13. Crawl function"
+    Function.create controller_name: "organizations", action: "index"
+
     functions = []
     def check_supply object
       object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) && object[:controller] != "sessions"
     end
     Rails.application.routes.routes.map do |router|
       functions.push controller_name: router.defaults[:controller],
-        action: router.defaults[:action] if check_supply router.defaults
+        action: router.defaults[:action], parent_id: 1 if check_supply router.defaults
     end
     functions.uniq.each do |f|
       Function.create! f

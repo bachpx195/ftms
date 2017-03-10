@@ -7,7 +7,7 @@ import Form from './form';
 import * as app_constants from 'constants/app_constants';
 import * as stage_constants from './stage_constants';
 
-const STAGE_URL = app_constants.APP_NAME + stage_constants.ADMIN_STAGE_PATH;
+const STAGE_URL = app_constants.APP_NAME + stage_constants.STAGE_PATH;
 
 export default class StageBox extends React.Component {
   constructor(props) {
@@ -40,8 +40,8 @@ export default class StageBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <Form 
-                    stage={this.state.stage} 
+                  <Form
+                    stage={this.state.stage}
                     url={STAGE_URL}
                     handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>

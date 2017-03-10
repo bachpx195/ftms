@@ -1,7 +1,7 @@
 export const LOGOUT_PATH = 'auth/logout';
 export const LANGUAGES_PATH = 'languages';
 export const ORGANIZATIONS_PATH = 'organizations';
-export const ADMIN_STAGES_PATH = 'admin/stages';
+export const STAGES_PATH = 'stages';
 export const ADMIN_SUBJECTS_PATH = 'admin/subjects';
 export const ADMIN_TRAINEE_TYPES_PATH = 'admin/trainee_types';
 export const TRAINING_STANDARDS_PATH = 'training_standards';
