@@ -99,6 +99,6 @@ export default class CourseLists extends React.Component {
   }
   checkImage(event){
     let target = event.target;
-    $(target).attr('src', '/uploads/image_found.png')
+    $(target).attr('src', '/assets/image_found.png')
   }
 }

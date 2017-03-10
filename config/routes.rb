@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :evaluation_templates do
     resources :evaluation_standards
   end
+
   resources :programs do
     resources :courses, except: [:index]
   end
@@ -41,4 +42,8 @@ Rails.application.routes.draw do
   resources :users
   resources :roles
   resources :role_functions
+
+  namespace :change_role do
+    resources :users, only: [:show, :edit, :update]
+  end
 end

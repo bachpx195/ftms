@@ -7,7 +7,7 @@ json.programs do
     json.extract! program, :name, :program_type, :id
     json.courses do
       json.array! program.courses do |course|
-        json.extract! course, *Course::ATTRIBUTE_PARAMS
+        json.extract! course, *Course::ATTRIBUTE_PARAMS, :id
       end
     end
   end

@@ -22,7 +22,7 @@ export default class UserShowBox extends React.Component {
   }
 
   fetchUser() {
-    axios.get(USER_URL + '/' +this.props.user.id + '.json')
+    axios.get(USER_URL +this.props.user.id + '.json')
     .then(response => {
       this.setState({
         user_detail: response.data.user_detail
@@ -108,7 +108,9 @@ export default class UserShowBox extends React.Component {
                   </tr>
                 </tbody>
               </table>
-              <a href='' className='btn btn-lg btn-primary'>{I18n.t('users.edit_role')}</a>
+              <a href={'/change_role/users/' + this.state.user_detail.id} 
+                className='change_role'>{I18n.t('users.change_role')}
+              </a>
             </div>
           </div>
         </div>

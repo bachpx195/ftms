@@ -21,6 +21,7 @@ import UserIndexBox from '../components/users/user_index_box';
 import SupervisorProgramsShowBox from '../components/programs/supervisor_programs_show_box';
 import ProfileShowBox from '../components/users/profile_show_box';
 import CoursesShowBox from '../components/courses/courses_show_box';
+import UserRolesBox from '../components/users/user_roles_box';
 
 //supervisor
 import SubOrganizationShowBox from '../components/sub_organizations/show_box';
@@ -59,4 +60,5 @@ ReactOnRails.register({
   ProfileShowBox,
   CoursesShowBox,
   TrainingStandardShow,
+  UserRolesBox,
 });
