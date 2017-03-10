@@ -53,7 +53,7 @@ export default class OrganizationBox extends React.Component {
             </div>
 
             <div className="box-body no-padding">
-                {this.renderBoxOrganization()}
+              {this.renderBoxOrganization()}
             </div>
           </div>
         </div>
