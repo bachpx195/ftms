@@ -8,10 +8,16 @@ class Program < ApplicationRecord
 
   has_many :courses, dependent: :destroy
   has_many :profiles, dependent: :destroy
-  has_many :training_standards, dependent: :destroy
+
+  has_many :standard_programs, dependent: :destroy
+  has_many :training_standards, through: :standard_programs, source: :training_standard
   has_many :program_subjects, through: :training_standards, source: :subjects
+  
+
   has_many :user_programs, dependent: :destroy
   has_many :users, through: :user_programs, source: :user
+
+
   has_many :sources, as: :sourceable,
     class_name: MovingHistory.name, dependent: :destroy
   has_many :destinations, as: :destinationable,
