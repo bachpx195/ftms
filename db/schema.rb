@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301152427) do
+ActiveRecord::Schema.define(version: 20170308093335) do
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
@@ -228,6 +228,15 @@ ActiveRecord::Schema.define(version: 20170301152427) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "standard_organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "organization_id"
+    t.integer  "training_standard_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["organization_id"], name: "index_standard_organizations_on_organization_id", using: :btree
+    t.index ["training_standard_id"], name: "index_standard_organizations_on_training_standard_id", using: :btree
+  end
+
   create_table "standard_subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "subject_id"
     t.integer  "training_standard_id"
@@ -275,11 +284,13 @@ ActiveRecord::Schema.define(version: 20170301152427) do
 
   create_table "training_standards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
+    t.integer  "organization_id"
+    t.integer  "creator_id"
     t.integer  "program_id"
-    t.text     "description", limit: 65535
+    t.text     "description",     limit: 65535
     t.datetime "deleted_at"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.index ["program_id"], name: "index_training_standards_on_program_id", using: :btree
   end
 
@@ -402,6 +413,8 @@ ActiveRecord::Schema.define(version: 20170301152427) do
   add_foreign_key "programs", "organizations"
   add_foreign_key "role_functions", "functions"
   add_foreign_key "role_functions", "roles"
+  add_foreign_key "standard_organizations", "organizations"
+  add_foreign_key "standard_organizations", "training_standards"
   add_foreign_key "standard_subjects", "subjects"
   add_foreign_key "standard_subjects", "training_standards"
   add_foreign_key "team_members", "teams"

@@ -9,8 +9,8 @@ const ADMIN_STAGES_URL = app_constants.APP_NAME + dashboard_constands.ADMIN_STAG
 const ADMIN_SUBJECTS_URL = app_constants.APP_NAME + dashboard_constands.ADMIN_SUBJECTS_PATH;
 const ADMIN_TRAINEE_TYPES_URL = app_constants.APP_NAME +
   dashboard_constands.ADMIN_TRAINEE_TYPES_PATH;
-const ADMIN_TRAINING_STANDARDS_URL = app_constants.APP_NAME +
-  dashboard_constands.ADMIN_TRAINING_STANDARDS_PATH;
+const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
+  dashboard_constands.TRAINING_STANDARDS_PATH;
 const ADMIN_UNIVERSITIES_URL = app_constants.APP_NAME +
   dashboard_constands.ADMIN_UNIVERSITIES_PATH;
 const FUNCTIONS_URL = app_constants.APP_NAME +
@@ -71,7 +71,7 @@ export default class Sidebar extends React.Component {
             </li>
 
             <li data-page="training_standards">
-              <a href={ADMIN_TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
+              <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
                 <i className='fa fa-wpforms'></i>
                 <span>{I18n.t('sidebar.training_standards')}</span>
               </a>
