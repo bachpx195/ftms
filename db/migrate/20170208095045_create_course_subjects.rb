@@ -5,12 +5,13 @@ class CreateCourseSubjects < ActiveRecord::Migration[5.0]
       t.string :subject_name
       t.string :subject_description
       t.text :subject_content
-      t.string :image
+      t.string :subject_image
       t.belongs_to :course, foreign_key: true
       t.string :github_link
       t.string :heroku_link
       t.string :redmine_link
       t.datetime :deleted_at
+      t.integer :status
 
       t.timestamps
     end

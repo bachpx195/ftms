@@ -12,6 +12,8 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.belongs_to :program, foreign_key: true
       t.belongs_to :training_standard, foreign_key: true
       t.datetime :deleted_at
+      t.integer :creator_id
+      t.integer :owner_id
 
       t.timestamps
     end

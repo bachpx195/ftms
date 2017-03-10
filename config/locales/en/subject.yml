@@ -26,3 +26,8 @@ en:
       progress: "Progress"
       waiting: "Waiting"
       finish: "Finish"
+    members: Members
+    init_subjects: "Init Subjects "
+    progress_subjects: "Progress Subjects "
+    waiting_subjects: "Waiting Subjects "
+    finish_subjects: "Finish Subjects "

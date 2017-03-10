@@ -22,7 +22,9 @@ class User < ApplicationRecord
   has_many :user_functions, dependent: :destroy
   has_many :functions, through: :user_functions
   has_many :training_standards, foreign_key: :creator_id
-  has_many :created_course, class_name: Course.name, foreign_key: :creator_id
+  has_many :created_courses, class_name: Course.name, foreign_key: :creator_id
+  has_many :courses, through: :user_courses, dependent: :destroy
+  has_many :owned_courses, class_name: Course.name, foreign_key: :owner_id
 
   accepts_nested_attributes_for :user_functions, allow_destroy: true
 
