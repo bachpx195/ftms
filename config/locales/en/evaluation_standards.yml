@@ -1,0 +1,7 @@
+en:
+  evaluation_standards:
+    headers:
+      name: "Name"
+      min_point: "Min point"
+      max_point: "Max point"
+      average_point: "Average point"

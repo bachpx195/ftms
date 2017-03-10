@@ -3,3 +3,6 @@ en:
     title: "Evaluation template"
     headers:
       name: "Name"
+    modals:
+      edit_evaluation_standard: "Edit evaluation standard"
+      new_evaluation_standard: "New evaluation standard"
