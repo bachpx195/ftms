@@ -7,7 +7,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './program_constants';
 
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.PROGRAM_PATH;
+const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 
 export default class ProgramLists extends React.Component {
   constructor(props) {

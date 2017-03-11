@@ -1,8 +1,5 @@
-class Admin::SubjectsController < ApplicationController
+class SubjectsController < ApplicationController
   before_action :find_subject, except: [:index, :new, :create]
-  before_action :find_organization, except: [:index, :new, :create]
-  before_action :authorize, except: [:index, :new, :create]
-  before_action :authorize_class, only: [:index, :new, :create]
 
   def index
     @subjects = Subject.select :id, :name, :image, :description
@@ -16,7 +13,7 @@ class Admin::SubjectsController < ApplicationController
     @subject = Subject.new subject_params
     respond_to do |format|
       if @subject.save
-        format.html {redirect_to [:admin, @subject]}
+        format.html {redirect_to @subject}
         format.json do
           @subject[:image] = {url: @subject.image.url}
           render json: {message: flash_message("created"),
@@ -49,7 +46,7 @@ class Admin::SubjectsController < ApplicationController
   def update
     respond_to do |format|
       if @subject.update_attributes subject_params
-        format.html {redirect_to [:admin, @subject]}
+        format.html {redirect_to @subject}
         format.json do
           @subject[:image] = {url: @subject.image.url}
           render json: {message: flash_message("updated"),
@@ -96,26 +93,5 @@ class Admin::SubjectsController < ApplicationController
         end
       end
     end
-  end
-
-  def find_organization
-    @organization = Organization.find_by id: params[:organization_id]
-    unless @organization
-      respond_to do |format|
-        format.html {redirect_to admin_organizations_path}
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
-        end
-      end
-    end
-  end
-
-  def authorize
-    admin_authorize @subject
-  end
-
-  def authorize_class
-    admin_authorize Subject
   end
 end

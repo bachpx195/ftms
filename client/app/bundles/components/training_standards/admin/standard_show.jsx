@@ -5,12 +5,11 @@ import ModalAssign from './modal_assign';
 import Form from './form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../subjects/subject_constants';
-import * as training_standard_constants from './training_standard_constants';
+import * as training_standard_constants from '../training_standard_constants';
 
-const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_TRAINING_STANDARD_PATH;
-const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.ADMIN_STANDARD_SUBECTS_PATH;
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.ADMIN_SUBJECT_PATH;
+const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
+const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.STANDARD_SUBECTS_PATH;
+const SUBJECT_URL = app_constants.APP_NAME + training_standard_constants.SUBJECT_PATH;
 
 export default class TrainingStandardShow extends React.Component {
   constructor(props) {
@@ -56,7 +55,7 @@ export default class TrainingStandardShow extends React.Component {
     );
 
     const ButtonReject = ({griddleKey}) => (
-      <button className="btn btn-danger" 
+      <button className="btn btn-danger"
         onClick={this.onRejectSubject.bind(this)}
         title={I18n.t("training_standards.reject")}
         data-index={griddleKey} >
@@ -64,9 +63,6 @@ export default class TrainingStandardShow extends React.Component {
       </button>
     );
 
-    const LinkToSubject = ({value, griddleKey}) => (
-      <a href={SUBJECT_URL + "/" + this.state.selected_subjects[griddleKey].id} title={value}>{value}</a>
-    );
     const DescriptionSubject =({value, griddleKey}) => (
       <p title={value}>{value}</p>
     );
@@ -77,11 +73,10 @@ export default class TrainingStandardShow extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")} 
-              customComponent={LinkToSubject} />
-            <ColumnDefinition id="description" title={I18n.t("subjects.headers.description")} 
+            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")} />
+            <ColumnDefinition id="description" title={I18n.t("subjects.headers.description")}
               customComponent={DescriptionSubject}/>
-            <ColumnDefinition id="reject" title=' ' 
+            <ColumnDefinition id="reject" title=' '
               customComponent={ButtonReject} />
           </RowDefinition>
         </Griddle>

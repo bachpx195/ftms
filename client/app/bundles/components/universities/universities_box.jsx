@@ -7,7 +7,7 @@ import Form from './form';
 import * as app_constants from 'constants/app_constants';
 import * as university_constants from './university_constants';
 
-const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.ADMIN_UNIVERSITY_PATH;
+const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
 
 export default class UniversityBox extends React.Component {
   constructor(props) {
@@ -40,8 +40,8 @@ export default class UniversityBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <Form 
-                    university={this.state.university} 
+                  <Form
+                    university={this.state.university}
                     url={UNIVERSITY_URL}
                     handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>

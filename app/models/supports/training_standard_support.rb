@@ -8,7 +8,12 @@ class Supports::TrainingStandardSupport
   end
 
   def training_standards
-    @training_standards ||= TrainingStandard.select :id, :name, :description
+    admin = true
+    @training_standards  = if admin
+      TrainingStandard.select :id, :name, :description
+    else
+      current_user.training_standards
+    end
   end
 
   def selected_subjects

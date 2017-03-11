@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     controllers: {sessions: "sessions", passwords: "passwords"},
     path_names: {sign_in: "login", sign_out: "logout"}
   draw :api
-  draw :admin
   draw :assign_program
   root "static_pages#show"
   resources :static_pages
@@ -20,6 +19,7 @@ Rails.application.routes.draw do
     end
     resources :subjects
   end
+  resources :subjects
   resources :sub_organizations
   resources :languages
   resources :training_standards do
@@ -32,17 +32,15 @@ Rails.application.routes.draw do
   resources :evaluation_templates do
     resources :evaluation_standards
   end
-
-  namespace :change_profile do
-    resources :users, only: [:show, :edit, :update]
-  end
-
-  resources :evaluation_templates do
-    resources :evaluation_standards
-  end
-
   resources :programs do
     resources :courses, only: :show
   end
+  resources :standard_subjects, only: [:index, :create, :destroy]
   resources :stages
+  resources :universities
+  resources :trainee_types
+  resources :functions
+  resources :users
+  resources :roles
+  resources :role_functions
 end

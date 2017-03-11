@@ -1,1 +1,1 @@
-export const ADMIN_FUNCTION_PATH = 'functions';
+export const FUNCTION_PATH = 'functions';

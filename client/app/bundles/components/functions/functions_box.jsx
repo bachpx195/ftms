@@ -6,7 +6,7 @@ import FunctionLists from './function_lists';
 import * as app_constants from 'constants/app_constants';
 import * as function_constants from './function_constants';
 
-const FUNCTION_URL = app_constants.APP_NAME + function_constants.ADMIN_FUNCTION_PATH;
+const FUNCTION_URL = app_constants.APP_NAME + function_constants.FUNCTION_PATH;
 
 export default class FunctionsBox extends React.Component {
   constructor(props) {
@@ -54,7 +54,7 @@ export default class FunctionsBox extends React.Component {
             <div className='box-footer'>
               <FunctionLists functions={this.state.functions} />
             </div>
-            
+
           </div>
         </div>
       </div>

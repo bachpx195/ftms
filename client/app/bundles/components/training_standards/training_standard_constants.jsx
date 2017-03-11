@@ -1,2 +1,3 @@
-export const ADMIN_TRAINING_STANDARD_PATH = 'admin/training_standards';
-export const ADMIN_STANDARD_SUBECTS_PATH = 'admin/standard_subjects';
+export const TRAINING_STANDARD_PATH = 'training_standards';
+export const STANDARD_SUBECTS_PATH = 'standard_subjects';
+export const SUBJECT_PATH = 'subjects';

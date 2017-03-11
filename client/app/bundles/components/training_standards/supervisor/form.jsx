@@ -2,7 +2,7 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import Errors from '../shareds/errors';
+
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
 
@@ -11,16 +11,13 @@ export default class Form extends React.Component {
     super(props);
     this.state = {
       name: props.training_standard.name || '',
-      description: props.training_standard.description || '',
-      errors: null
+      description: props.training_standard.description || ''
     };
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <Errors errors={this.state.errors} />
-
         <div className='form-group row'>
           <lable className='col-md-2'>{I18n.t('training_standards.headers.name')}</lable>
           <div className='col-md-10'>
@@ -102,7 +99,7 @@ export default class Form extends React.Component {
       this.props.handleAfterSaved(response.data.training_standard);
     })
     .catch(error => {
-      this.setState({errors: error.response.data.errors});
+      console.log(error);
     });
   }
 }

@@ -7,7 +7,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as trainee_type_constants from './trainee_type_constants';
 
-const TRAINEE_TYPE_URL = app_constants.APP_NAME + trainee_type_constants.ADMIN_TRAINEE_TYPE_PATH;
+const TRAINEE_TYPE_URL = app_constants.APP_NAME + trainee_type_constants.TRAINEE_TYPE_PATH;
 
 export default class TraineeTypeLists extends React.Component {
   constructor(props) {
@@ -70,7 +70,7 @@ export default class TraineeTypeLists extends React.Component {
             <ColumnDefinition id="name" title={I18n.t("trainee_types.name")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
               title=" "/>
-            <ColumnDefinition id="delete" customComponent={ButtonDelete} 
+            <ColumnDefinition id="delete" customComponent={ButtonDelete}
               title="  " />
           </RowDefinition>
         </Griddle>

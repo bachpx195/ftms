@@ -5,7 +5,7 @@ import Modal from './modal';
 import Form from './form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from './training_standard_constants';
+import * as training_standard_constants from '../training_standard_constants';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
 
@@ -17,7 +17,7 @@ export default class TrainingStandardLists extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      standard_organizations: nextProps.standard_organizations,
+      training_standards: nextProps.training_standards,
     });
   }
 
@@ -59,17 +59,17 @@ export default class TrainingStandardLists extends React.Component {
 
 
     let modalEdit = null;
-    if(this.state.standard_organization.id){
+    if(this.state.training_standard.id){
       modalEdit = (
-        <Modal url={TRAINING_STANDARD_URL + '/' + this.state.standard_organization.id}
-          standard_organization={this.state.standard_organization}
+        <Modal url={TRAINING_STANDARD_URL + '/' + this.state.training_standard.id}
+          training_standard={this.state.training_standard}
           handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );
     }
 
     return (
       <div>
-        <Griddle data={this.state.standard_organizations} plugins={[plugins.LocalPlugin]}
+        <Griddle data={this.state.training_standards} plugins={[plugins.LocalPlugin]}
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
@@ -87,7 +87,7 @@ export default class TrainingStandardLists extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.standard_organization.id){
+    if(this.state.training_standard.id){
       $('#modalEdit').modal();
     }
   }
@@ -96,16 +96,16 @@ export default class TrainingStandardLists extends React.Component {
     let $target = $(event.target);
     $target.blur();
     this.setState({
-      standard_organization: this.props.standard_organizations[$target.data('index')]
+      training_standard: this.props.training_standards[$target.data('index')]
     });
   }
 
   handleDelete(event) {
     let $target = $(event.target);
     $target.blur();
-    let standard_organization = this.props.standard_organizations[$target.data('index')];
+    let training_standard = this.props.training_standards[$target.data('index')];
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(TRAINING_STANDARD_URL + '/' + standard_organization.id, {
+      axios.delete(TRAINING_STANDARD_URL + '/' + training_standard.id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },
@@ -113,9 +113,9 @@ export default class TrainingStandardLists extends React.Component {
       })
       .then(response => {
         this.setState({
-          standard_organization: {}
+          training_standard: {}
         });
-        this.props.handleAfterDeleted(standard_organization);
+        this.props.handleAfterDeleted(training_standard);
       })
       .catch(error => console.log(error));
     }
@@ -123,7 +123,7 @@ export default class TrainingStandardLists extends React.Component {
 
   handleAfterUpdated(new_standard_organization) {
     this.setState({
-      standard_organization: {}
+      training_standard: {}
     });
     this.props.handleAfterUpdated(new_standard_organization);
   }

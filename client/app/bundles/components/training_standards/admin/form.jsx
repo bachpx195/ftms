@@ -2,7 +2,6 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import Errors from '../shareds/errors';
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
 
@@ -10,8 +9,8 @@ export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.standard_organization.name || '',
-      description: props.standard_organization.description || '',
+      name: props.training_standard.name || '',
+      description: props.training_standard.description || '',
       errors: null
     };
   }
@@ -19,8 +18,6 @@ export default class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <Errors errors={this.state.errors} />
-
         <div className='form-group row'>
           <lable className='col-md-2'>{I18n.t('training_standards.headers.name')}</lable>
           <div className='col-md-10'>
@@ -55,8 +52,8 @@ export default class Form extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      name: nextProps.standard_organization.name || '',
-      description: nextProps.standard_organization.description || '',
+      name: nextProps.training_standard.name || '',
+      description: nextProps.training_standard.description || '',
       errors: null
     });
   }
@@ -76,13 +73,13 @@ export default class Form extends React.Component {
     event.preventDefault();
     let formData = new FormData();
 
-    let standard_organization = _.omit(this.state, 'errors');
+    let training_standard = _.omit(this.state, 'errors');
 
-    for(let key of Object.keys(standard_organization)) {
-      formData.append('standard_organization[' + key + ']', standard_organization[key]);
+    for(let key of Object.keys(training_standard)) {
+      formData.append('training_standard[' + key + ']', training_standard[key]);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let method = this.props.standard_organization.id ? 'PUT' : 'POST';
+    let method = this.props.training_standard.id ? 'PUT' : 'POST';
     axios({
       url: this.props.url,
       method: method,
@@ -90,7 +87,7 @@ export default class Form extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      if(this.props.standard_organization.id) {
+      if(this.props.training_standard.id) {
         $('#modalEdit').modal('hide');
       } else {
         this.setState({
@@ -99,7 +96,7 @@ export default class Form extends React.Component {
           errors: null,
         });
       }
-      this.props.handleAfterSaved(response.data.standard_organization);
+      this.props.handleAfterSaved(response.data.training_standard);
     })
     .catch(error => {
       this.setState({errors: error.response.data.errors});

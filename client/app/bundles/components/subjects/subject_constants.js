@@ -1,2 +1,2 @@
-export const ADMIN_SUBJECT_PATH = 'admin/subjects';
-export const SUBJECTS_PATH = 'subjects/';
+export const SUBJECT_PATH = 'subjects';
+export const ORGANIZATION_PATH = 'organizations';

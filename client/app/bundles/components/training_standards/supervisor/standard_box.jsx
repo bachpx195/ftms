@@ -5,7 +5,7 @@ import Form from './form';
 import TrainingStandardLists from './training_standard_lists';
 
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from './training_standard_constants';
+import * as training_standard_constants from '../training_standard_constants';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
 
@@ -13,8 +13,8 @@ export default class TrainingStandardBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      standard_organizations: props.standard_organizations,
-      standard_organization: {},
+      training_standards: props.training_standards,
+      training_standard: {},
     };
   }
 
@@ -41,15 +41,15 @@ export default class TrainingStandardBox extends React.Component {
                 <div className='col-md-8 col-md-offset-2'>
                   <Form
                     url={TRAINING_STANDARD_URL}
-                    standard_organization={this.state.standard_organization}
+                    training_standard={this.state.training_standard}
                     handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
             <div className='box-footer'>
               <TrainingStandardLists
-                standard_organization={this.state.standard_organization}
-                standard_organizations={this.state.standard_organizations}
+                training_standard={this.state.training_standard}
+                training_standards={this.state.training_standards}
                 handleAfterUpdated={this.handleAfterUpdated.bind(this)}
                 handleAfterDeleted={this.handleAfterDeleted.bind(this)}
               />
@@ -60,27 +60,27 @@ export default class TrainingStandardBox extends React.Component {
     );
   }
 
-  handleAfterCreated(standard_organization) {
-    this.state.standard_organizations.push(standard_organization);
+  handleAfterCreated(training_standard) {
+    this.state.training_standards.push(training_standard);
     this.setState({
-      standard_organizations: this.state.standard_organizations,
-      standard_organization: {}
+      training_standards: this.state.training_standards,
+      training_standard: {}
     });
   }
 
   handleAfterUpdated(new_standard_organization) {
-    let index = this.state.standard_organizations
-      .findIndex(standard_organization => standard_organization.id === new_standard_organization.id);
-    this.state.standard_organizations[index] = new_standard_organization;
+    let index = this.state.training_standards
+      .findIndex(training_standard => training_standard.id === new_standard_organization.id);
+    this.state.training_standards[index] = new_standard_organization;
     this.setState({
-      standard_organizations: this.state.standard_organizations,
-      standard_organization: {}
+      training_standards: this.state.training_standards,
+      training_standard: {}
     });
   }
 
-  handleAfterDeleted(deleted_standard_organization) {
-    _.remove(this.state.standard_organizations,
-      standard_organization => standard_organization.id === deleted_standard_organization.id);
-    this.setState({standard_organizations: this.state.standard_organizations});
+  handleAfterDeleted(deleted_training_standard) {
+    _.remove(this.state.training_standards,
+      training_standard => training_standard.id === deleted_training_standard.id);
+    this.setState({training_standards: this.state.training_standards});
   }
 }
