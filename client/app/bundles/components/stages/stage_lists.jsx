@@ -7,7 +7,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as stage_constants from './stage_constants';
 
-const STAGE_URL = app_constants.APP_NAME + stage_constants.ADMIN_STAGE_PATH;
+const STAGE_URL = app_constants.APP_NAME + stage_constants.STAGE_PATH;
 
 export default class StageLists extends React.Component {
   constructor(props) {
@@ -70,7 +70,7 @@ export default class StageLists extends React.Component {
             <ColumnDefinition id="name" title={I18n.t("stages.name")} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
               title=" "/>
-            <ColumnDefinition id="delete" customComponent={ButtonDelete} 
+            <ColumnDefinition id="delete" customComponent={ButtonDelete}
               title="  " />
           </RowDefinition>
         </Griddle>

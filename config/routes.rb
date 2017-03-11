@@ -44,4 +44,5 @@ Rails.application.routes.draw do
   resources :programs do
     resources :courses, only: :show
   end
+  resources :stages
 end

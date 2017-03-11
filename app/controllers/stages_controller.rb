@@ -1,7 +1,6 @@
-class Admin::StagesController < ApplicationController
+class StagesController < ApplicationController
   before_action :find_stage, except: [:index, :new, :create]
-  before_action :authorize, except: [:index, :new, :create]
-  before_action :authorize_class, only: [:index, :new, :create]
+  before_action :authorize_class
 
   def index
     @stages = Stage.select :id, :name
@@ -14,7 +13,7 @@ class Admin::StagesController < ApplicationController
     @stage = Stage.new stage_params
     respond_to do |format|
       if @stage.save
-        format.html {redirect_to [:admin, @stage]}
+        format.html {redirect_to @stage}
         format.json do
           render json: {message: flash_message("created"),
             stage: @stage}
@@ -42,7 +41,7 @@ class Admin::StagesController < ApplicationController
   def update
     respond_to do |format|
       if @stage.update_attributes stage_params
-        format.html {redirect_to [:admin, @stage]}
+        format.html {redirect_to @stage}
         format.json do
           render json: {message: flash_message("updated"),
             stage: @stage}
@@ -60,7 +59,7 @@ class Admin::StagesController < ApplicationController
   def destroy
     @stage.destroy
     respond_to do |format|
-      format.html {redirect_to admin_stages_path}
+      format.html {redirect_to stages_path}
       format.json do
         if @stage.deleted?
           render json: {message: flash_message("deleted")}
@@ -81,20 +80,12 @@ class Admin::StagesController < ApplicationController
     @stage = Stage.find_by id: params[:id]
     unless @stage
       respond_to do |format|
-        format.html {redirect_to admin_stages_path}
+        format.html {redirect_to stages_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
         end
       end
     end
-  end
-
-  def authorize
-    admin_authorize @stage
-  end
-
-  def authorize_class
-    admin_authorize Stage
   end
 end

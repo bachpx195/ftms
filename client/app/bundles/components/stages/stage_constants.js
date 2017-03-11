@@ -1,1 +1,1 @@
-export const ADMIN_STAGE_PATH = 'admin/stages';
+export const STAGE_PATH = 'stages';
