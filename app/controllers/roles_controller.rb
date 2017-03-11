@@ -1,5 +1,6 @@
 class RolesController < ApplicationController
   before_action :find_role, only: :show
+  before_action :authorize_class
 
   def index
     @roles = Role.order_by_parent_id

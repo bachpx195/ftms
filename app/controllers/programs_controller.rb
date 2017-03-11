@@ -1,6 +1,7 @@
 class ProgramsController < ApplicationController
   before_action :find_organization
   before_action :find_program, except: [:index, :new, :create]
+  before_action :authorize_class
 
   def index
     @programs = []
