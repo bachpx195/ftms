@@ -8,11 +8,7 @@ json.programs do
     json.courses do
       json.array! program.courses do |course|
         json.extract! course, *Course::ATTRIBUTE_PARAMS, :id
-        json.users do
-          json.array! course.trainers do |user|
-            json.extract! user, :id , :name, :avatar
-          end
-        end
+        json.users course.managers, :id , :name, :avatar
       end
     end
   end

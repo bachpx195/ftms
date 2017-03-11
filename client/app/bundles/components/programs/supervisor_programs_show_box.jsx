@@ -25,7 +25,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
     this.state = {
       program_detail: {},
       training_standards:[],
-      courses: [],
       image: '',
       selected_standard: 0,
     };
@@ -42,14 +41,10 @@ export default class SupervisorProgramsShowBox extends React.Component {
       .then(response => {
         this.setState({
           program_detail: response.data.program_detail,
-          courses: response.data.program_detail.courses,
           training_standards: response.data.program_detail.training_standards,
         });
       })
-      .catch(error => {
-          console.log(error);
-        }
-      );
+      .catch(error => console.log(error));
   }
 
   renderListCourses() {
@@ -134,7 +129,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
           <ul className="pull-right list-inline">
             <li>
               <button className='btn btn-info' onClick={this.handleCreate.bind(this)}>
-                {I18n.t('course.create_course')}
+                {I18n.t('courses.create_course')}
               </button>
             </li>
             <li>
@@ -201,7 +196,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
   }
 
   handleCreate(event){
-    $('#modalEdit').find('select,input').val('');
+    $('#modalEdit').find('select, input').val('');
     $('#modalEdit').modal();
   }
 
@@ -223,10 +218,9 @@ export default class SupervisorProgramsShowBox extends React.Component {
         training_standards: this.state.training_standards
       });
       $('#modalCreateStandards').modal('hide');
+      this.refs.nameField.value = ''
     })
-    .catch(error => {
-      console.log(error);
-    })
+    .catch(error => console.log(error));
   }
 
   handleSelectChange(event){
@@ -244,9 +238,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
     .then(response => {
 
     })
-    .catch(error => {
-      console.log(error);
-    })
+    .catch(error => console.log(error));
   }
 
   handleAfterUpdate(new_course){
@@ -255,7 +247,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
     this.state.program_detail.courses[index] = new_course;
     this.setState({
       program_detail: this.state.program_detail,
-      courses: this.state.program_detail.courses,
       course: {},
     });
   }
@@ -264,7 +255,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
     this.state.program_detail.courses.push(course);
     this.setState({
       program_detail: this.state.program_detail,
-      courses: this.state.program_detail.courses,
+      courses: this.state.program_detail.courses
     });
   }
 }

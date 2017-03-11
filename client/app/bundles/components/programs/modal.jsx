@@ -13,7 +13,7 @@ export default class Modal extends React.Component {
               <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
               <h4 className='modal-title'>
-                {I18n.t('course.modals.header_edit')}
+                {I18n.t('courses.modals.header_edit')}
               </h4>
             </div>
             <div className='modal-body'>

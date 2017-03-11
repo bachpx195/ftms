@@ -1,0 +1,59 @@
+#modal-assign-member {
+  .modal-dialog {
+    width: 75%;
+  }
+
+  .panel-body {
+    padding: 0;
+  }
+
+  .panel-info {
+    margin-bottom: 10px;
+  }
+
+  .assign-managers, .reject-users, .assign-members {
+    margin-bottom: 15px;
+    min-width: 50px;
+  }
+
+  .assign-managers {
+    margin-top: calc(10vh + 45px);
+    margin-bottom: calc(10vh + 30px);
+  }
+
+  .assign-members {
+    margin-top: calc(10vh + 30px);
+  }
+
+  .check-icon {
+    left: -5px;
+  }
+
+  #list-users {
+    height: 58vh;
+    overflow-y: auto;
+  }
+
+  #list-managers {
+    height: 20vh;
+    overflow-y: auto;
+  }
+
+  #list-members {
+    height: 20vh;
+    overflow-y: auto;
+  }
+
+  .list-group {
+    margin-bottom: 0;
+  }
+
+  .count-member {
+    text-align: right;
+  }
+
+ .panel-heading {
+   color: white;
+   background-color: teal;
+  }
+}

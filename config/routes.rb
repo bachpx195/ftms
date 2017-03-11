@@ -46,4 +46,8 @@ Rails.application.routes.draw do
   namespace :change_role do
     resources :users, only: [:show, :edit, :update]
   end
+  
+  namespace :assign_user do
+    resources :courses, only: [:update]
+  end
 end
