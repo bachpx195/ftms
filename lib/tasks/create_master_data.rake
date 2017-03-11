@@ -210,15 +210,15 @@ namespace :db do
     Course.create!([
       {name: "Laboratory Rails", description: "Lorem Ipsum", status: "in_progress",
         language_id: 1, start_date: "01/01/2001", end_date: "01/01/2021",
-        program_id: 1, training_standard_id: 1,
+        program_id: 1, training_standard_id: 1, creator_id: 4,
         image: File.open(File.join(Rails.root, "app/assets/images/edu.jpg"))},
       {name: "Laboratory PHP", description: "Lorem Ipsum", status: "in_progress",
         language_id: 2, start_date: "01/01/2001", end_date: "01/01/2021",
-        program_id: 1, training_standard_id: 1,
+        program_id: 1, training_standard_id: 1, creator_id: 4,
         image: File.open(File.join(Rails.root, "app/assets/images/edu.jpg"))},
       {name: "Laboratory Android", description: "Lorem Ipsum", status: "in_progress",
         language_id: 2, start_date: "01/01/2001", end_date: "01/01/2021",
-        program_id: 1, training_standard_id: 1,
+        program_id: 1, training_standard_id: 1, creator_id: 4,
         image: File.open(File.join(Rails.root, "app/assets/images/edu.jpg"))},
     ])
 

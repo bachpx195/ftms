@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :evaluation_standards
   end
   resources :programs do
-    resources :courses
+    resources :courses, except: [:index]
   end
   resources :standard_subjects, only: [:index, :create, :destroy]
   resources :stages

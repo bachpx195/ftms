@@ -1,11 +1,7 @@
 class CoursesController < ApplicationController
-  before_action :find_course, except: [:index, :new, :create]
-  before_action :find_program, except: :index
+  before_action :find_program
+  before_action :find_course, except: [:new, :create]
   before_action :authorize_class
-
-  def index
-    @supports = Supports::CourseSupport.new
-  end
 
   def new
   end
@@ -15,7 +11,8 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = @program.courses.build course_params.merge(creator_id: current_user.id)
+    @course = @program.courses.build course_params
+      .merge(creator_id: current_user.id)
     respond_to do |format|
       if @course.save
         format.html {redirect_to :back}
@@ -69,7 +66,7 @@ class CoursesController < ApplicationController
       format.html
       format.json do
         if @course.deleted?
-          render json: {message: flash_message("deleted")}
+          render json: {message: flash_message("deleted"), program: @program}
         else
           render json: {message: flash_message("not_deleted")},
             status: :unprocessable_entity
