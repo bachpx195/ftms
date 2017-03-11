@@ -17,6 +17,7 @@ en:
     list_users: "Users"
     list_courses: "Courses"
     list_subjects: "Subjects"
+    select_standard: "Select a Standard"
     image: "Image"
     name: "Name"
     description: "Description"

@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
-import Modal from './modal'
+import Modal from './modal';
+import { Select } from 'antd';
+
 
 import UserLists from './user_lists';
 import CourseLists from './course_lists';
@@ -9,6 +11,7 @@ import SubjectLists from './subject_lists';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './program_constants';
 
+require("!style!css!antd/lib/select/style/index.css");
 require('../sass/program_show.scss');
 
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
@@ -19,6 +22,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
     this.state = {
       modal: '',
       program_detail: {},
+      training_standards:[],
       courses: [],
       course: {}
     };
@@ -36,12 +40,23 @@ export default class SupervisorProgramsShowBox extends React.Component {
         this.setState({
           program_detail: response.data.program_detail,
           courses: response.data.program_detail.courses,
+          training_standards: response.data.program_detail.training_standards,
         });
       })
       .catch(error => {
           console.log(error);
         }
       );
+  }
+
+  renderOptionTrainingStandard(){
+    return _.map(this.state.training_standards, standard => {
+      return (
+        <Select.Option key={standard.id} value={standard.name}>
+          {standard.name}
+        </Select.Option>
+      );
+    });
   }
 
   renderListCourses () {
@@ -119,6 +134,16 @@ export default class SupervisorProgramsShowBox extends React.Component {
 
     return (
       <div>
+        <div className='margin-select'>
+          <Select
+            style={{ width: 500 }}
+            placeholder={I18n.t('program.select_standard')}>
+              <Select.Option key="0" value="All">
+                {I18n.t('training_standard.titles.all')}
+              </Select.Option>
+              {this.renderOptionTrainingStandard()}
+          </Select>
+        </div>
         <div className='pull-left'>
           <button className='btn btn-info' onClick={this.handleCreate.bind(this)}>
             {I18n.t('course.create_course')}
