@@ -9,3 +9,4 @@ export const UNIVERSITIES_PATH = 'universities';
 export const ROOT_PATH = 'admin';
 export const FUNCTIONS_PATH = 'functions';
 export const ROLES_PATH = 'roles';
+export const USERS_PATH = 'users';

@@ -4,6 +4,8 @@ class RoleFunctionsController < ApplicationController
 
   def update
     if @role.update_attributes function_params
+      update_user_function = RoleServices::UpdateUserFunction.new @role
+      update_user_function.perform
       @function_role = Function.functions_with_role @role.id
       render json: {functions: @function_role, role: @role}
     else

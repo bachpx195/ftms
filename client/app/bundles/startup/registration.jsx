@@ -18,6 +18,7 @@ import SubjectsShowBox from  '../components/subjects/subjects_show_box';
 import FunctionsBox from '../components/functions/functions_box';
 import RoleBox from '../components/roles/roles_box';
 import UserShowBox from '../components/users/user_show_box';
+import UserIndexBox from '../components/users/user_index_box';
 import SupervisorProgramsShowBox from '../components/programs/supervisor_programs_show_box';
 import ProfileShowBox from '../components/users/profile_show_box';
 import CoursesShowBox from '../components/courses/courses_show_box';
@@ -49,6 +50,7 @@ ReactOnRails.register({
   FunctionsBox,
   RoleBox,
   UserShowBox,
+  UserIndexBox,
   SupervisorProgramsShowBox,
   SubOrganizationShowBox,
   EvaluationTemplatesBox,

@@ -17,6 +17,8 @@ const FUNCTIONS_URL = app_constants.APP_NAME +
   dashboard_constands.FUNCTIONS_PATH;
 const ROLES_URL = app_constants.APP_NAME +
   dashboard_constands.ROLES_PATH;
+const USERS_URL = app_constants.APP_NAME +
+  dashboard_constands.USERS_PATH;
 
 
 export default class Sidebar extends React.Component {
@@ -114,6 +116,13 @@ export default class Sidebar extends React.Component {
                   </a>
                 </li>
               </ul>
+            </li>
+
+            <li>
+              <a href={USERS_URL} onClick={this.onClick.bind(this)}>
+                <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
+                <span>{I18n.t('sidebar.manage_user')}</span>
+              </a>
             </li>
           </ul>
         </section>

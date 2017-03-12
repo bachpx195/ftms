@@ -31,14 +31,14 @@ export default class Header extends React.Component {
           <ul className="nav navbar-nav">
             <li className="dropdown user user-menu">
               <a href="" className="dropdown-toggle" data-toggle="dropdown">
-                <img src={current_user.avatar.url}
+                <img src={current_user.avatar ? current_user.avatar.url : ''}
                   className="user-image" alt={I18n.t("header.user_image_alt")} />
                 <span className="hidden-xs">{current_user.name}</span>
                 <span className="caret"></span>
               </a>
               <ul className="dropdown-menu">
                 <li className="user-header">
-                  <img src={current_user.avatar.url}
+                  <img src={current_user.avatar ? current_user.avatar.url : ''}
                     className="img-circle" alt={I18n.t("header.user_image_alt")} />
                   <p>
                     {current_user.name}
