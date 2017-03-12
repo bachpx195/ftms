@@ -1,0 +1,59 @@
+#list-programs{
+  .panel-group{
+    .program{
+      margin-bottom: 20px;
+      .panel-heading{
+        background: #d9edf7;
+        padding-left: 20px;
+        .name-program{
+          .panel-title{
+            .icon{
+              display: inline-block;
+              padding-right: 20px;
+              cursor: pointer;
+            }
+            .name{
+              display: inline-block;
+            }
+          }
+        }
+        .function{
+          text-align: right;
+          .list-function{
+            display: inline-block;
+            i{
+              padding-right: 20px;
+            }
+          }
+          .list{
+            display: inline-block;
+          }
+        }
+        .panel-title{
+          font-size: 15px;
+          color: #31708f;
+          a:hover{
+            text-decoration: none !important;
+          }
+        }
+      }
+      .panel-body{
+        .box-success{
+          margin-bottom: 0px;
+          border: none;
+          box-shadow: none !important;
+          .box-header{
+            display: none !important;
+          }
+        }
+        .box-body{
+          .link-course{
+            &a:hover{
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

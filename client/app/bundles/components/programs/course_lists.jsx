@@ -9,9 +9,9 @@ export default class CourseLists extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      courses: [],
+      courses: props.courses,
       course_counts: null,
-      program_name: '',
+      program_name: props.program_name,
     }
   }
 
@@ -41,13 +41,21 @@ export default class CourseLists extends React.Component {
         </div>
       </div>
     );
-
     const Image = ({griddleKey}) => (
       <div className='td-box'>
-        <img src={this.state.courses[griddleKey].image}
-          className='thumbnail-image td-course-image'/>
+        <img src={this.state.courses[griddleKey].image.url}
+          className='thumbnail-image td-course-image' onError={this.checkImage.bind(this)} />
       </div>
     );
+
+    const LinkToCourse = ({value, griddleKey}) => {
+      let course = this.state.courses[griddleKey];
+      let link = '#';
+      if(course) {
+        link = this.props.url + '/courses/'  + course.id;  
+      }
+      return <a href={link} className="link-course">{value}</a>;
+    };
 
     return (
       <div className='col-md-12'>
@@ -75,7 +83,7 @@ export default class CourseLists extends React.Component {
                   title={I18n.t('programs.image')}
                   customComponent={Image} />
                 <ColumnDefinition id='name'
-                  title={I18n.t('programs.name')} />
+                  title={I18n.t('programs.name')} customComponent={LinkToCourse} />
                 <ColumnDefinition id='description'
                   title={I18n.t('programs.description')} />
                 <ColumnDefinition id='start_date'
@@ -88,5 +96,9 @@ export default class CourseLists extends React.Component {
         </div>
       </div>
     );
+  }
+  checkImage(event){
+    let target = event.target;
+    $(target).attr('src', '/uploads/image_found.png')
   }
 }

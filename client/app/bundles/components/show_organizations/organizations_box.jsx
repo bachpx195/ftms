@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import FormCreate from './form_create';
 import OrganizationLists from './organization_lists';
+import BoxTitle from './box_title';
 
 import * as app_constants from 'constants/app_constants';
 
@@ -14,6 +15,7 @@ export default class OrganizationBox extends React.Component {
     super(props)
     this.state = {
       organization: {},
+      programs: [],
       parent: null,
       user: this.props.user
     }
@@ -27,7 +29,10 @@ export default class OrganizationBox extends React.Component {
       const url = ORGANIZATION_URL + '/' + this.props.organization.id
       axios.get(url + '.json')
       .then(response => {
-        this.setState({organization: response.data.organization})
+        this.setState({
+          organization: response.data.organization,
+          programs: response.data.programs
+        })
       })
     }
   }
@@ -38,8 +43,8 @@ export default class OrganizationBox extends React.Component {
         <div className="col-md-12">
           <div className="box box-success">
             <div className="box-header with-border">
-              <h3 className="box-title">{I18n.t("organizations.titles.all")}</h3>
-
+              <BoxTitle organization={this.state.organization} 
+                handleAfter={this.handleAfter.bind(this)}/>
               <div className="box-tools pull-right">
                 <button type="button" className="btn btn-box-tool"
                   data-widget="collapse">
@@ -51,7 +56,6 @@ export default class OrganizationBox extends React.Component {
                 </button>
               </div>
             </div>
-
             <div className="box-body no-padding">
               {this.renderBoxOrganization()}
             </div>
@@ -66,7 +70,8 @@ export default class OrganizationBox extends React.Component {
         <div className="box-organization">
           <div className="list-sub-organization">
             <OrganizationLists organization={this.state.organization}
-              handleAfter={this.handleAfter.bind(this)} />
+              handleAfter={this.handleAfter.bind(this)}
+              programs={this.state.programs}/>
           </div>
         </div>
       )
@@ -82,9 +87,10 @@ export default class OrganizationBox extends React.Component {
     }
   }
 
-  handleAfter(organization) {
+  handleAfter(organization, programs) {
     this.setState({
       organization: organization,
+      programs: programs
     });
   }
 }
