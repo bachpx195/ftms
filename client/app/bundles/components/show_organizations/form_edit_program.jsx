@@ -4,9 +4,10 @@ import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 
 import * as sub_org_constants from './sub_organization_constants';
+
 const ORGANIZATION_URL = sub_org_constants.ORGANIZATION_PATH;
 
-export default class FormEdit extends React.Component {
+export default class FormEditProgram extends React.Component {
   constructor(props) {
     super(props);
     this.state={...props}
@@ -42,15 +43,15 @@ export default class FormEdit extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.status == "edit") {
-      let url = ORGANIZATION_URL + "/" + this.props.organization.id + "/programs/" + this.state.id;
+      let url = ORGANIZATION_URL + "/" + this.props.organization.id + "/programs/" + this.state.index;
       axios.patch(url, {
         program: {
           name: this.refs.nameField.value,
         }, authenticity_token: ReactOnRails.authenticityToken()
       }, app_constants.AXIOS_CONFIG)
       .then(response => {
-        $('#modalNode').modal('hide');
-        this.props.afterEdit(response.data.program);
+        $('#modalEdit').modal('hide');
+        this.props.afterEditProgram(response.data.program);
       })
       .catch(error => {
         console.log(error);
@@ -60,11 +61,12 @@ export default class FormEdit extends React.Component {
        axios.post(url, {
         program: {
           name: this.refs.nameField.value,
+          parent_id: this.state.parent
         }, authenticity_token: ReactOnRails.authenticityToken()
       }, app_constants.AXIOS_CONFIG)
       .then(response => {
-        $('#modalNode').modal('hide');
-        this.props.afterCreate(response.data.program);
+        $('#modalEdit').modal('hide');
+        this.props.afterClickCreate(response.data.program);
       })
       .catch(error => {
         console.log(error);

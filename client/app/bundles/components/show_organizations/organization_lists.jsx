@@ -4,9 +4,11 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
+
 import TreeNode from './tree_node'
 import FormEdit from './form_edit';
 import FormCreate from './form_create';
+import ListPrograms from './list_programs';
 
 const SUB_ORGANIZATION_URL = app_constants.APP_NAME + 'sub_organizations';
 const ORGANIZATION_URL = app_constants.APP_NAME + 'organizations/';
@@ -16,6 +18,7 @@ export default class OrganizationList extends React.Component{
     super(props);
     this.state = {
       organization: props.organization,
+      programs: props.programs,
       index: null,
       name: null,
       parent: false
@@ -24,18 +27,19 @@ export default class OrganizationList extends React.Component{
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      organization: nextProps.organization
+      organization: nextProps.organization,
+      programs: nextProps.programs
     });
   }
 
   render(){
     return(
       <div>
-        <TreeNode organization={this.state.organization}
-          handleafterClickEdit={this.afterClickEdit.bind(this)}
-          handleafterClickCreate={this.afterClickCreate.bind(this)}
-          parent={this.state.parent}/>
-        {this.renderModal()}
+        <ListPrograms organization={this.state.organization}
+          programs={this.state.programs} 
+          afterEditProgram={this.fetchData.bind(this)}
+          afterCreateProgram={this.fetchData.bind(this)}
+          afterDeleteProgram={this.fetchData.bind(this)}/>
       </div>
     )
   }
@@ -63,13 +67,13 @@ export default class OrganizationList extends React.Component{
       title = I18n.t('organizations.edit');
       form = (
         <FormEdit url={SUB_ORGANIZATION_URL} index={this.state.index}
-          name={this.state.name} afterSave={this.fetchOrganizations.bind(this)} />
+          name={this.state.name} afterSave={this.fetchData.bind(this)} />
       )
     }else{
       title= I18n.t('organizations.create_sub')
       form = (
         <FormCreate url={SUB_ORGANIZATION_URL} index={this.state.index} 
-          afterCreate={this.fetchOrganizations.bind(this)} parent={this.state.parent}/> 
+          afterCreate={this.fetchData.bind(this)} parent={this.state.parent}/> 
       )
     }
     return(
@@ -90,15 +94,19 @@ export default class OrganizationList extends React.Component{
     )
   }
 
-  fetchOrganizations() {
+  fetchData() {
     const url = ORGANIZATION_URL + this.state.organization.id;
     axios.get(url + ".json")
       .then(response => {
-        this.setState({organization: response.data.organization});
-        this.props.handleAfter(this.state.organization);
+        this.setState({
+          organization: response.data.organization,
+          programs: response.data.programs
+          });
+        this.props.handleAfter(this.state.organization, this.state.programs);
       })
       .catch(error => {
         console.log(error)
       });
   }
 }
+
