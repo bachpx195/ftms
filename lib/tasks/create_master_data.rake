@@ -101,7 +101,7 @@ namespace :db do
       {name: "OpenEducation batch 1", program_type: 1, organization_id: 2, parent_id: 1}
     ])
 
-    puts "8. Create Program Training Standards"
+    puts "8. Create Training Standard"
     TrainingStandard.create!([
       {name: "OpenEducation 1", creator_id: 4,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
