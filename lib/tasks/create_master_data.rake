@@ -101,7 +101,7 @@ namespace :db do
       {name: "OpenEducation batch 1", program_type: 1, organization_id: 2, parent_id: 1}
     ])
 
-    puts "8. Create user programs"
+    puts "8. Create Program Training Standards"
     TrainingStandard.create!([
       {name: "OpenEducation 1", creator_id: 4,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
@@ -112,6 +112,7 @@ namespace :db do
       {name: "OpenEducation 4", creator_id: 4,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
     ])
+    TrainingStandard.all.each{|training_standard| training_standard.programs << Program.first}
 
     puts "9. Create subject"
     Subject.create!([
