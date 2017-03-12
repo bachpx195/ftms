@@ -15,6 +15,8 @@ require("!style!css!antd/lib/select/style/index.css");
 require('../sass/program_show.scss');
 
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
+const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
+const ASSIGN_STANDARD_URL = app_constants.APP_NAME + program_constants.ASSIGN_STANDARD_PATH;
 
 export default class SupervisorProgramsShowBox extends React.Component {
   constructor(props) {
@@ -49,15 +51,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
       );
   }
 
-  renderOptionTrainingStandard(){
-    return _.map(this.state.training_standards, standard => {
-      return (
-        <Select.Option key={standard.id} value={standard.name}>
-          {standard.name}
-        </Select.Option>
-      );
-    });
-  }
+
 
   renderListCourses () {
     return _.map(this.state.program_detail.courses, course => {
@@ -137,24 +131,73 @@ export default class SupervisorProgramsShowBox extends React.Component {
         <div className='margin-select'>
           <Select
             style={{ width: 500 }}
-            placeholder={I18n.t('program.select_standard')}>
+            placeholder={I18n.t('programs.select_standard')}>
               <Select.Option key="0" value="All">
-                {I18n.t('training_standard.titles.all')}
+                {I18n.t('training_standards.titles.all')}
               </Select.Option>
               {this.renderOptionTrainingStandard()}
           </Select>
-        </div>
-        <div className='pull-left'>
-          <button className='btn btn-info' onClick={this.handleCreate.bind(this)}>
-            {I18n.t('course.create_course')}
-          </button>
+          <ul className="pull-right list-inline">
+            <li>
+              <button className='btn btn-info' onClick={this.handleCreate.bind(this)}>
+                {I18n.t('course.create_course')}
+              </button>
+            </li>
+            <li>
+              <button className='btn btn-info' onClick={this.handleCreateStandard.bind(this)}>
+                {I18n.t("training_standards.create")}
+              </button>
+            </li>
+          </ul>
         </div>
         <div className='row td-padding-top'>
           {this.renderListCourses()}
         </div>
         {modalEdit}
+        {this.renderModalCreateStandard()}
       </div>
     );
+  }
+
+  renderModalCreateStandard() {
+    return (
+      <div id="modalCreateStandards" className="modal fade in" role="dialog">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close"
+                data-dismiss="modal">&times;</button>
+              <h4 className='modal-title'>
+                {I18n.t("training_standards.create")}
+              </h4>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={this.handleSubmitCreateStandard.bind(this)}>
+                <div className="form-group">
+                  <input type="text" placeholder={I18n.t("training_standards.headers.name")}
+                    className="form-control" name="name" ref="nameField" />
+                </div>
+                <div className="form-group">
+                  <div className="text-center">
+                    <button type="submit" className="btn btn-primary">{I18n.t("buttons.save")}</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderOptionTrainingStandard(){
+    return _.map(this.state.training_standards, standard => {
+      return (
+        <Select.Option key={standard.id} value={standard.name}>
+          {standard.name}
+        </Select.Option>
+      );
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -169,6 +212,44 @@ export default class SupervisorProgramsShowBox extends React.Component {
       course: {},
       modal: {}
     });
+  }
+
+  handleCreateStandard() {
+    $('#modalCreateStandards').modal();
+  }
+
+  handleSubmitCreateStandard(event) {
+    event.preventDefault();
+    axios.post(STANDARD_URL, {
+      training_standard: {
+        name: this.refs.nameField.value
+      }, authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
+    .then(response => {
+      this.state.training_standards.push(response.data.training_standard);
+      this.assignStandards(response.data.training_standard);
+      this.setState({
+        training_standards: this.state.training_standards
+      });
+      $('#modalCreateStandards').modal('hide');
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+  assignStandards(training_standard) {
+    axios.post(ASSIGN_STANDARD_URL, {
+      program_id: this.props.program.id,
+      training_standard_id: [training_standard.id],
+      authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
+    .then(response => {
+
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   handleAfterUpdate(new_course){
