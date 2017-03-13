@@ -139,8 +139,8 @@ export default class FormCourse extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let course = _.omit(this.state, 'errors');
-    if(this.state.changeImage) {
-      course = _.omit(subject, 'image');
+    if(!this.state.changeImage) {
+      course = _.omit(course, 'image');
     }
     let formData = new FormData();
     for(let key of Object.keys(course)) {
