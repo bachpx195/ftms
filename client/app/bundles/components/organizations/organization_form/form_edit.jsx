@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import Errors from '../shareds/errors';
+import Errors from '../../shareds/errors';
 import * as app_constants from 'constants/app_constants';
 
 export default class FormEdit extends React.Component {

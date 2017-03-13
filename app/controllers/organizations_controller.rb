@@ -2,7 +2,11 @@ class OrganizationsController < ApplicationController
   before_action :find_organization, only: [:update, :destroy]
 
   def index
-    @organizations = Organization.all
+    if current_user.roles.pluck(:name).include? "admin"
+      @organizations = Organization.all
+    else
+      @organizations = current_user.organizations
+    end
   end
 
   def show
@@ -11,7 +15,7 @@ class OrganizationsController < ApplicationController
 
   def new
   end
-  
+
   def edit
     respond_to do |format|
       format.html
