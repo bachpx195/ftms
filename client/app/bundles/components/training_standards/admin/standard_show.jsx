@@ -25,7 +25,7 @@ export default class TrainingStandardShow extends React.Component {
 
   componentDidMount() {
     this.fetchStandardSubjects();
-    this.fetchSubjects();
+    // this.fetchSubjects();
   }
 
   render() {
@@ -105,18 +105,18 @@ export default class TrainingStandardShow extends React.Component {
     )
   }
 
-  fetchSubjects() {
-     axios.get(TRAINING_STANDARD_URL + ".json")
-      .then(response => {
-        this.setState({
-          subjects: response.data.subjects
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      }
-    )
-  }
+  // fetchSubjects() {
+  //    axios.get(TRAINING_STANDARD_URL + ".json")
+  //     .then(response => {
+  //       this.setState({
+  //         subjects: response.data.subjects
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     }
+  //   )
+  // }
 
   onRejectSubject(event) {// Delete standard_subject
     let $target = $(event.target);

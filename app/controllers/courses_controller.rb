@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :find_program, :find_course, except: [:index, :new, :create]
+  before_action :find_course, except: [:index, :new, :create]
+  before_action :find_program, except: :index
   before_action :authorize_class
 
   def index
@@ -14,7 +15,7 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Course.new course_params.merge(creator_id: current_user.id)
+    @course = @program.courses.build course_params.merge(creator_id: current_user.id)
     respond_to do |format|
       if @course.save
         format.html {redirect_to :back}

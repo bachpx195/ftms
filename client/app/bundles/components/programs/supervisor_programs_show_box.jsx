@@ -28,6 +28,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
       training_standards:[],
       courses: [],
       image: '',
+      selected_standard: 0,
     };
   }
 
@@ -52,53 +53,62 @@ export default class SupervisorProgramsShowBox extends React.Component {
       );
   }
 
-  renderListCourses () {
+  renderListCourses() {
     return _.map(this.state.program_detail.courses, course => {
-      let course_managers = course.course_managers ?
-        course.course_managers.slice(0, 5) : null;
-      let images= null;
-      if (course_managers) {
-        images = course_managers.map((course_manager, index) => {
-          return <img key={index} src={course_manager.user_avatar}
-            className='td-course-manager-avatar' />;
-        });
+      if (course.training_standard.id == this.state.selected_standard) {
+        return this.renderCourses(course)
       }
-      let course_path = COURSE_URL + this.props.program.id +'/courses/' +
-        course.id;
-      return (
-        <div key={course.id}
-          className='col-md-4 col-xs-4 col-lg-4 td-program-list-course'>
-          <div className="td-course-box">
-            <div className="td-course-image-manager">
-              <a href={course_path}>{images}</a>
-              <div className="clearfix"></div>
-            </div>
-            <div className='td-card-course-inner'>
-              <h3>
-                <a href={course_path}>{course.name}</a>
-              </h3>
-              <div className='td-course-content'>
-                <div className='td-course-image col-xs-4'>
-                  <img src={course.image.url} className='img-responsive' />
+      if(this.state.selected_standard == 0){
+        return this.renderCourses(course)
+      }
+    });
+  }
+
+  renderCourses(course){
+    let course_managers = course.course_managers ?
+      course.course_managers.slice(0, 5) : null;
+    let images= null;
+    if (course_managers) {
+      images = course_managers.map((course_manager, index) => {
+        return <img key={index} src={course_manager.user_avatar}
+          className='td-course-manager-avatar' />;
+      });
+    }
+    let course_path = COURSE_URL + this.props.program.id +'/courses/' +
+      course.id;
+    return (
+      <div key={course.id}
+        className='col-md-4 col-xs-4 col-lg-4 td-program-list-course'>
+        <div className="td-course-box">
+          <div className="td-course-image-manager">
+            <a href={course_path}>{images}</a>
+            <div className="clearfix"></div>
+          </div>
+          <div className='td-card-course-inner'>
+            <h3>
+              <a href={course_path}>{course.name}</a>
+            </h3>
+            <div className='td-course-content'>
+              <div className='td-course-image col-xs-4'>
+                <img src={course.image.url} className='img-responsive' />
+              </div>
+              <div className='col-xs-8 td-course-content-left'>
+                <div className="td-course-description">
+                  <p>{course.description}</p>
                 </div>
-                <div className='col-xs-8 td-course-content-left'>
-                  <div className="td-course-description">
-                    <p>{course.description}</p>
-                  </div>
-                  <div>
-                    <p>{course.training_standard.name}</p>
-                  </div>
+                <div>
+                  <p>{course.training_standard.name}</p>
                 </div>
               </div>
             </div>
-            <div className="clearfix"></div>
           </div>
           <div className="clearfix"></div>
-          <div className="td-course-box-before"></div>
-          <div className="td-course-box-after"></div>
         </div>
-      );
-    });
+        <div className="clearfix"></div>
+        <div className="td-course-box-before"></div>
+        <div className="td-course-box-after"></div>
+      </div>
+    );
   }
 
   render() {
@@ -114,8 +124,10 @@ export default class SupervisorProgramsShowBox extends React.Component {
         <div className='margin-select'>
           <Select
             style={{ width: 500 }}
-            placeholder={I18n.t('programs.select_standard')}>
-              <Select.Option key="0" value="All">
+            placeholder={I18n.t('programs.select_standard')}
+            onChange={this.handleSelectChange.bind(this)}
+            >
+              <Select.Option key="0" value="0">
                 {I18n.t('training_standards.titles.all')}
               </Select.Option>
               {this.renderOptionTrainingStandard()}
@@ -176,7 +188,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
   renderOptionTrainingStandard(){
     return _.map(this.state.training_standards, standard => {
       return (
-        <Select.Option key={standard.id} value={standard.name}>
+        <Select.Option key={standard.id} value={standard.id.toString()}>
           {standard.name}
         </Select.Option>
       );
@@ -187,6 +199,12 @@ export default class SupervisorProgramsShowBox extends React.Component {
     if(this.state.modal){
       $('#modalEdit').modal();
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      courses: nextProps.courses
+     });
   }
 
   handleCreate(event){
@@ -219,6 +237,12 @@ export default class SupervisorProgramsShowBox extends React.Component {
     .catch(error => {
       console.log(error);
     })
+  }
+
+  handleSelectChange(event){
+    this.setState({
+      selected_standard: parseInt(event)
+    });
   }
 
   assignStandards(training_standard) {
