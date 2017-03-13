@@ -14,3 +14,4 @@ en:
     delete: "Delete"
     select_parent: "Select parent"
     nothing: "No sub organization"
+    create: "New organization"

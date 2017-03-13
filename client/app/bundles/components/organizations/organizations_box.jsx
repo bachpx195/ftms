@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import OrganizationLists from './organization_lists';
-import FormCreate from './form_create';
+import ManagerOrganizationLists from './manager/organization_lists';
+import FormCreate from './organization_form/form_create';
 
 import * as app_constants from 'constants/app_constants';
 import * as organization_constants from './organization_constants';
@@ -14,7 +14,9 @@ export default class OrganizationBox extends React.Component {
     super(props);
     this.state = {
       organizations: [],
-      parent: null
+      parent: null,
+      admin: true,
+      status: false
     };
   }
 
@@ -34,14 +36,32 @@ export default class OrganizationBox extends React.Component {
   }
 
   render() {
+    let formList = null;
+    if (this.state.admin) { //Check tam neu la admin thi render ra Manager... else render ra trainee....
+      formList = <ManagerOrganizationLists
+        organizations={this.state.organizations}/>
+    } else {
+      null;
+    }
+
     return (
       <div className="row" id="admin-organization">
         <div className="col-md-12">
           <div className="box box-success">
             <div className="box-header with-border">
               <h3 className="box-title">{I18n.t("organizations.titles.all")}</h3>
-
               <div className="box-tools pull-right">
+                {this.state.status ? (
+                  <button className="btn btn-new"
+                    onClick={this.onClickButtonCreate.bind(this)}>
+                    {I18n.t("buttons.cancel")}
+                  </button>
+                 ) : (
+                  <button className="btn btn-new"
+                    onClick={this.onClickButtonCreate.bind(this)}>
+                    {I18n.t("organizations.create")}
+                  </button>
+                 )}
                 <button type="button" className="btn btn-box-tool"
                   data-widget="collapse">
                   <i className="fa fa-minus"></i>
@@ -54,21 +74,19 @@ export default class OrganizationBox extends React.Component {
             </div>
 
             <div className="box-body no-padding">
-              <div className="row">
-                <div className="col-md-8 col-md-offset-2">
-                  <FormCreate
-                    url={ORGANIZATION_URL}
-                    parent={this.state.parent}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
+              <div className="row ">
+                <div className="col-md-10 col-md-offset-1">
+                  {this.state.status ?
+                    <FormCreate
+                      organizations={this.state.organizations}
+                      url={ORGANIZATION_URL}
+                      handleAfterSaved={this.handleAfterSaved.bind(this)}
+                      /> : ''}
                 </div>
               </div>
             </div>
             <div className='box-footer'>
-              <OrganizationLists
-                organizations={this.state.organizations}
-                handleAfterCreated={this.handleAfterCreated.bind(this)}
-                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
+              {formList}
             </div>
           </div>
         </div>
@@ -76,49 +94,16 @@ export default class OrganizationBox extends React.Component {
     );
   }
 
-  handleAfterCreated(organization) {
+  handleAfterSaved(organization) {
     this.state.organizations.push(organization);
     this.setState({
-      organizations: this.state.organizations,
-      parent: null
+      organizations: this.state.organizations
     });
   }
 
-  handleAfterUpdated(new_organization) {
-    for(let i = 0; i < this.state.organizations.length; i++){
-      let parent = this.state.organizations[i].parent;
-      if(parent && parent.id == new_organization.id) {
-        this.state.organizations[i].parent = new_organization;
-      }
-    }
-    let index = this.state.organizations
-      .findIndex(organization => organization.id === new_organization.id);
-    this.state.organizations[index] = new_organization;
+  onClickButtonCreate(e) {
     this.setState({
-      organizations: this.state.organizations,
-      parent: null
-    });
-  }
-
-  handleAfterDeleted(organization) {
-    this.removeChildren(organization);
-    _.remove(this.state.organizations, _organization => {
-      return _organization.id == organization.id;
-    });
-    this.setState({
-      organizations: this.state.organizations,
-      parent: null
-    });
-  }
-
-  removeChildren(parent) {
-    for(let organization of this.state.organizations) {
-      if(organization.parent && organization.parent.id == parent.id) {
-        this.removeChildren(organization);
-      }
-    };
-    _.remove(this.state.organizations, organization => {
-      return organization.parent && organization.parent.id == parent.id;
-    });
+      status: !this.state.status
+    })
   }
 }

@@ -1,0 +1,16 @@
+.margin_form_create {
+  margin-top: 20px;
+}
+.btn-new {
+  background-color: #85C1E9;
+  color: white;
+  border: none;
+  &:hover {
+    background-color: #85C1E9;
+    color: white;
+  }
+  &:focus {
+    background-color: #85C1E9;
+    color: white;
+  }
+}

@@ -1,6 +1,2 @@
-<% if @organization.users.include? current_user %>
-  <%= react_component "SupervisorProgramsShowBox",
-    props: {organization: @organization, program: @program}, prerender: false %>
-<% else %>
-  <%= t "programs.no_content" %>
-<% end %>
+<%= react_component "SupervisorProgramsShowBox",
+  props: {organization: @organization, program: @program}, prerender: false %>
