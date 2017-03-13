@@ -1,6 +1,7 @@
 class EvaluationStandardsController < ApplicationController
   before_action :find_evaluation_template
   before_action :find_evaluation_standard, except: [:index, :new, :create]
+  before_action :authorize_class
 
   def index
     @evaluation_standards = @evaluation_template.evaluation_standards

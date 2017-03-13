@@ -1,6 +1,7 @@
 class AssignProgram::OrganizationsController < ApplicationController
   before_action :find_organization
   before_action :find_program, only: :destroy
+  before_action :namespace_authorize
 
   def create
     @organization.assign_programs params[:program_ids]

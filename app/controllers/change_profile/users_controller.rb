@@ -1,5 +1,6 @@
 class ChangeProfile::UsersController < ApplicationController
   before_action :find_user
+  before_action :namespace_authorize
 
   def show
     @supports = Supports::UserSupport.new
@@ -29,7 +30,7 @@ class ChangeProfile::UsersController < ApplicationController
       end
     end
   end
-  
+
   private
   def user_params
     params.require(:profile).permit Profile::CHANGE_PROFILE_PARAMS

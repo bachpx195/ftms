@@ -1,5 +1,6 @@
 class AssignProgram::StandardsController < ApplicationController
   before_action :find_program, only: [:create, :destroy]
+  before_action :namespace_authorize
 
   def create
     ProgramServices::AssignStandard.new(standard_ids: params[:training_standard_id], program: @program).perform

@@ -1,6 +1,7 @@
 class EvaluationTemplatesController < ApplicationController
   before_action :find_training_standard
   before_action :find_evaluation_template, only: [:update, :destroy]
+  before_action :authorize_class
 
   def new
   end

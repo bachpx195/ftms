@@ -4,9 +4,10 @@ module Authorize
     redirect_to root_path
   end
 
-  def admin_authorize record, query = nil
-    klass = "Admin::#{record.model_name}Policy".constantize
-    policy = klass.new(current_user, record)
+  def namespace_authorize query = nil
+    check = params[:controller].classify
+    klass = "#{check}Policy".constantize
+    policy = klass.new(current_user, check)
     query ||= "#{params[:action]}?"
 
     unless policy.public_send(query)

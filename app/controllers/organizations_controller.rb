@@ -1,5 +1,6 @@
 class OrganizationsController < ApplicationController
-  before_action :find_organization, only: [:update, :destroy]
+  before_action :find_organization, only: [:show, :update, :destroy]
+  before_action :authorize_class
 
   def index
     if current_user.roles.pluck(:name).include? "admin"
@@ -10,7 +11,6 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    @organization = Organization.find_by id: params[:id]
   end
 
   def new

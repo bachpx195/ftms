@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :find_program, :find_course, except: [:index, :new, :create]
+  before_action :authorize_class
 
   def index
     @supports = Supports::CourseSupport.new
