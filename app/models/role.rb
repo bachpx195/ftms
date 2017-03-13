@@ -14,5 +14,4 @@ class Role < ApplicationRecord
   validates :name, presence: true
 
   scope :order_by_parent_id, ->{order parent_id: :ASC}
-
 end

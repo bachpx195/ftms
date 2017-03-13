@@ -56,3 +56,6 @@ en:
       reject: " Reject"
       records: "%{count} records"
     search_user: "Search for users..."
+    owners: "Owners"
+    roles: "Roles"
+    select_role: "Select role"

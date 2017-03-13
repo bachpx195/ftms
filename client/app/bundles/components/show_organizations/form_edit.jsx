@@ -9,7 +9,7 @@ export default class FormEdit extends React.Component {
     super(props);
     this.state = {
       organization: {},
-      name: props.name
+      name: props.name || ''
     };
   }
 

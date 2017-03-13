@@ -67,7 +67,7 @@ export default class BoxTitle extends React.Component{
     axios.get(url + ".json")
       .then(response => {
         this.setState({organization: response.data.organization});
-        this.props.handleAfter(this.state.organization);
+        this.props.handleAfter(this.state.organization, this.props.programs);
       })
       .catch(error => {
         console.log(error)

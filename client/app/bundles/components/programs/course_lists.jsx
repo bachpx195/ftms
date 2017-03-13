@@ -52,7 +52,7 @@ export default class CourseLists extends React.Component {
       let course = this.state.courses[griddleKey];
       let link = '#';
       if(course) {
-        link = this.props.url + '/courses/'  + course.id;  
+        link = this.props.url + '/courses/'  + course.id;
       }
       return <a href={link} className="link-course">{value}</a>;
     };

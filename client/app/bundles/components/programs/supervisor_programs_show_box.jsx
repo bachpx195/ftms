@@ -27,6 +27,9 @@ export default class SupervisorProgramsShowBox extends React.Component {
       training_standards:[],
       image: '',
       selected_standard: 0,
+      course: {},
+      all_roles: [],
+      owners: []
     };
   }
 
@@ -42,6 +45,8 @@ export default class SupervisorProgramsShowBox extends React.Component {
         this.setState({
           program_detail: response.data.program_detail,
           training_standards: response.data.program_detail.training_standards,
+          all_roles: response.data.all_roles,
+          owners: response.data.owners
         });
       })
       .catch(error => console.log(error));
@@ -106,10 +111,15 @@ export default class SupervisorProgramsShowBox extends React.Component {
   }
 
   render() {
+    let url_programs = PROGRAM_URL + '/' + this.props.organization.id + '/programs/' +
+      this.props.program.id;
     let modalEdit = (
       <Modal program_detail={this.state.program_detail}
         url={COURSE_URL + this.props.program.id +'/courses'}
         image={this.state.image} program={this.props.program}
+        all_roles={this.state.all_roles}
+        owners={this.state.owners}
+        url_programs={url_programs}
         handleAfterCreated={this.handleAfterSubmit.bind(this)} />
     );
 

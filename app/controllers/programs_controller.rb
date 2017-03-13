@@ -36,7 +36,8 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    @supports = Supports::ProgramSupport.new program: @program
+    @supports = Supports::ProgramSupport.new program: @program,
+      role_id: params[:role_id]
   end
 
   def edit
