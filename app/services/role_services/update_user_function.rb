@@ -4,10 +4,15 @@ class RoleServices::UpdateUserFunction
   end
 
   def perform
-    @role.user_functions.destroy
-    user_ids = @role.users.ids
-    function_ids = @role.functions.ids
-    data = user_ids.map{|u| function_ids.map{|f| {id: nil, user_id: u.to_i, function_id: f.to_i}}}
-    @role.update_attributes user_functions_attributes: data[0]
+    @function_role = Function.functions_with_role @role.id
+      @user_roles = UserRole.where role_id: @role.id
+      users_functions = []
+      @user_roles.each do |user_role|
+        user_role.user.user_functions.delete_all
+        @role.functions.each do |function|
+          users_functions << user_role.user.user_functions.new(function_id: function.id)
+        end
+      end
+    UserFunction.import users_functions
   end
 end
