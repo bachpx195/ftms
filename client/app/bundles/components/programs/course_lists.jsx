@@ -57,6 +57,30 @@ export default class CourseLists extends React.Component {
       return <a href={link} className="link-course">{value}</a>;
     };
 
+    const ListTrainer = ({griddleKey}) => {
+      let course = this.state.courses[griddleKey];
+      let trainers = [];
+      if(course.users){
+        course.users.map((trainer) => {
+          trainers.push(
+            <div className="block-trainer">
+              <li className="image" onError={this.checkImage.bind(this)} >
+                <img src={trainer.avatar.url} />
+              </li>
+              <li className="name">
+                {trainer.name}
+              </li>
+            </div>
+          )
+        })
+      }
+      return(
+        <div className="list-trainers" key={'course'+course.id}>
+         {trainers}
+        </div>
+      )
+    }
+
     return (
       <div className='col-md-12'>
         <div className='box box-success'>
@@ -86,6 +110,10 @@ export default class CourseLists extends React.Component {
                   title={I18n.t('programs.name')} customComponent={LinkToCourse} />
                 <ColumnDefinition id='description'
                   title={I18n.t('programs.description')} />
+                <ColumnDefinition id='trainer'
+                  title={I18n.t('course.member.trainers')} customComponent={ListTrainer} />
+                <ColumnDefinition id='status'
+                  title={I18n.t('course.status')} />
                 <ColumnDefinition id='start_date'
                   title={I18n.t('programs.start_date')} />
                 <ColumnDefinition id='end_date'
