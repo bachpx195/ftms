@@ -1,5 +1,6 @@
 json.course do
-  json.extract! @course, :id, :name, :image, :description, :status
+  json.extract! @course, :id, :name, :image, :description, :status, :creator_id,
+    :language_id, :training_standard_id
   json.member_size @supports.member_size
   json.trainers @supports.trainers
   json.trainees @supports.trainees
@@ -19,6 +20,8 @@ json.course do
   json.end_date @course.end_date
   json.creator @course.creator
   json.owner @course.owner
+  json.training_standards @supports.training_standards, :id, :name
+  json.languages @supports.languages, :id, :name
 end
 
 

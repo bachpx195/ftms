@@ -14,7 +14,7 @@ export default class FormCourse extends React.Component {
 
     this.state = {
       program_detail: {},
-      image: this.props.image,
+      image: {},
       changeImage: false,
       errors: null,
     };
@@ -112,7 +112,6 @@ export default class FormCourse extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       program_detail: nextProps.program_detail,
-      image: nextProps.image,
       changeImage: false,
       errors: null
     });

@@ -53,6 +53,18 @@ class Supports::CourseSupport
     @documents ||= @course.documents
   end
 
+  def languages
+    @languages ||= Language.all
+  end
+
+  def program
+    @program ||= Program.find_by id: @course.program_id
+  end
+
+  def training_standards
+    @training_standards ||= program.training_standards
+  end
+
   UserSubject.statuses.each do |key, value|
     define_method "number_of_user_subject_#{key}" do
       instance_variable_set "@number_of_user_subject_#{key}",

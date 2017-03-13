@@ -23,7 +23,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: '',
       program_detail: {},
       training_standards:[],
       courses: [],
@@ -195,12 +194,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.modal){
-      $('#modalEdit').modal();
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       courses: nextProps.courses
@@ -209,10 +202,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
 
   handleCreate(event){
     $('#modalEdit').find('select,input').val('');
-    this.setState({
-      courses: [],
-      modal: {}
-    });
+    $('#modalEdit').modal();
   }
 
   handleCreateStandard() {
@@ -267,7 +257,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
       program_detail: this.state.program_detail,
       courses: this.state.program_detail.courses,
       course: {},
-      modal: ''
     });
   }
 
@@ -276,7 +265,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
     this.setState({
       program_detail: this.state.program_detail,
       courses: this.state.program_detail.courses,
-      modal: '',
     });
   }
 }
