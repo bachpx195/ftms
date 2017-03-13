@@ -4,6 +4,8 @@ import axios from 'axios';
 import CourseLists from '../programs/course_lists';
 import * as app_constants from 'constants/app_constants';
 
+const PROGRAM_URL = app_constants.APP_NAME + 'programs/';
+
 export default class Program extends React.Component{
   constructor(props){
     super(props);
@@ -58,7 +60,7 @@ export default class Program extends React.Component{
           <div className="panel-body">
             <CourseLists program_name={this.state.program.name}
               courses={this.state.program.courses}
-              url={this.props.url + '/programs/' + this.state.program.id} />
+              url={PROGRAM_URL + this.state.program.id} />
           </div>
         </div>
       </div>

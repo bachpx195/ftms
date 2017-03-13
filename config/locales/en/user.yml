@@ -5,15 +5,20 @@ en:
     email: "Email:"
     edit_user: "Edit this user"
     delete_user: "Delete user"
-    edit_role: "Edit role"
+    change_role: "Change user roles"
     edit_info_user: "Edit User Info"
     edit: "Enter text..."
     organization: "Organization: "
     program: "Program: "
     staff_code: "Staff code: "
+    edit_user_role: "Edit User Role"
     buttons:
       save: "Save"
-    users: Users
-    user_function: User function
-    id: ID
-    action: Action
+      edit_role: "Edit role"
+    action: "Action"
+    id: "ID"
+    users: "Users"
+    user_function: "User function"
+    id: "ID"
+    roles:
+      name: "User roles "

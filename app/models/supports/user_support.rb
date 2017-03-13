@@ -6,4 +6,8 @@ class Supports::UserSupport
   def programs
     @programs ||= Program.all
   end
+
+  def roles
+    @roles ||= Role.all
+  end
 end
