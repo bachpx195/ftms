@@ -6,6 +6,9 @@ class RoleFunctionsController < ApplicationController
     if @role.update_attributes function_params
       update_user_function = RoleServices::UpdateUserFunction.new @role
       update_user_function.perform
+
+      query = FunctionRoleQuery.new @role.id
+      @function_role = QueryObject.new(query).exec
       render json: {functions: @function_role, role: @role}
     else
       render json: {message: flash_message("not_update")},

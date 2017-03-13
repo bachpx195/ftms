@@ -8,6 +8,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :rememberable, :validatable
 
   ATTRIBUTES_PARAMS = [:email, :password]
+  ATTRIBUTES_FUNCTION_PARAMS = [user_functions_attributes: [:id, :function_id, :user_id, :_destroy]]
 
   has_one :profile, dependent: :destroy
 

@@ -1,8 +1,11 @@
 class ChangeRole::UsersController < ApplicationController
   before_action :find_user
+  before_action :namespace_authorize
 
   def show
     @supports = Supports::UserSupport.new
+    query = FunctionUserQuery.new @user.id
+    @functions = QueryObject.new(query).exec
   end
 
   def edit
@@ -14,17 +17,30 @@ class ChangeRole::UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if find_role
-        format.html {redirect_to @user}
+      if params["update_show"] && params["roles"]
+        role_ids = params["roles"].map{|r| r["id"]}
+        query = FunctionUserWithRoleQuery.new role_ids
+        functions = QueryObject.new(query).exec
         format.json do
           render json: {message: flash_message("updated"),
-            roles: @user.roles}
+            functions: functions}
         end
       else
-        format.html {render :edit}
-        format.json do
-          render json: {message: flash_message("not_updated"),
-            errors: @user.errors}, status: :unprocessable_entity
+        if find_role
+          update_user_function_service =
+            UserServices::UpdateUserFunction.new user_function_params, @user
+          update_user_function_service.perform
+          format.html {redirect_to @user}
+          format.json do
+            render json: {message: flash_message("updated"),
+              roles: @user.roles}
+          end
+        else
+          format.html {render :edit}
+          format.json do
+            render json: {message: flash_message("not_updated"),
+              errors: @user.errors}, status: :unprocessable_entity
+          end
         end
       end
     end
@@ -45,12 +61,16 @@ class ChangeRole::UsersController < ApplicationController
   end
 
   def find_role
-    current_user.roles.delete_all
+    @user.user_roles.delete_all
     params[:roles].each do |role|
       user_role = Role.find_by id: role[:id]
       unless @user.roles.include? user_role
         @user.roles << user_role
       end
     end
+  end
+  
+  def user_function_params
+    params.require(:functions).permit User::ATTRIBUTES_FUNCTION_PARAMS
   end
 end
