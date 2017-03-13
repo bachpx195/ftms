@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CheckboxRole from './check_role_box';
-import SelectSell from './select_cell';
+import SelectSell from '../shareds/select_cell';
+import Checkbox from '../shareds/checkbox';
 import * as table_constants from 'constants/griddle_table_constants';
 
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
@@ -34,30 +34,21 @@ export default class RoleFunctions extends React.Component {
       </div>
     );
 
-    const changeLocalData = (key, value) => {
-      var role_checkbox = JSON.parse(localStorage.getItem('role_checkbox'));
-      role_checkbox[key] = value;
-      localStorage.setItem('role_checkbox', JSON.stringify(role_checkbox));
-    };
-
-    const CheckBox = (griddleKey) => {
+    const CheckboxFunction = ({griddleKey}) => {
       var checked = false;
       if (this.state.check_all == 'yes') {
         checked = true;
-        changeLocalData(griddleKey.griddleKey, checked);
+        this.updateStateFunctions(griddleKey, checked);
       } else if (this.state.check_all == 'no') {
         checked = false;
-        changeLocalData(griddleKey.griddleKey, checked);
+        this.updateStateFunctions(griddleKey, checked);
       } else if (this.state.check_all == 'none') {
-        var func = this.state.functions[griddleKey.griddleKey];
-          checked = func.role_func_id ? true : false;
-          if (checked) {
-            changeLocalData(griddleKey.griddleKey, checked);
-          }
+        var func = this.state.functions[griddleKey];
+        checked = func.checked
       }
 
       return (
-        <CheckboxRole griddleKey={griddleKey} is_checked={checked}/>
+        <Checkbox handleClick={this.handleCheckbox.bind(this)} griddleKey={griddleKey} is_checked={checked}/>
       );
     };
 
@@ -86,7 +77,7 @@ export default class RoleFunctions extends React.Component {
               title={I18n.t("functions.action")} />
             <ColumnDefinition id="action"
               title={I18n.t("functions.action")} />
-            <ColumnDefinition customComponent={CheckBox.bind(this)}
+            <ColumnDefinition customComponent={CheckboxFunction.bind(this)}
               customHeadingComponent={SelectSellBox}/>
           </RowDefinition>
         </Griddle>
@@ -96,14 +87,31 @@ export default class RoleFunctions extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      check_all: 'none',
       functions: nextProps.functions
-    })
+    });
   }
 
   handleSelectCell(event){
     var checked = $(event.target).is(':checked');
     this.setState({
       check_all: checked ? 'yes' : 'no',
+    });
+  }
+
+  updateStateFunctions(griddleKey, checked){
+    this.state.functions[griddleKey].checked = checked;
+    var default_checked = this.state.functions[griddleKey].default_checked;
+    if(checked != default_checked)
+      this.state.functions[griddleKey].is_changed = true;
+    else
+      this.state.functions[griddleKey].is_changed = false;
+  }
+
+  handleCheckbox(griddleKey, checked){
+    this.updateStateFunctions(griddleKey, checked);
+    this.setState({
+      functions: this.state.functions
     });
   }
 

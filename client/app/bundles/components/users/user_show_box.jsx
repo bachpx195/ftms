@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 import FormEdit from './form_edit';
+import UserRolesBox from './user_roles_box';
 
 const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
 
@@ -108,9 +109,7 @@ export default class UserShowBox extends React.Component {
                   </tr>
                 </tbody>
               </table>
-              <a href={'/change_role/users/' + this.state.user_detail.id} 
-                className='change_role'>{I18n.t('users.change_role')}
-              </a>
+              <UserRolesBox user={this.props.user}/>
             </div>
           </div>
         </div>

@@ -1,5 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import axios from 'axios';
+import SelectSell from '../shareds/select_cell';
+import Checkbox from '../shareds/checkbox';
+
+import * as app_constants from 'constants/app_constants';
+import * as user_constants from './user_constants';
+
+const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
 
 import * as table_constants from 'constants/griddle_table_constants';
 
@@ -9,7 +16,9 @@ export default class UserFunctionBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      functions: []
+      check_all: 'none',
+      functions: props.data,
+      user_id: props.user_id
     }
   }
 
@@ -32,40 +41,86 @@ export default class UserFunctionBox extends React.Component {
       </div>
     );
 
+    const CheckboxFunction = ({griddleKey}) => {
+      var checked = false;
+      if (this.state.check_all == 'yes') {
+        checked = true;
+        this.updateStateFunctions(griddleKey, checked);
+      } else if (this.state.check_all == 'no') {
+        checked = false;
+        this.updateStateFunctions(griddleKey, checked);
+      } else if (this.state.check_all == 'none') {
+        var func = this.state.functions[griddleKey];
+        checked = func.checked
+      }
+
+      return (
+        <Checkbox handleClick={this.handleCheckbox.bind(this)} griddleKey={griddleKey} is_checked={checked}/>
+      );
+    };
+
+    const SelectSellBox = () => {
+      return (
+        <SelectSell checked={this.state.check_all} handleSelectCell={this.handleSelectCell.bind(this)}/>
+      );
+    };
+
     return(
-      <div id="user_function_modal" className="modal fade">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 className="modal-title">{I18n.t("users.user_function")}</h4>
-            </div>
-            <div className="modal-body">
-              <Griddle data={this.state.functions} plugins={[plugins.LocalPlugin]}
-                components={{Layout: NewLayout}}
-                styleConfig={table_constants.styleConfig}>
-                <RowDefinition keyColumn="id">
-                  <ColumnDefinition id="id"
-                    title={I18n.t("functions.table_position")}/>
-                  <ColumnDefinition id="controller_name"
-                    title={I18n.t("functions.controller_name")}/>
-                  <ColumnDefinition id="action"
-                    title={I18n.t("functions.action")} />
-                  <ColumnDefinition id="action"
-                    title={I18n.t("functions.action")} />
-                </RowDefinition>
-              </Griddle>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">
-                {I18n.t("buttons.close")}</button>
-              <button type="button" className="btn btn-primary">{I18n.t("buttons.save")}</button>
-            </div>
-          </div>
-        </div>
+      <div className="modal-body clearfix">
+        <Griddle data={this.state.functions} plugins={[plugins.LocalPlugin]}
+          components={{Layout: NewLayout}}
+          styleConfig={table_constants.styleConfig}
+          events={{
+            onNext: this.handlePage.bind(this),
+            onPrevious: this.handlePage.bind(this),
+            onGetPage: this.handlePage.bind(this),
+          }}>
+          <RowDefinition keyColumn="id">
+            <ColumnDefinition id="id"
+              title={I18n.t("functions.table_position")}/>
+            <ColumnDefinition id="controller_name"
+              title={I18n.t("functions.controller_name")}/>
+            <ColumnDefinition id="action"
+              title={I18n.t("functions.action")} />
+            <ColumnDefinition customComponent={CheckboxFunction.bind(this)}
+              customHeadingComponent={SelectSellBox} />
+          </RowDefinition>
+        </Griddle>
       </div>
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      functions: nextProps.data,
+      user_id: nextProps.user_id
+    });
+  }
+
+  handleSelectCell(event){
+    var checked = $(event.target).is(':checked');
+    this.setState({
+      check_all: checked ? 'yes' : 'no',
+    });
+  }
+
+  updateStateFunctions(griddleKey, checked){
+    this.state.functions[griddleKey].checked = checked;
+    var default_checked = this.state.functions[griddleKey].default_checked;
+    if(checked != default_checked)
+      this.state.functions[griddleKey].is_changed = true;
+    else
+      this.state.functions[griddleKey].is_changed = false;
+  }
+
+  handleCheckbox(griddleKey, checked){
+    this.updateStateFunctions(griddleKey, checked);
+    this.props.dataChange(this.state.functions);
+  }
+
+  handlePage(){
+    this.setState({
+      check_all: 'none',
+    });
   }
 }

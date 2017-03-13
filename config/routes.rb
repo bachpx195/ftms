@@ -5,6 +5,7 @@ class ActionDispatch::Routing::Mapper
 end
 
 Rails.application.routes.draw do
+
   mount Ckeditor::Engine => "/ckeditor"
   devise_for :users, path: "auth",
     controllers: {sessions: "sessions", passwords: "passwords"},
@@ -55,4 +56,5 @@ Rails.application.routes.draw do
   namespace :assign_user do
     resources :courses, only: [:update]
   end
+  resources :user_functions
 end
