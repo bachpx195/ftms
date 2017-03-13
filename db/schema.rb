@@ -326,9 +326,11 @@ ActiveRecord::Schema.define(version: 20170310090508) do
   create_table "user_functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "function_id"
+    t.integer  "role_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["function_id"], name: "index_user_functions_on_function_id", using: :btree
+    t.index ["role_id"], name: "index_user_functions_on_role_id", using: :btree
     t.index ["user_id"], name: "index_user_functions_on_user_id", using: :btree
   end
 

@@ -13,3 +13,7 @@ en:
     staff_code: "Staff code: "
     buttons:
       save: "Save"
+    users: Users
+    user_function: User function
+    id: ID
+    action: Action

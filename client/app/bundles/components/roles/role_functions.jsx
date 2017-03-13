@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import CheckboxRole from './check_role_box';
 import SelectSell from './select_cell';
@@ -10,11 +9,8 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 export default class RoleFunctions extends React.Component {
   constructor(props) {
     super(props);
-    this.check_all = 'none';
-    this.current_row = 0;
-    this.select_sell_click = false;
-    this.page_size = 10;
     this.state = {
+      check_all: 'none',
       functions: props.functions,
     }
   }
@@ -28,7 +24,7 @@ export default class RoleFunctions extends React.Component {
               <Filter />
             </div>
             <div className="col-md-6 text-right">
-              <Pagination onClick={this.onClick}/>
+              <Pagination />
             </div>
           </div>
           <div className="col-md-12">
@@ -45,32 +41,19 @@ export default class RoleFunctions extends React.Component {
     };
 
     const CheckBox = (griddleKey) => {
-      this.current_row++;
-      if(!this.select_sell_click) {
-        this.check_all = 'none';
-      }
-
-      if(!this.select_sell_click)
-        this.check_all = 'none';
-
       var checked = false;
-      if (this.check_all == 'yes') {
+      if (this.state.check_all == 'yes') {
         checked = true;
         changeLocalData(griddleKey.griddleKey, checked);
-      } else if (this.check_all == 'no') {
+      } else if (this.state.check_all == 'no') {
         checked = false;
         changeLocalData(griddleKey.griddleKey, checked);
-      } else if (this.check_all == 'none') {
+      } else if (this.state.check_all == 'none') {
         var func = this.state.functions[griddleKey.griddleKey];
           checked = func.role_func_id ? true : false;
           if (checked) {
             changeLocalData(griddleKey.griddleKey, checked);
           }
-      }
-
-      if(this.current_row == this.page_size || griddleKey.griddleKey == (this.state.functions.length - 1)){
-        this.current_row = 0;
-        this.select_sell_click = false;
       }
 
       return (
@@ -80,18 +63,20 @@ export default class RoleFunctions extends React.Component {
 
     const SelectSellBox = () => {
       return (
-        <SelectSell handleSelectCell={this.handleSelectCell.bind(this)}/>
+        <SelectSell checked={this.state.check_all} handleSelectCell={this.handleSelectCell.bind(this)}/>
       );
     };
-
-
 
     return (
       <div>
         <Griddle data={this.state.functions} plugins={[plugins.LocalPlugin]}
           components={{Layout: NewLayout}}
-          resultsPerPage={this.pageSize}
-          styleConfig={table_constants.styleConfig}>
+          styleConfig={table_constants.styleConfig}
+          events={{
+           onNext: this.handlePage.bind(this),
+           onPrevious: this.handlePage.bind(this),
+           onGetPage: this.handlePage.bind(this),
+          }}>
           <RowDefinition keyColumn="id">
             <ColumnDefinition id="id"
               title={I18n.t("functions.table_position")}/>
@@ -110,22 +95,21 @@ export default class RoleFunctions extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.check_all = 'none';
-    this.current_row = 0;
-    this.select_sell_click = false;
     this.setState({
       functions: nextProps.functions
     })
   }
 
-  handleSelectCell(){
-    if(this.check_all == 'none'){
-      this.check_all = 'yes';
-    } else if(this.check_all == 'yes'){
-      this.check_all = 'no';
-    } else{
-      this.check_all = 'yes';
-    }
-    this.select_sell_click = true;
+  handleSelectCell(event){
+    var checked = $(event.target).is(':checked');
+    this.setState({
+      check_all: checked ? 'yes' : 'no',
+    });
+  }
+
+  handlePage(){
+    this.setState({
+      check_all: 'none',
+    });
   }
 }
