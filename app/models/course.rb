@@ -8,7 +8,7 @@ class Course < ApplicationRecord
   belongs_to :owner, foreign_key: :owner_id, class_name: User.name
 
   ATTRIBUTE_PARAMS = [:name, :image, :description, :status, :start_date,
-    :language_id, :program_id, :end_date]
+    :language_id, :program_id, :end_date, :training_standard_id]
 
   enum status: [:init, :in_progress, :finished]
 
@@ -29,4 +29,5 @@ class Course < ApplicationRecord
   has_many :trainees, through: :course_members, source: :user, dependent: :destroy
 
   validates :name, presence: true
+  validates :training_standard, presence: true
 end

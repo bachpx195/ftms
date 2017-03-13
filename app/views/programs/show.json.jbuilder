@@ -17,10 +17,11 @@ json.program_detail do
     json.type user.type
   end
   json.user_counts @supports.users.count
-
+  json.training_standards @supports.training_standards, :id, :name
   json.courses @supports.courses do |course|
     json.extract! course, :id, :name, :image, :description, :status,
       :training_standard_id, :language_id, :program_id, :start_date, :end_date
+    json.training_standard course.training_standard, :id, :name
     json.image do
       if course.image
         json.extract! course.image.url
@@ -36,11 +37,9 @@ json.program_detail do
     json.subject_count course.subjects.count
   end
   json.course_counts @supports.courses.count
-
   json.training_standards @supports.training_standards do |training_standard|
     json.extract! training_standard, :id, :name
   end
-
   json.program_subjects @supports.program_subjects do |program_subject|
     json.extract! program_subject, :id, :name, :description
     json.image program_subject.image.url

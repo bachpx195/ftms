@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.string   "name"
     t.string   "image"
     t.string   "description"
-    t.integer  "status"
+    t.integer  "status",               default: 0, null: false
     t.integer  "language_id"
     t.date     "start_date"
     t.date     "end_date"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
     t.integer  "owner_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.index ["language_id"], name: "index_courses_on_language_id", using: :btree
     t.index ["program_id"], name: "index_courses_on_program_id", using: :btree
     t.index ["training_standard_id"], name: "index_courses_on_training_standard_id", using: :btree
