@@ -36,7 +36,7 @@ export default class FormEdit extends React.Component {
               <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
               <h4 className='modal-title'>
-                {I18n.t('course.modals.header_edit')}
+                {I18n.t('courses.modals.header_edit')}
               </h4>
             </div>
             <div className='modal-body'>
@@ -48,7 +48,7 @@ export default class FormEdit extends React.Component {
                       <button type='button' className='btn btn-danger btn-select-file'
                         onClick={this.onOpenClick.bind(this)}>
                         <i className='fa fa-upload'></i>
-                        {I18n.t('course.select_image')}
+                        {I18n.t('courses.select_image')}
                       </button>
                     </div>
                   </div>
@@ -65,7 +65,7 @@ export default class FormEdit extends React.Component {
                   <select className="form-control" name="language_id"
                     value={this.state.course.language_id || ''}
                     onChange={this.handleChange.bind(this)}>
-                    <option value="">{I18n.t('course.select_languages')}</option>
+                    <option value="">{I18n.t('courses.select_languages')}</option>
                     {this.renderOptions(this.state.course.languages)}
                   </select>
                 </div>
@@ -74,31 +74,31 @@ export default class FormEdit extends React.Component {
                     value={this.state.course.training_standard_id || ''}
                     onChange={this.handleChange.bind(this)}>
                     <option value="">
-                      {I18n.t('course.select_training_standard')}
+                      {I18n.t('courses.select_training_standard')}
                     </option>
                     {this.renderOptions(this.state.course.training_standards)}
                   </select>
                 </div>
                 <div className='form-group'>
-                  <input type='text' placeholder={I18n.t('course.headers.name')}
+                  <input type='text' placeholder={I18n.t('courses.headers.name')}
                     value={this.state.course.name || ''}
                     onChange={this.handleChange.bind(this)}
                     className='form-control' name='name' />
                 </div>
                 <div className='form-group'>
-                  <textarea placeholder={I18n.t('course.headers.description')}
+                  <textarea placeholder={I18n.t('courses.headers.description')}
                     value={this.state.course.description || ''}
                     onChange={this.handleChange.bind(this)}
                     className='form-control' name='description'></textarea>
                 </div>
                 <div className='col-sm-6 course-start-date'>
-                  <label>{I18n.t('course.start_date')}</label>
+                  <label>{I18n.t('courses.start_date')}</label>
                   <input type='date' onChange={this.handleChange.bind(this)}
                     value={this.state.course.start_date || ''}
                     name='start_date' className='form-control'/>
                 </div>
                 <div className='col-sm-6 course-end-date'>
-                  <label>{I18n.t('course.end_date')}</label>
+                  <label>{I18n.t('courses.end_date')}</label>
                   <input type='date' onChange={this.handleChange.bind(this)}
                     value={this.state.course.end_date || ''}
                     name='end_date' className='form-control' />

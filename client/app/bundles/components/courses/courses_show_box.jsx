@@ -1,6 +1,7 @@
 import React from 'react';
-import axios from 'axios'
-import MenuCourse from './menu_course'
+import axios from 'axios';
+import MenuCourse from './menu_course';
+import ModalAssignMember from './modal_assign_member/modal';
 
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from '../programs/program_constants';
@@ -18,41 +19,34 @@ export default class CoursesShowBox extends React.Component {
     this.state = {
       course: props.course,
       course_subjects: [],
+      rerender: false
     }
   }
 
   componentWillMount() {
     Object.assign(this.state.course, {
-      trainer: {},
-      trainers: [],
-      trainee: {},
-      trainees: [],
-      creator: {
-         id: {},
-         avatar: {}
-       },
-       owner: '',
+      unassigned_users: [],
+      managers: [],
+      members: []
     });
     this.setState({course: this.state.course});
   }
 
   componentDidMount() {
-    this.fetchFunctions();
+    this.fetchCourse();
   }
 
-  fetchFunctions() {
-    const COURSES_URL = COURSE_URL + this.props.program.id + '/' +
-      course_constants.COURSES_PATH + this.props.course.id;
+  fetchCourse() {
+    const COURSES_URL = app_constants.APP_NAME +
+      program_constants.PROGRAMS_PATH + this.props.program.id + '/'
+      + course_constants.COURSES_PATH + this.props.course.id;
     axios.get(COURSES_URL + '.json')
       .then(response => {
         this.setState({
           course: response.data.course,
           course_subjects: response.data.course_subjects
         });
-      })
-      .catch(error => {
-        console.log(error);
-      })
+      }).catch(error => console.log(error));
   }
 
   renderCourseSubjects() {
@@ -77,7 +71,7 @@ export default class CoursesShowBox extends React.Component {
                   </span>&nbsp;
                   <span>
                     <i>
-                      {I18n.t('course.during_time',
+                      {I18n.t('courses.during_time',
                         {during_time: course_subject.subject.during_time})}
                     </i>
                   </span>
@@ -118,65 +112,70 @@ export default class CoursesShowBox extends React.Component {
 
   renderUsers() {
     let course = this.state.course;
-    let creator_path = '';
-    if(this.state.course.creator.name){
-      creator_path = app_constants.APP_NAME + user_constants.USER_PATH +
+    let link_creator = null;
+    if(course.creator) {
+      let creator_path = app_constants.APP_NAME + user_constants.USER_PATH +
         course.creator.id;
+      link_creator = <a href={creator_path} title={course.creator.name}>
+        <img className='img-circle' src={course.creator.avatar.url}
+          width='30' height='30'/>
+      </a>;
     }
-    let owner_path = '';
-    let owner_avatar = '';
-    let name_owner = '';
-    if(this.state.course.owner) {
-      owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
+    let link_owner = null;
+    if(course.owner) {
+      let owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
         course.owner.id;
-      owner_avatar = this.state.owner.avatar.url;
-      name_owner = this.state.course.owner.name;
+      link_owner = <a href={owner_path} title={course.owner.name}>
+        <img className='img-circle' src={course.owner.avatar.url}
+          width='30' height='30'/>
+      </a>;
     }
     return (
       <div>
         <div className='box box-primary'>
           <div className='box-header with-border'>
             <h3 className='label box-title'>
-              {I18n.t('course.creator.title')}
+              {I18n.t('courses.creator.title')}
             </h3>
-            <a href={creator_path} title={this.state.course.creator.name}>
-              <img className='img-circle' width='30' height='30'
-                src={this.state.course.creator.avatar.url} />
-            </a>
+            {link_creator}
           </div>
         </div>
 
         <div className='box box-primary'>
           <div className='box-header with-border'>
             <h3 className='label box-title'>
-              {I18n.t('course.owner.title')}
+              {I18n.t('courses.owner.title')}
             </h3>
-            <a href={owner_path} title={name_owner}>
-              <img className='img-circle' width='30' height='30'
-                src={owner_avatar} />
-            </a>
+            {link_owner}
           </div>
         </div>
 
         <div className='box box-primary'>
           <div className='box-header with-border'>
             <h3 className='label box-title'>
-              {I18n.t('course.member.title')}
+              {I18n.t('courses.member.title')}
             </h3>
             <span className='badge label-primary'>
-              {course.member_size}
+              {course.managers.length + course.members.length}
             </span>
+            <div className="pull-right">
+              <button type="button" className="btn btn-default"
+                onClick={this.handleAssignMember.bind(this)}>
+                <i className="fa fa-user-plus"></i>
+              </button>
+            </div>
           </div>
           <div className='box-body'>
             <div>
               <div className='member-title'>
-                {I18n.t('course.member.trainers')}
+                {I18n.t('courses.member.managers')}
               </div>
-              {this.renderMembers(course.trainers)}
+              {this.renderMembers(course.managers)}
+
               <div className='member-title'>
-                {I18n.t('course.member.trainees')}
+                {I18n.t('courses.member.members')}
               </div>
-              {this.renderMembers(course.trainees)}
+              {this.renderMembers(course.members)}
             </div>
           </div>
         </div>
@@ -185,13 +184,13 @@ export default class CoursesShowBox extends React.Component {
           <div className='box box-primary'>
             <div className='box-header with-border'>
               <h3 className='label box-title'>
-                {I18n.t('course.note')}
+                {I18n.t('courses.note')}
               </h3>
             </div>
             <div className='box-body'>
               <div className='subject-note'>
-                {I18n.t('course.time', {start_date: course.start_date,
-                   end_date: course.end_date})}
+                {I18n.t('courses.time', {start_date: course.start_date,
+                  end_date: course.end_date})}
               </div>
             </div>
           </div>
@@ -214,7 +213,7 @@ export default class CoursesShowBox extends React.Component {
               </span>
               <span className={'label-status' + ' ' + this.state.course.status +
                 '-background-color'}>
-                {I18n.t(`course.${this.state.course.status}`)}
+                {I18n.t(`courses.${this.state.course.status}`)}
               </span>
               <div className='description'>
                 {this.state.course.description}
@@ -238,6 +237,10 @@ export default class CoursesShowBox extends React.Component {
             this.renderUsers()
           }
         </div>
+        <ModalAssignMember unassignedUsers={this.state.course.unassigned_users}
+          managers={this.state.course.managers} members={this.state.course.members}
+          rerender={this.state.rerender} course={this.state.course}
+          afterAssignUsers={this.afterAssignUsers.bind(this)} />
       </div>
     );
   }
@@ -250,5 +253,19 @@ export default class CoursesShowBox extends React.Component {
     this.setState({
       course: this.state.course,
     });
+  }
+  
+  handleAssignMember() {
+    this.setState({rerender: true});
+    $('#modal-assign-member').modal();
+  }
+
+  afterAssignUsers(unassigned_users, managers, members) {
+    Object.assign(this.state.course, {
+      unassigned_users: unassigned_users,
+      managers: managers,
+      members: members
+    });
+    this.setState({course: this.state.course});
   }
 }

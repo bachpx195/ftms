@@ -63,7 +63,7 @@ export default class CourseLists extends React.Component {
       if(course.users){
         course.users.map((trainer) => {
           trainers.push(
-            <div className="block-trainer">
+            <div key={trainer.id} className="block-trainer">
               <li className="image" onError={this.checkImage.bind(this)} >
                 <img src={trainer.avatar.url} />
               </li>
@@ -111,9 +111,10 @@ export default class CourseLists extends React.Component {
                 <ColumnDefinition id='description'
                   title={I18n.t('programs.description')} />
                 <ColumnDefinition id='trainer'
-                  title={I18n.t('course.member.trainers')} customComponent={ListTrainer} />
+                  title={I18n.t('courses.member.managers')}
+                  customComponent={ListTrainer} />
                 <ColumnDefinition id='status'
-                  title={I18n.t('course.status')} />
+                  title={I18n.t('courses.status')} />
                 <ColumnDefinition id='start_date'
                   title={I18n.t('programs.start_date')} />
                 <ColumnDefinition id='end_date'

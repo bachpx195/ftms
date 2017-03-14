@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @supports = Supports::CourseSupport.new @course
+    @supports = Supports::CourseSupport.new course: @course, program: @program
   end
 
   def create

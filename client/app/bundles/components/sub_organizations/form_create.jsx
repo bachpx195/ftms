@@ -25,7 +25,6 @@ export default class FormCreate extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-      debugger
     axios.post(this.props.url + "/" + this.props.organization.id + "/programs", {
       program: {
         name: this.refs.nameField.value
