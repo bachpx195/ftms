@@ -6,16 +6,6 @@ class RoleFunctionsController < ApplicationController
     if @role.update_attributes function_params
       update_user_function = RoleServices::UpdateUserFunction.new @role
       update_user_function.perform
-      @function_role = Function.functions_with_role @role.id
-      @user_roles = UserRole.where role_id: @role.id
-      users_functions = []
-      @user_roles.each do |user_role|
-        user_role.user.user_functions.delete_all
-        @role.functions.each do |function|
-          users_functions << user_role.user.user_functions.new(function_id: function.id)
-        end
-      end
-      UserFunction.import users_functions
       render json: {functions: @function_role, role: @role}
     else
       render json: {message: flash_message("not_update")},
