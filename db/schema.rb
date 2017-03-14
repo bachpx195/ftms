@@ -195,19 +195,6 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.index ["organization_id"], name: "index_programs_on_organization_id", using: :btree
   end
 
-  create_table "properties", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "propertiable_type"
-    t.integer  "propertiable_id"
-    t.string   "ownerable_type"
-    t.integer  "ownerable_id"
-    t.integer  "status"
-    t.datetime "deleted_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["ownerable_type", "ownerable_id"], name: "index_properties_on_ownerable_type_and_ownerable_id", using: :btree
-    t.index ["propertiable_type", "propertiable_id"], name: "index_properties_on_propertiable_type_and_propertiable_id", using: :btree
-  end
-
   create_table "role_functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "role_id"
     t.integer  "function_id"
@@ -268,6 +255,22 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.integer  "during_time"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "targettiable_type"
+    t.integer  "targettiable_id"
+    t.string   "ownerable_type"
+    t.integer  "ownerable_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.string   "type"
+    t.datetime "deleted_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["ownerable_type", "ownerable_id"], name: "index_tasks_on_ownerable_type_and_ownerable_id", using: :btree
+    t.index ["targettiable_type", "targettiable_id"], name: "index_tasks_on_targettiable_type_and_targettiable_id", using: :btree
+    t.index ["user_id"], name: "index_tasks_on_user_id", using: :btree
   end
 
   create_table "team_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -431,6 +434,7 @@ ActiveRecord::Schema.define(version: 20170310090508) do
   add_foreign_key "standard_programs", "training_standards"
   add_foreign_key "standard_subjects", "subjects"
   add_foreign_key "standard_subjects", "training_standards"
+  add_foreign_key "tasks", "users"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "user_courses", "courses"
