@@ -6,7 +6,7 @@ class Course < ApplicationRecord
   USER_COURSE_ATTRIBUTES_PARAMS = [user_courses_attributes: [:id, :user_id,
     :type, :_destroy]]
   ATTRIBUTE_PARAMS = [:name, :image, :description, :status, :start_date,
-    :language_id, :program_id, :end_date, :training_standard_id]
+    :language_id, :program_id, :end_date, :training_standard_id, :owner_id]
 
   enum status: [:init, :in_progress, :finished]
 
@@ -36,4 +36,5 @@ class Course < ApplicationRecord
 
   validates :name, presence: true
   validates :training_standard, presence: true
+  validates :owner, presence: true
 end

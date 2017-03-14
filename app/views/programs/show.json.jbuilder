@@ -48,3 +48,5 @@ json.program_detail do
   json.languages @supports.languages
   json.statuses @supports.statuses
 end
+json.owners @supports.owners
+json.all_roles @supports.all_roles

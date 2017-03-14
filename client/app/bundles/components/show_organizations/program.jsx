@@ -94,7 +94,7 @@ export default class Program extends React.Component{
     let target = event.target;
     $(target).blur();
     let index = $(target).data('index');
-    let name = $(target).data('name');
+    let name = $(target).attr('data-name');
     this.props.afterEdit(index, name);
   }
   afterClickDelete(event){

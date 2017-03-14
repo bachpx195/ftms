@@ -44,7 +44,8 @@ export default class OrganizationBox extends React.Component {
           <div className="box box-success">
             <div className="box-header with-border">
               <BoxTitle organization={this.state.organization} 
-                handleAfter={this.handleAfter.bind(this)}/>
+                handleAfter={this.handleAfter.bind(this)}
+                programs={this.state.programs}/>
               <div className="box-tools pull-right">
                 <button type="button" className="btn btn-box-tool"
                   data-widget="collapse">

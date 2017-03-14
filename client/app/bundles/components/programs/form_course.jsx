@@ -4,19 +4,30 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Errors from '../shareds/errors';
 import _ from 'lodash';
+import UserLists from './user_lists';
+import CourseLists from './course_lists';
+import SubjectLists from './subject_lists';
 import * as app_constants from 'constants/app_constants';
+import * as program_constants from './program_constants';
+
+const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
+const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
+const ASSIGN_STANDARD_URL = app_constants.APP_NAME + program_constants.ASSIGN_STANDARD_PATH;
 
 require('../sass/program_show.scss');
 
 export default class FormCourse extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      url: props.url,
+      url_programs: props.url_programs,
       program_detail: {},
       image: {},
       changeImage: false,
       errors: null,
+      all_roles: props.all_roles,
+      owners: props.owners
     };
   }
 
@@ -29,6 +40,7 @@ export default class FormCourse extends React.Component {
         image = <img src={this.state.image.preview} />;
       }
     }
+
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <Errors errors={this.state.errors} />
@@ -77,16 +89,38 @@ export default class FormCourse extends React.Component {
             onChange={this.handleChange.bind(this)}
             className='form-control' name='description' />
         </div>
-        <div className='col-sm-6 course-start-date'>
-          <label>{I18n.t('courses.start_date')}</label>
-          <input type='date' onChange={this.handleChange.bind(this)}
-            name='start_date' className='form-control'/>
+        <div className='form-group'>
+          <input type='hidden' onChange={this.handleChange.bind(this)}
+            value={this.props.program.id} name='program_id' />
         </div>
 
-        <div className='col-sm-6 course-end-date'>
-          <label>{I18n.t('courses.end_date')}</label>
-          <input type='date' onChange={this.handleChange.bind(this)}
-            name='end_date' className='form-control' />
+        <div className='nht-course-date'>
+          <div className='col-sm-6 course-start-date'>
+            <label>{I18n.t('courses.start_date')}</label>
+            <input type='date' onChange={this.handleChange.bind(this)}
+              name='start_date' className='form-control'/>
+          </div>
+
+          <div className='col-sm-6 course-end-date'>
+            <label>{I18n.t('courses.end_date')}</label>
+            <input type='date' onChange={this.handleChange.bind(this)}
+              name='end_date' className='form-control' />
+          </div>
+        </div>
+
+        <div className='nht-assign-owner'>
+          <label>{I18n.t('courses.roles')}</label>
+          <select className='nht-list-roles form-control'
+            onChange={this.handleChangeRole.bind(this)} id='list-roles'>
+            <option value="">{I18n.t('courses.select_role')}</option>
+            {this.renderOptions(this.state.all_roles)}
+          </select>
+
+          <label>{I18n.t('courses.owners')}</label>
+          <select className='nht-list-owners form-control' id='list-owners'
+            name='owner_id' onChange={this.handleChange.bind(this)}>
+            {this.renderOptions(this.state.owners)}
+          </select>
         </div>
 
         <div className='form-group'>
@@ -113,7 +147,9 @@ export default class FormCourse extends React.Component {
     this.setState({
       program_detail: nextProps.program_detail,
       changeImage: false,
-      errors: null
+      errors: null,
+      all_roles: nextProps.all_roles,
+      owners: nextProps.owners
     });
   }
 
@@ -122,6 +158,20 @@ export default class FormCourse extends React.Component {
     this.setState({
       [attribute]: event.target.value
     });
+  }
+
+  handleChangeRole(event) {
+    const url = this.props.url_programs + '.json?role_id=' + $('#list-roles').val();
+    axios.get(url)
+      .then(response => {
+        this.setState({
+          owners: response.data.owners
+        });
+      })
+      .catch(error => {
+          console.log(error);
+        }
+      );
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
