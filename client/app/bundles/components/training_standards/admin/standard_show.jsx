@@ -3,6 +3,7 @@ import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import ModalAssign from './modal_assign';
 import Form from './form';
+import ModalEvaluation from './modal_evaluation'
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as training_standard_constants from '../training_standard_constants';
@@ -15,6 +16,9 @@ export default class TrainingStandardShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      evaluation_standards: [],
+      evaluation_template: {},
+      showForm: '',
       training_standard: props.training_standard,
       selected_subjects: props.selected_subjects,
       remain_subjects: props.remain_subjects,
@@ -28,6 +32,31 @@ export default class TrainingStandardShow extends React.Component {
     // this.fetchSubjects();
   }
 
+  renderButton() {
+    if(this.props.evaluation_template){
+      let evaluation = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
+        '/evaluation_template';
+      return (
+        <div className='col-md-2'>
+          <a className="btn btn-success" href={evaluation}
+            title={I18n.t("training_standards.create_evaluation")}>
+            {I18n.t("training_standards.show_evaluation")}
+          </a>
+        </div>
+      );
+    }else{
+      return (
+        <div className='col-md-2'>
+          <button className="btn btn-success"
+            title={I18n.t("training_standards.create_evaluation")}
+            onClick={this.onClickCreateEvaluationTemplate.bind(this)}>
+            {I18n.t("training_standards.create_evaluation")}
+          </button>
+        </div>
+      );
+    }
+  }
+
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className='col-md-12'>
@@ -36,7 +65,7 @@ export default class TrainingStandardShow extends React.Component {
             <div className='col-md-5'>
               <Filter />
             </div>
-            <div className='col-md-5 text-right'>
+            <div className='col-md-3 text-right'>
               <Pagination />
             </div>
             <div className='col-md-2 text-right'>
@@ -46,6 +75,7 @@ export default class TrainingStandardShow extends React.Component {
                 {I18n.t("training_standards.assign")}
               </button>
             </div>
+            {this.renderButton()}
           </div>
           <div className='col-md-12'>
             <Table />
@@ -67,6 +97,9 @@ export default class TrainingStandardShow extends React.Component {
       <p title={value}>{value}</p>
     );
 
+    let url = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
+      '/evaluation_template';
+
     return(
       <div>
         <Griddle data={this.state.selected_subjects} plugins={[plugins.LocalPlugin]}
@@ -80,6 +113,12 @@ export default class TrainingStandardShow extends React.Component {
               customComponent={ButtonReject} />
           </RowDefinition>
         </Griddle>
+
+        <ModalEvaluation
+          url={url} showForm={this.state.showForm}
+          evaluation_template={this.state.evaluation_template}
+          evaluation_standards={this.state.evaluation_standards}/>
+
         <ModalAssign
           url={TRAINING_STANDARD_URL}
           remain_subjects={this.state.remain_subjects}
@@ -184,5 +223,16 @@ export default class TrainingStandardShow extends React.Component {
 
   onClickButtonAssignSubject() {
     $('#modalAssignSubject').modal();
+  }
+  onClickCreateEvaluationTemplate(){
+    let evaluation_template = this.state.evaluation_template;
+    this.setState({
+      evaluation_standards: [],
+      evaluation_template: {
+        name: ''
+      },
+      showForm: '',
+    });
+    $('#modalEvaluation').modal();
   }
 }
