@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :created_courses, class_name: Course.name, foreign_key: :creator_id
   has_many :courses, through: :user_courses, dependent: :destroy
   has_many :owned_courses, class_name: Course.name, foreign_key: :owner_id
+  has_many :tasks
 
   accepts_nested_attributes_for :user_functions, allow_destroy: true
 
