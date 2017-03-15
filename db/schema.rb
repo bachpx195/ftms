@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310090508) do
+ActiveRecord::Schema.define(version: 20170315030129) do
+
+  create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "name",       limit: 65535
+    t.integer  "subject_id"
+    t.integer  "task_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["subject_id"], name: "index_assignments_on_subject_id", using: :btree
+    t.index ["task_id"], name: "index_assignments_on_task_id", using: :btree
+  end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
@@ -195,6 +205,27 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.index ["organization_id"], name: "index_programs_on_organization_id", using: :btree
   end
 
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "subject_id"
+    t.integer  "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_projects_on_subject_id", using: :btree
+    t.index ["task_id"], name: "index_projects_on_task_id", using: :btree
+  end
+
+  create_table "requirements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "name",       limit: 65535
+    t.integer  "priority"
+    t.integer  "project_id"
+    t.integer  "task_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["project_id"], name: "index_requirements_on_project_id", using: :btree
+    t.index ["task_id"], name: "index_requirements_on_task_id", using: :btree
+  end
+
   create_table "role_functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "role_id"
     t.integer  "function_id"
@@ -257,19 +288,29 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "surveys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "name",       limit: 65535
+    t.integer  "subject_id"
+    t.integer  "task_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["subject_id"], name: "index_surveys_on_subject_id", using: :btree
+    t.index ["task_id"], name: "index_surveys_on_task_id", using: :btree
+  end
+
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "targettiable_type"
-    t.integer  "targettiable_id"
+    t.string   "targetable_type"
+    t.integer  "targetable_id"
     t.string   "ownerable_type"
     t.integer  "ownerable_id"
     t.integer  "user_id"
     t.integer  "status"
     t.string   "type"
     t.datetime "deleted_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.index ["ownerable_type", "ownerable_id"], name: "index_tasks_on_ownerable_type_and_ownerable_id", using: :btree
-    t.index ["targettiable_type", "targettiable_id"], name: "index_tasks_on_targettiable_type_and_targettiable_id", using: :btree
+    t.index ["targetable_type", "targetable_id"], name: "index_tasks_on_targetable_type_and_targetable_id", using: :btree
     t.index ["user_id"], name: "index_tasks_on_user_id", using: :btree
   end
 
@@ -288,6 +329,16 @@ ActiveRecord::Schema.define(version: 20170310090508) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "test_rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "subject_id"
+    t.integer  "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_test_rules_on_subject_id", using: :btree
+    t.index ["task_id"], name: "index_test_rules_on_task_id", using: :btree
   end
 
   create_table "trainee_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -6,5 +6,4 @@ class Task < ApplicationRecord
 
   belongs_to :targetable, polymorphic: true
   belongs_to :ownerable, polymorphic: true
-  belongs_to :user
 end

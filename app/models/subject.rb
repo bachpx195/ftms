@@ -10,10 +10,10 @@ class Subject < ApplicationRecord
 
   has_many :course_subjects, dependent: :destroy
   has_many :user_subjects, dependent: :destroy
-  has_many :owner_subjects, as: :ownerable,
-    class_name: StaticProperty.name, dependent: :destroy
-  has_many :property_subjects, as: :propertiable,
-    class_name: StaticProperty.name, dependent: :destroy
+  has_many :assignments, dependent: :destroy
+  has_many :surveys, dependent: :destroy
+  has_many :projects, dependent: :destroy
+  has_many :test_rules, dependent: :destroy
 
   scope :find_remain_subjects, -> ids {where.not id: ids}
 
