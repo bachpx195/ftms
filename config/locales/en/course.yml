@@ -33,6 +33,10 @@ en:
     init: "Init"
     in_progress: "In progress"
     finished: "Finished"
+    class_status: 
+      init: "btn-primary btn-xs"
+      in_progress: "btn-warning btn-xs"
+      finished: "btn-danger btn-xs" 
     no_content: "No content"
     note: "Course Notes"
     time: "Course's Time is from %{start_date} to %{end_date}"

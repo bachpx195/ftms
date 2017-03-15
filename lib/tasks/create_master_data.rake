@@ -255,6 +255,8 @@ namespace :db do
     puts "16. create CourseManager"
     CourseManager.create!([
       {user_id: 4, course_id: 1, status: "process"},
+      {user_id: 1, course_id: 1, status: "process"},
+      {user_id: 2, course_id: 1, status: "process"},
       {user_id: 4, course_id: 2, status: "process"},
       {user_id: 4, course_id: 3, status: "process"},
       {user_id: 6, course_id: 1, status: "process"},
