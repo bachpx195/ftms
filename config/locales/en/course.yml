@@ -36,7 +36,7 @@ en:
     no_content: "No content"
     note: "Course Notes"
     time: "Course's Time is from %{start_date} to %{end_date}"
-    during_time: '%{during_time} days'
+    during_time: " days"
     member:
       members: "Members"
       managers: "Managers"

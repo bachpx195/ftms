@@ -22,11 +22,5 @@ json.course do
   json.languages @supports.languages, :id, :name
 end
 
-json.course_subjects @supports.course_subjects do |course_subject|
-  json.extract! course_subject, :subject_id, :subject_name,
-    :subject_description, :subject_content
-  json.subject do
-    json.during_time course_subject.subject[:during_time]
-    json.image course_subject.subject.image
-  end
-end
+json.course_subjects @supports.course_subjects, :id, :name, :image,
+  :description, :content, :during_time

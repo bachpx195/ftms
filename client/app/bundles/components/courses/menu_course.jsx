@@ -20,12 +20,12 @@ export default class MenuCourse extends React.Component {
     return(
       <div className="td-course-edit-delete">
         <a onClick={this.handleEdit.bind(this)}>
-          <span className="glyphicon glyphicon-edit pull-right"
+          <span className="btn glyphicon glyphicon-edit"
             aria-hidden="true">
           </span>
         </a>
         <a onClick={this.handleDelete.bind(this)}>
-          <span className="glyphicon glyphicon-trash pull-right"
+          <span className="btn glyphicon glyphicon-trash"
             aria-hidden="true">
           </span>
         </a>

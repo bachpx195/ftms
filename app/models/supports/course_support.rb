@@ -17,9 +17,9 @@ class Supports::CourseSupport
   def unassigned_users
     @unassigned_users ||= (program.users - managers - members).uniq
   end
-  
+
   def course_subjects
-    @course_subjects ||= @course.course_subjects
+    @course_subjects ||= @course.training_standard.subjects
   end
 
   def languages

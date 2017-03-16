@@ -53,36 +53,31 @@ export default class CoursesShowBox extends React.Component {
     return this.state.course_subjects.map((course_subject, index) => {
       let course_subject_path = app_constants.APP_NAME +
         course_constants.COURSES_PATH + this.props.course.id + '/' +
-        subject_constants.SUBJECTS_PATH + course_subject.subject_id;
-      let subject_image = course_subject.subject.image.url;
+        subject_constants.SUBJECT_PATH + '/' + course_subject.id;
+      let subject_image = course_subject.image.url;
       return (
-        <div key={index}>
-          <a href={course_subject_path}>
-            <div className='subject col-xs-11 row'>
-              <div className='col-xs-2 subject-image img-resposive'>
-                <img className='img-circle' src={(subject_image == 'null' ||
-                  subject_image == 'undefined') ? '/uploads/course/image/1/edu.jpg' :
-                  subject_image} width='100' height='100'/>
-              </div>
-              <div className='col-xs-10 infor'>
-                <div>
-                  <span className='subject-name'>
-                    {course_subject.subject_name}
-                  </span>&nbsp;
-                  <span>
-                    <i>
-                      {I18n.t('courses.during_time',
-                        {during_time: course_subject.subject.during_time})}
-                    </i>
-                  </span>
+        <tr key={index} className="item ui-sortable-handle">
+          <td >
+            <div className="subject row">
+              <a href={course_subject_path}>
+                <div className="col-xs-2 subject-image">
+                  <img className="img-circle" src={subject_image} width="100" height="100" />
                 </div>
-                <div>
-                  {course_subject.subject_description.substring(0, 110)}
+                <div className="col-xs-10 infor">
+                  <div>
+                    <span className="subject-name">{course_subject.name}
+                    </span>&nbsp;
+                    <span><i>{course_subject.during_time}
+                      {I18n.t('courses.during_time')}</i>
+                    </span>&nbsp;&nbsp;
+                  </div>
+                  <div>{course_subject.description}
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </a>
-        </div>
+          </td>
+        </tr>
       );
     });
   }
@@ -112,51 +107,28 @@ export default class CoursesShowBox extends React.Component {
 
   renderUsers() {
     let course = this.state.course;
-    let link_creator = null;
-    if(course.creator) {
-      let creator_path = app_constants.APP_NAME + user_constants.USER_PATH +
-        course.creator.id;
-      link_creator = <a href={creator_path} title={course.creator.name}>
-        <img className='img-circle' src={course.creator.avatar.url}
-          width='30' height='30'/>
-      </a>;
-    }
+    let user_count = course.managers.length + course.members.length;
     let link_owner = null;
     if(course.owner) {
       let owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
         course.owner.id;
-      link_owner = <a href={owner_path} title={course.owner.name}>
-        <img className='img-circle' src={course.owner.avatar.url}
-          width='30' height='30'/>
-      </a>;
+      user_count = user_count + 1;
+      link_owner = <li>
+        <a href={owner_path} title={course.owner.name}>
+          <img className='img-circle' src={course.owner.avatar.url}
+            width='30' height='30'/>
+        </a>
+      </li>;
     }
     return (
       <div>
         <div className='box box-primary'>
           <div className='box-header with-border'>
             <h3 className='label box-title'>
-              {I18n.t('courses.creator.title')}
-            </h3>
-            {link_creator}
-          </div>
-        </div>
-
-        <div className='box box-primary'>
-          <div className='box-header with-border'>
-            <h3 className='label box-title'>
-              {I18n.t('courses.owner.title')}
-            </h3>
-            {link_owner}
-          </div>
-        </div>
-
-        <div className='box box-primary'>
-          <div className='box-header with-border'>
-            <h3 className='label box-title'>
               {I18n.t('courses.member.title')}
             </h3>
             <span className='badge label-primary'>
-              {course.managers.length + course.members.length}
+              {user_count}
             </span>
             <div className="pull-right">
               <button type="button" className="btn btn-default"
@@ -170,28 +142,14 @@ export default class CoursesShowBox extends React.Component {
               <div className='member-title'>
                 {I18n.t('courses.member.managers')}
               </div>
-              {this.renderMembers(course.managers)}
-
+                <ul className='user-list clearfix'>
+                  {link_owner}
+                  {this.renderMembers(course.managers)}
+                </ul>
               <div className='member-title'>
                 {I18n.t('courses.member.members')}
               </div>
               {this.renderMembers(course.members)}
-            </div>
-          </div>
-        </div>
-
-        <div className='sector-content'>
-          <div className='box box-primary'>
-            <div className='box-header with-border'>
-              <h3 className='label box-title'>
-                {I18n.t('courses.note')}
-              </h3>
-            </div>
-            <div className='box-body'>
-              <div className='subject-note'>
-                {I18n.t('courses.time', {start_date: course.start_date,
-                  end_date: course.end_date})}
-              </div>
             </div>
           </div>
         </div>
@@ -200,36 +158,57 @@ export default class CoursesShowBox extends React.Component {
   }
 
   render() {
+    let course = this.state.course;
+    let link_creator = null;
+    let creator_name = '';
+    if(course.creator) {
+      let creator_path = app_constants.APP_NAME + user_constants.USER_PATH +
+        course.creator.id;
+      creator_name = course.creator.name;
+      link_creator = <a href={creator_path} title={course.creator.name}>
+        <img className='creator-image' src={course.creator.avatar.url} />
+      </a>;
+    }
     return(
       <div id='course-show' className='row'>
         <div className='col-md-9'>
-          <div className='col-sm-11 image-course-header'>
-            <div className='subject-image img-resposive'>
-              <img className='img-circle' src={this.state.course.image.url}/>
-            </div>
-            <div className='course-header'>
-              <span className='header-title'>
-                {this.state.course.name}
-              </span>
-              <span className={'label-status' + ' ' + this.state.course.status +
-                '-background-color'}>
-                {I18n.t(`courses.${this.state.course.status}`)}
-              </span>
-              <div className='description'>
-                {this.state.course.description}
+          <div className='course-subject row'>
+            <div className='col-sm-11 image-course-header'>
+              <div className='subject-image img-resposive'>
+                <img className='img-circle' src={this.state.course.image.url}/>
+              </div>
+              <div className='course-header'>
+                <span className='header-title'>
+                  {this.state.course.name}
+                </span>
+                <span className={'label-status' + ' ' + this.state.course.status +
+                  '-background-color'}>
+                  {I18n.t(`courses.${this.state.course.status}`)}
+                </span>
+                <div className='show-creator'>
+                  {link_creator}
+                  <h3 className='label box-title'>
+                    <b>{creator_name}</b>
+                  </h3>
+                </div>
+                <div className='description-course'>
+                  <i>{this.state.course.description}</i>
+                </div>
               </div>
             </div>
+            <div className='col-sm-1'>
+              <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
+                course_constants.COURSES_PATH + this.props.course.id}
+                course={this.state.course}
+                handleAfterEdit={this.handleAfterUpdate.bind(this)} />
+            </div>
           </div>
-          <div className='col-sm-1 pull-right'>
-            <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
-              course_constants.COURSES_PATH + this.props.course.id}
-              course={this.state.course}
-              handleAfterEdit={this.handleAfterUpdate.bind(this)} />
-          </div>
-          <div className='subject-list'>
-            {
-              this.renderCourseSubjects()
-            }
+          <div className='subject-list content row'>
+            <table className="table" id="sortable">
+              <tbody className="sortable-table">
+                {this.renderCourseSubjects()}
+              </tbody>
+            </table>
           </div>
         </div>
         <div className="col-md-3 info-panel">
@@ -254,7 +233,7 @@ export default class CoursesShowBox extends React.Component {
       course: this.state.course,
     });
   }
-  
+
   handleAssignMember() {
     this.setState({rerender: true});
     $('#modal-assign-member').modal();

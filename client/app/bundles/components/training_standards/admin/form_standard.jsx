@@ -19,31 +19,35 @@ export default class FormStandard extends React.Component {
   render() {
     return (
       <div className='modal-body'>
-        <div>
-          <div className='form-group'>
+        <div className='row'>
+          <div className='col-sm-12 form-group'>
             <label>{I18n.t('evaluation_standards.headers.name')}</label>
             <input type='text' value={this.state.name}
               onChange={this.handleChange.bind(this)}
               className='form-control' name='name' />
           </div>
-          <div className='form-group'>
+        </div>
+        <div className='row'>
+          <div className='col-sm-4 form-group'>
             <label>{I18n.t('evaluation_standards.headers.min_point')}</label>
             <input type='number' value={this.state.min_point}
               onChange={this.handleChange.bind(this)}
               className='form-control' name='min_point' />
           </div>
-          <div className='form-group'>
+          <div className='col-sm-4 form-group'>
             <label>{I18n.t('evaluation_standards.headers.max_point')}</label>
             <input type='number' value={this.state.max_point}
               onChange={this.handleChange.bind(this)}
               className='form-control' name='max_point' />
           </div>
-          <div className='form-group'>
+          <div className='col-sm-4 form-group'>
             <label>{I18n.t('evaluation_standards.headers.average_point')}</label>
             <input type='number' value={this.state.average_point}
               onChange={this.handleChange.bind(this)}
               className='form-control' name='average_point' />
           </div>
+        </div>
+        <div className='row'>
           <div className='form-group'>
             <div className='text-right'>
               <button type='submit' className='btn btn-primary'
@@ -80,7 +84,7 @@ export default class FormStandard extends React.Component {
       this.state.max_point > 0 &&
       this.state.max_point > this.state.min_point &&
       this.state.average_point > 0 &&
-      this.state.max_point > this.state.min_point;
+      this.state.average_point > this.state.min_point;
   }
 
   handleCreateEvaluationStandard(event) {
