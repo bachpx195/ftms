@@ -3,7 +3,7 @@ import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';
 
 const LOGOUT_URL = app_constants.APP_NAME + dashboard_constands.LOGOUT_PATH;
-const ROOT_URL = app_constants.APP_NAME + dashboard_constands.ROOT_PATH;
+const ROOT_URL = app_constants.APP_NAME;
 
 export default class Header extends React.Component {
   render () {

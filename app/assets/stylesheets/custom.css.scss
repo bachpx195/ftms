@@ -17,3 +17,173 @@
   margin: 15px 5% 0;
   padding: 30px;
 }
+
+.skin-framgia .main-header .navbar {
+  background: #ec583a;
+  background: -moz-linear-gradient(45deg, #ec583a 43%, #ec583a 43%, #ff7148 57%, #ff7148 57%);
+  background: -webkit-linear-gradient(45deg, #ec583a 43%, #ec583a 43%, #ff7148 57%, #ff7148 57%);
+  background: linear-gradient(45deg, #ec583a 43%, #ec583a 43%, #ff7148 57%, #ff7148 57%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ec583a', endColorstr='#ff7148',GradientType=1 );
+}
+
+.skin-framgia .main-header .navbar .nav > li > a {
+  color: #ffffff;
+}
+
+.skin-framgia .main-header .navbar .nav > li > a:hover,
+.skin-framgia .main-header .navbar .nav > li > a:active,
+.skin-framgia .main-header .navbar .nav > li > a:focus,
+.skin-framgia .main-header .navbar .nav .open > a,
+.skin-framgia .main-header .navbar .nav .open > a:hover,
+.skin-framgia .main-header .navbar .nav .open > a:focus,
+.skin-framgia .main-header .navbar .nav > .active > a {
+  background: rgba(0, 0, 0, 0.1);
+  color: #f6f6f6;
+}
+
+.skin-framgia .main-header .navbar .sidebar-toggle {
+  color: #ffffff;
+}
+
+.skin-framgia .main-header .navbar .sidebar-toggle:hover {
+  color: #f6f6f6;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.skin-framgia .main-header .navbar .sidebar-toggle {
+  color: #fff;
+}
+
+.skin-framgia .main-header .navbar .sidebar-toggle:hover {
+  background-color: #f75b3b;
+}
+
+@media (max-width: 767px) {
+  .skin-framgia .main-header .navbar .dropdown-menu li.divider {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .skin-framgia .main-header .navbar .dropdown-menu li a {
+    color: #fff;
+  }
+  .skin-framgia .main-header .navbar .dropdown-menu li a:hover {
+    background: #367fa9;
+  }
+}
+
+.skin-framgia .main-header .logo {
+  background-color: #ec583a;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+
+.skin-framgia .main-header .logo:hover {
+  background-color: #f75b3b;
+}
+
+.skin-framgia .main-header li.user-header {
+  background-color: #31424d;
+}
+
+.skin-framgia .content-header {
+  background: transparent;
+}
+
+.skin-framgia .wrapper,
+.skin-framgia .main-sidebar,
+.skin-framgia .left-side {
+  background-color: #31424d;
+}
+
+.skin-framgia .user-panel > .info,
+.skin-framgia .user-panel > .info > a {
+  color: #fff;
+}
+
+.skin-framgia .sidebar-menu > li.header {
+  color: #b8c7ce;
+  background: #27363f;
+  font-weight: bold;
+}
+
+.skin-framgia .sidebar-menu > li > a {
+  border-left: 3px solid transparent;
+}
+
+.skin-framgia .sidebar-menu > li:hover > a,
+.skin-framgia .sidebar-menu > li.active > a {
+  color: #ffffff;
+  background: #364a56  ;
+  border-left-color: #3c8dbc;
+}
+
+.skin-framgia .sidebar-menu > li > .treeview-menu {
+  margin: 0 1px;
+  background: #2c3b41;
+}
+
+.skin-framgia .sidebar a {
+  color: #fff;
+}
+
+.skin-framgia .sidebar a:hover {
+  text-decoration: none;
+}
+
+.skin-framgia .treeview-menu > li > a {
+  color: #8aa4af;
+}
+
+.skin-framgia .treeview-menu > li.active > a,
+.skin-framgia .treeview-menu > li > a:hover {
+  color: #ffffff;
+}
+
+.skin-framgia .sidebar-form {
+  border-radius: 3px;
+  border: 1px solid #374850;
+  margin: 10px 10px;
+}
+
+.skin-framgia .sidebar-form input[type="text"],
+.skin-framgia .sidebar-form .btn {
+  box-shadow: none;
+  background-color: #374850;
+  border: 1px solid transparent;
+  height: 35px;
+}
+
+.skin-framgia .sidebar-form input[type="text"] {
+  color: #666;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+
+.skin-framgia .sidebar-form input[type="text"]:focus,
+.skin-framgia .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #fff;
+  color: #666;
+}
+
+.skin-framgia .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left-color: #fff;
+}
+
+.skin-framgia .sidebar-form .btn {
+  color: #999;
+  border-top-left-radius: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0;
+}
+
+.skin-framgia.layout-top-nav .main-header > .logo {
+  background-color: #3c8dbc;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+
+.skin-framgia.layout-top-nav .main-header > .logo:hover {
+  background-color: #3b8ab8;
+}

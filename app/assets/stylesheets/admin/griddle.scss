@@ -1,3 +1,5 @@
+@import "color";
+
 .griddle-head {
   margin: 10px 0;
 
@@ -14,7 +16,7 @@
 
 .griddle-table-heading-cell {
   cursor: pointer;
-  background-color: #85C1E9;
+  background-color: $light_gray;
 }
 
 #role_detail .modal-dialog{
