@@ -19,18 +19,22 @@ class Course < ApplicationRecord
   has_many :user_courses, dependent: :destroy
   has_many :course_subjects, dependent: :destroy
   has_many :user_subjects, through: :course_subjects
-  has_many :subjects, through: :course_subjects, dependent: :destroy
+  has_many :subjects, through: :course_subjects
   has_many :sources, as: :sourceable,
     class_name: MovingHistory.name, dependent: :destroy
   has_many :destinations, as: :destinationable,
     class_name: MovingHistory.name, dependent: :destroy
   has_many :static_properties, as: :ownerable, dependent: :destroy
-  has_many :course_managers
-  has_many :course_members
-  has_many :managers, through: :course_managers,
-    source: :user, dependent: :destroy
-  has_many :members, through: :course_members,
-    source: :user, dependent: :destroy
+  has_many :course_managers, dependent: :destroy
+  has_many :course_members, dependent: :destroy
+  has_many :managers, through: :course_managers, source: :user
+  has_many :members, through: :course_members, source: :user
+  has_many :tasks, as: :targetable,
+    class_name: StaticTask.name, dependent: :destroy
+  has_many :surveys, through: :tasks, source: :targetable,
+    source_type: Survey.name
+  has_many :test_rules, through: :tasks, source: :targetable,
+    source_type: TestRule.name
 
   accepts_nested_attributes_for :user_courses, allow_destroy: true
 
