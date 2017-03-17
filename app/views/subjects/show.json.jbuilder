@@ -1,7 +1,8 @@
 json.subject_detail do
   json.extract! @subject, :name, :id, :content, :description, :during_time
   json.image @subject.image.url
-  json.training_standard @subject.training_standard, :name
+  json.training_standard @subject.training_standards, :name
+  json.statuses @subject.user_subjects.statuses
 
   json.user_subjects @supports.user_subjects do |user_subject|
     json.extract! user_subject, :id, :user_id, :user_course_id, 
