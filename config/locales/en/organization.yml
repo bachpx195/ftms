@@ -15,3 +15,4 @@ en:
     select_parent: "Select parent"
     nothing: "No sub organization"
     create: "New organization"
+    all_managers: "All managers"

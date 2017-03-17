@@ -270,3 +270,18 @@ img{
     height: 25px;
   }
 }
+
+.btn-primary.btn-xs {
+  background-color: GREEN !important;
+  border-color: GREEN;
+}
+
+.btn-warning.btn-xs {
+  background-color: BLUE;
+  border-color: BLUE;
+}
+
+.btn-danger.btn-xs {
+  background-color: #dd4b39;
+  border-color: #d73925;
+}
