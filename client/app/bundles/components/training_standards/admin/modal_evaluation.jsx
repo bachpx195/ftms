@@ -4,6 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import FormStandard from './form_standard';
 import * as app_constants from 'constants/app_constants';
+import CSS from '../../sass/training_standard_show.scss';
 
 export default class ModalEvaluation extends React.Component {
   constructor(props) {

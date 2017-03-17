@@ -1,0 +1,21 @@
+.panel-info {
+  border-color: #bce8f1;
+  margin: 9px 21px;
+  .one-item {
+    height: 45px;
+    margin-bottom: 3px;
+    .index-nonselect {
+      text-align: center;
+      padding-top: 10px;
+      border-bottom: 1px solid #ddd;
+      height: 100%;
+      text-align: center;
+      padding-top: 9px;
+    }
+    .content_item {
+      height: 100%;
+      padding-top: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+}

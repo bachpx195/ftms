@@ -34,6 +34,11 @@ Rails.application.routes.draw do
   resources :programs do
     resources :courses, except: [:index]
   end
+
+  resources :courses do
+    resources :subjects
+  end
+
   resources :standard_subjects, only: [:index, :create, :destroy]
   resources :stages
   resources :universities
@@ -46,7 +51,7 @@ Rails.application.routes.draw do
   namespace :change_role do
     resources :users, only: [:show, :edit, :update]
   end
-  
+
   namespace :assign_user do
     resources :courses, only: [:update]
   end

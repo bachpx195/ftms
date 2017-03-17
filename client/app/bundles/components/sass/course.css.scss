@@ -1,13 +1,25 @@
 #course-show {
+  .course-subject {
+    background-color: rgb(47, 133, 69);
+    margin-top: 15px;
+    padding: 14px 0px;
+    border-bottom-left-radius: 100px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    margin: 0px 0px;
+    color: #FFF;
+  }
   .subject {
     background-color: white;
     margin-top: 15px;
     padding: 5px 2px;
     border-bottom-left-radius: 100px;
     border-top-left-radius: 100px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     margin: 7px 0px;
   }
 
@@ -62,7 +74,7 @@
 
       .header-title {
         font-size: 200%;
-        color: #575a5b;
+        color: rgb(228, 108, 17);
         font-weight: 700;
         margin-right: 10px;
       }
@@ -164,6 +176,7 @@
 }
 
 .subject-list {
+  margin-left: 19px;
   padding-top: 30px;
 }
 
@@ -231,17 +244,29 @@ $fail_color: RED;
 .td-course-edit-delete {
   position: absolute;
   width: 95%;
-  bottom: 0;
-  left: 0;
-  margin: 0px 0px -37px 0px;
+  bottom: -1px;
+  left: 0px;
+  padding: 20px 2px 21px 0px;
+  margin: 25px 8px -104px -24px;
   a {
     margin-left: 5px;
     span {
       &.glyphicon {
-        font-size: 19px;
-        margin-right: 5px;
+        color: #e46c11;
+        background-color: #eee;
+        font-size: 18px;
+        border-radius: 50%;
+        box-shadow: 0 1px 1px rgba(24, 24, 24, 0.88);
+        margin: 7px 19px 0px 5px;
       }
     }
   }
+}
 
+img{
+  &.creator-image {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+  }
 }
