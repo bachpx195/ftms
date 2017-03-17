@@ -7,6 +7,7 @@ import FormEditRole from './form_edit_role';
 require('../sass/user.css.scss');
 
 const ROLES_URL = app_constants.APP_NAME + 'change_role/' + user_constants.USER_PATH;
+const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
 
 export default class UserRolesBox extends React.Component {
   constructor(props) {
@@ -14,6 +15,8 @@ export default class UserRolesBox extends React.Component {
 
     this.state = {
       roles: [],
+      all_roles: [],
+      functions: []
     }
   }
 
@@ -21,16 +24,14 @@ export default class UserRolesBox extends React.Component {
     axios.get(ROLES_URL + this.props.user.id +'.json')
     .then(response => {
       this.setState({
-        roles: response.data.roles
+        roles: response.data.roles,
+        all_roles: response.data.all_roles,
+        functions: response.data.functions
       })
     })
     .catch(error => {
       console.log(error)
-    })
-  }
-
-  componentWillMount() {
-    this.fetchRoles();
+    });
   }
 
   renderModal(){
@@ -46,8 +47,8 @@ export default class UserRolesBox extends React.Component {
               <h4 className='modal-title'>{title}</h4>
             </div>
             <div className='modal-body user-roles'>
-              <FormEditRole all_roles={this.props.all_roles}
-                current_roles={this.props.roles} user_id={this.props.user.id}
+              <FormEditRole all_roles={this.state.all_roles} functions={this.state.functions}
+                current_roles={this.state.roles} user_id={this.props.user.id}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)}/>
             </div>
           </div>
@@ -89,5 +90,6 @@ export default class UserRolesBox extends React.Component {
     let $target = $(event.target);
     $target.blur();
     $('#modalRole').modal();
+    this.fetchRoles();
   }
 }

@@ -50,7 +50,18 @@ export default class RoleDetail extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({functions: nextProps.functions, role: nextProps.role, name: nextProps.role.name});
+    var data = nextProps.functions;
+    for(var value of data){
+      if(value.role_func_id){
+        value.checked = true;
+        value.default_checked = true;
+      }
+      else{
+        value.checked = false;
+        value.default_checked = false;
+      }
+    }
+    this.setState({functions: data, role: nextProps.role, name: nextProps.role.name});
   }
 
   cancel_button(event){
@@ -65,24 +76,29 @@ export default class RoleDetail extends React.Component {
   }
 
   save_button(){
-    var dataRole = {};
-    dataRole['role_id'] = this.state.role.id;
-    dataRole['name'] = this.state.name;
-    dataRole['authenticity_token'] = ReactOnRails.authenticityToken();
-    var rel_func = [];
-    var functions = this.state.functions;
-    var role_checkbox = JSON.parse(localStorage.getItem('role_checkbox'));
-    $.each(role_checkbox, function (key, value) {
-      var function_id = functions[key].id;
-      var role_func_id = functions[key].role_func_id;
-      value = (value == true) ? 0: 1;
-      rel_func.push({id: role_func_id, role_id: dataRole['role_id'], function_id: function_id, _destroy: value});
-    });
-    dataRole['role_functions_attributes'] = rel_func;
-    axios.patch(ROLE_FUNCTION_URL + '/' + dataRole['role_id'], dataRole)
+    var data = {};
+    var functions = [];
+    for(var value of this.state.functions){
+      if(value.is_changed)
+        functions.push({id: value.role_func_id, function_id: value.id,
+          user_id: value.user_id, _destroy: value.checked ? 0 : 1});
+    }
+    data['role_functions_attributes'] = functions;
+    data['authenticity_token'] = ReactOnRails.authenticityToken();
+    axios.patch(ROLE_FUNCTION_URL + '/' + this.state.role.id, data)
       .then(response => {
-        console.log('Update successed');
-        this.setState({functions: response.data.functions});
+        var data = response.data.functions;
+        for(var value of data){
+          if(value.role_func_id){
+            value.checked = true;
+            value.default_checked = true;
+          }
+          else{
+            value.checked = false;
+            value.default_checked = false;
+          }
+        }
+        this.setState({functions: data, role: response.data.role, name: response.data.role.name});
         this.props.updateRoleDiagram(response.data.role);
       })
       .catch(error => {

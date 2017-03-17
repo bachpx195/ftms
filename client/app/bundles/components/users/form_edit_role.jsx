@@ -4,6 +4,7 @@ import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import Errors from '../shareds/errors';
 import CheckRoleBox from './check_role_box';
+import UserFunctionBox from './user_function_box';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 
@@ -14,14 +15,27 @@ export default class FormEditRole extends React.Component {
     super(props);
     this.state = {
       current_roles: props.current_roles,
-      all_roles: props.all_roles
+      all_roles: props.all_roles,
+      functions: props.functions
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    var data = nextProps.functions;
+    for(var value of data){
+      if(value.user_func_id){
+        value.checked = true;
+        value.default_checked = true;
+      }
+      else{
+        value.checked = false;
+        value.default_checked = false;
+      }
+    }
     this.setState({
       current_roles: nextProps.current_roles,
-      all_roles: nextProps.all_roles
+      all_roles: nextProps.all_roles,
+      functions: data
     })
   }
 
@@ -50,7 +64,8 @@ export default class FormEditRole extends React.Component {
     }
     this.setState({
       current_roles: this.state.current_roles
-    })
+    });
+    this.updateUserFunction(this.state.current_roles, this.props.user_id);
   }
 
   handleCheck(role) {
@@ -64,6 +79,7 @@ export default class FormEditRole extends React.Component {
     return(
       <div className='edit-role'>
         <div className='roles'>{this.renderAllRole()}</div>
+        <UserFunctionBox user_id={this.props.user_id} data={this.state.functions} dataChange={this.dataChange.bind(this)}/>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <div className="text-right">
@@ -77,15 +93,53 @@ export default class FormEditRole extends React.Component {
     )
   }
 
+  dataChange(functions){
+    this.setState({functions: functions})
+  }
+
   handleSubmit(event) {
     event.preventDefault();
+    var data = {};
+    var functions = [];
+    for(var value of this.state.functions){
+      if(value.checked)
+        functions.push({function_id: value.id, _destroy: 0});
+    }
+    data['user_functions_attributes'] = functions;
     axios.patch(ROLES_URL + this.props.user_id, {
       roles: this.state.current_roles,
+      functions: data,
       authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
       $('#modalRole').modal('hide');
       this.props.handleAfterSaved(response.data.roles);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  updateUserFunction(current_roles, user_id){
+    axios.patch(ROLES_URL + this.props.user_id + '.json', {
+      update_show: "update_show",
+      roles: current_roles,
+      authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
+    .then(response => {
+      var data = response.data.functions;
+      for(var value of data){
+        if(value.user_func_id){
+          value.checked = true;
+          value.default_checked = true;
+        }
+        else{
+          value.checked = false;
+          value.default_checked = false;
+        }
+      }
+      this.setState({functions: data});
+      console.log(response.data);
     })
     .catch(error => {
       console.log(error);
