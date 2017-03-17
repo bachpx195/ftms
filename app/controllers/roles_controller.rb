@@ -7,7 +7,8 @@ class RolesController < ApplicationController
   end
 
   def show
-    @function_role = Function.functions_with_role @role.id
+    query = FunctionRoleQuery.new @role.id
+    @function_role = QueryObject.new(query).exec
   end
 
   def update
@@ -26,7 +27,7 @@ class RolesController < ApplicationController
       respond_to do |format|
         format.json do
           render json: {message: flash_message("not_found")},
-                 status: :not_found
+            status: :not_found
         end
       end
     end
