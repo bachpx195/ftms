@@ -22,6 +22,9 @@ json.program_detail do
     json.extract! course, :id, :name, :image, :description, :status,
       :training_standard_id, :language_id, :program_id, :start_date, :end_date
     json.training_standard course.training_standard, :id, :name
+    json.members course.members.uniq do |user|
+      json.extract! user, :id, :name, :avatar
+    end
     json.image do
       if course.image
         json.extract! course.image.url

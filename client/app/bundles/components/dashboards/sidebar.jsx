@@ -7,6 +7,7 @@ const ORGANIZATIONS_URL = app_constants.APP_NAME +
   dashboard_constands.ORGANIZATIONS_PATH;
 const STAGES_URL = app_constants.APP_NAME + dashboard_constands.STAGES_PATH;
 const SUBJECTS_URL = app_constants.APP_NAME + dashboard_constands.SUBJECTS_PATH;
+const COURSES_URL = app_constants.APP_NAME + dashboard_constands.COURSES_PATH;
 const TRAINEE_TYPES_URL = app_constants.APP_NAME +
   dashboard_constands.TRAINEE_TYPES_PATH;
 const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
@@ -145,6 +146,13 @@ export default class Sidebar extends React.Component {
               <a href={USERS_URL} onClick={this.onClick.bind(this)}>
                 <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
                 <span>{I18n.t('sidebar.manage_user')}</span>
+              </a>
+            </li>
+            <li className="header">{I18n.t('sidebar.space')}</li>
+            <li data-page='courses'>
+              <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
+                <i className='fa fa-clone'></i>
+                <span>{I18n.t('sidebar.courses')}</span>
               </a>
             </li>
           </ul>

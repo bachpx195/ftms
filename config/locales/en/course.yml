@@ -1,5 +1,6 @@
 en:
   courses:
+    subjects: "Subjects "
     titles:
       all: "All Courses"
     headers:
@@ -73,3 +74,6 @@ en:
       choose: "Choose static task add for course..."
     title_add_task: "Add static task for course"
     assign_user: "Assign user for course"
+    members: "Members: "
+    search: "Search..."
+    default_description: '[No description]'

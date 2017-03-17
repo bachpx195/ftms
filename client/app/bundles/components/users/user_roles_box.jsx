@@ -4,7 +4,7 @@ import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 import FormEditRole from './form_edit_role';
 
-require('../sass/user.css.scss');
+require('../sass/user.scss');
 
 const ROLES_URL = app_constants.APP_NAME + 'change_role/' + user_constants.USER_PATH;
 const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
@@ -75,7 +75,7 @@ export default class UserRolesBox extends React.Component {
     return(
       <div>
         <div>
-          <h1>{I18n.t('users.roles.name')}</h1> 
+          <h1>{I18n.t('users.roles.name')}</h1>
           <div>{this.renderRole()}</div>
         </div>
         <div className='btn btn-primary' onClick={this.handleEdit.bind(this)}>

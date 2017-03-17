@@ -1,0 +1,6 @@
+<% if @courses %>
+  <%= react_component "CourseLists",
+    props: {courses: @courses}, prerender: false %>
+<% else %>
+  <div><%= I18n.t "course.no_content" %></div>
+<% end %>

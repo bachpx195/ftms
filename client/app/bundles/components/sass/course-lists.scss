@@ -1,4 +1,4 @@
-.td-padding-top {
+.td-padding-top-course-lists {
   padding-top: 50px;
   .td-program-list-course {
     padding: 0 15px;
@@ -6,6 +6,11 @@
     margin-bottom: 30px;
     height: 200px;
     .td-course-box {
+      a:hover{
+        &.link-course{
+          text-decoration: none;
+        }
+      }
       box-shadow: 0 0 3px 2px #dfdfdf;
       background-color: #FFF;
       position: relative;
@@ -15,19 +20,20 @@
       .td-course-image-manager {
         position: relative;
         height: 25px;
-
-        .td-course-manager-avatar {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          z-index: 1;
-          border: 4px solid white;
-          box-shadow: 0 0 3px 2px #dfdfdf;
-          cursor: pointer;
-          left: calc(50% - 18px);
-          right: -10px;
-          top: -20px;
-          position: absolute;
+        .course-manager{
+          .td-course-manager-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            z-index: 1;
+            border: 4px solid white;
+            box-shadow: 0 0 3px 2px #dfdfdf;
+            cursor: pointer;
+            left: calc(50% - 18px);
+            right: -10px;
+            top: -20px;
+            position: absolute;
+          }
         }
       }
       .td-course-image-manager:hover {
@@ -69,7 +75,7 @@
             position: relative;
             height: 64px;
             .training_standard{
-              margin: -2px 0px -5px -13px;
+              margin: -2px 0px -5px -18px;
             }
             .td-course-description {
               display: block;
@@ -103,24 +109,22 @@
                   }
                 }
               }
-
             }
           }
 
           .td-course-image {
             img {
-              height: 65px !important;
+              height: 100px !important;
               border-radius: 50%;
-              max-width: 65px !important;
-              margin: -8px 0px 0px -12px;
+              width: 100px;
+              margin: -8px 0px 0px -5px;
             }
           }
-
         }
         .view-members{
-          margin: 0px 45px;
           .user-list {
-            padding-left: 5px;
+            margin: 8px;
+            padding-left: 114px;
             li {
               &.member-list{
                 position: relative;
@@ -155,13 +159,8 @@
               }
             }
           }
-        }
-      }
 
-      .course-corner {
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
+        }
       }
     }
 
@@ -182,15 +181,11 @@
       width: calc(100% - 30px);
       height: 100%;
       display: block;
-      box-shadow: 0 0 19px 4px #888888;
+      box-shadow: 0 0 1px 1px #cccccc;
       background: white;
       top: 8px;
       left: 23px;
       z-index: 1;
-    }
-
-    a:hover {
-      text-decoration: none !important;
     }
   }
   .td-program-list-course:hover {
@@ -208,49 +203,9 @@
   }
 }
 
-.margin-select {
-  margin-bottom: 20px;
+.margin-select{
+  margin-bottom: 5px;
 }
-
-#course-container {
-  width: 100%;
-  height: 100%;
-  background-color: White;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-width:100%;
-  max-height:85vh;
-  padding-left: 20px;
-  background-color: #f5f5f5;
-  padding-right: 17px;
-}
-
-#course-container::-webkit-scrollbar-track
-{
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  background-color: #f5f5f5;
-}
-
-#course-container::-webkit-scrollbar
-{
-  width: 6px;
-  background-color: #f5f5f5;
-}
-
-#course-container::-webkit-scrollbar-thumb
-{
-  background-color: #bcb8b8;
-}
-
-#program-control {
-  fieldset {
-    margin-bottom: 10px;
-  }
-  button {
-    margin-right: 5px
-  }
-}
-
 .image-preview {
   &.image-course {
     img {
@@ -277,4 +232,10 @@
       }
     }
   }
+}
+
+.members-count{
+  font-size: 84%;
+  font-weight: bold;
+  color: rgba(6, 24, 31, 0.63);
 }

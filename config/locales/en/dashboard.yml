@@ -14,6 +14,7 @@ en:
     test_online: " Online"
     user_image_alt: "Avatar"
   sidebar:
+    space: "MY SPACE"
     main_nav: "MAIN NAVIGATION"
     dashboard: "Dashboard"
     languages: "Languages"
@@ -28,3 +29,4 @@ en:
     roles: Roles
     master: "Master Data"
     manage_user: Manage user
+    courses: "Courses"

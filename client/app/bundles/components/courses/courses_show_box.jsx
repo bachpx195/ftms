@@ -11,9 +11,11 @@ import * as course_constants from './course_constants';
 import * as subject_constants from '../subjects/subject_constants';
 import * as user_constants from '../users/user_constants';
 
-require('../sass/course.css.scss');
+require('../sass/course.scss');
 
 const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
+const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
+const LIMIT_DESCRIPTION = course_constants.LIMIT_DESCRIPTION;
 
 export default class CoursesShowBox extends React.Component {
   constructor(props) {
@@ -179,13 +181,19 @@ export default class CoursesShowBox extends React.Component {
         <img className='creator-image' src={course.creator.avatar.url} />
       </a>;
     }
+    let description = this.state.course.description;
+    if(description.length > LIMIT_DESCRIPTION){
+      description = this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
+    }
     return(
       <div id='course-show' className='row'>
         <div className='col-md-9'>
           <div className='course-subject row'>
-            <div className='col-md-8 image-course-header'>
+            <div className='col-md-11 image-course-header'>
               <div className='subject-image img-resposive'>
-                <img className='img-circle' src={this.state.course.image.url}/>
+                <img className='img-circle'
+                  src={this.state.course.image.url ? this.state.course.image.url :
+                    DEFAULT_IMAGE_COURSE}/>
               </div>
               <div className='course-header'>
                 <span className='header-title'>
@@ -201,12 +209,15 @@ export default class CoursesShowBox extends React.Component {
                     <b>{creator_name}</b>
                   </h3>
                 </div>
-                <div className='description-course'>
-                  <i>{this.state.course.description}</i>
+                <div className='description-course'
+                  title={this.state.course.description}>
+                  <i>
+                    {description ? description : I18n.t('courses.default_description')}
+                  </i>
                 </div>
               </div>
             </div>
-            <div className='col-md-4'>
+            <div className='col-md-1'>
               <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
                 course_constants.COURSES_PATH + this.props.course.id}
                 course={this.state.course}

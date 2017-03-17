@@ -3,6 +3,7 @@ export const LANGUAGES_PATH = 'languages';
 export const ORGANIZATIONS_PATH = 'organizations';
 export const STAGES_PATH = 'stages';
 export const SUBJECTS_PATH = 'subjects';
+export const COURSES_PATH = 'courses';
 export const TRAINEE_TYPES_PATH = 'trainee_types';
 export const TRAINING_STANDARDS_PATH = 'training_standards';
 export const UNIVERSITIES_PATH = 'universities';
