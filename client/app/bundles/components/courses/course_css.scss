@@ -1,0 +1,40 @@
+.menu_course_inline {
+  display: inline-block;
+  margin-top: 30px;
+  a {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    &:hover {
+      border-bottom: 2px red solid;
+      padding-bottom: 4px;
+      color: rgba(255,255,255,0.8);
+    }
+  }
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+.list_item_of_course{
+  margin-top: 7px;
+}
+.hidden_item {
+  visibility: hidden;
+}
+.add_task {
+  margin-top: 10px;
+  color: white;
+  background-color: #3c586a;
+  &:hover {
+    color: white;
+  }
+  &:focus {
+    color: white;
+  }
+  i {
+    margin-right: 5px;
+  }
+}

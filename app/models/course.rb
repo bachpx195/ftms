@@ -29,7 +29,7 @@ class Course < ApplicationRecord
   has_many :course_members, dependent: :destroy
   has_many :managers, through: :course_managers, source: :user
   has_many :members, through: :course_members, source: :user
-  has_many :tasks, as: :targetable,
+  has_many :tasks, as: :ownerable,
     class_name: StaticTask.name, dependent: :destroy
   has_many :surveys, through: :tasks, source: :targetable,
     source_type: Survey.name

@@ -33,10 +33,10 @@ en:
     init: "Init"
     in_progress: "In progress"
     finished: "Finished"
-    class_status: 
+    class_status:
       init: "btn-primary btn-xs"
       in_progress: "btn-warning btn-xs"
-      finished: "btn-danger btn-xs" 
+      finished: "btn-danger btn-xs"
     no_content: "No content"
     note: "Course Notes"
     time: "Course's Time is from %{start_date} to %{end_date}"
@@ -63,3 +63,13 @@ en:
     owners: "Owners"
     roles: "Roles"
     select_role: "Select role"
+    add_task: "Add Task"
+    create_task_title: "Create Task: Survey"
+    survey_in_course: "Surveys in course"
+    survey_remain_course: "Remain current Surveys"
+    options:
+      survey: "Survey"
+      testing: "Testing"
+      choose: "Choose static task add for course..."
+    title_add_task: "Add static task for course"
+    assign_user: "Assign user for course"

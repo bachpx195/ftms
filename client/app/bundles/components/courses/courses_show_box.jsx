@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import MenuCourse from './menu_course';
 import ModalAssignMember from './modal_assign_member/modal';
+import ModalTaskSurvey from './add_tasks/modal_task_survey';
+import css from './course_css.scss';
 
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from '../programs/program_constants';
@@ -19,7 +21,15 @@ export default class CoursesShowBox extends React.Component {
     this.state = {
       course: props.course,
       course_subjects: [],
-      rerender: false
+      rerender: false,
+      remain_surveys: props.remain_surveys,
+      selected_surveys: props.selected_surveys,
+
+      remain_testings: [],
+      selected_testings: [],//Testing
+      selected_items: [],
+      remain_items: [],
+      targetable_type: ''
     }
   }
 
@@ -132,7 +142,7 @@ export default class CoursesShowBox extends React.Component {
             </span>
             <div className="pull-right">
               <button type="button" className="btn btn-default"
-                onClick={this.handleAssignMember.bind(this)}>
+                onClick={this.handleAssignMember.bind(this)} title={I18n.t("courses.assign_user")}>
                 <i className="fa fa-user-plus"></i>
               </button>
             </div>
@@ -173,7 +183,7 @@ export default class CoursesShowBox extends React.Component {
       <div id='course-show' className='row'>
         <div className='col-md-9'>
           <div className='course-subject row'>
-            <div className='col-sm-11 image-course-header'>
+            <div className='col-md-8 image-course-header'>
               <div className='subject-image img-resposive'>
                 <img className='img-circle' src={this.state.course.image.url}/>
               </div>
@@ -196,13 +206,20 @@ export default class CoursesShowBox extends React.Component {
                 </div>
               </div>
             </div>
-            <div className='col-sm-1'>
+            <div className='col-md-4'>
               <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
                 course_constants.COURSES_PATH + this.props.course.id}
                 course={this.state.course}
                 handleAfterEdit={this.handleAfterUpdate.bind(this)} />
             </div>
           </div>
+
+          <button className="btn add_task" title={I18n.t("courses.title_add_task")}
+            onClick={this.addTask.bind(this)}>
+            <i className="fa fa-plus" aria-hidden="true"></i>
+            {I18n.t("courses.add_task")}
+          </button>
+
           <div className='subject-list content row'>
             <table className="table" id="sortable">
               <tbody className="sortable-table">
@@ -211,6 +228,7 @@ export default class CoursesShowBox extends React.Component {
             </table>
           </div>
         </div>
+
         <div className="col-md-3 info-panel">
           {
             this.renderUsers()
@@ -220,8 +238,45 @@ export default class CoursesShowBox extends React.Component {
           managers={this.state.course.managers} members={this.state.course.members}
           rerender={this.state.rerender} course={this.state.course}
           afterAssignUsers={this.afterAssignUsers.bind(this)} />
+
+        <ModalTaskSurvey
+          targetable={this.state.course}
+          ownerable_type="Course"
+          selected_items={this.state.selected_items}
+          remain_items={this.state.remain_items}
+          targetable_type={this.state.targetable_type}
+          afterSubmitCreateTask={this.afterSubmitCreateTask.bind(this)}
+          afterChangeSelectBox={this.afterChangeSelectBox.bind(this)}
+        />
       </div>
     );
+  }
+
+  addTask() {
+    $('#modalTaskSurvey').modal();
+  }
+
+  afterSubmitCreateTask(selected_items, remain_items) {
+    this.setState({
+      selected_items: selected_items,
+      remain_items: remain_items
+    })
+  }
+
+  afterChangeSelectBox(type_option) {
+    if(type_option == "survey") {
+      this.setState({
+        remain_items: this.state.remain_surveys,
+        selected_items: this.state.selected_surveys,
+        targetable_type: "Survey"
+      });
+    }else {
+      this.setState({
+        remain_items: this.state.remain_testing,
+        selected_items: this.state.selected_testings,
+        targetable_type: "Testing"
+      });
+    }
   }
 
   handleAfterUpdate(new_course){

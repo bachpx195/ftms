@@ -1,7 +1,12 @@
 <% if @course %>
   <%= react_component "CoursesShowBox",
-    props: {program: @program, course: @course,
-    course_subjects: @supports.course_subjects}, prerender: false %>
+    props: {
+      program: @program,
+      course: @course,
+      course_subjects: @supports.course_subjects,
+      remain_surveys: @supports.remain_surveys,
+      selected_surveys: @supports.selected_surveys
+    }, prerender: false %>
 <% else %>
   <div><%= I18n.t "course.no_content" %></div>
 <% end %>

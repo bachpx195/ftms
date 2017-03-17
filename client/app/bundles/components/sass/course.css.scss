@@ -242,12 +242,6 @@ $fail_color: RED;
 }
 
 .td-course-edit-delete {
-  position: absolute;
-  width: 95%;
-  bottom: -1px;
-  left: 0px;
-  padding: 20px 2px 21px 0px;
-  margin: 25px 8px -104px -24px;
   a {
     margin-left: 5px;
     span {
@@ -257,7 +251,7 @@ $fail_color: RED;
         font-size: 18px;
         border-radius: 50%;
         box-shadow: 0 1px 1px rgba(24, 24, 24, 0.88);
-        margin: 7px 19px 0px 5px;
+        margin: 5px 10px 0px 5px;
       }
     }
   }
