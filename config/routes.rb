@@ -18,7 +18,9 @@ Rails.application.routes.draw do
     resources :programs
     resources :subjects
   end
-  resources :subjects
+  resources :subjects do
+    resources :surveys
+  end
   resources :sub_organizations
   resources :languages
   resources :training_standards do
@@ -58,4 +60,5 @@ Rails.application.routes.draw do
   end
   resources :user_functions
   resources :user_subjects, only: :update
+  resources :tasks
 end

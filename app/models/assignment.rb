@@ -5,4 +5,6 @@ class Assignment < ApplicationRecord
     source_type: Subject.name
   has_many :course_subjects, through: :tasks, source: :targetable,
     source_type: CourseSubject.name
+
+  belongs_to :organization
 end

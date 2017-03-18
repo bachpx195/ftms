@@ -5,4 +5,6 @@ class TestRule < ApplicationRecord
     source_type: Subject.name
   has_many :courses, through: :tasks, source: :targetable,
     source_type: Course.name
+
+  belongs_to :organization
 end

@@ -11,7 +11,7 @@ class Subject < ApplicationRecord
 
   has_many :course_subjects, dependent: :destroy
   has_many :user_subjects, dependent: :destroy
-  has_many :tasks, as: :targetable,
+  has_many :tasks, as: :ownerable,
     class_name: StaticTask.name, dependent: :destroy
   has_many :assignments, through: :tasks, source: :targetable,
     source_type: Assignment.name
@@ -19,6 +19,8 @@ class Subject < ApplicationRecord
     source_type: Survey.name
   has_many :test_rules, through: :tasks, source: :targetable,
     source_type: TestRule.name
+
+  belongs_to :organization
 
   scope :find_remain_subjects, -> ids {where.not id: ids}
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import Modal from './modal';
-import Form from './form';
+import Modal from './subject_form/modal';
+import Form from './subject_form/form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';

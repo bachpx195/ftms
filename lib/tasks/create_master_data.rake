@@ -118,6 +118,7 @@ namespace :db do
     Subject.create!([
       {name: "Ruby on Rails Tutorial Book",
         description: "Learn the basic building blocks of Ruby, all in the browser.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to numbers, Strings, properties, and methods,&nbsp;
           Learn about conversions, arrays, variables, and more methods</p>\r\n",
           during_time: Settings.during_time.tutorial_book,
@@ -125,12 +126,14 @@ namespace :db do
             "app/assets/images/subject.jpeg"))},
       {name: "Ruby's Project 1",
         description: "Start Project 1 for Ruby on Rails today.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to redmine, requirement, design database</p>\r\n",
         during_time: Settings.during_time.project_1,
         image: File.open(File.join(Rails.root,
             "app/assets/images/subject.jpeg"))},
       {name: "Ruby's Project 2",
         description: "Start Project 2 for Ruby on Rails today.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to redmine, requirement, design database</p>\r\n",
         during_time: Settings.during_time.project_2,
         image: File.open(File.join(Rails.root,
@@ -138,6 +141,7 @@ namespace :db do
 
       {name: "Git Tutorial",
         description: "Start Git for your project today.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to github, code version management</p>\r\n",
         during_time: Settings.during_time.git_tutorial,
         image: File.open(File.join(Rails.root,
@@ -146,6 +150,7 @@ namespace :db do
       {name: "Android Tutorial Book",
         description: "This tutorial will teach you basic Android programming and
           will also take you through some advance concepts related to Android application development.\r\n",
+          organization_id: 2,
         content: "<p>Get an introduction to numbers, Strings, properties, and methods,&nbsp;
           Learn about conversions, arrays, variables, and more methods</p>\r\n",
           during_time: Settings.during_time.tutorial_book,
@@ -153,12 +158,14 @@ namespace :db do
             "app/assets/images/subject.jpeg"))},
       {name: "Android's Project 1",
         description: "Start Project 1 for Android today.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to redmine, requirement, design database</p>\r\n",
         during_time: Settings.during_time.project_1,
         image: File.open(File.join(Rails.root,
             "app/assets/images/subject.jpeg"))},
       {name: "Android's Project 2",
         description: "Start Project 2 for Android today.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to redmine, requirement, design database</p>\r\n",
         during_time: Settings.during_time.project_2,
         image: File.open(File.join(Rails.root,
@@ -167,6 +174,7 @@ namespace :db do
       {name: "PHP Tutorial Book",
         description: "PHP is a server scripting language, and a powerful tool
           for making dynamic and interactive Web pages.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to numbers, Strings, properties, and methods,&nbsp;
           Learn about conversions, arrays, variables, and more methods</p>\r\n",
         during_time: Settings.during_time.tutorial_book,
@@ -174,21 +182,25 @@ namespace :db do
             "app/assets/images/subject.jpeg"))},
       {name: "PHP's Project 1",
         description: "Start Project 1 for PHP today.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to redmine, requirement, design database</p>\r\n",
         during_time: Settings.during_time.project_1,
         image: File.open(File.join(Rails.root,
             "app/assets/images/subject.jpeg"))},
       {name: "PHP's Project 2",
         description: "Start Project 2 for PHP today.\r\n",
+        organization_id: 2,
         content: "<p>Get an introduction to redmine, requirement, design database</p>\r\n",
         during_time: Settings.during_time.project_2,
         image: File.open(File.join(Rails.root,
             "app/assets/images/subject.jpeg"))},
-      {name: "MySQL", description: "Start MySQL today.\r\n", content: "MySQL",
+      {name: "MySQL", description: "Start MySQL today.\r\n",
+        organization_id: 2, content: "MySQL",
         during_time: Settings.during_time.mysql},
       {name: "JavaScript", description: "JavaScript is the programming language of HTML and the Web.
         Programming makes computers do what you want them to do. JavaScript is easy to learn.
         This tutorial will teach you JavaScript from basic to advanced.",
+        organization_id: 2,
         during_time: Settings.during_time.javascript,
       image: File.open(File.join(Rails.root,
             "app/assets/images/subject.jpeg"))}
@@ -258,7 +270,16 @@ namespace :db do
         image: File.open(File.join(Rails.root, "app/assets/images/edu.jpg"))},
     ])
 
-    puts "12. Create user subject"
+    puts "12. Create course subject"
+    Course.all.each do |course|
+      course.training_standard.subjects.each do |subject|
+        course.course_subjects.create subject_id: subject.id, subject_name: subject.name,
+          subject_description: subject.description, subject_content: subject.content,
+          subject_image: subject.image
+      end
+    end
+
+    puts "13. Create user subject"
     UserSubject.create!([
       {user_id: 1, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1,
         status: 0},
@@ -266,7 +287,7 @@ namespace :db do
         status: 0}
     ])
 
-    puts "13. Crawl function"
+    puts "14. Crawl function"
     Function.create controller_name: "organizations", action: "index"
 
     functions = []
@@ -281,7 +302,7 @@ namespace :db do
       Function.create! f
     end
 
-    puts "14. Create role"
+    puts "15. Create role"
     Role.create!([
       {name: "admin"},
       {name: "organization supervior", parent_id: 1},
@@ -336,6 +357,22 @@ namespace :db do
     User.all.limit(9).each do |user|
       UserRole.create! user_id: user.id, role_id: 1
       user.functions = role.functions
+    end
+
+    puts "21. create Survey"
+    10.times do |n|
+      Survey.create name: "Survey #{n}", content: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
+        organization_id: 2
+    end
+
+    puts "22. create Assignment"
+    10.times do |n|
+      Assignment.create name: "Assignment #{n}", organization_id: 2
+    end
+
+    puts "23. create TestRule"
+    10.times do |n|
+      TestRule.create name: "Test Rule #{n}", organization_id: 2
     end
   end
 end
