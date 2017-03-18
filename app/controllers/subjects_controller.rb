@@ -1,5 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :find_subject, except: [:index, :new, :create]
+  before_action :find_subject, :find_course, except: [:index, :new, :create]
 
   def index
     @subjects = Subject.select :id, :name, :image, :description
@@ -94,4 +94,20 @@ class SubjectsController < ApplicationController
       end
     end
   end
+
+  def find_course
+    if params[:course_id]
+      @course = Course.find_by id: params[:course_id]
+      unless @course
+        respond_to do |format|
+          format.html {redirect_to :back}
+          format.json do
+            render json: {message: flash_message("not_found")},
+              status: :not_found
+          end
+        end
+      end
+    end
+  end
+
 end

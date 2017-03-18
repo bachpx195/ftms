@@ -25,6 +25,7 @@ export default class ModalBody extends React.Component{
         <ListTasks task={this.state.task} type={this.state.type}
           afterChoose={this.afterChoose.bind(this)}
           subject_id={this.props.subject_id}
+          subject_detail={this.props.subject_detail}
           handleAfterAddTask={this.handleAfterAddTask.bind(this)} />
       </div>
     );
@@ -66,8 +67,8 @@ export default class ModalBody extends React.Component{
     });
   }
 
-  handleAfterAddTask(type, ids) {
-    this.props.handleAfterAddTask(type, ids);
+  handleAfterAddTask(type, ids, tasks, subject_detail) {
+    this.props.handleAfterAddTask(type, ids, tasks, subject_detail);
   }
 
 }

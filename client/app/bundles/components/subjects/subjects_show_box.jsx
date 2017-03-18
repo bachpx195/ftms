@@ -5,9 +5,9 @@ import UserSubjectList from './user_subject_list';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
 import ModalBody from './subject_form/modalBody';
+import BlockTasks from './block_tasks';
 
-const ORGANIZATION_URL = app_constants.APP_NAME + subject_constants +
-  subject_constants.ORGANIZATION_PATH;
+const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
 export default class SubjectsShowBox extends React.Component {
@@ -23,6 +23,11 @@ export default class SubjectsShowBox extends React.Component {
           surveys: [],
           test_rules: [],
           assignments: []
+        },
+        subject_task: {
+          surveys: [],
+          test_rules: [],
+          assignments: []
         }
       },
     }
@@ -34,8 +39,8 @@ export default class SubjectsShowBox extends React.Component {
 
   fetchSubject() {
     let url;
-    if(this.props.organization){
-      url = ORGANIZATION_URL + '/' + this.props.organization.id + '/subjects/' + this.props.subject.id;
+    if(this.props.course){
+      url = COURSE_URL + '/' + this.props.course.id + '/' +subject_constants.SUBJECT_PATH + this.props.subject.id;
     }else{
       url = SUBJECT_URL + '/' + this.props.subject.id;
     }
@@ -51,6 +56,42 @@ export default class SubjectsShowBox extends React.Component {
   }
 
   render() {
+    let list_blocks;
+    if(this.props.course){
+      list_blocks = (
+        <div className='block-list-task'>
+          <div id="user-subject" className="clearfix">
+            <UserSubjectList
+              user_subjects={this.state.subject_detail.user_subjects}
+              statuses={this.state.subject_detail.statuses} />
+          </div>
+        </div>
+      )
+    }else{
+      list_blocks = (
+        <div className='block-list-task'>
+          <div id="survey" className='clearfix'>
+            <BlockTasks tasks={this.state.subject_detail.subject_task.surveys}
+              title={I18n.t('subjects.titles.list_surveys')}
+              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+              type='surveys'/>
+          </div>
+          <div id="assignment" className='clearfix'>
+            <BlockTasks tasks={this.state.subject_detail.subject_task.assignments}
+              title={I18n.t('subjects.titles.list_assignments')}
+              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+              type='assignments'/>
+          </div>
+          <div id="test_rules" className='clearfix'>
+            <BlockTasks tasks={this.state.subject_detail.subject_task.test_rules}
+              title={I18n.t('subjects.titles.list_test_rules')}
+              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+              type='test_rules'/>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div>
         <div id="admin-subject-show">
@@ -87,11 +128,7 @@ export default class SubjectsShowBox extends React.Component {
             </div>
           </div>
         </div>
-        <div id="user-subject" className="clearfix">
-          <UserSubjectList
-            user_subjects={this.state.subject_detail.user_subjects}
-            statuses={this.state.subject_detail.statuses} />
-        </div>
+        {list_blocks}
       </div>
     );
   }
@@ -104,10 +141,11 @@ export default class SubjectsShowBox extends React.Component {
             <div className='modal-header'>
               <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
-              <h4 className='modal-title'>Add Task</h4>
+              <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
             </div>
             <ModalBody task={this.state.subject_detail.task}
               subject_id={this.state.subject_detail.id}
+              subject_detail={this.state.subject_detail}
               handleAfterAddTask={this.handleAfterAddTask.bind(this)} />
           </div>
         </div>
@@ -119,10 +157,25 @@ export default class SubjectsShowBox extends React.Component {
     $('#modalAddTask').modal();
   }
 
-  handleAfterAddTask(type, targetable_ids) {
+  handleAfterAddTask(type, targetable_ids,tasks, subject_detail) {
     _.remove(this.state.subject_detail.task[type], targetable => {
       return targetable_ids.indexOf(targetable.id) >= 0;
     });
+    _.mapValues(tasks, function(task){
+      subject_detail.subject_task[type].push(task)
+    })
+    this.setState({
+      subject_detail: subject_detail
+    })
+  }
+  handleAfterDeleteTask(index, task, type){
+    _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
+      return task_id == index
+    });
+    this.state.subject_detail.task[type].push(task)
+    this.state.subject_detail.task[type].sort(function(obj1, obj2){
+      return obj1.id - obj2.id
+    })
     this.setState({
       subject_detail: this.state.subject_detail
     })
