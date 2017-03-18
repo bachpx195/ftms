@@ -30,20 +30,16 @@ export default class OrganizationLists extends React.Component {
 
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
+      <div className='row'>
+        <div className='griddle-head clearfix'>
+          <div className='col-md-6'>
+            <Filter />
           </div>
-          <div className='col-md-12'>
-            <Table />
+          <div className='col-md-6 text-right'>
+            <Pagination />
           </div>
         </div>
+        <Table />
       </div>
     );
 
@@ -51,7 +47,7 @@ export default class OrganizationLists extends React.Component {
       <a href={ORGANIZATION_URL + '/' + this.props.organizations[griddleKey].id}>{value}</a>
     );
     return (
-      <div>
+      <div className='col-md-12'>
         <Griddle data={this.state.organizations}
           plugins={[plugins.LocalPlugin]}
           components={{Layout: NewLayout}}

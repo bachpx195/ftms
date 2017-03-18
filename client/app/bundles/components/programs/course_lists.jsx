@@ -30,20 +30,16 @@ export default class CourseLists extends React.Component {
 
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
+      <div className='row'>
+        <div className='griddle-head clearfix'>
+          <div className='col-md-6'>
+            <Filter />
           </div>
-          <div className='col-md-12'>
-            <Table />
+          <div className='col-md-6 text-right'>
+            <Pagination />
           </div>
         </div>
+        <Table />
       </div>
     );
     const Image = ({griddleKey}) => (
@@ -81,9 +77,10 @@ export default class CourseLists extends React.Component {
           subsit_users = (
             <div className='subsit_users'>
               <div className="block-trainer">
-                <p className="image image-others"
-                  onClick={this.handleClick.bind(this)}
-                  title={I18n.t('organizations.other_managers')} >
+
+                <p className="image image-others" 
+                  onClick={this.handleClick.bind(this)} 
+                  title={I18n.t('organizations.all_managers')} >
                   <img src='/assets/profile.png' className='img-circle' />
                   <span className='count-users'>{count_subsit_users}+</span>
                 </p>
@@ -153,7 +150,7 @@ export default class CourseLists extends React.Component {
     }
 
     return (
-      <div className='col-md-12'>
+      <div className=''>
         <div className='box box-success'>
           <div className='box-header with-border'>
             <h3 className='box-title'>

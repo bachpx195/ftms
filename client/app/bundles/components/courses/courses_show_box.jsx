@@ -154,10 +154,10 @@ export default class CoursesShowBox extends React.Component {
               <div className='member-title'>
                 {I18n.t('courses.member.managers')}
               </div>
-                <ul className='user-list clearfix'>
-                  {link_owner}
-                  {this.renderMembers(course.managers)}
-                </ul>
+              <ul className='user-list clearfix'>
+                {link_owner}
+                {this.renderMembers(course.managers)}
+              </ul>
               <div className='member-title'>
                 {I18n.t('courses.member.members')}
               </div>

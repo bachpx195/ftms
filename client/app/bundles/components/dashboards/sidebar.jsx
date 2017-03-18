@@ -26,7 +26,7 @@ export default class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     if(!localStorage.getItem('page')) {
-      localStorage.setItem('page', 'languages');
+      localStorage.setItem('page', 'organizations');
     }
 
     this.state = {
@@ -69,6 +69,13 @@ export default class Sidebar extends React.Component {
         <section className='sidebar'>
           {this.renderUserPanel()}
           <ul className='sidebar-menu td-admin-sidebar'>
+            <li className="header">{I18n.t('sidebar.space')}</li>
+            <li data-page='courses'>
+              <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
+                <i className='fa fa-clone'></i>
+                <span>{I18n.t('sidebar.courses')}</span>
+              </a>
+            </li>
             <li className="header">{I18n.t('sidebar.main_nav')}</li>
             <li data-page='organizations'>
               <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
@@ -84,37 +91,43 @@ export default class Sidebar extends React.Component {
                 <span className={`fa fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></span>
               </a>
 
-              <ul className={this.state.master_menu}>
+              <ul id="subMasterMenu" className={this.state.master_menu}>
                 <li className='active' data-page='languages'>
+                  <i className="fa fa-circle-o"></i>
                   <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.languages')}</span>
                   </a>
                 </li>
                 <li data-page='stages'>
+                  <i className="fa fa-circle-o"></i>
                   <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.stages')}</span>
                   </a>
                 </li>
 
                 <li data-page='subjects'>
+                  <i className="fa fa-circle-o"></i>
                   <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.subjects')}</span>
                   </a>
                 </li>
 
                 <li data-page="trainee_types">
+                  <i className="fa fa-circle-o"></i>
                   <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.trainee_types')}</span>
                   </a>
                 </li>
 
                 <li data-page="training_standards">
+                  <i className="fa fa-circle-o"></i>
                   <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.training_standards')}</span>
                   </a>
                 </li>
 
                 <li data-page="universities">
+                  <i className="fa fa-circle-o"></i>
                   <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.universities')}</span>
                   </a>
@@ -128,13 +141,15 @@ export default class Sidebar extends React.Component {
                 <span>{I18n.t('sidebar.mange_role')}</span>
                 <span className={`fa fa-chevron-${this.state.roles_menu == "showed" ? "down" : "right"}`}></span>
               </a>
-              <ul className={this.state.roles_menu}>
+              <ul id="subRoleMenu" className={this.state.roles_menu}>
                 <li data-page="roles">
+                  <i className="fa fa-circle-o"></i>
                   <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.roles')}</span>
                   </a>
                 </li>
                 <li data-page="functions">
+                  <i className="fa fa-circle-o"></i>
                   <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
                     <span>{I18n.t('sidebar.all_functions')}</span>
                   </a>
@@ -148,17 +163,18 @@ export default class Sidebar extends React.Component {
                 <span>{I18n.t('sidebar.manage_user')}</span>
               </a>
             </li>
-            <li className="header">{I18n.t('sidebar.space')}</li>
-            <li data-page='courses'>
-              <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
-                <i className='fa fa-clone'></i>
-                <span>{I18n.t('sidebar.courses')}</span>
-              </a>
-            </li>
+            
           </ul>
         </section>
       </aside>
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      roles_menu: nextProps.roles_menu,
+      master_menu: nextProps.master_menu,
+     });
   }
 
   onClick(event) {
@@ -169,11 +185,17 @@ export default class Sidebar extends React.Component {
     event.preventDefault();
     let target = event.target;
     if(this.state.roles_menu == 'showed'){
-      $(target).find('span.fa').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+      $('#subRoleMenu').slideUp("slow", function(){
+        $(target).find('span.fa').removeClass('fa-chevron-down').addClass(
+          'fa-chevron-right');
+      });
       this.setState({roles_menu: 'hiddened'});
       localStorage.setItem('roles_menu', 'hiddened');
     } else if(this.state.roles_menu == 'hiddened'){
-      $(target).find('span.fa').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+      $('#subRoleMenu').slideDown("slow", function(){
+        $(target).find('span.fa').removeClass('fa-chevron-right').addClass(
+          'fa-chevron-down');
+      });
       this.setState({roles_menu: 'showed'});
       localStorage.setItem('roles_menu', 'showed');
     }
@@ -183,15 +205,22 @@ export default class Sidebar extends React.Component {
     event.preventDefault();
     let target = event.target;
     if(this.state.master_menu == 'showed'){
-      $(target).find('span.fa').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+      $('#subMasterMenu').slideUp("slow", function(){
+        $(target).find('span.fa').removeClass('fa-chevron-down').addClass(
+          'fa-chevron-right');
+      });
       this.setState({master_menu: 'hiddened'});
       localStorage.setItem('master_menu', 'hiddened');
     } else if(this.state.master_menu == 'hiddened'){
-      $(target).find('span.fa').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+      $('#subMasterMenu').slideDown("slow", function(){
+        $(target).find('span.fa').removeClass('fa-chevron-right').addClass(
+          'fa-chevron-down');
+      });
       this.setState({master_menu: 'showed'});
       localStorage.setItem('master_menu', 'showed');
     }
   }
+
 
   componentDidMount(){
     let page = localStorage.getItem('page');

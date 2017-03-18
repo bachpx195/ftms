@@ -1,10 +1,9 @@
 .box-organization{
-  padding: 20px;
+  padding: 10px;
   .active{
     display: block; 
   }
   .list-sub-organization{
-    padding: 15px;
     .list-organization{
       margin-bottom: 0px;
       .parent{
@@ -103,7 +102,7 @@
   }
 }
 .count-users{
-  margin-left: -28px;
+  margin-left: -24px;
   color: black;
   font-weight: bold;
 }
@@ -114,4 +113,11 @@
 .image-others {
   opacity: 0.5;
   cursor: pointer;
+}
+
+.member-title .block-trainer .image {
+  padding: 0 10px;
+  img {
+    width: 35px;
+  }
 }
