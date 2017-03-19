@@ -123,7 +123,7 @@ export default class CoursesShowBox extends React.Component {
     return (
       <div>
         <div className='box box-primary'>
-          <div className='box-header with-border'>
+          <div className='box-header with-border box-header-gray'>
             <h3 className='label box-title'>
               {I18n.t('courses.member.title')}
             </h3>

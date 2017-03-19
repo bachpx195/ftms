@@ -1,5 +1,6 @@
 en:
   programs:
+    info: "Info"
     titles:
       all: "All Programs"
     headers:
@@ -12,10 +13,15 @@ en:
     name: "Program Name"
     parent: "Parent Name"
     sub_program: "Sub Program"
+    organization: "Organization"
+    owners: "Owners"
     edit: "Edit"
     delete: "Delete"
     list_users: "Users"
     list_courses: "Courses"
+    list_init_courses: "Init Courses"
+    list_in_progress_courses: "In-Progress Courses"
+    list_finished_courses: "Finished Courses"
     list_subjects: "Subjects"
     select_standard: "Select a Standard"
     image: "Image"

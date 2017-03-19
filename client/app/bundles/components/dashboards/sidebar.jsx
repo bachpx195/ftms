@@ -40,12 +40,35 @@ export default class Sidebar extends React.Component {
     this.setState({roles_menu: roles_menu, master_menu: master_menu});
   }
 
+  renderUserPanel(){
+    if (localStorage.current_user !== undefined) {
+      let current_user = JSON.parse(localStorage.current_user);
+      let avatar = null;
+      if (current_user.avatar){
+        avatar = <img src={current_user.avatar.url}
+          className="img-circle"
+          alt={I18n.t("header.user_image_alt")} />
+      }
+      return (
+        <div className='user-panel'>
+          <div className="pull-left image">
+            {avatar}
+          </div>
+          <div className="pull-left info" >
+            <p>{current_user.name}</p>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render () {
     return (
       <aside className='main-sidebar'>
         <section className='sidebar'>
+          {this.renderUserPanel()}
           <ul className='sidebar-menu td-admin-sidebar'>
-
+            <li className="header">{I18n.t('sidebar.main_nav')}</li>
             <li data-page='organizations'>
               <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
                 <i className='fa fa-folder'></i>
