@@ -57,4 +57,5 @@ Rails.application.routes.draw do
     resources :courses, only: [:update]
   end
   resources :user_functions
+  resources :user_subjects, only: :update
 end

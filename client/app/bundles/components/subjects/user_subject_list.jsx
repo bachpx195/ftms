@@ -2,6 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import * as table_constants from 'constants/griddle_table_constants';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import * as app_constants from 'constants/app_constants';
+import * as subject_constants from './subject_constants';
+
+const USER_SUBJECT_URL = app_constants.APP_NAME + subject_constants.USER_SUBJECT_PATH;
+
 export default class UserSubjectList extends React.Component {
 
   constructor(props) {
@@ -9,12 +14,14 @@ export default class UserSubjectList extends React.Component {
 
     this.state = {
       user_subjects: props.user_subjects,
+      statuses: props.statuses,
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       user_subjects: nextProps.user_subjects,
+      statuses: nextProps.statuses,
     });
   }
 
@@ -37,12 +44,11 @@ export default class UserSubjectList extends React.Component {
       </div>
     );
 
-    const selectBoxStatus = (griddleKey) => (
-      <select name="form-control">
-        <option>{I18n.t('subjects.status.init')}</option>
-        <option>{I18n.t('subjects.status.progress')}</option>
-        <option>{I18n.t('subjects.status.waiting')}</option>
-        <option>{I18n.t('subjects.status.finish')}</option>
+    const selectBoxStatus = ({griddleKey}) => (
+      <select className="select-status" onChange={this.handleChange.bind(this)}
+        name='status' data-index={griddleKey} 
+        value={this.state.user_subjects[griddleKey].status}>
+        {this.renderOptions()}
       </select>
     );
 
@@ -88,5 +94,37 @@ export default class UserSubjectList extends React.Component {
         </div>
       </div>
     );
+  }
+
+  handleChange(event) {
+    let user_subject = this.state.user_subjects[$(event.target).data('index')];
+    let index = this.state.user_subjects
+      .findIndex(user_subject_item => user_subject_item.id === user_subject.id);
+    this.state.user_subjects[index].status = event.target.value;
+   
+    axios.patch(USER_SUBJECT_URL + user_subject.id, {
+      status: event.target.value,
+      authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
+    .then(response => {
+      this.setState({
+        user_subjects: this.state.user_subjects,
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+  renderOptions() {
+    let statuses=[];
+    for(var key in this.state.statuses){
+      statuses.push(
+        <option key={this.state.statuses[key]} value={key}>
+          {I18n.t('subjects.status.'+ key)}
+        </option>
+      )
+    }
+    return statuses;
   }
 }

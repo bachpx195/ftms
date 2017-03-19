@@ -23,9 +23,9 @@ en:
       delete: "Delete"
     status:
       init: "Init"
-      progress: "Progress"
+      in_progress: "In progress"
       waiting: "Waiting"
-      finish: "Finish"
+      finished: "Finished"
     members: Members
     init_subjects: "Init Subjects "
     progress_subjects: "Progress Subjects "

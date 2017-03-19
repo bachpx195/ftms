@@ -7,6 +7,7 @@ import * as subject_constants from './subject_constants';
 
 const ORGANIZATION_URL = app_constants.APP_NAME + subject_constants +
   subject_constants.ORGANIZATION_PATH;
+const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
 export default class SubjectsShowBox extends React.Component {
   constructor(props) {
@@ -15,7 +16,8 @@ export default class SubjectsShowBox extends React.Component {
     this.state = {
       subject_detail: {
         training_standard: {},
-        user_subjects: {}
+        user_subjects: {},
+        statuses:[],
       }
     }
   }
@@ -25,7 +27,7 @@ export default class SubjectsShowBox extends React.Component {
   }
 
   fetchSubject() {
-    const url = ORGANIZATION_URL + '/' + this.props.organization.id + '/subjects/' + this.props.subject.id;
+    const url = SUBJECT_URL + '/' + this.props.subject.id;
     axios.get(url + '.json')
     .then(response => {
       this.setState({
@@ -67,7 +69,8 @@ export default class SubjectsShowBox extends React.Component {
         </div>
         <div id="user-subject">
           <UserSubjectList
-            user_subjects={this.state.subject_detail.user_subjects} />
+            user_subjects={this.state.subject_detail.user_subjects}
+            statuses={this.state.subject_detail.statuses} />
         </div>
       </div>
     );

@@ -260,9 +260,9 @@ namespace :db do
 
     puts "12. Create user subject"
     UserSubject.create!([
-      {user_id: 1, start_date: '01/09/2016', end_date: '01/01/2021',
+      {user_id: 1, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1,
         status: 0},
-      {user_id: 2, start_date: '01/09/2016', end_date: '01/01/2021',
+      {user_id: 2, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1,
         status: 0}
     ])
 
