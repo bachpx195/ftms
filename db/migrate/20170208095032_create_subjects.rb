@@ -7,6 +7,7 @@ class CreateSubjects < ActiveRecord::Migration[5.0]
       t.text :content
       t.datetime :deleted_at
       t.integer :during_time
+      t.integer :organization_id, index: true
 
       t.timestamps
     end

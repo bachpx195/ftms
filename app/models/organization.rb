@@ -11,6 +11,10 @@ class Organization < ApplicationRecord
   has_many :programs, dependent: :destroy
   has_many :standard_organizations, dependent: :destroy
   has_many :training_standards, through: :standard_organizations, source: :training_standard
+  has_many :surveys, dependent: :destroy
+  has_many :test_rules, dependent: :destroy
+  has_many :assignments, dependent: :destroy
+  has_many :subjects, dependent: :destroy
 
   validates :name, presence: true
 

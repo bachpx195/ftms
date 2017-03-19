@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import SubjectLists from './subject_lists';
-import Form from './form';
+import Form from './subject_form/form';
 
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
