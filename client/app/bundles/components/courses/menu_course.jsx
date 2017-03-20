@@ -18,13 +18,13 @@ export default class MenuCourse extends React.Component {
   }
   render(){
     return(
-      <div className="td-course-edit-delete">
-        <a onClick={this.handleEdit.bind(this)}>
+      <div className="td-course-edit-delete pull-right">
+        <a onClick={this.handleEdit.bind(this)} title={I18n.t("courses.edit")}>
           <span className="btn glyphicon glyphicon-edit"
             aria-hidden="true">
           </span>
         </a>
-        <a onClick={this.handleDelete.bind(this)}>
+        <a onClick={this.handleDelete.bind(this)} title={I18n.t("courses.delete")}>
           <span className="btn glyphicon glyphicon-trash"
             aria-hidden="true">
           </span>
@@ -34,6 +34,15 @@ export default class MenuCourse extends React.Component {
           handleAfterUpdate={this.handleAfterEdit.bind(this)} />
       </div>
     );
+  }
+
+  onClickMenuCourse(event) {
+    let target = event.target;
+    if($(target).closest('div').find('.list_item_of_course').hasClass('hidden_item')) {
+      $(target).closest('div').find('.list_item_of_course').removeClass('hidden_item');
+    }else {
+      $(target).closest('div').find('.list_item_of_course').addClass('hidden_item');
+    }
   }
 
   handleAfterEdit(course) {

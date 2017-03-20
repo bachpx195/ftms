@@ -33,4 +33,12 @@ class Supports::CourseSupport
   def training_standards
     @training_standards ||= program.training_standards
   end
+
+  def selected_surveys
+    @selected_serveys ||= @course.surveys
+  end
+
+  def remain_surveys
+    @remain_surveys ||= Survey.where.not id: selected_surveys.ids
+  end
 end
