@@ -57,3 +57,7 @@ node_modules
 
 # I18n js
 /public/javascripts/translations.js
+
+#framgia ci
+/.framgia-ci-reports
+.framgia-ci-result.temp.yml
