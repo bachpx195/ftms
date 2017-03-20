@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 import ListTasks from './list_tasks';
-
 export default class ModalBody extends React.Component{
   constructor(props){
     super(props);
@@ -26,7 +25,8 @@ export default class ModalBody extends React.Component{
           afterChoose={this.afterChoose.bind(this)}
           subject_id={this.props.subject_id}
           subject_detail={this.props.subject_detail}
-          handleAfterAddTask={this.handleAfterAddTask.bind(this)} />
+          handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+          afterCreateTask={this.afterCreateTask.bind(this)} />
       </div>
     );
     return(
@@ -67,8 +67,10 @@ export default class ModalBody extends React.Component{
     });
   }
 
-  handleAfterAddTask(type, ids, tasks, subject_detail) {
-    this.props.handleAfterAddTask(type, ids, tasks, subject_detail);
+  handleAfterAddTask(type, ids, targets, subject_detail) {
+    this.props.handleAfterAddTask(type, ids, targets, subject_detail);
   }
-
+  afterCreateTask(target, type){
+    this.props.afterCreateTask(target, type)
+  }
 }

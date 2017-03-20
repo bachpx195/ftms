@@ -9,6 +9,7 @@ import BlockTasks from './block_tasks';
 
 const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+require('../subjects/subject.scss');
 
 export default class SubjectsShowBox extends React.Component {
   constructor(props) {
@@ -60,7 +61,7 @@ export default class SubjectsShowBox extends React.Component {
     if(this.props.course){
       list_blocks = (
         <div className='block-list-task'>
-          <div id="user-subject" className="clearfix">
+          <div id='user-subject' className='clearfix'>
             <UserSubjectList
               user_subjects={this.state.subject_detail.user_subjects}
               statuses={this.state.subject_detail.statuses} />
@@ -69,24 +70,49 @@ export default class SubjectsShowBox extends React.Component {
       )
     }else{
       list_blocks = (
-        <div className='block-list-task'>
-          <div id="survey" className='clearfix'>
-            <BlockTasks tasks={this.state.subject_detail.subject_task.surveys}
-              title={I18n.t('subjects.titles.list_surveys')}
-              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-              type='surveys'/>
-          </div>
-          <div id="assignment" className='clearfix'>
-            <BlockTasks tasks={this.state.subject_detail.subject_task.assignments}
-              title={I18n.t('subjects.titles.list_assignments')}
-              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-              type='assignments'/>
-          </div>
-          <div id="test_rules" className='clearfix'>
-            <BlockTasks tasks={this.state.subject_detail.subject_task.test_rules}
-              title={I18n.t('subjects.titles.list_test_rules')}
-              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-              type='test_rules'/>
+        <div className='blocks'>
+          <ul className='nav nav-tabs tab-bar'>
+            <li className='active'>
+              <a data-toggle='tab' href='#home'>
+                <i className='fa fa-file-text-o'></i>{I18n.t('subjects.titles.surveys')}
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#menu1'>
+                <i className='fa fa-pencil-square-o'></i>{I18n.t('subjects.titles.assignments')}
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#menu2'>
+                <i className="fa fa-check-square-o"></i>{I18n.t('subjects.titles.tests')}
+              </a>
+            </li>
+          </ul>
+          <div className='tab-content'>
+            <div id='home' className='tab-pane fade in active'>
+              <div id='survey' className='clearfix'>
+                <BlockTasks tasks={this.state.subject_detail.subject_task.surveys}
+                  title={I18n.t('subjects.titles.surveys')}
+                  handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+                  type='surveys'/>
+              </div>
+            </div>
+            <div id='menu1' className='tab-pane fade'>
+              <div id='assignment' className='clearfix'>
+                <BlockTasks tasks={this.state.subject_detail.subject_task.assignments}
+                  title={I18n.t('subjects.titles.assignments')}
+                  handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+                  type='assignments'/>
+              </div>
+            </div>
+            <div id='menu2' className='tab-pane fade'>
+              <div id='test_rules' className='clearfix'>
+                <BlockTasks tasks={this.state.subject_detail.subject_task.test_rules}
+                  title={I18n.t('subjects.titles.tests')}
+                  handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+                  type='test_rules'/>
+              </div>
+            </div>
           </div>
         </div>
       )
@@ -94,34 +120,34 @@ export default class SubjectsShowBox extends React.Component {
 
     return (
       <div>
-        <div id="admin-subject-show">
-          <div className="row">
-            <div className="col-md-2">
+        <div id='admin-subject-show'>
+          <div className='row'>
+            <div className='col-md-2'>
               <img src={this.state.subject_detail.image}
-                alt='Subject Image' className="image-subject" />
+                alt='Subject Image' className='image-subject' />
             </div>
-            <div className="col-md-8">
+            <div className='col-md-8'>
               <div className='subject-info col-md-9'>
-                <h2 className="subject-name">
+                <h2 className='subject-name'>
                   {this.state.subject_detail.name}
                 </h2>
-                <div className="description">
+                <div className='description'>
                   {this.state.subject_detail.description}
                 </div>
-                <div className="workings-day">
+                <div className='workings-day'>
                   {I18n.t('subjects.headers.workings_day')}
                   {this.state.subject_detail.during_time}
                   {I18n.t('subjects.headers.days')}
                 </div>
-                <div className="organization">
+                <div className='organization'>
                   {I18n.t('subjects.headers.training_standard')}
                   {this.state.subject_detail.training_standard.name}
                 </div>
               </div>
               <div className='add-task col-md-3'>
-                <button type="button" className="btn btn-primary"
+                <button type='button' className='btn btn-primary'
                   onClick={this.afterClickAddTask.bind(this)}>
-                  Add Task
+                  {I18n.t('buttons.add_task')}
                 </button>
                 {this.renderModal()}
               </div>
@@ -146,7 +172,8 @@ export default class SubjectsShowBox extends React.Component {
             <ModalBody task={this.state.subject_detail.task}
               subject_id={this.state.subject_detail.id}
               subject_detail={this.state.subject_detail}
-              handleAfterAddTask={this.handleAfterAddTask.bind(this)} />
+              handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+              afterCreateTask={this.afterCreateTask.bind(this)} />
           </div>
         </div>
       </div>
@@ -157,17 +184,25 @@ export default class SubjectsShowBox extends React.Component {
     $('#modalAddTask').modal();
   }
 
-  handleAfterAddTask(type, targetable_ids,tasks, subject_detail) {
+  handleAfterAddTask(type, targetable_ids,targets, subject_detail) {
     _.remove(this.state.subject_detail.task[type], targetable => {
       return targetable_ids.indexOf(targetable.id) >= 0;
     });
-    _.mapValues(tasks, function(task){
-      subject_detail.subject_task[type].push(task)
+    _.mapValues(targets, function(target){
+      subject_detail.subject_task[type].push(target)
     })
     this.setState({
       subject_detail: subject_detail
     })
   }
+
+  afterCreateTask(target, type){
+    this.state.subject_detail.subject_task[type].push(target)
+    this.setState({
+      subject_detail: this.state.subject_detail
+    })
+  }
+
   handleAfterDeleteTask(index, task, type){
     _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
       return task_id == index

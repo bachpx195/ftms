@@ -3,7 +3,7 @@ import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as table_constants from 'constants/griddle_table_constants';
 import CheckBox from './check_box'
-
+import FormTask from './form_task'
 import * as app_constants from '../../../../constants/app_constants';
 import * as subject_constants from '../subject_constants';
 
@@ -29,19 +29,19 @@ export default class ListProjects extends React.Component{
 
   render(){
     let type = this.state.type;
-    if(type != "") {
+    if(type != '') {
       const NewLayout = ({Table, Pagination, Filter}) => (
-        <div className="col-md-12">
-          <div className="row">
-            <div className="griddle-head clearfix">
-              <div className="col-md-6">
+        <div className='col-md-12'>
+          <div className='row'>
+            <div className='griddle-head clearfix'>
+              <div className='col-md-6'>
                 <Filter />
               </div>
-              <div className="col-md-6 text-right">
+              <div className='col-md-6 text-right'>
                 <Pagination />
               </div>
             </div>
-            <div className="col-md-12">
+            <div className='col-md-12'>
               <Table />
             </div>
           </div>
@@ -53,22 +53,39 @@ export default class ListProjects extends React.Component{
           afterClickCheckbox={this.afterClickCheckbox.bind(this)}
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
+      let form_task ;
+      if(this.state.type == 'surveys'){
+        form_task = null;
+      }else{
+        form_task = (
+          <FormTask type={this.state.type}
+            subject_id={this.props.subject_id}
+            afterCreateTask={this.afterCreateTask.bind(this)}
+            subject_detail={this.props.subject_detail}
+          />
+        )
+      }
 
       return(
-        <div className='panel-project'>
-          <Griddle data={this.state.task[type]} plugins={[plugins.LocalPlugin]}
-            components={{Layout: NewLayout}}
-            styleConfig={table_constants.styleConfig}>
-            <RowDefinition keyColumn="id">
-              <ColumnDefinition id="name"
-                title='name'/>
-              <ColumnDefinition id="content"
-                title='content' />
-              <ColumnDefinition id="action"
-                title='action' customComponent={ChooseTargetable} />
-              </RowDefinition>
-          </Griddle>
-          <button type="button" className="btn btn-primary"
+        <div className='panel-task'>
+          <div className='create-task'>
+            {form_task}
+          </div>
+          <div className='list-task'>
+            <Griddle data={this.state.task[type]} plugins={[plugins.LocalPlugin]}
+              components={{Layout: NewLayout}}
+              styleConfig={table_constants.styleConfig}>
+              <RowDefinition keyColumn='id'>
+                <ColumnDefinition id='name'
+                  title='name'/>
+                <ColumnDefinition id='content'
+                  title='content' />
+                <ColumnDefinition id='action'
+                  title='action' customComponent={ChooseTargetable} />
+                </RowDefinition>
+            </Griddle>
+          </div>
+          <button type='button' className='btn btn-primary'
             onClick={this.afterSave.bind(this)}>
             {I18n.t('subjects.save_changes')}
           </button>
@@ -102,9 +119,12 @@ export default class ListProjects extends React.Component{
     .then(response => {
       $('#modalAddTask').modal('hide');
       this.props.handleAfterAddTask(this.state.type, this.state.targetable_ids,
-        response.data.list_tasks, this.props.subject_detail
+        response.data.list_targets, this.props.subject_detail
       );
     })
     .catch(error => console.log(error));
+  }
+  afterCreateTask(target, type){
+    this.props.afterCreateTask(target, type)
   }
 }

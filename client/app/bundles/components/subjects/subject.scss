@@ -1,0 +1,39 @@
+#admin-subject-show{
+  margin-bottom: 10px;
+  .add-task {
+    .list-task {
+      .panel-task {
+        .create-task {
+          .form {
+            margin-bottom: 20px;
+            input {
+            margin-bottom: 10px;
+            }
+          }
+          .submit{
+            float: right;
+          }
+        }
+      }
+    }
+  }
+}
+.blocks {
+  .tab-bar {
+    padding: 0px 14px;
+    border-bottom: none;
+    li {
+      &.active {
+        a {
+          background: #00a65a !important;
+          color: #fff;
+        }
+      }
+      a {
+        .fa {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

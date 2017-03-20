@@ -54,23 +54,7 @@ export default class BlockTasks extends React.Component{
 
     return(
       <div className='block-task col-md-12'>
-        <div className='box box-success collapsed-box'>
-          <div className='box-header with-border'>
-            <h3 className='box-title'>
-              <span>{this.props.title}</span>
-            </h3>
-
-            <div className='box-tools pull-right'>
-              <button type='button' className='btn btn-box-tool'
-                data-widget='collapse'>
-                <i className='fa fa-plus'></i>
-              </button>
-              <button type='button' className='btn btn-box-tool'
-                data-widget='remove'>
-                <i className='fa fa-times'></i>
-              </button>
-            </div>
-          </div>
+        <div className='box box-success'>
           <div className='box-body'>
             <Griddle data={this.state.tasks}
               plugins={[plugins.LocalPlugin]}
@@ -81,6 +65,8 @@ export default class BlockTasks extends React.Component{
                   title={I18n.t('subjects.headers.id')} />
                 <ColumnDefinition id='name'
                   title={I18n.t('subjects.headers.name')} />
+                <ColumnDefinition id='content'
+                  title={I18n.t('subjects.headers.content')} />
                 <ColumnDefinition id='delete'
                   title={I18n.t('subjects.headers.delete')} customComponent={buttonDelete} />
               </RowDefinition>

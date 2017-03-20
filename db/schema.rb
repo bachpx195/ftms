@@ -13,13 +13,12 @@
 ActiveRecord::Schema.define(version: 20170315030129) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "name",       limit: 65535
-    t.integer  "subject_id"
-    t.integer  "task_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.index ["subject_id"], name: "index_assignments_on_subject_id", using: :btree
-    t.index ["task_id"], name: "index_assignments_on_task_id", using: :btree
+    t.text     "name",            limit: 65535
+    t.text     "content",         limit: 65535
+    t.integer  "organization_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["organization_id"], name: "index_assignments_on_organization_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -66,7 +65,7 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.string   "name"
     t.string   "image"
     t.string   "description"
-    t.integer  "status"
+    t.integer  "status",               default: 0, null: false
     t.integer  "language_id"
     t.date     "start_date"
     t.date     "end_date"
@@ -75,8 +74,8 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
     t.integer  "owner_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.index ["language_id"], name: "index_courses_on_language_id", using: :btree
     t.index ["program_id"], name: "index_courses_on_program_id", using: :btree
     t.index ["training_standard_id"], name: "index_courses_on_training_standard_id", using: :btree
@@ -215,19 +214,6 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.index ["task_id"], name: "index_projects_on_task_id", using: :btree
   end
 
-  create_table "properties", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "propertiable_type"
-    t.integer  "propertiable_id"
-    t.string   "ownerable_type"
-    t.integer  "ownerable_id"
-    t.integer  "status"
-    t.datetime "deleted_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["ownerable_type", "ownerable_id"], name: "index_properties_on_ownerable_type_and_ownerable_id", using: :btree
-    t.index ["propertiable_type", "propertiable_id"], name: "index_properties_on_propertiable_type_and_propertiable_id", using: :btree
-  end
-
   create_table "requirements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "name",       limit: 65535
     t.integer  "priority"
@@ -294,21 +280,38 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.string   "name"
     t.string   "image"
     t.string   "description"
-    t.text     "content",     limit: 65535
+    t.text     "content",         limit: 65535
     t.datetime "deleted_at"
     t.integer  "during_time"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "organization_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["organization_id"], name: "index_subjects_on_organization_id", using: :btree
   end
 
   create_table "surveys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "name",       limit: 65535
-    t.integer  "subject_id"
-    t.integer  "task_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.index ["subject_id"], name: "index_surveys_on_subject_id", using: :btree
-    t.index ["task_id"], name: "index_surveys_on_task_id", using: :btree
+    t.text     "name",            limit: 65535
+    t.text     "content",         limit: 65535
+    t.integer  "organization_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["organization_id"], name: "index_surveys_on_organization_id", using: :btree
+  end
+
+  create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "targetable_type"
+    t.integer  "targetable_id"
+    t.string   "ownerable_type"
+    t.integer  "ownerable_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.string   "type"
+    t.datetime "deleted_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["ownerable_type", "ownerable_id"], name: "index_tasks_on_ownerable_type_and_ownerable_id", using: :btree
+    t.index ["targetable_type", "targetable_id"], name: "index_tasks_on_targetable_type_and_targetable_id", using: :btree
+    t.index ["user_id"], name: "index_tasks_on_user_id", using: :btree
   end
 
   create_table "team_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -330,12 +333,11 @@ ActiveRecord::Schema.define(version: 20170315030129) do
 
   create_table "test_rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.integer  "subject_id"
-    t.integer  "task_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["subject_id"], name: "index_test_rules_on_subject_id", using: :btree
-    t.index ["task_id"], name: "index_test_rules_on_task_id", using: :btree
+    t.integer  "organization_id"
+    t.text     "content",         limit: 65535
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["organization_id"], name: "index_test_rules_on_organization_id", using: :btree
   end
 
   create_table "trainee_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -480,6 +482,7 @@ ActiveRecord::Schema.define(version: 20170315030129) do
   add_foreign_key "standard_programs", "training_standards"
   add_foreign_key "standard_subjects", "subjects"
   add_foreign_key "standard_subjects", "training_standards"
+  add_foreign_key "tasks", "users"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "user_courses", "courses"
