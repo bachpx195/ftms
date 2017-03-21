@@ -41,9 +41,9 @@ export default class SubjectsShowBox extends React.Component {
   fetchSubject() {
     let url;
     if(this.props.course){
-      url = COURSE_URL + '/' + this.props.course.id + '/' +subject_constants.SUBJECT_PATH + this.props.subject.id;
+      url = COURSE_URL + this.props.course.id + '/' +subject_constants.SUBJECT_PATH + this.props.subject.id;
     }else{
-      url = SUBJECT_URL + '/' + this.props.subject.id;
+      url = SUBJECT_URL + this.props.subject.id;
     }
     axios.get(url + '.json')
     .then(response => {

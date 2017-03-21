@@ -174,21 +174,27 @@ export default class ModalAssignMember extends React.Component {
   handleSubmit() {
     let formData = new FormData();
     let index = 0;
-    for(let user of this.state.unassigned_users) {
+    let unassigned_users = this.state.unassigned_users.filter(user => {
+      return this.props.unassignedUsers
+        .findIndex(_user => _user.id == user.id) < 0;
+    });
+    for(let user of unassigned_users) {
       if(user.user_course) {
         formData.append('course[user_courses_attributes][' + index + '][id]',
           user.user_course.id);
         formData.append('course[user_courses_attributes][' + index +
           '][user_id]', user.id);
         formData.append('course[user_courses_attributes][' + index +
-          '][type]', user.user_course.type);
-        formData.append('course[user_courses_attributes][' + index +
           '][_destroy]', true);
         index++;
       }
     }
 
-    for(let user of this.state.managers) {
+    let managers = this.state.managers.filter(user => {
+      return this.props.managers
+        .findIndex(_user => _user.id == user.id) < 0;
+    });
+    for(let user of managers) {
       if(user.user_course) {
         formData.append('course[user_courses_attributes][' + index + '][id]',
           user.user_course.id);
@@ -200,7 +206,11 @@ export default class ModalAssignMember extends React.Component {
       index++;
     }
 
-    for(let user of this.state.members) {
+    let members = this.state.members.filter(user => {
+      return this.props.members
+        .findIndex(_user => _user.id == user.id) < 0;
+    });
+    for(let user of members) {
       if(user.user_course) {
         formData.append('course[user_courses_attributes][' + index + '][id]',
           user.user_course.id);

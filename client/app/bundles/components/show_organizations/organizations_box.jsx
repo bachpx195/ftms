@@ -44,54 +44,17 @@ export default class OrganizationBox extends React.Component {
   
   render() {
     let owner = this.state.organization.owner;
-    let members = this.state.organization.users;
+    let count_users = (this.state.organization.users || []).length;
     let count_training_standards = 0;
     let count_courses = 0;
     for(let program of this.state.programs){
       count_training_standards += program.training_standards.length;
       count_courses +=program.courses.length;
     }
+
     let link_to_owner = '';
-    let link_to_members = '';
-    let remaining_members = '';
-   
     if(owner) {
       link_to_owner = this.renderOwner(owner);
-    }
-
-    if(members) {
-      let count_remaining_members = members.length - 2;
-      link_to_members = this.renderMembers(members.slice(0,2));
-      if(count_remaining_members > 0) {
-        remaining_members = 
-        (
-          <div className='block-member'>
-            <a className='image image-others'
-              onClick={this.handleClick.bind(this)}
-              title={I18n.t('organizations.all_members')} >
-              <img src='/assets/profile.png' className='img-circle' />
-              <span className='count-users'>{count_remaining_members}+</span>
-            </a>
-            <div id='modalMember' className='modal fade in' role='dialog'>
-              <div className='modal-dialog'>
-                <div className='modal-content'>
-                  <div className='modal-header'>
-                    <button type='button' className='close'
-                      data-dismiss='modal'>&times;</button>
-                    <h4 className='modal-title'>
-                      {I18n.t('organizations.all_managers')}
-                    </h4>
-                  </div>
-                  <div className='modal-body'>
-                    {this.renderMembers(members.slice(0, members.length))}
-                  </div>
-                  <div className='clearfix'></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      }
     }
 
     return (
@@ -126,60 +89,54 @@ export default class OrganizationBox extends React.Component {
               </h3>
             </div>
             <div className='box-body'>
-              <div>
-                <div className='member-title'>
-                  <i className='fa fa-graduation-cap' aria-hidden='true'></i>
-                  <strong>
-                    {I18n.t('organizations.num_programs')}
-                  </strong>
-                  <span className='badge label-primary'>
-                    {this.state.programs.length}
-                  </span>
+              <div className='member-title'>
+                <i className='fa fa-user-circle-o' aria-hidden='true'></i>
+                <strong>
+                  {I18n.t('organizations.owners')}
+                </strong>
+                <div className='block-trainer'>
+                  {link_to_owner}
                 </div>
-                <br />
-                <div className='member-title'>
-                  <i className='fa fa-certificate' aria-hidden='true'></i>
-                  <strong>
-                    {I18n.t('organizations.num_training_standards')}
-                  </strong>
-                  <span className='badge label-primary'>
-                    {count_training_standards}
-                  </span>
-                </div>
-                <br />
-                <div className='member-title'>
-                  <i className='fa fa-book' aria-hidden='true'></i>
-                  <strong>
-                    {I18n.t('organizations.num_courses')}
-                  </strong>
-                  <span className='badge label-primary'>
-                    {count_courses}
-                  </span>
-                </div>
-                <br/>
-                <div className='member-title'>
-                  <i className='fa fa-user-circle-o' aria-hidden='true'></i>
-                  <strong>
-                    {I18n.t('organizations.owners')}
-                  </strong>
-                  <div className='block-trainer'>
-                    {link_to_owner}
-                  </div>
-                </div>
-                <br />
-                <div className='member-title'>
-                  <i className='fa fa-users' aria-hidden='true'></i>
-                  <strong>
-                    {I18n.t('organizations.members')}
-                  </strong>
-                  <div className='block-trainer'>
-                    {link_to_members}
-                    {remaining_members}
-                  </div>
-                </div>
-                <br />
-                <ul className='user-list clearfix'>
-                </ul>
+              </div>
+              <br />
+              <div className='member-title'>
+                <i className='fa fa-graduation-cap' aria-hidden='true'></i>
+                <strong>
+                  {I18n.t('organizations.num_programs')}
+                </strong>
+                <span className='badge label-primary'>
+                  {this.state.programs.length}
+                </span>
+              </div>
+              <br />
+              <div className='member-title'>
+                <i className='fa fa-certificate' aria-hidden='true'></i>
+                <strong>
+                  {I18n.t('organizations.num_training_standards')}
+                </strong>
+                <span className='badge label-primary'>
+                  {count_training_standards}
+                </span>
+              </div>
+              <br />
+              <div className='member-title'>
+                <i className='fa fa-book' aria-hidden='true'></i>
+                <strong>
+                  {I18n.t('organizations.num_courses')}
+                </strong>
+                <span className='badge label-primary'>
+                  {count_courses}
+                </span>
+              </div>
+              <br/>
+              <div className='member-title'>
+                <i className='fa fa-users' aria-hidden='true'></i>
+                <strong>
+                  {I18n.t('organizations.members')}
+                </strong>
+                <span className='badge label-primary'>
+                  {count_users}
+                </span>
               </div>
             </div>
           </div>
@@ -187,6 +144,7 @@ export default class OrganizationBox extends React.Component {
       </div>
     )
   }
+
   renderBoxOrganization(){
     if(this.props.organization){
       return(
@@ -220,19 +178,6 @@ export default class OrganizationBox extends React.Component {
   checkImage(event){
     let target = event.target;
     $(target).attr('src', '/assets/image_found.png')
-  }
-
-  renderMembers(members) {
-    return(
-      members.map((member, index) => {
-        return(
-          <a key={index} className='image' onError={this.checkImage.bind(this)}
-            title={member.name} href={USER_URL + member.id} >
-            <img src={member.avatar.url} className='img-circle' />
-          </a>
-        ) 
-      })
-    )
   }
 
   handleClick() {

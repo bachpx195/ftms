@@ -1,10 +1,17 @@
 class Supports::SubjectSupport
   def initialize args = {}
     @subject = args[:subject]
+    @course = args[:course]
   end
 
   def user_subjects
-    UserSubject.all
+    return Array.new unless course_subject
+    @user_subjects ||= course_subject.user_subjects
+  end
+
+  def course_subject
+    return nil unless @course
+    @course_subject ||= @course.course_subjects.find_by subject_id: @subject.id
   end
 
   def surveys_not_in_static_task

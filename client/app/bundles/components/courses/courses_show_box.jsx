@@ -65,7 +65,7 @@ export default class CoursesShowBox extends React.Component {
     return this.state.course_subjects.map((course_subject, index) => {
       let course_subject_path = app_constants.APP_NAME +
         course_constants.COURSES_PATH + this.props.course.id + '/' +
-        subject_constants.SUBJECT_PATH + '/' + course_subject.id;
+        subject_constants.SUBJECT_PATH + course_subject.id;
       let subject_image = course_subject.image.url;
       return (
         <tr key={index} className="item ui-sortable-handle">

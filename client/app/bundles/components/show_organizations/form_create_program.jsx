@@ -1,21 +1,33 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
+import Errors from '../shareds/errors';
 import * as app_constants from 'constants/app_constants';
 
 export default class FormCreateProgram extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      name: '',
+      errors: []
+    }
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <div className="form-group">
-          <input type="text" placeholder={I18n.t("sub_organizations.create")}
-            className="form-control" name="name" ref="nameField" />
+        <Errors errors={this.state.errors} />
+        <div className='form-group'>
+          <input type='text' placeholder={I18n.t('sub_organizations.create')}
+            className='form-control' ref='nameField'
+            onChange={this.handleChange.bind(this)} />
         </div>
-        <div className="form-group">
-          <div className="text-right">
-            <button type="submit"
-              className="btn btn-primary">
-              {I18n.t("buttons.save")}
+        <div className='form-group'>
+          <div className='text-right'>
+            <button type='submit'
+              className='btn btn-primary' disabled={!this.formValid()} >
+              {I18n.t('buttons.save')}
             </button>
           </div>
         </div>
@@ -23,19 +35,28 @@ export default class FormCreateProgram extends React.Component {
     );
   }
 
+  handleChange(event) {
+    this.setState({
+      name: event.target.value
+    });
+  }
+
+  formValid(){
+    return this.state.name != '';
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    axios.post(this.props.url + "/" + this.props.organization.id + "/programs", {
+    axios.post(this.props.url + '/' + this.props.organization.id + '/programs', {
       program: {
         name: this.refs.nameField.value
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
-    .then(response => {
-      this.refs.nameField.value = '';
-      this.props.afterCreate(response.data.program);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      .then(response => {
+        this.refs.nameField.value = '';
+        this.setState({name: ''});
+        this.props.afterCreate(response.data.program);
+      })
+      .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }

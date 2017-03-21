@@ -4,7 +4,9 @@ class AssignUser::CoursesController < ApplicationController
   def update
     respond_to do |format|
       format.json do
-        if @course.update_attributes user_courses_params
+        assign_user_form = AssignUserCourseForm.new course: @course,
+          user_courses: user_courses_params[:user_courses_attributes]
+        if assign_user_form.save
           @supports = Supports::CourseSupport.new course: @course
         else
           render json: {message: flash_message("not_updated")},

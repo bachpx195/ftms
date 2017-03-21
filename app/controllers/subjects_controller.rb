@@ -30,7 +30,8 @@ class SubjectsController < ApplicationController
   end
 
   def show
-    @supports = Supports::SubjectSupport.new subject: @subject
+    @subject_supports = Supports::SubjectSupport
+      .new subject: @subject, course: @course
   end
 
   def edit
@@ -109,5 +110,4 @@ class SubjectsController < ApplicationController
       end
     end
   end
-
 end
