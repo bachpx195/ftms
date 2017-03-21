@@ -20,10 +20,16 @@
 
     ul li .hiddened{
       display: none;
+      padding: 0 0 0 15px;
     }
 
     ul li .showed{
       display: block;
+      padding: 0 0 0 15px;
+    }
+
+    ul li ul{
+      background-color: #405563;
     }
 
     ul li ul li{
@@ -31,25 +37,15 @@
     }
 
     ul li ul .active{
-      background-color: rgba(255, 255, 255, 0.06);
+      background-color: #405563 !important;
     }
 
-    ul li ul li:hover{
-      background-color: rgba(255, 255, 255, 0.06);
-    }
-
-    ul li ul li:before{
-      background: #425668;
-      bottom: auto;
-      content: "";
-      height: 8px;
-      left: 23px;
-      margin-top: 5px;
-      position: absolute;
-      right: auto;
-      width: 8px;
-      z-index: 1;
-      border-radius: 50%;
+    ul li ul li {
+      list-style-type: none;
+      .fa {
+        margin-right: 7px;
+        color: #6b6b6b;
+      }
     }
   }
 }

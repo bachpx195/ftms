@@ -36,40 +36,38 @@ export default class OrganizationBox extends React.Component {
   render() {
     return (
       <div className="row" id="admin-organization">
-        <div className="col-md-12">
-          <div className="box box-success">
-            <div className="box-header with-border">
-              <h3 className="box-title">{I18n.t("organizations.titles.all")}</h3>
+        <div className="box box-success">
+          <div className="box-header with-border">
+            <h3 className="box-title">{I18n.t("organizations.titles.all")}</h3>
 
-              <div className="box-tools pull-right">
-                <button type="button" className="btn btn-box-tool"
-                  data-widget="collapse">
-                  <i className="fa fa-minus"></i>
-                </button>
-                <button type="button" className="btn btn-box-tool"
-                  data-widget="remove">
-                  <i className="fa fa-times"></i>
-                </button>
+            <div className="box-tools pull-right">
+              <button type="button" className="btn btn-box-tool"
+                data-widget="collapse">
+                <i className="fa fa-minus"></i>
+              </button>
+              <button type="button" className="btn btn-box-tool"
+                data-widget="remove">
+                <i className="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+
+          <div className="box-body no-padding">
+            <div className="row">
+              <div className="col-md-8 col-md-offset-2">
+                <FormCreate
+                  url={ORGANIZATION_URL}
+                  parent={this.state.parent}
+                  handleAfterSaved={this.handleAfterCreated.bind(this)} />
               </div>
             </div>
-
-            <div className="box-body no-padding">
-              <div className="row">
-                <div className="col-md-8 col-md-offset-2">
-                  <FormCreate
-                    url={ORGANIZATION_URL}
-                    parent={this.state.parent}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
-                </div>
-              </div>
-            </div>
-            <div className='box-footer'>
-              <OrganizationLists
-                organizations={this.state.organizations}
-                handleAfterCreated={this.handleAfterCreated.bind(this)}
-                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
-            </div>
+          </div>
+          <div className='box-footer'>
+            <OrganizationLists
+              organizations={this.state.organizations}
+              handleAfterCreated={this.handleAfterCreated.bind(this)}
+              handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+              handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
           </div>
         </div>
       </div>
