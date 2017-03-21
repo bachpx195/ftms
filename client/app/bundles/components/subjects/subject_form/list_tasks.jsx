@@ -101,7 +101,9 @@ export default class ListProjects extends React.Component{
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
       $('#modalAddTask').modal('hide');
-      this.props.handleAfterAddTask(this.state.type, this.state.targetable_ids);
+      this.props.handleAfterAddTask(this.state.type, this.state.targetable_ids,
+        response.data.list_tasks, this.props.subject_detail
+      );
     })
     .catch(error => console.log(error));
   }

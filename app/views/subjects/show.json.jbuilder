@@ -10,8 +10,26 @@ json.subject_detail do
     json.user_name user_subject.user.name
   end
   json.task do
-    json.surveys @supports.surveys_not_in_static_task, :name, :id
+    json.surveys @supports.surveys_not_in_static_task, :name, :id, :content
     json.assignments @supports.assignments_not_in_static_task, :name, :id
     json.test_rules @supports.test_rules_not_in_static_task, :name, :id
+  end
+
+  json.subject_task do
+    json.surveys @subject.surveys do |survey|
+      json.extract! survey, :id, :name, :content
+      task = @subject.tasks.find_by targetable: survey
+      json.task_id task.id
+    end
+    json.assignments @subject.assignments do |assignment|
+      json.extract! assignment, :id, :name
+      task = @subject.tasks.find_by targetable: assignment
+      json.task_id task.id
+    end
+    json.test_rules @subject.test_rules do |test_rule|
+      json.extract! test_rule, :id, :name
+      task = @subject.tasks.find_by targetable: test_rule
+      json.task_id task.id
+    end
   end
 end

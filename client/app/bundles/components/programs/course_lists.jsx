@@ -49,7 +49,7 @@ export default class CourseLists extends React.Component {
     const Image = ({griddleKey}) => (
       <div className='td-box'>
         <img src={this.state.courses[griddleKey].image.url}
-          className='thumbnail-image td-course-image img-circle' 
+          className='thumbnail-image td-course-image img-circle'
           onError={this.checkImage.bind(this)} />
       </div>
     );
@@ -81,13 +81,13 @@ export default class CourseLists extends React.Component {
           subsit_users = (
             <div className='subsit_users'>
               <div className="block-trainer">
-                <p className="image image-others" 
-                  onClick={this.handleClick.bind(this)} 
+                <p className="image image-others"
+                  onClick={this.handleClick.bind(this)}
                   title={I18n.t('organizations.other_managers')} >
                   <img src='/assets/profile.png' className='img-circle' />
                   <span className='count-users'>{count_subsit_users}+</span>
                 </p>
-              </div>         
+              </div>
               <div id='modalManager' className='modal fade in' role='dialog'>
                 <div className='modal-dialog'>
                   <div className='modal-content'>
@@ -117,11 +117,11 @@ export default class CourseLists extends React.Component {
       )
     }
 
-    
+
     const Status = ({griddleKey}) => {
       let course = this.state.courses[griddleKey];
       return(
-        <p className={I18n.t('courses.class_status.' + course.status)} 
+        <p className={I18n.t('courses.class_status.' + course.status)}
           data-index={griddleKey}>
           {I18n.t('courses.' + course.status)}
         </p>
@@ -130,7 +130,7 @@ export default class CourseLists extends React.Component {
 
     const customDate = ({value}) => (
       <IntlProvider locale = "en">
-        <FormattedDate value={new Date(value)} 
+        <FormattedDate value={new Date(value)}
           day="numeric" month="numeric" year="numeric" />
       </IntlProvider>
     );
@@ -223,7 +223,7 @@ export default class CourseLists extends React.Component {
               <img src={trainer.avatar.url} className='img-circle' />
             </a>
           </div>
-        ) 
+        )
       })
     )
   }

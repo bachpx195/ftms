@@ -3,6 +3,9 @@ en:
     titles:
       all: "All Subjects"
       user_subject_list: "User Subjects List"
+      list_surveys: "List Surveys"
+      list_assignments: "List Assignments"
+      list_test_rules: "List Test Rule"
     headers:
       id: "ID"
       name: "Name"
@@ -16,6 +19,7 @@ en:
       current_progress: "Progress"
       workings_day: "Working day: "
       training_standard: "Training Standard: "
+      delete: "Delete"
     modals:
       header_edit: "Edit subject"
     buttons:
