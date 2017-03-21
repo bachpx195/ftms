@@ -15,7 +15,8 @@ export default class ListProjects extends React.Component{
     this.state = {
       task: props.task,
       type: props.type,
-      targetable_ids: []
+      targetable_ids: [],
+      course: props.course,
     }
   }
 
@@ -23,7 +24,8 @@ export default class ListProjects extends React.Component{
     this.setState({
       task: nextProps.task,
       type: nextProps.type,
-      targetable_ids: []
+      targetable_ids: [],
+      course: nextProps.course
     })
   }
 
@@ -54,7 +56,7 @@ export default class ListProjects extends React.Component{
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
       let form_task ;
-      if(this.state.type == 'surveys'){
+      if(this.state.type == 'surveys' || this.state.type == 'projects'){
         form_task = null;
       }else{
         form_task = (
@@ -62,6 +64,7 @@ export default class ListProjects extends React.Component{
             subject_id={this.props.subject_id}
             afterCreateTask={this.afterCreateTask.bind(this)}
             subject_detail={this.props.subject_detail}
+            course={this.props.course}
           />
         )
       }
@@ -108,12 +111,18 @@ export default class ListProjects extends React.Component{
   }
 
   afterSave(){
+    let ownerable_name = '';
+    if(this.props.course) {
+      ownerable_name = 'CourseSubject';
+    } else {
+      ownerable_name = 'Subject';
+    }
     axios.post(TASK_URL, {
       task: {
         targetable_ids: this.state.targetable_ids,
         targetable_type: this.state.type,
         ownerable_id: this.props.subject_id,
-        ownerable_type: 'Subject'
+        ownerable_type: ownerable_name
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {

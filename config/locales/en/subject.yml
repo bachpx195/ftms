@@ -42,3 +42,5 @@ en:
     test_rule: "Test Rule"
     save_changes: "Save changes"
     select_task: "Select Task"
+    add_task: "Add Task"
+    project: "Project"

@@ -30,8 +30,9 @@ class SubjectsController < ApplicationController
   end
 
   def show
+    @course_subject = CourseSubject.find_by params[:course_id]
     @subject_supports = Supports::SubjectSupport
-      .new subject: @subject, course: @course
+      .new subject: @subject, course: @course, course_subject: @course_subject
   end
 
   def edit

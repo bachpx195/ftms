@@ -14,6 +14,7 @@ export default class UserRolesBox extends React.Component {
     super(props);
 
     this.state = {
+      user: [],
       roles: [],
       all_roles: [],
       functions: []
@@ -21,7 +22,17 @@ export default class UserRolesBox extends React.Component {
   }
 
   fetchRoles() {
-    axios.get(ROLES_URL + this.props.user.id +'.json')
+    let user = '';
+    if(this.props.user == undefined){
+      user = JSON.parse(localStorage.getItem('current_user'));
+    } else {
+      user = this.props.user;
+    }
+ 
+    this.setState({
+     user: user
+    })
+    axios.get(ROLES_URL + user.id +'.json')
     .then(response => {
       this.setState({
         roles: response.data.roles,
@@ -48,7 +59,7 @@ export default class UserRolesBox extends React.Component {
             </div>
             <div className='modal-body user-roles'>
               <FormEditRole all_roles={this.state.all_roles} functions={this.state.functions}
-                current_roles={this.state.roles} user_id={this.props.user.id}
+                current_roles={this.state.roles} user_id={this.state.user.id}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)}/>
             </div>
           </div>

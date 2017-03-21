@@ -2,6 +2,7 @@ class Supports::SubjectSupport
   def initialize args = {}
     @subject = args[:subject]
     @course = args[:course]
+    @course_subject = args[:course_subject]
   end
 
   def user_subjects
@@ -24,5 +25,9 @@ class Supports::SubjectSupport
 
   def test_rules_not_in_static_task
     @test_rules ||= @subject.organization.test_rules.where.not id: @subject.test_rules
+  end
+
+  def projects_not_in_static_task
+    @projects ||= @subject.organization.projects.where.not id: @course_subject.projects
   end
 end

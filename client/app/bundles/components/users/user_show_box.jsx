@@ -23,7 +23,13 @@ export default class UserShowBox extends React.Component {
   }
 
   fetchUser() {
-    axios.get(USER_URL +this.props.user.id + '.json')
+    let user = '';
+    if(this.props.user == undefined){
+      user = JSON.parse(localStorage.getItem('current_user'));
+    } else {
+      user = this.props.user;
+    }
+    axios.get(USER_URL + user.id + '.json')
     .then(response => {
       this.setState({
         user_detail: response.data.user_detail

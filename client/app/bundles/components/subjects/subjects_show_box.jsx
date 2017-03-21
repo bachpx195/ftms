@@ -41,7 +41,8 @@ export default class SubjectsShowBox extends React.Component {
   fetchSubject() {
     let url;
     if(this.props.course){
-      url = COURSE_URL + this.props.course.id + '/' +subject_constants.SUBJECT_PATH + this.props.subject.id;
+      url = COURSE_URL + this.props.course.id + '/' + 
+        subject_constants.SUBJECT_PATH + this.props.subject.id;
     }else{
       url = SUBJECT_URL + this.props.subject.id;
     }
@@ -147,7 +148,7 @@ export default class SubjectsShowBox extends React.Component {
               <div className='add-task col-md-3'>
                 <button type='button' className='btn btn-primary'
                   onClick={this.afterClickAddTask.bind(this)}>
-                  {I18n.t('buttons.add_task')}
+                  {I18n.t('subjects.add_task')}
                 </button>
                 {this.renderModal()}
               </div>
@@ -173,7 +174,8 @@ export default class SubjectsShowBox extends React.Component {
               subject_id={this.state.subject_detail.id}
               subject_detail={this.state.subject_detail}
               handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-              afterCreateTask={this.afterCreateTask.bind(this)} />
+              afterCreateTask={this.afterCreateTask.bind(this)}
+              course={this.props.course} />
           </div>
         </div>
       </div>
