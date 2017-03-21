@@ -12,32 +12,23 @@ export default class EvaluationStandardsList extends React.Component {
 
     this.state = {
       evaluation_standards: props.evaluation_standards,
-      evaluation_standard: {}
+      evaluation_standard: {},
+      evaluation_template: props.evaluation_template
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.state = {
       evaluation_standards: nextProps.evaluation_standards,
-      evaluation_standard: {}
+      evaluation_standard: {},
+      evaluation_template: nextProps.evaluation_template
     }
   }
 
   render() {
-    const ButtonNew = () => (
-      <button className="btn btn-info"
-        onClick={this.handleNew.bind(this)}>
-        {I18n.t('evaluation_templates.modals.new_evaluation_standard')}
-      </button>
-    )
-
     const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className="col-md-12">
-            <ButtonNew />
-          </div>
-          <div className="clearfix"></div>
+      <div className='row'>
+        <div className='col-md-12'>
           <div className='griddle-head clearfix'>
             <div className='col-md-6'>
               <Filter />
@@ -91,8 +82,20 @@ export default class EvaluationStandardsList extends React.Component {
       );
     }
 
+    let buttonNew = null;
+    if(this.state.evaluation_template &&
+      Object.keys(this.state.evaluation_template).length > 0) {
+      buttonNew = <button className="btn btn-info"
+        onClick={this.handleNew.bind(this)}>
+        {I18n.t('evaluation_templates.modals.new_evaluation_standard')}
+      </button>;
+    }
+
     return (
-      <div>
+      <div className='row'>
+        <div className='col-md-12'>
+          {buttonNew}
+        </div>
         <Griddle data={this.state.evaluation_standards} plugins={[plugins.LocalPlugin]}
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
