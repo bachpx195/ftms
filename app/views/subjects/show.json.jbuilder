@@ -22,12 +22,12 @@ json.subject_detail do
       json.task_id task.id
     end
     json.assignments @subject.assignments do |assignment|
-      json.extract! assignment, :id, :name
+      json.extract! assignment, :id, :name, :content
       task = @subject.tasks.find_by targetable: assignment
       json.task_id task.id
     end
     json.test_rules @subject.test_rules do |test_rule|
-      json.extract! test_rule, :id, :name
+      json.extract! test_rule, :id, :name, :content
       task = @subject.tasks.find_by targetable: test_rule
       json.task_id task.id
     end

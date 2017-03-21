@@ -3,6 +3,7 @@ class CreateTestRules < ActiveRecord::Migration[5.0]
     create_table :test_rules do |t|
       t.string :name
       t.integer :organization_id, index: true
+      t.text :content
       t.timestamps
     end
   end

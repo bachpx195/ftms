@@ -361,18 +361,17 @@ namespace :db do
 
     puts "21. create Survey"
     10.times do |n|
-      Survey.create name: "Survey #{n}", content: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
-        organization_id: 2
+      Survey.create name: "Survey #{n}", content: "Lorem Ipsum Lorem Ipsum Lorem Ipsum"
     end
 
     puts "22. create Assignment"
     10.times do |n|
-      Assignment.create name: "Assignment #{n}", organization_id: 2
+      Assignment.create name: "Assignment #{n}"
     end
 
     puts "23. create TestRule"
     10.times do |n|
-      TestRule.create name: "Test Rule #{n}", organization_id: 2
+      TestRule.create name: "Test Rule #{n}"
     end
   end
 end
