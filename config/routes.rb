@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
   resources :courses do
     resources :subjects
+    resources :member_evaluations, only: [:create, :update]
   end
 
   resources :standard_subjects, only: [:index, :create, :destroy]
@@ -73,5 +74,6 @@ Rails.application.routes.draw do
   resources :user_courses do
     resources :subjects
   end
+  
   resources :tasks
 end

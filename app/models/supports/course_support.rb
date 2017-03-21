@@ -34,6 +34,11 @@ class Supports::CourseSupport
     @training_standards ||= program.training_standards
   end
 
+  def evaluation_standards
+    @evaluation_standards ||= @course.
+      training_standard.evaluation_template.evaluation_standards
+  end
+
   def selected_surveys
     @selected_surveys ||= @course.static_surveys.uniq
   end

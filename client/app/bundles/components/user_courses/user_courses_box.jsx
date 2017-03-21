@@ -165,14 +165,14 @@ export default class UserCoursesBox extends React.Component {
           <div className='box-body'>
             <div>
               <div className='member-title'>
-                {I18n.t('courses.member.managers')}
+                {I18n.t('courses.member.trainers')}
               </div>
               <ul className='user-list clearfix'>
                 {link_owner}
                 {this.renderMembers(this.state.managers)}
               </ul>
               <div className='member-title'>
-                {I18n.t('courses.member.members')}
+                {I18n.t('courses.member.trainee')}
               </div>
               {this.renderMembers(this.state.members)}
             </div>

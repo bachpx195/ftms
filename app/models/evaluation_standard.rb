@@ -5,6 +5,8 @@ class EvaluationStandard < ApplicationRecord
 
   belongs_to :evaluation_template
 
+  has_many :member_evaluation_items, dependent: :destroy
+
   validates :name, presence: true
   validates :min_point, presence: true, numericality: true
   validates :max_point, presence: true, numericality: true

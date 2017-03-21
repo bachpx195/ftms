@@ -37,6 +37,7 @@ class Course < ApplicationRecord
     source_type: Project.name
   has_many :static_test_rules, through: :static_tasks, source: :targetable,
     source_type: TestRule.name
+  has_many :member_evaluations, as: :targetable, dependent: :destroy
 
   accepts_nested_attributes_for :user_courses, allow_destroy: true
 
