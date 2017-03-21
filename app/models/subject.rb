@@ -1,4 +1,5 @@
 class Subject < ApplicationRecord
+  attr_accessor :subject_detail
   acts_as_paranoid
 
   ATTRIBUTE_PARAMS = [:name, :image, :description, :content,
@@ -25,4 +26,8 @@ class Subject < ApplicationRecord
   scope :find_remain_subjects, -> ids {where.not id: ids}
 
   validates :name, presence: true
+
+  def subject_details id
+    user_subjects.where("user_course_id = ?", id).select :start_date
+  end
 end

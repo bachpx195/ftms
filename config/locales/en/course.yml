@@ -81,3 +81,5 @@ en:
       init: Init
       finished: Finished
       in_progress: In progress
+    days: " days"
+    start_date: "Start date: "
