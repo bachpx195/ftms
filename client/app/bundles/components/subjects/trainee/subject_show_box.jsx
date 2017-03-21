@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import css from '../subject.scss';
+import ModalSendPull from '../meta_tasks/send_pull';
+
 import AssignmentItem from './assignment_item';
 import FormTask from '../subject_form/form_task'
 
@@ -18,21 +20,23 @@ export default class SubjectShowBoxTrainee extends React.Component {
       course_subject: props.course_subject,
       user_dynamic_course_subjects: props.user_dynamic_course_subjects,
       course_subject_teams: props.course_subject_teams,
-      user_subjects: props.user_subjects,
       status: "init",
-      static_task_assignment: props.static_task_assignment
+      static_task_assignment: props.static_task_assignment,
+      dynamic_task: '',
+      assignment: '',
+      meta_tasks: []
     };
   }
 
   componentWillReceiveProps(nextProps){
-    this.state = {
+    this.setState({
       assigments_of_user_subjects: nextProps.assigments_of_user_subjects,
       user_dynamic_course_subjects: nextProps.user_dynamic_course_subjects,
       course_subject: nextProps.course_subject,
       course_subject_teams: nextProps.course_subject_teams,
       current_user: nextProps.current_user,
       static_task_assignment: nextProps.static_task_assignment
-    };
+    });
   }
 
   render() {
@@ -85,13 +89,20 @@ export default class SubjectShowBoxTrainee extends React.Component {
           </div>
         </div>
         {this.renderModal()}
+        <ModalSendPull
+          dynamic_task={this.state.dynamic_task}
+          assignment={this.state.assignment}
+          meta_tasks={this.state.meta_tasks}
+          afterSendPull={this.afterSendPull.bind(this)}
+        />
       </div>
     );
   }
 
   renderAssignment() {
     return this.state.assigments_of_user_subjects.map(assignment => {
-      let status = '';
+      let status= '';
+      let tmp_dynamic_task = '';
 
       let index_static_task = this.state.static_task_assignment.findIndex(
         static_task => static_task.targetable_id == assignment.id)
@@ -100,18 +111,21 @@ export default class SubjectShowBoxTrainee extends React.Component {
         if (dynamic_task.targetable_id ==
           this.state.static_task_assignment[index_static_task].id) {
           status = dynamic_task.status;
+          tmp_dynamic_task = dynamic_task;
         }
       })
       return <AssignmentItem
         key={assignment.id}
         status={status}
-        user_subjects={this.state.user_subjects}
         course_subject_teams={this.state.course_subject_teams}
         current_user={this.state.current_user}
         assignment={assignment}
         course_subject={this.state.course_subject}
         user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
         afterUpdateStatus={this.afterUpdateStatus.bind(this)}
+        static_task_assignment={this.state.static_task_assignment}
+        dynamic_task={tmp_dynamic_task}
+        afterClickSendPullRequest={this.afterClickSendPullRequest.bind(this)}
       />
     })
   }
@@ -137,7 +151,8 @@ export default class SubjectShowBoxTrainee extends React.Component {
                 ownerable_type={this.props.ownerable_type}
                 afterCreateTask={this.afterCreateTask.bind(this)}
                 subject_detail={this.props.subject_detail}
-                course={this.props.course} user={this.state.current_user}
+                course={this.props.course}
+                user={this.state.current_user}
                 url={ASSIGNMENT_URL} />
             </div>
           </div>
@@ -175,6 +190,21 @@ export default class SubjectShowBoxTrainee extends React.Component {
       assigments_of_user_subjects: this.state.assigments_of_user_subjects,
       static_task_assignment: this.state.static_task_assignment,
       user_dynamic_course_subjects: this.state.user_dynamic_course_subjects
+    });
+  }
+
+  afterSendPull(metaTask) {
+    this.state.meta_tasks.push(metaTask);
+    this.setState({
+      meta_tasks: this.state.meta_tasks
+    })
+  }
+
+  afterClickSendPullRequest(assignment, dynamic_task, meta_tasks) {
+    this.setState({
+      assignment: assignment,
+      dynamic_task: dynamic_task,
+      meta_tasks: meta_tasks
     });
   }
 }

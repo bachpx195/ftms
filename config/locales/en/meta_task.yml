@@ -1,0 +1,12 @@
+en:
+  meta_tasks:
+    headers:
+      title: Title
+      value: Value
+      meta_type: Meta type
+    title: Send pull request for trainer check!
+    send_pull: Send pull
+    placeholder_title: Title for pull...
+    placeholder_value: Link github for pull...
+    finish_assigment: Finish Assignment
+    receive_assignment: Receive Assignment

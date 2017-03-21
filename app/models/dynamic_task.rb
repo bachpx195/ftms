@@ -2,6 +2,7 @@ class DynamicTask < Task
   include StiRouting
 
   belongs_to :user
+  has_many :meta_tasks, dependent: :destroy
 
   validates :user, presence: true
 

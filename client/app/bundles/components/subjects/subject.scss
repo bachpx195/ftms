@@ -341,3 +341,9 @@ $trainee-avatar-border-white: #f3f3e7;
 .create-subject {
   margin: 0 25px;
 }
+
+.modal-send-pull {
+  .modal-dialog {
+    min-width: 900px;
+  }
+}
