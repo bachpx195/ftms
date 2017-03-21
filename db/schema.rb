@@ -337,6 +337,7 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.text     "content",         limit: 65535
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+
     t.index ["organization_id"], name: "index_test_rules_on_organization_id", using: :btree
   end
 

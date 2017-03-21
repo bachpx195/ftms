@@ -2,7 +2,7 @@ en:
   courses:
     subjects: "Subjects "
     titles:
-      all: "All Courses"
+      all: "Courses"
     headers:
       description: "Description"
       name: "Name"
@@ -77,3 +77,7 @@ en:
     members: "Members: "
     search: "Search..."
     default_description: '[No description]'
+    statuses:
+      init: Init
+      finished: Finished
+      in_progress: In progress

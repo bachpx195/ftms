@@ -66,4 +66,8 @@ Rails.application.routes.draw do
   namespace :create_task do
     resources :tasks, only: :create
   end
+
+  namespace :my_space do
+    resources :courses, only: :index
+  end
 end
