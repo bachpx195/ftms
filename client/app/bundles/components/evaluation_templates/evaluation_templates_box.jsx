@@ -60,23 +60,18 @@ export default class EvaluationTemplatesBox extends React.Component {
           <div className='box box-success'>
             <div className='box-header with-border'>
               <h3 className='box-title'>
-                {this.props.training_standard.name} - {I18n.t('evaluation_templates.title')}
+                {I18n.t('evaluation_templates.title')} : {this.state.evaluation_template.name}
               </h3>
               <div className="box-tools pull-right">
                 {button} {buttonDelete}
               </div>
             </div>
 
-            <div className='box-body no-padding'>
-              <div className="col-md-12">
-                <p>{this.state.evaluation_template.name}</p>
-              </div>
+            <div className='box-body'>
               <div className='col-md-8 col-md-offset-2'>
                 {form}
               </div>
               <div className="clearfix"></div>
-            </div>
-            <div className="box-footer">
               <EvaluationStandardsList
                 evaluation_template={this.state.evaluation_template}
                 evaluation_standards={this.state.evaluation_standards}
@@ -142,6 +137,7 @@ export default class EvaluationTemplatesBox extends React.Component {
       .then(response => {
         this.setState({
           evaluation_template: {},
+          evaluation_standards: [],
           showForm: false
         });
       })

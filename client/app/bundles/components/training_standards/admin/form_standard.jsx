@@ -32,19 +32,19 @@ export default class FormStandard extends React.Component {
             <label>{I18n.t('evaluation_standards.headers.min_point')}</label>
             <input type='number' value={this.state.min_point}
               onChange={this.handleChange.bind(this)}
-              className='form-control' name='min_point' />
+              className='form-control' name='min_point' min='0'/>
           </div>
           <div className='col-sm-4 form-group'>
             <label>{I18n.t('evaluation_standards.headers.max_point')}</label>
             <input type='number' value={this.state.max_point}
               onChange={this.handleChange.bind(this)}
-              className='form-control' name='max_point' />
+              className='form-control' name='max_point' min='0' />
           </div>
           <div className='col-sm-4 form-group'>
             <label>{I18n.t('evaluation_standards.headers.average_point')}</label>
             <input type='number' value={this.state.average_point}
               onChange={this.handleChange.bind(this)}
-              className='form-control' name='average_point' />
+              className='form-control' name='average_point' min='0' />
           </div>
         </div>
         <div className='row'>
@@ -80,11 +80,11 @@ export default class FormStandard extends React.Component {
   }
 
   formValidEvaluationStandard(){
-    return this.state.name != '' && this.state.min_point > 0 &&
-      this.state.max_point > 0 &&
-      this.state.max_point > this.state.min_point &&
-      this.state.average_point > 0 &&
-      this.state.average_point > this.state.min_point;
+    return this.state.name != '' && parseInt(this.state.min_point) > 0 &&
+      parseInt(this.state.max_point) > 0 &&
+      parseInt(this.state.max_point) > parseInt(this.state.min_point) &&
+      parseInt(this.state.average_point) > 0 &&
+      parseInt(this.state.average_point) > parseInt(this.state.min_point);
   }
 
   handleCreateEvaluationStandard(event) {
