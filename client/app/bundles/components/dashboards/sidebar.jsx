@@ -20,6 +20,7 @@ const ROLES_URL = app_constants.APP_NAME +
   dashboard_constands.ROLES_PATH;
 const USERS_URL = app_constants.APP_NAME +
   dashboard_constands.USERS_PATH;
+const MY_SPACE_COURSES_URL = app_constants.APP_NAME + dashboard_constands.MY_SPACE_COURSES_PATH;
 
 
 export default class Sidebar extends React.Component {
@@ -69,18 +70,17 @@ export default class Sidebar extends React.Component {
         <section className='sidebar'>
           {this.renderUserPanel()}
           <ul className='sidebar-menu td-admin-sidebar'>
-            <li className="header">{I18n.t('sidebar.space')}</li>
-            <li data-page='courses'>
-              <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
-                <i className='fa fa-clone'></i>
-                <span>{I18n.t('sidebar.courses')}</span>
-              </a>
-            </li>
             <li className="header">{I18n.t('sidebar.main_nav')}</li>
             <li data-page='organizations'>
               <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
                 <i className='fa fa-folder'></i>
                 <span>{I18n.t('sidebar.organizations')}</span>
+              </a>
+            </li>
+            <li data-page='courses'>
+              <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
+                <i className='fa fa-folder'></i>
+                <span>{I18n.t('sidebar.courses')}</span>
               </a>
             </li>
 
@@ -163,7 +163,13 @@ export default class Sidebar extends React.Component {
                 <span>{I18n.t('sidebar.manage_user')}</span>
               </a>
             </li>
-            
+            <li className="header">{I18n.t('sidebar.space')}</li>
+            <li data-page='my_courses'>
+              <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
+                <i className='fa fa-clone'></i>
+                <span>{I18n.t('sidebar.my_courses')}</span>
+              </a>
+            </li>
           </ul>
         </section>
       </aside>

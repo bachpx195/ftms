@@ -21,7 +21,6 @@ import UserIndexBox from '../components/users/user_index_box';
 import SupervisorProgramsShowBox from '../components/programs/supervisor_programs_show_box';
 import ProfileShowBox from '../components/users/profile_show_box';
 import CoursesShowBox from '../components/courses/courses_show_box';
-import CourseLists from '../components/courses/course_lists';
 import UserRolesBox from '../components/users/user_roles_box';
 
 //supervisor
@@ -34,6 +33,9 @@ import TrainingStandardShow from '../components/training_standards/admin/standar
 
 //organization
 import OrganizationBox from '../components/organizations/organizations_box';
+
+//1. Trainee Course index
+import CoursesBox from '../components/courses/courses_box';
 
 ReactOnRails.register({
   Header,
@@ -60,7 +62,7 @@ ReactOnRails.register({
   EvaluationTemplatesBox,
   ProfileShowBox,
   CoursesShowBox,
-  CourseLists,
+  CoursesBox,
   TrainingStandardShow,
   UserRolesBox,
 });
