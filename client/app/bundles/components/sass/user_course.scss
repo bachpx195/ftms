@@ -1,0 +1,248 @@
+#user-course-show {
+  .list-subject{
+    margin-top: 10px;
+
+    .user-course-subject:hover .subject.row{
+      background-color: rgba(0, 150, 136, 0.04);
+    }
+
+    .user-course-subject{
+      text-decoration: none;
+    }
+
+    .subject-header{
+      .subject-start-date{
+        color: #000;
+        font-weight: 400;
+      }
+
+      .description-course{
+        color: #000;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .user-course {
+    float:none;
+    background-color: #3c586a;
+    margin-top: 15px;
+    padding: 14px 0px;
+    border-bottom-left-radius: 100px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    box-shadow: 5px 5px 5px 0px #666;
+    margin: 0px 0px;
+    color: #FFF;
+  }
+
+  .list-subject{
+    .subject {
+      background-color: white;
+      margin-top: 15px;
+      padding: 5px 2px;
+      border-bottom-left-radius: 100px;
+      border-top-left-radius: 100px;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+      margin: 7px 0px;
+
+      .image-course-header {
+        display: flex;
+
+        .img-circle {
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
+        }
+
+        .subject-header{
+          display: block;
+          margin-left: 20px;
+
+          .header-title {
+            font-size: 120%;
+            color: #21abc7;
+            font-weight: 700;
+            margin-right: 10px;
+          }
+
+          .subject-start-date{
+            padding-top: 5px;
+            padding-top: 5px;
+          }
+
+          .label-status {
+            border-radius: 3px;
+            color: white;
+            font-weight: 500;
+            padding: 0px 3px 1px 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .node--connected::after {
+    background: #e2e8e8;
+    bottom: 18px;
+    content: "";
+    height: 125px;
+    left: 28px;
+    position: absolute;
+    width: 6px;
+    z-index: -1;
+  }
+
+  .node {
+    border: 3px solid white;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    margin-top: 46px;
+  }
+
+  .subject-image {
+    padding-left: 5px;
+    padding-right: 0px;
+  }
+
+  .infor {
+    padding-top: 13px;
+    margin-right: 0px;
+  }
+
+  .subject-name {
+    font-size: 20px;
+    color: #21abc7;
+    font-weight: 300;
+    margin: 4px 0px;
+  }
+
+  .image-course-header {
+    display: flex;
+
+    .img-circle {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+
+    .course-header {
+      display: block;
+      margin-left: 20px;
+
+      .header-title {
+        font-size: 200%;
+        color: rgb(228, 108, 17);
+        font-weight: 700;
+        margin-right: 10px;
+      }
+
+      .subject-start-date{
+        padding-top: 5px;
+        padding-top: 5px;
+      }
+
+      .label-status {
+        border-radius: 3px;
+        color: white;
+        font-weight: 500;
+        padding: 0px 3px 1px 5px;
+      }
+    }
+  }
+
+  #tiny-calendar .fc-head-container .ui-widget-header {
+    background: darkcyan;
+  }
+
+  .info-panel {
+    .user-list {
+      padding-left: 3px;
+
+      li {
+        margin: 6px;
+        list-style: none;
+        float: left;
+      }
+    }
+
+    .plus-node {
+      background-color: #b3b3b3;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 2;
+      color: white;
+      a {
+        color: WHITE;
+      }
+    }
+
+    .plus-node:hover {
+      background-color: #E0E1DD;
+    }
+
+    .doc-field {
+      padding-left: 28px;
+      list-style-type: circle;
+
+      a {
+        text-decoration: underline !important;
+      }
+
+      abbr[title] {
+        border-bottom: none;
+      }
+    }
+
+    .box-title {
+      color: #575a5b;
+      margin: 0px;
+    }
+
+    .section-content {
+      .box-primary {
+        border-top-color: #3c8dbc;
+      }
+
+      .box {
+        position: relative;
+        border-radius: 3px;
+        background: #ffffff;
+        border-top: 3px solid #d2d6de;
+        margin-bottom: 20px;
+        width: 100%;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      }
+
+      .box-header {
+        color: #444;
+        display: block;
+        padding: 10px;
+        position: relative;
+      }
+
+      .box-body {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+.infor {
+  color: #000;
+}
+
+.subject-list {
+  margin-left: 19px;
+  padding-top: 30px;
+}
