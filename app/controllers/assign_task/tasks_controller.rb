@@ -54,7 +54,11 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def find_task
-    @task = Task.find_by id: params[:id]
+    @task = if(params[:targetable_type] == "Survey")
+      StaticTask.find_by targetable_id: params[:id], targetable_type: "Survey"
+    else
+      StaticTask.find_by targetable_id: params[:id], targetable_type: "TestRule"
+    end
     unless @task
       respond_to do |format|
         format.html {redirect_to subjects_path}

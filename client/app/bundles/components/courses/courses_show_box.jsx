@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import MenuCourse from './menu_course';
 import ModalAssignMember from './modal_assign_member/modal';
-import ModalTaskSurvey from './add_tasks/modal_task_survey';
+import ModalTask from './add_tasks/modal_task';
 import css from './course_css.scss';
 
 import * as app_constants from 'constants/app_constants';
@@ -27,11 +27,12 @@ export default class CoursesShowBox extends React.Component {
       remain_surveys: props.remain_surveys,
       selected_surveys: props.selected_surveys,
 
-      remain_testings: [],
-      selected_testings: [],//Testing
+      remain_testings: props.remain_testings,
+      selected_testings: props.selected_testings,
       selected_items: [],
       remain_items: [],
-      targetable_type: ''
+      targetable_type: '',
+      foo: true
     }
   }
 
@@ -185,6 +186,7 @@ export default class CoursesShowBox extends React.Component {
     if(description.length > LIMIT_DESCRIPTION){
       description = this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
+
     return(
       <div id='course-show' className='row'>
         <div className='col-md-9'>
@@ -250,7 +252,7 @@ export default class CoursesShowBox extends React.Component {
           rerender={this.state.rerender} course={this.state.course}
           afterAssignUsers={this.afterAssignUsers.bind(this)} />
 
-        <ModalTaskSurvey
+        <ModalTask
           targetable={this.state.course}
           ownerable_type="Course"
           selected_items={this.state.selected_items}
@@ -265,6 +267,7 @@ export default class CoursesShowBox extends React.Component {
 
   addTask() {
     $('#modalTaskSurvey').modal();
+    this.setState({foo: !this.state.foo})
   }
 
   afterSubmitCreateTask(selected_items, remain_items) {
@@ -283,9 +286,9 @@ export default class CoursesShowBox extends React.Component {
       });
     }else {
       this.setState({
-        remain_items: this.state.remain_testing,
+        remain_items: this.state.remain_testings,
         selected_items: this.state.selected_testings,
-        targetable_type: "Testing"
+        targetable_type: "TestRule"
       });
     }
   }
