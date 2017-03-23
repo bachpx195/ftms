@@ -3,7 +3,13 @@ class StagesController < ApplicationController
   before_action :authorize_class
 
   def index
-    @stages = Stage.select :id, :name
+    stages_serializer = Serializers::StagesSerializer
+      .new object: Stage.all
+    @stages = stages_serializer.serializer
+    respond_to do |format|
+      format.html
+      format.json {render json: {stages: @stages}}
+    end
   end
 
   def new
@@ -13,6 +19,9 @@ class StagesController < ApplicationController
     @stage = Stage.new stage_params
     respond_to do |format|
       if @stage.save
+        stages_serializer = Serializers::StagesSerializer
+          .new object: @stage
+        @stage = stages_serializer.serializer
         format.html {redirect_to @stage}
         format.json do
           render json: {message: flash_message("created"),
@@ -29,9 +38,15 @@ class StagesController < ApplicationController
   end
 
   def show
+    stages_serializer = Serializers::StagesSerializer
+      .new object: @stage
+    @stage = stages_serializer.serializer
   end
 
   def edit
+    stages_serializer = Serializers::StagesSerializer
+      .new object: @stage
+    @stage = stages_serializer.serializer
     respond_to do |format|
       format.html
       format.json {render json: {stage: @stage}}
@@ -41,6 +56,9 @@ class StagesController < ApplicationController
   def update
     respond_to do |format|
       if @stage.update_attributes stage_params
+        stages_serializer = Serializers::StagesSerializer
+          .new object: @stage
+        @stage = stages_serializer.serializer
         format.html {redirect_to @stage}
         format.json do
           render json: {message: flash_message("updated"),
