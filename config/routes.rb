@@ -70,5 +70,7 @@ Rails.application.routes.draw do
   namespace :my_space do
     resources :courses, only: :index
   end
-  resources :user_courses
+  resources :user_courses do
+    resources :subjects
+  end
 end
