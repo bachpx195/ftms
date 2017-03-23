@@ -2,7 +2,13 @@ class UniversitiesController < ApplicationController
   before_action :find_university, except: [:index, :new, :create]
 
   def index
-    @universities = University.select :id, :name
+    universities_serializer = Serializers::UniversitiesSerializer
+      .new object: University.all
+    @universities = universities_serializer.serializer
+    respond_to do |format|
+      format.html
+      format.json {render json: {universities: @universities}}
+    end
   end
 
   def new
@@ -12,6 +18,9 @@ class UniversitiesController < ApplicationController
     @university = University.new university_params
     respond_to do |format|
       if @university.save
+        universities_serializer = Serializers::UniversitiesSerializer
+          .new object: @university
+        @university = universities_serializer.serializer
         format.html {redirect_to [:admin, @university]}
         format.json do
           render json: {message: flash_message("created"),
@@ -28,9 +37,19 @@ class UniversitiesController < ApplicationController
   end
 
   def show
+    universities_serializer = Serializers::UniversitiesSerializer
+      .new object: @university
+    @university = universities_serializer.serializer
+    respond_to do |format|
+      format.html
+      format.json {render json: {university: @university}}
+    end
   end
 
   def edit
+    universities_serializer = Serializers::UniversitiesSerializer
+      .new object: @university
+    @university = universities_serializer.serializer
     respond_to do |format|
       format.html
       format.json {render json: {university: @university}}
@@ -40,6 +59,9 @@ class UniversitiesController < ApplicationController
   def update
     respond_to do |format|
       if @university.update_attributes university_params
+        universities_serializer = Serializers::UniversitiesSerializer
+          .new object: @university
+        @university = universities_serializer.serializer
         format.html {redirect_to [:admin, @university]}
         format.json do
           render json: {message: flash_message("updated"),
