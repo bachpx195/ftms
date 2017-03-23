@@ -121,9 +121,9 @@ namespace :db do
         organization_id: 2,
         content: "<p>Get an introduction to numbers, Strings, properties, and methods,&nbsp;
           Learn about conversions, arrays, variables, and more methods</p>\r\n",
-        during_time: Settings.during_time.tutorial_book,
-        image: File.open(File.join(Rails.root,
-          "app/assets/images/subject.jpeg"))},
+          during_time: Settings.during_time.tutorial_book,
+          image: File.open(File.join(Rails.root,
+            "app/assets/images/subject.jpeg"))},
       {name: "Ruby's Project 1",
         description: "Start Project 1 for Ruby on Rails today.\r\n",
         organization_id: 2,
@@ -150,12 +150,12 @@ namespace :db do
       {name: "Android Tutorial Book",
         description: "This tutorial will teach you basic Android programming and
           will also take you through some advance concepts related to Android application development.\r\n",
-        organization_id: 2,
+          organization_id: 2,
         content: "<p>Get an introduction to numbers, Strings, properties, and methods,&nbsp;
           Learn about conversions, arrays, variables, and more methods</p>\r\n",
-        during_time: Settings.during_time.tutorial_book,
-        image: File.open(File.join(Rails.root,
-          "app/assets/images/subject.jpeg"))},
+          during_time: Settings.during_time.tutorial_book,
+          image: File.open(File.join(Rails.root,
+            "app/assets/images/subject.jpeg"))},
       {name: "Android's Project 1",
         description: "Start Project 1 for Android today.\r\n",
         organization_id: 2,
@@ -202,17 +202,10 @@ namespace :db do
         This tutorial will teach you JavaScript from basic to advanced.",
         organization_id: 2,
         during_time: Settings.during_time.javascript,
-        image: File.open(File.join(Rails.root,
-          "app/assets/images/subject.jpeg"))}
+      image: File.open(File.join(Rails.root,
+        "app/assets/images/subject.jpeg"))}
     ])
-
-    puts "10. Creat StandardSubject"
-    count_training_standard = TrainingStandard.all.size
-    Subject.all.each_with_index do |subject, index|
-      subject.standard_subjects.create! training_standard_id: (index % count_training_standard) + 1
-    end
-
-    puts "11. Create user programs"
+    puts "10. Create user programs"
     2.times do |n|
       UserProgram.create! program_id: n+1,  user_id: 1
       UserProgram.create! program_id: n+1,  user_id: 4
@@ -225,7 +218,7 @@ namespace :db do
       UserProgram.create! program_id: 2,  user_id: n+10
     end
 
-    puts "12. Create courses"
+    puts "11. Create courses"
     Course.create!([
       {name: "Laboratory Rails", description: "Lorem Ipsum", status: "in_progress",
         language_id: 1, start_date: "01/01/2001", end_date: "01/01/2021",
@@ -277,7 +270,7 @@ namespace :db do
         image: File.open(File.join(Rails.root, "app/assets/images/edu.jpg"))},
     ])
 
-    puts "13. Create course subject"
+    puts "12. Create course subject"
     Course.all.each do |course|
       course.training_standard.subjects.each do |subject|
         course.course_subjects.create subject_id: subject.id, subject_name: subject.name,
@@ -286,7 +279,7 @@ namespace :db do
       end
     end
 
-    puts "14. Create user subject"
+    puts "13. Create user subject"
     UserSubject.create!([
       {user_id: 1, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1,
         status: 0},
@@ -294,7 +287,7 @@ namespace :db do
         status: 0}
     ])
 
-    puts "15. Crawl function"
+    puts "14. Crawl function"
     Function.create controller_name: "organizations", action: "index"
 
     functions = []
@@ -309,14 +302,14 @@ namespace :db do
       Function.create! f
     end
 
-    puts "16. Create role"
+    puts "15. Create role"
     Role.create!([
       {name: "admin"},
       {name: "organization supervior", parent_id: 1},
       {name: "program supervior", parent_id: 1}
     ])
 
-    puts "17. create CourseManager"
+    puts "16. create CourseManager"
     CourseManager.create!([
       {user_id: 4, course_id: 1, status: "process"},
       {user_id: 1, course_id: 1, status: "process"},
@@ -328,7 +321,7 @@ namespace :db do
       {user_id: 6, course_id: 3, status: "process"},
     ])
 
-    puts "18. create Profile"
+    puts "17. create Profile"
     Profile.create!([
       {user_id: 4, language_id: 1, organization_id: 2, program_id: 1,
         staff_code: "B123456"},
@@ -336,7 +329,7 @@ namespace :db do
         staff_code: "B123457"},
     ])
 
-    puts "19. Create Evaluation templates"
+    puts "18. Create Evaluation templates"
     EvaluationTemplate.create!([
       {training_standard_id: 1, name: "Evaluation template 1"},
       {training_standard_id: 2, name: "Evaluation template 2"},
@@ -344,7 +337,7 @@ namespace :db do
       {training_standard_id: 4, name: "Evaluation template 4"}
     ])
 
-    puts "20. create Role"
+    puts "18. create Role"
     Role.create!([
       {name: "admin"},
       {name: "GL"},
@@ -352,45 +345,61 @@ namespace :db do
       {name: "trainee"}
     ])
 
-    puts "21. create RoleFunction"
+    puts "19. create RoleFunction"
     Role.all.each do |role|
       Function.all.each do |function|
         RoleFunction.create! role_id: role.id, function_id: function.id
       end
     end
 
-    puts "21. create UserRole"
+    puts "20. create UserRole"
     role = Role.find_by id: 1
     User.all.limit(9).each do |user|
       UserRole.create! user_id: user.id, role_id: 1
       user.functions = role.functions
     end
 
-    puts "22. create Survey"
+    puts "21. create Survey"
     10.times do |n|
       Survey.create name: "Survey #{n}", content: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
-      organization_id: 2
+        organization_id: 2
     end
 
-    puts "23. create Assignment"
+    puts "22. create Assignment"
     10.times do |n|
-      Assignment.create name: "Assignment #{n}",
-      organization_id: 2
+      Assignment.create name: "Assignment #{n}", organization_id: 2
     end
 
-    puts "24. create TestRule"
+    puts "23. create TestRule"
     10.times do |n|
-      TestRule.create name: "Test Rule #{n}",
-      organization_id: 2
+      TestRule.create name: "Test Rule #{n}", organization_id: 2
     end
 
-    puts "24. create Project"
-    10.times do |n|
-      Project.create name: "Project #{n}",
-      organization_id: 2
+    puts "24. Create Course Subject"
+    course = Course.first
+    n = 1
+    Subject.all.limit(5).each do |subject|
+      course_subject = course.course_subjects.create subject_id: subject.id, subject_name: subject.name,
+      subject_description: subject.description, subject_content: subject.content,
+      subject_image: subject.image
+      course_subject.user_subjects.create user_id: n, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1, status: 'init'
+      n += 1
     end
 
-    puts "25: create CourseSubject"
-      CourseSubject.create subject_id: 1, course_id: 1
+    puts "25. Create User Course"
+    CourseMember.create user_id: 11, course_id: 1
+
+    puts "26. Create Static CourseSubject"
+    course_subject = CourseSubject.first
+    Assignment.all.each do |assignment|
+      StaticTask.create targetable: assignment, ownerable: course_subject
     end
+
+    puts "27. Create Dynamic Task"
+    course_subject = CourseSubject.first
+    StaticTask.all.each do |static_tasks|
+      DynamicTask.create targetable: static_tasks, ownerable: course_subject,
+        user_id: 11, status: "incomplete"
+    end
+  end
 end

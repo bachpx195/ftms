@@ -1,3 +1,6 @@
-<%= react_component "SubjectsShowBox", props: {subject: @subject,
-  course: @course}, prerender: false
+<%= react_component "SubjectsShowBox",
+  props: {subject: @subject,
+    assigments: @user_assignment,
+    current_user: current_user,
+    course: @course}, prerender: false
 %>

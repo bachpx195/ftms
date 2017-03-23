@@ -44,3 +44,11 @@ en:
     select_task: "Select Task"
     add_task: "Add Task"
     project: "Project"
+
+    trainee:
+      start_date: "Start date: "
+      spend_time: "Spent time: "
+      github: "Github: "
+      send_count: "Sent count: "
+      avatar: "avatar"
+      title_assignment: "Assignment Overview"
