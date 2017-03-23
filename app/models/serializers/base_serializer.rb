@@ -41,7 +41,7 @@ class Serializers::BaseSerializer
   end
 
   def attributes
-    attributes = Hash.new
+    attributes = Array.new
     superclass ||= @class_name.constantize if @class_name.present?
     superclass ||= self.class
     while superclass != Serializers::BaseSerializer do
@@ -74,13 +74,13 @@ class Serializers::BaseSerializer
 
   class << self
     def attr_accessor *vars
-      @attributes ||= Hash.new
-      @conditions ||= Hash.new
-      attr_var = Hash.new
+      @attributes ||= Array.new
+      @conditions ||= Array.new
+      attr_var = Array.new
       vars.each_with_index.map do |var, i|
-        if vars[i+1] && vars[i+1].class == Hash
-          @conditions["#{vars[i]}".to_sym] = vars[i+1][:if]
-          attr_var.push vars[i+1]
+        if vars[i + 1] && vars[i + 1].class == Hash
+          @conditions["#{vars[i]}".to_sym] = vars[i + 1][:if]
+          attr_var.push vars[i + 1]
         end
       end
       vars -= attr_var
