@@ -22,3 +22,4 @@
 //= require ckeditor/init
 //= require app.min.js
 //= require home_page
+//= require cable

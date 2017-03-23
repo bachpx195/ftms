@@ -11,6 +11,7 @@ class SessionsController < Devise::SessionsController
     message = t "devise.sessions.signed_in"
 
     yield resource if block_given?
+    cookies["current_user_id"] = current_user.id
 
     return render json: {success: true, login: true, data: {message: message,
       current_user: current_user}}

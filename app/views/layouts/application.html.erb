@@ -18,6 +18,7 @@
   <body class="hold-transition skin-framgia sidebar-mini">
     <% if user_signed_in? %>
       <div class="wrapper">
+        <%= react_component "Policies" %>
         <%= react_component "Header" %>
         <%= react_component "Sidebar" %>
         <div class="content-wrapper">

@@ -42,8 +42,6 @@ namespace :db do
     ])
 
     puts "1. Crawl function & trainee"
-    Function.create controller_name: "organizations", action: "index"
-
     functions = []
     def check_supply object
       object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) && object[:controller] != "sessions"

@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import Permit from '../policies/sidebar_permit';
+
 import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';
 
@@ -29,11 +31,15 @@ export default class Sidebar extends React.Component {
     if(!localStorage.getItem('page')) {
       localStorage.setItem('page', 'organizations');
     }
-
     this.state = {
       roles_menu: 'hiddened',
       master_menu: 'hiddened'
     };
+    React.Component.prototype.rerenderSidebar = this.rerender.bind(this);
+  }
+
+  rerender(){
+    this.setState({rerender: true});
   }
 
   componentWillMount() {
@@ -71,26 +77,31 @@ export default class Sidebar extends React.Component {
           {this.renderUserPanel()}
           <ul className='sidebar-menu td-admin-sidebar'>
             <li className="header">{I18n.t('sidebar.space')}</li>
-            <li data-page='my_courses'>
-              <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
-                <i className='fa fa-clone'></i>
-                <span>{I18n.t('sidebar.my_courses')}</span>
-              </a>
-            </li>
+            <Permit action='my_space/courses/index'>
+              <li data-page='my_courses'>
+                <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
+                  <i className='fa fa-clone'></i>
+                  <span>{I18n.t('sidebar.my_courses')}</span>
+                </a>
+              </li>
+            </Permit>
             <li className="header">{I18n.t('sidebar.main_nav')}</li>
-            <li data-page='organizations'>
-              <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
-                <i className='fa fa-folder'></i>
-                <span>{I18n.t('sidebar.organizations')}</span>
-              </a>
-            </li>
-            <li data-page='courses'>
-              <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
-                <i className='fa fa-folder'></i>
-                <span>{I18n.t('sidebar.courses')}</span>
-              </a>
-            </li>
-
+            <Permit action='organizations/index'>
+              <li data-page='organizations'>
+                <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
+                  <i className='fa fa-folder'></i>
+                  <span>{I18n.t('sidebar.organizations')}</span>
+                </a>
+              </li>
+            </Permit>
+            <Permit action='courses/index'>
+              <li data-page='courses'>
+                <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
+                  <i className='fa fa-folder'></i>
+                  <span>{I18n.t('sidebar.courses')}</span>
+                </a>
+              </li>
+            </Permit>
             <li>
               <a href="#" onClick={this.onClickMasterdata.bind(this)}>
                 <i className="fa fa-database" aria-hidden="true"></i>
@@ -99,48 +110,53 @@ export default class Sidebar extends React.Component {
                   <i className={`fa fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></i>
                 </span>
               </a>
-
               <ul id="subMasterMenu" className={this.state.master_menu}>
-                <li className='active' data-page='languages'>
-                  <i className="fa fa-circle-o"></i>
-                  <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.languages')}</span>
-                  </a>
-                </li>
-                <li data-page='stages'>
-                  <i className="fa fa-circle-o"></i>
-                  <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.stages')}</span>
-                  </a>
-                </li>
+                <Permit action='languages/index'>
+                  <li className='active' data-page='languages'>
+                    <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.languages')}</span>
+                    </a>
+                  </li>
+                </Permit>
+                <Permit action='stages/index'>
+                  <li data-page='stages'>
+                    <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.stages')}</span>
+                    </a>
+                  </li>
+                </Permit>
 
-                <li data-page='subjects'>
-                  <i className="fa fa-circle-o"></i>
-                  <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.subjects')}</span>
-                  </a>
-                </li>
+                <Permit action='subjects/index'>
+                  <li data-page='subjects'>
+                    <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.subjects')}</span>
+                    </a>
+                  </li>
+                </Permit>
 
-                <li data-page="trainee_types">
-                  <i className="fa fa-circle-o"></i>
-                  <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.trainee_types')}</span>
-                  </a>
-                </li>
+                <Permit action='trainee_types/index'>
+                  <li data-page="trainee_types">
+                    <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.trainee_types')}</span>
+                    </a>
+                  </li>
+                </Permit>
 
-                <li data-page="training_standards">
-                  <i className="fa fa-circle-o"></i>
-                  <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.training_standards')}</span>
-                  </a>
-                </li>
+                <Permit action='training_standards/index'>
+                  <li data-page="training_standards">
+                    <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.training_standards')}</span>
+                    </a>
+                  </li>
+                </Permit>
 
-                <li data-page="universities">
-                  <i className="fa fa-circle-o"></i>
-                  <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.universities')}</span>
-                  </a>
-                </li>
+                <Permit action='universities/index'>
+                  <li data-page="universities">
+                    <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.universities')}</span>
+                    </a>
+                  </li>
+                </Permit>
               </ul>
             </li>
 
@@ -153,28 +169,30 @@ export default class Sidebar extends React.Component {
                 </span>
               </a>
               <ul id="subRoleMenu" className={this.state.roles_menu}>
-                <li data-page="roles">
-                  <i className="fa fa-circle-o"></i>
-                  <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.roles')}</span>
-                  </a>
-                </li>
-                <li data-page="functions">
-                  <i className="fa fa-circle-o"></i>
-                  <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
-                    <span>{I18n.t('sidebar.all_functions')}</span>
-                  </a>
-                </li>
+                <Permit action='roles/index'>
+                  <li data-page="roles">
+                    <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.roles')}</span>
+                    </a>
+                  </li>
+                </Permit>
+                <Permit action='functions/index'>
+                  <li data-page="functions">
+                    <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
+                      <span>{I18n.t('sidebar.all_functions')}</span>
+                    </a>
+                  </li>
+                </Permit>
               </ul>
             </li>
-
-            <li>
-              <a href={USERS_URL} onClick={this.onClick.bind(this)}>
-                <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
-                <span>{I18n.t('sidebar.manage_user')}</span>
-              </a>
-            </li>
-
+            <Permit action='users/index'>
+              <li>
+                <a href={USERS_URL} onClick={this.onClick.bind(this)}>
+                  <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
+                  <span>{I18n.t('sidebar.manage_user')}</span>
+                </a>
+              </li>
+            </Permit>
           </ul>
         </section>
       </aside>
@@ -185,7 +203,7 @@ export default class Sidebar extends React.Component {
     this.setState({
       roles_menu: nextProps.roles_menu,
       master_menu: nextProps.master_menu,
-     });
+    });
   }
 
   onClick(event) {
