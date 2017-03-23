@@ -9,12 +9,14 @@ export default class ModalBody extends React.Component{
       type: '',
       task: props.task,
       survey_id: '',
+      course: props.course,
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      task: nextProps.task
+      task: nextProps.task,
+      course: nextProps.course
     });
   }
 
@@ -26,9 +28,11 @@ export default class ModalBody extends React.Component{
           subject_id={this.props.subject_id}
           subject_detail={this.props.subject_detail}
           handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-          afterCreateTask={this.afterCreateTask.bind(this)} />
+          afterCreateTask={this.afterCreateTask.bind(this)}
+          course={this.props.course} />
       </div>
     );
+
     return(
       <div className='modal-task'>
         <div className='modal-body'>
@@ -41,6 +45,7 @@ export default class ModalBody extends React.Component{
                 <option value='assignment'>{I18n.t("subjects.assignment")}</option>
                 <option value='survey'>{I18n.t("subjects.survey")}</option>
                 <option value='test_rule'>{I18n.t("subjects.test_rule")}</option>
+                {this.renderProject()}
               </select>
             </div>
           </div>
@@ -73,4 +78,11 @@ export default class ModalBody extends React.Component{
   afterCreateTask(target, type){
     this.props.afterCreateTask(target, type)
   }
+
+  renderProject() {
+    if(this.state.course){
+      return(<option value='project'>{I18n.t("subjects.project")}</option>)
+    }
+  }
+
 }

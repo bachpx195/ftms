@@ -34,6 +34,7 @@ class User < ApplicationRecord
 
   def find_base_component
     function = self.functions.order_by_parent_id.first
+    return "UserShowBox" unless function
     controller = function.controller_name
     action = function.action
     if action == "show"

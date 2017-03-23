@@ -14,6 +14,7 @@ json.subject_detail do
     json.surveys @subject_supports.surveys_not_in_static_task, :name, :id, :content
     json.assignments @subject_supports.assignments_not_in_static_task, :name, :id
     json.test_rules @subject_supports.test_rules_not_in_static_task, :name, :id
+    json.projects @subject_supports.projects_not_in_static_task, :name, :id
   end
 
   json.subject_task do
@@ -30,6 +31,11 @@ json.subject_detail do
     json.test_rules @subject.test_rules do |test_rule|
       json.extract! test_rule, :id, :name, :content
       task = @subject.tasks.find_by targetable: test_rule
+      json.task_id task.id
+    end
+    json.projects @course_subject.projects do |project|
+      json.extract! project, :id, :name
+      task = @subject.tasks.find_by targetable: project
       json.task_id task.id
     end
   end
