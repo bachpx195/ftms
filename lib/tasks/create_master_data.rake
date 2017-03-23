@@ -2,7 +2,7 @@ namespace :db do
   desc "remake database data"
   task create_master_data: :environment do
     Rake::Task["db:migrate:reset"].invoke
-    puts "0.Creating User"
+    puts "0.Creating Trainer"
     User.create!([
       {name: "Chu Anh Tuấn",
         email: "chu.anh.tuan@framgia.com", password: "12345678",
@@ -41,14 +41,32 @@ namespace :db do
         avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
     ])
 
+    puts "14. Crawl function & trainee"
+    Function.create controller_name: "organizations", action: "index"
+
+    functions = []
+    def check_supply object
+      object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) && object[:controller] != "sessions"
+    end
+    Rails.application.routes.routes.map do |router|
+      functions.push controller_name: router.defaults[:controller],
+        action: router.defaults[:action], parent_id: 1 if check_supply router.defaults
+    end
+    functions.uniq.each do |f|
+      Function.create! f
+    end
+
+    f = Function.find_by controller_name: "users", action: "show"
+
     10.times do |n|
-      User.create!(
+      user = User.create!(
         name: "Vũ Hữu Tuấn #{n+1}",
         email: "vu.huu.tuan-#{n+1}@framgia.com", password: "12345678",
         password_confirmation: "12345678",
         created_at: "01/09/2016".to_date, updated_at: "01/09/2016".to_date,
         avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))
       )
+      UserFunction.create user: user, function: f
     end
 
     puts "1. Create languages"
@@ -287,26 +305,14 @@ namespace :db do
         status: 0}
     ])
 
-    puts "14. Crawl function"
-    Function.create controller_name: "organizations", action: "index"
-
-    functions = []
-    def check_supply object
-      object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) && object[:controller] != "sessions"
-    end
-    Rails.application.routes.routes.map do |router|
-      functions.push controller_name: router.defaults[:controller],
-        action: router.defaults[:action], parent_id: 1 if check_supply router.defaults
-    end
-    functions.uniq.each do |f|
-      Function.create! f
-    end
-
     puts "15. Create role"
     Role.create!([
       {name: "admin"},
       {name: "organization supervior", parent_id: 1},
-      {name: "program supervior", parent_id: 1}
+      {name: "program supervior", parent_id: 1},
+      {name: "GL", parent_id: 1},
+      {name: "trainer", parent_id: 1},
+      {name: "trainee", parent_id: 1}
     ])
 
     puts "16. create CourseManager"
@@ -335,14 +341,6 @@ namespace :db do
       {training_standard_id: 2, name: "Evaluation template 2"},
       {training_standard_id: 3, name: "Evaluation template 3"},
       {training_standard_id: 4, name: "Evaluation template 4"}
-    ])
-
-    puts "18. create Role"
-    Role.create!([
-      {name: "admin"},
-      {name: "GL"},
-      {name: "trainer"},
-      {name: "trainee"}
     ])
 
     puts "19. create RoleFunction"

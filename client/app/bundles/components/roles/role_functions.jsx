@@ -109,9 +109,11 @@ export default class RoleFunctions extends React.Component {
   }
 
   handleCheckbox(griddleKey, checked){
+
     this.updateStateFunctions(griddleKey, checked);
     this.setState({
-      functions: this.state.functions
+      functions: this.state.functions,
+      check_all: 'none'
     });
   }
 

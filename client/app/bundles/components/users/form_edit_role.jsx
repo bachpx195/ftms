@@ -79,7 +79,10 @@ export default class FormEditRole extends React.Component {
     return(
       <div className='edit-role'>
         <div className='roles'>{this.renderAllRole()}</div>
-        <UserFunctionBox user_id={this.props.user_id} data={this.state.functions} dataChange={this.dataChange.bind(this)}/>
+        <UserFunctionBox user_id={this.props.user_id}
+          data={this.state.functions}
+          check_all={this.state.check_all}
+          dataChange={this.dataChange.bind(this)}/>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <div className="text-right">
@@ -93,8 +96,8 @@ export default class FormEditRole extends React.Component {
     )
   }
 
-  dataChange(functions){
-    this.setState({functions: functions})
+  dataChange(functions, check_all){
+    this.setState({functions: functions, check_all: check_all})
   }
 
   handleSubmit(event) {

@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   before_action :find_program, except: [:index]
   before_action :find_course, except: [:index, :new, :create]
-  before_action :authorize_class, except: [:index]
+  before_action :authorize_class
 
   def index
     @courses = Course.all
