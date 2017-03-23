@@ -19,7 +19,7 @@ class Supports::CourseSupport
   end
 
   def course_subjects
-    @course_subjects ||= @course.training_standard.subjects
+    @course_subjects ||= @course.subjects
   end
 
   def languages

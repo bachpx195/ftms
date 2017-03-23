@@ -89,8 +89,6 @@ export default class FormCreate extends React.Component {
       $('#modal').modal('hide');
       this.props.afterCreate();
     })
-    .catch(error => {
-      console.log(error);
-    });
+    .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }
