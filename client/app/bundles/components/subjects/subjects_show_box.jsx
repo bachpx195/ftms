@@ -6,6 +6,7 @@ import SubjectShowBoxTrainee from './trainee/subject_show_box';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
 import ModalBody from './subject_form/modalBody';
+import ModalTask from './subject_form/modalTask';
 import BlockTasks from './block_tasks';
 
 const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
@@ -17,7 +18,7 @@ export default class SubjectsShowBox extends React.Component {
     super(props);
     this.state = {
       assigments_of_user_subjects: props.assigments,
-      admin: false, // Check tam admin. Sau co policy client check lai
+      admin: true, // Check tam admin. Sau co policy client check lai
       current_user: props.current_user,
       user_subjects: props.user_subjects,
       subject_detail: {
@@ -33,8 +34,17 @@ export default class SubjectsShowBox extends React.Component {
           surveys: [],
           test_rules: [],
           assignments: []
+        },
+        course_subject: {},
+        user_subjects: [],
+        user_course_task: {
+          surveys: [],
+          test_rules: [],
+          assignments: []
         }
       },
+      user: {},
+      user_index: 0
     }
   }
 
@@ -55,7 +65,7 @@ export default class SubjectsShowBox extends React.Component {
     axios.get(url + '.json')
     .then(response => {
       this.setState({
-        subject_detail: response.data.subject_detail,
+        subject_detail: response.data.subject_detail
       });
     })
     .catch(error => {
@@ -71,7 +81,8 @@ export default class SubjectsShowBox extends React.Component {
           <div id='user-subject' className='clearfix'>
             <UserSubjectList
               user_subjects={this.state.subject_detail.user_subjects}
-              statuses={this.state.subject_detail.statuses} />
+              statuses={this.state.subject_detail.statuses}
+              afterAddTaskForUser={this.afterAddTaskForUser.bind(this)} />
           </div>
         </div>
       )
@@ -124,7 +135,6 @@ export default class SubjectsShowBox extends React.Component {
         </div>
       )
     }
-
     if (this.state.admin) {// Check tam admin. Sau co policy client check lai
       return (
         <div>
@@ -178,7 +188,65 @@ export default class SubjectsShowBox extends React.Component {
   }
 
   renderModal(){
-    return(
+    let modalBody;
+    let modalUserTask;
+    let panelUserTask;
+
+    if(this.props.course){
+      modalBody = (
+        <ModalBody task={this.state.subject_detail.subject_task}
+        ownerable_id={this.state.subject_detail.course_subject.id}
+        ownerable_type="CourseSubject"
+        course={this.props.course}
+        subject_detail={this.state.subject_detail}
+        handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+        afterCreateTask={this.afterCreateTask.bind(this)}
+        />
+      )
+
+      if(this.state.subject_detail.user_subjects[this.state.user_index]){
+        panelUserTask = (
+          <ModalTask
+            task={this.state.subject_detail.course_subject_task}
+            user_tasks={this.state.subject_detail.user_subjects[this.state.user_index].user_course_task}
+            ownerable_id={this.state.subject_detail.course_subject.id}
+            ownerable_type="CourseSubject"
+            subject_detail={this.state.subject_detail}
+            handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+            afterCreateTask={this.afterCreateTask.bind(this)} user={this.state.user}
+            handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}/>
+        )
+      }else{
+        panelUserTask = ""
+      }
+
+      modalUserTask = (
+        <div id='modalUserTask' className='modal fade in' role='dialog'>
+          <div className='modal-dialog'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <button type='button' className='close'
+                  data-dismiss='modal'>&times;</button>
+                <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
+              </div>
+              {panelUserTask}
+            </div>
+          </div>
+        </div>
+      )
+    }else{
+      modalBody = (
+        <ModalBody task={this.state.subject_detail.task}
+        ownerable_id={this.state.subject_detail.id}
+        ownerable_type="Subject"
+        subject_detail={this.state.subject_detail}
+        handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+        afterCreateTask={this.afterCreateTask.bind(this)} />
+      )
+      modalUserTask = ''
+    }
+
+    let modalAddTask = (
       <div id='modalAddTask' className='modal fade in' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
@@ -187,29 +255,61 @@ export default class SubjectsShowBox extends React.Component {
                 data-dismiss='modal'>&times;</button>
               <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
             </div>
-            <ModalBody task={this.state.subject_detail.task}
-              subject_id={this.state.subject_detail.id}
-              subject_detail={this.state.subject_detail}
-              handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-              afterCreateTask={this.afterCreateTask.bind(this)}
-              course={this.props.course} />
+            {modalBody}
           </div>
+        </div>
+      </div>
+    )
+
+    return(
+      <div className='course-subject'>
+        <div className='modalUser'>
+          {modalUserTask}
+        </div>
+        <div className='modalTask'>
+          {modalAddTask}
         </div>
       </div>
     )
   }
 
   afterClickAddTask(){
+    this.setState({
+      user: ''
+    })
     $('#modalAddTask').modal();
   }
 
-  handleAfterAddTask(type, targetable_ids,targets, subject_detail) {
-    _.remove(this.state.subject_detail.task[type], targetable => {
-      return targetable_ids.indexOf(targetable.id) >= 0;
-    });
-    _.mapValues(targets, function(target){
-      subject_detail.subject_task[type].push(target)
+  afterAddTaskForUser(user, user_index){
+    this.setState({
+      user: user,
+      user_index: user_index
     })
+    $('#modalUserTask').modal()
+  }
+
+  handleAfterAddTask(type, targetable_ids,targets, subject_detail, user_id) {
+    if(this.props.course){
+      if(user_id){
+        _.mapValues(targets, function(target){
+          subject_detail.user_subjects[this.state.user_index].user_course_task[type].push(target)
+        })
+      }else{
+        _.remove(this.state.subject_detail.subject_task[type], targetable => {
+          return targetable_ids.indexOf(targetable.id) >= 0;
+        });
+        _.mapValues(targets, function(target){
+          subject_detail.course_subject_task[type].push(target)
+        })
+      }
+    }else{
+      _.remove(this.state.subject_detail.task[type], targetable => {
+        return targetable_ids.indexOf(targetable.id) >= 0;
+      });
+      _.mapValues(targets, function(target){
+        subject_detail.subject_task[type].push(target)
+      })
+    }
     this.setState({
       subject_detail: subject_detail
     })
@@ -223,13 +323,19 @@ export default class SubjectsShowBox extends React.Component {
   }
 
   handleAfterDeleteTask(index, task, type){
-    _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
-      return task_id == index
-    });
-    this.state.subject_detail.task[type].push(task)
-    this.state.subject_detail.task[type].sort(function(obj1, obj2){
-      return obj1.id - obj2.id
-    })
+    if(this.props.course){
+      _.remove(this.state.subject_detail.user_subjects[this.user_index].user_course_task[type], ({task_id}) => {
+        return task_id == index
+      });
+    }else{
+      _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
+        return task_id == index
+      });
+      this.state.subject_detail.task[type].push(task)
+      this.state.subject_detail.task[type].sort(function(obj1, obj2){
+        return obj1.id - obj2.id
+      })
+    }
     this.setState({
       subject_detail: this.state.subject_detail
     })

@@ -401,5 +401,21 @@ namespace :db do
       DynamicTask.create targetable: static_tasks, ownerable: course_subject,
         user_id: 11, status: "incomplete"
     end
+
+    puts "24. Create Course Subject"
+    course = Course.first
+    n = 1
+    Subject.all.limit(5).each do |subject|
+      course_subject = course.course_subjects.create subject_id: subject.id, subject_name: subject.name,
+      subject_description: subject.description, subject_content: subject.content,
+      subject_image: subject.image
+      course_subject.user_subjects.create! user_id: n, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1, status: 'init'
+      n += 1
+    end
+
+    puts "25. Create User Course"
+    User.all.limit(9).each do |user|
+      course.course_members.create user_id: user.id, status: 'init'
+    end
   end
 end

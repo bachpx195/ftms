@@ -8,8 +8,10 @@ export default class FormTask extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      task: '',
-      type: props.type
+      task: {
+        name: ''
+      },
+      type: props.type,
     }
   }
 
@@ -39,7 +41,6 @@ export default class FormTask extends React.Component{
       </form>
     )
   }
-
   formValid() {
     return this.state.task.name != '';
   }
@@ -55,19 +56,24 @@ export default class FormTask extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault();
+    let ownerable_name
+    if(this.props.user) {
+      ownerable_name = 'CourseSubject';
+    } else {
+      ownerable_name = 'Subject';
+    }
     axios.post(SUBJECT_TASK_URL, {
       task: {
         name: this.refs.nameField.value,
         content: this.refs.contentField.value,
-        ownerable_id: this.props.subject_id,
-        ownerable_type: 'Subject',
+        ownerable_id: this.props.ownerable_id,
+        ownerable_type: ownerable_name,
         type: this.props.type
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
       .then(response => {
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
-        $('#modalAddTask').modal('hide');
         this.props.afterCreateTask(response.data.target,
           this.props.type);
       })

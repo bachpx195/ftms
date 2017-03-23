@@ -77,10 +77,9 @@ export default class CourseLists extends React.Component {
           subsit_users = (
             <div className='subsit_users'>
               <div className="block-trainer">
-
-                <p className="image image-others" 
-                  onClick={this.handleClick.bind(this)} 
-                  title={I18n.t('organizations.all_managers')} >
+                <p className="image image-others"
+                  onClick={this.handleClick.bind(this)}
+                  title={I18n.t('organizations.other_managers')} >
                   <img src='/assets/profile.png' className='img-circle' />
                   <span className='count-users'>{count_subsit_users}+</span>
                 </p>

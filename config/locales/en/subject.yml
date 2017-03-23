@@ -21,6 +21,7 @@ en:
       training_standard: "Training Standard: "
       delete: "Delete"
       content: "Content"
+      add_task: "Add Task"
     modals:
       header_edit: "Edit subject"
     buttons:

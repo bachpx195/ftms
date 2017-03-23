@@ -80,7 +80,7 @@ class SubjectsController < ApplicationController
   def destroy
     @subject.destroy
     respond_to do |format|
-      format.html {redirect_to admin_subjects_path}
+      format.html {redirect_to subjects_path}
       format.json do
         if @subject.deleted?
           render json: {message: flash_message("deleted")}
@@ -101,7 +101,7 @@ class SubjectsController < ApplicationController
     @subject = Subject.find_by id: params[:id]
     unless @subject
       respond_to do |format|
-        format.html {redirect_to admin_subjects_path}
+        format.html {redirect_to subjects_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -115,7 +115,7 @@ class SubjectsController < ApplicationController
       @course = Course.find_by id: params[:course_id]
       unless @course
         respond_to do |format|
-          format.html {redirect_to :back}
+          format.html {redirect_to courses_path}
           format.json do
             render json: {message: flash_message("not_found")},
               status: :not_found
@@ -126,17 +126,19 @@ class SubjectsController < ApplicationController
   end
 
   def find_course_subject
-    @user_course = current_user.user_courses.find_by course_id: params[:user_course_id]
-    unless @user_course
-      respond_to do |format|
-        format.html {redirect_to admin_subjects_path}
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
+    if params[:user_course_id]
+      @user_course = current_user.user_courses.find_by course_id: params[:user_course_id]
+      unless @user_course
+        respond_to do |format|
+          format.html {redirect_to subjects_path}
+          format.json do
+            render json: {message: flash_message("not_found")},
+              status: :not_found
+          end
         end
       end
+      @course_subject = CourseSubject.where subject_id: params[:id],
+        course_id: @user_course.course_id
     end
-    @course_subject = CourseSubject.where subject_id: params[:id],
-      course_id: @user_course.course_id
   end
 end
