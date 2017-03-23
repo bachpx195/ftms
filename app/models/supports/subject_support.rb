@@ -28,6 +28,6 @@ class Supports::SubjectSupport
   end
 
   def projects_not_in_static_task
-    @projects ||= @subject.organization.projects.where.not id: @course_subject.projects
+    @projects ||= @subject.organization.projects.where.not id: @course_subject.dynamic_tasks
   end
 end

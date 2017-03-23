@@ -9,7 +9,7 @@ import * as subject_constants from '../subject_constants';
 
 const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
 
-export default class ListProjects extends React.Component{
+export default class ListTasks extends React.Component{
   constructor(props){
     super(props);
     this.state = {
@@ -17,6 +17,7 @@ export default class ListProjects extends React.Component{
       type: props.type,
       targetable_ids: [],
       course: props.course,
+      user_id: props.user.user_id || ''
     }
   }
 
@@ -24,6 +25,7 @@ export default class ListProjects extends React.Component{
     this.setState({
       task: nextProps.task,
       type: nextProps.type,
+      user_id: nextProps.user.user_id,
       targetable_ids: [],
       course: nextProps.course
     })
@@ -50,25 +52,29 @@ export default class ListProjects extends React.Component{
         </div>
       );
       const ChooseTargetable = ({griddleKey}) => {
-        let id = this.state.task[type][griddleKey].id;
+        let id;
+        if(this.props.targetable_type == 'StaticTask'){
+          id = this.state.task[type][griddleKey].task_id
+        }else{
+          id = this.state.task[type][griddleKey].id
+        }
         return <CheckBox id={id}
           afterClickCheckbox={this.afterClickCheckbox.bind(this)}
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
       let form_task ;
-      if(this.state.type == 'surveys' || this.state.type == 'projects'){
+      if(this.state.type != 'assignments'){
         form_task = null;
       }else{
         form_task = (
           <FormTask type={this.state.type}
-            subject_id={this.props.subject_id}
+            ownerable_id={this.props.ownerable_id}
+            ownerable_type={this.props.ownerable_type}
             afterCreateTask={this.afterCreateTask.bind(this)}
             subject_detail={this.props.subject_detail}
-            course={this.props.course}
-          />
+            course={this.props.course} user={this.props.user}/>
         )
       }
-
       return(
         <div className='panel-task'>
           <div className='create-task'>
@@ -120,15 +126,17 @@ export default class ListProjects extends React.Component{
     axios.post(TASK_URL, {
       task: {
         targetable_ids: this.state.targetable_ids,
-        targetable_type: this.state.type,
-        ownerable_id: this.props.subject_id,
-        ownerable_type: ownerable_name
+        targetable_type: this.props.targetable_type,
+        ownerable_id: this.props.ownerable_id,
+        ownerable_type: this.props.ownerable_type,
+        user_id: this.state.user_id
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
       $('#modalAddTask').modal('hide');
+      $('#modalUserTask').modal('hide');
       this.props.handleAfterAddTask(this.state.type, this.state.targetable_ids,
-        response.data.list_targets, this.props.subject_detail
+        response.data.list_targets, this.props.subject_detail, this.state.user_id
       );
     })
     .catch(error => console.log(error));

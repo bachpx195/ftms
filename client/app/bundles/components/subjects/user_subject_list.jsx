@@ -44,13 +44,20 @@ export default class UserSubjectList extends React.Component {
       </div>
     );
 
-    const selectBoxStatus = ({griddleKey}) => (
-      <select className="select-status" onChange={this.handleChange.bind(this)}
-        name='status' data-index={griddleKey} 
+    const SelectBoxStatus = ({griddleKey}) => {
+      return <select className="select-status" onChange={this.handleChange.bind(this)}
+        name='status' data-index={griddleKey}
         value={this.state.user_subjects[griddleKey].status}>
         {this.renderOptions()}
-      </select>
-    );
+      </select>;
+    }
+
+    const addTask = ({griddleKey}) => (
+      <button className='btn btn-primary' onClick={this.handleAddTaskForUser.bind(this)}
+        data-index={griddleKey} data-user_id={this.state.user_subjects[griddleKey].user_id}>
+        {I18n.t('subjects.headers.add_task')}
+      </button>
+    )
 
     return (
       <div className='col-md-12'>
@@ -85,9 +92,11 @@ export default class UserSubjectList extends React.Component {
                   title={I18n.t('subjects.headers.end_date')} />
                 <ColumnDefinition id='status'
                   title={I18n.t('subjects.headers.status')}
-                  customComponent={selectBoxStatus} />
+                  customComponent={SelectBoxStatus} />
                 <ColumnDefinition id='current_progress'
                   title={I18n.t('subjects.headers.current_progress')} />
+                <ColumnDefinition id='add_task_for_user'
+                  title={I18n.t('subjects.headers.add_task')} customComponent={addTask} />
               </RowDefinition>
             </Griddle>
           </div>
@@ -96,12 +105,20 @@ export default class UserSubjectList extends React.Component {
     );
   }
 
+  handleAddTaskForUser(event){
+    let target = event.target
+    $(target).blur()
+    let index = $(target).data('index')
+    let user = this.state.user_subjects[index]
+    this.props.afterAddTaskForUser(user, index)
+  }
+
   handleChange(event) {
     let user_subject = this.state.user_subjects[$(event.target).data('index')];
     let index = this.state.user_subjects
       .findIndex(user_subject_item => user_subject_item.id === user_subject.id);
     this.state.user_subjects[index].status = event.target.value;
-   
+
     axios.patch(USER_SUBJECT_URL + user_subject.id, {
       status: event.target.value,
       authenticity_token: ReactOnRails.authenticityToken()

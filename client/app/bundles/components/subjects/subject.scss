@@ -16,6 +16,15 @@
         }
       }
     }
+    .course_subject{
+      .button-show{
+        float: right;
+        .change-panel{
+          padding: 10px;
+        }
+        margin-bottom: 10px;
+      }
+    }
   }
 }
 .blocks {

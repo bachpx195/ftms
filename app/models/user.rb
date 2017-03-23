@@ -18,6 +18,9 @@ class User < ApplicationRecord
   has_many :user_courses, dependent: :destroy, foreign_key: :user_id
   has_many :user_programs, dependent: :destroy
   has_many :user_subjects, dependent: :destroy
+  has_many :course_subjects, through: :user_subjects
+  has_many :dynamic_tasks
+
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
   has_many :user_functions, dependent: :destroy
@@ -31,6 +34,13 @@ class User < ApplicationRecord
   has_many :dynamic_tasks, dependent: :destroy
 
   accepts_nested_attributes_for :user_functions, allow_destroy: true
+
+  def user_tasks task_name
+    tasks = self.dynamic_tasks.map{|dynamic_task| dynamic_task.targetable.targetable if
+      dynamic_task.targetable.targetable_type == task_name}
+    tasks.reject!{|assignment| assignment.nil?}
+    tasks
+  end
 
   def find_base_component
     function = self.functions.order_by_parent_id.first

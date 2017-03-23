@@ -1,5 +1,7 @@
 class AssignTask::TasksController < ApplicationController
   before_action :find_task, only: :destroy
+  before_action :find_ownerable, only: :create
+  before_action :namespace_authorize, only: :create
 
   def create
     list_targets = [];
@@ -7,14 +9,22 @@ class AssignTask::TasksController < ApplicationController
       params[:task][:targetable_ids].each do |targetable_id|
         _params = task_params
         _params[:targetable_type] = task_params[:targetable_type].classify
-        @task = StaticTask.new _params
+        @task = if params[:task][:user_id]
+          @ownerable.dynamic_tasks.new _params
+        else
+          @ownerable.static_tasks.new _params
+        end
         @task.targetable_id = targetable_id
         unless @task.save
           format.html {}
           format.json {render json: {message: flash_message("not_created")},
             status: :unprocessable_entity}
         end
-        list_targets << @task.targetable.attributes.merge(task_id: @task.id)
+        if _params[:targetable_type] == "StaticTask"
+          list_targets << @task.targetable.targetable.attributes.merge(task_id: @task.id)
+        else
+          list_targets << @task.targetable.attributes.merge(task_id: @task.id)
+        end
       end
       format.html {}
       format.json {render json: {message: flash_message("created"),
@@ -48,6 +58,19 @@ class AssignTask::TasksController < ApplicationController
     unless @task
       respond_to do |format|
         format.html {redirect_to subjects_path}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
+  end
+
+  def find_ownerable
+    @ownerable = params[:task][:ownerable_type].classify.constantize.find_by id: params[:task][:ownerable_id]
+    unless @ownerable
+      respond_to do |format|
+        format.html {redirect_to :back}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

@@ -4,42 +4,48 @@ import axios from 'axios';
 import ListTasks from './list_tasks';
 import BlockTasks from '../block_tasks'
 import UserTasks from './user_tasks'
-export default class ModalBody extends React.Component{
+
+export default class ModalTask extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       task: props.task,
       type: '',
       survey_id: '',
-      course: props.course,
+      list_user: true,
+      user_tasks: props.user_tasks
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps){
     this.setState({
       task: nextProps.task,
-      course: nextProps.course
-    });
+      user_tasks: nextProps.user_tasks
+    })
   }
 
   render(){
-    let task;
-    let buttonAddUserTask ;
-    if(this.props.course){
-      task = (
-        <div className='panel-project panel-body'>
-          <ListTasks task={this.state.task} type={this.state.type}
-            afterChoose={this.afterChoose.bind(this)}
-            ownerable_id={this.props.ownerable_id}
-            ownerable_type={this.props.ownerable_type}
-            subject_detail={this.props.subject_detail}
-            handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-            afterCreateTask={this.afterCreateTask.bind(this)}
-            user='' targetable_type={this.state.type} />
-        </div>
+    let user_task;
+    let button_name ;
+    let available_tasks = [];
+    if(this.state.type != '') {
+        available_tasks = this.state.task[this.state.type].filter(task => {
+        let index = this.state.user_tasks[this.state.type].findIndex(_user_task => {
+          return _user_task.id == task.id;
+        })
+        return index < 0;
+      });
+    }
+    this.state.task[this.state.type] = available_tasks
+    if(this.state.list_user){
+      button_name = I18n.t('buttons.add_task')
+      user_task = (
+        <UserTasks user_tasks={this.state.user_tasks} type={this.state.type}
+          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}/>
       )
     }else{
-      task = (
+      button_name = I18n.t('buttons.list_task')
+      user_task = (
         <div className='panel-project panel-body'>
           <ListTasks task={this.state.task} type={this.state.type}
             afterChoose={this.afterChoose.bind(this)}
@@ -48,13 +54,19 @@ export default class ModalBody extends React.Component{
             subject_detail={this.props.subject_detail}
             handleAfterAddTask={this.handleAfterAddTask.bind(this)}
             afterCreateTask={this.afterCreateTask.bind(this)}
-            user='' targetable_type={this.state.type} />
+            user={this.props.user} targetable_type="StaticTask" />
         </div>
       )
     }
+
     return(
       <div className='modal-task'>
         <div className='modal-body'>
+          <div className='button-show'>
+            <button className='change-panel' onClick={this.changePanel.bind(this)}>
+              {button_name}
+            </button>
+          </div>
           <div className='select-task'>
             <div className="form-group choose-task">
               <label htmlFor="sel1">{I18n.t("subjects.select_task")}</label>
@@ -64,27 +76,19 @@ export default class ModalBody extends React.Component{
                 <option value='assignment'>{I18n.t("subjects.assignment")}</option>
                 <option value='survey'>{I18n.t("subjects.survey")}</option>
                 <option value='test_rule'>{I18n.t("subjects.test_rule")}</option>
-                {this.renderProject()}
-            </select>
+              </select>
             </div>
           </div>
-          <div className='list-task'>
-            {task}
+          <div className='list-task clearfix'>
+            {user_task}
           </div>
         </div>
       </div>
     )
   }
-
-  renderProject() {
-    if(this.state.course){
-      return(<option value='project'>{I18n.t("subjects.project")}</option>)
-    }
-  }
-
-  changePanelAddTask(){
+  changePanel(){
     this.setState({
-      user_type: 'add task'
+      list_user: !this.state.list_user
     })
   }
 
@@ -104,6 +108,10 @@ export default class ModalBody extends React.Component{
     this.setState({
       id: id
     });
+  }
+
+  handleAfterDeleteTask(task_id, task, type){
+    this.props.handleAfterDeleteTask(task_id, task, type)
   }
 
   handleAfterAddTask(type, ids, targets, subject_detail, user_id) {
