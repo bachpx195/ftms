@@ -13,7 +13,6 @@ json.course do
     json.user_course user_course
   end
   json.unassigned_users @supports.unassigned_users, :id, :name, :avatar
-  json.course_subjects @supports.course_subjects
   json.start_date @course.start_date
   json.end_date @course.end_date
   json.creator @course.creator

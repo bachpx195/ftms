@@ -23,6 +23,7 @@ export default class FormCourse extends React.Component {
       url: props.url,
       url_programs: props.url_programs,
       program_detail: {},
+      course: {},
       image: {},
       changeImage: false,
       errors: null,
@@ -63,17 +64,17 @@ export default class FormCourse extends React.Component {
             {image}
           </div>
         </div>
-        <div className="form-group">
-          <select className="form-control" name="language_id"
+        <div className='form-group'>
+          <select className='form-control' name='language_id'
             onChange={this.handleChange.bind(this)}>
-            <option value="">{I18n.t('courses.select_languages')}</option>
+            <option value=''>{I18n.t('courses.select_languages')}</option>
             {this.renderOptions(this.state.program_detail.languages)}
           </select>
         </div>
-        <div className="form-group">
-          <select className="form-control" name="training_standard_id"
+        <div className='form-group'>
+          <select className='form-control' name='training_standard_id'
             onChange={this.handleChange.bind(this)}>
-            <option value="">
+            <option value=''>
               {I18n.t('courses.select_training_standard')}
             </option>
             {this.renderOptions(this.state.program_detail.training_standards)}
@@ -112,13 +113,14 @@ export default class FormCourse extends React.Component {
           <label>{I18n.t('courses.roles')}</label>
           <select className='nht-list-roles form-control'
             onChange={this.handleChangeRole.bind(this)} id='list-roles'>
-            <option value="">{I18n.t('courses.select_role')}</option>
+            <option value=''>{I18n.t('courses.select_role')}</option>
             {this.renderOptions(this.state.all_roles)}
           </select>
 
           <label>{I18n.t('courses.owners')}</label>
           <select className='nht-list-owners form-control' id='list-owners'
             name='owner_id' onChange={this.handleChange.bind(this)}>
+            <option value=''>{I18n.t('courses.select_owner')}</option>
             {this.renderOptions(this.state.owners)}
           </select>
         </div>
@@ -155,8 +157,9 @@ export default class FormCourse extends React.Component {
 
   handleChange(event) {
     let attribute = event.target.name;
+    Object.assign(this.state.course, {[attribute]: event.target.value});
     this.setState({
-      [attribute]: event.target.value
+      course: this.state.course
     });
   }
 
@@ -187,13 +190,16 @@ export default class FormCourse extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let course = _.omit(this.state, 'errors');
+    let course = _.omit(this.state.course, 'errors');
     if(!this.state.changeImage) {
       course = _.omit(course, 'image');
     }
     let formData = new FormData();
     for(let key of Object.keys(course)) {
       formData.append('course[' + key + ']', course[key]);
+    }
+    if(Object.keys(course).length == 0) {
+      formData.append('course[key]', null);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     axios.post(this.props.url,
@@ -204,9 +210,10 @@ export default class FormCourse extends React.Component {
       this.setState({
         program_detail: {},
         image: '',
+        course: {},
         changeImage: false,
       });
-      this.props.handleAfterSaved(response.data.course);
+      window.location.href = this.props.url + '/' + response.data.course.id;
     })
     .catch(error => this.setState({errors: error.response.data.errors}));
   }

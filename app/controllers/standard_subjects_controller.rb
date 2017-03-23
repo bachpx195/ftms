@@ -35,12 +35,12 @@ class StandardSubjectsController < ApplicationController
       if @standard_subject.destroy
         format.html {redirect_to root_path}
         format.json do
-          render json: {message: flash_message("created"),
+          render json: {message: flash_message("deleted"),
             standard_subject: @standard_subject}
         end
       else
         format.json do
-          render json: {message: flash_message("not_created"),
+          render json: {message: flash_message("not_deleted"),
             errors: @standard_subject.errors}, status: :unprocessable_entity
         end
       end

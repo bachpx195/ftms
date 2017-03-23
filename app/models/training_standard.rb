@@ -6,8 +6,8 @@ class TrainingStandard < ApplicationRecord
   has_one :evaluation_template, dependent: :destroy
 
   has_many :courses, dependent: :destroy
-  has_many :subjects, through: :standard_subjects, dependent: :destroy
   has_many :standard_subjects, dependent: :destroy
+  has_many :subjects, through: :standard_subjects
   has_many :standard_organizations, dependent: :destroy
   has_many :organizations, through: :standard_organizations, source: :organization
   has_many :standard_programs, dependent: :destroy
