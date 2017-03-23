@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.string   "heroku_link"
     t.string   "redmine_link"
     t.datetime "deleted_at"
-    t.integer  "status"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "status",                            default: 0, null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.index ["course_id"], name: "index_course_subjects_on_course_id", using: :btree
     t.index ["subject_id"], name: "index_course_subjects_on_subject_id", using: :btree
   end

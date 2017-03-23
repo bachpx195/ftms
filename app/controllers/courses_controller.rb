@@ -15,8 +15,15 @@ class CoursesController < ApplicationController
   end
 
   def create
+    training_standard = @program.training_standards
+      .find_by id: course_params[:training_standard_id]
+    subject_ids = if training_standard
+      training_standard.subject_ids
+    else
+      Array.new
+    end
     @course = @program.courses.build course_params
-      .merge(creator_id: current_user.id)
+      .merge creator_id: current_user.id, subject_ids: subject_ids
     respond_to do |format|
       if @course.save
         format.html {redirect_to :back}

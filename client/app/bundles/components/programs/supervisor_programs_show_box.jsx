@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
 import Modal from './modal';
+import Errors from '../shareds/errors';
 
 import UserLists from './user_lists';
 import CourseLists from './course_lists';
@@ -33,6 +34,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
       all_roles: [],
       owners: [],
       organization: [],
+      errors: null,
     };
   }
 
@@ -111,7 +113,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
     let course_path = COURSE_URL + this.props.program.id + '/' +
       course_constants.COURSES_PATH + course.id;
     let description = course.description;
-    if(description.length > LIMIT_DESCRIPTION){
+    if(description && description.length > LIMIT_DESCRIPTION){
       description = course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
     return (
@@ -253,9 +255,8 @@ export default class SupervisorProgramsShowBox extends React.Component {
         url={COURSE_URL + this.props.program.id +'/courses'}
         image={this.state.image} program={this.props.program}
         all_roles={this.state.all_roles}
-        owners={this.state.owners}
-        url_programs={url_programs}
-        handleAfterCreated={this.handleAfterSubmit.bind(this)} />
+        owners={this.state.owners} course={this.state.course}
+        url_programs={url_programs} />
     );
 
     return (
@@ -337,6 +338,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
             </div>
             <div className="modal-body">
               <form onSubmit={this.handleSubmitCreateStandard.bind(this)}>
+                <Errors errors={this.state.errors} />
                 <div className="form-group">
                   <input type="text" placeholder={I18n.t("training_standards.headers.name")}
                     className="form-control" name="name" ref="nameField" />
@@ -385,9 +387,13 @@ export default class SupervisorProgramsShowBox extends React.Component {
   handleCreate(event){
     $('#modalEdit').find('select, input').val('');
     $('#modalEdit').modal();
+    this.setState({
+      course: {}
+    });
   }
 
   handleCreateStandard() {
+    $('#modalCreateStandards').find('input').val('');
     $('#modalCreateStandards').modal();
   }
 
@@ -406,8 +412,9 @@ export default class SupervisorProgramsShowBox extends React.Component {
       });
       $('#modalCreateStandards').modal('hide');
       this.refs.nameField.value = ''
+      window.location.href = STANDARD_URL + '/' + response.data.training_standard.id;
     })
-    .catch(error => console.log(error));
+    .catch(error => this.setState({errors: error.response.data.errors}));
   }
 
   handleSelectChange(event){
@@ -435,14 +442,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
     this.setState({
       program_detail: this.state.program_detail,
       course: {},
-    });
-  }
-
-  handleAfterSubmit(course){
-    this.state.program_detail.courses.push(course);
-    this.setState({
-      program_detail: this.state.program_detail,
-      courses: this.state.program_detail.courses
     });
   }
 }

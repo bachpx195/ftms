@@ -11,7 +11,7 @@ class CreateCourseSubjects < ActiveRecord::Migration[5.0]
       t.string :heroku_link
       t.string :redmine_link
       t.datetime :deleted_at
-      t.integer :status
+      t.integer :status, default: 0, null: false
 
       t.timestamps
     end

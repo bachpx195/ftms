@@ -64,6 +64,7 @@ en:
     owners: "Owners"
     roles: "Roles"
     select_role: "Select role"
+    select_owner: "Select owner"
     add_task: "Add Task"
     create_task_title: "Create Task: Survey"
     survey_in_course: "Surveys in course"

@@ -41,7 +41,9 @@ json.program_detail do
   end
   json.course_counts @supports.courses.count
   json.training_standards @supports.training_standards do |training_standard|
-    json.extract! training_standard, :id, :name
+    if training_standard.subjects.length > 0
+      json.extract! training_standard, :id, :name
+    end
   end
   json.program_subjects @supports.program_subjects do |program_subject|
     json.extract! program_subject, :id, :name, :description

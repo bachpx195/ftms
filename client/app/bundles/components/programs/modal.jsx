@@ -22,15 +22,11 @@ export default class Modal extends React.Component {
                url_programs={this.props.url_programs}
                course={this.props.course}
                all_roles={this.props.all_roles}
-               owners={this.props.owners}
-               handleAfterSaved={this.handleAfterCreated.bind(this)} />
+               owners={this.props.owners} />
             </div>
           </div>
         </div>
       </div>
     );
-  }
-  handleAfterCreated(course) {
-    this.props.handleAfterCreated(course);
   }
 }

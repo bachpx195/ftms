@@ -31,7 +31,7 @@ export default class FormEdit extends React.Component {
     return (
       <div id='modalEdit' className='modal fade in' role='dialog'>
         <div className='modal-dialog'>
-          <div className='modal-content'>
+          <div className='modal-content form-edit-show-course'>
             <div className='modal-header'>
               <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
