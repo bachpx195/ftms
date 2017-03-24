@@ -16,7 +16,7 @@ export default class UserFunctionBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      check_all: 'none',
+      check_all: props.check_all,
       functions: props.data,
       user_id: props.user_id
     }
@@ -93,7 +93,8 @@ export default class UserFunctionBox extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       functions: nextProps.data,
-      user_id: nextProps.user_id
+      user_id: nextProps.user_id,
+      check_all: nextProps.check_all
     });
   }
 
@@ -115,7 +116,7 @@ export default class UserFunctionBox extends React.Component {
 
   handleCheckbox(griddleKey, checked){
     this.updateStateFunctions(griddleKey, checked);
-    this.props.dataChange(this.state.functions);
+    this.props.dataChange(this.state.functions, 'none');
   }
 
   handlePage(){

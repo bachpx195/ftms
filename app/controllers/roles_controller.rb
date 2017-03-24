@@ -17,7 +17,7 @@ class RolesController < ApplicationController
       @role = Role.find_by id: role["key"]
       @role.update_attributes parent_id: role["parent"]
     end
-    redirect_to admin_roles_path
+    redirect_to roles_path
   end
 
   private

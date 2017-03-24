@@ -73,4 +73,5 @@ Rails.application.routes.draw do
   resources :user_courses do
     resources :subjects
   end
+  resources :tasks
 end
