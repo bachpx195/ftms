@@ -34,9 +34,6 @@ class Serializers::BaseSerializer
     end
     self.attributes.each{|method|
       serializers[method.to_sym] = self.send method if method.in? self.methods}
-    self.class.conditions.each do |key, value|
-      serializers.delete key unless self.send(value)
-    end
     serializers
   end
 
@@ -47,6 +44,9 @@ class Serializers::BaseSerializer
     while superclass != Serializers::BaseSerializer do
       attributes += superclass.attributes
       superclass = superclass.superclass
+    end
+    self.class.conditions.each do |key, value|
+      attributes.delete key unless self.send(value)
     end
     attributes
   end
@@ -75,7 +75,7 @@ class Serializers::BaseSerializer
   class << self
     def attr_accessor *vars
       @attributes ||= Array.new
-      @conditions ||= Array.new
+      @conditions ||= Hash.new
       attr_var = Array.new
       vars.each_with_index.map do |var, i|
         if vars[i + 1] && vars[i + 1].class == Hash
@@ -93,7 +93,7 @@ class Serializers::BaseSerializer
     end
 
     def conditions
-      @conditions ||= Array.new
+      @conditions ||= Hash.new
     end
   end
 end
