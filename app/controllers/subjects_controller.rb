@@ -29,6 +29,16 @@ class SubjectsController < ApplicationController
     @subject_supports = Supports::SubjectSupport
       .new subject: @subject, course: course, course_subject: @course_subject,
       current_user: current_user
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          subject_detail: Serializers::Subjects::SubjectDetailsSerializer
+            .new(object: @subject, scope: {subject_supports: @subject_supports,
+            course_subjects: @course_subject, courses: @course}).serializer
+        }
+      end
+    end
   end
 
   def update
@@ -72,16 +82,14 @@ class SubjectsController < ApplicationController
   def find_course_subject
     params_user_course = params[:user_course_id]
     params_course = params[:course_id]
-
     if params_user_course
       user_course = current_user.user_courses.find_by id: params_user_course
-      @course_subject =
-        if user_course
-          CourseSubject.find_by subject_id: params[:id],
-            course_id: user_course.course_id
-        elsif params_course
-          CourseSubject.find_by course_id: params_course
-        end
+      if user_course
+        @course_subject = CourseSubject.find_by subject_id: params[:id],
+          course_id: user_course.course_id
+      end
+    elsif params_course
+      @course_subject = CourseSubject.find_by course_id: params_course
     end
   end
 end

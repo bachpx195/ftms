@@ -25,8 +25,6 @@ module Authorize
           #{record}"
         raise error
       end
-    else
-      raise "Forbidden"
     end
   end
 
