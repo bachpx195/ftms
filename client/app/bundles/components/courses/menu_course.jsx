@@ -4,8 +4,11 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import FormEdit from './form_edit'
 import * as app_constants from 'constants/app_constants';
+import * as program_constants from '../programs/program_constants';
+import * as course_constants from './course_constants';
 
 const COURSE_URL = app_constants.APP_NAME;
+const PROGRAM_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
 
 export default class MenuCourse extends React.Component {
   constructor(props) {
@@ -16,9 +19,10 @@ export default class MenuCourse extends React.Component {
       url: props.url,
     };
   }
-  render(){
+  render() {
     return(
-      <div className="td-course-edit-delete pull-right">
+      <div className="td-course-edit-delete pull-left hidden">
+        {this.renderButtonFinish()}
         <a onClick={this.handleEdit.bind(this)} title={I18n.t("courses.edit")}>
           <span className="btn glyphicon glyphicon-edit"
             aria-hidden="true">
@@ -77,4 +81,36 @@ export default class MenuCourse extends React.Component {
   handleEdit(event){
     $('#modalEdit').modal();
   }
+
+  renderButtonFinish() {
+    if (this.state.course.status != 'finished') {
+      return(
+       <button className='btn btn-danger finish-course'
+          onClick={this.changeStatus.bind(this)} >
+          {I18n.t('courses.buttons.finish')}
+        </button>
+      )
+    }
+  }
+
+  changeStatus() {
+    axios.patch(PROGRAM_URL+ this.props.program.id+ '/' + 
+      course_constants.COURSES_PATH + this.state.course.id, {
+        status: 'finished',
+        authenticity_token: ReactOnRails.authenticityToken(),
+    }, app_constants.AXIOS_CONFIG)
+    .then(response => {
+      this.state.course.status = 'finished'
+      this.setState({
+        course: this.state.course
+      })
+      this.props.handleAfterChangeStatus(this.state.course);
+      $('.finish-course').hide();
+      
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
 }

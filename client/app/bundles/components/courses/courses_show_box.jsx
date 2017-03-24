@@ -83,7 +83,8 @@ export default class CoursesShowBox extends React.Component {
             <div className="subject row">
               <a href={course_subject_path}>
                 <div className="col-xs-2 subject-image">
-                  <img className="img-circle" src={subject_image} width="100" height="100" />
+                  <img className="img-circle" src={subject_image} 
+                    width="100" height="100" />
                 </div>
                 <div className="col-xs-10 infor">
                   <div>
@@ -107,11 +108,12 @@ export default class CoursesShowBox extends React.Component {
   renderManager(user) {
     let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
     return (
-     <li key={user.id}>
-       <a href={user_path} title={user.name}>
-         <img className='img-circle' src={user.avatar.url} width='30' height='30'/>
-       </a>
-     </li>
+      <li key={user.id}>
+        <a href={user_path} title={user.name}>
+          <img className='img-circle' 
+            src={user.avatar.url} width='30' height='30'/>
+        </a>
+      </li>
     );
   }
 
@@ -132,19 +134,23 @@ export default class CoursesShowBox extends React.Component {
     return (
       <li className="member-item" key={user.id}>
         <a href={user_path} title={user.name}>
-          <img className='img-circle' src={user.avatar.url} width='30' height='30'/>
+          <img className='img-circle' 
+            src={user.avatar.url} width='30' height='30'/>
           {user.name}
         </a>
         <div className="pull-right user-course">
           <div id="user-course-113">
             <div className="menu-right-user-course">
               <div className="dropdown action-user-course">
-                <span id="dLabe" data-toggle="dropdown" className="evaluation-show">
-                  <i className="glyphicon glyphicon-align-justify text-danger"></i>
+                <span id="dLabe" data-toggle="dropdown" 
+                  className="evaluation-show">
+                  <i className="glyphicon glyphicon-align-justify text-danger">
+                  </i>
                 </span>
                 <ul className="dropdown-menu dropdown-menu-right" >
                   <li>
-                    <a href="#" onClick={this.handleEvaluateModal.bind(this, user)} >
+                    <a href="#" 
+                      onClick={this.handleEvaluateModal.bind(this, user)} >
                       {I18n.t('courses.evaluation.evaluate')}
                     </a>
                   </li>
@@ -196,7 +202,8 @@ export default class CoursesShowBox extends React.Component {
             </span>
             <div className="pull-right">
               <button type="button" className="btn btn-default"
-                onClick={this.handleAssignMember.bind(this)} title={I18n.t("courses.assign_user")}>
+                onClick={this.handleAssignMember.bind(this)} 
+                title={I18n.t("courses.assign_user")}>
                 <i className="fa fa-user-plus"></i>
               </button>
             </div>
@@ -235,25 +242,27 @@ export default class CoursesShowBox extends React.Component {
     }
     let description = this.state.course.description;
     if(description.length > LIMIT_DESCRIPTION){
-      description = this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
+      description = 
+        this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
 
     return(
-      <div id='course-show' className='row'>
+      <div className='row course-show'>
         <div className='col-md-9'>
           <div className='course-subject row'>
-            <div className='col-md-11 image-course-header'>
+            <div className='col-md-7 image-course-header'>
               <div className='subject-image img-resposive'>
                 <img className='img-circle'
-                  src={this.state.course.image.url ? this.state.course.image.url :
+                  src={this.state.course.image.url ? 
+                    this.state.course.image.url :
                     DEFAULT_IMAGE_COURSE}/>
               </div>
               <div className='course-header'>
                 <span className='header-title'>
                   {this.state.course.name}
                 </span>
-                <span className={'label-status' + ' ' + this.state.course.status +
-                  '-background-color'}>
+                <span className={'label-status' + ' ' + 
+                  this.state.course.status + '-background-color'}>
                   {I18n.t(`courses.${this.state.course.status}`)}
                 </span>
                 <div className='show-creator'>
@@ -265,20 +274,27 @@ export default class CoursesShowBox extends React.Component {
                 <div className='description-course'
                   title={this.state.course.description}>
                   <i>
-                    {description ? description : I18n.t('courses.default_description')}
+                    {description ? description : 
+                      I18n.t('courses.default_description')}
                   </i>
                 </div>
               </div>
             </div>
-            <div className='col-md-1'>
+
+            <div className='col-md-5'>
               <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
                 course_constants.COURSES_PATH + this.props.course.id}
                 course={this.state.course}
-                handleAfterEdit={this.handleAfterUpdate.bind(this)} />
+                handleAfterEdit={this.handleAfterUpdate.bind(this)}
+                program={this.props.program}
+                handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)} />
+              <span className="btn glyphicon glyphicon-list pull-right"
+                onClick={this.clickButtonList.bind(this)}></span>
             </div>
           </div>
 
-          <button className="btn add_task" title={I18n.t("courses.title_add_task")}
+          <button className="btn add_task" 
+            title={I18n.t("courses.title_add_task")}
             onClick={this.addTask.bind(this)}>
             <i className="fa fa-plus" aria-hidden="true"></i>
             {I18n.t("courses.add_task")}
@@ -299,7 +315,8 @@ export default class CoursesShowBox extends React.Component {
           }
         </div>
         <ModalAssignMember unassignedUsers={this.state.course.unassigned_users}
-          managers={this.state.course.managers} members={this.state.course.members}
+          managers={this.state.course.managers} 
+          members={this.state.course.members}
           rerender={this.state.rerender} course={this.state.course}
           afterAssignUsers={this.afterAssignUsers.bind(this)} />
 
@@ -321,7 +338,6 @@ export default class CoursesShowBox extends React.Component {
           evaluation_template={this.state.evaluation_template}
           afterEvaluateMember={this.afterEvaluateMember.bind(this)}
         />
-
       </div>
     );
   }
@@ -397,5 +413,24 @@ export default class CoursesShowBox extends React.Component {
       members: members
     });
     this.setState({course: this.state.course});
+  }
+
+  handleAfterChangeStatus(new_course) {
+    this.setState({
+      course: new_course,
+    })
+  }
+
+  clickButtonList() {
+    if ($('.td-course-edit-delete').hasClass('hidden')) {
+      $('.td-course-edit-delete').removeClass('hidden');
+    } else {
+      $('.td-course-edit-delete').addClass('hidden');
+    }
+
+    if ($('.td-course-edit-delete').find('.finish-button')) {
+      $('.td-course-edit-delete').css('margin-left','35%');
+    }
+
   }
 }

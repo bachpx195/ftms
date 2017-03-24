@@ -38,6 +38,17 @@ class Course < ApplicationRecord
     source_type: TestRule.name
   has_many :member_evaluations, as: :targetable, dependent: :destroy
 
+  has_many :dynamic_tasks, as: :ownerable,
+    class_name: DynamicTask.name, dependent: :destroy
+  has_many :dynamic_assignments, through: :dynamic_tasks, source: :targetable,
+    source_type: Assignment.name
+  has_many :dynamic_surveys, through: :dynamic_tasks, source: :targetable,
+    source_type: Survey.name
+  has_many :dynamic_projects, through: :dynamic_tasks, source: :targetable,
+    source_type: Project.name
+  has_many :dynamic_test_rules, through: :dynamic_tasks, source: :targetable,
+    source_type: TestRule.name
+
   accepts_nested_attributes_for :user_courses, allow_destroy: true
 
   validates :name, presence: true

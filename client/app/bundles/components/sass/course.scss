@@ -1,192 +1,209 @@
-#course-show {
-  .course-subject {
-    background-color: #3c586a;
-    margin-top: 15px;
-    padding: 14px 0px;
-    border-bottom-left-radius: 100px;
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    box-shadow: 5px 5px 5px 0px #666;
-    margin: 0px 0px;
-    color: #FFF;
-  }
-  .subject {
-    background-color: white;
-    margin-top: 15px;
-    padding: 5px 2px;
-    border-bottom-left-radius: 100px;
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    margin: 7px 0px;
-  }
+$orange: #e46c11;
+$silver: #eee;
+$black: #1c1c1c;
+$show-course-subject-blue-sky: #3c586a;
+$show-course-subject-silver: #666;
+$show-course-subject-white: #fff;
+$course-show-subject: #242424;
+$course-show-node: #e2e8e8;
+$subject-name: #21abc7;
+$member-list: #72afd2;
+$plus-node: #b3b3b3;
+$plus-node-a: #e0e1dd;
+$box-title: #575a5b;
+$box-primary: #3c8dbc;
+$section-content-box: #d2d6de;
+$section-content-box-shadow: #303030;
+$box-header: #444;
+$info-black: #000;
+$td-course-edit-delete: #eee;
+$td-course-edit-delete-span: #1c1c1c;
 
-  .node--connected::after {
-    background: #e2e8e8;
-    bottom: 18px;
-    content: "";
-    height: 125px;
-    left: 28px;
-    position: absolute;
-    width: 6px;
-    z-index: -1;
-  }
+.course-subject {
+  background-color: $show-course-subject-blue-sky;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  box-shadow: 5px 5px 5px 0 $show-course-subject-silver;
+  color: $show-course-subject-white;
+  margin: 0;
+  margin-top: 15px;
+  padding: 14px 0;
+}
 
-  .node {
-    border: 3px solid white;
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-    margin-top: 46px;
-  }
+.subject {
+  background-color: $show-course-subject-white;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  box-shadow: 0 1px 1px $course-show-subject;
+  margin: 7px 0;
+  margin-top: 15px;
+  padding: 5px 2px;
+}
 
-  .subject-image {
-    padding-left: 5px;
-    padding-right: 0px;
-  }
+.node--connected::after {
+  background: $course-show-node;
+  bottom: 18px;
+  content: '';
+  height: 125px;
+  left: 28px;
+  position: absolute;
+  width: 6px;
+  z-index: -1;
+}
 
-  .infor {
-    padding-top: 13px;
-    margin-right: 0px;
-  }
+.node {
+  border: 3px solid $show-course-subject-white;
+  border-radius: 50%;
+  height: 32px;
+  margin-top: 46px;
+  width: 32px;
+}
 
-  .subject-name {
-    font-size: 20px;
-    color: #21abc7;
-    font-weight: 300;
-    margin: 4px 0px;
-  }
-
-  .image-course-header {
-    display: flex;
-
-    .img-circle {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-    }
-
-    .course-header {
-      display: block;
-      margin-left: 20px;
-
-      .header-title {
-        font-size: 200%;
-        color: rgb(228, 108, 17);
-        font-weight: 700;
-        margin-right: 10px;
-      }
-
-      .label-status {
-        border-radius: 3px;
-        color: white;
-        font-weight: 500;
-        padding: 0px 3px 1px 5px;
-      }
-    }
-  }
-
-  .info-panel {
-    .user-list {
-      padding-left: 3px;
-
-      li {
-        margin: 6px;
-        list-style: none;
-        float: left;
-      }
-    }
-
-    .member-list {
-      list-style: none;
-      margin-top: 10px;
-      padding: 0 0 0 5px;
-
-      .member-item {
-        margin-bottom: 10px;
-
-        a {
-          text-decoration: none;
-        }
-
-        a:hover {
-          color: #72afd2;
-        }
-      }
-    }
-
-    .plus-node {
-      background-color: #b3b3b3;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      line-height: 2;
-      color: white;
-      a {
-        color: WHITE;
-      }
-    }
-
-    .plus-node:hover {
-      background-color: #E0E1DD;
-    }
-
-    .doc-field {
-      padding-left: 28px;
-      list-style-type: circle;
-
-      a {
-        text-decoration: underline !important;
-      }
-
-      abbr[title] {
-        border-bottom: none;
-      }
-    }
-
-    .box-title {
-      color: #575a5b;
-      margin: 0px;
-    }
-
-    .section-content {
-      .box-primary {
-        border-top-color: #3c8dbc;
-      }
-
-      .box {
-        position: relative;
-        border-radius: 3px;
-        background: #ffffff;
-        border-top: 3px solid #d2d6de;
-        margin-bottom: 20px;
-        width: 100%;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-      }
-
-      .box-header {
-        color: #444;
-        display: block;
-        padding: 10px;
-        position: relative;
-      }
-
-      .box-body {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 3px;
-        border-bottom-left-radius: 3px;
-        padding: 10px;
-      }
-    }
-  }
+.subject-image {
+  padding-left: 5px;
+  padding-right: 0;
 }
 
 .infor {
-  color: #000;
+  margin-right: 0;
+  padding-top: 13px;
+}
+
+.subject-name {
+  color: $subject-name;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 4px 0;
+}
+
+.image-course-header {
+  display: flex;
+}
+
+.image-course-header .img-circle {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+
+.course-header {
+  display: block;
+  margin-left: 20px;
+}
+
+.course-header .header-title {
+  color: $orange;
+  font-size: 200%;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.course-header .label-status {
+  border-radius: 3px;
+  color: $show-course-subject-white;
+  font-weight: 500;
+  padding: 0 3px 1px 5px;
+}
+
+.info-panel .user-list {
+  padding-left: 3px;
+}
+
+.info-panel .user-list li {
+  float: left;
+  list-style: none;
+  margin: 6px;
+}
+
+.info-panel .member-list {
+  list-style: none;
+  margin-top: 10px;
+  padding: 0 0 0 5px;
+}
+
+.info-panel .member-list .member-item {
+  margin-bottom: 10px;
+}
+
+.member-list .member-item a {
+  text-decoration: none;
+}
+
+.member-list .member-item a:hover {
+  color: $member-list;
+}
+
+.info-panel .plus-node {
+  background-color: $plus-node;
+  border-radius: 50%;
+  color: $show-course-subject-white;
+  height: 30px;
+  line-height: 2;
+  text-align: center;
+  width: 30px;
+}
+
+.info-panel .plus-node a {
+  color: $show-course-subject-white;
+}
+
+.info-panel .plus-node:hover {
+  background-color: $plus-node-a;
+}
+
+.info-panel .doc-field {
+  list-style-type: circle;
+  padding-left: 28px;
+}
+
+.info-panel .doc-field a {
+  text-decoration: underline !important;
+}
+
+.info-panel .doc-field [title] {
+  border-bottom: 0;
+}
+
+.info-panel .box-title {
+  color: $box-title;
+  margin: 0;
+}
+
+.info-panel .section-content .box-primary {
+  border-top-color: $box-primary;
+}
+
+.info-panel .section-content .box {
+  background: $show-course-subject-white;
+  border-radius: 3px;
+  border-top: 3px solid $section-content-box;
+  box-shadow: 0 1px 1px $section-content-box-shadow;
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.info-panel .section-content .box-header {
+  color: $box-header;
+  display: block;
+  padding: 10px;
+  position: relative;
+}
+
+.info-panel .section-content .box-body {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 10px;
+}
+
+.infor {
+  color: $info-black;
 }
 
 .subject-list {
@@ -194,102 +211,115 @@
   padding-top: 30px;
 }
 
-$init_color: GREEN;
-$progress_color: BLUE;
-$finish_color: #ccc;
-$waiting_color: #DF8B14;
-$testing_color: #5bc0de;
-$pass_color: GREEN;
-$fail_color: RED;
+$init-color: GREEN;
+$progress-color: BLUE;
+$finish-color: #ccc;
+$waiting-color: #df8b14;
+$testing-color: #5bc0de;
+$pass-color: GREEN;
+$fail-color: RED;
 
 .init-color {
-  color: $init_color;
+  color: $init-color;
 }
 
 .init-background-color {
-  background-color: $init_color !important;
+  background-color: $init-color !important;
 }
 
 .init-border-color {
-  border: 1px solid $init_color;
+  border: 1px solid $init-color;
 }
 
-.progress-color, .in_progress-color, .inprogress-color {
-  color: $progress_color;
+.progress-color,
+.in-progress-color,
+.inprogress-color {
+  color: $progress-color;
 }
 
 .waiting-background-color {
-  background-color: $waiting_color !important;
+  background-color: $waiting-color !important;
 }
 
 .testing-background-color {
-  background-color: $testing_color !important;
+  background-color: $testing-color !important;
 }
 
-.progress-background-color, .in_progress-background-color {
-  background-color: $progress_color !important;
+.progress-background-color,
+.in-progress-background-color {
+  background-color: $progress-color !important;
 }
 
 .pass-background-color {
-  background-color: $pass_color;
+  background-color: $pass-color;
 }
 
 .fail-background-color {
-  background-color: $fail_color;
+  background-color: $fail-color;
 }
 
 .progress-border-color {
-  border: 1px solid $progress_color;
+  border: 1px solid $progress-color;
 }
 
-
-.finish-color, .finished-color, .complete-color {
-  color: $finish_color;
+.finish-color,
+.finished-color,
+.complete-color {
+  color: $finish-color;
 }
 
-.finish-background-color, .finished-background-color {
-  background-color: $finish_color !important;
+.finish-background-color,
+.finished-background-color {
+  background-color: $finish-color !important;
 }
 
 .finish-border-color {
-  border: 1px solid $finish_color;
+  border: 1px solid $finish-color;
 }
 
-.td-course-edit-delete {
-  a {
-    margin-left: 5px;
-    span {
-      &.glyphicon {
-        color: #e46c11;
-        background-color: #eee;
-        font-size: 18px;
-        border-radius: 50%;
-        box-shadow: 0 1px 1px rgba(24, 24, 24, 0.88);
-        margin: 5px 10px 0px 5px;
-      }
-    }
-  }
+.td-course-edit-delete a {
+  margin-left: 5px;
 }
 
-img{
+.td-course-edit-delete .btn.glyphicon {
+  background-color: $td-course-edit-delete;
+  border-radius: 50%;
+  box-shadow: 0 1px 1px $td-course-edit-delete-span;
+  color: $orange;
+  font-size: 18px;
+  margin: 5px 10px 0 5px;
+}
+
+.btn.glyphicon.glyphicon-list {
+  background-color: $silver;
+  border-radius: 50%;
+  box-shadow: 0 1px 1px $black;
+  color: $orange;
+  font-size: 18px;
+  margin: 5px 10px 0 5px;
+}
+
+img {
   &.creator-image {
     border-radius: 50%;
-    width: 25px;
     height: 25px;
+    width: 25px;
   }
 }
 
 .btn-primary.btn-xs {
-  background-color: GREEN !important;
-  border-color: GREEN;
+  background-color: $init-color !important;
+  border-color: $init-color;
 }
 
 .btn-warning.btn-xs {
-  background-color: BLUE;
-  border-color: BLUE;
+  background-color: $progress-color;
+  border-color: $progress-color;
 }
 
+$btn-danger-xs: #dd4b39;
+
 .btn-danger.btn-xs {
-  background-color: #dd4b39;
-  border-color: #d73925;
+  background-color: $btn-danger-xs;
+  border-color: $btn-danger-xs;
 }

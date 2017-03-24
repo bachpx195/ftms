@@ -62,6 +62,9 @@ class CoursesController < ApplicationController
           render json: {message: flash_message("updated"),
             course: @course}
         end
+        update_user_course_service =
+          CourseServices::UpdateUserCourse.new @course
+        update_user_course_service.perform
       else
         format.html{render :edit}
         format.json do
