@@ -54,9 +54,9 @@ en:
       github: "Github: "
       send_count: "Sent count: "
       avatar: "avatar"
-      title_assignment: "Assignment Overview"
-    create_team: "Create Team"
-    team_member:
-      name: "Name"
-      start_date: "Start Date"
-      end_date: "End Date"
+      title_assignment: "Task Overview"
+    assignments:
+      total_task: "%{total} tasks"
+      status:
+        in_progress: "In Progress"
+        finish: "Finish"

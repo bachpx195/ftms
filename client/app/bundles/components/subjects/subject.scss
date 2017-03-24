@@ -12,6 +12,16 @@ $box-shadow-light-gray: #777;
 $team-background-yellow: #fcf8e3;
 $progress-blue: #3071a9;
 $scrollbar-shadow: rgba(0, 0, 0, .3);
+$trainee-assignment-yellow: #fcf8c3;
+$trainee-item-shadow: #c7b6b6;
+$trainee-assignment-infor-detail: rgba(0, 0, 0, .23);
+$trainee-assignment-status-init-green: #58fa82;
+$trainee-assignment-border-status-init-green: #04b404;
+$trainee-assignment-status-progress-blue: #b4e4f6;
+$trainee-assignment-border-status-progress-blue: #43bce9;
+$trainee-assignment-status-progress-red: #f9c1b3;
+$trainee-assignment-border-status-progress-red: #fb6e52;
+$trainee-avatar-border-white: #f3f3e7;
 
 .admin-subject-show {
   margin-bottom: 10px;
@@ -64,30 +74,30 @@ $scrollbar-shadow: rgba(0, 0, 0, .3);
   }
 }
 
-
 .assignment-box {
   padding: 10px;
 
-  .assigment-item {
-    background-color: $gray-blue;
+  .assignment-item {
+    background-color: $trainee-assignment-yellow;
     border-radius: 5px;
-    color: $white;
-    display: flex;
-    margin-bottom: 10px;
+    box-shadow: 1px 1px 5px 1px $trainee-item-shadow;
+    color: $black;
+    margin-bottom: 20px;
     min-height: 50px;
+    position: relative;
 
-    .title-assignment {
-      border-bottom: 1px solid $white;
-      padding: 5px 0 5px 10px;
+    .cursor {
+      cursor: pointer;
     }
 
-    .name {
-      font-size: 16pt;
-      font-weight: bold;
-    }
-
-    .content {
-      font-size: 10pt;
+    .info-detail::before {
+      background-color: $trainee-assignment-infor-detail;
+      content: '';
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      width: 1px;
     }
 
     .detail {
@@ -95,21 +105,104 @@ $scrollbar-shadow: rgba(0, 0, 0, .3);
       padding-top: 10px;
     }
 
+    .name {
+      font-size: 16pt;
+      font-weight: bold;
+    }
+
+    .content-assignment {
+      font-size: 12pt;
+      min-height: 10px;
+    }
+
     .avatar-user {
       position: relative;
     }
 
     img {
-      border: 1px solid $avatar-border;
+      border: 1px solid $trainee-avatar-border-white;
       height: 50px;
       left: calc(50% - 25px);
       position: absolute;
-      top: calc(50% - 25px);
+      top: 30px;
       width: 50px;
     }
 
     .fa {
       margin-right: 5px;
+    }
+
+    .list-menu {
+      min-width: 100px;
+      top: -40px;
+    }
+
+    .list-menu::before {
+      border: 9px solid transparent;
+      border-top-color: $white;
+      bottom: -15px;
+      content: '';
+      height: 0;
+      margin-left: -5px;
+      position: absolute;
+      right: 3%;
+      width: 0;
+    }
+
+    .menu-assignment {
+      font-size: 15pt;
+      position: absolute;
+      right: 3px;
+      top: 5px;
+    }
+  }
+
+  .title-assignment {
+    border-bottom: 1px solid $trainee-assignment-infor-detail;
+    padding: 5px 0 5px 30px;
+    position: relative;
+
+    .div-status {
+      bottom: 1px;
+      font-size: 0;
+      height: 40px;
+      left: -13px;
+      position: absolute;
+      width: 15px;
+    }
+
+    .status {
+      border-radius: 100%;
+      height: 25px;
+      position: absolute;
+      width: 25px;
+      z-index: 1000;
+    }
+
+    .status-init {
+      background-color: $trainee-assignment-status-init-green;
+      border: 3px solid $trainee-assignment-border-status-init-green;
+    }
+
+    .status-progress {
+      background-color: $trainee-assignment-status-progress-blue;
+      border: 3px solid $trainee-assignment-border-status-progress-blue;
+    }
+
+    .status-finish {
+      background-color: $trainee-assignment-status-progress-red;
+      border: solid 3px $trainee-assignment-border-status-progress-red;
+    }
+  }
+
+  .header-task {
+    position: relative;
+
+    .label-header {
+      bottom: 5px;
+      font-size: 12pt;
+      margin-left: 20px;
+      position: absolute;
     }
   }
 }
@@ -144,7 +237,6 @@ $scrollbar-shadow: rgba(0, 0, 0, .3);
 .list-container::-webkit-scrollbar-thumb {
   background-color: $scrollbar-gray;
 }
-
 
 .team {
   height: 350px;

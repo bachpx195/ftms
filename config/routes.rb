@@ -79,4 +79,7 @@ Rails.application.routes.draw do
   resources :course_subjects do
     resources :teams
   end
+
+  resources :assignments, only: [:show]
+  resources :dynamic_tasks, only: [:update]
 end

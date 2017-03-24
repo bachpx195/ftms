@@ -20,9 +20,10 @@ export default class SubjectsShowBox extends React.Component {
     super(props);
     this.state = {
       assigments_of_user_subjects: props.assigments,
-      admin: true, // Check tam admin. Sau co policy client check lai
+      admin: false, // Check tam admin. Sau co policy client check lai
       current_user: props.current_user,
-      course_subject_teams: [],
+      user_subjects: props.user_subjects,
+      user_dynamic_course_subjects: props.user_dynamic_course_subjects,
       subject_detail: {
         training_standard: {},
         statuses:[],
@@ -213,6 +214,7 @@ export default class SubjectsShowBox extends React.Component {
         <div>
           <SubjectShowBoxTrainee
             current_user={this.state.current_user}
+            user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
             assigments_of_user_subjects={this.state.assigments_of_user_subjects}
           />
         </div>

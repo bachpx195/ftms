@@ -10,6 +10,8 @@ class DynamicTask < Task
   scope :owner_tasks, -> owner {where targetable_type: Task.name,
     ownerable: owner}
 
+  enum status: [:in_progress, :finish]
+
   class << self
     def user_static_tasks
       StaticTask.where id: self.pluck(:targetable_id)
