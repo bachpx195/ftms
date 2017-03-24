@@ -8,7 +8,7 @@ class SubOrganizationsController < ApplicationController
       format.json
     end
   end
-  
+
   def update
     respond_to do |format|
       if @organization.update_attributes organization_params
@@ -29,7 +29,7 @@ class SubOrganizationsController < ApplicationController
     respond_to do |format|
       if @organization.save
         @message = flash_message "created"
-        format.html {redirect_to @organization}
+        format.html {redirect_to organization_path(id: @organization.id)}
         format.json
       else
         format.html {render :new}

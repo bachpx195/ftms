@@ -71,7 +71,8 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def find_ownerable
-    @ownerable = params[:task][:ownerable_type].classify.constantize.find_by id: params[:task][:ownerable_id]
+    @ownerable = class_eval(params[:task][:ownerable_type].classify)
+      .find_by id: params[:task][:ownerable_id]
     unless @ownerable
       respond_to do |format|
         format.html {redirect_to :back}

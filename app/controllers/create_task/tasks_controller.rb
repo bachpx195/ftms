@@ -4,7 +4,7 @@ class CreateTask::TasksController < ApplicationController
 
   def create
     respond_to do |format|
-      @target = params[:task][:type].classify.constantize.new task_params
+      @target = class_eval(params[:task][:type].classify).new task_params
       if @target.save
         @task = StaticTask.new targetable: @target, ownerable: @owner
         unless @task.save
@@ -26,7 +26,7 @@ class CreateTask::TasksController < ApplicationController
   end
 
   def find_ownerable
-    @owner = params[:task][:ownerable_type].constantize
+    @owner = class_eval params[:task][:ownerable_type].classify
     .find_by id: params[:task][:ownerable_id]
     unless @owner
       respond_to do |format|
