@@ -34,7 +34,7 @@ export default class SubjectShowBoxTrainee extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8'>
-                  <div id="assignment_box">
+                  <div className="assignment-box">
                     <h1>{I18n.t("subjects.trainee.title_assignment")}</h1>
                     {this.renderAssignment()}
                   </div>

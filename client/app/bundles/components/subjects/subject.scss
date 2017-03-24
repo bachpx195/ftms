@@ -1,92 +1,221 @@
-#admin-subject-show{
+$white: #fff;
+$black: #000;
+$green: #00a65a;
+$gray-blue: #31424d;
+$background-white: #f5f5f5;
+$avatar-border: #f3f3e7;
+$scrollbar-gray: #bcb8b8;
+$team-header-orange: #ff7148;
+$team-header-after-orange: #bf360c;
+$box-shadow-hover-gray: #5e5c5a;
+$box-shadow-light-gray: #777;
+$team-background-yellow: #fcf8e3;
+$progress-blue: #3071a9;
+$scrollbar-shadow: rgba(0, 0, 0, .3);
+
+.admin-subject-show {
   margin-bottom: 10px;
-  .add-task {
-    .list-task {
-      .panel-task {
-        .create-task {
-          .form {
-            margin-bottom: 20px;
-            input {
-            margin-bottom: 10px;
-            }
-          }
-          .submit{
-            float: right;
-          }
-        }
-      }
+
+  .create-task {
+
+    .form {
+      margin-bottom: 20px;
     }
-    .course_subject{
-      .button-show{
-        float: right;
-        .change-panel{
-          padding: 10px;
-        }
-        margin-bottom: 10px;
-      }
+
+    input {
+      margin-bottom: 10px;
+    }
+
+    .submit {
+      float: right;
+    }
+
+    .button-show {
+      float: right;
+      margin-bottom: 10px;
+    }
+
+    .change-panel {
+      padding: 10px;
     }
   }
 }
+
 .blocks {
+
   .tab-bar {
-    padding: 0px 14px;
-    border-bottom: none;
-    li {
-      &.active {
-        a {
-          background: #00a65a !important;
-          color: #fff;
-        }
-      }
-      a {
-        .fa {
-          margin-right: 10px;
-        }
-      }
+    border-bottom: 0;
+    padding: 0 14px;
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
+
+  li.active {
+    a {
+      background: $green !important;
+      color: $white !important;
     }
   }
 }
 
 
-#assignment_box {
+.assignment-box {
   padding: 10px;
-  .assigment_item {
-    display: flex;
-    min-height: 50px;
-    background-color: #31424d;
-    margin-bottom: 10px;
-    color: white;
+
+  .assigment-item {
+    background-color: $gray-blue;
     border-radius: 5px;
-    .title_assignment {
+    color: $white;
+    display: flex;
+    margin-bottom: 10px;
+    min-height: 50px;
+
+    .title-assignment {
+      border-bottom: 1px solid $white;
       padding: 5px 0 5px 10px;
-      border-bottom: 1px solid white;
-      .name {
-        font-size: 16pt;
-        font-weight: bold;
-      }
-      .content {
-        font-size: 10pt;
-      }
     }
+
+    .name {
+      font-size: 16pt;
+      font-weight: bold;
+    }
+
+    .content {
+      font-size: 10pt;
+    }
+
     .detail {
-      padding-top: 10px;
       padding-bottom: 10px;
+      padding-top: 10px;
     }
-    .avatar_user {
+
+    .avatar-user {
       position: relative;
-      img {
-        width: 50px;
-        height: 50px;
-        position: absolute;
-        border: 1px solid #f3f3e7;
-        top: calc(50% - 25px);
-        left: calc(50% - 25px);
-      }
     }
+
+    img {
+      border: 1px solid $avatar-border;
+      height: 50px;
+      left: calc(50% - 25px);
+      position: absolute;
+      top: calc(50% - 25px);
+      width: 50px;
+    }
+
     .fa {
       margin-right: 5px;
     }
   }
 }
 
+.list-container {
+  background-color: $background-white;
+  border-top: $green solid;
+  height: 100vh;
+  max-height: 85vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-left: 20px;
+  padding-top: 10px;
+  width: 100%;
 
+  a {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
+.list-container::-webkit-scrollbar-track {
+  background-color: $background-white;
+  box-shadow: inset 0 0 6px $scrollbar-shadow;
+}
+
+.list-container::-webkit-scrollbar {
+  background-color: $background-white;
+  width: 6px;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-gray;
+}
+
+
+.team {
+  height: 350px;
+  margin-bottom: 30px;
+  position: relative;
+
+  h2 {
+    background-color: $team-header-orange;
+    color: $white;
+    font-size: 1.4em;
+    left: 0;
+    line-height: 1.6em;
+    margin: 0;
+    margin-top: 0;
+    padding: 10px 16px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    z-index: 10;
+
+    &::after {
+      border: 8px solid transparent;
+      border-right-color: $team-header-after-orange;
+      border-top-color: $team-header-after-orange;
+      bottom: -16px;
+      content: ' ';
+      left: 0;
+      position: absolute;
+      top: auto;
+      width: 0;
+    }
+  }
+}
+
+.team:hover {
+
+  .team-content {
+    box-shadow: 4px 4px 15px 0 $box-shadow-hover-gray;
+  }
+}
+
+.team-content {
+  background-color: $team-background-yellow;
+  bottom: 16px;
+  box-shadow: 4px 4px 15px 0 $box-shadow-light-gray;
+  left: 16px;
+  overflow: hidden;
+  padding-left: .625em;
+  padding-right: .625em;
+  padding-top: 5.6em;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .team-user-subject-item {
+    td {
+      padding: 10px 0;
+    }
+
+    .user-subject-status {
+      margin-right: 10px;
+    }
+  }
+}
+
+.init {
+  color: $green;
+}
+
+.in-progess {
+  color: $progress-blue;
+}
+
+.margin-bottom-10px {
+  margin-bottom: 10px;
+}

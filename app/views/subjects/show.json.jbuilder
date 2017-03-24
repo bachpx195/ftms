@@ -34,9 +34,6 @@ json.subject_detail do
     end
   end
   if @course
-    json.couse_member @course.course_members do |course_member|
-      json.extract! course_member.user, :id , :name, :avatar, :email
-    end
     if @course_subject
       json.course_subject_task do
         json.surveys @course_subject.static_surveys do |survey|
@@ -61,7 +58,7 @@ json.subject_detail do
         end
       end
       json.course_subject @course_subject, :id
-      json.user_subjects @course_subject.user_subjects do |user_subject|
+      json.user_subjects @course_subject.unassigned_user_subjects do |user_subject|
         json.extract! user_subject, :id, :user_id, :user_course_id,
           :current_progress, :user_end_date, :start_date, :end_date, :status
         json.user_name user_subject.user.name
@@ -78,6 +75,13 @@ json.subject_detail do
           json.projects user_subject.user.user_tasks(Project.name) do |project|
             json.extract! project, :id, :name, :content
           end
+        end
+      end
+      json.course_subject_teams @course_subject.teams do |team|
+        json.extract! team, :id, :name, :course_subject_id
+        json.user_subjects team.user_subjects do |user_subject|
+          json.user_name user_subject.user.name
+          json.extract! user_subject, :id, :user_id, :status, :start_date, :end_date
         end
       end
     end

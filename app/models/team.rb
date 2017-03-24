@@ -3,7 +3,5 @@ class Team < ApplicationRecord
 
   belongs_to :course_subject
 
-  has_many :team_members, dependent: :destroy
-  has_many :members, through: :team_members, source: :user
-  has_many :user_subjects, through: :members
+  has_many :user_subjects, dependent: :destroy
 end

@@ -54,9 +54,9 @@ export default class ListTasks extends React.Component{
       const ChooseTargetable = ({griddleKey}) => {
         let id;
         if(this.props.targetable_type == 'StaticTask'){
-          id = this.state.task[type][griddleKey].task_id
+          id = this.state.task[this.props.type][griddleKey].task_id
         }else{
-          id = this.state.task[type][griddleKey].id
+          id = this.state.task[this.props.type][griddleKey].id
         }
         return <CheckBox id={id}
           afterClickCheckbox={this.afterClickCheckbox.bind(this)}

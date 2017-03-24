@@ -33,4 +33,8 @@ class CourseSubject < ApplicationRecord
   has_many :projects, through: :tasks, source: :targetable, source_type: Project.name
 
   enum status: [:init, :in_progress, :finished]
+
+  def unassigned_user_subjects
+    user_subjects.where team_id: nil
+  end
 end
