@@ -29,11 +29,13 @@ class Course < ApplicationRecord
   has_many :course_members, dependent: :destroy
   has_many :managers, through: :course_managers, source: :user
   has_many :members, through: :course_members, source: :user
-  has_many :tasks, as: :ownerable,
+  has_many :static_tasks, as: :ownerable,
     class_name: StaticTask.name, dependent: :destroy
-  has_many :surveys, through: :tasks, source: :targetable,
+  has_many :static_surveys, through: :static_tasks, source: :targetable,
     source_type: Survey.name
-  has_many :test_rules, through: :tasks, source: :targetable,
+  has_many :static_projects, through: :static_tasks, source: :targetable,
+    source_type: Project.name
+  has_many :static_test_rules, through: :static_tasks, source: :targetable,
     source_type: TestRule.name
 
   accepts_nested_attributes_for :user_courses, allow_destroy: true

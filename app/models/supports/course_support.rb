@@ -35,10 +35,18 @@ class Supports::CourseSupport
   end
 
   def selected_surveys
-    @selected_serveys ||= @course.surveys
+    @selected_surveys ||= @course.static_surveys.uniq
   end
 
   def remain_surveys
-    @remain_surveys ||= Survey.where.not id: selected_surveys.ids
+    @remain_surveys ||= Survey.where.not id: selected_surveys
+  end
+
+  def selected_testings
+    @selected_testings ||= @course.static_test_rules.uniq
+  end
+
+  def remain_testings
+    @remain_testings ||= TestRule.where.not id: selected_testings
   end
 end

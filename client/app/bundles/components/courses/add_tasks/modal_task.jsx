@@ -8,7 +8,7 @@ import Item from './item';
 const TASK_URL = app_constants.APP_NAME + course_constants.TASK_PATH;
 
 const arr_option = ["choose","survey", "testing"];
-export default class ModalTaskSurvey extends React.Component {
+export default class ModalTask extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ export default class ModalTaskSurvey extends React.Component {
       remain_items: props.remain_items,
       targetable: props.targetable,
       select_items: [],
-      ownerable_type: props.ownerable_type
+      ownerable_type: props.ownerable_type,
     };
   }
 
@@ -31,15 +31,19 @@ export default class ModalTaskSurvey extends React.Component {
   }
 
   render() {
-    let title,seleted,remain_item = null;
+    let title,selected,remain_item = null;
     if (this.state.targetable_type == "Survey") {
-      title = I18n.t("courses.create_task_title");
-      seleted = I18n.t("courses.survey_in_course");
+      title = I18n.t("courses.create_task_title_survey");
+      selected = I18n.t("courses.survey_in_course");
       remain_item = I18n.t("courses.survey_remain_course");
-    }else {
-      title = "";
-      seleted = "";
-      remain_item = "";
+    }else if(this.state.targetable_type == "TestRule"){
+      title = I18n.t("courses.create_task_title_test_rule");
+      selected = I18n.t("courses.testing_in_course");
+      remain_item = I18n.t("courses.testing_remain_course");
+    } else {
+      title = '';
+      selected = '';
+      remain_item = '';
     }
 
     return (<div id="modalTaskSurvey" className="modal fade" role="dialog">
@@ -59,24 +63,23 @@ export default class ModalTaskSurvey extends React.Component {
 
           <div className="modal-body">
             <div className="row">
-              <div className="col-md-6">
-                <h5 className="text-center">
-                  <strong>{seleted}</strong>
-                </h5>
-                <ul className="list-group">
-                  {this.renderSelectedItems()}
-                </ul>
-              </div>
-              <div className="col-md-6">
-                <h5 className="text-center"><strong>{remain_item}</strong></h5>
-                <ul className="list-group">
-                  {this.renderItemsRemain()}
-                </ul>
-              </div>
+              <h5 className="text-center">
+                <strong>{selected}</strong>
+              </h5>
+              <ul className="list-group">
+                {this.renderSelectedItems()}
+              </ul>
+              <h5 className="text-center"><strong>{remain_item}</strong></h5>
+              <ul className="list-group">
+                {this.renderItemsRemain()}
+              </ul>
             </div>
           </div>
           <div className="modal-footer">
-            <button onClick={this.onClickAddItem.bind(this)} className="btn btn-success center-block">Save</button>
+            <button onClick={this.onClickAddItem.bind(this)} 
+              className="btn btn-success center-block">
+              {I18n.t('courses.buttons.save')}
+            </button>
           </div>
         </div>
       </div>
@@ -103,9 +106,39 @@ export default class ModalTaskSurvey extends React.Component {
       return(
         <li className="list-group-item" key={item.id}>
           {item.name}
+          <i className='glyphicon glyphicon-remove pull-right poiter'
+            onClick={this.removeItem.bind(this, item)}></i>
         </li>
       );
     });
+  }
+
+  removeItem(item) {
+    _.remove(this.state.selected_items, select_item => {
+      return select_item.id === item.id;
+    });
+
+    if(this.state.remain_items){
+      this.state.remain_items.push(item);
+    }
+    
+    axios.delete(TASK_URL + '/'+ item.id, {
+      params: {
+        targetable_type: this.state.targetable_type,
+        authenticity_token: ReactOnRails.authenticityToken()
+      },
+      headers: {'Accept': 'application/json'}
+    })
+    .then(response => {
+      this.setState({
+        selected_items: this.state.selected_items,
+        remain_items: this.state.remain_items
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    
   }
 
   renderItemsRemain() {
@@ -117,8 +150,7 @@ export default class ModalTaskSurvey extends React.Component {
         }
       })
       return(
-        <Item
-          key={remain_item.id}
+        <Item key={remain_item.id}
           remain_item={remain_item}
           checked={checked}
           select_items={this.state.select_items}
@@ -140,7 +172,7 @@ export default class ModalTaskSurvey extends React.Component {
       arr_targetable_id.push(select_item.id);
     });
 
-    axios.post(TASK_URL + '.json', {
+    axios.post(TASK_URL , {
       task: {
         targetable_ids: arr_targetable_id,
         targetable_type: this.state.targetable_type,

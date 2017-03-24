@@ -66,9 +66,12 @@ en:
     select_role: "Select role"
     select_owner: "Select owner"
     add_task: "Add Task"
-    create_task_title: "Create Task: Survey"
+    create_task_title_survey: "Assign Task: Survey"
+    create_task_title_test_rule: "Assign Task: TestRule"
     survey_in_course: "Surveys in course"
     survey_remain_course: "Remain current Surveys"
+    testing_in_course: "Testing in course"
+    testing_remain_course: "Remain current Testing"
     options:
       survey: "Survey"
       testing: "Testing"
@@ -84,3 +87,5 @@ en:
       in_progress: In progress
     days: " days"
     start_date: "Start date: "
+    buttons:
+      save: "Save"

@@ -5,7 +5,9 @@
       course: @course,
       course_subjects: @supports.course_subjects,
       remain_surveys: @supports.remain_surveys,
-      selected_surveys: @supports.selected_surveys
+      selected_surveys: @supports.selected_surveys,
+      remain_testings: @supports.remain_testings,
+      selected_testings: @supports.selected_testings,
     }, prerender: false %>
 <% else %>
   <div><%= I18n.t "course.no_content" %></div>
