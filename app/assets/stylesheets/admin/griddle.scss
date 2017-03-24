@@ -1,41 +1,47 @@
-@import "color";
+@import 'color';
 
 .griddle-head {
   margin: 10px 0;
 
-  .griddle-page-select, .griddle-previous-button, .griddle-next-button {
+  .griddle-page-select,
+  .griddle-previous-button,
+  .griddle-next-button {
+    background: transparent;
+    border: 1px solid $gridle-color;
+    color: $gridle-color;
     display: inline-block;
+    height: 32px;
     margin: 0 5px;
     padding: 0 5px;
-    color: #649;
-    border: 1px solid #649;
-    height: 32px;
-    background: transparent;
   }
+
 }
 
 .griddle-table-heading-cell {
+  background-color: $light-gray;
   cursor: pointer;
-  background-color: $light_gray;
 }
 
-#role_detail .modal-dialog{
+.role-detail .modal-dialog {
   width: 80%;
 
-  .modal-header{
-    border-bottom: none;
+  .modal-header {
+    border-bottom: 0;
   }
 
-  .modal-body{
+  .modal-body {
     padding: 5px;
 
-    .role_name{
-      width: 30%;
-      margin-left: 20px;
-
-      input{
-        padding-left: 10px
-      }
-    }
   }
+
+  .role-name {
+    margin-left: 20px;
+    width: 30%;
+
+  }
+
+  input {
+    padding-left: 10px;
+  }
+
 }

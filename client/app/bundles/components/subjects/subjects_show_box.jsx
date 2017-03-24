@@ -78,7 +78,7 @@ export default class SubjectsShowBox extends React.Component {
     if(this.props.course){
       list_blocks = (
         <div className='block-list-task'>
-          <div id='user-subject' className='clearfix'>
+          <div className='user-subject clearfix'>
             <UserSubjectList
               user_subjects={this.state.subject_detail.user_subjects}
               statuses={this.state.subject_detail.statuses}

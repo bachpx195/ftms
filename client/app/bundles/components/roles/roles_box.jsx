@@ -230,7 +230,7 @@ export default class RoleBox extends React.Component {
   }
 
   editRole(e, obj){
-   $('#role_detail').modal('show');
+   $('.role-detail').modal('show');
    axios.get(ROLE_URL + '/' + obj.part.data.key + '.json')
     .then(response => {
       this.setState({dataRole: response.data});

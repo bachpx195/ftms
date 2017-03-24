@@ -21,7 +21,7 @@ export default class LanguageBox extends React.Component {
 
   render() {
     return (
-      <div className='row languages' id='admin-languages'>
+      <div className='row languages admin-languages'>
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>
