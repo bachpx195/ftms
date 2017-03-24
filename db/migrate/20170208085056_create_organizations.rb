@@ -3,7 +3,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.0]
     create_table :organizations do |t|
       t.string :name
       t.integer :parent_id
-      t.belongs_to :user, foreign_key: true
+      t.integer :user_id
       t.datetime :deleted_at
 
       t.timestamps

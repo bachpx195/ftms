@@ -1,9 +1,11 @@
 class CreateTasks < ActiveRecord::Migration[5.0]
   def change
     create_table :tasks do |t|
-      t.belongs_to :targetable, polymorphic: true
-      t.belongs_to :ownerable, polymorphic: true
-      t.belongs_to :user, foreign_key: true
+      t.integer :targetable_id
+      t.string :targetable_type
+      t.integer :ownerable_id
+      t.string :ownerable_type
+      t.integer :user_id
       t.integer :status
       t.string :type
       t.datetime :deleted_at
