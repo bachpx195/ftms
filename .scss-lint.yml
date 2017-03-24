@@ -1,7 +1,13 @@
-scss_files: 'app/assets/stylesheets/**'
+scss_files:
+  - 'app/assets/stylesheets/**'
+  - 'client/app/bundles/components/**'
 exclude:
-  - 'app/assets/stylesheets/application.scss'
+  - 'app/assets/stylesheets/application.css'
   - 'vendor/assets/**'
+  - 'app/assets/stylesheets/AdminLTE.min.css'
+  - 'app/assets/stylesheets/_all-skins.min.css'
+  - 'app/assets/stylesheets/blue.min.css'
+  - 'app/assets/stylesheets/ionicons.min.css'
 linters:
   ImportantRule:
     enabled: false

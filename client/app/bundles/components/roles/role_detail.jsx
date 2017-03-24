@@ -18,7 +18,7 @@ export default class RoleDetail extends React.Component {
 
   render() {
     return (
-      <div id="role_detail" className="modal fade">
+      <div className="role-detail modal fade">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -28,7 +28,7 @@ export default class RoleDetail extends React.Component {
               <h4 className="modal-title">{I18n.t("edit_role.edit")}</h4>
             </div>
             <div className="modal-body">
-              <div className="role_name form-inline">
+              <div className="role-name form-inline">
                 <label>{I18n.t("edit_role.name")}: </label>
                 <input type='text' placeholder={I18n.t('edit_role.name')}
                   value={this.state.name || ''}

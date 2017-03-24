@@ -75,11 +75,11 @@ export default class UserLists extends React.Component {
         <ul className='users-list clearfix td-program-users'>
           {this.renderListUsers()}
           <li className='td-user-list-modal' data-toggle='modal'
-            data-target='#user_lists_modal'>
+            data-target='.user-lists-modal'>
             <b>{user_list_counts}+</b>
           </li>
         </ul>
-        <div id='user_lists_modal' className='modal fade' role='dialog'>
+        <div className='modal fade user-lists-modal' role='dialog'>
           <div className='modal-dialog width-70'>
             <div className='modal-content'>
               <div className='modal-header'>
