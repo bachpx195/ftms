@@ -25,13 +25,18 @@ class User < ApplicationRecord
   has_many :roles, through: :user_roles
   has_many :user_functions, dependent: :destroy
   has_many :functions, through: :user_functions
-  has_many :training_standards, foreign_key: :creator_id
+  has_many :training_standards, foreign_key: :creator_id,
+    dependent: :destroy
   has_many :created_courses, class_name: Course.name, foreign_key: :creator_id,
     dependent: :destroy
   has_many :courses, through: :user_courses, dependent: :destroy
   has_many :owned_courses, class_name: Course.name, foreign_key: :owner_id,
     dependent: :destroy
   has_many :dynamic_tasks, dependent: :destroy
+  has_many :member_evaluations, foreign_key: :member_id,
+    dependent: :destroy
+  has_many :manager_evaluations, class_name: MemberEvaluation.name,
+    foreign_key: :manager_id, dependent: :destroy
 
   accepts_nested_attributes_for :user_functions, allow_destroy: true
 

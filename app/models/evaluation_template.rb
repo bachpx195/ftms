@@ -7,6 +7,7 @@ class EvaluationTemplate < ApplicationRecord
   belongs_to :training_standard
 
   has_many :evaluation_standards, dependent: :destroy
+  has_many :member_evaluations, dependent: :destroy
 
   accepts_nested_attributes_for :evaluation_standards
   validates :name, presence: true

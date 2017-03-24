@@ -76,7 +76,7 @@ export default class ModalTask extends React.Component {
             </div>
           </div>
           <div className="modal-footer">
-            <button onClick={this.onClickAddItem.bind(this)} 
+            <button onClick={this.onClickAddItem.bind(this)}
               className="btn btn-success center-block">
               {I18n.t('courses.buttons.save')}
             </button>
@@ -121,7 +121,7 @@ export default class ModalTask extends React.Component {
     if(this.state.remain_items){
       this.state.remain_items.push(item);
     }
-    
+
     axios.delete(TASK_URL + '/'+ item.id, {
       params: {
         targetable_type: this.state.targetable_type,
@@ -138,7 +138,7 @@ export default class ModalTask extends React.Component {
     .catch(error => {
       console.log(error)
     })
-    
+
   }
 
   renderItemsRemain() {

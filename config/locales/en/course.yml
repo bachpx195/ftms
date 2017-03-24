@@ -43,10 +43,10 @@ en:
     time: "Course's Time is from %{start_date} to %{end_date}"
     during_time: " days"
     member:
-      members: "Members"
-      managers: "Managers"
+      trainee: "Trainee"
+      trainers: "Trainers"
       member_details: "Member Detail"
-      title: "Users"
+      title: "Members"
     creator:
       title: "Creator"
     owner:
@@ -78,6 +78,10 @@ en:
       choose: "Choose static task add for course..."
     title_add_task: "Add static task for course"
     assign_user: "Assign user for course"
+    evaluation:
+      evaluate: "Evaluate"
+      total_point: "Total Point"
+      modal_course: "Course"
     members: "Members: "
     search: "Search..."
     default_description: '[No description]'

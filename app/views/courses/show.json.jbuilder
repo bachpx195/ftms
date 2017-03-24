@@ -19,6 +19,19 @@ json.course do
   json.owner @course.owner
   json.training_standards @supports.training_standards, :id, :name
   json.languages @supports.languages, :id, :name
+  json.evaluation_standards @supports.evaluation_standards,:id, :name,
+    :min_point, :max_point
+  json.evaluation_template @course.training_standard.evaluation_template, :id
+  json.member_evaluations @course.member_evaluations do |member_evaluation|
+    json.extract! member_evaluation, :id, :member_id, :manager_id, :total_point
+    member_evaluation_items = member_evaluation.member_evaluation_items
+    if member_evaluation_items.size > 0
+      json.member_evaluation_items member_evaluation_items, :id,
+        :evaluation_point, :evaluation_standard_id
+    else
+      json.member_evaluation_items Array.new
+    end
+  end
 end
 
 json.course_subjects @supports.course_subjects, :id, :name, :image,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170315030129) do
+ActiveRecord::Schema.define(version: 20170323035408) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "name",            limit: 65535
@@ -119,6 +119,27 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "member_evaluation_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "evaluation_point"
+    t.integer  "member_evaluation_id"
+    t.integer  "evaluation_standard_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "member_evaluations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "manager_id"
+    t.integer  "member_id"
+    t.float    "total_point",            limit: 24
+    t.integer  "targetable_id"
+    t.string   "targetable_type"
+    t.integer  "evaluation_template_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "moving_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -370,12 +391,10 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.string   "type"
     t.integer  "user_id"
     t.integer  "course_id"
-    t.integer  "status"
+    t.integer  "status",     default: 0, null: false
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_user_courses_on_course_id", using: :btree
-    t.index ["user_id"], name: "index_user_courses_on_user_id", using: :btree
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "user_functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -415,7 +434,7 @@ ActiveRecord::Schema.define(version: 20170315030129) do
 
   create_table "user_subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
-    t.integer  "status"
+    t.integer  "status",            default: 0, null: false
     t.integer  "user_course_id"
     t.integer  "course_subject_id"
     t.boolean  "current_progress"
@@ -424,8 +443,8 @@ ActiveRecord::Schema.define(version: 20170315030129) do
     t.date     "end_date"
     t.integer  "subject_id"
     t.datetime "deleted_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.index ["course_subject_id"], name: "index_user_subjects_on_course_subject_id", using: :btree
     t.index ["subject_id"], name: "index_user_subjects_on_subject_id", using: :btree
     t.index ["user_course_id"], name: "index_user_subjects_on_user_course_id", using: :btree
@@ -487,8 +506,6 @@ ActiveRecord::Schema.define(version: 20170315030129) do
   add_foreign_key "tasks", "users"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
-  add_foreign_key "user_courses", "courses"
-  add_foreign_key "user_courses", "users"
   add_foreign_key "user_functions", "functions"
   add_foreign_key "user_functions", "users"
   add_foreign_key "user_programs", "programs"

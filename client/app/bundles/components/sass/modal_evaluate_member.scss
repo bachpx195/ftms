@@ -1,0 +1,45 @@
+$white: #fff;
+$teal: #008080;
+
+.modal-evaluate-member {
+  .modal-dialog {
+    width: 50%;
+  }
+
+  .course-info {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .total-point {
+    margin-top: 10px;
+    text-align: right;
+  }
+
+  .point-input {
+    input {
+      width: 100%;
+    }
+  }
+
+  .assign-members {
+    margin-top: calc(10vh + 30px);
+  }
+
+  .check-icon {
+    left: -5px;
+  }
+
+  .list-group {
+    margin-bottom: 0;
+  }
+
+  .count-member {
+    text-align: right;
+  }
+
+  .panel-heading {
+    background-color: $teal;
+    color: $white;
+  }
+}

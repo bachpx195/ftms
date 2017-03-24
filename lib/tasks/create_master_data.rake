@@ -223,6 +223,7 @@ namespace :db do
       image: File.open(File.join(Rails.root,
         "app/assets/images/subject.jpeg"))}
     ])
+
     puts "10. Create user programs"
     2.times do |n|
       UserProgram.create! program_id: n+1,  user_id: 1
@@ -343,6 +344,14 @@ namespace :db do
       {training_standard_id: 4, name: "Evaluation template 4"}
     ])
 
+    puts "18. Create Evaluation Standard"
+    EvaluationStandard.create!([
+      {name: "Standard 1", min_point: 0, max_point: 10, average_point: 4, evaluation_template_id: 1},
+      {name: "Standard 2", min_point: 1, max_point: 9, average_point: 4, evaluation_template_id: 1},
+      {name: "Standard 3", min_point: 4, max_point: 10, average_point: 5, evaluation_template_id: 1},
+      {name: "Standard 4", min_point: 3, max_point: 10, average_point: 4, evaluation_template_id: 1},
+    ])
+
     puts "19. create RoleFunction"
     Role.all.each do |role|
       Function.all.each do |function|
@@ -373,19 +382,13 @@ namespace :db do
       TestRule.create name: "Test Rule #{n}", organization_id: 2
     end
 
-    puts "24. Create Course Subject"
-    course = Course.first
-    n = 1
-    Subject.all.limit(5).each do |subject|
-      course_subject = course.course_subjects.create subject_id: subject.id, subject_name: subject.name,
-      subject_description: subject.description, subject_content: subject.content,
-      subject_image: subject.image
-      course_subject.user_subjects.create user_id: n, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1, status: 'init'
-      n += 1
-    end
-
     puts "25. Create User Course"
-    CourseMember.create user_id: 11, course_id: 1
+    8.times do |n|
+      CourseManager.create user_id: n+1, course_id: 1
+    end
+    10.times do |n|
+      CourseMember.create user_id: n+10, course_id: 1
+    end
 
     puts "26. Create Static CourseSubject"
     course_subject = CourseSubject.first
@@ -400,20 +403,5 @@ namespace :db do
         user_id: 11, status: "incomplete"
     end
 
-    puts "24. Create Course Subject"
-    course = Course.first
-    n = 1
-    Subject.all.limit(5).each do |subject|
-      course_subject = course.course_subjects.create subject_id: subject.id, subject_name: subject.name,
-      subject_description: subject.description, subject_content: subject.content,
-      subject_image: subject.image
-      course_subject.user_subjects.create! user_id: n, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1, status: 'init'
-      n += 1
-    end
-
-    puts "25. Create User Course"
-    User.all.limit(9).each do |user|
-      course.course_members.create user_id: user.id, status: 'init'
-    end
   end
 end

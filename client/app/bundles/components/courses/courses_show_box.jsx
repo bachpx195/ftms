@@ -3,6 +3,7 @@ import axios from 'axios';
 import MenuCourse from './menu_course';
 import ModalAssignMember from './modal_assign_member/modal';
 import ModalTask from './add_tasks/modal_task';
+import ModalEvaluateMember from './modal_evaluate_member/modal';
 import css from './course_css.scss';
 
 import * as app_constants from 'constants/app_constants';
@@ -23,9 +24,13 @@ export default class CoursesShowBox extends React.Component {
     this.state = {
       course: props.course,
       course_subjects: [],
+      evaluation_template: {},
       rerender: false,
       remain_surveys: props.remain_surveys,
       selected_surveys: props.selected_surveys,
+      evaluation_standards: [],
+      user: {},
+      member_evaluations: [],
 
       remain_testings: props.remain_testings,
       selected_testings: props.selected_testings,
@@ -53,11 +58,15 @@ export default class CoursesShowBox extends React.Component {
     const COURSES_URL = app_constants.APP_NAME +
       program_constants.PROGRAMS_PATH + this.props.program.id + '/'
       + course_constants.COURSES_PATH + this.props.course.id;
+
     axios.get(COURSES_URL + '.json')
       .then(response => {
         this.setState({
           course: response.data.course,
-          course_subjects: response.data.course_subjects
+          course_subjects: response.data.course_subjects,
+          evaluation_standards: response.data.course.evaluation_standards,
+          evaluation_template: response.data.course.evaluation_template,
+          member_evaluations: response.data.course.member_evaluations,
         });
       }).catch(error => console.log(error));
   }
@@ -95,7 +104,7 @@ export default class CoursesShowBox extends React.Component {
     });
   }
 
-  renderUser(user) {
+  renderManager(user) {
     let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
     return (
      <li key={user.id}>
@@ -106,12 +115,54 @@ export default class CoursesShowBox extends React.Component {
     );
   }
 
-  renderMembers(users) {
+  renderManagerList(users) {
     return (
       <ul className='user-list clearfix'>
         {
           users.map((user, index) => {
-            return this.renderUser(user)
+            return this.renderManager(user)
+          })
+        }
+      </ul>
+    );
+  }
+
+  renderMember(user) {
+    let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
+    return (
+      <li className="member-item" key={user.id}>
+        <a href={user_path} title={user.name}>
+          <img className='img-circle' src={user.avatar.url} width='30' height='30'/>
+          {user.name}
+        </a>
+        <div className="pull-right user-course">
+          <div id="user-course-113">
+            <div className="menu-right-user-course">
+              <div className="dropdown action-user-course">
+                <span id="dLabe" data-toggle="dropdown" className="evaluation-show">
+                  <i className="glyphicon glyphicon-align-justify text-danger"></i>
+                </span>
+                <ul className="dropdown-menu dropdown-menu-right" >
+                  <li>
+                    <a href="#" onClick={this.handleEvaluateModal.bind(this, user)} >
+                      {I18n.t('courses.evaluation.evaluate')}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    );
+  }
+
+  renderMemberList(users) {
+    return (
+      <ul className='member-list clearfix'>
+        {
+          users.map((user, index) => {
+            return this.renderMember(user);
           })
         }
       </ul>
@@ -153,16 +204,16 @@ export default class CoursesShowBox extends React.Component {
           <div className='box-body'>
             <div>
               <div className='member-title'>
-                {I18n.t('courses.member.managers')}
+                {I18n.t('courses.member.trainers')}
               </div>
               <ul className='user-list clearfix'>
                 {link_owner}
-                {this.renderMembers(course.managers)}
+                {this.renderManagerList(course.managers)}
               </ul>
               <div className='member-title'>
-                {I18n.t('courses.member.members')}
+                {I18n.t('courses.member.trainee')}
               </div>
-              {this.renderMembers(course.members)}
+              {this.renderMemberList(course.members)}
             </div>
           </div>
         </div>
@@ -261,8 +312,39 @@ export default class CoursesShowBox extends React.Component {
           afterSubmitCreateTask={this.afterSubmitCreateTask.bind(this)}
           afterChangeSelectBox={this.afterChangeSelectBox.bind(this)}
         />
+
+        <ModalEvaluateMember
+          evaluation_standards={this.state.evaluation_standards}
+          program={this.props.program}
+          member_evaluations={this.state.member_evaluations}
+          user={this.state.user} course={this.state.course}
+          evaluation_template={this.state.evaluation_template}
+          afterEvaluateMember={this.afterEvaluateMember.bind(this)}
+        />
+
       </div>
     );
+  }
+
+  handleEvaluateModal(user, event){
+    event.preventDefault();
+    this.setState({
+      user: user
+    });
+    $('.modal-evaluate-member').modal();
+  }
+
+  afterEvaluateMember(member_evaluation, member_evaluation_items){
+    Object.assign(member_evaluation, {member_evaluation_items});
+    let index = this.state.member_evaluations.findIndex(_evaluation => {
+      return _evaluation.id == member_evaluation.id;
+    });
+    if(index >= 0) {
+      this.state.member_evaluations[index] = member_evaluation;
+    } else {
+      this.state.member_evaluations.push(member_evaluation);
+    }
+    this.setState({member_evaluations: this.state.member_evaluations});
   }
 
   addTask() {

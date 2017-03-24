@@ -17,6 +17,7 @@ class CourseSubject < ApplicationRecord
     source_type: Project.name
   has_many :dynamic_test_rules, through: :dynamic_tasks, source: :targetable,
     source_type: TestRule.name
+  has_many :member_evaluations, as: :targetable, dependent: :destroy
 
   has_many :static_tasks, as: :ownerable,
     class_name: StaticTask.name, dependent: :destroy
