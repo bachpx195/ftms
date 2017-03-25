@@ -5,12 +5,12 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.string :image
       t.string :description
       t.integer :status, default: 0, null: false
-      t.belongs_to :language, foreign_key: true
+      t.integer :language_id
       t.date :start_date
       t.date :end_date
       t.integer :creator_id
-      t.belongs_to :program, foreign_key: true
-      t.belongs_to :training_standard, foreign_key: true
+      t.integer :program_id
+      t.integer :training_standard_id
       t.datetime :deleted_at
       t.integer :creator_id
       t.integer :owner_id

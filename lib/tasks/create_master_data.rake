@@ -41,7 +41,7 @@ namespace :db do
         avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
     ])
 
-    puts "14. Crawl function & trainee"
+    puts "1. Crawl function & trainee"
     Function.create controller_name: "organizations", action: "index"
 
     functions = []
@@ -69,14 +69,14 @@ namespace :db do
       UserFunction.create user: user, function: f
     end
 
-    puts "1. Create languages"
+    puts "2. Create languages"
     ["Ruby", "PHP", "Android", "Java", "iOS"].each do |name|
       Language.create! name: name, description: "Master your Ruby skills and increase your Rails street cred by learning to build dynamic, sustainable applications for the web.",
         image: File.open(File.join(Rails.root,
         "app/assets/images/languages/#{name.downcase}.png"))
     end
 
-    puts "2. Create Universities"
+    puts "3. Create Universities"
     ["Vietnam National University, Hanoi", "Hanoi University of Science and Technology",
       "Foreign Trade University",
       "Posts and Telecommunications Institute of Technology",
@@ -84,23 +84,23 @@ namespace :db do
       University.create! name: name
     end
 
-    puts "3. Create Stage"
+    puts "4. Create Stage"
     ["Intern", "VPG", "JPG", "New dev", "QA"].each do |name|
       Stage.create! name: name
     end
 
-    puts "4. Trainee types"
+    puts "5. Trainee types"
     ["Practice", "Intern", "OpenEducation", "Hust Intern", "Da Nang Education"].each do |name|
       TraineeType.create! name: name
     end
 
-    puts "5. User status"
+    puts "6. User status"
     ["Studying", "Project preparation work", "Doning project",
       "Doing Internal Project", "Finish training", "Pending"].each do |name|
       UserStatus.create! name: name
     end
 
-    puts "6. Create organization"
+    puts "7. Create organization"
     user = User.first
     if user
       Organization.create!([
@@ -113,13 +113,13 @@ namespace :db do
         {name: "Janpan JAV Education", user_id: user.id, parent_id: nil}])
     end
 
-    puts "7. Create program"
+    puts "8. Create program"
     Program.create!([
       {name: "OpenEducation", program_type: 1, organization_id: 2},
       {name: "OpenEducation batch 1", program_type: 1, organization_id: 2, parent_id: 1}
     ])
 
-    puts "8. Create Training Standard"
+    puts "9. Create Training Standard"
     TrainingStandard.create!([
       {name: "OpenEducation 1", creator_id: 4,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
@@ -132,7 +132,7 @@ namespace :db do
     ])
     TrainingStandard.all.each{|training_standard| training_standard.programs << Program.first}
 
-    puts "9. Create subject"
+    puts "10. Create subject"
     Subject.create!([
       {name: "Ruby on Rails Tutorial Book",
         description: "Learn the basic building blocks of Ruby, all in the browser.\r\n",
@@ -224,7 +224,7 @@ namespace :db do
         "app/assets/images/subject.jpeg"))}
     ])
 
-    puts "10. Create user programs"
+    puts "11. Create user programs"
     2.times do |n|
       UserProgram.create! program_id: n+1,  user_id: 1
       UserProgram.create! program_id: n+1,  user_id: 4
@@ -237,7 +237,13 @@ namespace :db do
       UserProgram.create! program_id: 2,  user_id: n+10
     end
 
-    puts "11. Create courses"
+    puts "12. Creat StandardSubject"
+    count_training_standard = TrainingStandard.all.size
+    Subject.all.each_with_index do |subject, index|
+      subject.standard_subjects.create! training_standard_id: (index % count_training_standard) + 1
+    end
+
+    puts "13. Create courses"
     Course.create!([
       {name: "Laboratory Rails", description: "Lorem Ipsum", status: "in_progress",
         language_id: 1, start_date: "01/01/2001", end_date: "01/01/2021",
@@ -289,7 +295,7 @@ namespace :db do
         image: File.open(File.join(Rails.root, "app/assets/images/edu.jpg"))},
     ])
 
-    puts "12. Create course subject"
+    puts "14. Create course subject"
     Course.all.each do |course|
       course.training_standard.subjects.each do |subject|
         course.course_subjects.create subject_id: subject.id, subject_name: subject.name,
@@ -298,15 +304,43 @@ namespace :db do
       end
     end
 
-    puts "13. Create user subject"
-    UserSubject.create!([
-      {user_id: 1, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1,
-        status: 0},
-      {user_id: 2, start_date: '01/09/2016', end_date: '01/01/2021', subject_id: 1,
-        status: 0}
+    puts "15. create User Course"
+    CourseManager.create!([
+      {user_id: 4, course_id: 1, status: "init"},
+      {user_id: 1, course_id: 1, status: "init"},
+      {user_id: 2, course_id: 1, status: "init"},
+      {user_id: 4, course_id: 2, status: "init"},
+      {user_id: 4, course_id: 3, status: "init"},
+      {user_id: 6, course_id: 1, status: "init"},
+      {user_id: 6, course_id: 2, status: "init"},
+      {user_id: 6, course_id: 3, status: "init"},
+    ])
+    CourseMember.create!([
+      {user_id: 11, course_id: 1, status: "in_progress"},
+      {user_id: 12, course_id: 1, status: "in_progress"},
+      {user_id: 13, course_id: 1, status: "in_progress"},
+      {user_id: 11, course_id: 2, status: "in_progress"},
+      {user_id: 11, course_id: 3, status: "in_progress"},
+      {user_id: 15, course_id: 1, status: "in_progress"},
+      {user_id: 16, course_id: 2, status: "in_progress"},
+      {user_id: 14, course_id: 3, status: "in_progress"},
     ])
 
-    puts "15. Create role"
+    puts "16. Create user subject"
+    course = Course.first
+    course.course_subjects.all.each do |course_subject|
+      user_course = course.user_courses.find_by user_id: 11
+      course_subject.user_subjects.create! user_id: 11,
+        user_course_id: user_course.id, subject_id: course_subject.subject.id
+      user_course = course.user_courses.find_by user_id: 12
+      course_subject.user_subjects.create! user_id: 12,
+        user_course_id: user_course.id, subject_id: course_subject.subject.id
+      user_course = course.user_courses.find_by user_id: 13
+      course_subject.user_subjects.create! user_id: 13,
+        user_course_id: user_course.id, subject_id: course_subject.subject.id
+    end
+
+    puts "17. Create role"
     Role.create!([
       {name: "admin"},
       {name: "organization supervior", parent_id: 1},
@@ -316,19 +350,7 @@ namespace :db do
       {name: "trainee", parent_id: 1}
     ])
 
-    puts "16. create CourseManager"
-    CourseManager.create!([
-      {user_id: 4, course_id: 1, status: "process"},
-      {user_id: 1, course_id: 1, status: "process"},
-      {user_id: 2, course_id: 1, status: "process"},
-      {user_id: 4, course_id: 2, status: "process"},
-      {user_id: 4, course_id: 3, status: "process"},
-      {user_id: 6, course_id: 1, status: "process"},
-      {user_id: 6, course_id: 2, status: "process"},
-      {user_id: 6, course_id: 3, status: "process"},
-    ])
-
-    puts "17. create Profile"
+    puts "18. create Profile"
     Profile.create!([
       {user_id: 4, language_id: 1, organization_id: 2, program_id: 1,
         staff_code: "B123456"},
@@ -336,7 +358,7 @@ namespace :db do
         staff_code: "B123457"},
     ])
 
-    puts "18. Create Evaluation templates"
+    puts "19. Create Evaluation templates"
     EvaluationTemplate.create!([
       {training_standard_id: 1, name: "Evaluation template 1"},
       {training_standard_id: 2, name: "Evaluation template 2"},
@@ -344,7 +366,7 @@ namespace :db do
       {training_standard_id: 4, name: "Evaluation template 4"}
     ])
 
-    puts "18. Create Evaluation Standard"
+    puts "20. Create Evaluation Standard"
     EvaluationStandard.create!([
       {name: "Standard 1", min_point: 0, max_point: 10, average_point: 4, evaluation_template_id: 1},
       {name: "Standard 2", min_point: 1, max_point: 9, average_point: 4, evaluation_template_id: 1},
@@ -352,42 +374,34 @@ namespace :db do
       {name: "Standard 4", min_point: 3, max_point: 10, average_point: 4, evaluation_template_id: 1},
     ])
 
-    puts "19. create RoleFunction"
+    puts "21. create RoleFunction"
     Role.all.each do |role|
       Function.all.each do |function|
         RoleFunction.create! role_id: role.id, function_id: function.id
       end
     end
 
-    puts "20. create UserRole"
+    puts "22. create UserRole"
     role = Role.find_by id: 1
     User.all.limit(9).each do |user|
       UserRole.create! user_id: user.id, role_id: 1
       user.functions = role.functions
     end
 
-    puts "21. create Survey"
+    puts "23. create Survey"
     10.times do |n|
       Survey.create name: "Survey #{n}", content: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
         organization_id: 2
     end
 
-    puts "22. create Assignment"
+    puts "24. create Assignment"
     10.times do |n|
       Assignment.create name: "Assignment #{n}", organization_id: 2
     end
 
-    puts "23. create TestRule"
+    puts "25. create TestRule"
     10.times do |n|
       TestRule.create name: "Test Rule #{n}", organization_id: 2
-    end
-
-    puts "25. Create User Course"
-    8.times do |n|
-      CourseManager.create user_id: n+1, course_id: 1
-    end
-    10.times do |n|
-      CourseMember.create user_id: n+10, course_id: 1
     end
 
     puts "26. Create Static CourseSubject"
@@ -401,6 +415,15 @@ namespace :db do
     StaticTask.all.each do |static_tasks|
       DynamicTask.create targetable: static_tasks, ownerable: course_subject,
         user_id: 11, status: "incomplete"
+    end
+
+    puts "28. Create Team"
+    3.times do |n|
+      course_subject = CourseSubject.first
+      team = course_subject.teams.create! name: "Team #{n}"
+      member_ids = []
+      course_subject.user_subjects.each{|user_subject| member_ids << user_subject.user.id}
+      team.member_ids = member_ids
     end
 
   end

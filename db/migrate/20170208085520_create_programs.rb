@@ -4,7 +4,7 @@ class CreatePrograms < ActiveRecord::Migration[5.0]
       t.string :name
       t.integer :program_type
       t.integer :parent_id
-      t.belongs_to :organization, foreign_key: true
+      t.integer :organization_id
       t.datetime :deleted_at
 
       t.timestamps
