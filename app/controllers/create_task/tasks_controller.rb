@@ -1,6 +1,6 @@
 class CreateTask::TasksController < ApplicationController
   before_action :find_ownerable, only: :create
-  before_action :namespace_authorize, only: :delete
+  before_action :namespace_authorize, only: :create
 
   def create
     respond_to do |format|

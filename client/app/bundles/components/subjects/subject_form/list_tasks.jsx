@@ -10,7 +10,7 @@ import * as subject_constants from '../subject_constants';
 const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
 
 export default class ListTasks extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       task: props.task,
@@ -21,7 +21,7 @@ export default class ListTasks extends React.Component{
     }
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.setState({
       task: nextProps.task,
       type: nextProps.type,
@@ -53,9 +53,9 @@ export default class ListTasks extends React.Component{
       );
       const ChooseTargetable = ({griddleKey}) => {
         let id;
-        if(this.props.targetable_type == 'StaticTask'){
+        if(this.props.targetable_type == 'StaticTask') {
           id = this.state.task[this.props.type][griddleKey].task_id
-        }else{
+        } else {
           id = this.state.task[this.props.type][griddleKey].id
         }
         return <CheckBox id={id}
@@ -63,9 +63,9 @@ export default class ListTasks extends React.Component{
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
       let form_task ;
-      if(this.state.type != 'assignments'){
+      if(this.state.type != 'assignments') {
         form_task = null;
-      }else{
+      } else {
         form_task = (
           <FormTask type={this.state.type}
             ownerable_id={this.props.ownerable_id}
@@ -81,7 +81,8 @@ export default class ListTasks extends React.Component{
             {form_task}
           </div>
           <div className='list-task'>
-            <Griddle data={this.state.task[type]} plugins={[plugins.LocalPlugin]}
+            <Griddle data={this.state.task[type]}
+              plugins={[plugins.LocalPlugin]}
               components={{Layout: NewLayout}}
               styleConfig={table_constants.styleConfig}>
               <RowDefinition keyColumn='id'>
@@ -133,15 +134,20 @@ export default class ListTasks extends React.Component{
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
-      $('#modalAddTask').modal('hide');
-      $('#modalUserTask').modal('hide');
+      if(this.state.user_id) {
+        this.props.changePanel()
+      } else {
+        $('#modalAddTask').modal('hide');
+        $('#modalUserTask').modal('hide');
+      }
       this.props.handleAfterAddTask(this.state.type, this.state.targetable_ids,
-        response.data.list_targets, this.props.subject_detail, this.state.user_id
+        response.data.list_targets, this.props.subject_detail,
+        this.state.user_id, this.props.user_index
       );
     })
     .catch(error => console.log(error));
   }
-  afterCreateTask(target, type){
-    this.props.afterCreateTask(target, type)
+  afterCreateTask(target, type, onwer){
+    this.props.afterCreateTask(target, type, onwer)
   }
 }

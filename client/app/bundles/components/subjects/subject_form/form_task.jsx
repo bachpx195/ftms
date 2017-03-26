@@ -25,7 +25,7 @@ export default class FormTask extends React.Component{
     return(
       <form onSubmit={this.handleSubmit.bind(this)} className='form-horizontal'>
         <div className='form-group'>
-          <div className='form'>
+          <div className='form-task'>
             <input type='text' placeholder={I18n.t('subjects.headers.name')}
               className='form-control' name='name' ref='nameField'
               onChange={this.handleChange.bind(this)} />
@@ -33,7 +33,7 @@ export default class FormTask extends React.Component{
               className='form-control' name='content' ref='contentField'
               onChange={this.handleChange.bind(this)} />
           </div>
-          <div className='submit'>
+          <div className='submit-task'>
             <button type='submit' className='btn btn-primary'
               disabled={!this.formValid()}>{I18n.t('buttons.create_task')}</button>
           </div>
@@ -75,7 +75,7 @@ export default class FormTask extends React.Component{
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
         this.props.afterCreateTask(response.data.target,
-          this.props.type);
+          this.props.type, ownerable_name);
       })
       .catch(error => console.log(error));
   }

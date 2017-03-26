@@ -79,7 +79,7 @@ export default class SubjectsShowBox extends React.Component {
 
   render() {
     let list_blocks;
-    if(this.props.course){
+    if(this.props.course) {
       list_blocks = (
         <div className='blocks'>
           <ul className='nav nav-tabs tab-bar'>
@@ -99,7 +99,8 @@ export default class SubjectsShowBox extends React.Component {
           <div className='tab-content'>
             <div id='list_team' className='tab-pane fade in active'>
               <div className='col-md-12'>
-                <TeamList course_subject={this.state.subject_detail.course_subject}
+                <TeamList
+                  course_subject={this.state.subject_detail.course_subject}
                   course_subject_teams={this.state.course_subject_teams}
                   handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
                   unassigned_user_subjects={this.state.subject_detail.user_subjects}
@@ -123,30 +124,34 @@ export default class SubjectsShowBox extends React.Component {
           </div>
         </div>
       )
-    }else{
+    } else {
       list_blocks = (
         <div className='blocks'>
           <ul className='nav nav-tabs tab-bar'>
             <li className='active'>
               <a data-toggle='tab' href='#home'>
-                <i className='fa fa-file-text-o'></i>{I18n.t('subjects.titles.surveys')}
+                <i className='fa fa-file-text-o'></i>
+                {I18n.t('subjects.titles.surveys')}
               </a>
             </li>
             <li>
               <a data-toggle='tab' href='#menu1'>
-                <i className='fa fa-pencil-square-o'></i>{I18n.t('subjects.titles.assignments')}
+                <i className='fa fa-pencil-square-o'></i>
+                {I18n.t('subjects.titles.assignments')}
               </a>
             </li>
             <li>
               <a data-toggle='tab' href='#menu2'>
-                <i className='fa fa-check-square-o'></i>{I18n.t('subjects.titles.tests')}
+                <i className='fa fa-check-square-o'></i>
+                {I18n.t('subjects.titles.tests')}
               </a>
             </li>
           </ul>
           <div className='tab-content'>
             <div id='home' className='tab-pane fade in active'>
               <div id='survey' className='clearfix'>
-                <BlockTasks tasks={this.state.subject_detail.subject_task.surveys}
+                <BlockTasks
+                  tasks={this.state.subject_detail.subject_task.surveys}
                   title={I18n.t('subjects.titles.surveys')}
                   handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
                   type='surveys'/>
@@ -154,7 +159,8 @@ export default class SubjectsShowBox extends React.Component {
             </div>
             <div id='menu1' className='tab-pane fade'>
               <div id='assignment' className='clearfix'>
-                <BlockTasks tasks={this.state.subject_detail.subject_task.assignments}
+                <BlockTasks
+                  tasks={this.state.subject_detail.subject_task.assignments}
                   title={I18n.t('subjects.titles.assignments')}
                   handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
                   type='assignments'/>
@@ -162,7 +168,8 @@ export default class SubjectsShowBox extends React.Component {
             </div>
             <div id='menu2' className='tab-pane fade'>
               <div id='test_rules' className='clearfix'>
-                <BlockTasks tasks={this.state.subject_detail.subject_task.test_rules}
+                <BlockTasks
+                  tasks={this.state.subject_detail.subject_task.test_rules}
                   title={I18n.t('subjects.titles.tests')}
                   handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
                   type='test_rules'/>
@@ -210,7 +217,7 @@ export default class SubjectsShowBox extends React.Component {
           {this.renderModal()}
         </div>
       );
-    }else {
+    } else {
       return(
         <div>
           <SubjectShowBoxTrainee
@@ -228,7 +235,7 @@ export default class SubjectsShowBox extends React.Component {
     let modalUserTask;
     let panelUserTask;
 
-    if(this.props.course){
+    if(this.props.course) {
       modalBody = (
         <ModalBody task={this.state.subject_detail.subject_task}
         ownerable_id={this.state.subject_detail.course_subject.id}
@@ -240,19 +247,23 @@ export default class SubjectsShowBox extends React.Component {
         />
       )
 
-      if(this.state.subject_detail.user_subjects[this.state.user_index]){
+      if(this.state.subject_detail.user_subjects &&
+        this.state.subject_detail.user_subjects[this.state.user_index]) {
         panelUserTask = (
           <ModalTask
             task={this.state.subject_detail.course_subject_task}
-            user_tasks={this.state.subject_detail.user_subjects[this.state.user_index].user_course_task}
+            user_tasks={this.state.subject_detail.
+              user_subjects[this.state.user_index].user_course_task}
+            user_index={this.state.user_index}
             ownerable_id={this.state.subject_detail.course_subject.id}
             ownerable_type='CourseSubject'
             subject_detail={this.state.subject_detail}
             handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-            afterCreateTask={this.afterCreateTask.bind(this)} user={this.state.user}
+            afterCreateTask={this.afterCreateTask.bind(this)}
+            user={this.state.user}
             handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}/>
         )
-      }else{
+      } else {
         panelUserTask = ''
       }
 
@@ -263,14 +274,16 @@ export default class SubjectsShowBox extends React.Component {
               <div className='modal-header'>
                 <button type='button' className='close'
                   data-dismiss='modal'>&times;</button>
-                <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
+                <h4 className='modal-title'>
+                  {I18n.t('subjects.headers.user_course')}
+                </h4>
               </div>
               {panelUserTask}
             </div>
           </div>
         </div>
       )
-    }else{
+    } else {
       modalBody = (
         <ModalBody task={this.state.subject_detail.task}
         ownerable_id={this.state.subject_detail.id}
@@ -324,13 +337,13 @@ export default class SubjectsShowBox extends React.Component {
     $('#modalUserTask').modal()
   }
 
-  handleAfterAddTask(type, targetable_ids,targets, subject_detail, user_id) {
-    if(this.props.course){
-      if(user_id){
+  handleAfterAddTask(type, targetable_ids,targets, subject_detail, user_id, user_index) {
+    if(this.props.course) {
+      if(user_id) {
         _.mapValues(targets, function(target){
-          subject_detail.user_subjects[this.state.user_index].user_course_task[type].push(target)
+          subject_detail.user_subjects[user_index].user_course_task[type].push(target)
         })
-      }else{
+      } else {
         _.remove(this.state.subject_detail.subject_task[type], targetable => {
           return targetable_ids.indexOf(targetable.id) >= 0;
         });
@@ -338,7 +351,7 @@ export default class SubjectsShowBox extends React.Component {
           subject_detail.course_subject_task[type].push(target)
         })
       }
-    }else{
+    } else {
       _.remove(this.state.subject_detail.task[type], targetable => {
         return targetable_ids.indexOf(targetable.id) >= 0;
       });
@@ -351,19 +364,30 @@ export default class SubjectsShowBox extends React.Component {
     })
   }
 
-  afterCreateTask(target, type){
-    this.state.subject_detail.subject_task[type].push(target)
-    this.setState({
-      subject_detail: this.state.subject_detail
-    })
+  afterCreateTask(target, type, owner){
+    if(owner == 'CourseSubject' ) {
+      this.state.subject_detail.course_subject_task[type].push(target)
+      this.setState({
+        subject_detail: this.state.subject_detail
+      })
+    } else {
+      this.state.subject_detail.subject_task[type].push(target)
+      this.setState({
+        subject_detail: this.state.subject_detail
+      })
+    }
   }
 
-  handleAfterDeleteTask(index, task, type){
-    if(this.props.course){
-      _.remove(this.state.subject_detail.user_subjects[this.user_index].user_course_task[type], ({task_id}) => {
+  handleAfterDeleteTask(index, task, type, user_index, user){
+    if(user) {
+      _.remove(this.state.subject_detail.user_subjects[user_index].user_course_task[type], ({task_id}) => {
         return task_id == index
       });
-    }else{
+      this.state.subject_detail.course_subject_task[type].push(task)
+      this.state.subject_detail.course_subject_task[type].sort(function(obj1, obj2){
+        return obj1.id - obj2.id
+      })
+    } else {
       _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
         return task_id == index
       });

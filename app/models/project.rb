@@ -6,6 +6,7 @@ class Project < ApplicationRecord
     source_type: CourseSubject.name
   belongs_to :organization
 
+  has_many :dynamic_tasks, through: :static_tasks, class_name: DynamicTask.name
   has_many :tasks, as: :targetable, class_name: Task.name, dependent: :destroy
   has_many :course_subjects, through: :tasks, source: :targetable,
     source_type: Project.name

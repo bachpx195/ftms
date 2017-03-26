@@ -4,14 +4,13 @@ module Authorize
     redirect_to root_path
   end
 
-  def namespace_authorize query = ""
-    klass = params[:controller].classify
-    if Settings.class_names.include? klass
-      klass = class_eval "#{klass}Policy"
+  def namespace_authorize query = nil
+    check = params[:controller].classify
+    if Settings.class_names.include? check
+      klass = class_eval "#{check}Policy"
       policy = klass.new current_user, check
       query ||= "#{params[:action]}?"
-
-      unless policy.public_send(query = "")
+      unless policy.public_send(query)
         error = Pundit::NotAuthorizedError.new "not allowed to #{query} this
           #{record}"
         raise error
