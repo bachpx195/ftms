@@ -1,0 +1,7 @@
+en:
+  teams:
+    create: "Create new team"
+    select_members: "Select members"
+    headers:
+      name: "Name"
+    filter_user: "Filter user"

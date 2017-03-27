@@ -95,7 +95,9 @@ export default class Sidebar extends React.Component {
               <a href="#" onClick={this.onClickMasterdata.bind(this)}>
                 <i className="fa fa-database" aria-hidden="true"></i>
                 <span>{I18n.t('sidebar.master')}</span>
-                <span className={`fa fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></span>
+                <span className='pull-right-container'>
+                  <i className={`fa fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></i>
+                </span>
               </a>
 
               <ul id="subMasterMenu" className={this.state.master_menu}>
@@ -146,7 +148,9 @@ export default class Sidebar extends React.Component {
               <a href="#" onClick={this.onClickSubMenu.bind(this)}>
                 <i className="glyphicon glyphicon-th-list" aria-hidden="true"></i>
                 <span>{I18n.t('sidebar.mange_role')}</span>
-                <span className={`fa fa-chevron-${this.state.roles_menu == "showed" ? "down" : "right"}`}></span>
+                <span className='pull-right-container'>
+                  <i className={`fa fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></i>
+                </span>
               </a>
               <ul id="subRoleMenu" className={this.state.roles_menu}>
                 <li data-page="roles">
@@ -193,14 +197,14 @@ export default class Sidebar extends React.Component {
     let target = event.target;
     if(this.state.roles_menu == 'showed'){
       $('#subRoleMenu').slideUp("slow", function(){
-        $(target).find('span.fa').removeClass('fa-chevron-down').addClass(
+        $(target).find('.fa').removeClass('fa-chevron-down').addClass(
           'fa-chevron-right');
       });
       this.setState({roles_menu: 'hiddened'});
       localStorage.setItem('roles_menu', 'hiddened');
     } else if(this.state.roles_menu == 'hiddened'){
       $('#subRoleMenu').slideDown("slow", function(){
-        $(target).find('span.fa').removeClass('fa-chevron-right').addClass(
+        $(target).find('.fa').removeClass('fa-chevron-right').addClass(
           'fa-chevron-down');
       });
       this.setState({roles_menu: 'showed'});
@@ -213,14 +217,14 @@ export default class Sidebar extends React.Component {
     let target = event.target;
     if(this.state.master_menu == 'showed'){
       $('#subMasterMenu').slideUp("slow", function(){
-        $(target).find('span.fa').removeClass('fa-chevron-down').addClass(
+        $(target).find('.fa').removeClass('fa-chevron-down').addClass(
           'fa-chevron-right');
       });
       this.setState({master_menu: 'hiddened'});
       localStorage.setItem('master_menu', 'hiddened');
     } else if(this.state.master_menu == 'hiddened'){
       $('#subMasterMenu').slideDown("slow", function(){
-        $(target).find('span.fa').removeClass('fa-chevron-right').addClass(
+        $(target).find('.fa').removeClass('fa-chevron-right').addClass(
           'fa-chevron-down');
       });
       this.setState({master_menu: 'showed'});

@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 export default class Team extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -14,14 +13,14 @@ export default class Team extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      team: props.team,
-      user_subjects: props.user_subjects,
+      team: nextProps.team,
+      user_subjects: nextProps.user_subjects,
     });
   }
 
   renderTeamMembers(){
     return this.state.user_subjects.map(user_subject => {
-      let statusClass = 'fa fa-circle fa-1 ' + user_subject.status;
+      let statusClass = 'fa fa-circle fa-1 ' + user_subject.status.replace('_', '-');
       return (
         <tr key={user_subject.id} className='team-user-subject-item'>
           <td>

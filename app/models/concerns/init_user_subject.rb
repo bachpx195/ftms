@@ -9,10 +9,7 @@ module InitUserSubject
         user_course_subject.first.user_subjects
           .create! user_id: user_course_subject.first.user_id,
           course_subject_id: user_course_subject.second.id,
-          subject_id: user_course_subject.second.subject_id,
-          start_date: Date.today,
-          end_date: Date.today + user_course_subject.second
-          .subject.during_time.send('days')
+          subject_id: user_course_subject.second.subject_id
       end
     end
   end
