@@ -22,7 +22,10 @@ const ROLES_URL = app_constants.APP_NAME +
   dashboard_constands.ROLES_PATH;
 const USERS_URL = app_constants.APP_NAME +
   dashboard_constands.USERS_PATH;
-const MY_SPACE_COURSES_URL = app_constants.APP_NAME + dashboard_constands.MY_SPACE_COURSES_PATH;
+const MY_SPACE_COURSES_URL = app_constants.APP_NAME +
+  dashboard_constands.MY_SPACE_COURSES_PATH;
+const PROJECTS_URL = app_constants.APP_NAME +
+  dashboard_constands.PROJECTS_PATH;
 
 
 export default class Sidebar extends React.Component {
@@ -97,6 +100,14 @@ export default class Sidebar extends React.Component {
                 <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-folder'></i>
                   <span>{I18n.t('sidebar.courses')}</span>
+                </a>
+              </li>
+            </Permit>
+            <Permit action='projects/index'>
+              <li data-page='projects'>
+                <a href={PROJECTS_URL} onClick={this.onClick.bind(this)}>
+                  <i className='fa fa-folder'></i>
+                  <span>{I18n.t('sidebar.projects')}</span>
                 </a>
               </li>
             </Permit>

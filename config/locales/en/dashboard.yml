@@ -14,6 +14,7 @@ en:
     test_online: " Online"
     user_image_alt: "Avatar"
   sidebar:
+    projects: 'Projects'
     space: "MY SPACE"
     main_nav: "MAIN NAVIGATION"
     dashboard: "Dashboard"

@@ -12,3 +12,4 @@ export const FUNCTIONS_PATH = 'functions';
 export const ROLES_PATH = 'roles';
 export const USERS_PATH = 'users';
 export const MY_SPACE_COURSES_PATH = 'my_space/courses';
+export const PROJECTS_PATH = 'projects';

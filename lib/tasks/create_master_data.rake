@@ -223,6 +223,8 @@ namespace :db do
     ])
 
     puts "11. Create user programs"
+    TrainingStandard.all.each{|training_standard| training_standard.subjects << Subject.limit(5)}
+
     2.times do |n|
       UserProgram.create! program_id: n+1,  user_id: 1
       UserProgram.create! program_id: n+1,  user_id: 4

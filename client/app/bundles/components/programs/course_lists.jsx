@@ -179,7 +179,7 @@ export default class CourseLists extends React.Component {
                   title={I18n.t('programs.description')}
                   customComponent={Description} />
                 <ColumnDefinition id='trainer'
-                  title={I18n.t('courses.member.managers')}
+                  title={I18n.t('courses.member.trainers')}
                   customComponent={ListTrainer} />
                 <ColumnDefinition id='status' data-i18n
                   title={I18n.t('courses.status')}
