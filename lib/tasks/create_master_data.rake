@@ -418,13 +418,14 @@ namespace :db do
     end
 
     puts "28. Create Team"
-    3.times do |n|
-      course_subject = CourseSubject.first
-      team = course_subject.teams.create! name: "Team #{n}"
-      member_ids = []
-      course_subject.user_subjects.each{|user_subject| member_ids << user_subject.user.id}
-      team.member_ids = member_ids
+    course_subject = CourseSubject.first
+    4.times do |n|
+      team = course_subject.teams.create! name: "Team #{n + 1}"
+      user_subject_ids = []
+      course_subject.user_subjects.each.with_index do |user_subject, index|
+        user_subject_ids << user_subject.id if index % 4 == n
+      end
+      team.user_subject_ids = user_subject_ids
     end
-
   end
 end

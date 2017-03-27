@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import UserSubjectList from './user_subject_list';
 import SubjectShowBoxTrainee from './trainee/subject_show_box';
+import TeamList from './team/team_list';
 
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
@@ -11,6 +12,7 @@ import BlockTasks from './block_tasks';
 
 const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+
 require('../subjects/subject.scss');
 
 export default class SubjectsShowBox extends React.Component {
@@ -20,10 +22,9 @@ export default class SubjectsShowBox extends React.Component {
       assigments_of_user_subjects: props.assigments,
       admin: true, // Check tam admin. Sau co policy client check lai
       current_user: props.current_user,
-      user_subjects: props.user_subjects,
+      course_subject_teams: [],
       subject_detail: {
         training_standard: {},
-        user_subjects: {},
         statuses:[],
         task: {
           surveys: [],
@@ -65,6 +66,7 @@ export default class SubjectsShowBox extends React.Component {
     axios.get(url + '.json')
     .then(response => {
       this.setState({
+        course_subject_teams: response.data.subject_detail.course_subject_teams,
         subject_detail: response.data.subject_detail
       });
     })
@@ -77,12 +79,40 @@ export default class SubjectsShowBox extends React.Component {
     let list_blocks;
     if(this.props.course){
       list_blocks = (
-        <div className='block-list-task'>
-          <div className='user-subject clearfix'>
-            <UserSubjectList
-              user_subjects={this.state.subject_detail.user_subjects}
-              statuses={this.state.subject_detail.statuses}
-              afterAddTaskForUser={this.afterAddTaskForUser.bind(this)} />
+        <div className='blocks'>
+          <ul className='nav nav-tabs tab-bar'>
+            <li className='active'>
+              <a data-toggle='tab' href='#user-subject'>
+                <i className='fa fa-file-text-o'></i>
+                  {I18n.t('subjects.titles.unassigned_members')}
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#list_team'>
+                <i className='fa fa-pencil-square-o'></i>
+                  {I18n.t('subjects.titles.list_team')}
+              </a>
+            </li>
+          </ul>
+          <div className='tab-content'>
+            <div id='user-subject' className='tab-pane fade in active clearfix'>
+              <div className='col-md-12'>
+                <div className='box box-success'>
+                  <div className='box-body'>
+                    <UserSubjectList
+                      user_subjects={this.state.subject_detail.user_subjects}
+                      statuses={this.state.subject_detail.statuses}
+                      afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id='list_team' className='tab-pane fade'>
+              <TeamList
+                course_subject_teams={this.state.course_subject_teams}
+              />
+            </div>
           </div>
         </div>
       )
@@ -137,42 +167,40 @@ export default class SubjectsShowBox extends React.Component {
     }
     if (this.state.admin) {// Check tam admin. Sau co policy client check lai
       return (
-        <div>
-          <div id='admin-subject-show'>
-            <div className='row'>
-              <div className='col-md-2'>
-                <img src={this.state.subject_detail.image}
-                  alt='Subject Image' className='image-subject' />
+        <div className='admin-subject-show'>
+          <div className='row'>
+            <div className='col-md-2'>
+              <img src={this.state.subject_detail.image}
+                alt={I18n.t('subjects.alt_image')} className='image-subject' />
+            </div>
+            <div className='col-md-10'>
+              <div className='subject-info col-md-9'>
+                <h2 className='subject-name'>
+                  {this.state.subject_detail.name}
+                </h2>
+                <div className='description'>
+                  {this.state.subject_detail.description}
+                </div>
+                <div className='workings-day'>
+                  {I18n.t('subjects.headers.workings_day')}
+                  {this.state.subject_detail.during_time}
+                  {I18n.t('subjects.headers.days')}
+                </div>
+                <div className='organization'>
+                  {I18n.t('subjects.headers.training_standard')}
+                  {this.state.subject_detail.training_standard.name}
+                </div>
               </div>
-              <div className='col-md-8'>
-                <div className='subject-info col-md-9'>
-                  <h2 className='subject-name'>
-                    {this.state.subject_detail.name}
-                  </h2>
-                  <div className='description'>
-                    {this.state.subject_detail.description}
-                  </div>
-                  <div className='workings-day'>
-                    {I18n.t('subjects.headers.workings_day')}
-                    {this.state.subject_detail.during_time}
-                    {I18n.t('subjects.headers.days')}
-                  </div>
-                  <div className='organization'>
-                    {I18n.t('subjects.headers.training_standard')}
-                    {this.state.subject_detail.training_standard.name}
-                  </div>
-                </div>
-                <div className='add-task col-md-3'>
-                  <button type='button' className='btn btn-primary'
-                    onClick={this.afterClickAddTask.bind(this)}>
-                    {I18n.t('subjects.add_task')}
-                  </button>
-                  {this.renderModal()}
-                </div>
+              <div className='add-task col-md-3 text-right'>
+                <button type='button' className='btn btn-primary'
+                  onClick={this.afterClickAddTask.bind(this)}>
+                  {I18n.t('subjects.add_task')}
+                </button>
               </div>
             </div>
           </div>
           {list_blocks}
+          {this.renderModal()}
         </div>
       );
     }else {

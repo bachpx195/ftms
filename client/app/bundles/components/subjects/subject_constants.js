@@ -3,3 +3,5 @@ export const USER_SUBJECT_PATH = 'user_subjects/';
 export const TASK_PATH = 'assign_task/tasks';
 export const COURSE_PATH = 'courses/'
 export const SUBJECT_TASK_PATH = 'create_task/tasks/'
+export const COURSE_SUBJECT_PATH = 'course_subjects/';
+export const TEAM_PATH = 'teams/';

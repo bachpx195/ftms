@@ -22,8 +22,8 @@ export default class AssignmentItem extends React.Component {
   render() {
     let {current_user, assignment} = this.state
     return (
-      <div className="assigment_item clearfix">
-        <div className="col-md-2 avatar_user">
+      <div className="assigment-item clearfix">
+        <div className="col-md-2 avatar-user">
           <a href="#">
             <img className="img-circle" src={current_user.avatar.url}
               title={current_user.name}
@@ -31,7 +31,7 @@ export default class AssignmentItem extends React.Component {
           </a>
         </div>
         <div className="col-md-10">
-          <div className="row title_assignment">
+          <div className="row title-assignment">
             <span className="name">{assignment.name}</span>
             <span className="content">{assignment.content}</span>
           </div>

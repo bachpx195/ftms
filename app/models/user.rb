@@ -14,7 +14,6 @@ class User < ApplicationRecord
 
   has_many :moving_histories, dependent: :destroy
   has_many :organizations, dependent: :destroy
-  has_many :team_members, dependent: :destroy
   has_many :user_courses, dependent: :destroy, foreign_key: :user_id
   has_many :user_programs, dependent: :destroy
   has_many :user_subjects, dependent: :destroy

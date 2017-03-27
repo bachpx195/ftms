@@ -10,6 +10,7 @@ class CreateUserSubjects < ActiveRecord::Migration[5.0]
       t.date :start_date
       t.date :end_date
       t.integer :subject_id
+      t.integer :team_id
       t.datetime :deleted_at
 
       t.timestamps

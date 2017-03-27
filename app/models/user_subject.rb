@@ -5,6 +5,7 @@ class UserSubject < ApplicationRecord
   belongs_to :user_course
   belongs_to :course_subject
   belongs_to :subject
+  belongs_to :team
 
   has_many :tasks, as: :ownerable,
     class_name: DynamicTask.name, dependent: :destroy

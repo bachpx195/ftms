@@ -296,14 +296,6 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "team_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "member_id"
-    t.integer  "team_id"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "course_subject_id"
@@ -394,6 +386,7 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "subject_id"
+    t.integer  "team_id"
     t.datetime "deleted_at"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
