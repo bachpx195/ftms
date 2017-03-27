@@ -109,10 +109,15 @@ export default class SubjectsShowBox extends React.Component {
               </div>
             </div>
             <div id='list_team' className='tab-pane fade'>
-              <TeamList
-                course_subject_teams={this.state.course_subject_teams}
-              />
+              <div className='col-md-12'>
+                <TeamList course_subject={this.state.subject_detail.course_subject}
+                  course_subject_teams={this.state.course_subject_teams}
+                  handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
+                  unassigned_user_subjects={this.state.subject_detail.user_subjects}
+                />
+              </div>
             </div>
+            <div className='clearfix'></div>
           </div>
         </div>
       )
@@ -132,7 +137,7 @@ export default class SubjectsShowBox extends React.Component {
             </li>
             <li>
               <a data-toggle='tab' href='#menu2'>
-                <i className="fa fa-check-square-o"></i>{I18n.t('subjects.titles.tests')}
+                <i className='fa fa-check-square-o'></i>{I18n.t('subjects.titles.tests')}
               </a>
             </li>
           </ul>
@@ -224,7 +229,7 @@ export default class SubjectsShowBox extends React.Component {
       modalBody = (
         <ModalBody task={this.state.subject_detail.subject_task}
         ownerable_id={this.state.subject_detail.course_subject.id}
-        ownerable_type="CourseSubject"
+        ownerable_type='CourseSubject'
         course={this.props.course}
         subject_detail={this.state.subject_detail}
         handleAfterAddTask={this.handleAfterAddTask.bind(this)}
@@ -238,14 +243,14 @@ export default class SubjectsShowBox extends React.Component {
             task={this.state.subject_detail.course_subject_task}
             user_tasks={this.state.subject_detail.user_subjects[this.state.user_index].user_course_task}
             ownerable_id={this.state.subject_detail.course_subject.id}
-            ownerable_type="CourseSubject"
+            ownerable_type='CourseSubject'
             subject_detail={this.state.subject_detail}
             handleAfterAddTask={this.handleAfterAddTask.bind(this)}
             afterCreateTask={this.afterCreateTask.bind(this)} user={this.state.user}
             handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}/>
         )
       }else{
-        panelUserTask = ""
+        panelUserTask = ''
       }
 
       modalUserTask = (
@@ -266,7 +271,7 @@ export default class SubjectsShowBox extends React.Component {
       modalBody = (
         <ModalBody task={this.state.subject_detail.task}
         ownerable_id={this.state.subject_detail.id}
-        ownerable_type="Subject"
+        ownerable_type='Subject'
         subject_detail={this.state.subject_detail}
         handleAfterAddTask={this.handleAfterAddTask.bind(this)}
         afterCreateTask={this.afterCreateTask.bind(this)} />
@@ -367,5 +372,19 @@ export default class SubjectsShowBox extends React.Component {
     this.setState({
       subject_detail: this.state.subject_detail
     })
+  }
+
+  handleAfterCreatedTeam(team) {
+    this.state.course_subject_teams.push(team);
+    let user_subjects = this.state.subject_detail.user_subjects.filter(user_subject => {
+      return team.user_subjects.findIndex(_user_subject => {
+        return _user_subject.id == user_subject.id
+      }) < 0;
+    });
+    Object.assign(this.state.subject_detail, {user_subjects});
+    this.setState({
+      course_subject_teams: this.state.course_subject_teams,
+      subject_detail: this.state.subject_detail
+    });
   }
 }
