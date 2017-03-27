@@ -39,9 +39,9 @@ class SubjectsController < ApplicationController
     #trainee
     @user_subjects = current_user.user_subjects
 
-    user_dynamic_course_subjects = current_user.dynamic_tasks.
+    @user_dynamic_course_subjects = current_user.dynamic_tasks.
       owner_tasks @course_subject
-    user_static_course_subjects = user_dynamic_course_subjects.user_static_tasks
+    user_static_course_subjects = @user_dynamic_course_subjects.user_static_tasks
     @user_static_assignments = user_static_course_subjects.
       where targetable_type: Assignment.name
     @user_assignment = @user_static_assignments.includes(:targetable).map{|user_static_assignment|

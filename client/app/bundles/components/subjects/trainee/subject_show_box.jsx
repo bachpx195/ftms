@@ -9,7 +9,9 @@ export default class SubjectShowBoxTrainee extends React.Component {
     super(props);
     this.state = {
       assigments_of_user_subjects: props.assigments_of_user_subjects,
-      current_user: props.current_user
+      current_user: props.current_user,
+      user_dynamic_course_subjects: props.user_dynamic_course_subjects,
+      status: "init"
     };
   }
 
@@ -19,8 +21,6 @@ export default class SubjectShowBoxTrainee extends React.Component {
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>
-              <h3 className='box-title'>{I18n.t('subjects.titles.all')}</h3>
-
               <div className="box-tools pull-right">
                 <button type="button" className="btn btn-box-tool" data-widget="collapse">
                   <i className="fa fa-minus"></i>
@@ -35,7 +35,12 @@ export default class SubjectShowBoxTrainee extends React.Component {
               <div className='row'>
                 <div className='col-md-8'>
                   <div className="assignment-box">
-                    <h1>{I18n.t("subjects.trainee.title_assignment")}</h1>
+                    <h1 className="header-task">{I18n.t("subjects.trainee.title_assignment")}
+                      <span className="label label-danger label-header">
+                        {I18n.t("subjects.assignments.total_task",
+                          {total: this.state.assigments_of_user_subjects.length})}
+                      </span>
+                    </h1>
                     {this.renderAssignment()}
                   </div>
                 </div>
@@ -56,12 +61,31 @@ export default class SubjectShowBoxTrainee extends React.Component {
   }
 
   renderAssignment() {
-    return _.map(this.state.assigments_of_user_subjects, assignment => {
+    return this.state.assigments_of_user_subjects.map(assignment => {
+      let status = '';
+      this.state.user_dynamic_course_subjects.map(dynamic_task => {
+        if (dynamic_task.targetable_id == assignment.id) {
+          status = dynamic_task.status;
+        }
+      })
       return <AssignmentItem
         key={assignment.id}
+        status={status}
         current_user={this.state.current_user}
         assignment={assignment}
+        user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
+        afterUpdateStatus={this.afterUpdateStatus.bind(this)}
       />
+    })
+  }
+
+  afterUpdateStatus(dynamic_task) {
+    let index = _.findIndex(this.state.user_dynamic_course_subjects, value => {
+      return value.id == dynamic_task.id
+    })
+    this.state.user_dynamic_course_subjects[index] = dynamic_task;
+    this.setState({
+      user_dynamic_course_subjects: this.state.user_dynamic_course_subjects
     })
   }
 }
