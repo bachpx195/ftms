@@ -45,7 +45,7 @@ export default class RoleBox extends React.Component {
   render() {
     return (
       <div className='row functions'>
-        <div ref='myDiagramDiv' id='myDiagramDiv'></div>
+        <div ref='myDiagramDiv' className='my-diagram-div'></div>
         <button id='SaveButton' onClick={this.onSave.bind(this)}>{I18n.t("buttons.save")}</button>
         <RoleDetail updateRoleDiagram={this.updateRoleDiagram.bind(this)} functions={this.state.dataRole.functions}
           role={this.state.dataRole.role}/>

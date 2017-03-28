@@ -1,4 +1,6 @@
 class AssignTask::TasksController < ApplicationController
+  include Authorize
+
   before_action :find_task, only: :destroy
   before_action :find_ownerable, only: :create
   before_action :namespace_authorize, only: [:create, :destroy]
@@ -70,16 +72,20 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def find_ownerable
-    @ownerable = class_eval(params[:task][:ownerable_type].classify)
-      .find_by id: params[:task][:ownerable_id]
-    unless @ownerable
-      respond_to do |format|
-        format.html{redirect_to :back}
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
+    klass = params[:task][:ownerable_type].classify
+    if CLASS_NAMES.include? klass
+      @ownerable = class_eval(klass).find_by id: params[:task][:ownerable_id]
+      unless @ownerable
+        respond_to do |format|
+          format.html {redirect_to :back}
+          format.json do
+            render json: {message: flash_message("not_found")},
+              status: :not_found
+          end
         end
       end
+    else
+      raise "Forbidden"
     end
   end
 end

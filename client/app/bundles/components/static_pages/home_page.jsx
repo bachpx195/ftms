@@ -78,8 +78,9 @@ export default class HomePage extends React.Component {
 
   render () {
     return (
-      <div id='landing_page'>
-        <section id='programming-languages' className='scroll'>
+      <div className='landing-page'>
+        <section id='programming-languages' className='scroll
+          programming-languages'>
           <div className="td-wrapper">
             <div className='container-fluid'>
               <div className='row'>
@@ -96,8 +97,8 @@ export default class HomePage extends React.Component {
           </div>
         </section>
 
-        <div id='learning-programs' className='scroll'>
-          <section id='all-programs'>
+        <div id='learning-programs' className='scroll learning-programs'>
+          <section id='all-programs' className='all-programs'>
             <div className='container-fluid'>
               <div className='row'>
                 <h2 className='title'>
@@ -347,10 +348,10 @@ export default class HomePage extends React.Component {
 
   renderModalSignIn() {
     return (
-      <div className="modal fade" id="login-modal" tabIndex="-1"
+      <div className="modal fade login-modal" id="login-modal" tabIndex="-1"
         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div className="modal-dialog">
-          <div id="div-forms">
+          <div id="div-forms" className="div-forms">
             <div id="login-form">
               <div className="content-top">{I18n.t("sessions.login")}</div>
               <div className="content-body">

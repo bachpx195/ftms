@@ -1,16 +1,21 @@
-.margin_form_create {
+@import './sass/color_status';
+
+.margin-form-create {
   margin-top: 20px;
 }
+
 .btn-new {
-  background-color: #85C1E9;
-  color: white;
-  border: none;
+  background-color: $c-organization-back;
+  border: 0;
+  color: $c-white;
+
   &:hover {
-    background-color: #85C1E9;
-    color: white;
+    background-color: $c-organization-back;
+    color: $c-white;
   }
+
   &:focus {
-    background-color: #85C1E9;
-    color: white;
+    background-color: $c-organization-back;
+    color: $c-white;
   }
 }

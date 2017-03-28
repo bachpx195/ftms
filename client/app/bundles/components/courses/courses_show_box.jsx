@@ -83,7 +83,7 @@ export default class CoursesShowBox extends React.Component {
             <div className="subject row">
               <a href={course_subject_path}>
                 <div className="col-xs-2 subject-image">
-                  <img className="img-circle" src={subject_image} 
+                  <img className="img-circle" src={subject_image}
                     width="100" height="100" />
                 </div>
                 <div className="col-xs-10 infor">
@@ -110,7 +110,7 @@ export default class CoursesShowBox extends React.Component {
     return (
       <li key={user.id}>
         <a href={user_path} title={user.name}>
-          <img className='img-circle' 
+          <img className='img-circle'
             src={user.avatar.url} width='30' height='30'/>
         </a>
       </li>
@@ -134,7 +134,7 @@ export default class CoursesShowBox extends React.Component {
     return (
       <li className="member-item" key={user.id}>
         <a href={user_path} title={user.name}>
-          <img className='img-circle' 
+          <img className='img-circle'
             src={user.avatar.url} width='30' height='30'/>
           {user.name}
         </a>
@@ -142,14 +142,14 @@ export default class CoursesShowBox extends React.Component {
           <div id="user-course-113">
             <div className="menu-right-user-course">
               <div className="dropdown action-user-course">
-                <span id="dLabe" data-toggle="dropdown" 
+                <span id="dLabe" data-toggle="dropdown"
                   className="evaluation-show">
                   <i className="glyphicon glyphicon-align-justify text-danger">
                   </i>
                 </span>
                 <ul className="dropdown-menu dropdown-menu-right" >
                   <li>
-                    <a href="#" 
+                    <a href="#"
                       onClick={this.handleEvaluateModal.bind(this, user)} >
                       {I18n.t('courses.evaluation.evaluate')}
                     </a>
@@ -202,7 +202,7 @@ export default class CoursesShowBox extends React.Component {
             </span>
             <div className="pull-right">
               <button type="button" className="btn btn-default"
-                onClick={this.handleAssignMember.bind(this)} 
+                onClick={this.handleAssignMember.bind(this)}
                 title={I18n.t("courses.assign_user")}>
                 <i className="fa fa-user-plus"></i>
               </button>
@@ -242,7 +242,7 @@ export default class CoursesShowBox extends React.Component {
     }
     let description = this.state.course.description;
     if(description.length > LIMIT_DESCRIPTION){
-      description = 
+      description =
         this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
 
@@ -253,7 +253,7 @@ export default class CoursesShowBox extends React.Component {
             <div className='col-md-7 image-course-header'>
               <div className='subject-image img-resposive'>
                 <img className='img-circle'
-                  src={this.state.course.image.url ? 
+                  src={this.state.course.image.url ?
                     this.state.course.image.url :
                     DEFAULT_IMAGE_COURSE}/>
               </div>
@@ -261,7 +261,7 @@ export default class CoursesShowBox extends React.Component {
                 <span className='header-title'>
                   {this.state.course.name}
                 </span>
-                <span className={'label-status' + ' ' + 
+                <span className={'label-status' + ' ' +
                   this.state.course.status + '-background-color'}>
                   {I18n.t(`courses.${this.state.course.status}`)}
                 </span>
@@ -274,7 +274,7 @@ export default class CoursesShowBox extends React.Component {
                 <div className='description-course'
                   title={this.state.course.description}>
                   <i>
-                    {description ? description : 
+                    {description ? description :
                       I18n.t('courses.default_description')}
                   </i>
                 </div>
@@ -293,7 +293,7 @@ export default class CoursesShowBox extends React.Component {
             </div>
           </div>
 
-          <button className="btn add_task" 
+          <button className="btn add-task"
             title={I18n.t("courses.title_add_task")}
             onClick={this.addTask.bind(this)}>
             <i className="fa fa-plus" aria-hidden="true"></i>
@@ -315,7 +315,7 @@ export default class CoursesShowBox extends React.Component {
           }
         </div>
         <ModalAssignMember unassignedUsers={this.state.course.unassigned_users}
-          managers={this.state.course.managers} 
+          managers={this.state.course.managers}
           members={this.state.course.members}
           rerender={this.state.rerender} course={this.state.course}
           afterAssignUsers={this.afterAssignUsers.bind(this)} />

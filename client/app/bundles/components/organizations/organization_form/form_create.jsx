@@ -23,7 +23,8 @@ export default class FormCreate extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className="form-horizontal margin_form_create">
+      <form onSubmit={this.handleSubmit.bind(this)} className="form-horizontal
+        margin-form-create">
         <div className="form-group">
           <div className="col-md-10">
             <input type="text" placeholder={I18n.t("organizations.headers.name")}
