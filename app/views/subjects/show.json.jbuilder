@@ -5,8 +5,10 @@ json.subject_detail do
   json.statuses @subject.user_subjects.statuses
 
   json.task do
-    json.surveys @subject_supports.surveys_not_in_static_task, :name, :id, :content
-    json.assignments @subject_supports.assignments_not_in_static_task, :name, :id
+    json.surveys @subject_supports.surveys_not_in_static_task,
+      :name, :id, :content
+    json.assignments @subject_supports.assignments_not_in_static_task,
+      :name, :id
     json.test_rules @subject_supports.test_rules_not_in_static_task, :name, :id
     json.projects @subject_supports.projects_not_in_static_task, :name, :id
   end
@@ -81,7 +83,8 @@ json.subject_detail do
         json.extract! team, :id, :name, :course_subject_id
         json.user_subjects team.user_subjects do |user_subject|
           json.user_name user_subject.user.name
-          json.extract! user_subject, :id, :user_id, :status, :start_date, :end_date
+          json.extract! user_subject, :id, :user_id, :status,
+            :start_date, :end_date
         end
       end
     end
