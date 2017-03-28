@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   mount_uploader :avatar, ImageUploader
 
   acts_as_token_authenticatable
@@ -8,7 +7,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :rememberable, :validatable
 
   ATTRIBUTES_PARAMS = [:email, :password]
-  ATTRIBUTES_FUNCTION_PARAMS = [user_functions_attributes: [:id, :function_id, :user_id, :_destroy]]
+  ATTRIBUTES_FUNCTION_PARAMS = [user_functions_attributes: [:id,
+    :function_id, :user_id, :_destroy]]
 
   has_one :profile, dependent: :destroy
 
@@ -39,9 +39,11 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_functions, allow_destroy: true
 
   def user_tasks task_name
-    tasks = self.dynamic_tasks.map{|dynamic_task| dynamic_task.targetable.targetable if
-      dynamic_task.targetable.targetable_type == task_name}
-    tasks.reject!{|assignment| assignment.nil?}
+    tasks = self.dynamic_tasks.map do |dynamic_task|
+      dynamic_task.targetable.targetable if
+        dynamic_task.targetable.targetable_type == task_name
+    end
+    tasks.reject! &:nil?
     tasks
   end
 

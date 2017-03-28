@@ -7,5 +7,6 @@ class Project < ApplicationRecord
   belongs_to :organization
 
   has_many :tasks, as: :targetable, class_name: Task.name, dependent: :destroy
-  has_many :course_subjects, through: :tasks, source: :targetable, source_type: Project.name
+  has_many :course_subjects, through: :tasks, source: :targetable,
+    source_type: Project.name
 end

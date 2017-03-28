@@ -13,12 +13,12 @@ class Profile < ApplicationRecord
 
   accepts_nested_attributes_for :user
 
-  ATTRIBUTE_PARAMS = [:user_id, :star_training, :leave_date, 
-    :finish_training_date, :ready_for_project, :contract_date, :naitei_company, 
-    :university_id, :graduation, :language_id, :trainee_type_id, :user_status_id, 
-    :stage_id, :organization_id, :working_day, :program_id, :staff_code, 
-    :division, :join_div_date]
+  ATTRIBUTE_PARAMS = [:user_id, :star_training, :leave_date,
+    :finish_training_date, :ready_for_project, :contract_date, :naitei_company,
+    :university_id, :graduation, :language_id, :trainee_type_id,
+    :user_status_id, :stage_id, :organization_id, :working_day, :program_id,
+    :staff_code, :division, :join_div_date]
 
-  CHANGE_PROFILE_PARAMS = [:organization_id, :program_id, 
+  CHANGE_PROFILE_PARAMS = [:organization_id, :program_id,
     user_attributes: [:id, :name, :email, :avatar]]
 end

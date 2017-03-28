@@ -12,5 +12,5 @@ class MemberEvaluation < ApplicationRecord
   has_many :member_evaluation_items, dependent: :destroy
 
   accepts_nested_attributes_for :member_evaluation_items, allow_destroy: true,
-    reject_if: proc {|attributes| attributes[:evaluation_point].blank?}
+    reject_if: proc{|attributes| attributes[:evaluation_point].blank?}
 end

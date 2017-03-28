@@ -30,7 +30,8 @@ class CourseSubject < ApplicationRecord
     source_type: TestRule.name
 
   has_many :tasks, as: :ownerable, class_name: Task.name, dependent: :destroy
-  has_many :projects, through: :tasks, source: :targetable, source_type: Project.name
+  has_many :projects, through: :tasks, source: :targetable,
+    source_type: Project.name
 
   enum status: [:init, :in_progress, :finished]
 

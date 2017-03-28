@@ -1,5 +1,4 @@
 class Function < ApplicationRecord
-
   ATTRIBUTE_PARAMS = [:name, :controller_name, :action, :parent_id]
 
   has_many :role_functions, dependent: :destroy

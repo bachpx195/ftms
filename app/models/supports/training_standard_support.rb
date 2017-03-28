@@ -9,11 +9,12 @@ class Supports::TrainingStandardSupport
 
   def training_standards
     admin = true
-    @training_standards  = if admin
-      TrainingStandard.select :id, :name, :description
-    else
-      current_user.training_standards
-    end
+    @training_standards =
+      if admin
+        TrainingStandard.select :id, :name, :description
+      else
+        current_user.training_standards
+      end
   end
 
   def selected_subjects

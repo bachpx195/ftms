@@ -20,14 +20,17 @@ class Supports::SubjectSupport
   end
 
   def assignments_not_in_static_task
-    @assignments ||= @subject.organization.assignments.where.not id: @subject.assignments
+    @assignments ||= @subject.organization.assignments.where
+      .not id: @subject.assignments
   end
 
   def test_rules_not_in_static_task
-    @test_rules ||= @subject.organization.test_rules.where.not id: @subject.test_rules
+    @test_rules ||= @subject.organization.test_rules.where
+      .not id: @subject.test_rules
   end
 
   def projects_not_in_static_task
-    @projects ||= @subject.organization.projects.where.not id: @course_subject.dynamic_tasks
+    @projects ||= @subject.organization.projects.where
+      .not id: @course_subject.dynamic_tasks
   end
 end

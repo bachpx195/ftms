@@ -1,7 +1,5 @@
 module StiRouting extend ActiveSupport::Concern
   module ClassMethods
-    def model_name
-      base_class.model_name
-    end
+    delegate :model_name, to: :base_class
   end
 end
