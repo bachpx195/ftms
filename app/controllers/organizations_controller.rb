@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {organization: @organization}}
+      format.json{render json: {organization: @organization}}
     end
   end
 
@@ -31,9 +31,11 @@ class OrganizationsController < ApplicationController
         format.html{redirect_to @organization}
         format.json
       else
-        format.html {render :new}
-        format.json {render json: {message: flash_message("not_created"),
-          errors: @organization.errors}, status: :unprocessable_entity}
+        format.html{render :new}
+        format.json do
+          render json: {message: flash_message("not_created"),
+            errors: @organization.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -42,12 +44,14 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       if @organization.update_attributes organization_params
         @message = flash_message "updated"
-        format.html {redirect_to @organization}
+        format.html{redirect_to @organization}
         format.json
       else
-        format.html {render :edit}
-        format.json {render json: {message: flash_message("not_updated"),
-          errors: @organization.errors}, status: :unprocessable_entity}
+        format.html{render :edit}
+        format.json do
+          render json: {message: flash_message("not_updated"),
+            errors: @organization.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -55,7 +59,7 @@ class OrganizationsController < ApplicationController
   def destroy
     @organization.destroy
     respond_to do |format|
-      format.html {redirect_to organizations_path}
+      format.html{redirect_to organizations_path}
       format.json do
         if @organization.deleted?
           render json: {message: flash_message("deleted")}
@@ -76,7 +80,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find_by id: params[:id]
     unless @organization
       respond_to do |format|
-        format.html {redirect_to organizations_path}
+        format.html{redirect_to organizations_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

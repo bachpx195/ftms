@@ -7,8 +7,8 @@ class UserCoursesController < ApplicationController
     subjects.each do |subject|
       subject.subject_detail = subject.subject_details params[:id]
     end
-    @subjects = subjects.as_json only: [:id, :name, :description, :image, :during_time],
-      include: :subject_detail
+    @subjects = subjects.as_json only: [:id, :name, :description,
+      :image, :during_time], include: :subject_detail
   end
 
   private

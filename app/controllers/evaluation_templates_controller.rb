@@ -13,41 +13,52 @@ class EvaluationTemplatesController < ApplicationController
     respond_to do |format|
       if @evaluation_template.save
         format.html{redirect_to @training_standard, @evaluation_template}
-        format.json{render json: {message: flash_message("created"),
-          evaluation_template: @evaluation_template}}
+        format.json do
+          render json: {message: flash_message("created"),
+            evaluation_template: @evaluation_template}
+        end
       else
         format.html{render :new}
-        format.json{render json: {message: flash_message("not_created"),
-          errors: @evaluation_template.errors}, status: :unprocessable_entity}
+        format.json do
+          render json: {message: flash_message("not_created"),
+            errors: @evaluation_template.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
 
   def show
-    @evaluation_standards = if @training_standard.evaluation_template
-      @training_standard.evaluation_template.evaluation_standards
-    else
-      []
-    end
+    @evaluation_standards =
+      if @training_standard.evaluation_template
+        @training_standard.evaluation_template.evaluation_standards
+      else
+        Array.new
+      end
   end
 
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {evaluation_template: @evaluation_template}}
+      format.json{render json: {evaluation_template: @evaluation_template}}
     end
   end
 
   def update
     respond_to do |format|
       if @evaluation_template.update_attributes evaluation_template_params
-        format.html{redirect_to training_standard_evaluation_template_path(@training_standard)}
-        format.json{render json: {message: flash_message("updated"),
-          evaluation_template: @evaluation_template}}
+        format.html do
+          redirect_to training_standard_evaluation_template_path(@training_standard)
+        end
+        format.json do
+          render json: {message: flash_message("updated"),
+            evaluation_template: @evaluation_template}
+        end
       else
         format.html{render :edit}
-        format.json{ render json: {message: flash_message("not_updated"),
-          errors: @evaluation_template.errors}, status: :unprocessable_entity}
+        format.json do
+          render json: {message: flash_message("not_updated"),
+            errors: @evaluation_template.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -55,7 +66,9 @@ class EvaluationTemplatesController < ApplicationController
   def destroy
     @evaluation_template.destroy
     respond_to do |format|
-      format.html{redirect_to training_standard_evaluation_template_path(@training_standard)}
+      format.html do
+        redirect_to training_standard_evaluation_template_path(@training_standard)
+      end
       format.json do
         if @evaluation_template.deleted?
           render json: {message: flash_message("deleted")}
@@ -69,14 +82,16 @@ class EvaluationTemplatesController < ApplicationController
 
   private
   def evaluation_template_params
-    params.require(:evaluation_template).permit EvaluationTemplate::ATTRIBUTE_PARAMS
+    params.require(:evaluation_template)
+      .permit EvaluationTemplate::ATTRIBUTE_PARAMS
   end
 
   def find_training_standard
-    @training_standard = TrainingStandard.find_by id: params[:training_standard_id]
+    @training_standard = TrainingStandard
+      .find_by id: params[:training_standard_id]
     unless @training_standard
       respond_to do |format|
-        format.html {redirect_to training_standards_path}
+        format.html{redirect_to training_standards_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -89,7 +104,9 @@ class EvaluationTemplatesController < ApplicationController
     @evaluation_template = @training_standard.evaluation_template
     unless @evaluation_template
       respond_to do |format|
-        format.html {redirect_to training_standard_evaluation_template_path(@training_standard)}
+        format.html do
+          redirect_to training_standard_evaluation_template_path(@training_standard)
+        end
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

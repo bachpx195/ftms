@@ -8,7 +8,7 @@ class StagesController < ApplicationController
     @stages = stages_serializer.serializer
     respond_to do |format|
       format.html
-      format.json {render json: {stages: @stages}}
+      format.json{render json: {stages: @stages}}
     end
   end
 
@@ -22,13 +22,13 @@ class StagesController < ApplicationController
         stages_serializer = Serializers::StagesSerializer
           .new object: @stage
         @stage = stages_serializer.serializer
-        format.html {redirect_to stage_path(id: @stage[:id])}
+        format.html{redirect_to stage_path(id: @stage[:id])}
         format.json do
           render json: {message: flash_message("created"),
             stage: @stage}
         end
       else
-        format.html {render :new}
+        format.html{render :new}
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @stage.errors}, status: :unprocessable_entity
@@ -49,7 +49,7 @@ class StagesController < ApplicationController
     @stage = stages_serializer.serializer
     respond_to do |format|
       format.html
-      format.json {render json: {stage: @stage}}
+      format.json{render json: {stage: @stage}}
     end
   end
 
@@ -59,13 +59,13 @@ class StagesController < ApplicationController
         stages_serializer = Serializers::StagesSerializer
           .new object: @stage
         @stage = stages_serializer.serializer
-        format.html {redirect_to stage_path(id: @stage[:id])}
+        format.html{redirect_to stage_path(id: @stage[:id])}
         format.json do
           render json: {message: flash_message("updated"),
             stage: @stage}
         end
       else
-        format.html {render :edit}
+        format.html{render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @stage.errors}, status: :unprocessable_entity
@@ -77,7 +77,7 @@ class StagesController < ApplicationController
   def destroy
     @stage.destroy
     respond_to do |format|
-      format.html {redirect_to stages_path}
+      format.html{redirect_to stages_path}
       format.json do
         if @stage.deleted?
           render json: {message: flash_message("deleted")}
@@ -98,7 +98,7 @@ class StagesController < ApplicationController
     @stage = Stage.find_by id: params[:id]
     unless @stage
       respond_to do |format|
-        format.html {redirect_to stages_path}
+        format.html{redirect_to stages_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

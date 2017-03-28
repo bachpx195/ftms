@@ -14,14 +14,14 @@ class LanguagesController < ApplicationController
     @language = Language.new language_params
     respond_to do |format|
       if @language.save
-        format.html {redirect_to @language}
+        format.html{redirect_to @language}
         format.json do
           @language[:image] = {url: @language.image.url}
           render json: {message: flash_message("created"),
             language: @language}
         end
       else
-        format.html {render :new}
+        format.html{render :new}
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @language.errors}, status: :unprocessable_entity
@@ -46,14 +46,14 @@ class LanguagesController < ApplicationController
   def update
     respond_to do |format|
       if @language.update_attributes language_params
-        format.html {redirect_to @language}
+        format.html{redirect_to @language}
         format.json do
           @language[:image] = {url: @language.image.url}
           render json: {message: flash_message("updated"),
             language: @language}
         end
       else
-        format.html {render :edit}
+        format.html{render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @language.errors}, status: :unprocessable_entity
@@ -65,7 +65,7 @@ class LanguagesController < ApplicationController
   def destroy
     @language.destroy
     respond_to do |format|
-      format.html {redirect_to languages_path}
+      format.html{redirect_to languages_path}
       format.json do
         if @language.deleted?
           render json: {message: flash_message("deleted")}
@@ -86,7 +86,7 @@ class LanguagesController < ApplicationController
     @language = Language.find_by id: params[:id]
     unless @language
       respond_to do |format|
-        format.html {redirect_to languages_path}
+        format.html{redirect_to languages_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

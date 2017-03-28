@@ -25,7 +25,7 @@ class AssignUser::CoursesController < ApplicationController
     @course = Course.find_by id: params[:id]
     unless @course
       respond_to do |format|
-        format.html {redirect_to root_path}
+        format.html{redirect_to root_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

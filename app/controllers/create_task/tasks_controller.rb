@@ -8,15 +8,18 @@ class CreateTask::TasksController < ApplicationController
       if @target.save
         @task = StaticTask.new targetable: @target, ownerable: @owner
         unless @task.save
-          format.html {}
-          format.json {render json: {message: flash_message("not_created")},
-            status: :unprocessable_entity}
+          format.html
+          format.json do
+            render json: {message: flash_message("not_created")},
+              status: :unprocessable_entity
+          end
         end
       end
       target = @target.attributes.merge task_id: @task.id
-      format.html {}
-      format.json {render json: {message: flash_message("created"),
-        target: target}}
+      format.html
+      format.json do
+        render json: {message: flash_message("created"), target: target}
+      end
     end
   end
 
@@ -26,11 +29,11 @@ class CreateTask::TasksController < ApplicationController
   end
 
   def find_ownerable
-    @owner = class_eval params[:task][:ownerable_type].classify
-    .find_by id: params[:task][:ownerable_id]
+    @owner = class_eval(params[:task][:ownerable_type].classify)
+      .find_by id: params[:task][:ownerable_id]
     unless @owner
       respond_to do |format|
-        format.html {redirect_to :back}
+        format.html{redirect_to :back}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -38,5 +41,4 @@ class CreateTask::TasksController < ApplicationController
       end
     end
   end
-
 end
