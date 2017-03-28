@@ -6,12 +6,14 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if @team.save
         @team.user_subject_ids = params[:user_subject_ids]
-        format.html {redirect_to :back}
+        format.html{redirect_to :back}
         format.json
       else
-        format.html {render :new}
-        format.json {render json: {message: flash_message("not_created"),
-          errors: @team.errors}, status: :unprocessable_entity}
+        format.html{render :new}
+        format.json do
+          render json: {message: flash_message("not_created"),
+            errors: @team.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -21,7 +23,7 @@ class TeamsController < ApplicationController
     @course_subject = CourseSubject.find_by id: params[:course_subject_id]
     unless @course_subject
       respond_to do |format|
-        format.html {redirect_to :back}
+        format.html{redirect_to :back}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

@@ -21,7 +21,7 @@ module Authorize
     end
   end
 
-   def authorize_class
+  def authorize_class
     klass = params[:controller].classify
     if Settings.class_names.include? klass
       klass = class_eval klass

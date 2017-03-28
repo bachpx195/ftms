@@ -9,20 +9,20 @@ class ChangeProfile::UsersController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {profile: @user.profile}}
+      format.json{render json: {profile: @user.profile}}
     end
   end
 
   def update
     respond_to do |format|
       if @user.profile.update_attributes user_params
-        format.html {redirect_to @user}
+        format.html{redirect_to @user}
         format.json do
           render json: {message: flash_message("updated"),
             user_profile: @user.profile}
         end
       else
-        format.html {render :edit}
+        format.html{render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @user.errors}, status: :unprocessable_entity
@@ -40,7 +40,7 @@ class ChangeProfile::UsersController < ApplicationController
     @user = User.find_by id: params[:id]
     unless @user
       respond_to do |format|
-        format.html {redirect_to users_path}
+        format.html{redirect_to users_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
