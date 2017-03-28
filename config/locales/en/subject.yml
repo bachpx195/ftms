@@ -35,7 +35,7 @@ en:
       in_progress: "In progress"
       waiting: "Waiting"
       finished: "Finished"
-    members: Members
+    members: "Members"
     init_subjects: "Init Subjects "
     progress_subjects: "Progress Subjects "
     waiting_subjects: "Waiting Subjects "
@@ -55,6 +55,11 @@ en:
       send_count: "Sent count: "
       avatar: "avatar"
       title_assignment: "Task Overview"
+    create_team: "Create Team"
+    team_member:
+      name: "Name"
+      start_date: "Start Date"
+      end_date: "End Date"
     assignments:
       total_task: "%{total} tasks"
       status:

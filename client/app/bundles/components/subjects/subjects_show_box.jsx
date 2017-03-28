@@ -20,8 +20,9 @@ export default class SubjectsShowBox extends React.Component {
     super(props);
     this.state = {
       assigments_of_user_subjects: props.assigments,
-      admin: false, // Check tam admin. Sau co policy client check lai
+      admin: true, // Check tam admin. Sau co policy client check lai
       current_user: props.current_user,
+      course_subject_teams: [],
       user_subjects: props.user_subjects,
       user_dynamic_course_subjects: props.user_dynamic_course_subjects,
       subject_detail: {
@@ -83,20 +84,29 @@ export default class SubjectsShowBox extends React.Component {
         <div className='blocks'>
           <ul className='nav nav-tabs tab-bar'>
             <li className='active'>
-              <a data-toggle='tab' href='#user-subject'>
-                <i className='fa fa-file-text-o'></i>
-                  {I18n.t('subjects.titles.unassigned_members')}
-              </a>
-            </li>
-            <li>
               <a data-toggle='tab' href='#list_team'>
                 <i className='fa fa-pencil-square-o'></i>
                   {I18n.t('subjects.titles.list_team')}
               </a>
             </li>
+            <li>
+              <a data-toggle='tab' href='#user-subject'>
+                <i className='fa fa-file-text-o'></i>
+                  {I18n.t('subjects.titles.unassigned_members')}
+              </a>
+            </li>
           </ul>
           <div className='tab-content'>
-            <div id='user-subject' className='tab-pane fade in active clearfix'>
+            <div id='list_team' className='tab-pane fade in active'>
+              <div className='col-md-12'>
+                <TeamList course_subject={this.state.subject_detail.course_subject}
+                  course_subject_teams={this.state.course_subject_teams}
+                  handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
+                  unassigned_user_subjects={this.state.subject_detail.user_subjects}
+                />
+              </div>
+            </div>
+            <div id='user-subject' className='tab-pane fade'>
               <div className='col-md-12'>
                 <div className='box box-success'>
                   <div className='box-body'>
@@ -107,15 +117,6 @@ export default class SubjectsShowBox extends React.Component {
                     />
                   </div>
                 </div>
-              </div>
-            </div>
-            <div id='list_team' className='tab-pane fade'>
-              <div className='col-md-12'>
-                <TeamList course_subject={this.state.subject_detail.course_subject}
-                  course_subject_teams={this.state.course_subject_teams}
-                  handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
-                  unassigned_user_subjects={this.state.subject_detail.user_subjects}
-                />
               </div>
             </div>
             <div className='clearfix'></div>

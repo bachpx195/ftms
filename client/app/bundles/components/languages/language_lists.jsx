@@ -57,14 +57,11 @@ export default class LanguageLists extends React.Component {
         className='thumbnail-image'/>
     );
 
-    let modalEdit = null;
-    if(this.state.language.id){
-      modalEdit = (
-        <Modal url={LANGUAGE_URL + '/' + this.state.language.id}
-          language={this.state.language}
-          handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
-      );
-    }
+    let modalEdit = (
+      <Modal url={LANGUAGE_URL + '/' + this.state.language.id}
+        language={this.state.language}
+        handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
+    );
 
     return (
       <div>
