@@ -11,7 +11,7 @@ class ChangeRole::UsersController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {roles: @user.roles}}
+      format.json{render json: {roles: @user.roles}}
     end
   end
 
@@ -25,22 +25,20 @@ class ChangeRole::UsersController < ApplicationController
           render json: {message: flash_message("updated"),
             functions: functions}
         end
+      elsif find_role
+        update_user_function_service =
+          UserServices::UpdateUserFunction.new user_function_params, @user
+        update_user_function_service.perform
+        format.html{redirect_to @user}
+        format.json do
+          render json: {message: flash_message("updated"),
+            roles: @user.roles}
+        end
       else
-        if find_role
-          update_user_function_service =
-            UserServices::UpdateUserFunction.new user_function_params, @user
-          update_user_function_service.perform
-          format.html {redirect_to @user}
-          format.json do
-            render json: {message: flash_message("updated"),
-              roles: @user.roles}
-          end
-        else
-          format.html {render :edit}
-          format.json do
-            render json: {message: flash_message("not_updated"),
-              errors: @user.errors}, status: :unprocessable_entity
-          end
+        format.html{render :edit}
+        format.json do
+          render json: {message: flash_message("not_updated"),
+            errors: @user.errors}, status: :unprocessable_entity
         end
       end
     end
@@ -51,7 +49,7 @@ class ChangeRole::UsersController < ApplicationController
     @user = User.find_by id: params[:id]
     unless @user
       respond_to do |format|
-        format.html {redirect_to users_path}
+        format.html{redirect_to users_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -64,12 +62,10 @@ class ChangeRole::UsersController < ApplicationController
     @user.user_roles.delete_all
     params[:roles].each do |role|
       user_role = Role.find_by id: role[:id]
-      unless @user.roles.include? user_role
-        @user.roles << user_role
-      end
+      @user.roles << user_role unless @user.roles.include? user_role
     end
   end
-  
+
   def user_function_params
     params.require(:functions).permit User::ATTRIBUTES_FUNCTION_PARAMS
   end

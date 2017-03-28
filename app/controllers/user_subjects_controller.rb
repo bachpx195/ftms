@@ -11,7 +11,7 @@ class UserSubjectsController < ApplicationController
           render json: {message: flash_message("updated")}
         end
       else
-        format.html {render :edit}
+        format.html{render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @user.errors}, status: :unprocessable_entity
@@ -29,7 +29,7 @@ class UserSubjectsController < ApplicationController
     @user_subject = UserSubject.find_by id: params[:id]
     unless @user_subject
       respond_to do |format|
-        format.html {redirect_to root_path}
+        format.html{redirect_to root_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

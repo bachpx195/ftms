@@ -7,7 +7,7 @@ class ProgramsController < ApplicationController
     @programs = []
     @organization.programs.each do |program|
       @programs << program
-      @programs = @programs + load_sub_programs(program)
+      @programs += load_sub_programs(program)
     end
     @not_assigned_programs = Program.not_assigned_programs
   end
@@ -16,21 +16,24 @@ class ProgramsController < ApplicationController
   end
 
   def create
-    @program = if params[:program][:parent_id].present?
-      parent = Program.find_by id: params[:program].delete(:parent_id)
-      parent.children.build program_params
-    else
-      @organization.programs.build program_params
-    end
+    @program =
+      if params[:program][:parent_id].present?
+        parent = Program.find_by id: params[:program].delete(:parent_id)
+        parent.children.build program_params
+      else
+        @organization.programs.build program_params
+      end
 
     respond_to do |format|
       if @program.save
-        format.html {redirect_to [:admin, @program]}
-        format.json {render json: {program: @program}}
+        format.html{redirect_to [:admin, @program]}
+        format.json{render json: {program: @program}}
       else
-        format.html {render :new}
-        format.json {render json: {message: flash_message("not_created"),
-          errors: @program.errors}, status: :unprocessable_entity}
+        format.html{render :new}
+        format.json do
+          render json: {message: flash_message("not_created"),
+            errors: @program.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -43,19 +46,21 @@ class ProgramsController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {program: @program}}
+      format.json{render json: {program: @program}}
     end
   end
 
   def update
     respond_to do |format|
       if @program.update_attributes program_params
-        format.html {redirect_to @program}
-        format.json {render json: {program: @program}}
+        format.html{redirect_to @program}
+        format.json{render json: {program: @program}}
       else
-        format.html {render :edit}
-        format.json {render json: {message: flash_message("not_updated"),
-          errors: @program.errors}, status: :unprocessable_entity}
+        format.html{render :edit}
+        format.json do
+          render json: {message: flash_message("not_updated"),
+            errors: @program.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -63,7 +68,7 @@ class ProgramsController < ApplicationController
   def destroy
     @program.destroy
     respond_to do |format|
-      format.html {redirect_to programs_path}
+      format.html{redirect_to programs_path}
       format.json do
         if @program.deleted?
           @message = flash_message "deleted"
@@ -85,7 +90,7 @@ class ProgramsController < ApplicationController
     @organization = Organization.find_by id: params[:organization_id]
     unless @organization
       respond_to do |format|
-        format.html {redirect_to organizations_path}
+        format.html{redirect_to organizations_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -98,7 +103,7 @@ class ProgramsController < ApplicationController
     @program = Program.find_by id: params[:id]
     unless @program
       respond_to do |format|
-        format.html {redirect_to :back}
+        format.html{redirect_to :back}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -108,10 +113,10 @@ class ProgramsController < ApplicationController
   end
 
   def load_sub_programs program
-    programs = []
+    programs = Array.new
     program.children.each do |sub_program|
       programs << sub_program
-      programs = programs + load_sub_programs(sub_program)
+      programs += load_sub_programs(sub_program)
     end
     programs
   end

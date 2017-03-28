@@ -5,8 +5,8 @@ class AssignmentsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html {}
-      format.json {render json: {static_task: @static_task}}
+      format.html
+      format.json{render json: {static_task: @static_task}}
     end
   end
 
@@ -15,7 +15,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find_by id: params[:id]
     unless @assignment
       respond_to do |format|
-        format.html {}
+        format.html
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -29,7 +29,7 @@ class AssignmentsController < ApplicationController
       targetable_type: "Assignment"
     unless @static_task
       respond_to do |format|
-        format.html {}
+        format.html
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

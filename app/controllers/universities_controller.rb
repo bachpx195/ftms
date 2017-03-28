@@ -7,7 +7,7 @@ class UniversitiesController < ApplicationController
     @universities = universities_serializer.serializer
     respond_to do |format|
       format.html
-      format.json {render json: {universities: @universities}}
+      format.json{render json: {universities: @universities}}
     end
   end
 
@@ -21,13 +21,13 @@ class UniversitiesController < ApplicationController
         universities_serializer = Serializers::UniversitiesSerializer
           .new object: @university
         @university = universities_serializer.serializer
-        format.html {redirect_to [:admin, @university]}
+        format.html{redirect_to [:admin, @university]}
         format.json do
           render json: {message: flash_message("created"),
             university: @university}
         end
       else
-        format.html {render :new}
+        format.html{render :new}
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @university.errors}, status: :unprocessable_entity
@@ -42,7 +42,7 @@ class UniversitiesController < ApplicationController
     @university = universities_serializer.serializer
     respond_to do |format|
       format.html
-      format.json {render json: {university: @university}}
+      format.json{render json: {university: @university}}
     end
   end
 
@@ -52,7 +52,7 @@ class UniversitiesController < ApplicationController
     @university = universities_serializer.serializer
     respond_to do |format|
       format.html
-      format.json {render json: {university: @university}}
+      format.json{render json: {university: @university}}
     end
   end
 
@@ -62,13 +62,13 @@ class UniversitiesController < ApplicationController
         universities_serializer = Serializers::UniversitiesSerializer
           .new object: @university
         @university = universities_serializer.serializer
-        format.html {redirect_to [:admin, @university]}
+        format.html{redirect_to [:admin, @university]}
         format.json do
           render json: {message: flash_message("updated"),
             university: @university}
         end
       else
-        format.html {render :edit}
+        format.html{render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @university.errors}, status: :unprocessable_entity
@@ -80,7 +80,7 @@ class UniversitiesController < ApplicationController
   def destroy
     @university.destroy
     respond_to do |format|
-      format.html {redirect_to admin_universities_path}
+      format.html{redirect_to admin_universities_path}
       format.json do
         if @university.deleted?
           render json: {message: flash_message("deleted")}
@@ -101,7 +101,7 @@ class UniversitiesController < ApplicationController
     @university = University.find_by id: params[:id]
     unless @university
       respond_to do |format|
-        format.html {redirect_to admin_universities_path}
+        format.html{redirect_to admin_universities_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

@@ -3,10 +3,12 @@ class AssignProgram::StandardsController < ApplicationController
   before_action :namespace_authorize
 
   def create
-    ProgramServices::AssignStandard.new(standard_ids: params[:training_standard_id], program: @program).perform
+    ProgramServices::AssignStandard
+      .new(standard_ids: params[:training_standard_id], program: @program)
+      .perform
     respond_to do |format|
-      format.html {}
-      format.json {}
+      format.html
+      format.json
     end
   end
 
