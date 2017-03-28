@@ -13,16 +13,17 @@ class TrainingStandardsController < ApplicationController
   end
 
   def create
-    @training_standard = current_user.training_standards.build training_standard_params
+    @training_standard = current_user.training_standards
+      .build training_standard_params
     respond_to do |format|
       if @training_standard.save
-        format.html {redirect_to @training_standard}
+        format.html{redirect_to @training_standard}
         format.json do
           render json: {message: flash_message("created"),
             training_standard: @training_standard}
         end
       else
-        format.html {render :new}
+        format.html{render :new}
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @training_standard.errors}, status: :unprocessable_entity
@@ -37,20 +38,20 @@ class TrainingStandardsController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {training_standard: @training_standard}}
+      format.json{render json: {training_standard: @training_standard}}
     end
   end
 
   def update
     respond_to do |format|
       if @training_standard.update_attributes training_standard_params
-        format.html {redirect_to @training_standard}
+        format.html{redirect_to @training_standard}
         format.json do
           render json: {message: flash_message("updated"),
             training_standard: @training_standard}
         end
       else
-        format.html {render :edit}
+        format.html{render :edit}
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @training_standard.errors}, status: :unprocessable_entity
@@ -62,7 +63,7 @@ class TrainingStandardsController < ApplicationController
   def destroy
     @training_standard.destroy
     respond_to do |format|
-      format.html {redirect_to admin_training_standards_path}
+      format.html{redirect_to admin_training_standards_path}
       format.json do
         if @training_standard.deleted?
           render json: {message: flash_message("deleted")}
@@ -83,7 +84,7 @@ class TrainingStandardsController < ApplicationController
     @training_standard = TrainingStandard.find_by id: params[:id]
     unless @training_standard
       respond_to do |format|
-        format.html {redirect_to root_path}
+        format.html{redirect_to root_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -93,6 +94,7 @@ class TrainingStandardsController < ApplicationController
   end
 
   def supports
-    @supports = Supports::TrainingStandardSupport.new training_standard: @training_standard
+    @supports = Supports::TrainingStandardSupport
+      .new training_standard: @training_standard
   end
 end

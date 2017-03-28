@@ -4,38 +4,44 @@ class AssignTask::TasksController < ApplicationController
   before_action :namespace_authorize, only: :create
 
   def create
-    list_targets = [];
+    list_targets = Array.new
     respond_to do |format|
       params[:task][:targetable_ids].each do |targetable_id|
         _params = task_params
         _params[:targetable_type] = task_params[:targetable_type].classify
-        @task = if params[:task][:user_id]
-          @ownerable.dynamic_tasks.new _params
-        else
-          @ownerable.static_tasks.new _params
-        end
+        @task =
+          if params[:task][:user_id]
+            @ownerable.dynamic_tasks.new _params
+          else
+            @ownerable.static_tasks.new _params
+          end
         @task.targetable_id = targetable_id
         unless @task.save
-          format.html {}
-          format.json {render json: {message: flash_message("not_created")},
-            status: :unprocessable_entity}
+          format.html
+          format.json do
+            render json: {message: flash_message("not_created")},
+              status: :unprocessable_entity
+          end
         end
         if _params[:targetable_type] == "StaticTask"
-          list_targets << @task.targetable.targetable.attributes.merge(task_id: @task.id)
+          list_targets << @task.targetable.targetable.attributes
+            .merge(task_id: @task.id)
         else
           list_targets << @task.targetable.attributes.merge(task_id: @task.id)
         end
       end
-      format.html {}
-      format.json {render json: {message: flash_message("created"),
-        list_targets: list_targets}}
+      format.html
+      format.json do
+        render json: {message: flash_message("created"),
+          list_targets: list_targets}
+      end
     end
   end
 
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html {redirect_to :back}
+      format.html{redirect_to :back}
       format.json do
         if @task.deleted?
           render json: {message: flash_message("deleted")}
@@ -54,14 +60,16 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def find_task
-    @task = if(params[:targetable_type] == "Survey")
-      StaticTask.find_by targetable_id: params[:id], targetable_type: "Survey"
-    else
-      StaticTask.find_by targetable_id: params[:id], targetable_type: "TestRule"
-    end
+    @task =
+      if params[:targetable_type] == "Survey"
+        StaticTask.find_by targetable_id: params[:id], targetable_type: "Survey"
+      else
+        StaticTask.find_by targetable_id: params[:id],
+          targetable_type: "TestRule"
+      end
     unless @task
       respond_to do |format|
-        format.html {redirect_to subjects_path}
+        format.html{redirect_to subjects_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -75,7 +83,7 @@ class AssignTask::TasksController < ApplicationController
       .find_by id: params[:task][:ownerable_id]
     unless @ownerable
       respond_to do |format|
-        format.html {redirect_to :back}
+        format.html{redirect_to :back}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
