@@ -13,21 +13,19 @@ class SessionsController < Devise::SessionsController
     yield resource if block_given?
     cookies["current_user_id"] = current_user.id
 
-    return render json: {success: true, login: true, data: {message: message,
+    render json: {success: true, login: true, data: {message: message,
       current_user: current_user}}
   end
 
   def failure
-    user = User.find_by email: session["user_auth"][:email] rescue nill
     message = t "devise.failure.invalid", authentication_keys: "email"
 
     respond_to do |format|
-      format.json {
-        render json: {success: false, data: {message: message, cause: "invalid"}}
-      }
-      format.html {
-        redirect_to "/users/sessions/new"
-      }
+      format.json do
+        render json: {success: false,
+          data: {message: message, cause: "invalid"}}
+      end
+      format.html{redirect_to "/users/sessions/new"}
     end
   end
 end

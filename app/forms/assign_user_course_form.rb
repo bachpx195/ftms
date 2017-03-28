@@ -16,17 +16,16 @@ class AssignUserCourseForm
       ActiveRecord::Base.transaction do
         @course.user_courses.where(id: user_course_ids).try :destroy_all
         user_courses.each do |attr|
-          unless attr["_destroy"]
-            _user_course = UserCourse.with_deleted
-              .find_by course_id: @course.id, user_id: attr["user_id"]
-            user_course =
-              if _user_course
-                _user_course.update_attributes attr
-              else
-                @course.user_courses.create attr
-              end
-            init_user_subjects(user_course) if user_course.is_a? CourseMember
-          end
+          next if attr["_destroy"]
+          user_course = UserCourse.with_deleted
+            .find_by course_id: @course.id, user_id: attr["user_id"]
+          user_course =
+            if user_course
+              user_course.update_attributes attr
+            else
+              @course.user_courses.create attr
+            end
+          init_user_subjects(user_course) if user_course.is_a? CourseMember
         end
       end
       true

@@ -5,10 +5,12 @@ class DynamicTask < Task
 
   validates :user, presence: true
 
-  belongs_to :static_task, foreign_key: :targetable_id, class_name: StaticTask.name
+  belongs_to :static_task, foreign_key: :targetable_id,
+    class_name: StaticTask.name
 
-  scope :owner_tasks, -> owner {where targetable_type: Task.name,
-    ownerable: owner}
+  scope :owner_tasks, ->owner do
+    where targetable_type: Task.name, ownerable: owner
+  end
 
   enum status: [:in_progress, :finish]
 
