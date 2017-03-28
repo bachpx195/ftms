@@ -23,7 +23,7 @@ class Subject < ApplicationRecord
 
   belongs_to :organization
 
-  scope :find_remain_subjects, -> ids {where.not id: ids}
+  scope :find_remain_subjects, ->ids{where.not id: ids}
 
   validates :name, presence: true
 

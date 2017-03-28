@@ -8,8 +8,9 @@ module ApplicationHelper
     if params.empty?
       t "flashs.messages.#{flash_type}", model_name: controller_name.classify
     else
-      t "flashs.messages.#{flash_type}",
-        models_name: params[0].join(", ") unless params[0].empty?
+      unless params[0].empty?
+        t "flashs.messages.#{flash_type}", models_name: params[0].join(", ")
+      end
     end
   end
 end
