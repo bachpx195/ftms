@@ -32,7 +32,7 @@ class SubjectsController < ApplicationController
 
   def show
     #admin
-    @course_subject = CourseSubject.find_by params[:course_id]
+    @course_subject = CourseSubject.find_by id: params[:course_id]
     @subject_supports = Supports::SubjectSupport
       .new subject: @subject, course: @course, course_subject: @course_subject
 

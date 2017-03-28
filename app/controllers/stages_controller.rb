@@ -22,7 +22,7 @@ class StagesController < ApplicationController
         stages_serializer = Serializers::StagesSerializer
           .new object: @stage
         @stage = stages_serializer.serializer
-        format.html {redirect_to @stage}
+        format.html {redirect_to stage_path(id: @stage[:id])}
         format.json do
           render json: {message: flash_message("created"),
             stage: @stage}
@@ -59,7 +59,7 @@ class StagesController < ApplicationController
         stages_serializer = Serializers::StagesSerializer
           .new object: @stage
         @stage = stages_serializer.serializer
-        format.html {redirect_to @stage}
+        format.html {redirect_to stage_path(id: @stage[:id])}
         format.json do
           render json: {message: flash_message("updated"),
             stage: @stage}
