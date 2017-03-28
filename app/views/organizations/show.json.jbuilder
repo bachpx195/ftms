@@ -1,7 +1,7 @@
 json.organization do
   json.extract! @organization, :id, :name, :parent_id
-  json.sub_organizations @organization.children, 
-    partial: 'organizations/sub_organizations', as: :organization
+  json.sub_organizations @organization.children,
+    partial: "organizations/sub_organizations", as: :organization
   json.owner @organization.owner
   json.users @organization.users
 end
@@ -13,7 +13,7 @@ json.programs do
     json.courses do
       json.array! program.courses do |course|
         json.extract! course, *Course::ATTRIBUTE_PARAMS, :id
-        json.users course.managers, :id , :name, :avatar
+        json.users course.managers, :id, :name, :avatar
       end
     end
   end

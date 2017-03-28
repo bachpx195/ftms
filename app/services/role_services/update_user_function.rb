@@ -13,7 +13,8 @@ class RoleServices::UpdateUserFunction
       @user_roles.each do |user_role|
         user_role.user.user_functions.delete_all
         @role.functions.each do |function|
-          users_functions << user_role.user.user_functions.new(function_id: function.id)
+          users_functions << user_role.user.user_functions
+            .new(function_id: function.id)
         end
       end
       UserFunction.import users_functions
