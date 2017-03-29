@@ -46,16 +46,6 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  def edit
-    universities_serializer = Serializers::UniversitiesSerializer
-      .new object: @university
-    @university = universities_serializer.serializer
-    respond_to do |format|
-      format.html
-      format.json{render json: {university: @university}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @university.update_attributes university_params

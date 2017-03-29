@@ -43,13 +43,6 @@ class ProgramsController < ApplicationController
       role_id: params[:role_id]
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {program: @program}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @program.update_attributes program_params

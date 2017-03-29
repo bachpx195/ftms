@@ -32,13 +32,6 @@ class FunctionsController < ApplicationController
   def show
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {function: @function}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @function.update_attributes function_params

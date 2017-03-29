@@ -31,13 +31,6 @@ class UsersController < ApplicationController
   def show
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {user: @user}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @user.update_attributes user_params

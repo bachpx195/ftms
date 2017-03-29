@@ -49,16 +49,6 @@ class SubjectsController < ApplicationController
       .includes(:targetable).map(&:targetable)
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json do
-        @subject[:image] = {url: @subject.image.url}
-        render json: {subject: @subject}
-      end
-    end
-  end
-
   def update
     respond_to do |format|
       if @subject.update_attributes subject_params

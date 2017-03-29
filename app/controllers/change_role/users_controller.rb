@@ -8,13 +8,6 @@ class ChangeRole::UsersController < ApplicationController
     @functions = QueryObject.new(query).exec
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {roles: @user.roles}}
-    end
-  end
-
   def update
     respond_to do |format|
       if params["update_show"] && params["roles"]

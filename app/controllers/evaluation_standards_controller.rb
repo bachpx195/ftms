@@ -32,13 +32,6 @@ class EvaluationStandardsController < ApplicationController
   def show
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {evaluation_standard: @evaluation_standard}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @evaluation_standard.update_attributes evaluation_standard_params

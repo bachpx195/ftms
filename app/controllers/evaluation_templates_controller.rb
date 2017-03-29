@@ -36,13 +36,6 @@ class EvaluationTemplatesController < ApplicationController
       end
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {evaluation_template: @evaluation_template}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @evaluation_template.update_attributes evaluation_template_params

@@ -1,9 +1,6 @@
 class UserSubjectsController < ApplicationController
   before_action :find_user_subject
 
-  def edit
-  end
-
   def update
     respond_to do |format|
       if @user_subject.update_attributes user_subject_params

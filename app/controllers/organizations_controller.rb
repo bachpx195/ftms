@@ -16,13 +16,6 @@ class OrganizationsController < ApplicationController
   def new
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {organization: @organization}}
-    end
-  end
-
   def create
     @organization = current_user.organizations.build organization_params
     respond_to do |format|
