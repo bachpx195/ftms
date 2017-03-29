@@ -6,13 +6,6 @@ class ChangeProfile::UsersController < ApplicationController
     @supports = Supports::UserSupport.new
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {profile: @user.profile}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @user.profile.update_attributes user_params

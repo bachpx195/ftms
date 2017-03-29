@@ -30,13 +30,6 @@ class TraineeTypesController < ApplicationController
   def show
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {trainee_type: @trainee_type}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @trainee_type.update_attributes trainee_type_params

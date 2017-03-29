@@ -43,16 +43,6 @@ class StagesController < ApplicationController
     @stage = stages_serializer.serializer
   end
 
-  def edit
-    stages_serializer = Serializers::StagesSerializer
-      .new object: @stage
-    @stage = stages_serializer.serializer
-    respond_to do |format|
-      format.html
-      format.json{render json: {stage: @stage}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @stage.update_attributes stage_params

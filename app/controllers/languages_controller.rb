@@ -34,16 +34,6 @@ class LanguagesController < ApplicationController
   def show
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json do
-        @language[:image] = {url: @language.image.url}
-        render json: {language: @language}
-      end
-    end
-  end
-
   def update
     respond_to do |format|
       if @language.update_attributes language_params

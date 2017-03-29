@@ -35,13 +35,6 @@ class TrainingStandardsController < ApplicationController
   def show
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json{render json: {training_standard: @training_standard}}
-    end
-  end
-
   def update
     respond_to do |format|
       if @training_standard.update_attributes training_standard_params

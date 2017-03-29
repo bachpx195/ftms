@@ -43,16 +43,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  def edit
-    respond_to do |format|
-      format.html
-      format.json do
-        @course[:image] = {url: @course.image.url}
-        render json: {course: @course}
-      end
-    end
-  end
-
   def update
     respond_to do |format|
       if @course.update_attributes course_params
