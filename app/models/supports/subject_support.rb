@@ -28,9 +28,4 @@ class Supports::SubjectSupport
     @test_rules ||= @subject.organization.test_rules.where
       .not id: @subject.test_rules
   end
-
-  def projects_not_in_static_task
-    @projects ||= @subject.organization.projects.where
-      .not id: @course_subject.dynamic_tasks
-  end
 end
