@@ -1,4 +1,7 @@
-#modal-assign-member {
+$white: #fff;
+$teal: #008080;
+
+.modal-assign-member {
   .modal-dialog {
     width: 75%;
   }
@@ -11,14 +14,16 @@
     margin-bottom: 10px;
   }
 
-  .assign-managers, .reject-users, .assign-members {
+  .assign-managers,
+  .reject-users,
+  .assign-members {
     margin-bottom: 15px;
     min-width: 50px;
   }
 
   .assign-managers {
-    margin-top: calc(10vh + 45px);
     margin-bottom: calc(10vh + 30px);
+    margin-top: calc(10vh + 45px);
   }
 
   .assign-members {
@@ -29,17 +34,17 @@
     left: -5px;
   }
 
-  #list-users {
+  .list-users {
     height: 58vh;
     overflow-y: auto;
   }
 
-  #list-managers {
+  .list-managers {
     height: 20vh;
     overflow-y: auto;
   }
 
-  #list-members {
+  .list-members {
     height: 20vh;
     overflow-y: auto;
   }
@@ -52,8 +57,8 @@
     text-align: right;
   }
 
- .panel-heading {
-   color: white;
-   background-color: teal;
+  .panel-heading {
+    background-color: $teal;
+    color: #white;
   }
 }

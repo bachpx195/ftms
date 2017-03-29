@@ -16,8 +16,7 @@ class EvaluationStandardsController < ApplicationController
     respond_to do |format|
       if @evaluation_standard.save
         format.html do
-          redirect_to training_standard_evaluation_template_path(
-            @evaluation_template.training_standard)
+          redirect_to training_standard_evaluation_template_path(@evaluation_template.training_standard)
         end
         format.json{render json: {evaluation_standard: @evaluation_standard}}
       else
@@ -44,8 +43,7 @@ class EvaluationStandardsController < ApplicationController
     respond_to do |format|
       if @evaluation_standard.update_attributes evaluation_standard_params
         format.html do
-          redirect_to training_standard_evaluation_template_path(
-            @evaluation_template.training_standard)
+          redirect_to training_standard_evaluation_template_path(@evaluation_template.training_standard)
         end
         format.json{render json: {evaluation_standard: @evaluation_standard}}
       else
@@ -62,8 +60,7 @@ class EvaluationStandardsController < ApplicationController
     @evaluation_standard.destroy
     respond_to do |format|
       format.html do
-        redirect_to training_standard_evaluation_template_path(
-          @evaluation_template.training_standard)
+        redirect_to training_standard_evaluation_template_path(@evaluation_template.training_standard)
       end
       format.json do
         if @evaluation_standard.deleted?
@@ -101,8 +98,7 @@ class EvaluationStandardsController < ApplicationController
     unless @evaluation_standard
       respond_to do |format|
         format.html do
-          redirect_to training_standard_evaluation_template_path(
-            @evaluation_template.training_standard)
+          redirect_to training_standard_evaluation_template_path(@evaluation_template.training_standard)
         end
         format.json do
           render json: {message: flash_message("not_found")},

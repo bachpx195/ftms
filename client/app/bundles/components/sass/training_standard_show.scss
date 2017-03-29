@@ -1,21 +1,25 @@
+$border-color: #bce8f1;
+$border-bottom: #ddd;
+
 .panel-info {
-  border-color: #bce8f1;
+  border-color: $border-color;
   margin: 9px 21px;
+
   .one-item {
     height: 45px;
     margin-bottom: 3px;
+
     .index-nonselect {
-      text-align: center;
-      padding-top: 10px;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid $border-bottom;
       height: 100%;
+      padding-top: 10px;
       text-align: center;
-      padding-top: 9px;
     }
-    .content_item {
+
+    .content-item {
+      border-bottom: 1px solid $border-bottom;
       height: 100%;
       padding-top: 8px;
-      border-bottom: 1px solid #ddd;
     }
   }
 }

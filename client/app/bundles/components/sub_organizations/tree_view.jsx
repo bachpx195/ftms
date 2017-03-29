@@ -28,7 +28,7 @@ export default class TreeView extends React.Component {
 
   render() {
     return(
-      <div id="programs_of_organization">
+      <div className="programs-of-organization">
         <ul className="list-group">
           {this.renderNode(this.state.data)}
         </ul>
@@ -42,7 +42,7 @@ export default class TreeView extends React.Component {
           afterEdit={this.afterEdit.bind(this)}
         />
       </div>
-    );  
+    );
   }
 
   renderNode(data) {

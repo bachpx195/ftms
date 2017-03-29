@@ -32,7 +32,7 @@ export default class ModalAssignMember extends React.Component {
   }
 
   render() {
-    return (<div className="modal fade" id="modal-assign-member" role="dialog">
+    return (<div className="modal fade modal-assign-member" role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -47,7 +47,7 @@ export default class ModalAssignMember extends React.Component {
             <div className="row">
               <div className="col-md-5">
                 <ListUsers title={I18n.t('courses.labels.list_users')}
-                  id="list-users" users={this.state.unassigned_users}
+                  className="list-users" users={this.state.unassigned_users}
                   checkedUsers={this.state.checked_users}
                   handleClickUser={this.handleClickUser.bind(this)} />
               </div>
@@ -72,11 +72,11 @@ export default class ModalAssignMember extends React.Component {
 
               <div className="col-md-5">
                 <ListUsers title={I18n.t('courses.labels.list_managers')}
-                  id="list-managers" users={this.state.managers}
+                  className="list-managers" users={this.state.managers}
                   checkedUsers={this.state.checked_managers}
                   handleClickUser={this.handleClickManager.bind(this)} />
                 <ListUsers title={I18n.t('courses.labels.list_members')}
-                  id="list-members" users={this.state.members}
+                  className="list-members" users={this.state.members}
                   checkedUsers={this.state.checked_members}
                   handleClickUser={this.handleClickMember.bind(this)} />
               </div>
