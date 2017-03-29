@@ -72,7 +72,7 @@ export default class UserCoursesBox extends React.Component {
     };
 
     return(
-      <div id='user-course-show' className='row'>
+      <div className='user-course-show row'>
         <div className='col-md-9'>
           <div className='user-course row'>
             <div className='col-md-11 image-course-header'>

@@ -79,7 +79,7 @@ $trainee-avatar-border-white: #f3f3e7;
     }
   }
 
-  li.active {
+  .active {
     a {
       background: $green !important;
       color: $white !important;
@@ -313,6 +313,7 @@ $trainee-avatar-border-white: #f3f3e7;
     td {
       padding: 10px 0;
     }
+
     .user-subject-status {
       margin-right: 10px;
     }

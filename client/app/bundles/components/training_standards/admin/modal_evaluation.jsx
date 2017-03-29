@@ -27,7 +27,7 @@ export default class ModalEvaluation extends React.Component {
           <div className='index-nonselect col-md-1'>
             {index+1}.
           </div>
-          <div className='content_item col-md-11' data-name=''>
+          <div className='content-item col-md-11' data-name=''>
             {evaluation_standard.name}
           </div>
         </div>

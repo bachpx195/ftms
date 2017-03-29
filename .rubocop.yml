@@ -291,6 +291,8 @@ Metrics/LineLength:
   AllowURI: true
   Exclude:
     - config/routes.rb
+    - app/controllers/evaluation_templates_controller.rb
+    - app/controllers/evaluation_standards_controller.rb
 
 
 Style/Next:
