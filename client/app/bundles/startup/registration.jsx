@@ -1,7 +1,7 @@
 import ReactOnRails from 'react-on-rails';
 
 //admin
-import Policies from '../components/policies/policies';
+import Policies from '../policies/policies';
 import Header from '../components/dashboards/header';
 import Sidebar from '../components/dashboards/sidebar';
 import Footer from '../components/dashboards/footer';

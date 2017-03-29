@@ -6,6 +6,7 @@ import Form from './form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as language_constants from './language_constants';
+import LanguagePolicy from '../../policies/language_policy';
 
 const LANGUAGE_URL = app_constants.APP_NAME + language_constants.LANGUAGE_PATH;
 
@@ -15,8 +16,10 @@ export default class LanguageLists extends React.Component {
 
     this.state = {
       languages: props.languages,
-      language: {}
+      language: {},
+      functions: props.functions
     }
+    this.language_policy = new LanguagePolicy({functions: this.state.functions});
   }
 
   render() {
@@ -38,14 +41,21 @@ export default class LanguageLists extends React.Component {
       </div>
     );
 
-    const ButtonEdit = ({griddleKey}) => (
-      <button className='btn btn-info' data-index={griddleKey}
-        onClick={this.handleEdit.bind(this)}>
-        {I18n.t('buttons.edit')}
-      </button>
-    );
+    const ButtonEdit = ({griddleKey}) => {
+      if (this.language_policy.update(this.state.languages[griddleKey])) {
+        return(
+          <button className='btn btn-info' data-index={griddleKey}
+            onClick={this.handleEdit.bind(this)}>
+            {I18n.t('buttons.edit')}
+          </button>
+        )
+      } else {
+        return null;
+      }
+    };
 
     const ButtonDelete = ({griddleKey}) => (
+
       <button className='btn btn-danger' data-index={griddleKey}
         onClick={this.handleDelete.bind(this)}>
         {I18n.t('buttons.delete')}
