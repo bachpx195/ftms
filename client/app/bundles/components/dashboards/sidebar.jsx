@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Permit from '../policies/sidebar_permit';
+import Permit from '../../policies/sidebar_permit';
 
 import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';

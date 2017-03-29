@@ -5,6 +5,7 @@ class LanguagesController < ApplicationController
   def index
     @languages = Language.select :id, :name, :image, :description
     @languages.map{|language| language[:image] = {url: language.image.url}}
+    @functions = current_user.functions.where controller_name: "languages"
   end
 
   def new
