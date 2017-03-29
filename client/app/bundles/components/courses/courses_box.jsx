@@ -1,18 +1,14 @@
 import React from 'react';
-import axios from 'axios';
 import TraineeCourse from './trainee/trainee_course_lists';
 import CourseList from './course_lists';
-import * as app_constants from 'constants/app_constants';
-import * as course_constants from './course_constants';
 
-const MY_SPACE_COURSES_URL = app_constants.APP_NAME + course_constants.MY_SPACE_COURSES_PATH;
-const COURSES_URL = app_constants.APP_NAME + course_constants.MY_COURSES_PATH;
+import Policy from '../policies/my_space_policy';
 
-export default class ProgramBox extends React.Component {
+export default class CourseBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      admin: false,
+      is_my_space: props.is_my_space || false,
       courses: props.courses || [],
       user_courses: props.user_courses || []
     };
@@ -20,7 +16,13 @@ export default class ProgramBox extends React.Component {
 
   render() {
     let content = null;
-    if (this.state.admin) {
+    let courses_policy = new Policy({
+      is_my_space: this.state.is_my_space,
+      controller_name: "courses",
+      action: "index"
+      });
+
+    if (courses_policy.isMySpace()) {
       content = <CourseList
         courses={this.state.courses}
       />

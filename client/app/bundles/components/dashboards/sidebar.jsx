@@ -77,14 +77,12 @@ export default class Sidebar extends React.Component {
           {this.renderUserPanel()}
           <ul className='sidebar-menu td-admin-sidebar'>
             <li className="header">{I18n.t('sidebar.space')}</li>
-            <Permit action='my_space/courses/index'>
-              <li data-page='my_courses'>
-                <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-clone'></i>
-                  <span>{I18n.t('sidebar.my_courses')}</span>
-                </a>
-              </li>
-            </Permit>
+            <li data-page='my_courses'>
+              <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
+                <i className='fa fa-clone'></i>
+                <span>{I18n.t('sidebar.my_courses')}</span>
+              </a>
+            </li>
             <li className="header">{I18n.t('sidebar.main_nav')}</li>
             <Permit action='organizations/index'>
               <li data-page='organizations'>
