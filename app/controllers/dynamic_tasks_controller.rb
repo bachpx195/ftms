@@ -3,12 +3,11 @@ class DynamicTasksController < ApplicationController
 
   def update
     respond_to do |format|
-      if @dynamic_task.update_attributes dynamic_params
-        format.html {}
-        format.json {render json: {dynamic_task: @dynamic_task}}
-      else
-        format.html {}
-        format.json do
+      format.html{@dynamic_task.update_attributes dynamic_params}
+      format.json do
+        if @dynamic_task.update_attributes dynamic_params
+          render json: {dynamic_task: @dynamic_task}
+        else
           render json: {message: flash_message("not_updated"),
             errors: @dynamic_task.errors}, status: :unprocessable_entity
         end
@@ -25,7 +24,7 @@ class DynamicTasksController < ApplicationController
     @dynamic_task = DynamicTask.find_by id: params[:id]
     unless @dynamic_task
       respond_to do |format|
-        format.html {}
+        format.html
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

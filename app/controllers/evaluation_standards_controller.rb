@@ -19,11 +19,13 @@ class EvaluationStandardsController < ApplicationController
           redirect_to training_standard_evaluation_template_path(
             @evaluation_template.training_standard)
         end
-        format.json {render json: {evaluation_standard: @evaluation_standard}}
+        format.json{render json: {evaluation_standard: @evaluation_standard}}
       else
-        format.html {render :new}
-        format.json {render json: {message: flash_message("not_created"),
-          errors: @evaluation_standard.errors}, status: :unprocessable_entity}
+        format.html{render :new}
+        format.json do
+          render json: {message: flash_message("not_created"),
+            errors: @evaluation_standard.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -34,7 +36,7 @@ class EvaluationStandardsController < ApplicationController
   def edit
     respond_to do |format|
       format.html
-      format.json {render json: {evaluation_standard: @evaluation_standard}}
+      format.json{render json: {evaluation_standard: @evaluation_standard}}
     end
   end
 
@@ -45,11 +47,13 @@ class EvaluationStandardsController < ApplicationController
           redirect_to training_standard_evaluation_template_path(
             @evaluation_template.training_standard)
         end
-        format.json {render json: {evaluation_standard: @evaluation_standard}}
+        format.json{render json: {evaluation_standard: @evaluation_standard}}
       else
-        format.html {render :edit}
-        format.json {render json: {message: flash_message("not_updated"),
-          errors: @evaluation_standard.errors}, status: :unprocessable_entity}
+        format.html{render :edit}
+        format.json do
+          render json: {message: flash_message("not_updated"),
+            errors: @evaluation_standard.errors}, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -83,7 +87,7 @@ class EvaluationStandardsController < ApplicationController
       .find_by id: params[:evaluation_template_id]
     unless @evaluation_template
       respond_to do |format|
-        format.html {redirect_to root_path}
+        format.html{redirect_to root_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

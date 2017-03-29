@@ -76,7 +76,6 @@ Rails.application.routes.draw do
     resources :subjects
   end
 
-  resources :tasks
   resources :course_subjects do
     resources :teams
   end
