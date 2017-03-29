@@ -12,13 +12,13 @@ class Subject < ApplicationRecord
 
   has_many :course_subjects, dependent: :destroy
   has_many :user_subjects, dependent: :destroy
-  has_many :tasks, as: :ownerable,
+  has_many :static_tasks, as: :ownerable,
     class_name: StaticTask.name, dependent: :destroy
-  has_many :assignments, through: :tasks, source: :targetable,
+  has_many :assignments, through: :static_tasks, source: :targetable,
     source_type: Assignment.name
-  has_many :surveys, through: :tasks, source: :targetable,
+  has_many :surveys, through: :static_tasks, source: :targetable,
     source_type: Survey.name
-  has_many :test_rules, through: :tasks, source: :targetable,
+  has_many :test_rules, through: :static_tasks, source: :targetable,
     source_type: TestRule.name
 
   belongs_to :organization

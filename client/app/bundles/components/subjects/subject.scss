@@ -49,11 +49,28 @@ $trainee-avatar-border-white: #f3f3e7;
       padding: 10px;
     }
   }
+
+  .button-show {
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  .form-task {
+    margin-bottom: 20px;
+
+    input {
+      margin-bottom: 10px;
+    }
+  }
+
+  .submit .task {
+    float: right;
+  }
 }
 
-.blocks {
+.nav-tabs {
 
-  .tab-bar {
+  &.tab-bar {
     border-bottom: 0;
     padding: 0 14px;
 
@@ -296,7 +313,6 @@ $trainee-avatar-border-white: #f3f3e7;
     td {
       padding: 10px 0;
     }
-
     .user-subject-status {
       margin-right: 10px;
     }

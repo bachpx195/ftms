@@ -5,7 +5,8 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
 
-const USER_SUBJECT_URL = app_constants.APP_NAME + subject_constants.USER_SUBJECT_PATH;
+const USER_SUBJECT_URL = app_constants.APP_NAME +
+  subject_constants.USER_SUBJECT_PATH;
 
 export default class UserSubjectList extends React.Component {
 
@@ -45,7 +46,8 @@ export default class UserSubjectList extends React.Component {
     );
 
     const SelectBoxStatus = ({griddleKey}) => {
-      return <select className='select-status' onChange={this.handleChange.bind(this)}
+      return <select className='select-status'
+        onChange={this.handleChange.bind(this)}
         name='status' data-index={griddleKey}
         value={this.state.user_subjects[griddleKey].status}>
         {this.renderOptions()}
@@ -53,9 +55,11 @@ export default class UserSubjectList extends React.Component {
     }
 
     const addTask = ({griddleKey}) => (
-      <button className='btn btn-primary' onClick={this.handleAddTaskForUser.bind(this)}
-        data-index={griddleKey} data-user_id={this.state.user_subjects[griddleKey].user_id}>
-        {I18n.t('subjects.headers.add_task')}
+      <button className='btn btn-primary'
+        onClick={this.handleAddTaskForUser.bind(this)}
+        data-index={griddleKey}
+        data-user_id={this.state.user_subjects[griddleKey].user_id}>
+        {I18n.t('subjects.headers.all_task')}
       </button>
     )
 
@@ -77,13 +81,14 @@ export default class UserSubjectList extends React.Component {
           <ColumnDefinition id='current_progress'
             title={I18n.t('subjects.headers.current_progress')} />
           <ColumnDefinition id='add_task_for_user'
-            title={I18n.t('subjects.headers.add_task')} customComponent={addTask} />
+            title={I18n.t('subjects.headers.add_task')}
+            customComponent={addTask} />
         </RowDefinition>
       </Griddle>
     );
   }
 
-  handleAddTaskForUser(event){
+  handleAddTaskForUser(event) {
     let target = event.target
     $(target).blur()
     let index = $(target).data('index')

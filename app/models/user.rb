@@ -40,8 +40,10 @@ class User < ApplicationRecord
 
   def user_tasks task_name
     tasks = self.dynamic_tasks.map do |dynamic_task|
-      dynamic_task.targetable.targetable if
-        dynamic_task.targetable.targetable_type == task_name
+      if dynamic_task.targetable && dynamic_task.targetable
+          .targetable_type == task_name
+        dynamic_task.targetable.targetable
+      end
     end
     tasks.reject! &:nil?
     tasks

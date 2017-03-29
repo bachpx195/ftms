@@ -1,20 +1,17 @@
 class AssignTask::TasksController < ApplicationController
   before_action :find_task, only: :destroy
   before_action :find_ownerable, only: :create
-  before_action :namespace_authorize, only: :create
+  before_action :namespace_authorize, only: [:create, :destroy]
 
   def create
     list_targets = Array.new
+    create_params = task_params
+    create_params[:targetable_type] = task_params[:targetable_type].classify
     respond_to do |format|
       params[:task][:targetable_ids].each do |targetable_id|
-        _params = task_params
-        _params[:targetable_type] = task_params[:targetable_type].classify
-        @task =
-          if params[:task][:user_id]
-            @ownerable.dynamic_tasks.new _params
-          else
-            @ownerable.static_tasks.new _params
-          end
+        @task = @ownerable
+          .send(params[:task][:user_id] ? "dynamic_tasks" : "static_tasks")
+          .new create_params
         @task.targetable_id = targetable_id
         unless @task.save
           format.html
@@ -23,7 +20,7 @@ class AssignTask::TasksController < ApplicationController
               status: :unprocessable_entity
           end
         end
-        if _params[:targetable_type] == "StaticTask"
+        if create_params[:targetable_type] == "StaticTask"
           list_targets << @task.targetable.targetable.attributes
             .merge(task_id: @task.id)
         else
@@ -60,13 +57,7 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def find_task
-    @task =
-      if params[:targetable_type] == "Survey"
-        StaticTask.find_by targetable_id: params[:id], targetable_type: "Survey"
-      else
-        StaticTask.find_by targetable_id: params[:id],
-          targetable_type: "TestRule"
-      end
+    @task = Task.find_by id: params[:id]
     unless @task
       respond_to do |format|
         format.html{redirect_to subjects_path}

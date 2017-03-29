@@ -6,7 +6,7 @@ import BlockTasks from '../block_tasks'
 import UserTasks from './user_tasks'
 
 export default class ModalTask extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       task: props.task,
@@ -17,14 +17,14 @@ export default class ModalTask extends React.Component{
     }
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.setState({
       task: nextProps.task,
       user_tasks: nextProps.user_tasks
     })
   }
 
-  render(){
+  render() {
     let user_task;
     let button_name ;
     let available_tasks = [];
@@ -37,13 +37,14 @@ export default class ModalTask extends React.Component{
       });
     }
     this.state.task[this.state.type] = available_tasks
-    if(this.state.list_user){
+    if(this.state.list_user) {
       button_name = I18n.t('buttons.add_task')
       user_task = (
         <UserTasks user_tasks={this.state.user_tasks} type={this.state.type}
-          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}/>
+          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+          user_index={this.props.user_index} user={this.props.user} />
       )
-    }else{
+    } else {
       button_name = I18n.t('buttons.list_task')
       user_task = (
         <div className='panel-project panel-body'>
@@ -54,7 +55,9 @@ export default class ModalTask extends React.Component{
             subject_detail={this.props.subject_detail}
             handleAfterAddTask={this.handleAfterAddTask.bind(this)}
             afterCreateTask={this.afterCreateTask.bind(this)}
-            user={this.props.user} targetable_type="StaticTask" />
+            user={this.props.user} targetable_type="StaticTask"
+            user_index={this.props.user_index}
+            changePanel={this.changePanel.bind(this)}/>
         </div>
       )
     }
@@ -63,7 +66,8 @@ export default class ModalTask extends React.Component{
       <div className='modal-task'>
         <div className='modal-body'>
           <div className='button-show'>
-            <button className='change-panel' onClick={this.changePanel.bind(this)}>
+            <button className='change-panel btn btn-primary'
+              onClick={this.changePanel.bind(this)}>
               {button_name}
             </button>
           </div>
@@ -86,17 +90,17 @@ export default class ModalTask extends React.Component{
       </div>
     )
   }
-  changePanel(){
+  changePanel() {
     this.setState({
       list_user: !this.state.list_user
     })
   }
 
-  afterSelectTask(event){
+  afterSelectTask(event) {
     let target = event.target;
     $(target).blur();
     let type = '';
-    if($(target).val() != ''){
+    if($(target).val() != '') {
       type = $(target).val() + 's';
     }
     this.setState({
@@ -104,21 +108,22 @@ export default class ModalTask extends React.Component{
     })
   }
 
-  afterChoose(id){
+  afterChoose(id) {
     this.setState({
       id: id
     });
   }
 
-  handleAfterDeleteTask(task_id, task, type){
-    this.props.handleAfterDeleteTask(task_id, task, type)
+  handleAfterDeleteTask(task_id, task, type, user_index, user) {
+    this.props.handleAfterDeleteTask(task_id, task, type, user_index, user)
   }
 
-  handleAfterAddTask(type, ids, targets, subject_detail, user_id) {
-    this.props.handleAfterAddTask(type, ids, targets, subject_detail, user_id);
+  handleAfterAddTask(type, ids, targets, subject_detail, user_id, user_index) {
+    this.props.handleAfterAddTask(type, ids, targets,
+      subject_detail, user_id, user_index);
   }
 
-  afterCreateTask(target, type){
-    this.props.afterCreateTask(target, type)
+  afterCreateTask(target, type, owner) {
+    this.props.afterCreateTask(target, type, owner)
   }
 }

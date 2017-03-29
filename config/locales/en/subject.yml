@@ -25,6 +25,8 @@ en:
       delete: "Delete"
       content: "Content"
       add_task: "Add Task"
+      all_task: "All Task"
+      user_course: "List User Course"
     modals:
       header_edit: "Edit subject"
     buttons:

@@ -8,21 +8,21 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
 
 export default class UserTasks extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       user_tasks: props.user_tasks,
       type: props.type
     }
   }
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.setState({
       user_tasks: nextProps.user_tasks,
       type: nextProps.type
     })
   }
-  render(){
-    if(this.state.type != ''){
+  render() {
+    if(this.state.type != '') {
       const NewLayout = ({Table, Pagination, Filter}) => (
         <div className='col-md-12'>
           <div className='row'>
@@ -75,12 +75,12 @@ export default class UserTasks extends React.Component{
           <div className='clearfix'></div>
         </div>
       )
-    }else{
+    } else {
       return null
     }
 
   }
-  onClickDeleteTask(task){
+  onClickDeleteTask(task) {
     if (confirm(I18n.t('data.confirm_delete'))) {
       axios.delete(TASK_URL + '/' + task.task_id, {
         params: {
@@ -89,7 +89,8 @@ export default class UserTasks extends React.Component{
         headers: {'Accept': 'application/json'}
       })
       .then(response => {
-        this.props.handleAfterDeleteTask(task.task_id, task, this.state.type)
+        this.props.handleAfterDeleteTask(task.task_id, task, this.state.type,
+          this.props.user_index, this.props.user)
       })
       .catch(error => console.log(error));
     }

@@ -1,4 +1,7 @@
 en:
+  date:
+    formats:
+      default: "%d/%m/%Y"
   layouts:
     framgia: In Side Out
     courses: "COURSES"
