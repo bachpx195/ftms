@@ -2,8 +2,10 @@
   props: {
     subject: @subject,
     assigments: @subject_supports.user_assigmnent,
+    user_course: @user_course,
     current_user: current_user,
-    course_subject_id: @course_subject ? @course_subject.id : nil,
+    course_subject: @course_subject ? @course_subject : nil,
     user_dynamic_course_subjects: @subject_supports.user_dynamic_course_subjects,
+    static_task_assignment: @subject_supports.user_static_task,
     course: @course}, prerender: false
 %>

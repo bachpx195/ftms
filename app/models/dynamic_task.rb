@@ -8,11 +8,13 @@ class DynamicTask < Task
   belongs_to :static_task, foreign_key: :targetable_id,
     class_name: StaticTask.name
 
-  scope :owner_tasks, ->owner do
-    where targetable_type: Task.name, ownerable: owner
-  end
 
-  enum status: [:in_progress, :finish]
+  scope :owner_tasks, -> owner{where targetable_type: Task.name,
+    ownerable: owner}
+  scope :target_tasks, -> targetable{where targetable: targetable}
+  scope :team_tasks, -> user_ids {where("user_id in (?)", user_ids)}
+
+  enum status: [:init, :in_progress, :finish, :reject]
 
   class << self
     def user_static_tasks

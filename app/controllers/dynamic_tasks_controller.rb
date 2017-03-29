@@ -1,12 +1,20 @@
 class DynamicTasksController < ApplicationController
-  before_action :find_dynamic_task, only: :update
+  before_action :find_dynamic_task, :find_course_subject,
+    :load_team_user_ids, :load_team_dynamic_tasks, only: :update
 
   def update
     respond_to do |format|
-      format.html{@dynamic_task.update_attributes dynamic_params}
       format.json do
-        if @dynamic_task.update_attributes dynamic_params
-          render json: {dynamic_task: @dynamic_task}
+        update_task_assignment_service =
+          AssignmentServices::UpdateTaskAssignment
+            .new dynamic_task: @dynamic_task,
+            team_dynamic_tasks: @team_dynamic_tasks,
+            dynamic_params: dynamic_params,
+            team_status: params[:dynamic_task][:team_status]
+
+        if update_task_assignment_service.perform
+          render json: {dynamic_task: @dynamic_task,
+            team_dynamic_tasks: @team_dynamic_tasks}
         else
           render json: {message: flash_message("not_updated"),
             errors: @dynamic_task.errors}, status: :unprocessable_entity
@@ -23,6 +31,42 @@ class DynamicTasksController < ApplicationController
   def find_dynamic_task
     @dynamic_task = DynamicTask.find_by id: params[:id]
     unless @dynamic_task
+      respond_to do |format|
+        format.html
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
+  end
+
+  def find_course_subject
+    if course_subject_id = params[:course_subject][:id]
+      @course_subject = CourseSubject.find_by id: course_subject_id
+    end
+    unless @course_subject
+      respond_to do |format|
+        format.html{}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
+  end
+
+  def load_team_user_ids
+    @team_user_ids = @course_subject.user_subjects
+      .find_by(user: current_user).team.users.ids
+    @team_user_ids.delete current_user.id
+  end
+
+  def load_team_dynamic_tasks
+    @team_dynamic_tasks = DynamicTask.owner_tasks(@course_subject)
+      .target_tasks(@dynamic_task.targetable).team_tasks @team_user_ids
+
+    unless @team_dynamic_tasks
       respond_to do |format|
         format.html
         format.json do
