@@ -1,6 +1,7 @@
 import ReactOnRails from 'react-on-rails';
 
 //admin
+import Policies from '../components/policies/policies';
 import Header from '../components/dashboards/header';
 import Sidebar from '../components/dashboards/sidebar';
 import Footer from '../components/dashboards/footer';
@@ -39,6 +40,7 @@ import OrganizationBox from '../components/organizations/organizations_box';
 import CoursesBox from '../components/courses/courses_box';
 
 ReactOnRails.register({
+  Policies,
   Header,
   Sidebar,
   Footer,

@@ -40,7 +40,7 @@ export default class UserListBox extends React.Component {
     );
 
     const LinkShowUser = ({value, griddleKey}) => (
-      <a href={USER_URL + '/' + this.props.users[griddleKey].id}>{value}</a>
+      <a href={USER_URL + this.props.users[griddleKey].id}>{value}</a>
     );
 
     return(

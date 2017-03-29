@@ -7,6 +7,7 @@ end
 Rails.application.routes.draw do
 
   mount Ckeditor::Engine => "/ckeditor"
+  mount ActionCable.server => "/cable"
   devise_for :users, path: "auth",
     controllers: {sessions: "sessions", passwords: "passwords"},
     path_names: {sign_in: "login", sign_out: "logout"}
