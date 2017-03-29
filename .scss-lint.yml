@@ -8,6 +8,8 @@ exclude:
   - 'app/assets/stylesheets/_all-skins.min.css'
   - 'app/assets/stylesheets/blue.min.css'
   - 'app/assets/stylesheets/ionicons.min.css'
+  - 'app/assets/stylesheets/custom.css.scss'
+  - 'app/assets/stylesheets/footer.css.scss'
 linters:
   ImportantRule:
     enabled: false
