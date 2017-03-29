@@ -417,19 +417,11 @@ namespace :db do
 
     puts "28. Create Team"
     course_subject = CourseSubject.first
-    4.times do |n|
-      team = course_subject.teams.create! name: "Team #{n + 1}"
-      user_subject_ids = []
-      course_subject.user_subjects.each.with_index do |user_subject, index|
-        user_subject_ids << user_subject.id if index % 4 == n
-      end
-      team.user_subject_ids = user_subject_ids
+    team = course_subject.teams.create! name: "Team Super"
+    user_subject_ids = []
+    course_subject.user_subjects.take(3).each do |user_subject|
+      user_subject_ids << user_subject.id
     end
-
-    puts "26 Add dynamictasks for user"
-    User.find(11).dynamic_tasks << DynamicTask.last
-    User.find(11).dynamic_tasks << DynamicTask.first
-    User.find(11).dynamic_tasks << DynamicTask.second
-
+    team.user_subject_ids = user_subject_ids
   end
 end

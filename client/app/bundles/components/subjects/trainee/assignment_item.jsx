@@ -4,7 +4,7 @@ import css from '../subject.scss';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from '../subject_constants';
 
-const ASSIGNMENT_URL = app_constants.APP_NAME + subject_constants.ASSINGMENT_PATH;
+const ASSIGNMENT_URL = app_constants.APP_NAME + subject_constants.ASSIGNMENT_PATH;
 const DYNAMICTASK_URL = app_constants.APP_NAME + subject_constants.DYNAMICTASK_PATH;
 
 export default class AssignmentItem extends React.Component {

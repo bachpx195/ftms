@@ -19,7 +19,8 @@ export default class UserCoursesBox extends React.Component {
       course: props.course,
       subjects: props.subjects,
       managers: props.managers,
-      members: props.members
+      members: props.members,
+      user_course: props.user_course
     }
   }
 
@@ -39,13 +40,13 @@ export default class UserCoursesBox extends React.Component {
       return (
         <div key={key} className='col-md-12'>
           <a className='user-course-subject'
-            href={USER_COURSE_URL + this.state.course.id + '/' + SUBJECT_URL + subject.id}>
+            href={USER_COURSE_URL + this.state.user_course.id + '/' + SUBJECT_URL + subject.id}>
             <div className='subject row'>
               <div className='col-md-11 image-course-header'>
                 <div className='subject-image img-resposive'>
                   <img className='img-circle'
-                     src={subject.image.url ? subject.image.url :
-                       DEFAULT_IMAGE_COURSE}/>
+                    src={subject.image.url ? subject.image.url :
+                      DEFAULT_IMAGE_COURSE}/>
                 </div>
                 <div className='subject-header'>
                   <span className='header-title'>

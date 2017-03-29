@@ -57,6 +57,7 @@ en:
       send_count: "Sent count: "
       avatar: "avatar"
       title_assignment: "Task Overview"
+      create_assignments: "Create Assignment"
     create_team: "Create Team"
     team_member:
       name: "Name"

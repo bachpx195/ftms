@@ -1,5 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :find_subject, :find_course, except: [:index, :new, :create]
+  before_action :find_subject, except: [:index, :new, :create]
   before_action :find_course_subject, only: :show
 
   def index
@@ -12,55 +12,33 @@ class SubjectsController < ApplicationController
 
   def create
     @subject = Subject.new subject_params
-    respond_to do |format|
-      if @subject.save
-        format.html{redirect_to @subject}
-        format.json do
-          @subject[:image] = {url: @subject.image.url}
-          render json: {message: flash_message("created"),
-            subject: @subject}
-        end
-      else
-        format.html{render :new}
-        format.json do
-          render json: {message: flash_message("not_created"),
-            errors: @subject.errors}, status: :unprocessable_entity
-        end
-      end
+    if @subject.save
+      @subject[:image] = {url: @subject.image.url}
+      render json: {message: flash_message("created"),
+        subject: @subject}
+    else
+      render json: {message: flash_message("not_created"),
+        errors: @subject.errors}, status: :unprocessable_entity
     end
   end
 
   def show
-    # admin
-    @course_subject = CourseSubject.find_by id: params[:course_id]
+    params_course = params[:course_id]
+    course = Course.find_by id: params_course if params_course
+
     @subject_supports = Supports::SubjectSupport
-      .new subject: @subject, course: @course, course_subject: @course_subject
-
-    # trainee
-    @user_subjects = current_user.user_subjects
-
-    @user_dynamic_course_subjects = current_user.dynamic_tasks
-      .owner_tasks @course_subject
-    user_static_course_subjects = @user_dynamic_course_subjects
-      .user_static_tasks
-    @user_static_assignments = user_static_course_subjects
-      .where targetable_type: Assignment.name
-    @user_assignment = @user_static_assignments
-      .includes(:targetable).map(&:targetable)
+      .new subject: @subject, course: course, course_subject: @course_subject,
+      current_user: current_user
   end
 
   def update
     respond_to do |format|
-      if @subject.update_attributes subject_params
-        format.html{redirect_to @subject}
-        format.json do
+      format.json do
+        if @subject.update_attributes subject_params
           @subject[:image] = {url: @subject.image.url}
           render json: {message: flash_message("updated"),
             subject: @subject}
-        end
-      else
-        format.html{render :edit}
-        format.json do
+        else
           render json: {message: flash_message("not_updated"),
             errors: @subject.errors}, status: :unprocessable_entity
         end
@@ -70,16 +48,11 @@ class SubjectsController < ApplicationController
 
   def destroy
     @subject.destroy
-    respond_to do |format|
-      format.html{redirect_to subjects_path}
-      format.json do
-        if @subject.deleted?
-          render json: {message: flash_message("deleted")}
-        else
-          render json: {message: flash_message("not_deleted")},
-            status: :unprocessable_entity
-        end
-      end
+    if @subject.deleted?
+      render json: {message: flash_message("deleted")}
+    else
+      render json: {message: flash_message("not_deleted")},
+        status: :unprocessable_entity
     end
   end
 
@@ -91,46 +64,24 @@ class SubjectsController < ApplicationController
   def find_subject
     @subject = Subject.find_by id: params[:id]
     unless @subject
-      respond_to do |format|
-        format.html{redirect_to subjects_path}
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
-        end
-      end
-    end
-  end
-
-  def find_course
-    if params[:course_id]
-      @course = Course.find_by id: params[:course_id]
-      unless @course
-        respond_to do |format|
-          format.html{redirect_to courses_path}
-          format.json do
-            render json: {message: flash_message("not_found")},
-              status: :not_found
-          end
-        end
-      end
+      render json: {message: flash_message("not_found")},
+        status: :not_found
     end
   end
 
   def find_course_subject
-    if params[:user_course_id]
-      @user_course = current_user.user_courses
-        .find_by course_id: params[:user_course_id]
-      unless @user_course
-        respond_to do |format|
-          format.html{redirect_to subjects_path}
-          format.json do
-            render json: {message: flash_message("not_found")},
-              status: :not_found
-          end
+    params_user_course = params[:user_course_id]
+    params_course = params[:course_id]
+
+    if params_user_course
+      user_course = current_user.user_courses.find_by id: params_user_course
+      @course_subject =
+        if user_course
+          CourseSubject.find_by subject_id: params[:id],
+            course_id: user_course.course_id
+        elsif params_course
+          CourseSubject.find_by course_id: params_course
         end
-      end
-      @course_subject = CourseSubject.where subject_id: params[:id],
-        course_id: @user_course.course_id
     end
   end
 end
