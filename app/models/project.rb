@@ -5,6 +5,7 @@ class Project < ApplicationRecord
   has_many :course_subjects, through: :static_tasks, source: :targetable,
     source_type: CourseSubject.name
   belongs_to :organization
+  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
   has_many :dynamic_tasks, through: :static_tasks, class_name: DynamicTask.name
   has_many :tasks, as: :targetable, class_name: Task.name, dependent: :destroy

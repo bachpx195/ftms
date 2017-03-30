@@ -5,6 +5,7 @@ class Program < ApplicationRecord
   ATTRIBUTE_PARAMS = [:name, :program_type, :organization_id, :parent_id]
 
   belongs_to :organization
+  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
   has_many :courses, dependent: :destroy
   has_many :profiles, dependent: :destroy

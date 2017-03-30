@@ -16,8 +16,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.text     "name",            limit: 65535
     t.text     "content",         limit: 65535
     t.integer  "organization_id"
+    t.integer  "creator_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.index ["creator_id"], name: "index_assignments_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_assignments_on_organization_id", using: :btree
   end
 
@@ -64,6 +66,7 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "owner_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.index ["creator_id"], name: "index_courses_on_creator_id", using: :btree
   end
 
   create_table "evaluation_standards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -73,16 +76,20 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "average_point",          default: 0
     t.integer  "evaluation_template_id"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.index ["creator_id"], name: "index_evaluation_standards_on_creator_id", using: :btree
   end
 
   create_table "evaluation_templates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.index ["creator_id"], name: "index_evaluation_templates_on_creator_id", using: :btree
   end
 
   create_table "functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -100,8 +107,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.string   "description"
     t.string   "image"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["creator_id"], name: "index_languages_on_creator_id", using: :btree
   end
 
   create_table "member_evaluation_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -148,8 +157,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "parent_id"
     t.integer  "user_id"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_organizations_on_creator_id", using: :btree
   end
 
   create_table "profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -191,8 +202,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "parent_id"
     t.integer  "organization_id"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["creator_id"], name: "index_programs_on_creator_id", using: :btree
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -200,8 +213,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "organization_id"
     t.integer  "subject_id"
     t.integer  "task_id"
+    t.integer  "creator_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["creator_id"], name: "index_projects_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_projects_on_organization_id", using: :btree
     t.index ["subject_id"], name: "index_projects_on_subject_id", using: :btree
     t.index ["task_id"], name: "index_projects_on_task_id", using: :btree
@@ -212,8 +227,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "priority"
     t.integer  "project_id"
     t.integer  "task_id"
+    t.integer  "creator_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.index ["creator_id"], name: "index_requirements_on_creator_id", using: :btree
     t.index ["project_id"], name: "index_requirements_on_project_id", using: :btree
     t.index ["task_id"], name: "index_requirements_on_task_id", using: :btree
   end
@@ -235,8 +252,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
   create_table "stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_stages_on_creator_id", using: :btree
   end
 
   create_table "standard_organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -269,8 +288,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.datetime "deleted_at"
     t.integer  "during_time"
     t.integer  "organization_id"
+    t.integer  "creator_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.index ["creator_id"], name: "index_subjects_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_subjects_on_organization_id", using: :btree
   end
 
@@ -278,8 +299,10 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.text     "name",            limit: 65535
     t.text     "content",         limit: 65535
     t.integer  "organization_id"
+    t.integer  "creator_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.index ["creator_id"], name: "index_surveys_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_surveys_on_organization_id", using: :btree
   end
 
@@ -300,16 +323,20 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.string   "name"
     t.integer  "course_subject_id"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.index ["creator_id"], name: "index_teams_on_creator_id", using: :btree
   end
 
   create_table "test_rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "organization_id"
     t.text     "content",         limit: 65535
+    t.integer  "creator_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.index ["creator_id"], name: "index_test_rules_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_test_rules_on_organization_id", using: :btree
   end
 
@@ -328,13 +355,16 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.datetime "deleted_at"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.index ["creator_id"], name: "index_training_standards_on_creator_id", using: :btree
   end
 
   create_table "universities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_universities_on_creator_id", using: :btree
   end
 
   create_table "user_courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
