@@ -2,7 +2,7 @@ class Subject < ApplicationRecord
   attr_accessor :subject_detail
   acts_as_paranoid
 
-  ATTRIBUTE_PARAMS = [:name, :image, :description, :content,
+  ATTRIBUTE_PARAMS = [:name, :image, :description, :content, :during_time,
     :training_standard_id]
 
   mount_uploader :image, ImageUploader
@@ -26,6 +26,8 @@ class Subject < ApplicationRecord
   scope :find_remain_subjects, -> ids {where.not id: ids}
 
   validates :name, presence: true
+  validates :during_time,
+    numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   def subject_details id
     user_subjects.where("user_course_id = ?", id).select :start_date

@@ -3,7 +3,7 @@ class SubjectsController < ApplicationController
   before_action :find_course_subject, only: :show
 
   def index
-    @subjects = Subject.select :id, :name, :image, :description
+    @subjects = Subject.select :id, :name, :image, :description, :during_time
     @subjects.map{|subject| subject[:image] = {url: subject.image.url}}
   end
 

@@ -14,6 +14,7 @@ export default class Form extends React.Component {
       name: props.subject.name || '',
       image: props.subject.image || null,
       description: props.subject.description || '',
+      during_time: props.subject.during_time || '',
       changeImage: false,
       errors: null
     };
@@ -59,8 +60,14 @@ export default class Form extends React.Component {
             className='form-control' name='description' />
         </div>
         <div className='form-group'>
+          <input type='number' placeholder={I18n.t('subjects.headers.during_time')}
+            value={this.state.during_time} onChange={this.handleChange.bind(this)}
+            className='form-control' name='during_time' />
+        </div>
+        <div className='form-group'>
           <div className='text-right'>
-            <button type='submit' className='btn btn-primary'>
+            <button type='submit' className='btn btn-primary'
+              onClick={this.handleSubmit.bind(this)}>
               {I18n.t('buttons.save')}</button>
           </div>
         </div>
@@ -118,6 +125,7 @@ export default class Form extends React.Component {
     })
     .then(response => {
       if(this.props.subject.id) {
+        $('#modalCreatSubject').modal('hide');
         $('#modalEdit').modal('hide');
       } else {
         this.setState({

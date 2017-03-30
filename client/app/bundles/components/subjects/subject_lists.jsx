@@ -8,6 +8,7 @@ import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+const DEFAULT_IMAGE_SUBJECT = app_constants.DEFAULT_IMAGE_SUBJECT_URL;
 
 export default class SubjectLists extends React.Component {
   constructor(props) {
@@ -53,12 +54,17 @@ export default class SubjectLists extends React.Component {
     );
 
     const Image = ({griddleKey}) => (
-      <img src={this.props.subjects[griddleKey].image.url}
+      <img src={this.props.subjects[griddleKey].image.url ?
+        this.props.subjects[griddleKey].image.url : DEFAULT_IMAGE_SUBJECT}
         className='thumbnail-image'/>
     );
 
     const valueNull = ({value}) => (
       <span></span>
+    );
+
+    const LinkShowSubject = ({value, griddleKey}) => (
+      <a href={SUBJECT_URL + this.props.subjects[griddleKey].id}>{value}</a>
     );
 
     let modalEdit = null;
@@ -76,15 +82,14 @@ export default class SubjectLists extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")} />
+            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")}
+              customComponent={LinkShowSubject} />
             <ColumnDefinition id="image" title={I18n.t("subjects.headers.image")}
               customComponent={Image} />
             <ColumnDefinition id="description"
               title={I18n.t("subjects.headers.description")} />
-            <ColumnDefinition id="edit" customComponent={ButtonEdit}
-              customHeadingComponent={valueNull} />
-            <ColumnDefinition id="delete" customComponent={ButtonDelete}
-              customHeadingComponent={valueNull} />
+            <ColumnDefinition id="during_time"
+              title={I18n.t("subjects.headers.during_time")} />
           </RowDefinition>
         </Griddle>
         {modalEdit}
