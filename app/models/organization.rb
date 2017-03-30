@@ -5,6 +5,7 @@ class Organization < ApplicationRecord
   ATTRIBUTES_PARAMS = [:name, :parent_id]
 
   belongs_to :owner, class_name: User.name, foreign_key: :user_id
+  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
   has_many :profiles, dependent: :destroy
   has_many :users, through: :profiles

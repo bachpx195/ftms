@@ -25,6 +25,20 @@ class User < ApplicationRecord
   has_many :functions, through: :user_functions
   has_many :training_standards, foreign_key: :creator_id,
     dependent: :destroy
+  has_many :universities, foreign_key: :creator_id, dependent: :destroy
+  has_many :languages, foreign_key: :creator_id, dependent: :destroy
+  has_many :stages, foreign_key: :creator_id, dependent: :destroy
+  has_many :organizations, foreign_key: :creator_id, dependent: :destroy
+  has_many :programs, foreign_key: :creator_id, dependent: :destroy
+  has_many :teams, foreign_key: :creator_id, dependent: :destroy
+  has_many :evaluation_templates, foreign_key: :creator_id, dependent: :destroy
+  has_many :evaluation_standards, foreign_key: :creator_id, dependent: :destroy
+  has_many :subjects, foreign_key: :creator_id, dependent: :destroy
+  has_many :assignments, foreign_key: :creator_id, dependent: :destroy
+  has_many :surveys, foreign_key: :creator_id, dependent: :destroy
+  has_many :projects, foreign_key: :creator_id, dependent: :destroy
+  has_many :test_rules, foreign_key: :creator_id, dependent: :destroy
+  has_many :requirements, foreign_key: :creator_id, dependent: :destroy
   has_many :created_courses, class_name: Course.name, foreign_key: :creator_id,
     dependent: :destroy
   has_many :courses, through: :user_courses, dependent: :destroy

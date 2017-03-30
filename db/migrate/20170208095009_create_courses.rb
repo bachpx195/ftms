@@ -12,7 +12,7 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.integer :program_id
       t.integer :training_standard_id
       t.datetime :deleted_at
-      t.integer :creator_id
+      t.integer :creator_id, index: true
       t.integer :owner_id
 
       t.timestamps

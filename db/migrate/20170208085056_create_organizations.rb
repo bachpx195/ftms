@@ -5,6 +5,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.0]
       t.integer :parent_id
       t.integer :user_id
       t.datetime :deleted_at
+      t.integer :creator_id, index: true
 
       t.timestamps
     end

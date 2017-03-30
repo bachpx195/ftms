@@ -22,6 +22,7 @@ class Subject < ApplicationRecord
     source_type: TestRule.name
 
   belongs_to :organization
+  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
   scope :find_remain_subjects, ->ids{where.not id: ids}
 

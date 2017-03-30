@@ -4,6 +4,7 @@ class CreateTestRules < ActiveRecord::Migration[5.0]
       t.string :name
       t.integer :organization_id, index: true
       t.text :content
+      t.integer :creator_id, index: true
       t.timestamps
     end
   end

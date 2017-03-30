@@ -5,6 +5,7 @@ class EvaluationTemplate < ApplicationRecord
     :name, :max_point, :min_point, :average_point]]
 
   belongs_to :training_standard
+  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
   has_many :evaluation_standards, dependent: :destroy
   has_many :member_evaluations, dependent: :destroy

@@ -8,4 +8,5 @@ class TestRule < ApplicationRecord
   has_many :dynamic_tasks, through: :static_tasks, class_name: DynamicTask.name
 
   belongs_to :organization
+  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 end
