@@ -1,6 +1,6 @@
 json.subject_detail do
   json.extract! @subject, :name, :id, :content, :description, :during_time
-  json.image @subject.image.url
+  json.image @subject.image
   json.training_standard @subject.training_standards, :name
   json.statuses @subject.user_subjects.statuses
 
@@ -29,7 +29,8 @@ json.subject_detail do
       json.task_id task.id
     end
   end
-  if @course || @user_course
+
+  if @subject_supports.course || @user_course
     if @course_subject
       json.course_subject_task do
         json.surveys @course_subject.static_surveys do |survey|

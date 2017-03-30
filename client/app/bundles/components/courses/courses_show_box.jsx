@@ -403,7 +403,7 @@ export default class CoursesShowBox extends React.Component {
 
   handleAssignMember() {
     this.setState({rerender: true});
-    $('#modal-assign-member').modal();
+    $('.modal-assign-member').modal();
   }
 
   afterAssignUsers(unassigned_users, managers, members) {

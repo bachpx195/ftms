@@ -32,6 +32,10 @@ $td-course-edit-delete-span: #1c1c1c;
   padding: 14px 0;
 }
 
+.course-subject .modal-content {
+  color: $info-black;
+}
+
 .subject {
   background-color: $show-course-subject-white;
   border-bottom-left-radius: 100px;

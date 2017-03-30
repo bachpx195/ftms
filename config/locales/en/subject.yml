@@ -10,6 +10,8 @@ en:
       unassigned_members: "Unassigned members"
       list_team: "List team"
       members: "Members"
+      list_members: "List members"
+      list_tasks: "List tasks"
     headers:
       id: "ID"
       name: "Name"

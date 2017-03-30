@@ -220,7 +220,7 @@ export default class ModalAssignMember extends React.Component {
       .then(response => {
         this.props.afterAssignUsers(response.data.course.unassigned_users,
           response.data.course.managers, response.data.course.members);
-        $('#modal-assign-member').modal('hide');
+        $('.modal-assign-member').modal('hide');
       })
       .catch(error => console.log(error));
   }
