@@ -20,7 +20,7 @@ export default class SubjectsShowBox extends React.Component {
     super(props);
     this.state = {
       assigments_of_user_subjects: props.assigments,
-      admin: true, // Check tam admin. Sau co policy client check lai
+      admin: false, // Check tam admin. Sau co policy client check lai
       current_user: props.current_user,
       course_subject_teams: [],
       user_subjects: props.user_subjects,
@@ -47,7 +47,8 @@ export default class SubjectsShowBox extends React.Component {
         }
       },
       user: {},
-      user_index: 0
+      user_index: 0,
+      course_subject_id: props.course_subject_id
     }
   }
 
@@ -59,10 +60,13 @@ export default class SubjectsShowBox extends React.Component {
 
   fetchSubject() {
     let url;
-    if(this.props.course){
+    if (this.props.course) {
       url = COURSE_URL + this.props.course.id + '/' +
         subject_constants.SUBJECT_PATH + this.props.subject.id;
-    }else{
+    } else if (this.props.user_course) {
+      url = USER_COURSE_URL + this.props.user_course.id + '/' +
+        subject_constants.SUBJECT_PATH + this.props.subject.id;
+    } else {
       url = SUBJECT_URL + this.props.subject.id;
     }
     axios.get(url + '.json')
@@ -221,6 +225,7 @@ export default class SubjectsShowBox extends React.Component {
       return(
         <div>
           <SubjectShowBoxTrainee
+            course_subject_id={this.state.course_subject_id}
             current_user={this.state.current_user}
             user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
             assigments_of_user_subjects={this.state.assigments_of_user_subjects}
@@ -235,7 +240,7 @@ export default class SubjectsShowBox extends React.Component {
     let modalUserTask;
     let panelUserTask;
 
-    if(this.props.course) {
+    if (this.props.course) {
       modalBody = (
         <ModalBody task={this.state.subject_detail.subject_task}
         ownerable_id={this.state.subject_detail.course_subject.id}
@@ -247,7 +252,7 @@ export default class SubjectsShowBox extends React.Component {
         />
       )
 
-      if(this.state.subject_detail.user_subjects &&
+      if (this.state.subject_detail.user_subjects &&
         this.state.subject_detail.user_subjects[this.state.user_index]) {
         panelUserTask = (
           <ModalTask
@@ -322,14 +327,14 @@ export default class SubjectsShowBox extends React.Component {
     )
   }
 
-  afterClickAddTask(){
+  afterClickAddTask() {
     this.setState({
       user: ''
     })
     $('#modalAddTask').modal();
   }
 
-  afterAddTaskForUser(user, user_index){
+  afterAddTaskForUser(user, user_index) {
     this.setState({
       user: user,
       user_index: user_index
@@ -338,9 +343,9 @@ export default class SubjectsShowBox extends React.Component {
   }
 
   handleAfterAddTask(type, targetable_ids,targets, subject_detail, user_id, user_index) {
-    if(this.props.course) {
-      if(user_id) {
-        _.mapValues(targets, function(target){
+    if (this.props.course) {
+      if (user_id) {
+        _.mapValues(targets, function(target) {
           subject_detail.user_subjects[user_index].user_course_task[type].push(target)
         })
       } else {
@@ -355,7 +360,7 @@ export default class SubjectsShowBox extends React.Component {
       _.remove(this.state.subject_detail.task[type], targetable => {
         return targetable_ids.indexOf(targetable.id) >= 0;
       });
-      _.mapValues(targets, function(target){
+      _.mapValues(targets, function(target) {
         subject_detail.subject_task[type].push(target)
       })
     }
@@ -364,8 +369,8 @@ export default class SubjectsShowBox extends React.Component {
     })
   }
 
-  afterCreateTask(target, type, owner){
-    if(owner == 'CourseSubject' ) {
+  afterCreateTask(target, type, owner) {
+    if (owner == 'CourseSubject' ) {
       this.state.subject_detail.course_subject_task[type].push(target)
       this.setState({
         subject_detail: this.state.subject_detail
@@ -378,8 +383,8 @@ export default class SubjectsShowBox extends React.Component {
     }
   }
 
-  handleAfterDeleteTask(index, task, type, user_index, user){
-    if(user) {
+  handleAfterDeleteTask(index, task, type, user_index, user) {
+    if (user) {
       _.remove(this.state.subject_detail.user_subjects[user_index].user_course_task[type], ({task_id}) => {
         return task_id == index
       });

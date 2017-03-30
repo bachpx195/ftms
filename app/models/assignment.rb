@@ -8,4 +8,7 @@ class Assignment < ApplicationRecord
   has_many :dynamic_tasks, through: :static_tasks, class_name: DynamicTask.name
 
   belongs_to :organization
+
+  ATTRIBUTE_PARAMS = [:name, :content]
+
 end

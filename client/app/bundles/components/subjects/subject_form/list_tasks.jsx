@@ -8,8 +8,9 @@ import * as app_constants from '../../../../constants/app_constants';
 import * as subject_constants from '../subject_constants';
 
 const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
+const SUBJECT_TASK_URL = app_constants.APP_NAME + subject_constants.SUBJECT_TASK_PATH;
 
-export default class ListTasks extends React.Component{
+export default class ListTasks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +32,7 @@ export default class ListTasks extends React.Component{
     })
   }
 
-  render(){
+  render() {
     let type = this.state.type;
     if(type != '') {
       const NewLayout = ({Table, Pagination, Filter}) => (
@@ -53,7 +54,7 @@ export default class ListTasks extends React.Component{
       );
       const ChooseTargetable = ({griddleKey}) => {
         let id;
-        if(this.props.targetable_type == 'StaticTask') {
+        if (this.props.targetable_type == 'StaticTask') {
           id = this.state.task[this.props.type][griddleKey].task_id
         } else {
           id = this.state.task[this.props.type][griddleKey].id
@@ -63,7 +64,7 @@ export default class ListTasks extends React.Component{
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
       let form_task ;
-      if(this.state.type != 'assignments') {
+      if (this.state.type != 'assignments') {
         form_task = null;
       } else {
         form_task = (
@@ -72,7 +73,8 @@ export default class ListTasks extends React.Component{
             ownerable_type={this.props.ownerable_type}
             afterCreateTask={this.afterCreateTask.bind(this)}
             subject_detail={this.props.subject_detail}
-            course={this.props.course} user={this.props.user}/>
+            course={this.props.course} user={this.props.user}
+            url={SUBJECT_TASK_URL} />
         )
       }
       return(
@@ -106,8 +108,8 @@ export default class ListTasks extends React.Component{
     }
   }
 
-  afterClickCheckbox(id, checked){
-    if(checked) {
+  afterClickCheckbox(id, checked) {
+    if (checked) {
       this.state.targetable_ids.push(id);
     } else {
       _.remove(this.state.targetable_ids, _id => _id == id);
@@ -117,9 +119,9 @@ export default class ListTasks extends React.Component{
     })
   }
 
-  afterSave(){
+  afterSave() {
     let ownerable_name = '';
-    if(this.props.course) {
+    if (this.props.course) {
       ownerable_name = 'CourseSubject';
     } else {
       ownerable_name = 'Subject';
@@ -147,7 +149,7 @@ export default class ListTasks extends React.Component{
     })
     .catch(error => console.log(error));
   }
-  afterCreateTask(target, type, onwer){
+  afterCreateTask(target, type, onwer) {
     this.props.afterCreateTask(target, type, onwer)
   }
 }

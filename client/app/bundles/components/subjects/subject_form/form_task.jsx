@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import css from '../subject.scss';
 import * as app_constants from '../../../../constants/app_constants';
 import * as subject_constants from '../subject_constants';
 
-const SUBJECT_TASK_URL = app_constants.APP_NAME + subject_constants.SUBJECT_TASK_PATH;
-export default class FormTask extends React.Component{
-  constructor(props){
+export default class FormTask extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       task: {
@@ -23,19 +23,27 @@ export default class FormTask extends React.Component{
 
   render() {
     return(
-      <form onSubmit={this.handleSubmit.bind(this)} className='form-horizontal'>
-        <div className='form-group'>
-          <div className='form-task'>
-            <input type='text' placeholder={I18n.t('subjects.headers.name')}
-              className='form-control' name='name' ref='nameField'
-              onChange={this.handleChange.bind(this)} />
-            <input type='text' placeholder={I18n.t('subjects.headers.content')}
-              className='form-control' name='content' ref='contentField'
+      <form onSubmit={this.handleSubmit.bind(this)} className="form-horizontal">
+        <div className="form-group">
+          <div className="col-md-12">
+            <input type="text" placeholder={I18n.t("subjects.headers.name")}
+              className="form-control" name="name" ref="nameField"
               onChange={this.handleChange.bind(this)} />
           </div>
-          <div className='submit-task'>
-            <button type='submit' className='btn btn-primary'
-              disabled={!this.formValid()}>{I18n.t('buttons.create_task')}</button>
+        </div>
+
+        <div className="form-group">
+          <div className="col-md-12">
+            <input type="text" placeholder={I18n.t("subjects.headers.content")}
+              className="form-control" name="content" ref="contentField"
+              onChange={this.handleChange.bind(this)} />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <div className="col-md-3 col-md-offset-9">
+            <button type="submit" className="btn btn-primary"
+              disabled={!this.formValid()}>{I18n.t("buttons.create_task")}</button>
           </div>
         </div>
       </form>
@@ -57,12 +65,12 @@ export default class FormTask extends React.Component{
   handleSubmit(event) {
     event.preventDefault();
     let ownerable_name
-    if(this.props.user) {
+    if (this.props.user) {
       ownerable_name = 'CourseSubject';
     } else {
       ownerable_name = 'Subject';
     }
-    axios.post(SUBJECT_TASK_URL, {
+    axios.post(this.props.url, {
       task: {
         name: this.refs.nameField.value,
         content: this.refs.contentField.value,

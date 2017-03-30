@@ -5,7 +5,6 @@ class ActionDispatch::Routing::Mapper
 end
 
 Rails.application.routes.draw do
-
   mount Ckeditor::Engine => "/ckeditor"
   mount ActionCable.server => "/cable"
   devise_for :users, path: "auth",
@@ -73,13 +72,13 @@ Rails.application.routes.draw do
     resources :courses, only: :index
   end
   resources :user_courses do
-    resources :subjects
+    resources :subjects, default: {format: "json"}
   end
 
   resources :course_subjects do
     resources :teams
   end
 
-  resources :assignments, only: [:show]
+  resources :assignments, only: [:show, :create]
   resources :dynamic_tasks, only: [:update]
 end

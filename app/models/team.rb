@@ -6,4 +6,5 @@ class Team < ApplicationRecord
   belongs_to :course_subject
 
   has_many :user_subjects, dependent: :destroy
+  has_many :users, through: :user_subjects, source: :user
 end
