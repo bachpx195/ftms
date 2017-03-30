@@ -75,7 +75,7 @@ export default class CourseLists extends React.Component {
         });
         if(count_subsit_users > 0) {
           subsit_users = (
-            <div className='subsit_users'>
+            <div className='subsit-users'>
               <div className="block-trainer">
                 <p className="image image-others"
                   onClick={this.handleClick.bind(this)}
