@@ -28,7 +28,7 @@ export default class UserRolesBox extends React.Component {
     } else {
       user = this.props.user;
     }
- 
+
     this.setState({
      user: user
     })

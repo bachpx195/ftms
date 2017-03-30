@@ -210,10 +210,12 @@ ActiveRecord::Schema.define(version: 20170323035408) do
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
+    t.string   "description"
     t.integer  "organization_id"
     t.integer  "subject_id"
     t.integer  "task_id"
     t.integer  "creator_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["creator_id"], name: "index_projects_on_creator_id", using: :btree

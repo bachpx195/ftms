@@ -1,0 +1,13 @@
+en:
+  projects:
+    add_requirement: 'Add requirement'
+    organization: "Organization"
+    select_organization: "Select organization"
+    titles:
+      all: "All Projects"
+    headers:
+      id: "ID"
+      name: "Name"
+      description: "Description"
+    modals:
+      header_edit: "Edit language"

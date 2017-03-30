@@ -1,4 +1,8 @@
 class Project < ApplicationRecord
+  acts_as_paranoid
+
+  ATTRIBUTE_PARAMS = [:name, :description, :organization_id]
+
   has_many :requirements, dependent: :destroy
   has_many :static_tasks, as: :targetable,
     class_name: StaticTask.name, dependent: :destroy
@@ -11,4 +15,6 @@ class Project < ApplicationRecord
   has_many :tasks, as: :targetable, class_name: Task.name, dependent: :destroy
   has_many :course_subjects, through: :tasks, source: :targetable,
     source_type: Project.name
+
+  validates :name, presence: true
 end

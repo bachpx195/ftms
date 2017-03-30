@@ -38,6 +38,8 @@ import OrganizationBox from '../components/organizations/organizations_box';
 
 //1. Trainee Course index
 import CoursesBox from '../components/courses/courses_box';
+import ProjectBox from '../components/projects/projects_box';
+import ProjectsShowBox from '../components/projects/projects_show_box';
 
 ReactOnRails.register({
   Policies,
@@ -69,4 +71,6 @@ ReactOnRails.register({
   TrainingStandardShow,
   UserRolesBox,
   UserCoursesBox,
+  ProjectBox,
+  ProjectsShowBox
 });

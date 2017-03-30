@@ -81,4 +81,5 @@ Rails.application.routes.draw do
 
   resources :assignments, only: [:show, :create]
   resources :dynamic_tasks, only: [:update]
+  resources :projects, except: [:new, :edit]
 end
