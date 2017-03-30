@@ -1,6 +1,13 @@
 en:
   projects:
-    add_requirement: 'Add requirement'
+    created_at: "Created at"
+    creator: "Creator"
+    showRiquirement: "Lists Requirement"
+    organization: "Organization"
+    priority: "Priority"
+    add_requirement: "Add requirement"
+    requirement: "Requirement : "
+    add_task: "Add task"
     organization: "Organization"
     select_organization: "Select organization"
     titles:

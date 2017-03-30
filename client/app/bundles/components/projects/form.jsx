@@ -20,31 +20,33 @@ export default class Form extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <Errors errors={this.state.errors} />
-        <RenderOptions organizations={this.state.organizations}
-          project={this.state.project}
-          handleChange={this.handleChange.bind(this)}
-          />
-        <div className='form-group'>
-          <input type='text' placeholder={I18n.t('projects.headers.name')}
-            value={this.state.project.name || ''}
-            onChange={this.handleChange.bind(this)}
-            className='form-control' name='name' />
-        </div>
-        <div className='form-group'>
-          <input type='text' onChange={this.handleChange.bind(this)}
-            placeholder={I18n.t('projects.headers.description')}
-            value={this.state.project.description || ''}
-            className='form-control' name='description' />
-        </div>
-        <div className='form-group'>
-          <div className='text-right'>
-            <button type='submit' className='btn btn-primary'
-              disabled={!this.formValid()}>{I18n.t('buttons.save')}</button>
+      <div className='col-md-8 col-md-offset-2'>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <Errors errors={this.state.errors} />
+          <RenderOptions organizations={this.state.organizations}
+            project={this.state.project}
+            handleChange={this.handleChange.bind(this)}
+            />
+          <div className='form-group'>
+            <input type='text' placeholder={I18n.t('projects.headers.name')}
+              value={this.state.project.name || ''}
+              onChange={this.handleChange.bind(this)}
+              className='form-control' name='name' />
           </div>
-        </div>
-      </form>
+          <div className='form-group'>
+            <input type='text' onChange={this.handleChange.bind(this)}
+              placeholder={I18n.t('projects.headers.description')}
+              value={this.state.project.description || ''}
+              className='form-control' name='description' />
+          </div>
+          <div className='form-group'>
+            <div className='text-right'>
+              <button type='submit' className='btn btn-primary'
+                disabled={!this.formValid()}>{I18n.t('buttons.save')}</button>
+            </div>
+          </div>
+        </form>
+      </div>
     );
   }
 

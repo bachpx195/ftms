@@ -2,17 +2,22 @@ import React from 'react';
 import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
 import Form from './form';
+import Modal from './requirements/modal';
+import RequirementLists from './requirements/requirement_lists';
+import RenderTextButton from './render_text_button';
 import * as app_constants from 'constants/app_constants';
 import * as project_constants from './project_constants';
 
 const PROJECTS_URL = app_constants.APP_NAME + project_constants.PROJECT_PATH;
-require('../subjects/subject.scss');
 
 export default class ProjectsShowBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      requirements: {},
+      requirement: {},
       project: props.project,
+      url: null,
       showForm: false
     }
   }
@@ -22,18 +27,24 @@ export default class ProjectsShowBox extends React.Component {
     .then(response => {
       this.setState({
         project: response.data.project,
-        organizations: response.data.organizations
+        organizations: response.data.organizations,
+        requirements: response.data.requirements
       });
     }).catch(error => console.log(error));
   }
 
   render() {
     let form = null;
+    let url = PROJECTS_URL + '/' + this.state.project.id;
     if (this.state.showForm) {
-      const url = PROJECTS_URL + '/' + this.state.project.id;
       form = <Form project={this.state.project} url={url}
         organizations={this.state.organizations}
         handleAfterUpdate={this.handleAfterUpdate.bind(this)} />;
+    }
+
+    let path = url + project_constants.REQUIREMENT_PATH;
+    if (this.state.requirement.id != undefined) {
+      path = this.state.url;
     }
 
     return(
@@ -48,39 +59,53 @@ export default class ProjectsShowBox extends React.Component {
               <div className="box-tools pull-right">
                 <button type="button" className="btn btn-info"
                   onClick={this.handleClickButton.bind(this)}>
-                  {this.renderText()}</button>&nbsp;
-
+                  <RenderTextButton showForm={this.state.showForm} />
+                </button>&nbsp;
                 <button className="btn btn-danger"
                   onClick={this.handleDelete.bind(this)}>
                   {I18n.t('buttons.delete')}</button>
               </div>
             </div>
             <div className='box-body'>
-              <div className='col-md-8 col-md-offset-2'>{form}</div>
-            </div>
-            <div className='add-requirement col-md-3'>
-              <button type='button' className='btn btn-primary'>
-                {I18n.t('projects.add_requirement')}</button>
+              {form}
               <div className="clearfix"></div>
+              <div className='add-requirement col-md-3'>
+                <button type='button' className='btn btn-primary'
+                  onClick={this.handleAddRequirement.bind(this)}>
+                  {I18n.t('projects.add_requirement')}</button>
+                <div className="clearfix"></div>
+              </div>
             </div>
+              <RequirementLists requirements={this.state.requirements}
+                requirement={this.state.requirement}
+                handleOnClickEdit={this.handleOnClickEdit.bind(this)} />
           </div>
         </div>
+        <Modal requirement={this.state.requirement} url={path}
+          requirements={this.state.requirements}
+          handleAfterCreate={this.handleAfterCreate.bind(this)}
+           />
       </div>
     );
   }
 
-  renderText() {
-    if (this.state.showForm) {
-      return (<div>{I18n.t('buttons.cancel')}</div>);
-    } else {
-      return (
-        <div><i className="fa fa-pencil"></i>{I18n.t('buttons.edit')}</div>);
-    }
+  handleAddRequirement(event) {
+    $('#modalRequirement').modal();
+    this.setState({requirement: {}});
+  }
+
+  handleOnClickEdit(requirement, url) {
+    $('#modalRequirement').modal();
+    this.setState({requirement: requirement, url: url});
   }
 
   handleClickButton() {
     let show = this.state.showForm ? false : true;
     this.setState({showForm: show});
+  }
+
+  handleAfterCreate(new_requirements) {
+    this.setState({requirements: new_requirements});
   }
 
   handleAfterUpdate(new_project) {
