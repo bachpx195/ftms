@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import ModalCreatSubject from './subject_form/modal_creat_subject'
 import SubjectLists from './subject_lists';
 import Form from './subject_form/form';
 
@@ -39,10 +39,14 @@ export default class SubjectBox extends React.Component {
 
             <div className='box-body no-padding'>
               <div className='row'>
-                <div className='col-md-8 col-md-offset-2'>
-                  <Form subject={this.state.subject} url={SUBJECT_URL}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                <div className='col-md-8'>
+                  <button type="button" className="btn btn-info create-subject"
+                    onClick={this.handleCreateSubject.bind(this)}>
+                    <i className="fa fa-upload"></i> {I18n.t('subjects.buttons.create')}
+                  </button>
                 </div>
+                <ModalCreatSubject subject={this.state.subject}
+                  handleAfterCreated={this.handleAfterCreated.bind(this)} />
               </div>
             </div>
 
@@ -79,5 +83,9 @@ export default class SubjectBox extends React.Component {
     _.remove(this.state.subjects,
       subject => subject.id === deleted_subject.id);
     this.setState({subjects: this.state.subjects});
+  }
+
+  handleCreateSubject() {
+    $('#modalCreatSubject').modal();
   }
 }

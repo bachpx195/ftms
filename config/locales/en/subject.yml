@@ -21,6 +21,7 @@ en:
       status: "Status"
       current_progress: "Progress"
       workings_day: "Working day: "
+      during_time: "Working day "
       training_standard: "Training Standard: "
       delete: "Delete"
       content: "Content"
@@ -28,8 +29,10 @@ en:
       all_task: "All Task"
       user_course: "List User Course"
     modals:
+      header_create: "Create subject"
       header_edit: "Edit subject"
     buttons:
+      create: "Create subject"
       edit: "Edit"
       delete: "Delete"
     status:
