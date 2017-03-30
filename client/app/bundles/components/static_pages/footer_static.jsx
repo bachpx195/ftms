@@ -7,7 +7,7 @@ const ROOT_URL = app_constants.APP_NAME + app_constants.ROOT_PATH;
 export default class FooterStatic extends React.Component {
   render () {
     return (
-      <footer id='footer-distributed'>
+      <footer classNamw='footer-distributed'>
         <div className='footer-left'>
           <h3><span>{I18n.t('layouts.footer.company')}</span></h3>
           <p className='footer-links'>

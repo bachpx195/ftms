@@ -1,39 +1,30 @@
-.menu_course_inline {
-  display: inline-block;
-  margin-top: 30px;
-  a {
-    margin: 5px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    &:hover {
-      border-bottom: 2px red solid;
-      padding-bottom: 4px;
-      color: rgba(255,255,255,0.8);
-    }
-  }
-}
+@import './sass/color_status';
 
-.cursor{
+.cursor {
   cursor: pointer;
 }
 
-.list_item_of_course{
+.list-item-of-course {
   margin-top: 7px;
 }
-.hidden_item {
+
+.hidden-item {
   visibility: hidden;
 }
-.add_task {
+
+.add-task {
+  background-color: $c-add-task;
+  color: $c-white;
   margin-top: 10px;
-  color: white;
-  background-color: #3c586a;
+
   &:hover {
-    color: white;
+    color: $c-white;
   }
+
   &:focus {
-    color: white;
+    color: $c-white;
   }
+
   i {
     margin-right: 5px;
   }

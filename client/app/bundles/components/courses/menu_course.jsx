@@ -42,10 +42,10 @@ export default class MenuCourse extends React.Component {
 
   onClickMenuCourse(event) {
     let target = event.target;
-    if($(target).closest('div').find('.list_item_of_course').hasClass('hidden_item')) {
-      $(target).closest('div').find('.list_item_of_course').removeClass('hidden_item');
+    if($(target).closest('div').find('.list-item-of-course').hasClass('hidden-item')) {
+      $(target).closest('div').find('.list-item-of-course').removeClass('hidden-item');
     }else {
-      $(target).closest('div').find('.list_item_of_course').addClass('hidden_item');
+      $(target).closest('div').find('.list-item-of-course').addClass('hidden-item');
     }
   }
 
@@ -94,7 +94,7 @@ export default class MenuCourse extends React.Component {
   }
 
   changeStatus() {
-    axios.patch(PROGRAM_URL+ this.props.program.id+ '/' + 
+    axios.patch(PROGRAM_URL+ this.props.program.id+ '/' +
       course_constants.COURSES_PATH + this.state.course.id, {
         status: 'finished',
         authenticity_token: ReactOnRails.authenticityToken(),
@@ -106,7 +106,7 @@ export default class MenuCourse extends React.Component {
       })
       this.props.handleAfterChangeStatus(this.state.course);
       $('.finish-course').hide();
-      
+
     })
     .catch(error => {
       console.log(error)

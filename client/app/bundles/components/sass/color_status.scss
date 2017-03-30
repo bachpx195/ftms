@@ -1,60 +1,69 @@
-$init_color: GREEN;
-$progress_color: BLUE;
-$finish_color: #ccc;
-$waiting_color: #DF8B14;
-$testing_color: #5bc0de;
-$pass_color: GREEN;
-$fail_color: RED;
+$init-color: GREEN;
+$progress-color: BLUE;
+$finish-color: #ccc;
+$waiting-color: #df8b14;
+$testing-color: #5bc0de;
+$pass-color: GREEN;
+$fail-color: RED;
+$c-eee: #eee;
+$c-add-task: #3c586a;
+$c-white: #fff;
+$c-organization-back: #85c1e9;
 
 .init-color {
-  color: $init_color;
+  color: $init-color;
 }
 
 .init-background-color {
-  background-color: $init_color !important;
+  background-color: $init-color !important;
 }
 
 .init-border-color {
-  border: 1px solid $init_color;
+  border: 1px solid $init-color;
 }
 
-.progress-color, .in_progress-color, .inprogress-color {
-  color: $progress_color;
+.progress-color,
+.in-progress-color,
+.inprogress-color {
+  color: $progress-color;
 }
 
 .waiting-background-color {
-  background-color: $waiting_color !important;
+  background-color: $waiting-color !important;
 }
 
 .testing-background-color {
-  background-color: $testing_color !important;
+  background-color: $testing-color !important;
 }
 
-.progress-background-color, .in_progress-background-color {
-  background-color: $progress_color !important;
+.progress-background-color,
+.in-progress-background-color {
+  background-color: $progress-color !important;
 }
 
 .pass-background-color {
-  background-color: $pass_color;
+  background-color: $pass-color;
 }
 
 .fail-background-color {
-  background-color: $fail_color;
+  background-color: $fail-color;
 }
 
 .progress-border-color {
-  border: 1px solid $progress_color;
+  border: 1px solid $progress-color;
 }
 
-
-.finish-color, .finished-color, .complete-color {
-  color: $finish_color;
+.finish-color,
+.finished-color,
+.complete-color {
+  color: $finish-color;
 }
 
-.finish-background-color, .finished-background-color {
-  background-color: $finish_color !important;
+.finish-background-color,
+.finished-background-color {
+  background-color: $finish-color !important;
 }
 
 .finish-border-color {
-  border: 1px solid $finish_color;
+  border: 1px solid $finish-color;
 }

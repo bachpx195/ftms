@@ -9,7 +9,7 @@ export default class Errors extends React.Component {
             .map((error, index) => <li key={`${attribute}_${index}`}>{attribute} {error}</li>)
         });
       return (
-        <div id="error_explanation">
+        <div className="errorExplanation">
           <ul>
             {errors}
           </ul>

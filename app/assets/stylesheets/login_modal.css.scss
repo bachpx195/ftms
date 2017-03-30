@@ -1,18 +1,20 @@
-#login-modal {
+@import 'color';
 
+.login-modal {
   .modal-dialog {
     display: block;
+    margin-top: calc(50vh - 200px);
     text-align: center;
     vertical-align: middle;
-    margin-top: calc(50vh - 200px);
   }
 
   .modal {
-    text-align: center;
     border-radius: 10px;
+    text-align: center;
 
     .modal-footer {
       text-align: center !important;
+
       .btn {
         margin: 0 10px;
       }
@@ -26,196 +28,206 @@
     }
 
     .modal-header {
+      border-bottom: 1px solid $c-eee;
       padding: 9px 15px;
-      border-bottom: 1px solid #eee;
     }
 
     .dangerous {
-      background-color: red;
+      background-color: $c-red;
     }
 
     .label-dialog-status {
-      font-weight: bold;
       border-radius: 2px;
+      font-weight: bold;
     }
   }
 
   @media screen and (min-width: 768px) {
-    .modal:before {
+    .modal::before {
+      content: ' ';
       display: inline-block;
-      vertical-align: middle;
-      content: " ";
       height: 100%;
+      vertical-align: middle;
     }
   }
 
   .modal-dialog {
     width: auto;
+
     .modal-body {
       padding: 1px;
     }
   }
+
   form {
-    width: 85%;
     display: block;
     margin: 0 auto;
-    margin-top: 0em;
+    margin-top: 0;
+    width: 85%;
   }
+
   .form-modal-login {
     margin-left: 10%;
     width: 90%;
   }
+
   .content-top {
+    background: $c-header-li-a-hover;
+    border-bottom: 1px solid $c-bottom-top;
+    color: $c-white;
     font-size: 18px;
-    color: #fff;
-    background: #000;
     opacity: .9;
-    border-bottom: 1px solid #39390c;
-    text-align: center;
     padding: 15px 0;
+    text-align: center;
   }
-  .content-body, .content-body a, .content-body p {
+
+  .content-body,
+  .content-body a,
+  .content-body p {
+    color: $c-content-footer-color;
     font-size: 13px;
-    color: #cecece;
   }
 
   .content-body-bottom {
     padding: 0 35px;
   }
-  .content-footer a.pull-right {
-    float: right;
+
+  .content-footer {
+    a {
+      .pull-right {
+        float: right;
+      }
+    }
   }
+
   .content-footer a {
-    color: #e1e300;
-    text-decoration: underline;
+    color: $c-content-footer-a;
     display: block;
+    text-decoration: underline;
   }
 
   .content-footer {
-    background: #1a1a1a;
-    color: #cecece;
+    background: $c-content-footer;
+    color: $c-content-footer-color;
     font-size: 13px;
-    text-align: center;
+    height: 40px;
     padding: 10px 35px 14px;
-    height: 40px
+    text-align: center;
   }
 
   .content-body .line-or {
+    background: url('i.imgur.com/E7avrna.png') center center no-repeat;
+    color: $c-nine;
     font-size: 14px;
-    color: #999;
-    width: 100%;
+    height: 100px;
     margin: 5px auto 0;
     text-align: center;
-    background: url(http://i.imgur.com/E7avrna.png) center center no-repeat;
-    height: 100px
+    width: 100%;
   }
+
   .content-body .form-modal {
     height: 200px;
+    margin-left: 5%;
     width: 90%;
-    margin-left: 5%
   }
-  #div-forms {
-    width: 380px;
+
+  .div-forms {
+    background-image: url('i.imgur.com/UMY0snS.jpg');
     height: 100%;
     margin: 0 auto;
-    background-image: url(http://i.imgur.com/UMY0snS.jpg);
+    width: 380px;
   }
+
   a {
-    color: rgb(225,227,0);
+    color: $c-login-modal-a;
   }
-  h4, h5{
-    color: white;
+
+  h4,
+  h5 {
+    color: $s-white;
   }
-  input[type="submit"] {
-    font-size: 1em;
-    color: black;
-    padding: 0.6em 1em 0.6em 1em;
+
+  input [type='submit'] {
+    background: $c-login-input-backgroud;
+    border: 0;
+    border-radius: 3px;
+    color: $c-black;
+    cursor: pointer;
     display: block;
-    border: none;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1em;
     margin-left: 25%;
     outline: none;
-    background: rgb(225,227,0);
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -o-border-radius: 3px;
-    -ms-border-radius: 3px;
-    border-radius: 3px;
+    padding: .6em 1em;
     text-align: center;
+    transition: .5s all;
     width: 50%;
-    cursor: pointer;
-    font-family: 'Roboto Condensed', sans-serif;
-    transition: 0.5s all;
-    -webkit-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -o-transition: 0.5s all;
   }
 
-  input[type="submit"]:hover {
+  input [type='submit']:hover {
     background: transparent;
-    color: white;
+    color: $c-white;
   }
 
-  input[type="checkbox"]{
+  input [type='checkbox'] {
     margin-left: -20px;
   }
 
-  input[type="text"], input[type="password"], input[type="email"] {
-    display: block;
+  input [type='text'],
+  input [type='password'],
+  input [type='email'] {
     background: none;
-    background-color: white !important;
-    border: none;
-    border-bottom: 1px solid #ffffff;
-    outline: none;
-    color: black;
-    font-weight: 400;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -o-border-radius: 3px;
-    -ms-border-radius: 3px;
+    background-color: $c-white !important;
+    border: 0;
+    border-bottom: 1px solid $c-white;
     border-radius: 3px;
-    padding: 10px 0px;
-    text-align: center;
-    margin: 0 0 1em 0em;
+    color: $c-black;
+    display: block;
     font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+    margin: 0 0 1em;
+    outline: none;
+    padding: 10px 0;
+    text-align: center;
     width: 100% !important;
   }
 
   p {
+    color: $c-black;
     font-size: 1em;
-    color: black;
   }
-  h1{
-    text-align: center;
-    color: rgb(225,227,0);
+
+  h1 {
+    color: $c-login-input-backgroud;
     font-weight: 100;
+    text-align: center;
   }
+
   .login h3 a {
-    color: #ecba65;
+    color: $c-login-h3-a;
     margin-left: 6px;
   }
+
   .login h3 a:hover {
-    color: #fff;
+    color: $c-white;
   }
+
   .login-main {
-    margin: 0 auto;
-    border: 1px solid #fff;
-    padding: 10px;
     background: none;
-    width: 100%;
-    height: 100%;
     background-size: cover;
+    border: 1px solid $c-white;
+    height: 100%;
+    margin: 0 auto;
     overflow: hidden;
+    padding: 10px;
+    width: 100%;
   }
+
   .login p {
-    color: #fff;
+    color: $c-white;
   }
-  #register-form {
-    display: none;
-  }
-  #lost-form {
-    display: none;
-  }
+
   a:hover {
-    color: whitesmoke;
+    color: $c-login-whitesmoke;
   }
 }

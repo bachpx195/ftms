@@ -1,4 +1,6 @@
 class CreateTask::TasksController < ApplicationController
+  include Authorize
+
   before_action :find_ownerable, only: :create
   before_action :namespace_authorize, only: :create
 
@@ -29,16 +31,20 @@ class CreateTask::TasksController < ApplicationController
   end
 
   def find_ownerable
-    @owner = class_eval(params[:task][:ownerable_type].classify)
-      .find_by id: params[:task][:ownerable_id]
-    unless @owner
-      respond_to do |format|
-        format.html{redirect_to :back}
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
+    klass = params[:task][:ownerable_type].classify
+    if CLASS_NAMES.include? klass
+      @ownerable = class_eval(klass).find_by id: params[:task][:ownerable_id]
+      unless @ownerable
+        respond_to do |format|
+          format.html {redirect_to :back}
+          format.json do
+            render json: {message: flash_message("not_found")},
+              status: :not_found
+          end
         end
       end
+    else
+      raise "Forbidden"
     end
   end
 end
