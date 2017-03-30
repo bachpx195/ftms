@@ -44,7 +44,6 @@ export default class UserSubjectList extends React.Component {
         </div>
       </div>
     );
-
     const SelectBoxStatus = ({griddleKey}) => {
       return <select className='select-status'
         onChange={this.handleChange.bind(this)}

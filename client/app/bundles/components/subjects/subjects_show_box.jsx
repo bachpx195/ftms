@@ -80,7 +80,6 @@ export default class SubjectsShowBox extends React.Component {
       console.log(error);
     });
   }
-
   render() {
     let list_blocks;
     if(this.props.course) {
