@@ -107,7 +107,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    colorize (0.8.1)
     concurrent-ruby (1.0.4)
     config (1.4.0)
       activesupport (>= 3.0)
@@ -137,10 +136,6 @@ GEM
       thread_safe
     equalizer (0.0.11)
     erubis (2.7.0)
-    eslint-rails (1.2.1)
-      colorize
-      execjs
-      railties (>= 3.2)
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
@@ -462,7 +457,6 @@ DEPENDENCIES
   database_cleaner (~> 1.5)
   delayed_job_active_record
   devise
-  eslint-rails
   exception_notification
   fabrication
   faker

@@ -10,7 +10,7 @@ inherit_from:
 Rails:
   Enabled: true
 
-Style/BlockLength:
+Metrics:
   Exclude:
     - Rakefile
     - spec/**/**/*.rb

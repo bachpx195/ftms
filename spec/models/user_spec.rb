@@ -46,8 +46,8 @@ RSpec.describe User, type: :model do
 
   describe "constant" do
     it "should have a fixed list constant" do
-      described_class.should have_constant :ATTRIBUTES_PARAMS
-      described_class.should have_constant :ATTRIBUTES_FUNCTION_PARAMS
+      described_class.expect have_constant :ATTRIBUTES_PARAMS
+      described_class.expect have_constant :ATTRIBUTES_FUNCTION_PARAMS
     end
   end
 end
