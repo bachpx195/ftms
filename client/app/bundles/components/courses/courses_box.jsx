@@ -2,8 +2,6 @@ import React from 'react';
 import TraineeCourse from './trainee/trainee_course_lists';
 import CourseList from './course_lists';
 
-import Policy from '../policies/my_space_policy';
-
 export default class CourseBox extends React.Component {
   constructor(props) {
     super(props);

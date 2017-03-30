@@ -18,20 +18,18 @@ $gray: #808080;
   .list-subject {
     margin-top: 10px;
 
-    .user-course-subject:hover .subject.row {
-      background-color: $aqua;
-    }
-
     .user-course-subject {
       text-decoration: none;
     }
 
-    .subject-header {
-      .subject-start-date,
-      .description-course {
-        color: $black;
-        font-weight: 400;
-      }
+    .subject-start-date {
+      color: $black;
+      font-weight: 400;
+    }
+
+    .description-course {
+      color: $black;
+      font-weight: 400;
     }
   }
 
@@ -60,80 +58,11 @@ $gray: #808080;
       margin: 7px 0;
       margin-top: 15px;
       padding: 5px 2px;
-
-      .image-course-header {
-        display: flex;
-
-        .img-circle {
-          border-radius: 50%;
-          height: 100px;
-          width: 100px;
-        }
-
-        .subject-header {
-          display: block;
-          margin-left: 20px;
-
-          .header-title {
-            color: $header-title;
-            font-size: 120%;
-            font-weight: 700;
-            margin-right: 10px;
-          }
-
-          .subject-start-date {
-            padding-top: 5px;
-          }
-
-          .label-status {
-            border-radius: 3px;
-            color: $white;
-            font-weight: 500;
-            padding: 0 3px 1px 5px;
-          }
-        }
-      }
     }
-  }
 
-  .node--connected::after {
-    background: $node-backgroud;
-    bottom: 18px;
-    content: '';
-    height: 125px;
-    left: 28px;
-    position: absolute;
-    width: 6px;
-    z-index: -1;
-  }
-
-  .node {
-    border: 3px solid $white;
-    border-radius: 50%;
-    height: 32px;
-    margin-top: 46px;
-    width: 32px;
-  }
-
-  .subject-image {
-    padding-left: 5px;
-    padding-right: 0;
-  }
-
-  .infor {
-    margin-right: 0;
-    padding-top: 13px;
-  }
-
-  .subject-name {
-    color: $subject-name;
-    font-size: 20px;
-    font-weight: 300;
-    margin: 4px 0;
-  }
-
-  .image-course-header {
-    display: flex;
+    .image-course-header {
+      display: flex;
+    }
 
     .img-circle {
       border-radius: 50%;
@@ -141,115 +70,42 @@ $gray: #808080;
       width: 100px;
     }
 
-    .course-header {
+    .subject-header {
       display: block;
       margin-left: 20px;
+    }
 
-      .header-title {
-        color: $course-header;
-        font-size: 200%;
-        font-weight: 700;
-        margin-right: 10px;
-      }
+    .header-title {
+      color: $header-title;
+      font-size: 120%;
+      font-weight: 700;
+      margin-right: 10px;
+    }
 
-      .subject-start-date {
-        padding-top: 5px;
-      }
+    .subject-start-date {
+      padding-top: 5px;
+    }
 
-      .label-status {
-        border-radius: 3px;
-        color: $white;
-        font-weight: 500;
-        padding: 0 3px 1px 5px;
-      }
+    .label-status {
+      border-radius: 3px;
+      color: $white;
+      font-weight: 500;
+      padding: 0 3px 1px 5px;
     }
   }
 
-  .info-panel {
-    .user-list {
-      padding-left: 3px;
+  .user-list {
+    padding-left: 3px;
 
-      li {
-        float: left;
-        list-style: none;
-        margin: 6px;
-      }
-    }
-
-    .plus-node {
-      background-color: $plus-node;
-      border-radius: 50%;
-      color: $white;
-      height: 30px;
-      line-height: 2;
-      text-align: center;
-      width: 30px;
-
-      a {
-        color: $white;
-      }
-    }
-
-    .plus-node:hover {
-      background-color: #plus-node-hover;
-    }
-
-    .doc-field {
-      list-style-type: circle;
-      padding-left: 28px;
-
-      a {
-        text-decoration: underline !important;
-      }
-
-      abbr[title] {
-        border-bottom: 0;
-      }
+    li {
+      float: left;
+      list-style: none;
+      margin: 6px;
     }
 
     .box-title {
       color: $box-title;
       margin: 0;
     }
-
-    .section-content {
-      .box-primary {
-        border-top-color: $box-primary;
-      }
-
-      .box {
-        background: $white;
-        border-radius: 3px;
-        border-top: 3px solid $box-border-top;
-        box-shadow: 0 1px 1px $black;
-        margin-bottom: 20px;
-        position: relative;
-        width: 100%;
-      }
-
-      .box-header {
-        color: $box-header;
-        display: block;
-        padding: 10px;
-        position: relative;
-      }
-
-      .box-body {
-        border-bottom-left-radius: 3px;
-        border-bottom-right-radius: 3px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        padding: 10px;
-      }
-    }
   }
-}
-
-.infor {
-  color: $black;
-}
-
-.subject-list {
-  margin-left: 19px;
-  padding-top: 30px;
 }

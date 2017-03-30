@@ -3,7 +3,7 @@ class LanguagesController < ApplicationController
   before_action :authorize_class
 
   def index
-    @languages = Language.select :id, :name, :image, :description
+    @languages = Language.select :id, :name, :image, :description, :creator_id
     @languages.map{|language| language[:image] = {url: language.image.url}}
     @functions = current_user.functions.where controller_name: "languages"
   end

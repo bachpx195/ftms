@@ -44,7 +44,8 @@ namespace :db do
     puts "1. Crawl function & trainee"
     functions = []
     def check_supply object
-      object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) && object[:controller] != "sessions"
+      object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) &&
+        object[:controller] != "sessions" && !/^(new|edit)$/.match(object[:action])
     end
     Rails.application.routes.routes.map do |router|
       functions.push controller_name: router.defaults[:controller],

@@ -1,11 +1,13 @@
-import React from 'react';
+import BasePolicy from './base_policy';
 
-export default class Policies extends React.Component {
-  constructor(props){
+export default class Policies extends BasePolicy {
+  constructor(props) {
     super(props);
+    BasePolicy.prototype.ALLOW_FUNCTIONS = window.allow_functions || [];
+    BasePolicy.prototype.OBJECT_REFRESH = [];
   }
 
-  componentWillMount(){
+  componentWillMount() {
     var current_user = JSON.parse(localStorage.getItem('current_user'));
     if(current_user && !window.alreadyPolicies) {
       App.cable = ActionCable.createConsumer();
@@ -20,14 +22,26 @@ export default class Policies extends React.Component {
     }
   }
 
-  receive_policies(policies){
-    localStorage.setItem('policies', JSON.stringify(policies));
+  receive_policies(policies) {
+    var functions = [];
+    for(var node of policies) {
+      functions.push({controller: node.controller_name, action: node.action})
+    }
+    BasePolicy.prototype.ALLOW_FUNCTIONS = functions;
     window.alreadyPolicies = true;
-    this.rerenderSidebar();
+    window.allow_functions = this.ALLOW_FUNCTIONS;
+    this.refreshObject();
     App.cable.disconnect(App.policies);
   }
 
-  render(){
+  refreshObject() {
+    for(var node of this.OBJECT_REFRESH) {
+      var refresh = this.refresh.bind(node);
+      refresh();
+    }
+  }
+
+  render() {
     return null;
   }
 }

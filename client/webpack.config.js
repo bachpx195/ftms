@@ -25,6 +25,7 @@ const config = {
     extensions: ['', '.js', '.jsx'],
     alias: {
       constants: path.join(process.cwd(), 'app', 'constants'),
+      policy: path.join(process.cwd(), 'app', 'bundles', 'policies', 'components'),
       react: path.resolve('./node_modules/react'),
       'react-dom': path.resolve('./node_modules/react-dom'),
     },

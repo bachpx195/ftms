@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Permit from '../../policies/sidebar_permit';
+import Permit from 'policy/sidebar_policy';
 
 import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';
@@ -38,11 +38,6 @@ export default class Sidebar extends React.Component {
       roles_menu: 'hiddened',
       master_menu: 'hiddened'
     };
-    React.Component.prototype.rerenderSidebar = this.rerender.bind(this);
-  }
-
-  rerender(){
-    this.setState({rerender: true});
   }
 
   componentWillMount() {
