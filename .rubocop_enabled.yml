@@ -592,7 +592,7 @@ Lint/EnsureReturn:
   Description: "Never use return in an ensure block."
   Enabled: true
 
-Lint/Eval:
+Security:
   Description: "The use of eval represents a serious security risk."
   Enabled: true
 

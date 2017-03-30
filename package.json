@@ -12,7 +12,10 @@
     "test": "rspec"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
     "css-loader": "^0.26.2",
+    "eslint": "^3.18.0",
+    "eslint-plugin-react": "^6.10.3",
     "sass-loader": "^6.0.2",
     "style-loader": "^0.13.2"
   },
