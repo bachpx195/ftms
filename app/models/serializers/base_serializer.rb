@@ -86,9 +86,16 @@ class Serializers::BaseSerializer
 
   class << self
     def attr_accessor *vars
-      vars -= attributes_with_condition vars
-      attributes.concat vars
+      vars = attr_reader *vars
       super *vars
+    end
+
+    %w(attr_reader attr_writer).each do |method|
+      define_method method do |*vars|
+        vars = attributes_with_condition vars
+        attributes.concat vars
+        vars
+      end
     end
 
     def attributes
@@ -101,19 +108,14 @@ class Serializers::BaseSerializer
 
     private
     def attributes_with_condition vars
-      vars.each_with_index.map do |var, index|
-        var_next = vars[index + 1]
-        is_condition?(var, var_next) ? var_next : nil
+      var_last = vars.last
+      if var_last.class == Hash
+        vars.delete var_last
+        vars.each do |var|
+          conditions[var.to_s.to_sym] = var_last[:if]
+        end
       end
-    end
-
-    def is_condition? var, var_next
-      if var_next && var_next.class == Hash
-        conditions[var.to_s.to_sym] = var_next[:if]
-        true
-      else
-        false
-      end
+      vars
     end
   end
 end
