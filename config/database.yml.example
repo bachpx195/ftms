@@ -52,3 +52,6 @@ production:
   database: ftms_production
   username: ftms
   password: <%= ENV['FTMS_DATABASE_PASSWORD'] %>
+
+cucumber:
+  <<: *test
