@@ -1,4 +1,4 @@
 class Serializers::Subjects::CourseSubjectsSerializer <
   Serializers::SupportSerializer
-  attr_accessor :id
+  attrs :id
 end

@@ -1,5 +1,5 @@
 class Serializers::Subjects::TasksSerializer < Serializers::SupportSerializer
-  attr_accessor :surveys, :assignments, :test_rules
+  attrs :surveys, :assignments, :test_rules
 
   def surveys
     Serializers::Subjects::SurveysSerializer

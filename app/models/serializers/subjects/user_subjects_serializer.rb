@@ -1,9 +1,8 @@
 class Serializers::Subjects::UserSubjectsSerializer <
   Serializers::SupportSerializer
-  attr_accessor :id, :user_id, :user_course_id,
-    :current_progress, :user_end_date, :start_date, :end_date, :status
-  attr_accessor :user_name
-  attr_accessor :user_course_task, if: :course_subject?
+  attrs :id, :user_id, :user_course_id, :current_progress, :user_end_date,
+    :start_date, :end_date, :status, :user_name
+  attrs :user_course_task, if: :course_subject?
 
   def user_name
     object.user.name

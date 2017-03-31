@@ -1,10 +1,11 @@
 class Serializers::Subjects::SubjectDetailsSerializer <
   Serializers::SupportSerializer
-  attr_accessor :id, :name, :content, :description, :during_time, :image
-  attr_accessor :training_standard, :statuses, :task, :subject_task
-  attr_accessor :course_member, if: :check_course
-  attr_accessor :course_subject_task, :course_subject, :user_subjects,
+  attrs :id, :name, :content, :description, :during_time, :image,
+    :training_standard, :statuses, :task, :subject_task
+  attrs :course_subject_task, :course_subject, :user_subjects,
     :course_subject_teams, if: :check_course_subject
+  attrs :course_member, if: :check_course
+
   def training_standard
     Serializers::Subjects::TrainingStandardSerializer
       .new(object: object.training_standards).serializer
