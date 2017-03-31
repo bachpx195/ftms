@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Stage, type: :model do
+RSpec.describe University, type: :model do
   describe "validation" do
     context "association" do
       it{is_expected.to have_many :profiles}
@@ -14,15 +14,17 @@ RSpec.describe Stage, type: :model do
       it{is_expected.to have_db_column(:creator_id).of_type(:integer)}
     end
 
-    context "is valid with name" do
-      stage = Stage.new name: "Resigned"
-      it{expect(stage).to be_valid}
-    end
+    context "creation" do
+      it "is valid with a name" do
+        university = University.new name: "Back Khoa"
+        expect(university).to be_valid
+      end
 
-    context "is invalid without name" do
-      stage = Stage.new
-      stage.valid?
-      it{expect(stage.errors[:name]).to include("can't be blank")}
+      it "is invalid without a name" do
+        university = University.new
+        university.valid?
+        expect(university.errors[:name]).to include("can't be blank")
+      end
     end
   end
 
