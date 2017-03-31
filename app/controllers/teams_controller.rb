@@ -6,6 +6,14 @@ class TeamsController < ApplicationController
     @team = @course_subject.teams.build team_params
     if @team.save
       @team.user_subject_ids = params[:user_subject_ids]
+      respond_to do |format|
+        format.json do
+          render json: {
+            team: Serializers::Teams::CreateTeamsSerializer
+              .new(object: @team).serializer
+          }
+        end
+      end
     else
       render json: {message: flash_message("not_created"),
         errors: @team.errors}, status: :unprocessable_entity

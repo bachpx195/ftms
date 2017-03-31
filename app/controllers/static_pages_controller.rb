@@ -6,6 +6,11 @@ class StaticPagesController < ApplicationController
       format.html
       format.json do
         @supports = Supports::StaticPage.new
+        render json: {
+          languages: Serializers::StaticPages::StaticPagesSerializer
+            .new(object: @supports.languages).serializer,
+          courses_size: @supports.courses.size
+        }
       end
     end
   end

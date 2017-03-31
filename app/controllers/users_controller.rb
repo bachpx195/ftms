@@ -4,6 +4,15 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          users: Serializers::Users::UsersSerializer
+            .new(object: @users).serializer
+        }
+      end
+    end
   end
 
   def new
@@ -29,6 +38,15 @@ class UsersController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          user_detail: Serializers::Users::UsersSerializer
+            .new(object: @user).serializer
+        }
+      end
+    end
   end
 
   def update
