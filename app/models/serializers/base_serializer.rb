@@ -85,17 +85,19 @@ class Serializers::BaseSerializer
   end
 
   class << self
-    def attr_accessor *vars
-      vars = attr_reader *vars
-      super *vars
+    def attrs *vars
+      vars = support_attrs *vars
+      vars.each do |var|
+        define_method var do
+          instance_variable_get "@#{var}"
+        end
+      end
     end
 
-    %w(attr_reader attr_writer).each do |method|
-      define_method method do |*vars|
-        vars = attributes_with_condition vars
-        attributes.concat vars
-        vars
-      end
+    def support_attrs *vars
+      vars = attributes_with_condition vars
+      attributes.concat vars
+      vars
     end
 
     def attributes

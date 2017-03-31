@@ -1,6 +1,6 @@
 class Serializers::Subjects::CourseSubjectTasksSerializer <
   Serializers::SupportSerializer
-  attr_accessor :surveys, :assignments, :test_rules, :projects
+  attrs :surveys, :assignments, :test_rules, :projects
 
   def surveys
     Serializers::Subjects::SurveysSerializer.new(object: object.static_surveys,

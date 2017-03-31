@@ -1,3 +1,3 @@
 class Serializers::UniversitiesSerializer < Serializers::BaseSerializer
-  attr_accessor :id, :name
+  attrs :id, :name
 end

@@ -1,7 +1,6 @@
 class Serializers::Subjects::CourseSubjectTeamsSerializer <
   Serializers::SupportSerializer
-  attr_accessor :id, :name, :course_subject_id
-  attr_accessor :user_subjects
+  attrs :id, :name, :course_subject_id, :user_subjects
 
   def user_subjects
     Serializers::Subjects::UserSubjectsSerializer

@@ -1,7 +1,7 @@
 class Serializers::Subjects::AssignmentsSerializer <
   Serializers::SupportSerializer
-  attr_accessor :id, :name, :content
-  attr_writer :task_id, if: :owner?
+  attrs :id, :name, :content
+  support_attrs :task_id, if: :owner?
 
   private
   def owner?
