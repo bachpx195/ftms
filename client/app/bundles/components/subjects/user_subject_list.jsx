@@ -79,6 +79,8 @@ export default class UserSubjectList extends React.Component {
             customComponent={SelectBoxStatus} />
           <ColumnDefinition id='current_progress'
             title={I18n.t('subjects.headers.current_progress')} />
+          <ColumnDefinition id='evaluate'
+            title={I18n.t('subjects.headers.evaluate')} />
           <ColumnDefinition id='add_task_for_user'
             title={I18n.t('subjects.headers.add_task')}
             customComponent={addTask} />

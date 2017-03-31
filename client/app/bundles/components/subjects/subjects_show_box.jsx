@@ -21,7 +21,7 @@ export default class SubjectsShowBox extends React.Component {
     super(props);
     this.state = {
       assigments_of_user_subjects: props.assigments,
-      admin: false, // Check tam admin. Sau co policy client check lai
+      admin: true, // Check tam admin. Sau co policy client check lai
       current_user: props.current_user,
       user_subjects: props.user_subjects,
       user_dynamic_course_subjects: props.user_dynamic_course_subjects,
@@ -218,10 +218,10 @@ export default class SubjectsShowBox extends React.Component {
                   {this.state.subject_detail.training_standard.name}
                 </div>
               </div>
-              <div className='add-task col-md-3 text-right'>
+              <div className='col-md-3 text-right'>
                 <button type='button' className='btn btn-primary'
                   onClick={this.afterClickAddTask.bind(this)}>
-                  {I18n.t('subjects.add_task')}
+                  {I18n.t('subjects.headers.add_task')}
                 </button>
               </div>
             </div>
