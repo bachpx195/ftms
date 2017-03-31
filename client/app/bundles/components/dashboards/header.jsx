@@ -106,6 +106,7 @@ export default class Header extends React.Component {
 
   handleLogout() {
     localStorage.removeItem('current_user');
+    window.alreadyPolicies = true;
   }
 }
 

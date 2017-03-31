@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import LanguageLists from './language_lists';
 import Form from './form';
-
+import LanguagePolicy from 'policy/language_policy';
 import * as app_constants from 'constants/app_constants';
 import * as language_constants from './language_constants';
 
@@ -41,17 +41,27 @@ export default class LanguageBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <Form language={this.state.language} url={LANGUAGE_URL}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                  <LanguagePolicy permit={[
+                    {action: ['create'], target: 'children'}
+                    ]}>
+                    <Form language={this.state.language} url={LANGUAGE_URL}
+                      handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                  </LanguagePolicy>
                 </div>
               </div>
             </div>
 
             <div className='box-footer'>
-              <LanguageLists languages={this.state.languages}
-                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)}
-                functions={this.state.functions} />
+              <LanguagePolicy
+                permit={[
+                  {action: ['create'], target: 'children'},
+                  {action: ['index'], target: 'children'},
+                ]}>
+                <LanguageLists languages={this.state.languages}
+                  handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                  handleAfterDeleted={this.handleAfterDeleted.bind(this)}
+                  functions={this.state.functions} />
+              </LanguagePolicy>
             </div>
           </div>
         </div>

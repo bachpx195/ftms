@@ -7,7 +7,6 @@ import * as table_constants from 'constants/griddle_table_constants';
 export default class FunctionLists extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       functions: props.functions
     };
