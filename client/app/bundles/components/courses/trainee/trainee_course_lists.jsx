@@ -85,7 +85,7 @@ export default class TraineeCourseLists extends React.Component {
           </div>
           <a className='link-course' href={course_path}>
             <div className='td-card-course-inner'>
-              <h3 className="course-name">
+              <h3 className="course-name custom-course-name">
                 <div>{course.name}</div>
               </h3>
               <div className='td-course-content'>
