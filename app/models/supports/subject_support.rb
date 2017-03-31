@@ -1,4 +1,6 @@
 class Supports::SubjectSupport
+  attr_accessor :course
+
   def initialize args = {}
     @subject = args[:subject]
     @course = args[:course]

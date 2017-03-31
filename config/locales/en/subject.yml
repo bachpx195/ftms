@@ -9,6 +9,7 @@ en:
       tests: "Tests"
       unassigned_members: "Unassigned members"
       list_team: "List team"
+      members: "Members"
     headers:
       id: "ID"
       name: "Name"
@@ -24,10 +25,11 @@ en:
       during_time: "Working day "
       training_standard: "Training Standard: "
       delete: "Delete"
-      content: "Content"
       add_task: "Add Task"
       all_task: "All Task"
       user_course: "List User Course"
+      content: "Content"
+      evaluate: "Evaluate"
     modals:
       header_create: "Create subject"
       header_edit: "Edit subject"
