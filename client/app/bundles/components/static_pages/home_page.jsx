@@ -33,7 +33,7 @@ export default class HomePage extends React.Component {
                 </h4>
               </div>
               <div className='col-sm-12 program-image'>
-                <img src={`assets/programs/${program}.png`}/>
+                <img src={`assets/programs/${program}.png`} className="program-img" />
               </div>
             </div>
           </a>
@@ -79,7 +79,7 @@ export default class HomePage extends React.Component {
   render () {
     return (
       <div className='landing-page'>
-        <section id='programming-languages' className='scroll
+        <div id='programming-languages' className='scroll
           programming-languages'>
           <div className="td-wrapper">
             <div className='container-fluid'>
@@ -95,9 +95,10 @@ export default class HomePage extends React.Component {
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
         <div id='learning-programs' className='scroll learning-programs'>
+
           <section id='all-programs' className='all-programs'>
             <div className='container-fluid'>
               <div className='row'>
@@ -280,67 +281,67 @@ export default class HomePage extends React.Component {
               </div>
             </div>
           </section>
-        </div>
 
-        <section id='counters' className='scroll'>
-          <div className='container-fluid'>
-            <div className='row'>
-              <div className='col-md-12 col-sm-12 text-center'>
-                <h2 className='title'>
-                  {I18n.t('staticpages.counters.title')}
-                </h2>
-                <h3 className='content'>
-                  {I18n.t('staticpages.counters.content')}
-                </h3>
-              </div>
-              <div className='col-md-4 col-sm-4'>
-                <div className='counters-v2'>
-                  <i className='counters-v2-icon fa fa-book'></i>
-                  <figure className='counter color-base counters-v2-no'
-                    data-remaining={this.props.courses_size}>
-                    {this.props.courses_size}
-                  </figure>
-                  <h4 className='counters-v2-title'>
-                    {I18n.t('layouts.courses')}
-                  </h4>
-                  <span className='counters-v2-subtitle'>
-                    {I18n.t('staticpages.counters.completed')}
-                  </span>
+          <section id='counters' className='scroll counters'>
+            <div className='container-fluid'>
+              <div className='row'>
+                <div className='col-md-12 col-sm-12 text-center'>
+                  <h2 className='title'>
+                    {I18n.t('staticpages.counters.title')}
+                  </h2>
+                  <h3 className='content'>
+                    {I18n.t('staticpages.counters.content')}
+                  </h3>
                 </div>
-              </div>
-              <div className='col-md-4 col-sm-4'>
-                <div className='counters-v2'>
-                  <i className='counters-v2-icon fa fa-mortar-board'></i>
-                  <figure className='counter color-base counters-v2-no'
-                    data-remaining={this.props.trainees_size}>
-                    {this.props.trainees_size}
-                  </figure>
-                  <h4 className='counters-v2-title'>
-                    {I18n.t('courses.trainees')}
-                  </h4>
-                  <span className='counters-v2-subtitle'>
-                    {I18n.t('staticpages.counters.learning')}
-                  </span>
+                <div className='col-md-4 col-sm-4'>
+                  <div className='counters-v2'>
+                    <i className='counters-v2-icon fa fa-book'></i>
+                    <figure className='counter color-base counters-v2-no'
+                      data-remaining={this.props.courses_size}>
+                      {this.props.courses_size}
+                    </figure>
+                    <h4 className='counters-v2-title'>
+                      {I18n.t('layouts.courses')}
+                    </h4>
+                    <span className='counters-v2-subtitle'>
+                      {I18n.t('staticpages.counters.completed')}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className='col-md-4 col-sm-4'>
-                <div className='counters-v2'>
-                  <i className='counters-v2-icon fa fa-users'></i>
-                  <figure className='counter color-base counters-v2-no'
-                    data-remaining={this.props.trainers_size}>
-                    {this.props.trainers_size}
-                  </figure>
-                  <h4 className='counters-v2-title'>
-                    {I18n.t('courses.trainers')}
-                  </h4>
-                  <span className='counters-v2-subtitle'>
-                    {I18n.t('staticpages.counters.manage')}
-                  </span>
+                <div className='col-md-4 col-sm-4'>
+                  <div className='counters-v2'>
+                    <i className='counters-v2-icon fa fa-mortar-board'></i>
+                    <figure className='counter color-base counters-v2-no'
+                      data-remaining={this.props.trainees_size}>
+                      {this.props.trainees_size}
+                    </figure>
+                    <h4 className='counters-v2-title'>
+                      {I18n.t('courses.trainees')}
+                    </h4>
+                    <span className='counters-v2-subtitle'>
+                      {I18n.t('staticpages.counters.learning')}
+                    </span>
+                  </div>
+                </div>
+                <div className='col-md-4 col-sm-4'>
+                  <div className='counters-v2'>
+                    <i className='counters-v2-icon fa fa-users'></i>
+                    <figure className='counter color-base counters-v2-no'
+                      data-remaining={this.props.trainers_size}>
+                      {this.props.trainers_size}
+                    </figure>
+                    <h4 className='counters-v2-title'>
+                      {I18n.t('courses.trainers')}
+                    </h4>
+                    <span className='counters-v2-subtitle'>
+                      {I18n.t('staticpages.counters.manage')}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
         {this.renderModalSignIn()}
       </div>
     );
@@ -354,12 +355,14 @@ export default class HomePage extends React.Component {
           <div id="div-forms" className="div-forms">
             <div id="login-form">
               <div className="content-top">{I18n.t("sessions.login")}</div>
+
               <div className="content-body">
                 <div className="line-or"></div>
                 <div className="form-modal">
                   {this.renderSessionNew()}
                 </div>
               </div>
+
               <div className="content-footer">
                 <a id="login_lost_btn" className="see-more pull-right">
                   {I18n.t("signins.forgot_password")}
@@ -395,7 +398,7 @@ export default class HomePage extends React.Component {
             </label>
           </span>
         </div>
-        <input type="submit" className="btn btn-custom btn-lg btn-block"
+        <input type="submit" className="btn btn-warning btn-login"
           value={I18n.t("sessions.login")} />
       </form>
     );

@@ -1,45 +1,15 @@
 @import 'color';
 
 .login-modal {
+  border-radius: 10px;
+  text-align: center;
+
   .modal-dialog {
     display: block;
     margin-top: calc(50vh - 200px);
     text-align: center;
     vertical-align: middle;
-  }
-
-  .modal {
-    border-radius: 10px;
-    text-align: center;
-
-    .modal-footer {
-      text-align: center !important;
-
-      .btn {
-        margin: 0 10px;
-      }
-    }
-
-
-    .modal-content {
-      .btn {
-        font-size: 18px;
-      }
-    }
-
-    .modal-header {
-      border-bottom: 1px solid $c-eee;
-      padding: 9px 15px;
-    }
-
-    .dangerous {
-      background-color: $c-red;
-    }
-
-    .label-dialog-status {
-      border-radius: 2px;
-      font-weight: bold;
-    }
+    width: auto;
   }
 
   @media screen and (min-width: 768px) {
@@ -51,24 +21,11 @@
     }
   }
 
-  .modal-dialog {
-    width: auto;
-
-    .modal-body {
-      padding: 1px;
-    }
-  }
-
   form {
     display: block;
     margin: 0 auto;
     margin-top: 0;
     width: 85%;
-  }
-
-  .form-modal-login {
-    margin-left: 10%;
-    width: 90%;
   }
 
   .content-top {
@@ -88,18 +45,6 @@
     font-size: 13px;
   }
 
-  .content-body-bottom {
-    padding: 0 35px;
-  }
-
-  .content-footer {
-    a {
-      .pull-right {
-        float: right;
-      }
-    }
-  }
-
   .content-footer a {
     color: $c-content-footer-a;
     display: block;
@@ -116,7 +61,7 @@
   }
 
   .content-body .line-or {
-    background: url('i.imgur.com/E7avrna.png') center center no-repeat;
+    background: image-url('line_login.png') center center no-repeat;
     color: $c-nine;
     font-size: 14px;
     height: 100px;
@@ -132,7 +77,7 @@
   }
 
   .div-forms {
-    background-image: url('i.imgur.com/UMY0snS.jpg');
+    background: image-url('background_login.jpg');
     height: 100%;
     margin: 0 auto;
     width: 380px;
@@ -140,14 +85,13 @@
 
   a {
     color: $c-login-modal-a;
+
+    &:hover {
+      color: $c-login-whitesmoke;
+    }
   }
 
-  h4,
-  h5 {
-    color: $c-white;
-  }
-
-  input [type='submit'] {
+  .form-modal .btn-login {
     background: $c-login-input-backgroud;
     border: 0;
     border-radius: 3px;
@@ -162,11 +106,11 @@
     text-align: center;
     transition: .5s all;
     width: 50%;
-  }
 
-  input [type='submit']:hover {
-    background: transparent;
-    color: $c-white;
+    &:hover {
+      background: transparent;
+      color: $c-white;
+    }
   }
 
   input [type='checkbox'] {
@@ -190,44 +134,5 @@
     padding: 10px 0;
     text-align: center;
     width: 100% !important;
-  }
-
-  p {
-    color: $c-black;
-    font-size: 1em;
-  }
-
-  h1 {
-    color: $c-login-input-backgroud;
-    font-weight: 100;
-    text-align: center;
-  }
-
-  .login h3 a {
-    color: $c-login-h3-a;
-    margin-left: 6px;
-  }
-
-  .login h3 a:hover {
-    color: $c-white;
-  }
-
-  .login-main {
-    background: none;
-    background-size: cover;
-    border: 1px solid $c-white;
-    height: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    padding: 10px;
-    width: 100%;
-  }
-
-  .login p {
-    color: $c-white;
-  }
-
-  a:hover {
-    color: $c-login-whitesmoke;
   }
 }
