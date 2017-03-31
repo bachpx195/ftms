@@ -414,7 +414,11 @@ namespace :db do
     course_subject = CourseSubject.first
     StaticTask.all.each do |static_tasks|
       DynamicTask.create targetable: static_tasks, ownerable: course_subject,
-        user_id: 11, status: "in_progress"
+        user_id: 11, status: "init"
+      DynamicTask.create targetable: static_tasks, ownerable: course_subject,
+          user_id: 12, status: "init"
+      DynamicTask.create targetable: static_tasks, ownerable: course_subject,
+        user_id: 13, status: "init"
     end
 
     puts "28. Create Team"
@@ -425,5 +429,10 @@ namespace :db do
       user_subject_ids << user_subject.id
     end
     team.user_subject_ids = user_subject_ids
+
+    puts "26 Add dynamictasks for user"
+    User.find(11).dynamic_tasks << DynamicTask.last
+    User.find(11).dynamic_tasks << DynamicTask.first
+    User.find(11).dynamic_tasks << DynamicTask.second
   end
 end

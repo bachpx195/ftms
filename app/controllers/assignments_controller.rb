@@ -14,8 +14,13 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       format.json do
         if @assignment.save
-          create_tasks_for_team
-          render json: {target: @assignment, message: flash_message("created")}
+          static_task, dynamic_task = create_tasks_for_team
+          render json: {target:
+            {
+              assignment: @assignment,
+              static_task: static_task,
+              dynamic_task: dynamic_task
+            }, message: flash_message("created")}
         else
           render json: {message: flash_message("not_created")}
         end
@@ -56,12 +61,28 @@ class AssignmentsController < ApplicationController
   end
 
   def create_tasks_for_team
+    static_task = create_static_task_assignment
     params_task = params[:task]
     create_tasks_for_team = AssignmentServices::CreateTaskAssignment
-      .new ownerable_id: params_task[:ownerable_id],
-      assignment: @assignment, ownerable_type: params_task[:ownerable_type],
-      user_team: @user_team
-    create_tasks_for_team.perform
+      .new static_task: static_task, ownerable_id: params_task[:ownerable_id],
+      user_team: @user_team, current_user: current_user,
+      ownerable_type: params_task[:ownerable_type]
+    dynamic_tasks = create_tasks_for_team.perform
+    [static_task, find_dynamic_task(dynamic_tasks)]
+  end
+
+  def find_dynamic_task dynamic_tasks
+    dynamic_tasks.find do |dynamic_task|
+      dynamic_task.user_id == current_user.id
+    end
+  end
+
+  def create_static_task_assignment
+    params_task = params[:task]
+    static_task = AssignmentServices::CreateStaticTaskAssignment
+      .new ownerable_id: params_task[:ownerable_id], assignment: @assignment,
+      ownerable_type: params_task[:ownerable_type]
+    static_task.perform
   end
 
   def find_user_team

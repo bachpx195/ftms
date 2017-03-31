@@ -29,7 +29,7 @@ json.subject_detail do
       json.task_id task.id
     end
   end
-  if @course
+  if @course || @user_course
     if @course_subject
       json.course_subject_task do
         json.surveys @course_subject.static_surveys do |survey|

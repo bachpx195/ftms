@@ -13,23 +13,49 @@ export default class AssignmentItem extends React.Component {
     this.state = {
       assignment: props.assignment,
       current_user: props.current_user,
-      user_dynamic_course_subjects: props.user_dynamic_course_subjects
+      course_subject_teams: props.course_subject_teams,
+      user_subjects: props.user_subjects,
+      user_dynamic_course_subjects: props.user_dynamic_course_subjects,
+      course_subject: props.course_subject,
+    };
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.state = {
+      assigments_of_user_subjects: nextProps.assigments_of_user_subjects,
+      user_dynamic_course_subjects: nextProps.user_dynamic_course_subjects,
+      course_subject: nextProps.course_subject,
+      course_subject_teams: nextProps.course_subject_teams,
+      current_user: nextProps.current_user,
+      assignment: nextProps.assignment,
     };
   }
 
   render() {
     let {current_user, assignment} = this.state;
-    let status_css, menu_action = '';
+    let status_css,menu_action,receive_option, finish_option = '';
     if (this.props.status == "finish") {
       status_css = "status-finish";
+    } else if (this.props.status == "reject") {
+      status_css = "status-reject";
     } else if (this.props.status == "in_progress") {
       status_css = "status-progress";
-      menu_action = <span className="menu-assignment pull-right dropdown-toggle"
-        data-toggle="dropdown" onMouseOver={this.menuHover.bind(this)}>
-        <i className="fa fa-bars cursor" aria-hidden="true"></i>
+      menu_action =
+        <span className="menu-assignment pull-right dropdown-toggle"
+          data-toggle="dropdown" >
+          <i className="glyphicon glyphicon-align-justify cursor"></i>
         </span>;
-    }else {
+      finish_option = <li><a href="#"
+        onClick={this.finishAssignment.bind(this)}>Finish Assignment</a></li>;
+    } else {
       status_css = "status-init";
+      menu_action =
+        <span className="menu-assignment pull-right dropdown-toggle"
+          data-toggle="dropdown" >
+          <i className="glyphicon glyphicon-align-justify cursor"></i>
+        </span>;
+      receive_option = <li><a href="#"
+        onClick={this.receiveAssignment.bind(this)}>Receive Assignment</a></li>;
     }
     return (
       <div className="assignment-item clearfix">
@@ -42,20 +68,19 @@ export default class AssignmentItem extends React.Component {
         </div>
 
         <div className="col-md-10 info-detail">
-          <div className="row title-assignment" onMouseLeave={this.menuOut.bind(this)}>
+          <div className="row title-assignment">
             <div className="div-status"
               title={`${I18n.t("subjects.assignments.status." + this.props.status)}`}>
               {this.props.status}
               <em className={`status ${status_css} cursor`}></em>
             </div>
             <p className="name">{assignment.name}</p>
-            {menu_action}
             <p className="content-assignment">{assignment.content}</p>
-
-            <span className="dropdown-menu pull-right list-menu cursor"
-              onMouseLeave={this.menuOut.bind(this)}>
-              <li><a href="#" onClick={this.finishAssignment.bind(this)}>Finish Assigment</a></li>
-            </span>
+            {menu_action}
+            <ul className="dropdown-menu pull-right list-menu cursor" >
+              {receive_option}
+              {finish_option}
+            </ul>
           </div>
 
           <div className="detail row">
@@ -84,25 +109,46 @@ export default class AssignmentItem extends React.Component {
     );
   }
 
-  menuHover(event) {
-    let target = event.target;
-    $(target).closest('.title-assignment').addClass('open');
-  }
-
-  menuOut(event) {
-    let target = event.target;
-    $(target).closest('.title-assignment').removeClass('open');
+  receiveAssignment(event) {
+    event.preventDefault();
+    let course_subject = this.state.course_subject;
+    axios.get(ASSIGNMENT_URL + "/"+ this.state.assignment.id +".json")
+    .then(response => {
+      this.props.user_dynamic_course_subjects.map(dynamic_task => {
+        if(dynamic_task.targetable_id == response.data.static_task.id) {
+          axios.put(DYNAMICTASK_URL + "/" + dynamic_task.id + ".json", {
+            course_subject: course_subject,
+            dynamic_task: {
+              status: "in_progress",
+              team_status: "reject"
+            }, authenticity_token: ReactOnRails.authenticityToken()
+          }, app_constants.AXIOS_CONFIG)
+          .then(response => {
+            this.props.afterUpdateStatus(response.data.dynamic_task);
+          })
+          .catch(error => {
+            console.log(error);
+          })
+        }
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   finishAssignment(event) {
     event.preventDefault();
-    axios.get(ASSIGNMENT_URL + "/"+ this.state.assignment.id +".json")
+    let course_subject = this.state.course_subject;
+    axios.get(ASSIGNMENT_URL + "/"+ this.state.assignment.id + ".json")
       .then(response => {
         this.props.user_dynamic_course_subjects.map(dynamic_task => {
           if(dynamic_task.targetable_id == response.data.static_task.id) {
             axios.put(DYNAMICTASK_URL + "/" + dynamic_task.id + ".json", {
+              course_subject: course_subject,
               dynamic_task: {
-                status: "finish"
+                status: "finish",
+                team_status: "finish"
               }, authenticity_token: ReactOnRails.authenticityToken()
             }, app_constants.AXIOS_CONFIG)
             .then(response => {
@@ -116,6 +162,7 @@ export default class AssignmentItem extends React.Component {
       })
       .catch(error => {
         console.log(error);
-      });
+      }
+    );
   }
 }

@@ -21,6 +21,8 @@ $trainee-assignment-status-progress-blue: #b4e4f6;
 $trainee-assignment-border-status-progress-blue: #43bce9;
 $trainee-assignment-status-progress-red: #f9c1b3;
 $trainee-assignment-border-status-progress-red: #fb6e52;
+$trainee-assignment-status-progress-orange: #cfcfcf;
+$trainee-assignment-border-status-progress-orange: #757575;
 $trainee-avatar-border-white: #f3f3e7;
 
 .admin-subject-show {
@@ -209,6 +211,11 @@ $trainee-avatar-border-white: #f3f3e7;
     .status-finish {
       background-color: $trainee-assignment-status-progress-red;
       border: solid 3px $trainee-assignment-border-status-progress-red;
+    }
+
+    .status-reject {
+      background-color: $trainee-assignment-status-progress-orange;
+      border: solid 3px $trainee-assignment-border-status-progress-orange;
     }
   }
 

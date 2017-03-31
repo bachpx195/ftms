@@ -149,6 +149,7 @@ export default class ListTasks extends React.Component {
     })
     .catch(error => console.log(error));
   }
+
   afterCreateTask(target, type, onwer) {
     this.props.afterCreateTask(target, type, onwer)
   }

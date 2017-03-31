@@ -6,6 +6,20 @@ class Supports::SubjectSupport
     @current_user = args[:current_user]
   end
 
+  def surveys_not_in_static_task
+    @surveys ||= @subject.organization.surveys.where.not id: @subject.surveys
+  end
+
+  def assignments_not_in_static_task
+    @assignments ||= @subject.organization.assignments.where
+      .not id: @subject.assignments
+  end
+
+  def test_rules_not_in_static_task
+    @test_rules ||= @subject.organization.test_rules.where
+      .not id: @subject.test_rules
+  end
+
   def user_subjects
     return Array.new unless course_subject
     @user_subjects ||= course_subject.user_subjects
@@ -34,14 +48,16 @@ class Supports::SubjectSupport
     @current_user.dynamic_tasks.owner_tasks @course_subject
   end
 
-  def user_assigmnent
+  def user_static_task
     user_static_course_subjects = user_dynamic_course_subjects
       .user_static_tasks
 
-    user_static_assignments = user_static_course_subjects
+    user_static_course_subjects
       .where targetable_type: Assignment.name
+  end
 
-    @user_assignment = user_static_assignments
+  def user_assigmnent
+    @user_assignment = user_static_task
       .includes(:targetable).map(&:targetable)
   end
 end

@@ -12,6 +12,7 @@ import BlockTasks from './block_tasks';
 
 const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+const USER_COURSE_URL = app_constants.APP_NAME + subject_constants.USER_COURSE_PATH;
 
 require('../subjects/subject.scss');
 
@@ -22,9 +23,11 @@ export default class SubjectsShowBox extends React.Component {
       assigments_of_user_subjects: props.assigments,
       admin: false, // Check tam admin. Sau co policy client check lai
       current_user: props.current_user,
-      course_subject_teams: [],
       user_subjects: props.user_subjects,
       user_dynamic_course_subjects: props.user_dynamic_course_subjects,
+      course_subject: props.course_subject,
+      course_subject_teams: [],
+      static_task_assignment: props.static_task_assignment,
       subject_detail: {
         training_standard: {},
         statuses:[],
@@ -58,22 +61,29 @@ export default class SubjectsShowBox extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      subject_detail: nextProps.subject_detail,
+      course_subject_teams: nextProps.course_subject_teams,
+    });
+  }
+
   fetchSubject() {
     let url;
     if (this.props.course) {
       url = COURSE_URL + this.props.course.id + '/' +
         subject_constants.SUBJECT_PATH + this.props.subject.id;
-    } else if (this.props.user_course) {
+    }else if(this.props.user_course){
       url = USER_COURSE_URL + this.props.user_course.id + '/' +
         subject_constants.SUBJECT_PATH + this.props.subject.id;
-    } else {
+    }else{
       url = SUBJECT_URL + this.props.subject.id;
     }
     axios.get(url + '.json')
     .then(response => {
       this.setState({
         course_subject_teams: response.data.subject_detail.course_subject_teams,
-        subject_detail: response.data.subject_detail
+        subject_detail: response.data.subject_detail,
       });
     })
     .catch(error => {
@@ -224,8 +234,11 @@ export default class SubjectsShowBox extends React.Component {
       return(
         <div>
           <SubjectShowBoxTrainee
-            course_subject_id={this.state.course_subject_id}
+            course_subject={this.state.course_subject}
+            course_subject_teams={this.state.course_subject_teams}
+            user_subjects={this.state.subject_detail.user_subjects}
             current_user={this.state.current_user}
+            static_task_assignment={this.state.static_task_assignment}
             user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
             assigments_of_user_subjects={this.state.assigments_of_user_subjects}
           />
