@@ -9,6 +9,15 @@ class RolesController < ApplicationController
   def show
     query = FunctionRoleQuery.new @role.id
     @function_role = QueryObject.new(query).exec
+    respond_to do |format|
+      format.json do
+        render json: {
+          functions: Serializers::Roles::FunctionsSerializer
+            .new(object: @function_role),
+          role: Serializers::Roles::RolesSerializer.new(object: @role)
+        }
+      end
+    end
   end
 
   def update

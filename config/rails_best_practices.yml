@@ -35,7 +35,18 @@ RemoveUnusedMethodsInModelsCheck: {
     'app/models/supports/subject_support.rb',
     'app/models/supports/program_support.rb',
     'app/models/ckeditor/attachment_file.rb',
-    'app/models/ckeditor/picture.rb'
+    'app/models/ckeditor/picture.rb',
+    'models/serializers/subjects/assignments_serializer.rb',
+    'models/serializers/subjects/course_subject_tasks_serializer.rb',
+    'models/serializers/subjects/projects_serializer.rb',
+    'models/serializers/subjects/subject_details_serializer.rb',
+    'models/serializers/subjects/surveys_serializer.rb',
+    'models/serializers/subjects/test_rules_serializer.rb',
+    'models/serializers/subjects/user_course_tasks_serializer.rb',
+    'models/serializers/subjects/user_subjects_serializer.rb',
+    'models/serializers/static_pages/static_pages_serializer.rb',
+    'models/serializers/support_serializer.rb',
+    'models/serializers/support_serializer.rb',
   ]
 }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }

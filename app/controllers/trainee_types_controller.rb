@@ -3,6 +3,15 @@ class TraineeTypesController < ApplicationController
 
   def index
     @trainee_types = TraineeType.select :id, :name
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          trainee_types: Serializers::TraineeTypes::TraineeTypesSerializer
+            .new(object: @trainee_types).serializer
+        }
+      end
+    end
   end
 
   def new
@@ -28,6 +37,15 @@ class TraineeTypesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          trainee_type: Serializers::TraineeTypes::TraineeTypesSerializer
+            .new(object: @trainee_type).serializer
+        }
+      end
+    end
   end
 
   def update

@@ -5,6 +5,15 @@ class SubjectsController < ApplicationController
   def index
     @subjects = Subject.select :id, :name, :image, :description, :during_time
     @subjects.map{|subject| subject[:image] = {url: subject.image.url}}
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          subjects: Serializers::Subjects::SubjectsSerializer
+            .new(object: @subjects).serializer
+        }
+      end
+    end
   end
 
   def create
