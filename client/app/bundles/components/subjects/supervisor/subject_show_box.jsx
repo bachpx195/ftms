@@ -13,58 +13,14 @@ export default class SupervisorSubjectShowBox extends React.Component {
     super(props);
 
     this.state = {
-      course_subject_teams: [],
-      subject_detail: {
-        image: {},
-        training_standard: {},
-        statuses:[],
-        task: {
-          surveys: [],
-          test_rules: [],
-          assignments: []
-        },
-        subject_task: {
-          surveys: [],
-          test_rules: [],
-          assignments: []
-        },
-        course_subject: {},
-        user_subjects: [],
-        user_course_task: {
-          surveys: [],
-          test_rules: [],
-          assignments: []
-        }
-      },
-      user: {},
-      user_index: 0
+      course_subject_teams: props.course_subject_teams,
+      subject_detail: props.subject_detail
     }
-  }
-
-  componentDidMount() {
-    this.fetchSubject();
-  }
-
-  fetchSubject() {
-    let url;
-    if(this.props.course){
-      url = COURSE_URL + this.props.course.id + '/' +
-        subject_constants.SUBJECT_PATH + this.props.subject.id;
-    }else{
-      url = SUBJECT_URL + this.props.subject.id;
-    }
-    axios.get(url + '.json')
-    .then(response => {
-      this.setState({
-        course_subject_teams: response.data.subject_detail.course_subject_teams,
-        subject_detail: response.data.subject_detail
-      });
-    })
-    .catch(error => console.log(error));
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      course_subject_teams: nextProps.course_subject_teams,
       subject_detail: nextProps.subject_detail
     });
   }
