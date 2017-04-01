@@ -17,20 +17,7 @@
     }
   }
 
-  .sub-master-menu {
-    li {
-      padding: 10px 0;
-    }
-  }
-
-  .sub-role-menu {
-    li {
-      padding: 10px 0;
-    }
-  }
-
   li {
-    list-style: none;
     a {
       text-decoration: none;
     }
@@ -40,17 +27,26 @@
       padding: 0 0 0 15px;
     }
 
+    .showed {
+      display: block;
+      padding: 0 0 0 15px;
+    }
+
     .fa {
-      color: $c-six-b;
       margin-right: 7px;
     }
-  }
 
-  ul {
-    background-color: $c-main-sidebar-ul;
-
-    .active {
-      background-color: $c-main-sidebar-ul !important;
+    ul {
+      background-color: $c-main-sidebar-ul;
     }
+  }
+}
+
+.sub-li {
+  list-style: none;
+  padding: 5px;
+
+  .fa {
+    color: $c-six-b;
   }
 }

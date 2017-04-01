@@ -1,0 +1,175 @@
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'font-awesome';
+@import 'color';
+
+.error-explanation {
+  color: $c-red;
+
+  ul {
+    color: $c-red;
+    margin: 0 0 30px;
+  }
+}
+
+.my-diagram-div {
+  border: solid 1px $c-blue;
+  height: 75vh;
+  margin: 15px 5% 0;
+  padding: 30px;
+  width: 90%;
+}
+
+.skin-framgia {
+  .main-header {
+    .navbar {
+      background: linear-gradient(45deg, $header-orange 43%, $header-orange 43%,
+        $c-skin-framgia 57%, $c-skin-framgia 57%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=
+        '$header-orange', endColorstr='$c-skin-framgia',GradientType=1);
+    }
+
+    .logo {
+      background-color: $header-orange;
+      border-bottom: 0 solid transparent;
+      color: $c-white;
+    }
+
+    .logo:hover {
+      background-color: $logo-hover-orange;
+    }
+  }
+
+  .active {
+    a {
+      background: $c-sidebar-hover;
+      color: $c-grey;
+    }
+  }
+
+  .open {
+    a {
+      color: $c-white;
+    }
+
+    a:hover,
+    a:focus {
+      background: $c-sidebar-hover;
+      color: $c-grey;
+    }
+  }
+
+  .sidebar-toggle {
+    color: $c-white;
+  }
+
+  .sidebar-toggle:hover {
+    background: $logo-hover-orange;
+    color: $c-grey;
+  }
+
+  .content-header {
+    background: transparent;
+  }
+
+  .wrapper,
+  .main-sidebar,
+  .left-side {
+    background-color: $nav-header-background-color;
+  }
+}
+
+.nav {
+  li {
+    a {
+      color: $c-white;
+    }
+
+    a:hover,
+    a:focus {
+      background: $c-sidebar-hover;
+      color: $c-grey;
+    }
+
+    .user-header {
+      background-color: $nav-header-background-color;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .skin-framgia {
+    .dropdown-menu {
+      .divider {
+        background-color: $c-li-divider;
+      }
+
+      a {
+        color: $c-white;
+      }
+
+      a:hover {
+        background: $c-dropdown-hover;
+      }
+    }
+  }
+}
+
+.user-panel {
+  .info,
+  a {
+    color: $c-white;
+  }
+}
+
+.sidebar-menu {
+  .header {
+    background: $nav-header-font-color;
+    color: $c-sidebar-header;
+    font-weight: bold;
+  }
+}
+
+.sidebar-menu > li > a {
+  border-left: 3px solid transparent;
+}
+
+.sidebar-menu > li:hover > a,
+.sidebar-menu > .active > a {
+  background: $nav-li-active;
+  border-left-color: $nav-li-border-active;
+  color: $c-white;
+}
+
+.sidebar-menu > li > .treeview-menu {
+  background: $c-treeview-menu;
+  margin: 0 1px;
+}
+
+.skin-framgia .sidebar a {
+  color: $c-sidebar-a;
+}
+
+.skin-framgia .sidebar a:hover {
+  color: $c-white;
+  text-decoration: none;
+}
+
+.treeview-menu > li > a {
+  color: $c-treeview-color;
+}
+
+.treeview-menu > .active > a,
+.treeview-menu > li > a:hover {
+  color: $c-white;
+}
+
+.layout-top-nav .main-header > .logo {
+  background-color: $nav-li-border-active;
+  border-bottom: 0 solid transparent;
+  color: $c-white;
+}
+
+.layout-top-nav .main-header > .logo:hover {
+  background-color: $c-logo-hover;
+}
