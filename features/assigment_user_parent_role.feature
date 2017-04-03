@@ -6,7 +6,7 @@ Feature: Role
   Scenario: Assigment parent role for user
     Given Role parent name is "Role" and has functions are controller is "roles", action is "action".
       And Sub role name is "subRole" has parent name is "Role" and has functions are controller is "roles", action is "action".
-      And Assigment parent role for username is "username".
+      And Assigment parent role for user with username is "username".
 
     When In the Role screen. User click Save submit form.
 
