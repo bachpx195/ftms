@@ -4,7 +4,8 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import FormEdit from '../organization_form/form_edit';
 import FormCreate from '../organization_form/form_create';
 import * as table_constants from 'constants/griddle_table_constants';
-
+import Row from '../griddle/row';
+import OrganizationPolicy from 'policy/organization_policy';
 import * as app_constants from 'constants/app_constants';
 import * as organization_constants from '../organization_constants';
 
@@ -19,7 +20,8 @@ export default class OrganizationLists extends React.Component {
       organization: {
         name: ''
       }
-    }
+    };
+    Row.prototype.organizations = this.state.organizations;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,6 +31,7 @@ export default class OrganizationLists extends React.Component {
   }
 
   render() {
+    Row.prototype.organizations = this.props.organizations;
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className='row'>
         <div className='griddle-head clearfix'>
@@ -50,7 +53,7 @@ export default class OrganizationLists extends React.Component {
       <div className='col-md-12'>
         <Griddle data={this.state.organizations}
           plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
+          components={{Layout: NewLayout, Row: Row}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
             <ColumnDefinition id='name' title={I18n.t('organizations.name')}

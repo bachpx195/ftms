@@ -1,8 +1,9 @@
 import BasePolicy from '../base_policy';
 
-export default class CoursePolicy extends BasePolicy {
+export default class OrganizationPolicy extends BasePolicy {
   constructor(props) {
     super(props);
     this.registerRefresh(this);
+    this.controller = 'organizations';
   }
 }

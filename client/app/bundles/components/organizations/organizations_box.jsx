@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import ManagerOrganizationLists from './manager/organization_lists';
 import FormCreate from './organization_form/form_create';
+import OrganizationPolicy from 'policy/organization_policy';
 
 import * as app_constants from 'constants/app_constants';
 import * as organization_constants from './organization_constants';
@@ -41,7 +42,7 @@ export default class OrganizationBox extends React.Component {
     let count_programs = 0;
     let count_training_standards = 0;
     let count_courses = 0;
-  
+
     for(let organization of this.state.organizations) {
       if(organization.programs){
         count_programs += organization.programs.length;
@@ -68,38 +69,48 @@ export default class OrganizationBox extends React.Component {
           <div className='box box-success'>
             <div className='box-header with-border'>
               <h3 className='box-title'>{I18n.t('organizations.titles.all')}</h3>
-              <div className='box-tools pull-right'>
-                {this.state.status ? (
-                  <button className='btn btn-new'
-                    onClick={this.onClickButtonCreate.bind(this)}>
-                    {I18n.t('buttons.cancel')}
+              <OrganizationPolicy permit={[
+                {action: ['create'], target: 'children'}
+              ]}>
+                <div className='box-tools pull-right'>
+                  {this.state.status ? (
+                    <button className='btn btn-new'
+                      onClick={this.onClickButtonCreate.bind(this)}>
+                      {I18n.t('buttons.cancel')}
+                    </button>
+                   ) : (
+                    <button className='btn btn-new'
+                      onClick={this.onClickButtonCreate.bind(this)}>
+                      {I18n.t('organizations.create')}
+                    </button>
+                   )}
+                  <button type='button' className='btn btn-box-tool'
+                    data-widget='collapse'>
+                    <i className='fa fa-minus'></i>
                   </button>
-                 ) : (
-                  <button className='btn btn-new'
-                    onClick={this.onClickButtonCreate.bind(this)}>
-                    {I18n.t('organizations.create')}
+                  <button type='button' className='btn btn-box-tool'
+                    data-widget='remove'>
+                    <i className='fa fa-times'></i>
                   </button>
-                 )}
-                <button type='button' className='btn btn-box-tool'
-                  data-widget='collapse'>
-                  <i className='fa fa-minus'></i>
-                </button>
-                <button type='button' className='btn btn-box-tool'
-                  data-widget='remove'>
-                  <i className='fa fa-times'></i>
-                </button>
-              </div>
+                </div>
+              </OrganizationPolicy>
             </div>
 
             <div className='box-body no-padding'>
               <div className='row '>
                 <div className='col-md-10 col-md-offset-1'>
-                  {this.state.status ?
-                    <FormCreate
-                      organizations={this.state.organizations}
-                      url={ORGANIZATION_URL}
-                      handleAfterSaved={this.handleAfterSaved.bind(this)}
-                      /> : ''}
+                  <OrganizationPolicy
+                    permit={[
+                      {action: ['create'], target: 'children'},
+                      {action: ['index'], target: 'children'},
+                  ]}>
+                    {this.state.status ?
+                      <FormCreate
+                        organizations={this.state.organizations}
+                        url={ORGANIZATION_URL}
+                        handleAfterSaved={this.handleAfterSaved.bind(this)}
+                        /> : null}
+                  </OrganizationPolicy>
                 </div>
               </div>
             </div>

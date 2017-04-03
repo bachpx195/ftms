@@ -37,4 +37,17 @@ module Authorize
       raise "Forbidden"
     end
   end
+
+  def authorize_with_multiple args, policy
+    pundit_policy = policy.new current_user, args
+    query = "#{params[:action]}?"
+    unless pundit_policy.public_send query
+      error = Pundit::NotAuthorizedError.new "not allowed"
+      raise error
+    end
+  end
+
+  def page_params
+    Hash[:controller, params[:controller], :action, params[:action]]
+  end
 end

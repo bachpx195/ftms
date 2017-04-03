@@ -6,6 +6,7 @@ import Form from './subject_form/form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
+import SubjectPolicy from 'policy/subject_policy';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 const DEFAULT_IMAGE_SUBJECT = app_constants.DEFAULT_IMAGE_SUBJECT_URL;
