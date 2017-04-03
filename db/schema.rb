@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20170323035408) do
 
   create_table "moving_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
+    t.integer  "organization_id"
     t.integer  "sourceable_id"
     t.string   "sourceable_type"
     t.integer  "destinationable_id"
