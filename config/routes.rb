@@ -1,3 +1,4 @@
+
 class ActionDispatch::Routing::Mapper
   def draw routes_name
     instance_eval(File.read(Rails.root.join("config/routes/#{routes_name}.rb")))
@@ -82,4 +83,8 @@ Rails.application.routes.draw do
   resources :assignments, only: [:show, :create]
   resources :dynamic_tasks, only: [:update]
   resources :projects, except: [:new, :edit]
+
+  resources :dynamic_tasks do
+    resources :meta_tasks, except: [:new, :edit, :destroy]
+  end
 end

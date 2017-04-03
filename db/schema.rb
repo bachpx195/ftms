@@ -134,6 +134,15 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.datetime "updated_at",                        null: false
   end
 
+  create_table "meta_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.text     "value",           limit: 65535
+    t.string   "meta_type"
+    t.integer  "dynamic_task_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
   create_table "moving_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "sourceable_id"

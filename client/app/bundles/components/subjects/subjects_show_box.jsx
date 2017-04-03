@@ -14,7 +14,7 @@ export default class SubjectsShowBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      admin: true,
+      admin: false,
       course_subject_teams: [],
       user_subjects: props.user_subjects,
       current_user: props.current_user,
@@ -61,6 +61,7 @@ export default class SubjectsShowBox extends React.Component {
     }else{
       url = SUBJECT_URL + this.props.subject.id;
     }
+
     axios.get(url + '.json')
     .then(response => {
       this.setState({
