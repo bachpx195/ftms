@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
+import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import Errors from '../shareds/errors';
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
 
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      name: props.evaluation_template.name || '',
+      name: props.training_standard.name || '',
+      description: props.training_standard.description || '',
       errors: null
     };
   }
@@ -18,19 +18,30 @@ export default class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <Errors errors={this.state.errors} />
-        <div className='form-group'>
-          <input type='text' value={this.state.name} name='name'
-            onChange={this.handleChange.bind(this)} className='form-control'
-            placeholder={I18n.t('evaluation_templates.headers.name')} />
+        <div className='form-group row'>
+          <lable className='col-md-2'>{I18n.t('training_standards.headers.name')}</lable>
+          <div className='col-md-10'>
+            <input type='text'
+              value={this.state.name} ref='nameField'
+              onChange={this.handleChange.bind(this)}
+              className='form-control' name='name' />
+          </div>
         </div>
+
+        <div className='form-group row'>
+          <lable className='col-md-2'>{I18n.t('training_standards.headers.description')}</lable>
+          <div className='col-md-10'>
+            <input type='text'
+              value={this.state.description} ref='nameField'
+              onChange={this.handleChange.bind(this)}
+              className='form-control' name='description' />
+          </div>
+        </div>
+
         <div className='form-group'>
           <div className='text-right'>
-            <button type='button' className='btn btn-default'
-              onClick={this.handleCancel.bind(this)}>
-              {I18n.t('buttons.cancel')}</button>
             <button type='submit' className='btn btn-primary'
-              disabled={!this.formValid()}>
+              onClick={this.handleSubmit.bind(this)}>
               {I18n.t('buttons.save')}</button>
           </div>
         </div>
@@ -40,7 +51,8 @@ export default class Form extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      name: nextProps.evaluation_template.name || '',
+      name: nextProps.training_standard.name || '',
+      description: nextProps.training_standard.description || '',
       errors: null
     });
   }
@@ -53,36 +65,41 @@ export default class Form extends React.Component {
   }
 
   formValid(){
-    return this.state.name != '';
-  }
-
-  handleCancel(event) {
-    event.preventDefault();
-    this.props.handleCancel();
+    return this.state.name != '' && this.state.description != ''
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    let evaluation_template = _.omit(this.state, 'errors');
-    let method = this.props.evaluation_template.id ? 'PATCH' : 'POST';
+    let formData = new FormData();
+
+    let training_standard = _.omit(this.state, 'errors');
+
+    for(let key of Object.keys(training_standard)) {
+      formData.append('training_standard[' + key + ']', training_standard[key]);
+    }
+    formData.append('authenticity_token', ReactOnRails.authenticityToken());
+    let method = this.props.training_standard.id ? 'PUT' : 'POST';
     axios({
       url: this.props.url,
       method: method,
-      data: {
-        evaluation_template: {
-          name: this.state.name
-        },
-        authenticity_token: ReactOnRails.authenticityToken()
-      },
+      data: formData,
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      this.setState({
-        name: '',
-        errors: null
-      });
-      this.props.handleAfterSaved(response.data.evaluation_template);
+      if (this.props.training_standard.id) {
+        $('.modalCreateTrainingStandard').modal('hide');
+        $('#modalEdit').modal('hide');
+      } else {
+        this.setState({
+          name: '',
+          description: '',
+          errors: null,
+        });
+      }
+      this.props.handleAfterSaved(response.data.training_standard);
     })
-    .catch(error => this.setState({errors: error.response.data.errors}));
+    .catch(error => {
+      this.setState({errors: error.response.data.errors});
+    });
   }
 }

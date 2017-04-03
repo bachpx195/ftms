@@ -7,6 +7,7 @@ en:
       description: "Description"
     modals:
       header_edit: "Edit Training Standard"
+      create: "Create training standard"
     id: "ID"
     name: "Name"
     description: "Description"

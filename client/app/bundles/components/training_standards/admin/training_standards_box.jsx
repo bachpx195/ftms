@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ModalCreateTrainingStandard from './modal_create_training_standard'
 
 import TrainingStandardLists from './training_standard_lists';
 import Form from './form';
@@ -31,24 +32,26 @@ export default class TrainingStandardBox extends React.Component {
             <div className='box-header with-border'>
               <h3 className='box-title'>{I18n.t('training_standards.titles.all')}</h3>
 
-              <div className="box-tools pull-right">
-                <button type="button" className="btn btn-box-tool" data-widget="collapse">
-                  <i className="fa fa-minus"></i>
+              <div className='box-tools pull-right'>
+                <button type="button" className='btn btn-box-tool' data-widget="collapse">
+                  <i className='fa fa-minus'></i>
                 </button>
-                <button type="button" className="btn btn-box-tool" data-widget="remove">
-                  <i className="fa fa-times"></i>
+                <button type="button" className='btn btn-box-tool' data-widget="remove">
+                  <i className='fa fa-times'></i>
                 </button>
               </div>
             </div>
 
             <div className='box-body no-padding'>
               <div className='row'>
-                <div className='col-md-8 col-md-offset-2'>
-                  <Form
-                    url={TRAINING_STANDARD_URL}
-                    training_standard={this.state.training_standard}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                <div className='col-md-8'>
+                  <button type="button" className='btn btn-info create-subject'
+                    onClick={this.handleCreateTrainingStandard.bind(this)}>
+                    <i className='fa fa-plus'></i> {I18n.t('training_standards.create')}
+                  </button>
                 </div>
+                <ModalCreateTrainingStandard training_standard={this.state.training_standard}
+                  handleAfterCreated={this.handleAfterCreated.bind(this)} />
               </div>
             </div>
             <div className='box-footer'>
@@ -87,5 +90,9 @@ export default class TrainingStandardBox extends React.Component {
     _.remove(this.state.training_standards,
       training_standard => training_standard.id === deleted_training_standard.id);
     this.setState({training_standards: this.state.training_standards});
+  }
+
+  handleCreateTrainingStandard() {
+    $('.modalCreateTrainingStandard').modal();
   }
 }

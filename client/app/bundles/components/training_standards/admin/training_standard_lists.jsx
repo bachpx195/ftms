@@ -44,7 +44,7 @@ export default class TrainingStandardLists extends React.Component {
       <button className='btn btn-info' data-index={griddleKey}
         title={I18n.t('buttons.edit')}
         onClick={this.handleEdit.bind(this)}>
-        {I18n.t('buttons.edit')}
+        <i className='fa fa-pencil-square-o'></i> {I18n.t('buttons.edit')}
       </button>
     );
 
@@ -52,7 +52,7 @@ export default class TrainingStandardLists extends React.Component {
       <button className='btn btn-danger' data-index={griddleKey}
         title={I18n.t('buttons.delete')}
         onClick={this.handleDelete.bind(this)}>
-        {I18n.t('buttons.delete')}
+        <i className="fa fa-trash-o"></i> {I18n.t('buttons.delete')}
       </button>
     );
 
@@ -76,9 +76,9 @@ export default class TrainingStandardLists extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("training_standards.name")}
+            <ColumnDefinition id="name" title={I18n.t('training_standards.name')}
               customComponent={LinkToStandardShow}/>
-            <ColumnDefinition id="description" title={I18n.t("training_standards.description")} />
+            <ColumnDefinition id="description" title={I18n.t('training_standards.description')} />
             <ColumnDefinition id="edit" customComponent={ButtonEdit}
               title=" "/>
             <ColumnDefinition id="delete" customComponent={ButtonDelete}
