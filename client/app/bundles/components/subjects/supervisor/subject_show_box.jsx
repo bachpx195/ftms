@@ -4,6 +4,7 @@ import ListTabs from './list_tabs';
 
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from '../subject_constants';
+import SubjectPolicy from 'policy/subject_policy';
 
 const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
@@ -15,7 +16,8 @@ export default class SupervisorSubjectShowBox extends React.Component {
     this.state = {
       course_subject_teams: props.course_subject_teams,
       subject_detail: props.subject_detail,
-      member_evaluations: props.member_evaluations
+      member_evaluations: props.member_evaluations,
+      member_ids: props.member_ids
     }
   }
 
@@ -23,7 +25,8 @@ export default class SupervisorSubjectShowBox extends React.Component {
     this.setState({
       course_subject_teams: nextProps.course_subject_teams,
       subject_detail: nextProps.subject_detail,
-      member_evaluations: nextProps.member_evaluations
+      member_evaluations: nextProps.member_evaluations,
+      member_ids: nextProps.member_ids
     });
   }
 
@@ -54,10 +57,18 @@ export default class SupervisorSubjectShowBox extends React.Component {
               </div>
             </div>
             <div className='col-md-3 text-right'>
+            <SubjectPolicy 
+              permit={
+                [{action: ['owner'], target: 'children', 
+                    data: {owner_id: this.props.course.owner_id}},
+                  {action: ['course_manager'], target: 'children', 
+                    data: {members_ids: this.state.member_ids}}]}
+            >
               <button type='button' className='btn btn-primary'
                 onClick={this.afterClickAddTask.bind(this)}>
                 {I18n.t('subjects.add_task')}
               </button>
+            </SubjectPolicy>
             </div>
           </div>
         </div>

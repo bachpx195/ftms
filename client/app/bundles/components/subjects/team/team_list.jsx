@@ -5,6 +5,7 @@ import Modal from './modal';
 
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from '../subject_constants';
+import SubjectPolicy from 'policy/subject_policy';
 
 const COURSE_SUBJECT_URL = app_constants.APP_NAME +
   subject_constants.COURSE_SUBJECT_PATH;
@@ -16,15 +17,18 @@ export default class TeamList extends React.Component {
     this.state = {
       course_subject_teams: props.course_subject_teams,
       course_subject: props.course_subject,
-      unassigned_user_subjects: props.unassigned_user_subjects
-    }
+      unassigned_user_subjects: props.unassigned_user_subjects,
+      owner_id: props.owner_id,
+    };
+
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       course_subject_teams: nextProps.course_subject_teams,
       course_subject: nextProps.course_subject,
-      unassigned_user_subjects: nextProps.unassigned_user_subjects
+      unassigned_user_subjects: nextProps.unassigned_user_subjects,
+      owner_id: nextProps.owner_id,
     });
   }
 
@@ -44,15 +48,26 @@ export default class TeamList extends React.Component {
   }
 
   render() {
+    var owner_id = this.state.owner_id;
     return(
       <div className='list-container'>
-        <div className='col-md-12 text-right margin-bottom-10px'>
-          <button type='button' className='btn btn-primary'
-            onClick={this.onCreateTeam.bind(this)}>
-            {I18n.t('subjects.create_team')}
-          </button>
-        </div>
-        {this.renderTeamList()}
+        <SubjectPolicy 
+          permit={
+            [{action: ['owner'], target: 'children', 
+                data: {owner_id: owner_id}},
+              {controller: 'courses', action: ['show'],
+                target: 'children', data: {controller: 'courses'}}]}
+        >
+          <div>
+            <div className='col-md-12 text-right margin-bottom-10px'>
+              <button type='button' className='btn btn-primary'
+                onClick={this.onCreateTeam.bind(this)}>
+                {I18n.t('subjects.create_team')}
+              </button>
+            </div>
+            {this.renderTeamList()}
+          </div>
+        </SubjectPolicy>
         {this.renderModal()}
       </div>
     );

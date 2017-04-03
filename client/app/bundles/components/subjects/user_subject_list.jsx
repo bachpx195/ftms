@@ -5,6 +5,7 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as app_constants from 'constants/app_constants';
 import ModalEvaluateMember from '../courses/modal_evaluate_member/modal';
 import * as subject_constants from './subject_constants';
+import SubjectPolicy from 'policy/subject_policy';
 
 const USER_SUBJECT_URL = app_constants.APP_NAME +
   subject_constants.USER_SUBJECT_PATH;
@@ -20,6 +21,7 @@ export default class UserSubjectList extends React.Component {
       course_subjects: [],
       user: {},
       member_evaluations: props.member_evaluations || [],
+      owner_id: props.owner_id
     }
   }
 
@@ -27,7 +29,8 @@ export default class UserSubjectList extends React.Component {
     this.setState({
       user_subjects: nextProps.user_subjects,
       statuses: nextProps.statuses,
-      member_evaluations: nextProps.member_evaluations
+      member_evaluations: nextProps.member_evaluations,
+      owner_id: nextProps.owner_id
     });
   }
 
@@ -81,43 +84,50 @@ export default class UserSubjectList extends React.Component {
       return null;
     }
     return (
-      <div>
-        <Griddle data={this.state.user_subjects}
-          plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='user_name'
-              title={I18n.t('subjects.headers.user_name')} />
-            <ColumnDefinition id='start_date'
-              title={I18n.t('subjects.headers.start_date')} />
-            <ColumnDefinition id='end_date'
-              title={I18n.t('subjects.headers.end_date')} />
-            <ColumnDefinition id='user_end_date'
-              title={I18n.t('subjects.headers.user_end_date')} />
-            <ColumnDefinition id='status'
-              title={I18n.t('subjects.headers.status')}
-              customComponent={SelectBoxStatus} />
-            <ColumnDefinition id='current_progress'
-              title={I18n.t('subjects.headers.current_progress')} />
-            <ColumnDefinition id='evaluate'
-              title={I18n.t('subjects.headers.evaluate')}
-              customComponent={evaluate} />
-            <ColumnDefinition id='add_task_for_user'
-              title={I18n.t('subjects.headers.add_task')}
-              customComponent={addTask} />
-          </RowDefinition>
-        </Griddle>
+      <SubjectPolicy permit={
+        [{action: ['owner'], target: 'children', 
+            data: {owner_id: this.state.owner_id}},
+          {controller: 'courses', action: ['show'],
+            target: 'children', data: {controller: 'courses'}}]}
+      >
+        <div>
+          <Griddle data={this.state.user_subjects}
+            plugins={[plugins.LocalPlugin]}
+            components={{Layout: NewLayout}}
+            styleConfig={table_constants.styleConfig}>
+            <RowDefinition>
+              <ColumnDefinition id='user_name'
+                title={I18n.t('subjects.headers.user_name')} />
+              <ColumnDefinition id='start_date'
+                title={I18n.t('subjects.headers.start_date')} />
+              <ColumnDefinition id='end_date'
+                title={I18n.t('subjects.headers.end_date')} />
+              <ColumnDefinition id='user_end_date'
+                title={I18n.t('subjects.headers.user_end_date')} />
+              <ColumnDefinition id='status'
+                title={I18n.t('subjects.headers.status')}
+                customComponent={SelectBoxStatus} />
+              <ColumnDefinition id='current_progress'
+                title={I18n.t('subjects.headers.current_progress')} />
+              <ColumnDefinition id='evaluate'
+                title={I18n.t('subjects.headers.evaluate')}
+                customComponent={evaluate} />
+              <ColumnDefinition id='add_task_for_user'
+                title={I18n.t('subjects.headers.add_task')}
+                customComponent={addTask} />
+            </RowDefinition>
+          </Griddle>
 
-        <ModalEvaluateMember
-          subject={this.props.subject}
-          evaluation_standards={this.props.evaluation_standards}
-          member_evaluations={this.state.member_evaluations}
-          user={this.state.user} course={this.props.course}
-          evaluation_template={this.props.evaluation_template}
-          afterEvaluateMember={this.afterEvaluateMember.bind(this)}
-        />
-      </div>
+          <ModalEvaluateMember
+            subject={this.props.subject}
+            evaluation_standards={this.props.evaluation_standards}
+            member_evaluations={this.state.member_evaluations}
+            user={this.state.user} course={this.props.course}
+            evaluation_template={this.props.evaluation_template}
+            afterEvaluateMember={this.afterEvaluateMember.bind(this)}
+          />
+        </div>
+      </SubjectPolicy>
     );
   }
 

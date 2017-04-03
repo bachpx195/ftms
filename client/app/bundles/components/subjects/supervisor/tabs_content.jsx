@@ -41,6 +41,7 @@ export default class TabsHeader extends React.Component {
                 handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
                 unassigned_user_subjects={this.state.subject_detail
                   .user_subjects}
+                owner_id={this.props.course.owner_id}
               />
             </div>
           </div>
@@ -56,6 +57,7 @@ export default class TabsHeader extends React.Component {
                     evaluation_template={this.props.evaluation_template}
                     evaluation_standards={this.props.evaluation_standards}
                     member_evaluations={this.state.member_evaluations}
+                    owner_id={this.props.course.owner_id}
                   />
                 </div>
               </div>
