@@ -11,6 +11,9 @@ class MovingHistory < ApplicationRecord
   delegate :name, to: :sourceable, prefix: :source
   delegate :name, to: :destinationable, prefix: :destination
 
+  ATTRIBUTE_PARAMS = [:user_id, :sourceable_id,
+    :sourceable_type, :destinationable_id, :destinationable_type, :move_date]
+
   scope :by_organization,
     ->organization_id{where organization_id: organization_id}
 end
