@@ -8,7 +8,7 @@ $members-count-color: rgba(6, 24, 31, .63);
 $many-member-background-color: rgba(65, 65, 66, .46);
 
 .td-padding-top-course-lists {
-  padding-top: 50px;
+  padding: 20px 15px;
 
   .td-program-list-course {
     height: 200px;
@@ -74,6 +74,9 @@ $many-member-background-color: rgba(65, 65, 66, .46);
       }
 
       .td-card-course-inner {
+        .custom-course-name {
+          font-size: 20px;
+        }
         h3 {
           color: $td-card-course-inner-color;
           display: block;
@@ -139,15 +142,16 @@ $many-member-background-color: rgba(65, 65, 66, .46);
 
           .td-course-image {
             img {
-              border-radius: 50%;
-              height: 100px !important;
-              margin: -8px 0 0 -5px;
-              width: 100px;
+              position: absolute;
+              left: 10px;
             }
           }
         }
 
         .view-members {
+          position: absolute;
+          left: 42%;
+          bottom: 30%;
           .user-list {
             margin: 8px;
             padding-left: 114px;

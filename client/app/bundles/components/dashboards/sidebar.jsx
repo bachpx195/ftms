@@ -115,52 +115,54 @@ export default class Sidebar extends React.Component {
                 </span>
               </a>
               <ul id="subMasterMenu" className={this.state.master_menu}>
-                <Permit action='languages/index'>
-                  <li className='active' data-page='languages'>
-                    <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.languages')}</span>
-                    </a>
-                  </li>
-                </Permit>
-                <Permit action='stages/index'>
-                  <li data-page='stages'>
-                    <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.stages')}</span>
-                    </a>
-                  </li>
-                </Permit>
+                <div className="sub-master-menu">
+                  <Permit action='languages/index'>
+                    <li className='active' data-page='languages'>
+                      <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.languages')}</span>
+                      </a>
+                    </li>
+                  </Permit>
+                  <Permit action='stages/index'>
+                    <li data-page='stages'>
+                      <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.stages')}</span>
+                      </a>
+                    </li>
+                  </Permit>
 
-                <Permit action='subjects/index'>
-                  <li data-page='subjects'>
-                    <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.subjects')}</span>
-                    </a>
-                  </li>
-                </Permit>
+                  <Permit action='subjects/index'>
+                    <li data-page='subjects'>
+                      <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.subjects')}</span>
+                      </a>
+                    </li>
+                  </Permit>
 
-                <Permit action='trainee_types/index'>
-                  <li data-page="trainee_types">
-                    <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.trainee_types')}</span>
-                    </a>
-                  </li>
-                </Permit>
+                  <Permit action='trainee_types/index'>
+                    <li data-page="trainee_types">
+                      <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.trainee_types')}</span>
+                      </a>
+                    </li>
+                  </Permit>
 
-                <Permit action='training_standards/index'>
-                  <li data-page="training_standards">
-                    <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.training_standards')}</span>
-                    </a>
-                  </li>
-                </Permit>
+                  <Permit action='training_standards/index'>
+                    <li data-page="training_standards">
+                      <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.training_standards')}</span>
+                      </a>
+                    </li>
+                  </Permit>
 
-                <Permit action='universities/index'>
-                  <li data-page="universities">
-                    <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.universities')}</span>
-                    </a>
-                  </li>
-                </Permit>
+                  <Permit action='universities/index'>
+                    <li data-page="universities">
+                      <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.universities')}</span>
+                      </a>
+                    </li>
+                  </Permit>
+                </div>
               </ul>
             </li>
 
@@ -173,20 +175,22 @@ export default class Sidebar extends React.Component {
                 </span>
               </a>
               <ul id="subRoleMenu" className={this.state.roles_menu}>
-                <Permit action='roles/index'>
-                  <li data-page="roles">
-                    <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.roles')}</span>
-                    </a>
-                  </li>
-                </Permit>
-                <Permit action='functions/index'>
-                  <li data-page="functions">
-                    <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
-                      <span>{I18n.t('sidebar.all_functions')}</span>
-                    </a>
-                  </li>
-                </Permit>
+                <div className="sub-role-menu">
+                  <Permit action='roles/index'>
+                    <li data-page="roles">
+                      <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.roles')}</span>
+                      </a>
+                    </li>
+                  </Permit>
+                  <Permit action='functions/index'>
+                    <li data-page="functions">
+                      <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
+                        <span>{I18n.t('sidebar.all_functions')}</span>
+                      </a>
+                    </li>
+                  </Permit>
+                </div>
               </ul>
             </li>
             <Permit action='users/index'>
