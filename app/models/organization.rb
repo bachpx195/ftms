@@ -18,6 +18,7 @@ class Organization < ApplicationRecord
   has_many :assignments, dependent: :destroy
   has_many :subjects, dependent: :destroy
   has_many :projects, dependent: :destroy
+  has_many :moving_histories, dependent: :destroy
 
   validates :name, presence: true
 

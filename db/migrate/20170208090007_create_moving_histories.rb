@@ -2,6 +2,7 @@ class CreateMovingHistories < ActiveRecord::Migration[5.0]
   def change
     create_table :moving_histories do |t|
       t.integer :user_id
+      t.integer :organization_id
       t.integer :sourceable_id
       t.string :sourceable_type
       t.integer :destinationable_id
