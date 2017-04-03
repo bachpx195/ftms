@@ -26,6 +26,8 @@ export default class FormCourse extends React.Component {
       course: {},
       image: {},
       changeImage: false,
+      document: {},
+      changeDocument: false,
       errors: null,
       all_roles: props.all_roles,
       owners: props.owners
@@ -34,16 +36,29 @@ export default class FormCourse extends React.Component {
 
   render() {
     let image = '';
-    if(this.state.image){
-      if(this.state.image.url) {
+    let document = '';
+    if (this.state.image) {
+      if (this.state.image.url) {
         image = <img src={this.state.image.url} />;
-      } else if(this.state.image.preview){
+      } else if (this.state.image.preview) {
         image = <img src={this.state.image.preview} />;
       }
     }
+    if (this.state.document.name) {
+      document = (
+        <div>
+          <span>{this.state.document.name}</span>
+          <button type='button' className='btn btn-warning btn-remove-file'
+            onClick={this.onRemoveDocumentClick.bind(this)}>
+            <i className='fa fa-close'></i>
+          </button>
+        </div>
+      );
+    }
 
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form onSubmit={this.handleSubmit.bind(this)}
+        encType="multipart/form-data">
         <Errors errors={this.state.errors} />
         <div className='form-group'>
           <div className='dropzone'>
@@ -62,6 +77,26 @@ export default class FormCourse extends React.Component {
           </div>
           <div className='image-preview image-course'>
             {image}
+          </div>
+        </div>
+        <div className='form-group'>
+          <div className='dropzone'>
+            <div className='form-group'>
+              <button type='button' className='btn btn-danger btn-select-files'
+                onClick={this.onOpenDocumentClick.bind(this)}>
+                <i className='fa fa-upload'></i>
+                {I18n.t('courses.select_document')}
+            </button>
+            </div>
+          </div>
+          <div className='hidden'>
+            <Dropzone ref='dropzoneDocumentField'
+              multiple={false}
+              accept={app_constants.ACCEPT_DOCUMENT_TYPES}
+              onDrop={this.onDocumentDrop.bind(this)}/>
+          </div>
+          <div className='document-preview'>
+            {document}
           </div>
         </div>
         <div className='form-group'>
@@ -135,8 +170,8 @@ export default class FormCourse extends React.Component {
     );
   }
 
-  renderOptions(objects){
-    if (objects){
+  renderOptions(objects) {
+    if (objects) {
       return objects.map(object => {
         return <option key={object.id}
           value={object.id}>{object.name}</option>;
@@ -149,6 +184,7 @@ export default class FormCourse extends React.Component {
     this.setState({
       program_detail: nextProps.program_detail,
       changeImage: false,
+      changeDocument: false,
       errors: null,
       all_roles: nextProps.all_roles,
       owners: nextProps.owners
@@ -188,17 +224,38 @@ export default class FormCourse extends React.Component {
     this.refs.dropzoneField.open();
   }
 
+  onDocumentDrop(acceptedFiles, rejectedFiles) {
+    this.setState({
+      document: acceptedFiles[0],
+      changeDocument: true
+    });
+  }
+
+  onOpenDocumentClick() {
+    this.refs.dropzoneDocumentField.open();
+  }
+
+  onRemoveDocumentClick() {
+    this.setState({
+      document: {},
+      changeDocument: false
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     let course = _.omit(this.state.course, 'errors');
-    if(!this.state.changeImage) {
-      course = _.omit(course, 'image');
-    }
     let formData = new FormData();
-    for(let key of Object.keys(course)) {
+    for (let key of Object.keys(course)) {
       formData.append('course[' + key + ']', course[key]);
     }
-    if(Object.keys(course).length == 0) {
+    if (this.state.changeImage) {
+      formData.append('course[image]', this.state.image);
+    }
+    if (this.state.changeDocument) {
+      formData.append('course[document]', this.state.document);
+    }
+    if (Object.keys(course).length == 0) {
       formData.append('course[key]', null);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
@@ -206,12 +263,14 @@ export default class FormCourse extends React.Component {
       formData
     , app_constants.AXIOS_CONFIG)
     .then(response => {
-      $('#modalEdit').modal('hide');
+      $('.modalEdit').modal('hide');
       this.setState({
         program_detail: {},
         image: '',
+        document: '',
         course: {},
         changeImage: false,
+        changeDocument: false
       });
       window.location.href = this.props.url + '/' + response.data.course.id;
     })

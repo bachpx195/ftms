@@ -42,10 +42,13 @@ export default class MenuCourse extends React.Component {
 
   onClickMenuCourse(event) {
     let target = event.target;
-    if($(target).closest('div').find('.list-item-of-course').hasClass('hidden-item')) {
-      $(target).closest('div').find('.list-item-of-course').removeClass('hidden-item');
-    }else {
-      $(target).closest('div').find('.list-item-of-course').addClass('hidden-item');
+    if ($(target).closest('div').find('.list-item-of-course')
+      .hasClass('hidden-item')) {
+      $(target).closest('div').find('.list-item-of-course')
+        .removeClass('hidden-item');
+    } else {
+      $(target).closest('div').find('.list-item-of-course')
+        .addClass('hidden-item');
     }
   }
 
@@ -55,7 +58,7 @@ export default class MenuCourse extends React.Component {
 
   handleDelete(event) {
     let course = event;
-    if(confirm(I18n.t('data.confirm_delete'))) {
+    if (confirm(I18n.t('data.confirm_delete'))) {
       axios.delete(this.state.url, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
@@ -79,7 +82,7 @@ export default class MenuCourse extends React.Component {
   }
 
   handleEdit(event){
-    $('#modalEdit').modal();
+    $('.modalEdit').modal();
   }
 
   renderButtonFinish() {

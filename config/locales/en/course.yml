@@ -31,6 +31,7 @@ en:
     select_programs: "Select program"
     select_training_standard: "Select training standard"
     select_image: "Select image"
+    select_document: "Select document"
     init: "Init"
     in_progress: "In progress"
     finished: "Finished"

@@ -63,7 +63,7 @@ export default class FormEdit extends React.Component {
       authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
       .then(response => {
-        $('#modalEdit').modal('hide');
+        $('.modalEdit').modal('hide');
         this.props.handleAfterSaved(response.data.program);
       })
       .catch(error => this.setState({errors: error.response.data.errors}));

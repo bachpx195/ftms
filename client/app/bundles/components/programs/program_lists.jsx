@@ -82,7 +82,7 @@ export default class ProgramLists extends React.Component {
     const LinkToProgram = ({value, griddleKey}) => {
       let program = this.state.programs[griddleKey];
       let link = '#';
-      if(program.organization) {
+      if (program.organization) {
         link = PROGRAM_URL + '/' + program.organization.id +
           '/programs/' + program.id;
       }
@@ -92,7 +92,7 @@ export default class ProgramLists extends React.Component {
     const LinkToOrganization = ({griddleKey}) => {
       let organization = this.state.programs[griddleKey].organization;
       let link = '#';
-      if(organization) {
+      if (organization) {
         link = PROGRAM_URL + '/' + organization.id + '/programs/';
         return <a href={link}>{organization.name}</a>;
       }
@@ -101,9 +101,9 @@ export default class ProgramLists extends React.Component {
 
     const LinkToParentProgram = ({griddleKey}) => {
       let program = this.state.programs[griddleKey].parent;
-      if(program) {
+      if (program) {
         let link = '#';
-        if(program.organization) {
+        if (program.organization) {
           link = PROGRAM_URL + '/' + program.organization.id +
             '/programs/' + program.id;
         }
@@ -147,7 +147,7 @@ export default class ProgramLists extends React.Component {
     const url = PROGRAM_URL + "/" + this.state.organization.id + "/programs";
     let title = this.state.parent ? this.state.parent.name : I18n.t("programs.edit");
     let form = null;
-    if(this.state.parent) {
+    if (this.state.parent) {
       form = <FormCreate parent={this.state.parent} url={url}
         handleAfterSaved={this.handleAfterCreated.bind(this)} />;
     } else {
@@ -155,7 +155,7 @@ export default class ProgramLists extends React.Component {
         handleAfterSaved={this.handleAfterUpdated.bind(this)} />
     }
 
-    return (<div id="modalEdit" className="modal fade in" role="dialog">
+    return (<div className="modalEdit modal fade in" role="dialog">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -208,7 +208,7 @@ export default class ProgramLists extends React.Component {
       let $checkbox = $(this).find('input[type="checkbox"]');
       let checked = $checkbox.is(':checked');
       $checkbox.prop('checked', !checked);
-      if(checked) {
+      if (checked) {
         $(this).removeClass('active');
       } else {
         $(this).addClass('active');
@@ -231,7 +231,7 @@ export default class ProgramLists extends React.Component {
       parent: null,
       program: this.props.programs[$target.data('index')]
     });
-    $("#modalEdit").modal();
+    $(".modalEdit").modal();
   }
 
   handleCreateSubProgram(event) {
@@ -241,7 +241,7 @@ export default class ProgramLists extends React.Component {
       parent: this.props.programs[$target.data('index')],
       program: null
     });
-    $("#modalEdit").modal();
+    $(".modalEdit").modal();
   }
 
   handleAfterCreated(new_program) {
@@ -297,7 +297,7 @@ export default class ProgramLists extends React.Component {
     let $target = $(event.target);
     $target.blur();
     let program = this.state.programs[$target.data('index')];
-    if(confirm(I18n.t('data.confirm_unassign'))) {
+    if (confirm(I18n.t('data.confirm_unassign'))) {
       let url = app_constants.APP_NAME + program_constants.ASSIGN_PROGRAM_PATH +
         '/' + this.props.organization.id + '.json';
       axios.delete(url, {

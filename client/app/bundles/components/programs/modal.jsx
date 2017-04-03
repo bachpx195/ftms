@@ -6,7 +6,7 @@ require('../sass/program_show.scss');
 export default class Modal extends React.Component {
   render() {
     return (
-      <div id='modalEdit' className='modal fade in' role='dialog'>
+      <div className='modalEdit modal fade in' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>

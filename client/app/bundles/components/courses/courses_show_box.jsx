@@ -179,7 +179,7 @@ export default class CoursesShowBox extends React.Component {
     let course = this.state.course;
     let user_count = course.managers.length + course.members.length;
     let link_owner = null;
-    if(course.owner) {
+    if (course.owner) {
       let owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
         course.owner.id;
       user_count = user_count + 1;
@@ -232,7 +232,7 @@ export default class CoursesShowBox extends React.Component {
     let course = this.state.course;
     let link_creator = null;
     let creator_name = '';
-    if(course.creator) {
+    if (course.creator) {
       let creator_path = app_constants.APP_NAME + user_constants.USER_PATH +
         course.creator.id;
       creator_name = course.creator.name;
@@ -241,7 +241,7 @@ export default class CoursesShowBox extends React.Component {
       </a>;
     }
     let description = this.state.course.description;
-    if(description.length > LIMIT_DESCRIPTION){
+    if (description.length > LIMIT_DESCRIPTION) {
       description =
         this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
@@ -342,7 +342,7 @@ export default class CoursesShowBox extends React.Component {
     );
   }
 
-  handleEvaluateModal(user, event){
+  handleEvaluateModal(user, event) {
     event.preventDefault();
     this.setState({
       user: user
@@ -350,12 +350,12 @@ export default class CoursesShowBox extends React.Component {
     $('.modal-evaluate-member').modal();
   }
 
-  afterEvaluateMember(member_evaluation, member_evaluation_items){
+  afterEvaluateMember(member_evaluation, member_evaluation_items) {
     Object.assign(member_evaluation, {member_evaluation_items});
     let index = this.state.member_evaluations.findIndex(_evaluation => {
       return _evaluation.id == member_evaluation.id;
     });
-    if(index >= 0) {
+    if (index >= 0) {
       this.state.member_evaluations[index] = member_evaluation;
     } else {
       this.state.member_evaluations.push(member_evaluation);
@@ -376,13 +376,13 @@ export default class CoursesShowBox extends React.Component {
   }
 
   afterChangeSelectBox(type_option) {
-    if(type_option == "survey") {
+    if (type_option == "survey") {
       this.setState({
         remain_items: this.state.remain_surveys,
         selected_items: this.state.selected_surveys,
         targetable_type: "Survey"
       });
-    }else {
+    } else {
       this.setState({
         remain_items: this.state.remain_testings,
         selected_items: this.state.selected_testings,
@@ -391,10 +391,13 @@ export default class CoursesShowBox extends React.Component {
     }
   }
 
-  handleAfterUpdate(new_course){
+  handleAfterUpdate(new_course) {
     this.state.course[new_course.name] = new_course.value;
-    if(new_course.image){
+    if (new_course.image) {
       this.state.course.image.url = new_course.image.url;
+    }
+    if (new_course.document) {
+      this.state.course.document.url = new_course.document.url;
     }
     this.setState({
       course: this.state.course,

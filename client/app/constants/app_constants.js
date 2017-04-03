@@ -4,3 +4,4 @@ export const ROOT_PATH = '';
 export const  DEFAULT_IMAGE_COURSE_URL = '/assets/edu.jpg';
 export const  DEFAULT_IMAGE_SUBJECT_URL = '/assets/subject.jpeg';
 export const LIMIT_DESCRIPTION = 36;
+export const ACCEPT_DOCUMENT_TYPES = 'application/pdf,.doc,.docx';

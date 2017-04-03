@@ -88,7 +88,7 @@ export default class Form extends React.Component {
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
       .then(response => {
-        $('#modalEdit').modal('hide');
+        $('.modalEdit').modal('hide');
         this.refs.nameField.value = '';
         this.props.handleAfterSaved(response.data.program);
       })
