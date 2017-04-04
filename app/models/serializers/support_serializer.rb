@@ -7,6 +7,10 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
     @user_id ||= nil
   end
 
+  def supports
+    @supports ||= nil
+  end
+
   def owner
     @owner ||= nil
   end
@@ -16,6 +20,10 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
   end
 
   def course
+    @course ||= nil
+  end
+
+  def courses
     @courses ||= nil
   end
 

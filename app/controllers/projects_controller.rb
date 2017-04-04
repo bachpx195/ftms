@@ -4,6 +4,14 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+    respond_to do |format|
+      format.json do
+        render json: {
+          projects: Serializers::Projects::ProjectsSerializer
+            .new(object: @projects)
+        }
+      end
+    end
   end
 
   def create
@@ -22,6 +30,16 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.json do
+        render json: {
+          projects: Serializers::Projects::ProjectsSerializer
+            .new(object: @project),
+          organization: Serializers::Organizations::OrganizationsSerializer
+            .new(object: @organizations)
+        }
+      end
+    end
   end
 
   def update

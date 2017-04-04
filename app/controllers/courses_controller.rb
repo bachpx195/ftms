@@ -5,6 +5,15 @@ class CoursesController < ApplicationController
 
   def index
     @courses = Course.all
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          courses: Serializers::Courses::CoursesSerializer
+            .new(object: @courses).serializer
+        }
+      end
+    end
   end
 
   def new
@@ -12,6 +21,17 @@ class CoursesController < ApplicationController
 
   def show
     @supports = Supports::CourseSupport.new course: @course, program: @program
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          course: Serializers::Courses::CourseDetailSerializer
+            .new(object: @course, scope: {supports: @supports}).serializer,
+          course_subjects: Serializers::Courses::CourseSubjectsSerializer
+            .new(object: @supports.course_subjects).serializer
+        }
+      end
+    end
   end
 
   def create

@@ -10,6 +10,17 @@ class ProgramsController < ApplicationController
       @programs += load_sub_programs(program)
     end
     @not_assigned_programs = Program.not_assigned_programs
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          programs: Serializers::Programs::ProgramsSerializer
+            .new(object: @programs).serializer,
+          not_assigned_programs: Serializers::Programs::ProgramsSerializer
+            .new(object: @not_assigned_programs).serializer
+        }
+      end
+    end
   end
 
   def new
@@ -27,7 +38,12 @@ class ProgramsController < ApplicationController
     respond_to do |format|
       if @program.save
         format.html{redirect_to [:admin, @program]}
-        format.json{render json: {program: @program}}
+        format.json do
+          render json: {
+            program: Serializers::Programs::ProgramsSerializer
+              .new(object: @program).serializer
+          }
+        end
       else
         format.html{render :new}
         format.json do
@@ -41,13 +57,31 @@ class ProgramsController < ApplicationController
   def show
     @supports = Supports::ProgramSupport.new program: @program,
       role_id: params[:role_id]
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          program_detail: Serializers::Programs::ProgramDetailSerializer
+            .new(object: @program, scope: {supports: @supports}).serializer,
+          owners: Serializers::Users::UsersSerializer
+            .new(object: @supports.owners).serializer,
+          all_roles: Serializers::Roles::RolesSerializer
+            .new(object: @supports.all_roles).serializer
+        }
+      end
+    end
   end
 
   def update
     respond_to do |format|
       if @program.update_attributes program_params
         format.html{redirect_to @program}
-        format.json{render json: {program: @program}}
+        format.json do
+          render json: {
+            program: Serializers::Programs::ProgramsSerializer
+              .new(object: @program).serializer
+          }
+        end
       else
         format.html{render :edit}
         format.json do

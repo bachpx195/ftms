@@ -27,7 +27,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def course_member
     Serializers::Subjects::CourseMembersSerializer.new(object:
-      course.course_members.map(&:user)).serializer
+      courses.course_members.map(&:user)).serializer
   end
 
   def course_subject_task
@@ -57,6 +57,6 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   end
 
   def check_course
-    course.present?
+    courses.present?
   end
 end
