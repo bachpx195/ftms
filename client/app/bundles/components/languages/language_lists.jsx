@@ -45,7 +45,7 @@ export default class LanguageLists extends React.Component {
       var creator_id = this.state.languages[griddleKey].creator_id;
         return(
           <LanguagePolicy
-            permit={[{action: ['edit', 'creator'], target: 'children', data: {creator_id: creator_id}}]}
+            permit={[{action: ['update', 'creator'], target: 'children', data: {creator_id: creator_id}}]}
           >
             <button className='btn btn-info' data-index={griddleKey}
               onClick={this.handleEdit.bind(this)}>

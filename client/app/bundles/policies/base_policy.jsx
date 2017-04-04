@@ -31,10 +31,11 @@ export default class BasePolicy extends React.Component {
   }
 
   checkSingleAllowFunction(record) {
+    var controller_check = record.controller || this.controller;
     var result = true;
     for(var action of record.action) {
       if(this.isDefaultAction(action) &&
-        !this.helperPolicy.isAllowFunction(this.controller, action)) {
+        !this.helperPolicy.isAllowFunction(controller_check, action)) {
         result = false;
         break;
       }

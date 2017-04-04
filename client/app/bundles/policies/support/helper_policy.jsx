@@ -6,8 +6,9 @@ export default class HelperPolicy {
   }
 
   isAllowFunction(controller, action) {
+    if (!controller) return false;
     var check = false;
-    if(action.search(/^!.+/i) >= 0) {
+    if (action.search(/^!.+/i) >= 0) {
       action = action.substring(1, action.length);
       check = this.getIndexFunction(controller, action) < 0;
     } else
