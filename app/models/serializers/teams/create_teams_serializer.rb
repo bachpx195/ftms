@@ -1,8 +1,8 @@
 class Serializers::Teams::CreateTeamsSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name, :course_subject_id, :user_subject
+  attrs :id, :name, :course_subject_id, :user_subjects
 
-  def user_subject
+  def user_subjects
     Serializers::Subjects::UserSubjectsSerializer
       .new(object: object.user_subjects).serializer
   end

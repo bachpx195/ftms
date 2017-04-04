@@ -8,14 +8,16 @@ export default class TabsHeader extends React.Component {
     super(props);
     this.state = {
       subject_detail: props.subject_detail,
-      course_subject_teams: props.course_subject_teams
+      course_subject_teams: props.course_subject_teams,
+      member_evaluations: props.member_evaluations
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       subject_detail: nextProps.subject_detail,
-      course_subject_teams: nextProps.course_subject_teams
+      course_subject_teams: nextProps.course_subject_teams,
+      member_evaluations: nextProps.member_evaluations
     });
   }
 
@@ -40,6 +42,11 @@ export default class TabsHeader extends React.Component {
                   <UserSubjectList statuses={this.state.subject_detail.statuses}
                     user_subjects={this.state.subject_detail.user_subjects}
                     afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+                    course={this.props.course} subject={this.props.subject}
+                    training_standard={this.props.training_standard}
+                    evaluation_template={this.props.evaluation_template}
+                    evaluation_standards={this.props.evaluation_standards}
+                    member_evaluations={this.state.member_evaluations}
                   />
                 </div>
               </div>
@@ -130,5 +137,9 @@ export default class TabsHeader extends React.Component {
 
   afterAddTaskForUser(user, user_index) {
     this.props.afterAddTaskForUser(user, user_index);
+  }
+
+  afterEvaluateUser(user, user_index) {
+    this.props.afterEvaluateUser(user, user_index);
   }
 }

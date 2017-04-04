@@ -14,14 +14,16 @@ export default class SupervisorSubjectShowBox extends React.Component {
 
     this.state = {
       course_subject_teams: props.course_subject_teams,
-      subject_detail: props.subject_detail
+      subject_detail: props.subject_detail,
+      member_evaluations: props.member_evaluations
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       course_subject_teams: nextProps.course_subject_teams,
-      subject_detail: nextProps.subject_detail
+      subject_detail: nextProps.subject_detail,
+      member_evaluations: nextProps.member_evaluations
     });
   }
 
@@ -67,7 +69,12 @@ export default class SupervisorSubjectShowBox extends React.Component {
           handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
           handleAfterAddTask={this.handleAfterAddTask.bind(this)}
           afterCreateTask={this.afterCreateTask.bind(this)}
-          handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)} />
+          handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
+          subject={this.props.subject}
+          training_standard={this.props.training_standard}
+          evaluation_template={this.props.evaluation_template}
+          evaluation_standards={this.props.evaluation_standards}
+          member_evaluations={this.state.member_evaluations} />
         <div className='clearfix'></div>
       </div>
     );

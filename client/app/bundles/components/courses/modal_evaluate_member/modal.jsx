@@ -178,17 +178,19 @@ export default class ModalEvaluateMember extends React.Component {
     }
     let formData = new FormData();
     let standard_points = this.state.standard_points;
-    let index = 0;
 
-    formData.append('program_id', this.state.course.id);
+    if (this.props.subject) {
+      formData.append('subject_id', this.props.subject.id);
+    }
     formData.append('course_id', this.state.course.id);
     formData.append('member_evaluation[member_id]', this.state.user.id);
     formData.append('member_evaluation[total_point]', this.state.total_point);
     formData.append('member_evaluation[evaluation_template_id]',
       this.state.evaluation_template.id);
 
+    let index = 0;
     for(let key of Object.keys(standard_points)){
-      if(this.state.member_evaluation.id) {
+      if (this.state.member_evaluation.id) {
         let item = this.state.member_evaluation.member_evaluation_items.find(_item => {
           return _item.evaluation_standard_id == key;
         });

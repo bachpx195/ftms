@@ -32,20 +32,6 @@ class Supports::SubjectSupport
     @course_subject ||= @course.course_subjects.find_by subject_id: @subject.id
   end
 
-  def surveys_not_in_static_task
-    @surveys ||= @subject.organization.surveys.where.not id: @subject.surveys
-  end
-
-  def assignments_not_in_static_task
-    @assignments ||= @subject.organization.assignments.where
-      .not id: @subject.assignments
-  end
-
-  def test_rules_not_in_static_task
-    @test_rules ||= @subject.organization.test_rules.where
-      .not id: @subject.test_rules
-  end
-
   def user_dynamic_course_subjects
     @current_user.dynamic_tasks.owner_tasks @course_subject
   end
@@ -62,4 +48,20 @@ class Supports::SubjectSupport
     @user_assignment = user_static_task
       .includes(:targetable).map(&:targetable)
   end
+
+  def training_standard
+    return nil unless @course
+    @training_standard ||= @course.training_standard
+  end
+
+  def evaluation_template
+    return nil unless training_standard
+    @evaluation_template ||= training_standard.evaluation_template
+  end
+
+  def evaluation_standards
+    return Array.new unless evaluation_template
+    @evaluation_standards ||= evaluation_template.evaluation_standards
+  end
+
 end

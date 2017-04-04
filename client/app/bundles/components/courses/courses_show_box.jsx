@@ -31,7 +31,6 @@ export default class CoursesShowBox extends React.Component {
       evaluation_standards: [],
       user: {},
       member_evaluations: [],
-
       remain_testings: props.remain_testings,
       selected_testings: props.selected_testings,
       selected_items: [],

@@ -14,7 +14,7 @@ export default class SubjectsShowBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      admin: false,
+      admin: true,
       course_subject_teams: [],
       user_subjects: props.user_subjects,
       current_user: props.current_user,
@@ -22,6 +22,7 @@ export default class SubjectsShowBox extends React.Component {
       user_dynamic_course_subjects: props.user_dynamic_course_subjects,
       course_subject: props.course_subject,
       static_task_assignment: props.static_task_assignment,
+      member_evaluations: [],
       subject_detail: {
         image: {},
         training_standard: {},
@@ -66,7 +67,8 @@ export default class SubjectsShowBox extends React.Component {
     .then(response => {
       this.setState({
         course_subject_teams: response.data.subject_detail.course_subject_teams,
-        subject_detail: response.data.subject_detail
+        subject_detail: response.data.subject_detail,
+        member_evaluations: response.data.member_evaluations
       });
     })
     .catch(error => console.log(error));
@@ -78,7 +80,11 @@ export default class SubjectsShowBox extends React.Component {
         <SupervisorSubjectShow course={this.props.course}
           subject={this.props.subject}
           subject_detail={this.state.subject_detail}
-          course_subject_teams={this.state.course_subject_teams} />
+          course_subject_teams={this.state.course_subject_teams}
+          training_standard={this.props.training_standard}
+          evaluation_template={this.props.evaluation_template}
+          evaluation_standards={this.props.evaluation_standards}
+          member_evaluations={this.state.member_evaluations} />
       );
     } else {
       return(

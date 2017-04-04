@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as table_constants from 'constants/griddle_table_constants';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as app_constants from 'constants/app_constants';
+import ModalEvaluateMember from '../courses/modal_evaluate_member/modal';
 import * as subject_constants from './subject_constants';
 
 const USER_SUBJECT_URL = app_constants.APP_NAME +
@@ -16,6 +17,9 @@ export default class UserSubjectList extends React.Component {
     this.state = {
       user_subjects: props.user_subjects,
       statuses: props.statuses,
+      course_subjects: [],
+      user: {},
+      member_evaluations: props.member_evaluations || [],
     }
   }
 
@@ -23,6 +27,7 @@ export default class UserSubjectList extends React.Component {
     this.setState({
       user_subjects: nextProps.user_subjects,
       statuses: nextProps.statuses,
+      member_evaluations: nextProps.member_evaluations
     });
   }
 
@@ -62,30 +67,58 @@ export default class UserSubjectList extends React.Component {
       </button>
     )
 
+    const evaluate = ({griddleKey}) => {
+      let user = {
+        name: this.state.user_subjects[griddleKey].user_name,
+        id: this.state.user_subjects[griddleKey].user_id,
+      }
+      let user_subject = this.state.user_subjects[griddleKey];
+      if (user_subject.status != 'init') {
+        return <button className='btn btn-success'
+          onClick={this.handleEvaluateModal.bind(this, user)}
+          data-index={griddleKey}
+          data-user_id={this.state.user_subjects[griddleKey].user_id}>
+          {I18n.t('courses.evaluation.evaluate')}
+        </button>
+      }
+      return null;
+    }
     return (
-      <Griddle data={this.state.user_subjects}
-        plugins={[plugins.LocalPlugin]}
-        components={{Layout: NewLayout}}
-        styleConfig={table_constants.styleConfig}>
-        <RowDefinition>
-          <ColumnDefinition id='user_name'
-            title={I18n.t('subjects.headers.user_name')} />
-          <ColumnDefinition id='start_date'
-            title={I18n.t('subjects.headers.start_date')} />
-          <ColumnDefinition id='end_date'
-            title={I18n.t('subjects.headers.end_date')} />
-          <ColumnDefinition id='status'
-            title={I18n.t('subjects.headers.status')}
-            customComponent={SelectBoxStatus} />
-          <ColumnDefinition id='current_progress'
-            title={I18n.t('subjects.headers.current_progress')} />
-          <ColumnDefinition id='evaluate'
-            title={I18n.t('subjects.headers.evaluate')} />
-          <ColumnDefinition id='add_task_for_user'
-            title={I18n.t('subjects.headers.add_task')}
-            customComponent={addTask} />
-        </RowDefinition>
-      </Griddle>
+      <div>
+        <Griddle data={this.state.user_subjects}
+          plugins={[plugins.LocalPlugin]}
+          components={{Layout: NewLayout}}
+          styleConfig={table_constants.styleConfig}>
+          <RowDefinition>
+            <ColumnDefinition id='user_name'
+              title={I18n.t('subjects.headers.user_name')} />
+            <ColumnDefinition id='start_date'
+              title={I18n.t('subjects.headers.start_date')} />
+            <ColumnDefinition id='end_date'
+              title={I18n.t('subjects.headers.end_date')} />
+            <ColumnDefinition id='status'
+              title={I18n.t('subjects.headers.status')}
+              customComponent={SelectBoxStatus} />
+            <ColumnDefinition id='current_progress'
+              title={I18n.t('subjects.headers.current_progress')} />
+            <ColumnDefinition id='evaluate'
+              title={I18n.t('subjects.headers.evaluate')}
+              customComponent={evaluate} />
+            <ColumnDefinition id='add_task_for_user'
+              title={I18n.t('subjects.headers.add_task')}
+              customComponent={addTask} />
+          </RowDefinition>
+        </Griddle>
+
+        <ModalEvaluateMember
+          subject={this.props.subject}
+          evaluation_standards={this.props.evaluation_standards}
+          member_evaluations={this.state.member_evaluations}
+          user={this.state.user} course={this.props.course}
+          evaluation_template={this.props.evaluation_template}
+          afterEvaluateMember={this.afterEvaluateMember.bind(this)}
+        />
+      </div>
     );
   }
 
@@ -115,6 +148,27 @@ export default class UserSubjectList extends React.Component {
     .catch(error => {
       console.log(error);
     })
+  }
+
+  handleEvaluateModal(user, event){
+    event.preventDefault();
+    this.setState({
+      user: user
+    });
+    $('.modal-evaluate-member').modal();
+  }
+
+  afterEvaluateMember(member_evaluation, member_evaluation_items){
+    Object.assign(member_evaluation, {member_evaluation_items});
+    let index = this.state.member_evaluations.findIndex(_evaluation => {
+      return _evaluation.id == member_evaluation.id;
+    });
+    if (index >= 0) {
+      this.state.member_evaluations[index] = member_evaluation;
+    } else {
+      this.state.member_evaluations.push(member_evaluation);
+    }
+    this.setState({member_evaluations: this.state.member_evaluations});
   }
 
   renderOptions() {
