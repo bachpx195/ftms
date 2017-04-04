@@ -6,6 +6,17 @@ class LanguagesController < ApplicationController
     @languages = Language.select :id, :name, :image, :description, :creator_id
     @languages.map{|language| language[:image] = {url: language.image.url}}
     @functions = current_user.functions.where controller_name: "languages"
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          languages: Serializers::Languages::LanguagesSerializer
+            .new(object: @languages).serializer,
+          functions: Serializers::Roles::FunctionsSerializer
+            .new(object: @functions).serializer
+        }
+      end
+    end
   end
 
   def new
@@ -32,6 +43,15 @@ class LanguagesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          languages: Serializers::Languages::LanguagesSerializer
+            .new(object: @language).serializer,
+        }
+      end
+    end
   end
 
   def update

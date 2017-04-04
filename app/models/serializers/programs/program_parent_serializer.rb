@@ -3,7 +3,7 @@ class Serializers::Programs::ProgramParentSerializer <
   attrs :id, :name, :organization
 
   def organization
-    Serializers::Organizations::OrganizationsSerializer
+    Serializers::Programs::OrganizationsSerializer
       .new(object: object.organization).serializer
   end
 end

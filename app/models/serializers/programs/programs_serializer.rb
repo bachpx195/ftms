@@ -10,7 +10,7 @@ class Serializers::Programs::ProgramsSerializer <
   end
 
   def organization
-    Serializers::Organizations::OrganizationsSerializer
+    Serializers::Programs::OrganizationsSerializer
       .new(object.organization).serializer
   end
 
