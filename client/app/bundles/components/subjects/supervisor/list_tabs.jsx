@@ -12,7 +12,8 @@ export default class ListTabs extends React.Component {
       subject_detail: props.subject_detail,
       course_subject_teams: props.course_subject_teams,
       user: props.user,
-      user_index: props.user_index
+      user_index: props.user_index,
+      member_evaluations: props.member_evaluations
     }
   }
 
@@ -21,7 +22,8 @@ export default class ListTabs extends React.Component {
       subject_detail: nextProps.subject_detail,
       course_subject_teams: nextProps.course_subject_teams,
       user: nextProps.user,
-      user_index: nextProps.user_index
+      user_index: nextProps.user_index,
+      member_evaluations: nextProps.member_evaluations
     });
   }
 
@@ -35,7 +37,12 @@ export default class ListTabs extends React.Component {
           subject_detail={this.state.subject_detail} course={this.props.course}
           handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
           handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
-          afterAddTaskForUser={this.afterAddTaskForUser.bind(this)} />
+          afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+          training_standard={this.props.training_standard}
+          evaluation_template={this.props.evaluation_template}
+          evaluation_standards={this.props.evaluation_standards}
+          member_evaluations={this.state.member_evaluations}
+          subject={this.props.subject} />
         {this.renderUserTaskModal()}
         {this.renderTaskModal()}
       </div>

@@ -12,7 +12,9 @@ export default class TeamsShowBox extends React.Component {
       user_subjects: props.user_subjects,
       subject: props.subject,
       team: props.team,
-      statuses: props.statuses
+      statuses: props.statuses,
+      course: props.course,
+      course_subjects: props.course_subjects
     }
   }
 
@@ -35,6 +37,14 @@ export default class TeamsShowBox extends React.Component {
                   <UserSubjectList
                     user_subjects={this.state.user_subjects}
                     statuses={this.state.statuses}
+                    team={this.state.team}
+                    course={this.state.course}
+                    course_subjects={this.state.course_subjects}
+                    subject={this.state.subject}
+                    training_standard={this.props.training_standard}
+                    evaluation_template={this.props.evaluation_template}
+                    evaluation_standards={this.props.evaluation_standards}
+                    member_evaluations={this.props.member_evaluations}
                   />
                 </div>
               </div>
