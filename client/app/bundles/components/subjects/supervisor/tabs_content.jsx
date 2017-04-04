@@ -138,8 +138,4 @@ export default class TabsHeader extends React.Component {
   afterAddTaskForUser(user, user_index) {
     this.props.afterAddTaskForUser(user, user_index);
   }
-
-  afterEvaluateUser(user, user_index) {
-    this.props.afterEvaluateUser(user, user_index);
-  }
 }

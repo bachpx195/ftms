@@ -72,14 +72,10 @@ $trainee-avatar-border-white: #f3f3e7;
 }
 
 .nav-tabs {
+  margin-top: 10px;
 
-  &.tab-bar {
-    border-bottom: 0;
-    padding: 0 14px;
-
-    .fa {
-      margin-right: 10px;
-    }
+  .fa {
+    margin-right: 5px;
   }
 
   .active {
