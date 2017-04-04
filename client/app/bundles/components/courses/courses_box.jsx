@@ -1,6 +1,7 @@
 import React from 'react';
 import TraineeCourse from './trainee/trainee_course_lists';
 import CourseList from './course_lists';
+import CoursePolicy from 'policy/course_policy';
 
 export default class CourseBox extends React.Component {
   constructor(props) {
@@ -13,24 +14,14 @@ export default class CourseBox extends React.Component {
   }
 
   render() {
-    let content = null;
-    let courses_policy = new Policy({
-      is_my_space: this.state.is_my_space,
-      controller_name: "courses",
-      action: "index"
-      });
     let count_courses = this.state.courses.length;
 
-    if (courses_policy.isMySpace()) {
-      content = <CourseList
-        courses={this.state.courses}
-      />
-    } else {
-      content = <TraineeCourse
-        courses={this.state.courses}
-        user_courses={this.state.user_courses}
-      />
-    }
+    const courseListPermit = [
+      {controller: 'courses', action: ['index', 'ownerController'],
+        target: 'courseList', data: {controller: 'courses'}},
+      {controller: 'my_space/courses', action: ['index', 'ownerController'],
+        target: 'traineeCourse', data: {controller: 'my_space/courses'}}
+    ];
 
     return (
       <div className="row">
@@ -55,7 +46,12 @@ export default class CourseBox extends React.Component {
                 <div className="col-md-9">
                   <div id='course-container'>
                     <div className='row'>
-                      {content}
+                      <CoursePolicy
+                        permit={courseListPermit}
+                        courseList={<CourseList courses={this.state.courses} />}
+                        traineeCourse={<TraineeCourse courses={this.state.courses}
+                          user_courses={this.state.user_courses} />}
+                      />
                     </div>
                   </div>
                 </div>
