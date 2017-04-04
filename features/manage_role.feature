@@ -1,35 +1,38 @@
 Feature: Role
-  In order to create Role
+  In order to manage Role
   As an admintrator.
-  I want to create role and children role.
+  I want to manage role
 
   Background:
-    Given user logged with email is "admin@gmail.com"
-      And has functions are controller is "role", action is "create"
+    Given user logged in with email is "admin@gmail.com" and password is "12345678"
+      And User manage Role include create, edit, delete
 
   Scenario: Create new Role
-    Given user create role with name is "Role 1", has functions are controller is "role", action is "create"
-      And create children role with name is "Role 2", has functions are controller is "role", action is "update"
+    Given user can create Role
+      And create role parent with name is "admin", has function with controller is "Roles", action is "create"
+      And create children role with name is "trainer", has function with controller is "Roles", action is "create"
 
     When In the Role screen. User click button Save.
 
-    Then new role created successfully I should redirect to "list role" screen
+    Then new role created successfully I should redirect to "Role" screen
 
   Scenario: Edit Role
-    Given user edit role with name is "Role 1", has functions are controller is "role", action is "create" to role with name is "Role 3", has functions are controller is "role", action is "show"
-      And children role with name is "Role 2", has functions are controller is "role", action is "update" to role with name is "Role 4", has functions are controller is "role", action is "delete"
+    Given user can edit Role
+      And edit role with name is "admin", has function with controller is "Roles", action is "create" to role with name is "trainer", has function with controller is "Roles", action is "update"
+      And children role with name is "trainer", has function with controller is "Roles", action is "create" to role with name is "trainee", has function with controller is "Roles", action is "show"
 
     When In the show Role screen. User click button update.
 
-    Then Role updated I should redirect to "Roles" screen.
+    Then Role updated successfully I should redirect to "Roles" screen.
 
   Scenario: Delete Role
-    Given user delete role with name is "Role 1", has functions are controller is "role", action is "create"
-      And children role with name is "Role 2", has functions are controller is "role", action is "update"
+    Given user can Delete Role
+      And delete role with name is "trainer", has function with controller is "Roles", action is "update"
+      And children role with name is "trainee", has function with controller is "Roles", action is "show"
 
-    When In the Roles screen, User click to delete symbol. Screen display confirm form and user click OK.
+    When User click button delete.
 
-    Then Role with name is "Role 1", has functions are controller is "role", action is "create"
-      And children role with name is "Role 2", has functions are controller is "role", action is "update" deleted
-      And I should redirect to "list Roles" screen.
+    Then Role with name is "trainer", has function with controller is "Roles", action is "update"
+      And children role with name is "tranee", has function with controller is "Roles", action is "show" deleted
+      And I should redirect to "Roles" screen.
 
