@@ -47,6 +47,11 @@ namespace :db do
       object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) &&
         object[:controller] != "sessions" && !/^(new|edit)$/.match(object[:action])
     end
+
+    function = Function.create controller_name: "organizations", action: "index"
+    function = Function.create controller_name: "organizations", action: "show"
+    function = Function.create controller_name: "users", action: "show"
+
     Rails.application.routes.routes.map do |router|
       functions.push controller_name: router.defaults[:controller],
         action: router.defaults[:action], parent_id: 1 if check_supply router.defaults
@@ -431,9 +436,15 @@ namespace :db do
     end
     team.user_subject_ids = user_subject_ids
 
-    puts "26 Add dynamictasks for user"
+    puts "29. Add dynamictasks for user"
     User.find(11).dynamic_tasks << DynamicTask.last
     User.find(11).dynamic_tasks << DynamicTask.first
     User.find(11).dynamic_tasks << DynamicTask.second
+
+    puts "30. Create Project"
+    Project.create!([
+      {name: "Project1", organization_id: 1, creator_id: 1},
+      {name: "Project2", organization_id: 1, creator_id: 2},
+      {name: "Project3", organization_id: 2, creator_id: 3}])
   end
 end

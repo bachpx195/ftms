@@ -1,0 +1,25 @@
+$c-panel-heading: #c7d0d5;
+
+.list-requirements {
+  .panel-heading {
+    background: $c-panel-heading !important;
+  }
+  .block-trainer {
+    float: left;
+    padding: 10px 0;
+
+    .image {
+      display: inline-block;
+      list-style: none;
+      padding: 0 10px;
+
+      img {
+        height: 35px;
+        width: 35px;
+      }
+    }
+    .name {
+      display: inline-block;
+    }
+  }
+}
