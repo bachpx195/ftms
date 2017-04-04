@@ -1,18 +1,20 @@
-Given(/^User logged with email is "([^"]*)"\.$/) do |arg1|
+Given(/^User logged in with email "([^"]*)" and password "([^"]*)"\.$/) do |email, password|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^User has functions are controller is "([^"]*)", action is "([^"]*)"$/) do |arg1, arg2|
+Given(/^Organization with name "([^"]*)"$/) do |name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^Organization name is "([^"]*)"$/) do |arg1|
+Given(/^In this organization, user manage program include create, update, delete$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-# Create program for organization
+Given(/^In this organization, user can create program\.$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
 
-Given(/^Input program name is "([^"]*)" for organization\.$/) do |arg1|
+Given(/^Input program with name "([^"]*)" for organization\.$/) do |program|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -20,25 +22,15 @@ When(/^In the show organization screen\. User click button Save\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^I should redirect to program name "([^"]*)" in show organization screen\.$/) do |arg1|
+Then(/^I should redirect to program name "([^"]*)" in show organization screen\.$/) do |program|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-# Update program for organization
-
-Given(/^Edit program name is "([^"]*)" to "([^"]*)" for organization\.$/) do |arg1, arg2|
+Given(/^In this organization, user can update program\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^User click symbol sidebar then display edit and delete symbols\.$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When(/^User click to edit symbol\. Screen display modal edit program form include textbox "([^"]*)"\.$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When(/^Insert program name is "([^"]*)" into program textbox\.$/) do |arg1|
+Given(/^Edit program with name "([^"]*)" to "([^"]*)" for organization\.$/) do |old_program, new_program|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -46,24 +38,26 @@ When(/^User click button Save\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^I should redirect to program name is "([^"]*)" in show organization screen\.$/) do |arg1|
+When(/^In organization user manage program include create, update, delete$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-# Delete program for organization
-
-Given(/^User want to delete program name is "([^"]*)"\.$/) do |arg1|
+Then(/^I should redirect to program with name "([^"]*)" in show organization screen\.$/) do |new_program|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^In the show organization screen\.User click symbol sidebar then display edit and delete symbols\.$/) do
+Given(/^In this organization, user can delete program\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^User click to delete symbol\. Screen display confirm form and user click OK\.$/) do
+Given(/^User want to delete program with name "([^"]*)"\.$/) do |program|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^Program name "([^"]*)" deleted and should redirect to show organization screen\.$/) do |arg1|
+When(/^User click to delete symbol\.$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^Program name "([^"]*)" deleted and should redirect to show organization screen\.$/) do |program|
   pending # Write code here that turns the phrase above into concrete actions
 end

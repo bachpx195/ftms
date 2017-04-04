@@ -4,31 +4,32 @@ Feature: Organization
   I want to manage program for organization.
 
   Background:
-    Given User logged with email is "admin@tms.com".
-      And User has functions are controller is "programs", action is "action"
-      And Organization name is "Framgia"
+    Given User logged in with email "admin@tms.com" and password "12345678".
+      And Organization with name "Framgia"
+      And In this organization, user manage program include create, update, delete
 
   Scenario: Create program for organization
-    Given Input program name is "Ruby on rails" for organization.
+    Given In this organization, user can create program.
+      And Input program with name "Ruby on rails" for organization.
 
     When In the show organization screen. User click button Save.
 
     Then I should redirect to program name "Ruby on rails" in show organization screen.
 
   Scenario: Update program for organization
-    Given Edit program name is "Ruby on rails" to "Git" for organization.
+    Given In this organization, user can update program.
+      And Edit program with name "Ruby on rails" to "Git" for organization.
 
-    When User click symbol sidebar then display edit and delete symbols.
-      And User click to edit symbol. Screen display modal edit program form include textbox "Ruby on rails".
-      And Insert program name is "Git" into program textbox.
-      And User click button Save.
+    When User click button Save.
+      And In organization user manage program include create, update, delete
 
-    Then I should redirect to program name is "Git" in show organization screen.
+    Then I should redirect to program with name "Git" in show organization screen.
 
   Scenario: Delete program for organization
-    Given User want to delete program name is "Git".
+    Given In this organization, user can delete program.
+      And User want to delete program with name "Git".
 
-    When In the show organization screen.User click symbol sidebar then display edit and delete symbols.
-      And User click to delete symbol. Screen display confirm form and user click OK.
+    When User click to delete symbol.
+      And In organization user manage program include create, update, delete
 
     Then Program name "Git" deleted and should redirect to show organization screen.
