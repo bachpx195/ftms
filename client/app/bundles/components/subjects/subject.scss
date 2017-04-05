@@ -1,3 +1,4 @@
+$blue: #21abc7;
 $white: #fff;
 $black: #000;
 $green: #00a65a;
@@ -84,10 +85,15 @@ $trainee-avatar-border-white: #f3f3e7;
   .active {
     a {
       background: $green !important;
-      color: $white !important;
+      .custom-subjects-titles {
+        color: $white !important;
+      }
     }
   }
 
+  .custom-subjects-titles{
+    color: $blue;
+  }
   .check-icon {
     left: -5px;
   }

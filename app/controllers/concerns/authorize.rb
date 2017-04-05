@@ -7,17 +7,17 @@ module Authorize
     "Stage", "University", "TraineeType", "Function", "User", "Role",
     "RoleFunction", "ChangeRole::User", "AssignUser::Course", "UserFunction",
     "UserSubject", "AssignTask::Task", "CreateTask::Task", "MySpace::Course",
-    "UserCourse", "Task", "MetaTask"]
+    "UserCourse", "Task", "MetaTask", "CourseSubject"]
 
   def user_not_authorized
     flash[:alert] = t "flashs.errors.not_authorize"
     redirect_to root_path
   end
 
-  def namespace_authorize query = ""
-    klass = params[:controller].classify
-    if CLASS_NAMES.include? klass
-      klass = class_eval "#{klass}Policy"
+  def namespace_authorize query = nil
+    check = params[:controller].classify
+    if CLASS_NAMES.include? check
+      klass = class_eval "#{check}Policy"
       policy = klass.new current_user, check
       query ||= "#{params[:action]}?"
       unless policy.public_send(query)
