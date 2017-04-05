@@ -46,7 +46,7 @@ class Serializers::Courses::CourseDetailSerializer <
   end
 
   def member_evaluations
-    Serializers::Evaluations::MemberEvalutionsSerializer
+    Serializers::Evaluations::MemberEvaluationsSerializer
       .new(object: object.member_evaluations).serializer
   end
 end

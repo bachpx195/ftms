@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class TabsHeader extends React.Component {
   render() {
-    let team_tabs = null;
     if(this.props.course) {
       return (
         <ul className='nav nav-tabs pull-left'>

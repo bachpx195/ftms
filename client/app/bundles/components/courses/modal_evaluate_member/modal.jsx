@@ -130,27 +130,8 @@ export default class ModalEvaluateMember extends React.Component {
         point > parseInt(evaluation_standard.max_point)) {
         return false
       }
-      return true;
     }
-    this.state.evaluation_standards.map((evaluation_standard, index) => {
-      return(
-        <li className="list-group-item" key={evaluation_standard.id}>
-          <div className="row">
-            <div className="col-md-6">
-              <label>{index + 1}. {evaluation_standard.name}</label>
-            </div>
-            <div className="col-md-6 text-right point-input">
-              <input className="text-right" type="number" step="1"
-                min={parseInt(evaluation_standard.min_point)}
-                max={parseInt(evaluation_standard.max_point)}
-                value={this.state.standard_points[evaluation_standard.id] || 0}
-                onChange={this.handlePointChange.bind(this, evaluation_standard.id)}
-              />
-            </div>
-          </div>
-        </li>
-      )
-    });
+    return true;
   }
 
   handlePointChange(evaluation_standard_id, event){

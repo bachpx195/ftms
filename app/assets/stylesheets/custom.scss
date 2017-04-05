@@ -40,13 +40,6 @@
     }
   }
 
-  .active {
-    a {
-      background: $c-sidebar-hover;
-      color: $c-grey;
-    }
-  }
-
   .open {
     a {
       color: $c-white;
@@ -79,7 +72,16 @@
   }
 }
 
-.nav {
+.sidebar {
+  .active {
+    a {
+      background: $c-sidebar-hover;
+      color: $c-grey;
+    }
+  }
+}
+
+.navbar-custom-menu {
   li {
     a {
       color: $c-white;

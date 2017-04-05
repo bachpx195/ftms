@@ -21,14 +21,16 @@ export default class TeamsShowBox extends React.Component {
   render() {
     let list_blocks = (
       <div className='blocks'>
-        <ul className='nav nav-tabs tab-bar'>
-          <li className='active'>
-            <a data-toggle='tab' href='#user-subject'>
-              <i className='fa fa-file-text-o'></i>
-                {this.state.team.name}
-            </a>
-          </li>
-        </ul>
+        <div className='col-md-12'>
+          <ul className='nav nav-tabs tab-bar'>
+            <li className='active'>
+              <a data-toggle='tab' href='#user-subject'>
+                <i className='fa fa-file-text-o'></i>
+                  {this.state.team.name}
+              </a>
+            </li>
+          </ul>
+        </div>
         <div className='tab-content'>
           <div id='user-subject' className='tab-pane fade in active'>
             <div className='col-md-12'>
