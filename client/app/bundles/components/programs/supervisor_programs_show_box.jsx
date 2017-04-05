@@ -385,8 +385,8 @@ export default class SupervisorProgramsShowBox extends React.Component {
   }
 
   handleCreate(event){
-    $('#modalEdit').find('select, input').val('');
-    $('#modalEdit').modal();
+    $('.modalEdit').find('select, input').val('');
+    $('.modalEdit').modal();
     this.setState({
       course: {}
     });

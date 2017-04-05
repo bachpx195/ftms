@@ -296,7 +296,7 @@ $course-container-scrollbar-track-shadow: rgba(0, 0, 0, .3);
   }
 }
 
-#modalEdit {
+.modalEdit {
   .modal-body {
     .nht-assign-owner {
       .course-start-date {
@@ -316,4 +316,8 @@ $course-container-scrollbar-track-shadow: rgba(0, 0, 0, .3);
 
 .form-edit-show-course {
   color: $black;
+}
+
+.btn-remove-file {
+  margin-left: 10px;
 }

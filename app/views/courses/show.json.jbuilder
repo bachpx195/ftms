@@ -1,7 +1,6 @@
 json.course do
   json.extract! @course, :id, :name, :image, :description, :status, :creator_id,
-    :language_id, :training_standard_id
-  json.extract! @course, :id, :name, :image, :description, :status
+    :document, :language_id, :training_standard_id
   json.managers @supports.managers do |user|
     json.extract! user, :id, :name, :avatar
     user_course = user.user_courses.find_by course_id: @course.id

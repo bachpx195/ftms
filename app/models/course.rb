@@ -2,11 +2,13 @@ class Course < ApplicationRecord
   acts_as_paranoid
 
   mount_uploader :image, ImageUploader
+  mount_uploader :document, DocumentUploader
 
   USER_COURSE_ATTRIBUTES_PARAMS = [user_courses_attributes: [:id, :user_id,
     :type, :_destroy]]
   ATTRIBUTE_PARAMS = [:name, :image, :description, :status, :start_date,
-    :language_id, :program_id, :end_date, :training_standard_id, :owner_id]
+    :language_id, :program_id, :end_date, :training_standard_id, :owner_id,
+    :document, :remove_document]
 
   enum status: [:init, :in_progress, :finished]
 
