@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
       format.json do
         render json: {
           projects: Serializers::Projects::ProjectsSerializer
-            .new(object: @projects)
+            .new(object: @projects).serializer
         }
       end
     end
@@ -35,10 +35,12 @@ class ProjectsController < ApplicationController
       format.html
       format.json do
         render json: {
-          projects: Serializers::Projects::ProjectsSerializer
-            .new(object: @project),
+          project: Serializers::Projects::ProjectsSerializer
+            .new(object: @project).serializer,
           organization: Serializers::Organizations::OrganizationsSerializer
-            .new(object: @organizations)
+            .new(object: @organizations).serializer,
+          requirements: Serializers::Projects::RequirementsSerializer
+            .new(object: @project.requirements).serializer
         }
       end
     end
@@ -91,6 +93,6 @@ class ProjectsController < ApplicationController
   end
 
   def load_organizations
-    @organizations = Organization.select :id, :name
+    @organizations = Organization.all
   end
 end
