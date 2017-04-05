@@ -30,7 +30,7 @@ class Serializers::BaseSerializer
   def single_serializer
     serializers = Hash.new
     self.attributes.each do |attribute|
-      instance_variable_set "@#{attribute}", @object.try(attribute)
+      instance_variable_set "@#{attribute}", @object[attribute.to_s]
       if attribute.in? self.methods
         serializers[attribute.to_sym] = self.send attribute
       end
