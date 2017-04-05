@@ -1,6 +1,6 @@
 class Serializers::Courses::CourseDetailSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name, :image, :description, :status, :creator_id,
+  attrs :id, :name, :image, :document, :description, :status, :creator_id,
     :language_id, :training_standard_id, :managers, :members,
     :unassigned_users, :start_date, :end_date, :creator, :owner,
     :training_standards, :languages, :evaluation_standards,
@@ -46,7 +46,7 @@ class Serializers::Courses::CourseDetailSerializer <
   end
 
   def member_evaluations
-    Serializers::Evaluations::MemberEvalutionsSerializer
+    Serializers::Evaluations::MemberEvaluationsSerializer
       .new(object: object.member_evaluations).serializer
   end
 end

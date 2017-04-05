@@ -22,6 +22,7 @@ en:
     delete: "Delete"
     list_courses: "Courses"
     image: "Image"
+    document: "Document"
     name: "Name"
     start_date: "Start date"
     end_date: "End date"
@@ -95,3 +96,4 @@ en:
     buttons:
       save: "Save"
       finish: "Finish"
+      preview: "Preview"

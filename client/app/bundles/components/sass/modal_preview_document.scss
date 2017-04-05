@@ -1,0 +1,31 @@
+.modal-preview-document {
+  margin: 30px;
+
+  .modal-dialog {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .modal-content {
+    height: 100%;
+    position: relative;
+  }
+
+  .modal-header {
+    height: 50px;
+  }
+
+  .modal-body {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 55px);
+  }
+
+  .frame-preview-document {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+}
