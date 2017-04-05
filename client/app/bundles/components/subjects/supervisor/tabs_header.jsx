@@ -8,32 +8,42 @@ export default class TabsHeader extends React.Component {
         <ul className='nav nav-tabs pull-left'>
           <li className='active'>
             <a data-toggle='tab' href='#list_team'>
-              <i className='fa fa-pencil-square-o'></i>
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-pencil-square-o'></i>
                 {I18n.t('subjects.titles.list_team')}
+              </div>
             </a>
           </li>
           <li>
             <a data-toggle='tab' href='#user-subject'>
-              <i className='fa fa-file-text-o'></i>
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-file-text-o'></i>
                 {I18n.t('subjects.titles.unassigned_members')}
+              </div>
             </a>
           </li>
           <li>
             <a data-toggle='tab' href='#home'>
-              <i className='fa fa-file-text-o'></i>
-              {I18n.t('subjects.titles.surveys')}
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-file-text-o'></i>
+                {I18n.t('subjects.titles.surveys')}
+              </div>
             </a>
           </li>
           <li>
             <a data-toggle='tab' href='#menu1'>
-              <i className='fa fa-pencil-square-o'></i>
-              {I18n.t('subjects.titles.assignments')}
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-pencil-square-o'></i>
+                {I18n.t('subjects.titles.assignments')}
+              </div>
             </a>
           </li>
           <li>
             <a data-toggle='tab' href='#menu2'>
-              <i className='fa fa-check-square-o'></i>
-              {I18n.t('subjects.titles.tests')}
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-check-square-o'></i>
+                {I18n.t('subjects.titles.tests')}
+              </div>
             </a>
           </li>
         </ul>
@@ -43,20 +53,26 @@ export default class TabsHeader extends React.Component {
         <ul className='nav nav-tabs pull-left'>
           <li className='active'>
             <a data-toggle='tab' href='#home'>
-              <i className='fa fa-file-text-o'></i>
-              {I18n.t('subjects.titles.surveys')}
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-file-text-o'></i>
+                {I18n.t('subjects.titles.surveys')}
+              </div>
             </a>
           </li>
           <li>
             <a data-toggle='tab' href='#menu1'>
-              <i className='fa fa-pencil-square-o'></i>
-              {I18n.t('subjects.titles.assignments')}
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-pencil-square-o'></i>
+                {I18n.t('subjects.titles.assignments')}
+              </div>
             </a>
           </li>
           <li>
             <a data-toggle='tab' href='#menu2'>
-              <i className='fa fa-check-square-o'></i>
-              {I18n.t('subjects.titles.tests')}
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-check-square-o'></i>
+                {I18n.t('subjects.titles.tests')}
+              </div>
             </a>
           </li>
         </ul>

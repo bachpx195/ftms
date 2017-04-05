@@ -73,6 +73,7 @@ class AssignTask::TasksController < ApplicationController
 
   def find_ownerable
     klass = params[:task][:ownerable_type].classify
+
     if CLASS_NAMES.include? klass
       @ownerable = class_eval(klass).find_by id: params[:task][:ownerable_id]
       unless @ownerable
