@@ -37,6 +37,11 @@ export default class SubjectsShowBox extends React.Component {
           test_rules: [],
           assignments: []
         },
+        course_subject_task: {
+          surveys: [],
+          test_rules: [],
+          assignments: []
+        },
         course_subject: {},
         user_subjects: [],
         user_course_task: {

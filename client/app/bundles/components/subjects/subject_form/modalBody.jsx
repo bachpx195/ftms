@@ -12,20 +12,30 @@ export default class ModalBody extends React.Component{
       type: '',
       survey_id: '',
       course: props.course,
+      course_subject_task: props.course_subject_task
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       task: nextProps.task,
-      course: nextProps.course
+      course: nextProps.course,
+      course_subject_task: nextProps.course_subject_task
     });
   }
 
   render(){
     let task;
-    let buttonAddUserTask ;
-    if(this.props.course){
+    if (this.props.course){
+      let available_tasks = [];
+      if(this.state.type != '') {
+        available_tasks = this.state.task[this.state.type].filter(task => {
+          return this.state.course_subject_task[this.state.type]
+            .findIndex(_task => _task.id == task.id) < 0;
+        });
+      }
+      this.state.task[this.state.type] = available_tasks;
+
       task = (
         <div className='panel-project panel-body'>
           <ListTasks task={this.state.task} type={this.state.type}
@@ -38,7 +48,7 @@ export default class ModalBody extends React.Component{
             user='' targetable_type={this.state.type} />
         </div>
       )
-    }else{
+    } else {
       task = (
         <div className='panel-project panel-body'>
           <ListTasks task={this.state.task} type={this.state.type}
@@ -110,7 +120,7 @@ export default class ModalBody extends React.Component{
     this.props.handleAfterAddTask(type, ids, targets, subject_detail, user_id);
   }
 
-  afterCreateTask(target, type){
-    this.props.afterCreateTask(target, type)
+  afterCreateTask(target, type, owner){
+    this.props.afterCreateTask(target, type, owner);
   }
 }

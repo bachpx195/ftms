@@ -33,6 +33,7 @@ export default class EvaluationTemplatesBox extends React.Component {
         evaluation_template_constants.EVALUATION_TEMPLATE_PATH;
       form = <Form evaluation_template={this.state.evaluation_template}
         url={url} handleAfterSaved={this.handleAfterSaved.bind(this)}
+        training_standard={this.props.training_standard}
         handleCancel={this.handleCancel.bind(this)} />;
     }
 

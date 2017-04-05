@@ -120,12 +120,6 @@ export default class ListTasks extends React.Component {
   }
 
   afterSave() {
-    let ownerable_name = '';
-    if (this.props.course) {
-      ownerable_name = 'CourseSubject';
-    } else {
-      ownerable_name = 'Subject';
-    }
     axios.post(TASK_URL, {
       task: {
         targetable_ids: this.state.targetable_ids,
@@ -150,7 +144,7 @@ export default class ListTasks extends React.Component {
     .catch(error => console.log(error));
   }
 
-  afterCreateTask(target, type, onwer) {
-    this.props.afterCreateTask(target, type, onwer)
+  afterCreateTask(target, type, owner) {
+    this.props.afterCreateTask(target, type, owner)
   }
 }

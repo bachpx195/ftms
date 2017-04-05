@@ -64,18 +64,12 @@ export default class FormTask extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let ownerable_name
-    if (this.props.user) {
-      ownerable_name = 'CourseSubject';
-    } else {
-      ownerable_name = 'Subject';
-    }
     axios.post(this.props.url, {
       task: {
         name: this.refs.nameField.value,
         content: this.refs.contentField.value,
         ownerable_id: this.props.ownerable_id,
-        ownerable_type: ownerable_name,
+        ownerable_type: this.props.ownerable_type,
         type: this.props.type
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
@@ -83,7 +77,7 @@ export default class FormTask extends React.Component {
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
         this.props.afterCreateTask(response.data.target,
-          this.props.type, ownerable_name);
+          this.props.type, this.props.ownerable_type);
       })
       .catch(error => console.log(error));
   }

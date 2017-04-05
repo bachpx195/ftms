@@ -52,7 +52,7 @@ export default class ListTabs extends React.Component {
   renderUserTaskModal() {
     let modalUserTask = null;
 
-    if(this.props.course) {
+    if (this.props.course) {
       let panelUserTask = null;
       if(this.state.subject_detail.user_subjects &&
         this.state.subject_detail.user_subjects[this.state.user_index]) {
@@ -99,15 +99,21 @@ export default class ListTabs extends React.Component {
 
   renderTaskModal() {
     let task = null;
+    let ownerable_id = null;
+    let ownerable_type = '';
 
-    if(this.props.course) {
+    if (this.props.course) {
       task = this.state.subject_detail.subject_task;
+      ownerable_id = this.state.subject_detail.course_subject.id;
+      ownerable_type = 'CourseSubject';
     } else {
       task = this.state.subject_detail.task;
+      ownerable_id = this.state.subject_detail.id;
+      ownerable_type = 'Subject';
     }
 
     return(
-      <div className='modalTask'>
+      <div className='modal-task'>
         <div id='modalAddTask' className='modal fade in' role='dialog'>
           <div className='modal-dialog'>
             <div className='modal-content'>
@@ -116,13 +122,14 @@ export default class ListTabs extends React.Component {
                   data-dismiss='modal'>&times;</button>
                 <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
               </div>
-              <ModalBody task={task}
-                ownerable_id={this.state.subject_detail.course_subject.id}
-                ownerable_type='CourseSubject'
-                course={this.props.course}
+              <ModalBody task={task} ownerable_id={ownerable_id}
+                ownerable_type={ownerable_type} course={this.props.course}
                 subject_detail={this.state.subject_detail}
                 handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-                afterCreateTask={this.afterCreateTask.bind(this)} />
+                afterCreateTask={this.afterCreateTask.bind(this)}
+                course_subject_task={this.state.subject_detail
+                  .course_subject_task}
+              />
             </div>
           </div>
         </div>
