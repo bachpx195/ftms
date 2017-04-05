@@ -141,18 +141,17 @@ $many-member-background-color: rgba(65, 65, 66, .46);
             }
           }
 
-          .td-course-image {
+          .course-image {
             img {
               position: absolute;
-              left: 10px;
+              left: 26%;
+              margin: 0;
+              top: 3px;
             }
           }
         }
 
         .view-members {
-          position: absolute;
-          left: 35%;
-          bottom: 20%;
           .user-list {
             margin: 8px;
             padding-left: 114px;

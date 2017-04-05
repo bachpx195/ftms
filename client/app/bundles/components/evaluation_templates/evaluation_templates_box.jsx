@@ -18,7 +18,7 @@ export default class EvaluationTemplatesBox extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      evaluation_standards: props.evaluation_standards || [],
+      evaluation_standards: nextProps.evaluation_standards || [],
       evaluation_template: nextProps.evaluation_template || {},
       showForm: false
     });

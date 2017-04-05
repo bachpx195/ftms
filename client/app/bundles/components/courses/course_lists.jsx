@@ -100,7 +100,7 @@ export default class CourseLists extends React.Component {
                 <div>{course.name}</div>
               </h3>
               <div className='td-course-content'>
-                <div className='td-course-image col-xs-4'>
+                <div className='course-image col-xs-4'>
                   <img src={course.image.url ? course.image.url : DEFAULT_IMAGE_COURSE}
                     className='img-responsive' />
                 </div>
@@ -117,7 +117,7 @@ export default class CourseLists extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className='view-members'>
+              <div className='view-members-course'>
                 <div className='with-border'>
                   <span className='members-count'>
                     {I18n.t('courses.members')}
