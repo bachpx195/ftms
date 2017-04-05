@@ -4,6 +4,15 @@ class ChangeProfile::UsersController < ApplicationController
 
   def show
     @supports = Supports::UserSupport.new
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          user_profile: Serializers::ChangeProfile::UserDetailSerializer
+            .new(object: @user, scope: {supports: @supports}).serializer
+        }
+      end
+    end
   end
 
   def update

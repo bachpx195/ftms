@@ -8,9 +8,31 @@ class OrganizationsController < ApplicationController
     else
       @organizations = current_user.organizations
     end
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          organizations: Serializers::Organizations::OrganizationsSerializer
+            .new(object: @organizations, scope: {show_program: true}).serializer
+        }
+      end
+    end
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          organization:
+            Serializers::Organizations::OrganizationDetailSerializer
+              .new(object: @organization).serializer,
+          programs:
+            Serializers::Organizations::ProgramSerializer
+              .new(object: @organization.programs).serializer
+        }
+      end
+    end
   end
 
   def new
@@ -22,7 +44,14 @@ class OrganizationsController < ApplicationController
       if @organization.save
         @message = flash_message "created"
         format.html{redirect_to @organization}
-        format.json
+        format.json do
+          render json: {
+            messages: @message,
+            organization: Serializers::Organizations::OrganizationsSerializer
+              .new(object: @organization, scope: {show_program: false})
+              .serializer
+          }
+        end
       else
         format.html{render :new}
         format.json do
@@ -38,7 +67,14 @@ class OrganizationsController < ApplicationController
       if @organization.update_attributes organization_params
         @message = flash_message "updated"
         format.html{redirect_to @organization}
-        format.json
+        format.json do
+          render json: {
+            messages: @message,
+            organization: Serializers::Organizations::OrganizationsSerializer
+              .new(object: @organization, scope: {show_program: false})
+              .serializer
+          }
+        end
       else
         format.html{render :edit}
         format.json do

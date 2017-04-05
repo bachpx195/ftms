@@ -18,7 +18,12 @@ class EvaluationStandardsController < ApplicationController
         format.html do
           redirect_to training_standard_evaluation_template_path(@evaluation_template.training_standard)
         end
-        format.json{render json: {evaluation_standard: @evaluation_standard}}
+        format.json do
+          render json: {
+            evaluation_standard: Serializers::Evaluations::EvaluationStandardsSerializer
+              .new(object: @evaluation_standard).serializer
+          }
+        end
       else
         format.html{render :new}
         format.json do
@@ -38,7 +43,12 @@ class EvaluationStandardsController < ApplicationController
         format.html do
           redirect_to training_standard_evaluation_template_path(@evaluation_template.training_standard)
         end
-        format.json{render json: {evaluation_standard: @evaluation_standard}}
+        format.json do
+          render json: {
+            evaluation_standard: Serializers::Evaluations::EvaluationStandardsSerializer
+              .new(object: @evaluation_standard).serializer
+          }
+        end
       else
         format.html{render :edit}
         format.json do

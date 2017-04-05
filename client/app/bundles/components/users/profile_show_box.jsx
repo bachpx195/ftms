@@ -59,7 +59,7 @@ export default class ProfileShowBox extends React.Component {
               <h4 className='modal-title'>{title}</h4>
             </div>
             <div className='modal-body'>
-              <FormEditProfile 
+              <FormEditProfile
                 user_profile={this.state.user_profile}
                 url={PROFILE_URL}
                 organization={this.state.organization}

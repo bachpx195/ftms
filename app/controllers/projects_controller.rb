@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
     respond_to do |format|
+      format.html
       format.json do
         render json: {
           projects: Serializers::Projects::ProjectsSerializer
@@ -31,6 +32,7 @@ class ProjectsController < ApplicationController
 
   def show
     respond_to do |format|
+      format.html
       format.json do
         render json: {
           projects: Serializers::Projects::ProjectsSerializer

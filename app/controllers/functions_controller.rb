@@ -5,6 +5,15 @@ class FunctionsController < ApplicationController
   def index
     @functions = Function.select :id, :controller_name, :action, :parent_id,
       :humanize_name
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          functions: Serializers::Roles::FunctionsSerializer
+            .new(object: @functions).serializer
+        }
+      end
+    end
   end
 
   def new

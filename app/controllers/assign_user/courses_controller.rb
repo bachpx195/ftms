@@ -8,6 +8,10 @@ class AssignUser::CoursesController < ApplicationController
           user_courses: user_courses_params[:user_courses_attributes]
         if assign_user_form.save
           @supports = Supports::CourseSupport.new course: @course
+          render json: {
+            course: Serializers::AssignUser::CourseSerializer
+              .new(object: @supports, scope: {course: @course}).serializer
+          }
         else
           render json: {message: flash_message("not_updated")},
             status: :unprocessable_entity

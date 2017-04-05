@@ -35,6 +35,10 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
     @course_subjects ||= nil
   end
 
+  def show_program
+    @show_program ||= nil
+  end
+
   def task_id
     task =
       if user_id
