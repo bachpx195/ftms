@@ -1,67 +1,67 @@
-Given(/^system has a user with email is "([^"]*)" and password is "([^"]*)"$/) do |email, password|
+Given(/^system has a user with email is "([^"]*)", password is "([^"]*)"$/) do |email, password|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has permisstion manage subject include create, edit, delete$/) do
+Given(/^user has permisstion manage Role include create, edit, delete$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^system existed subject with name is "([^"]*)"$/) do |subject_name|
+Given(/^system existed stage with nane is "([^"]*)"$/) do |stage_name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^user click button login in login screen$/) do
+When(/^user logged in successfully$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^user should redirect to home screen$/) do
+Then(/^user redirect to home screen$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permission to create Subject$/) do
+Given(/^user has a permisstion to create stage$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user create subject with name is "([^"]*)"$/) do |subject_name|
+Given(/^user input name is "([^"]*)"$/) do |stage_name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^user click button Save in new subject screen$/) do
+When(/^user click button Save in the new stage screen$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^user should redirect to subjects screen and subject with name "([^"]*)" in list subjects screen\.$/) do |subject_name|
+Then(/^user should redirect to stages screen and stage with name "([^"]*)" in list stages screen$/) do |stage_name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permission to edit Subject$/) do
+Given(/^user has a permisstion to edit stage$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^edit Subject with name is "([^"]*)" to name is "([^"]*)"$/) do |old_subject_name, new_subject_name|
+Given(/^user edit stage with name is "([^"]*)" to name is "([^"]*)"$/) do |old_stage_name, new_stage_name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^user click to submit subject form$/) do
+When(/^user click to submit Stage form$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^user should redirect to Subjects screen and subject with name "([^"]*)" in show Subjects screen\.$/) do |subject_name|
+Then(/^User should redirect to list Stages screen and name "([^"]*)" in show Stage screen\.$/) do |stage_name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to delete subject$/) do
+Given(/^user has a permisstion to delete stage$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user delete a subject with name is "([^"]*)"$/) do |subject_name|
+Given(/^user delete Stage name is "([^"]*)"$/) do |stage_name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^user click to delete symbol in subjects screen$/) do
+When(/^User click to delete symbol in the list Stages screen$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^user should redirect to list subjects screen and subject with name is "([^"]*)" removed$/) do |subject_name|
+Then(/^should redirect to list Stages screen and stage with name is "([^"]*)" removed$/) do |stage_name|
   pending # Write code here that turns the phrase above into concrete actions
 end
