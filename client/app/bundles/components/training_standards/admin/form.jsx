@@ -41,8 +41,8 @@ export default class Form extends React.Component {
 
         <div className='form-group'>
           <div className='text-right'>
-            <button type='submit' disabled={!this.formValid()} className='btn btn-primary'
-              title={I18n.t('buttons.save')}>
+            <button type='submit' className='btn btn-primary'
+              onClick={this.handleSubmit.bind(this)}>
               {I18n.t('buttons.save')}</button>
           </div>
         </div>
@@ -88,6 +88,7 @@ export default class Form extends React.Component {
     })
     .then(response => {
       if(this.props.training_standard.id) {
+        $('.modalCreateTrainingStandard').modal('hide');
         $('#modalEdit').modal('hide');
       } else {
         this.setState({

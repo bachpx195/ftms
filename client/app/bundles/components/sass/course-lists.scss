@@ -105,6 +105,7 @@ $many-member-background-color: rgba(65, 65, 66, .46);
               display: block;
               overflow: hidden;
               text-overflow: ellipsis;
+              margin: 0 12px;
 
               p {
                 -webkit-box-orient: vertical;
@@ -150,8 +151,8 @@ $many-member-background-color: rgba(65, 65, 66, .46);
 
         .view-members {
           position: absolute;
-          left: 42%;
-          bottom: 30%;
+          left: 35%;
+          bottom: 20%;
           .user-list {
             margin: 8px;
             padding-left: 114px;

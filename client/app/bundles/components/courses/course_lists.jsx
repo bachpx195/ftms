@@ -57,9 +57,9 @@ export default class CourseLists extends React.Component {
           return this.renderMember(member);
         });
 
-        html.push(<li className="member-list" key={course.members[LIMIT_MEMBERS].id} >
-          <img className="many-member" src={course.members[LIMIT_MEMBERS].avatar.url} />
-          <p className="many-member text-center">+{course.members.length - LIMIT_MEMBERS}</p>
+        html.push(<li className='member-list' key={course.members[LIMIT_MEMBERS].id} >
+          <img className='many-member' src={course.members[LIMIT_MEMBERS].avatar.url} />
+          <p className='many-member text-center'>+{course.members.length - LIMIT_MEMBERS}</p>
         </li>);
         return html;
       }else{
@@ -89,14 +89,14 @@ export default class CourseLists extends React.Component {
     return(
       <div key={course.id}
         className='col-md-4 col-xs-4 col-lg-4 td-program-list-course'>
-        <div className="td-course-box">
-          <div className="td-course-image-manager">
+        <div className='td-course-box'>
+          <div className='td-course-image-manager'>
             <div className='course-manager'>{images}</div>
-            <div className="clearfix"></div>
+            <div className='clearfix'></div>
           </div>
           <a className='link-course' href={course_path}>
             <div className='td-card-course-inner'>
-              <h3 className="course-name">
+              <h3 className='custom-course-name'>
                 <div>{course.name}</div>
               </h3>
               <div className='td-course-content'>
@@ -105,12 +105,12 @@ export default class CourseLists extends React.Component {
                     className='img-responsive' />
                 </div>
                 <div className='col-xs-8 td-course-content-left'>
-                  <div className='training_standard'>
+                  <div className='training-standard'>
                     <p>
                       {course.training_standard ? course.training_standard.name : ''}
                     </p>
                   </div>
-                  <div className="td-course-description" title={course.description}>
+                  <div className='td-course-description' title={course.description}>
                     <p>
                       {description ? description : I18n.t('courses.default_description')}
                     </p>
@@ -126,17 +126,14 @@ export default class CourseLists extends React.Component {
                     {course.members ? course.members.length : '0'}
                   </span>
                 </div>
-                <ul className='user-list clearfix'>
-                  {this.renderMembers(course)}
-                </ul>
               </div>
             </div>
           </a>
-          <div className="clearfix"></div>
+          <div className='clearfix'></div>
         </div>
-        <div className="clearfix"></div>
-        <div className="td-course-box-before"></div>
-        <div className="td-course-box-after"></div>
+        <div className='clearfix'></div>
+        <div className='td-course-box-before'></div>
+        <div className='td-course-box-after'></div>
       </div>
     );
   }
@@ -145,8 +142,8 @@ export default class CourseLists extends React.Component {
       <div>
         <div className='row margin-select'>
           <div className='col-xs-5'>
-            <input className="form-control search_form"
-              id='filter-list-courses' autoComplete="off"
+            <input className='form-control search_form'
+              id='filter-list-courses' autoComplete='off'
               placeholder={I18n.t('courses.search')}
               onChange={this.filterCourses.bind(this)}/>
           </div>

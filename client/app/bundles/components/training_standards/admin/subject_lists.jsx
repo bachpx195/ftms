@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import SubjectItem from './subject_item';
+import css from '../training_standard.scss';
 
 export default class SubjectLists extends React.Component {
   constructor(props) {
@@ -14,10 +15,10 @@ export default class SubjectLists extends React.Component {
 
   render() {
     return(
-      <div className="panel-group">
-        <div className="panel panel-primary">
-          <div className="panel-body">
-            <ul className="list-group">
+      <div className='panel-group'>
+        <div className='panel panel-primary'>
+          <div className='panel-body'>
+            <ul className='list-group custom-subject-list'>
               {this.renderItem()}
             </ul>
           </div>

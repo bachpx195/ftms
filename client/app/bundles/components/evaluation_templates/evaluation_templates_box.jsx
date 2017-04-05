@@ -39,18 +39,18 @@ export default class EvaluationTemplatesBox extends React.Component {
     let button = null;
     let buttonDelete = null;
     if(!this.state.evaluation_template.id){
-      button = <button type="button" className="btn btn-info"
+      button = <button type="button" className='btn btn-info'
         onClick={this.handleClickButton.bind(this)}>
-        <i className="fa fa-plus"></i> {I18n.t('buttons.new')}
+        <i className='fa fa-plus'></i> {I18n.t('buttons.new')}
       </button>;
     } else {
-      button = <button type="button" className="btn btn-info"
+      button = <button type="button" className='btn btn-info'
         onClick={this.handleClickButton.bind(this)}>
-        <i className="fa fa-pencil"></i> {I18n.t('buttons.edit')}
+        <i className='fa fa-pencil-square-o'></i> {I18n.t('buttons.edit')}
       </button>;
-      buttonDelete = <button className="btn btn-danger"
+      buttonDelete = <button className='btn btn-danger'
         onClick={this.handleDelete.bind(this)}>
-        {I18n.t('buttons.delete')}
+        <i className='fa fa-trash-o'></i> {I18n.t('buttons.delete')}
       </button>;
     }
 
@@ -62,7 +62,7 @@ export default class EvaluationTemplatesBox extends React.Component {
               <h3 className='box-title'>
                 {I18n.t('evaluation_templates.title')} : {this.state.evaluation_template.name}
               </h3>
-              <div className="box-tools pull-right">
+              <div className='box-tools pull-right'>
                 {button} {buttonDelete}
               </div>
             </div>
@@ -71,7 +71,7 @@ export default class EvaluationTemplatesBox extends React.Component {
               <div className='col-md-8 col-md-offset-2'>
                 {form}
               </div>
-              <div className="clearfix"></div>
+              <div className='clearfix'></div>
               <EvaluationStandardsList
                 evaluation_template={this.state.evaluation_template}
                 evaluation_standards={this.state.evaluation_standards}

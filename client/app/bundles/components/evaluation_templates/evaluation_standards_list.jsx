@@ -47,14 +47,14 @@ export default class EvaluationStandardsList extends React.Component {
     const ButtonEdit = ({griddleKey}) => (
       <button className='btn btn-info' data-index={griddleKey}
         onClick={this.handleEdit.bind(this)}>
-        {I18n.t('buttons.edit')}
+        <i className='fa fa-pencil-square-o'></i> {I18n.t('buttons.edit')}
       </button>
     );
 
     const ButtonDelete = ({griddleKey}) => (
       <button className='btn btn-danger' data-index={griddleKey}
         onClick={this.handleDelete.bind(this)}>
-        {I18n.t('buttons.delete')}
+        <i className='fa fa-trash-o'></i> {I18n.t('buttons.delete')}
       </button>
     );
 
@@ -85,7 +85,7 @@ export default class EvaluationStandardsList extends React.Component {
     let buttonNew = null;
     if(this.state.evaluation_template &&
       Object.keys(this.state.evaluation_template).length > 0) {
-      buttonNew = <button className="btn btn-info"
+      buttonNew = <button className='btn btn-info'
         onClick={this.handleNew.bind(this)}>
         {I18n.t('evaluation_templates.modals.new_evaluation_standard')}
       </button>;
