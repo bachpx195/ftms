@@ -5,7 +5,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as course_constants from './course_constants';
 import * as program_constants from '../programs/program_constants';
-import CSS from '../sass/course-lists.scss';
+import CSS from '../../assets/sass/course-lists.scss';
 
 const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
 const COURSES_URL = app_constants.APP_NAME + course_constants.MY_COURSES_PATH;

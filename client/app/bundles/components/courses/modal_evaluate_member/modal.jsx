@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 import * as course_constants from '../course_constants';
 
-require('../../sass/modal_evaluate_member.scss');
+require('../../../assets/sass/modal_evaluate_member.scss');
 
 export default class ModalEvaluateMember extends React.Component {
   constructor(props) {

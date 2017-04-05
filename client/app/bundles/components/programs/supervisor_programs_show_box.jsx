@@ -12,7 +12,7 @@ import * as program_constants from './program_constants';
 import * as user_constants from '../users/user_constants';
 import * as course_constants from '../courses/course_constants';
 
-require('../sass/program_show.scss');
+require('../../assets/sass/program_show.scss');
 
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
@@ -290,7 +290,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
                 </div>
               </div>
             </div>
-            <div id='program-control' className='col-md-6'>
+            <div className='program-control' className='col-md-6'>
               <fieldset>
                 <legend>Sort</legend>
                 <select className="form-control"
@@ -309,7 +309,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
               </button>
             </div>
           </div>
-          <div id='course-container'>
+          <div className='course-container'>
             <div className='row td-padding-top'>
               {this.renderListCourses()}
             </div>

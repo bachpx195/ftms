@@ -14,7 +14,7 @@ const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH
 const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
 const ASSIGN_STANDARD_URL = app_constants.APP_NAME + program_constants.ASSIGN_STANDARD_PATH;
 
-require('../sass/program_show.scss');
+require('../../assets/sass/program_show.scss');
 
 export default class FormCourse extends React.Component {
   constructor(props) {

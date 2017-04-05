@@ -5,7 +5,7 @@ import RequirementEdit from './requirement_edit';
 import ModalRequirement from './modal';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-require('../../sass/projects.scss');
+require('../../../assets/sass/projects.scss');
 
 const DEFAULT_IMAGE_USER_URL = app_constants.DEFAULT_IMAGE_USER_URL;
 

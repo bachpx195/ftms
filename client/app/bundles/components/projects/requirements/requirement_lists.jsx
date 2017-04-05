@@ -3,7 +3,7 @@ import RequirementGriddle from './requirement_griddle'
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from '../../users/user_constants';
-require('../../sass/projects.scss');
+require('../../../assets/sass/projects.scss');
 
 export default class RequirementLists extends React.Component {
   constructor(props) {

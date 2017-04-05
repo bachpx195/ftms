@@ -12,7 +12,7 @@ import * as course_constants from './course_constants';
 import * as subject_constants from '../subjects/subject_constants';
 import * as user_constants from '../users/user_constants';
 
-require('../sass/course.scss');
+require('../../assets/sass/course.scss');
 
 const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
@@ -281,14 +281,14 @@ export default class CoursesShowBox extends React.Component {
             </div>
 
             <div className='col-md-5'>
+              <span className="btn glyphicon glyphicon-list pull-right"
+                onClick={this.clickButtonList.bind(this)}></span>
               <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
                 course_constants.COURSES_PATH + this.props.course.id}
                 course={this.state.course}
                 handleAfterEdit={this.handleAfterUpdate.bind(this)}
                 program={this.props.program}
                 handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)} />
-              <span className="btn glyphicon glyphicon-list pull-right"
-                onClick={this.clickButtonList.bind(this)}></span>
             </div>
           </div>
 
@@ -431,7 +431,7 @@ export default class CoursesShowBox extends React.Component {
     }
 
     if ($('.td-course-edit-delete').find('.finish-button')) {
-      $('.td-course-edit-delete').css('margin-left','35%');
+      $('.td-course-edit-delete').css('margin-left','0%');
     }
 
   }

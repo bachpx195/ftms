@@ -1,7 +1,7 @@
 import React from 'react';
 import FormCourse from './form_course';
 
-require('../sass/program_show.scss');
+require('../../assets/sass/program_show.scss');
 
 export default class Modal extends React.Component {
   render() {

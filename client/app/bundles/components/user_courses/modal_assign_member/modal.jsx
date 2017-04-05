@@ -5,7 +5,7 @@ import ListUsers from './list_users';
 import * as app_constants from 'constants/app_constants';
 import * as user_course_constants from '../user_course_constants';
 
-require('../../sass/modal_assign_member.scss');
+require('../../..assets/sass/modal_assign_member.scss');
 
 export default class ModalAssignMember extends React.Component {
   constructor(props) {

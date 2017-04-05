@@ -44,7 +44,7 @@ export default class CourseBox extends React.Component {
             <div className="box-body no-padding">
               <div className="row">
                 <div className="col-md-9">
-                  <div id='course-container'>
+                  <div className='course-container'>
                     <div className='row'>
                       <CoursePolicy
                         permit={courseListPermit}

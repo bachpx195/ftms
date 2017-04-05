@@ -10,7 +10,7 @@ import * as sub_org_constants from './sub_organization_constants';
 const SUB_ORGANIZATION_URL = sub_org_constants.SUB_ORGANIZATION_PATH;
 const ORGANIZATION_URL = sub_org_constants.ORGANIZATION_PATH;
 
-require('../sass/list_programs.scss');
+require('../../assets/sass/list_programs.scss');
 
 export default class ListPrograms extends React.Component {
    constructor(props){

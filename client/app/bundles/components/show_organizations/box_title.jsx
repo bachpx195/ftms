@@ -7,7 +7,7 @@ import * as app_constants from 'constants/app_constants';
 const SUB_ORGANIZATION_URL = app_constants.APP_NAME + 'sub_organizations';
 const ORGANIZATION_URL = app_constants.APP_NAME + 'organizations/';
 
-require('../sass/organization.scss');
+require('../../assets/sass/organization.scss');
 
 export default class BoxTitle extends React.Component{
   constructor(props){
@@ -49,7 +49,7 @@ export default class BoxTitle extends React.Component{
               <h4 className='modal-title'>{I18n.t('buttons.edit')}</h4>
             </div>
             <div className='modal-body'>
-              <FormEdit url={SUB_ORGANIZATION_URL} index={this.state.organization.id} 
+              <FormEdit url={SUB_ORGANIZATION_URL} index={this.state.organization.id}
               name={this.state.organization.name} afterSave={this.fetchOrganizations.bind(this)}/>
             </div>
           </div>
