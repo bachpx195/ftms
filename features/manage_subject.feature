@@ -4,27 +4,34 @@ Feature: Subject
   I want to manage subject.
 
   Background:
-    Given User logged in successfully with email is "admin@tms.com" and password is "12345678"
-      And User Manage subject include create, edit, delete subject
+    Given system has a user with email is "admin@tms.com" and password is "12345678"
+      And user has permisstion manage subject include create, edit, delete
+      And system existed subject with name is "Ruby's Project 1"
+
+    When user click button login in login screen
+
+    Then user should redirect to home screen
+
   Scenario: Create new
-    Given user can create Subject
-      And create subject with name is "Ruby's Project 1"
+    Given user has a permission to create Subject
+      And user create subject with name is "Git Tutorial"
 
-    When In the Subject screen. User click button Save.
+    When user click button Save in new subject screen
 
-    Then I should redirect to "Subject" screen.
+    Then user should redirect to subjects screen and subject with name "Git Tutorial" in list subjects screen.
 
   Scenario: Editing Subject
-    Given user can edit Subject
+    Given user has a permission to edit Subject
       And edit Subject with name is "Ruby's Project 1" to name is "Ruby's Project 2"
 
-    When In the Subject screen, user click to submit Subject form
+    When user click to submit subject form
 
-    Then I should redirect to Subject name "Ruby's Project 2" in show Subject screen.
+    Then user should redirect to Subjects screen and subject with name "Ruby's Project 2" in show Subjects screen.
 
   Scenario: Deleting Subject
-    Given User can delete Subject and delete Subject name is "Ruby's Project 2"
+    Given user has a permisstion to delete subject
+    And user delete a subject with name is "Ruby's Project 2"
 
-    When In the list Subject screen. User click to delete symbol
+    When user click to delete symbol in subjects screen
 
-    Then Subject name "Ruby's Project 2" deleted and should redirect to list Subject screen
+    Then user should redirect to list subjects screen and subject with name is "Ruby's Project 2" removed
