@@ -6,7 +6,7 @@ import Errors from '../shareds/errors';
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
 
-require('../sass/program_show.scss');
+require('../../assets/sass/program_show.scss');
 
 export default class FormEdit extends React.Component {
   constructor(props) {

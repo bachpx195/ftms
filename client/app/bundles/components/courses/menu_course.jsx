@@ -21,7 +21,7 @@ export default class MenuCourse extends React.Component {
   }
   render() {
     return(
-      <div className="td-course-edit-delete pull-left hidden">
+      <div className="td-course-edit-delete pull-right hidden">
         {this.renderButtonFinish()}
         <a onClick={this.handleEdit.bind(this)} title={I18n.t("courses.edit")}>
           <span className="btn glyphicon glyphicon-edit"

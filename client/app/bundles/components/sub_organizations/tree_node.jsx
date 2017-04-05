@@ -4,7 +4,7 @@ import * as sub_org_constants from './sub_organization_constants';
 
 const SUB_ORGANIZATION_URL = sub_org_constants.SUB_ORGANIZATION_PATH;
 
-require('../sass/sub_organization.scss'); 
+require('../../assets/sass/sub_organization.scss');
 
 export default class TreeNode extends React.Component {
   constructor(props) {
@@ -25,10 +25,10 @@ export default class TreeNode extends React.Component {
 
   render() {
     return(
-      <div className={`${this.props.node.parent == "null" ? 
+      <div className={`${this.props.node.parent == "null" ?
         "parent_program" : "sub-node"}`}>
         <ul className="list-group">
-          <li className={`${this.props.node.parent == "null" ? 
+          <li className={`${this.props.node.parent == "null" ?
             "list-group-item list-group-item-info" : "list-group-item"}`}>
 
             <div className="col-md-1 pull-left">
@@ -41,7 +41,7 @@ export default class TreeNode extends React.Component {
             <b>{I18n.t("sub_organizations.name")}</b>
             <a className="title_node cursor"
               title={this.props.node.text}
-              href={SUB_ORGANIZATION_URL + "/" + this.props.organization.id + 
+              href={SUB_ORGANIZATION_URL + "/" + this.props.organization.id +
                 "/programs/" + this.props.node.id}>
               {this.props.node.text}
             </a>
@@ -52,7 +52,7 @@ export default class TreeNode extends React.Component {
               onClick={this.onClickMenuHandle.bind(this)}>
             </i>
 
-            <ul className="list-inline pull-right hidden 
+            <ul className="list-inline pull-right hidden
               animation" data-index={this.props.node.id}>
               <li>
                 <i className="fa fa-pencil pull-right cursor"
@@ -66,7 +66,7 @@ export default class TreeNode extends React.Component {
               <li><i className="fa fa-plus pull-right cursor"
                 title={I18n.t("sub_organizations.new_sub_program")}
                 onClick={this.onClickCreate.bind(this)}
-                aria-hidden="true" 
+                aria-hidden="true"
                 data-parent={this.props.node.id}></i>
               </li>
             </ul>
@@ -74,7 +74,7 @@ export default class TreeNode extends React.Component {
            <li className="list-group-item list-group-item-action flex-column align-items-start nothing hidden">
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">
-                {this.props.children.length > 0 ? 
+                {this.props.children.length > 0 ?
                   <small>{I18n.t("sub_organizations.sub_program",
                   {number: this.props.children.length})}</small> :
                   <small>{I18n.t("sub_organizations.nothing")}</small>
@@ -85,7 +85,7 @@ export default class TreeNode extends React.Component {
           {this.state.slide ? this.renderSubNode(this.props.children) : ''}
         </ul>
       </div>
-    );  
+    );
   }
 
   renderSubNode(nodes) {

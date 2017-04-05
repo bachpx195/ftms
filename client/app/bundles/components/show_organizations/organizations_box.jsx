@@ -11,7 +11,7 @@ import * as user_constants from '../users/user_constants';
 const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
 
 const ORGANIZATION_URL = app_constants.APP_NAME + 'organizations';
-require('../sass/show_organization.scss');
+require('../../assets/sass/show_organization.scss');
 
 export default class OrganizationBox extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ export default class OrganizationBox extends React.Component {
     }
   }
 
-  
+
   render() {
     let owner = this.state.organization.owner;
     let count_users = (this.state.organization.users || []).length;
@@ -62,7 +62,7 @@ export default class OrganizationBox extends React.Component {
         <div className='col-md-9'>
           <div className='box box-success'>
             <div className='box-header with-border'>
-              <BoxTitle organization={this.state.organization} 
+              <BoxTitle organization={this.state.organization}
                 handleAfter={this.handleAfter.bind(this)}
                 programs={this.state.programs}/>
               <div className='box-tools pull-right'>
@@ -188,9 +188,9 @@ export default class OrganizationBox extends React.Component {
 
   renderOwner(owner) {
     return(
-      <a className='image' 
+      <a className='image'
         onError={this.checkImage.bind(this)}
-        title={owner.name} 
+        title={owner.name}
         href={USER_URL + owner.id} >
         <img src={owner.avatar.url} className='img-circle' />
       </a>

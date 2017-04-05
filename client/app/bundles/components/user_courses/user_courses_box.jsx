@@ -4,8 +4,8 @@ import * as app_constants from 'constants/app_constants';
 import * as user_course_constants from './user_course_constants';
 import * as user_constants from '../users/user_constants';
 
-require('../sass/color_status.scss');
-require('../sass/user_course.scss');
+require('../../assets/sass/color_status.scss');
+require('../../assets/sass/user_course.scss');
 
 const LIMIT_DESCRIPTION = user_course_constants.LIMIT_DESCRIPTION;
 const USER_COURSE_URL = app_constants.APP_NAME + user_course_constants.USER_COURSES_PATH;
