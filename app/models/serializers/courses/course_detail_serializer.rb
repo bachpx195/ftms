@@ -1,6 +1,6 @@
 class Serializers::Courses::CourseDetailSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name, :image, :description, :status, :creator_id,
+  attrs :id, :name, :image, :document, :description, :status, :creator_id,
     :language_id, :training_standard_id, :managers, :members,
     :unassigned_users, :start_date, :end_date, :creator, :owner,
     :training_standards, :languages, :evaluation_standards,

@@ -4,6 +4,7 @@ import MenuCourse from './menu_course';
 import ModalAssignMember from './modal_assign_member/modal';
 import ModalTask from './add_tasks/modal_task';
 import ModalEvaluateMember from './modal_evaluate_member/modal';
+import ModalPreviewDocument from '../shareds/modal_preview_document';
 import css from './course_css.scss';
 
 import * as app_constants from 'constants/app_constants';
@@ -36,7 +37,8 @@ export default class CoursesShowBox extends React.Component {
       selected_items: [],
       remain_items: [],
       targetable_type: '',
-      foo: true
+      foo: true,
+      document_preview: false
     }
   }
 
@@ -227,6 +229,38 @@ export default class CoursesShowBox extends React.Component {
     );
   }
 
+  renderDocument() {
+    if (this.state.course.document && this.state.course.document.url) {
+      let document_url = this.state.course.document.url;
+      let document_name =
+        document_url.substring(document_url.lastIndexOf('/') + 1);
+
+      return (
+        <div className='col-md-3 info-panel'>
+          <div className='box box-primary'>
+          <div className='box-header with-border box-header-gray'>
+            <h3 className='label box-title'>
+              {I18n.t("courses.document")}
+            </h3>
+          </div>
+          <div className='box-body document-box'>
+            <div className='direct-document'>
+              <a href={document_url} download={document_name} target='_blank'>
+                {document_name}
+              </a>
+            </div>
+            <button
+              onClick={this.clickPreviewDocument.bind(this)}
+              className='btn btn-info btn-xs preview-document-button'>
+              {I18n.t("courses.buttons.preview")}
+            </button>
+          </div>
+        </div>
+        </div>
+      );
+    }
+  }
+
   render() {
     let course = this.state.course;
     let link_creator = null;
@@ -313,6 +347,9 @@ export default class CoursesShowBox extends React.Component {
             this.renderUsers()
           }
         </div>
+        {
+          this.renderDocument()
+        }
         <ModalAssignMember unassignedUsers={this.state.course.unassigned_users}
           managers={this.state.course.managers}
           members={this.state.course.members}
@@ -336,6 +373,11 @@ export default class CoursesShowBox extends React.Component {
           user={this.state.user} course={this.state.course}
           evaluation_template={this.state.evaluation_template}
           afterEvaluateMember={this.afterEvaluateMember.bind(this)}
+        />
+
+        <ModalPreviewDocument
+          document={this.state.course.document}
+          document_preview={this.state.document_preview}
         />
       </div>
     );
@@ -400,6 +442,7 @@ export default class CoursesShowBox extends React.Component {
     }
     this.setState({
       course: this.state.course,
+      document_preview: false
     });
   }
 
@@ -433,6 +476,12 @@ export default class CoursesShowBox extends React.Component {
     if ($('.td-course-edit-delete').find('.finish-button')) {
       $('.td-course-edit-delete').css('margin-left','35%');
     }
+  }
 
+  clickPreviewDocument() {
+    this.setState({
+      document_preview: true
+    });
+    $('.modal-preview-document').modal();
   }
 }
