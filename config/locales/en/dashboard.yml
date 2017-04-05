@@ -16,6 +16,7 @@ en:
   sidebar:
     projects: 'Projects'
     space: "MY SPACE"
+    moving_history: "Moving History"
     main_nav: "MAIN NAVIGATION"
     dashboard: "Dashboard"
     languages: "Languages"

@@ -49,7 +49,6 @@ namespace :db do
     end
 
     function = Function.create controller_name: "organizations", action: "index"
-    function = Function.create controller_name: "organizations", action: "show"
     function = Function.create controller_name: "users", action: "show"
 
     Rails.application.routes.routes.map do |router|
@@ -357,12 +356,12 @@ namespace :db do
     ])
 
     puts "18. create Profile"
-    Profile.create!([
-      {user_id: 4, language_id: 1, organization_id: 2, program_id: 1,
-        staff_code: "B123456"},
-      {user_id: 6, language_id: 1, organization_id: 2, program_id: 1,
-        staff_code: "B123457"},
-    ])
+    User.all.limit(9).each do |user|
+      Profile.create!([
+        {user: user, language_id: 1, organization_id: 2, program_id: 1,
+          staff_code: "#{user.id + 1}"},
+      ])
+    end
 
     puts "19. Create Evaluation templates"
     EvaluationTemplate.create!([
@@ -381,7 +380,7 @@ namespace :db do
     ])
 
     puts "21. create RoleFunction"
-    Role.all.each do |role|
+    Role.all.limit(3).each do |role|
       Function.all.each do |function|
         RoleFunction.create! role_id: role.id, function_id: function.id
       end
@@ -436,7 +435,7 @@ namespace :db do
     end
     team.user_subject_ids = user_subject_ids
 
-    puts "29. Add dynamictasks for user"
+    puts "29 Add dynamictasks for user"
     User.find(11).dynamic_tasks << DynamicTask.last
     User.find(11).dynamic_tasks << DynamicTask.first
     User.find(11).dynamic_tasks << DynamicTask.second
@@ -446,5 +445,12 @@ namespace :db do
       {name: "Project1", organization_id: 1, creator_id: 1},
       {name: "Project2", organization_id: 1, creator_id: 2},
       {name: "Project3", organization_id: 2, creator_id: 3}])
+
+    puts "31 Create Moving History"
+    5.times do |n|
+      user = User.find_by id: n + 11
+      MovingHistory.create user_id: user.id, organization_id: Organization.second.id,
+        sourceable: user.courses.first, destinationable: Course.second, move_date: "06/09/2017"
+    end
   end
 end
