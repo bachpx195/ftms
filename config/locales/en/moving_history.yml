@@ -1,0 +1,8 @@
+en:
+  moving_histories:
+    organization_name: "Organization Name"
+    moving_history_box:
+      title: "Organization Moving History"
+    info_box:
+      title: "Moving History Info"
+      count_transfer: "Number of Transfer"

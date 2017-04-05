@@ -24,6 +24,8 @@ const USERS_URL = app_constants.APP_NAME +
   dashboard_constands.USERS_PATH;
 const MY_SPACE_COURSES_URL = app_constants.APP_NAME +
   dashboard_constands.MY_SPACE_COURSES_PATH;
+const MOVING_HISTORY_URL = app_constants.APP_NAME +
+  dashboard_constands.MOVING_HISTORY_PATH;
 const PROJECTS_URL = app_constants.APP_NAME +
   dashboard_constands.PROJECTS_PATH;
 
@@ -204,6 +206,14 @@ export default class Sidebar extends React.Component {
                 <a href={USERS_URL} onClick={this.onClick.bind(this)}>
                   <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
                   <span>{I18n.t('sidebar.manage_user')}</span>
+                </a>
+              </li>
+            </Permit>
+            <Permit action='moving_histories/index'>
+              <li data-page='moving_history'>
+                <a href={MOVING_HISTORY_URL} onClick={this.onClick.bind(this)}>
+                  <i className='fa fa-history'></i>
+                  <span>{I18n.t('sidebar.moving_history')}</span>
                 </a>
               </li>
             </Permit>
