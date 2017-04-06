@@ -4,16 +4,16 @@ class Serializers::AssignUser::CourseSerializer <
 
   def managers
     Serializers::Courses::CourseMembersSerializer
-      .new(object: object.managers, scope: {course: course}).serializer
+      .new(object: @course_supports.managers, scope: {course: object}).serializer
   end
 
   def members
     Serializers::Courses::CourseMembersSerializer
-      .new(object: object.members, scope: {course: course}).serializer
+      .new(object: @course_supports.members, scope: {course: object}).serializer
   end
 
   def unassigned_users
     Serializers::Users::UsersSerializer
-      .new(object: object.unassigned_users).serializer
+      .new(object: @course_supports.unassigned_users).serializer
   end
 end

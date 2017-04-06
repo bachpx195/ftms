@@ -24,7 +24,7 @@ export default class TeamsShowBox extends React.Component {
         <div className='col-md-12'>
           <ul className='nav nav-tabs tab-bar'>
             <li className='active'>
-              <a data-toggle='tab' href='#user-subject'>
+              <a data-toggle='tab' href='#user-subject' className='tab-header'>
                 <i className='fa fa-file-text-o'></i>
                   {this.state.team.name}
               </a>

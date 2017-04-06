@@ -4,6 +4,7 @@ class Serializers::Programs::ProgramDetailSerializer <
     :user_counts, :training_standards, :courses, :course_counts,
     :program_subjects, :program_subject_counts, :languages, :statuses
   delegate :statuses, to: :supports
+
   def organization
     Serializers::Programs::OrganizationsSerializer
       .new(object: object.organization).serializer
@@ -55,6 +56,6 @@ class Serializers::Programs::ProgramDetailSerializer <
 
   def languages
     Serializers::Languages::LanguagesSerializer
-      .new(object: supports.languages)
+      .new(object: supports.languages).serializer
   end
 end

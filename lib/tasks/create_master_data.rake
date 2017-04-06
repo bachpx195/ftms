@@ -409,13 +409,25 @@ namespace :db do
       TestRule.create name: "Test Rule #{n}", organization_id: 2, creator_id: 1
     end
 
-    puts "26. Create Static CourseSubject"
+    puts "26. Create Static Subject"
+    subject = Subject.first
+    Survey.take(5).each do |survey|
+      StaticTask.create targetable: survey, ownerable: subject
+    end
+    Assignment.take(5).each do |assignment|
+      StaticTask.create targetable: assignment, ownerable: subject
+    end
+    TestRule.take(5).each do |test_rule|
+      StaticTask.create targetable: test_rule, ownerable: subject
+    end
+
+    puts "27. Create Static CourseSubject"
     course_subject = CourseSubject.first
-    Assignment.all.each do |assignment|
+    Assignment.take(5).each do |assignment|
       StaticTask.create targetable: assignment, ownerable: course_subject
     end
 
-    puts "27. Create Dynamic Task"
+    puts "28. Create Dynamic Task"
     course_subject = CourseSubject.first
     StaticTask.all.each do |static_tasks|
       DynamicTask.create targetable: static_tasks, ownerable: course_subject,
@@ -426,7 +438,7 @@ namespace :db do
         user_id: 13, status: "init"
     end
 
-    puts "28. Create Team"
+    puts "29. Create Team"
     course_subject = CourseSubject.first
     team = course_subject.teams.create! name: "Team Super", creator_id: 1
     user_subject_ids = []
@@ -435,18 +447,18 @@ namespace :db do
     end
     team.user_subject_ids = user_subject_ids
 
-    puts "29 Add dynamictasks for user"
+    puts "30. Add dynamictasks for user"
     User.find(11).dynamic_tasks << DynamicTask.last
     User.find(11).dynamic_tasks << DynamicTask.first
     User.find(11).dynamic_tasks << DynamicTask.second
 
-    puts "30. Create Project"
+    puts "31. Create Project"
     Project.create!([
       {name: "Project1", organization_id: 1, creator_id: 1},
       {name: "Project2", organization_id: 1, creator_id: 2},
       {name: "Project3", organization_id: 2, creator_id: 3}])
 
-    puts "31 Create Moving History"
+    puts "32. Create Moving History"
     5.times do |n|
       user = User.find_by id: n + 11
       MovingHistory.create user_id: user.id, organization_id: Organization.second.id,

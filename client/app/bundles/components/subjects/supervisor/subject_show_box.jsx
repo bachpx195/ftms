@@ -105,21 +105,21 @@ export default class SupervisorSubjectShowBox extends React.Component {
   handleAfterDeleteTask(index, task, type, user_index, user) {
     if (user) {
       _.remove(this.state.subject_detail.user_subjects[user_index]
-        .user_course_task[type], ({task_id}) => {
-        return task_id == index
-      });
+        .user_course_task[type], ({task_id}) => task_id == index);
       this.state.subject_detail.course_subject_task[type].push(task)
-      this.state.subject_detail.course_subject_task[type].sort((obj1, obj2) => {
-        return obj1.id - obj2.id
-      })
+      this.state.subject_detail.course_subject_task[type]
+        .sort((obj1, obj2) => obj1.id - obj2.id);
+    } else if (this.props.course) {
+      _.remove(this.state.subject_detail.course_subject_task[type],
+        ({task_id}) => task_id == index);
     } else {
       _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
         return task_id == index
       });
-      this.state.subject_detail.task[type].push(task)
+      this.state.subject_detail.task[type].push(task);
       this.state.subject_detail.task[type].sort((obj1, obj2) => {
         return obj1.id - obj2.id
-      })
+      });
     }
     this.setState({
       subject_detail: this.state.subject_detail
