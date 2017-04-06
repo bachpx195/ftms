@@ -14,7 +14,6 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.datetime :deleted_at
       t.integer :creator_id, index: true
       t.integer :owner_id
-      t.string :document
 
       t.timestamps
     end

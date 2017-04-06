@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   resources :users
   resources :roles
   resources :role_functions
+  resources :documents, only: [:create, :destroy]
 
   namespace :change_role do
     resources :users, only: [:show, :edit, :update]

@@ -10,7 +10,6 @@
 
   .modal-content {
     height: 100%;
-    position: relative;
   }
 
   .modal-header {
@@ -18,14 +17,17 @@
   }
 
   .modal-body {
-    position: absolute;
+    height: calc(100% - 105px);
     width: 100%;
-    height: calc(100% - 55px);
   }
 
   .frame-preview-document {
-    overflow: hidden;
     height: 100%;
+    overflow: hidden;
     width: 100%;
+  }
+
+  .modal-footer {
+    height: 20px;
   }
 }

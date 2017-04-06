@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-require('../sass/modal_preview_document.scss');
+require('../../assets/sass/modal_preview_document.scss');
 
 import * as app_constants from 'constants/app_constants';
 
@@ -8,37 +8,33 @@ export default class ModalPreviewDocument extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      document: props.document,
-      document_preview: props.document_preview
+      document: props.document_preview
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      document: nextProps.document,
-      document_preview: nextProps.document_preview
+      document: nextProps.document_preview
     });
   }
 
-  renderFrame(extension, should_render) {
-    if (should_render) {
-      if (extension.includes('doc')) {
-        let encoded_url = encodeURIComponent(window.location.origin
-          + this.state.document.url);
-        let preview_url = 'https://view.officeapps.live.com/op/view.aspx?src='
-          + encoded_url;
-        return <iframe src={preview_url}
-          className='frame-preview-document'/>
-      } else {
-        return <iframe src={this.state.document.url}
-          className='frame-preview-document'/>
-      }
+  renderFrame(extension) {
+    if (extension.includes('doc')) {
+      let encoded_url = encodeURIComponent(window.location.origin
+        + this.state.document.file.url);
+      let preview_url = 'https://view.officeapps.live.com/op/view.aspx?src='
+        + encoded_url;
+      return <iframe src={preview_url}
+        className='frame-preview-document'/>
+    } else {
+      return <iframe src={this.state.document.file.url}
+        className='frame-preview-document'/>
     }
   }
 
   render() {
-    if (this.state.document && this.state.document.url) {
-      let document_url = this.state.document.url;
+    if (this.state.document.file && this.state.document.file.url) {
+      let document_url = this.state.document.file.url;
       let document_name =
         document_url.substring(document_url.lastIndexOf('/') + 1);
       let document_extension =
@@ -55,16 +51,49 @@ export default class ModalPreviewDocument extends React.Component {
               </div>
               <div className='modal-body'>
               {
-                this.renderFrame(document_extension,
-                  this.state.document_preview)
+                this.renderFrame(document_extension)
               }
+              </div>
+              <div className='modal-footer'>
+                <button type="button" className="btn btn-sm btn-danger"
+                  onClick={this.handleDeleteDocument.bind(this)}>
+                  {I18n.t('buttons.delete')}
+                </button>
+                <a className="btn btn-sm btn-primary"
+                  href={document_url} title={document_name}
+                  download={document_name} target='_blank'>
+                  {I18n.t('buttons.download')}
+                </a>
+                <button type="button" className="btn btn-sm btn-secondary"
+                  data-dismiss="modal">
+                  {I18n.t('buttons.close')}
+                </button>
               </div>
             </div>
           </div>
         </div>
       );
     } else {
-      return <div/>;
+      return (
+        <div className='modal fade modal-preview-document' role='dialog'/>
+      );
     }
+  }
+
+  handleDeleteDocument() {
+    if (confirm(I18n.t("data.confirm_delete"))) {
+      let url = app_constants.APP_NAME + 'documents/' + this.state.document.id;
+      axios({
+        url: url,
+        method: 'DELETE',
+        headers: {'Accept': 'application/json'},
+        params: {authenticity_token: ReactOnRails.authenticityToken()}
+      })
+      .then(response => {
+        this.props.handleDocumentDeleted(this.state.document);
+        $('.modal-preview-document').modal('hide');
+      })
+      .catch(error => this.setState({errors: error.response.data.errors}));
+      }
   }
 }

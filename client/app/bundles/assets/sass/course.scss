@@ -141,6 +141,28 @@ $td-course-edit-delete-span: #1c1c1c;
   color: $member-list;
 }
 
+.info-panel .document-list {
+  list-style: none;
+  margin-top: 10px;
+  padding: 0 0 0 5px;
+}
+
+.info-panel .document-list .document-item {
+  margin-bottom: 20px;
+}
+
+.document-list .document-item .direct-document {
+  display: inline-block;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.direct-document a {
+  text-decoration: none;
+}
+
 .info-panel .plus-node {
   background-color: $plus-node;
   border-radius: 50%;
