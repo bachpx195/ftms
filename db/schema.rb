@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
     t.integer  "owner_id"
+    t.string   "document"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["creator_id"], name: "index_courses_on_creator_id", using: :btree
@@ -272,13 +273,12 @@ ActiveRecord::Schema.define(version: 20170323035408) do
     t.text     "name",       limit: 65535
     t.integer  "priority"
     t.integer  "project_id"
-    t.integer  "task_id"
     t.integer  "creator_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["creator_id"], name: "index_requirements_on_creator_id", using: :btree
     t.index ["project_id"], name: "index_requirements_on_project_id", using: :btree
-    t.index ["task_id"], name: "index_requirements_on_task_id", using: :btree
   end
 
   create_table "results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

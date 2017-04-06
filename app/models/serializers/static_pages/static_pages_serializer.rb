@@ -2,7 +2,6 @@ class Serializers::StaticPages::StaticPagesSerializer <
   Serializers::SupportSerializer
   attrs :id, :name, :description, :image, :number_of_trainees,
     :number_of_courses
-
   def image
     object.image.url
   end
