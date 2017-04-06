@@ -28,12 +28,10 @@ export default class ModalTask extends React.Component{
     let user_task;
     let button_name ;
     let available_tasks = [];
-    if(this.state.type != '') {
-        available_tasks = this.state.task[this.state.type].filter(task => {
-        let index = this.state.user_tasks[this.state.type].findIndex(_user_task => {
-          return _user_task.id == task.id;
-        })
-        return index < 0;
+    if (this.state.type != '') {
+      available_tasks = this.state.task[this.state.type].filter(task => {
+        return this.state.user_tasks[this.state.type]
+          .findIndex(_user_task => _user_task.id == task.id) < 0;
       });
     }
     this.state.task[this.state.type] = available_tasks

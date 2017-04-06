@@ -5,24 +5,16 @@ class CreateTask::TasksController < ApplicationController
   before_action :namespace_authorize, only: :create
 
   def create
-    respond_to do |format|
-      @target = class_eval(params[:task][:type].classify).new task_params
-      if @target.save
-        @task = StaticTask.new targetable: @target, ownerable: @owner
-        unless @task.save
-          format.html
-          format.json do
-            render json: {message: flash_message("not_created")},
-              status: :unprocessable_entity
-          end
-        end
-      end
-      target = @target.attributes.merge task_id: @task.id
-      format.html
-      format.json do
-        render json: {message: flash_message("created"), target: target}
+    @target = class_eval(params[:task][:type].classify).new task_params
+    if @target.save
+      @task = StaticTask.new targetable: @target, ownerable: @ownerable
+      unless @task.save
+        render json: {message: flash_message("not_created")},
+          status: :unprocessable_entity
       end
     end
+    target = @target.attributes.merge task_id: @task.id
+    render json: {message: flash_message("created"), target: target}
   end
 
   private
@@ -35,13 +27,8 @@ class CreateTask::TasksController < ApplicationController
     if CLASS_NAMES.include? klass
       @ownerable = class_eval(klass).find_by id: params[:task][:ownerable_id]
       unless @ownerable
-        respond_to do |format|
-          format.html {redirect_to :back}
-          format.json do
-            render json: {message: flash_message("not_found")},
-              status: :not_found
-          end
-        end
+        render json: {message: flash_message("not_found")},
+          status: :not_found
       end
     else
       raise "Forbidden"

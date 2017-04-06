@@ -55,7 +55,7 @@ export default class TabsHeader extends React.Component {
           <div id='home' className='tab-pane fade'>
             <div id='survey' className='clearfix'>
               <BlockTasks
-                tasks={this.state.subject_detail.subject_task.surveys}
+                tasks={this.state.subject_detail.course_subject_task.surveys}
                 title={I18n.t('subjects.titles.surveys')}
                 handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
                 type='surveys'/>
@@ -64,7 +64,7 @@ export default class TabsHeader extends React.Component {
           <div id='menu1' className='tab-pane fade'>
             <div id='assignment' className='clearfix'>
               <BlockTasks
-                tasks={this.state.subject_detail.subject_task.assignments}
+                tasks={this.state.subject_detail.course_subject_task.assignments}
                 title={I18n.t('subjects.titles.assignments')}
                 handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
                 type='assignments'/>
@@ -73,7 +73,7 @@ export default class TabsHeader extends React.Component {
           <div id='menu2' className='tab-pane fade'>
             <div id='test_rules' className='clearfix'>
               <BlockTasks
-                tasks={this.state.subject_detail.subject_task.test_rules}
+                tasks={this.state.subject_detail.course_subject_task.test_rules}
                 title={I18n.t('subjects.titles.tests')}
                 handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
                 type='test_rules'/>

@@ -154,7 +154,7 @@ export default class SupervisorSubjectShowBox extends React.Component {
   }
 
   afterCreateTask(target, type, owner) {
-    if (owner == 'CourseSubject' ) {
+    if (owner == 'CourseSubject') {
       this.state.subject_detail.course_subject_task[type].push(target);
     } else {
       this.state.subject_detail.subject_task[type].push(target);
