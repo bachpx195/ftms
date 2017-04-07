@@ -3,9 +3,21 @@ class ChangeRole::UsersController < ApplicationController
   before_action :namespace_authorize
 
   def show
-    @supports = Supports::UserSupport.new
+    @user_supports = Supports::UserSupport.new
     query = FunctionUserQuery.new @user.id
     @functions = QueryObject.new(query).exec
+    respond_to do |format|
+      format.json do
+        render json: {
+          roles: Serializers::Roles::RolesSerializer
+            .new(object: @user.roles).serializer,
+          all_roles: Serializers::Roles::RolesSerializer
+            .new(object: @user_supports.roles).serializer,
+          functions: Serializers::Roles::FunctionsSerializer
+            .new(object: @functions).serializer
+        }
+      end
+    end
   end
 
   def update

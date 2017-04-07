@@ -10,7 +10,7 @@ class AssignUser::CoursesController < ApplicationController
           @course_supports = Supports::CourseSupport.new course: @course
           render json: {
             course: Serializers::AssignUser::CourseSerializer
-              .new(object: @course, scope: {course_supports: course_supports})
+              .new(object: @course, scope: {course_supports: @course_supports})
               .serializer
           }
         else

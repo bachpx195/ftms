@@ -29,6 +29,7 @@ class Serializers::BaseSerializer
 
   def single_serializer
     serializers = Hash.new
+    return serializers unless @object
     self.attributes.each do |attribute|
       instance_variable_set "@#{attribute}", @object[attribute.to_s]
       if attribute.in? self.methods
