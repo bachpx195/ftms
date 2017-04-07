@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :find_organization, only: [:show, :update, :destroy]
-  before_action :authorize_class
+  before_action :authorize_request
 
   def index
     if current_user.roles.pluck(:name).include? "admin"
@@ -116,5 +116,10 @@ class OrganizationsController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(organization: @organization,
+      function: @function), OrganizationPolicy
   end
 end

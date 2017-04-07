@@ -6,48 +6,19 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index?
-    false
-  end
-
-  def show?
-    scope.where(id: record.id).exists?
-  end
-
-  def create?
-    false
+  Settings.functions.each do |function_name|
+    define_method "#{function_name}?" do
+      function = Function.find_by controller_name: record[:controller],
+        action: function_name.to_s
+      @user.functions.include? function
+    end
   end
 
   def new?
     create?
   end
 
-  def update?
-    false
-  end
-
   def edit?
     update?
-  end
-
-  def destroy?
-    false
-  end
-
-  def scope
-    Pundit.policy_scope!(user, record.class)
-  end
-
-  class Scope
-    attr_reader :user, :scope
-
-    def initialize user, scope
-      @user = user
-      @scope = scope
-    end
-
-    def resolve
-      scope
-    end
   end
 end

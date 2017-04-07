@@ -3,6 +3,7 @@ import axios from 'axios';
 import ModalCreatSubject from './subject_form/modal_creat_subject'
 import SubjectLists from './subject_lists';
 import Form from './subject_form/form';
+import SubjectPolicy from 'policy/subject_policy';
 
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from './subject_constants';
@@ -40,10 +41,13 @@ export default class SubjectBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8'>
-                  <button type="button" className="btn btn-info create-subject"
-                    onClick={this.handleCreateSubject.bind(this)}>
-                    <i className="fa fa-upload"></i> {I18n.t('subjects.buttons.create')}
-                  </button>
+                  <SubjectPolicy
+                    permit={[{action: ['create'], target: 'children'}]} >
+                    <button type="button" className="btn btn-info create-subject"
+                      onClick={this.handleCreateSubject.bind(this)}>
+                      <i className="fa fa-upload"></i> {I18n.t('subjects.buttons.create')}
+                    </button>
+                  </SubjectPolicy>
                 </div>
                 <ModalCreatSubject subject={this.state.subject}
                   handleAfterCreated={this.handleAfterCreated.bind(this)} />

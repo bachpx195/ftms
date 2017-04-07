@@ -1,7 +1,7 @@
 class ProgramsController < ApplicationController
   before_action :find_organization
   before_action :find_program, except: [:index, :new, :create]
-  before_action :authorize_class
+  before_action :authorize_request
 
   def index
     @programs = []
@@ -146,5 +146,10 @@ class ProgramsController < ApplicationController
       programs += load_sub_programs(sub_program)
     end
     programs
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(organization: @organization,
+      function: @function, program: @program), ProgramPolicy
   end
 end

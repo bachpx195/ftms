@@ -1,6 +1,6 @@
 class Serializers::Organizations::OrganizationsSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name, :programs, :parent
+  attrs :id, :name, :creator_id, :programs, :parent
   attrs :programs, if: :show_program?
 
   def programs
