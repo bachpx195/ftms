@@ -26,9 +26,6 @@ class Subject < ApplicationRecord
 
   scope :find_remain_subjects, ->ids{where.not id: ids}
 
-  has_many :rule_exams, through: :static_properties, source: :propertiable,
-    source_type: Rule.name
-
   validates :name, presence: true
   validates :during_time,
     numericality: {only_integer: true, greater_than_or_equal_to: 0}

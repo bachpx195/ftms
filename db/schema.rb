@@ -333,17 +333,6 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.index ["rule_id"], name: "index_rule_questions_on_rule_id", using: :btree
   end
 
-  create_table "rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
-    t.integer  "total_question"
-    t.integer  "time_of_test"
-    t.integer  "min_score_for_pass"
-    t.integer  "opportunity"
-    t.integer  "number_of_test"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
   create_table "stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "deleted_at"
@@ -426,13 +415,15 @@ ActiveRecord::Schema.define(version: 20170406022049) do
 
   create_table "test_rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.integer  "organization_id"
-    t.text     "content",         limit: 65535
+    t.integer  "total_question"
+    t.integer  "time_of_test"
+    t.integer  "min_score_for_pass"
+    t.integer  "opportunity"
+    t.integer  "number_of_test"
     t.integer  "creator_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.index ["creator_id"], name: "index_test_rules_on_creator_id", using: :btree
-    t.index ["organization_id"], name: "index_test_rules_on_organization_id", using: :btree
   end
 
   create_table "trainee_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

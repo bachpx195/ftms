@@ -1,5 +1,5 @@
 class RuleQuestion < ApplicationRecord
   has_many :questions
 
-  belongs_to :rule
+  belongs_to :test_rule
 end
