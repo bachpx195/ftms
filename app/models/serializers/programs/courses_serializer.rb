@@ -4,6 +4,10 @@ class Serializers::Programs::CoursesSerializer <
     :language_id, :program_id, :start_date, :end_date, :training_standard,
     :members, :course_managers, :subject_count
 
+  def image
+    Hash[:url, object.image.url]
+  end
+
   def training_standard
     Serializers::TrainingStandards::TrainingStandardsSerializer
       .new(object: object.training_standard).serializer
