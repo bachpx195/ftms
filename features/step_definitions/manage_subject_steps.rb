@@ -2,7 +2,7 @@ Given(/^system has a user with email is "([^"]*)" and password is "([^"]*)"$/) d
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has permisstion manage subject include create, edit, delete$/) do
+Given(/^user has permission manage subject include create, edit, delete$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -50,7 +50,7 @@ Then(/^user should redirect to Subjects screen and subject with name "([^"]*)" i
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to delete subject$/) do
+Given(/^user has a permission to delete subject$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 

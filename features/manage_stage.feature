@@ -5,7 +5,7 @@ Feature: Stages
 
   Background:
     Given system has a user with email is "admin@tms.com", password is "12345678"
-      And user has permisstion manage Role include create, edit, delete
+      And user has permission manage Role include create, edit, delete
       And system existed stage with nane is "Intern"
 
     When user logged in successfully
@@ -13,7 +13,7 @@ Feature: Stages
     Then user redirect to home screen
 
   Scenario: Create new stage
-    Given user has a permisstion to create stage
+    Given user has a permission to create stage
       And user input name is "VPG"
 
     When user click button Save in the new stage screen
@@ -21,7 +21,7 @@ Feature: Stages
     Then user should redirect to stages screen and stage with name "VPG" in list stages screen
 
   Scenario: Editing Stage
-    Given user has a permisstion to edit stage
+    Given user has a permission to edit stage
       And user edit stage with name is "Intern" to name is "New dev"
 
     When user click to submit Stage form
@@ -29,8 +29,8 @@ Feature: Stages
     Then User should redirect to list Stages screen and name "New dev" in show Stage screen.
 
   Scenario: Deleting Stage
-    Given user has a permisstion to delete stage
-    And user delete Stage name is "New dev"
+    Given user has a permission to delete stage
+      And user delete Stage name is "New dev"
 
     When User click to delete symbol in the list Stages screen
 

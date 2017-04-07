@@ -5,7 +5,7 @@ Feature: Role
 
   Background:
     Given system has a user with email is "admin@gmail.com" and password is "12345678".
-      And user has permisstion manage Role include create, edit, delete
+      And user has permission manage Role include create, edit, delete
       And system existed Role with name is "admin", has function with controller is "Roles", action is "create" and role children with name is "trainer", has function with controller is "Roles", action is "create"
 
     When user logged in successfully.
@@ -13,7 +13,7 @@ Feature: Role
     Then user should redirect to home screen.
 
   Scenario: Create new Role
-    Given user has a permisstion to create Role
+    Given user has a permission to create Role
       And user create role with name is "GL", has function with controller is "Roles", action is "create"
       And user create children role with name is "", has function with controller is "Roles", action is "create"
 
@@ -22,7 +22,7 @@ Feature: Role
     Then new role created successfully and User should redirect to roles screen with role name "GL" in list role screen
 
   Scenario: Edit Role
-    Given user has a permisstion to edit Role
+    Given user has a permission to edit Role
       And user edit role with name is "admin", has function with controller is "Roles", action is "create" to role with name is "trainer", has function with controller is "Roles", action is "update"
       And user edit children role with name is "trainer", has function with controller is "Roles", action is "create" to role with name is "trainee", has function with controller is "Roles", action is "show"
 
@@ -31,7 +31,7 @@ Feature: Role
     Then Role updated successfully I should redirect to roles screen.
 
   Scenario: Delete Role
-    Given user has a permisstion to delete Role
+    Given user has a permission to delete Role
       And User delete role with name is "trainer", has function with controller is "Roles", action is "update"
 
     When User click button delete.
