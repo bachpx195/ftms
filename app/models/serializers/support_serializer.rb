@@ -50,12 +50,4 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
       end
     task.id if task
   end
-
-  def avatar
-    Hash[:url, object.avatar.url]
-  end
-
-  def image
-    Hash[:url, object.image.url]
-  end
 end

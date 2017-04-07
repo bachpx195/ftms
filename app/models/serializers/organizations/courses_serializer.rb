@@ -4,6 +4,10 @@ class Serializers::Organizations::CoursesSerializer <
     :end_date, :creator_id, :program_id, :training_standard_id,  :owner_id,
     :users
 
+  def image
+    Hash[:url, object.image.url]
+  end
+
   def users
     Serializers::Courses::CourseMembersSerializer
       .new(object: object.managers, scope: {course: object}).serializer

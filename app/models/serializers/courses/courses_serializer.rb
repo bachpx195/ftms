@@ -5,6 +5,10 @@ class Serializers::Courses::CoursesSerializer <
 
   delegate :creator, to: :object
 
+  def image
+    Hash[:url, object.image.url]
+  end
+
   def subjects
     Serializers::Subjects::SubjectsSerializer
       .new(object: object.training_standard.subjects).serializer

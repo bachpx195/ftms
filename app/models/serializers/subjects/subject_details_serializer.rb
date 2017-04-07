@@ -6,6 +6,10 @@ class Serializers::Subjects::SubjectDetailsSerializer <
     :course_subject_teams, if: :check_course_subject
   attrs :course_member, if: :check_course
 
+  def image
+    Hash[:url, object.image.url]
+  end
+
   def training_standard
     Serializers::Subjects::TrainingStandardSerializer
       .new(object: object.training_standards).serializer

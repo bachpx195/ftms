@@ -9,6 +9,10 @@ class Serializers::Courses::CourseDetailSerializer <
   delegate :creator, to: :object
   delegate :owner, to: :object
 
+  def image
+    Hash[:url, object.image.url]
+  end
+
   def managers
     Serializers::Courses::CourseMembersSerializer
       .new(object: supports.managers, scope: {course: object}).serializer
