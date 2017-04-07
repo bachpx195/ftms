@@ -40,7 +40,7 @@ export default class TrainingStandardShow extends React.Component {
         <div className='col-md-2'>
           <a className="btn btn-success" href={evaluation}
             title={I18n.t("training_standards.create_evaluation")}>
-            {I18n.t("training_standards.show_evaluation")}
+            <i className="fa fa-eye"></i> {I18n.t("training_standards.show_evaluation")}
           </a>
         </div>
       );
@@ -50,7 +50,7 @@ export default class TrainingStandardShow extends React.Component {
           <button className="btn btn-success"
             title={I18n.t("training_standards.create_evaluation")}
             onClick={this.onClickCreateEvaluationTemplate.bind(this)}>
-            {I18n.t("training_standards.create_evaluation")}
+            <i className="fa fa-eye"></i> {I18n.t("training_standards.show_evaluation")}
           </button>
         </div>
       );
@@ -59,28 +59,34 @@ export default class TrainingStandardShow extends React.Component {
 
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-5'>
-              <Filter />
-            </div>
-            <div className='col-md-3 text-right'>
-              <Pagination />
-            </div>
-            <div className='col-md-2 text-right'>
+      <div className="box box-success">
+      <div className="row">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="border-btn">
               <button className="btn btn-success"
                 title={I18n.t("training_standards.assign")}
                 onClick={this.onClickButtonAssignSubject.bind(this)}>
-                {I18n.t("training_standards.assign")}
+                <i className="fa fa-plus"></i> {I18n.t("training_standards.assign")}
               </button>
+              {this.renderButton()}
             </div>
-            {this.renderButton()}
           </div>
-          <div className='col-md-12'>
+        </div>
+        <div className="row custom-padding-action">
+          <div className="col-md-4 griddle-head">
+            <Filter />
+          </div>
+          <div className="col-md-4 griddle-head">
+            <Pagination />
+          </div>
+        </div>
+        <div className="row custom-padding-table">
+          <div className="col-md-12">
             <Table />
           </div>
         </div>
+      </div>
       </div>
     );
 

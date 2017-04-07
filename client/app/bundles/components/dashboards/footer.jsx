@@ -7,7 +7,8 @@ export default class Footer extends React.Component {
         <div className="pull-right hidden-xs">
           <b>{I18n.t("footer.version")}</b> 2.0.0
         </div>
-        <strong>{I18n.t("footer.coppy_right")}
+        <strong>
+          {I18n.t("footer.coppy_right")} &copy; {I18n.t("footer.date_coppy_right")}
           <a href="http://almsaeedstudio.com"></a>.
         </strong>
         {I18n.t("footer.all_right")}
