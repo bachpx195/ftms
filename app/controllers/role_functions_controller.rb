@@ -9,7 +9,16 @@ class RoleFunctionsController < ApplicationController
 
       query = FunctionRoleQuery.new @role.id
       @function_role = QueryObject.new(query).exec
-      render json: {functions: @function_role, role: @role}
+      respond_to do |format|
+        format.json do
+          render json: {
+            functions: Serializers::Roles::FunctionsSerializer
+              .new(object: @function_role).serializer,
+            role: Serializers::Roles::RolesSerializer
+              .new(object: @role).serializer
+          }
+        end
+      end
     else
       render json: {message: flash_message("not_update")},
         status: :not_update
