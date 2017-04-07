@@ -405,9 +405,6 @@ namespace :db do
     end
 
     puts "25. create TestRule"
-    10.times do |n|
-      TestRule.create name: "Test Rule #{n}", organization_id: 2, creator_id: 1
-    end
 
     puts "26. Create Static Subject"
     subject = Subject.first
@@ -416,9 +413,6 @@ namespace :db do
     end
     Assignment.take(5).each do |assignment|
       StaticTask.create targetable: assignment, ownerable: subject
-    end
-    TestRule.take(5).each do |test_rule|
-      StaticTask.create targetable: test_rule, ownerable: subject
     end
 
     puts "27. Create Static CourseSubject"

@@ -57,7 +57,4 @@ class Course < ApplicationRecord
   validates :name, presence: true
   validates :training_standard, presence: true
   validates :owner, presence: true
-
-  has_many :rule_exams, through: :static_properties, source: :propertiable,
-    source_type: Rule.name
 end
