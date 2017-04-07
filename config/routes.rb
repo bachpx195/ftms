@@ -97,4 +97,6 @@ Rails.application.routes.draw do
   namespace :move do
     resources :users, only: :create
   end
+
+  resources :categories
 end

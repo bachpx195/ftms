@@ -14,3 +14,4 @@ export const USERS_PATH = 'users';
 export const MY_SPACE_COURSES_PATH = 'my_space/courses';
 export const MOVING_HISTORY_PATH = 'moving_histories';
 export const PROJECTS_PATH = 'projects';
+export const CATEGORY_PATH = 'categories';

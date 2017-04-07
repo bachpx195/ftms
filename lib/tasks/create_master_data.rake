@@ -458,5 +458,11 @@ namespace :db do
       MovingHistory.create user_id: user.id, organization_id: Organization.second.id,
         sourceable: user.courses.first, destinationable: Course.second, move_date: "06/09/2017"
     end
+
+    puts "33. Create Category"
+    ["Ruby", "PHP", "Android", "Java", "iOS"].each do |name|
+      Category.create! name: name, description: "Master your Ruby skills and increase your Rails street cred by learning to build dynamic, sustainable applications for the web.",
+        creator_id: 1
+    end
   end
 end

@@ -41,6 +41,7 @@ import OrganizationBox from '../components/organizations/organizations_box';
 import CoursesBox from '../components/courses/courses_box';
 import ProjectBox from '../components/projects/projects_box';
 import ProjectsShowBox from '../components/projects/projects_show_box';
+import CategoryBox from '../components/categories/categories_box';
 
 ReactOnRails.register({
   Policies,
@@ -75,5 +76,6 @@ ReactOnRails.register({
   TeamsShowBox,
   ProjectBox,
   ProjectsShowBox,
-  MovingHistoryBox
+  MovingHistoryBox,
+  CategoryBox
 });
