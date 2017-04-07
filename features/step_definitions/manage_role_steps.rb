@@ -14,7 +14,7 @@ Then(/^user should redirect to home screen\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to create Role$/) do
+Given(/^user has a permission to create Role$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -34,7 +34,7 @@ Then(/^new role created successfully and User should redirect to roles screen wi
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to edit Role$/) do
+Given(/^user has a permission to edit Role$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -54,7 +54,7 @@ Then(/^Role updated successfully I should redirect to roles screen\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to delete Role$/) do
+Given(/^user has a permission to delete Role$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 

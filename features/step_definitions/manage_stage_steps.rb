@@ -2,7 +2,7 @@ Given(/^system has a user with email is "([^"]*)", password is "([^"]*)"$/) do |
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has permisstion manage Role include create, edit, delete$/) do
+Given(/^user has permission manage Role include create, edit, delete$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -18,7 +18,7 @@ Then(/^user redirect to home screen$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to create stage$/) do
+Given(/^user has a permission to create stage$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -34,7 +34,7 @@ Then(/^user should redirect to stages screen and stage with name "([^"]*)" in li
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to edit stage$/) do
+Given(/^user has a permission to edit stage$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -50,7 +50,7 @@ Then(/^User should redirect to list Stages screen and name "([^"]*)" in show Sta
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^user has a permisstion to delete stage$/) do
+Given(/^user has a permission to delete stage$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 

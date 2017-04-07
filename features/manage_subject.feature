@@ -5,7 +5,7 @@ Feature: Subject
 
   Background:
     Given system has a user with email is "admin@tms.com" and password is "12345678"
-      And user has permisstion manage subject include create, edit, delete
+      And user has permission manage subject include create, edit, delete
       And system existed subject with name is "Ruby's Project 1"
 
     When user click button login in login screen
@@ -29,7 +29,7 @@ Feature: Subject
     Then user should redirect to Subjects screen and subject with name "Ruby's Project 2" in show Subjects screen.
 
   Scenario: Deleting Subject
-    Given user has a permisstion to delete subject
+    Given user has a permission to delete subject
     And user delete a subject with name is "Ruby's Project 2"
 
     When user click to delete symbol in subjects screen
