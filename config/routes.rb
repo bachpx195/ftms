@@ -90,6 +90,10 @@ Rails.application.routes.draw do
   resources :projects, except: [:new, :edit] do
     resources :requirements, only: [:create, :update, :destroy]
   end
-  
+
   resources :moving_histories, only: :index
+
+  namespace :move do
+    resources :users, only: :create
+  end
 end
