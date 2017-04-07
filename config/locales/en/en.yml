@@ -8,6 +8,7 @@ en:
   data:
     confirm_delete: "Are you sure?"
     confirm_unassign: "Confirm unassign?"
+    confirm_change: "Confirm Moving User?"
   sessions:
     email: "Email"
     password: "Password"

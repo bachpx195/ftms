@@ -1,1 +1,6 @@
-<%= react_component "UserShowBox", props: {user: @user}, prevender: false %>
+<%= react_component "UserShowBox",
+  props: {
+    user: @user_supports.user,
+    user_detail: @user_supports.user_serializer
+  },
+  prerender: false %>

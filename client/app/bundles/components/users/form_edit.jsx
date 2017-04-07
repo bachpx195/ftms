@@ -20,11 +20,13 @@ export default class FormEdit extends React.Component {
 
   render() {
     let avatar = null;
-    if(this.state.avatar){
+    if(this.state.avatar) {
       if(this.state.avatar.url) {
-        avatar = <img src={this.state.avatar.url} />;
+        avatar = <img src={this.state.avatar.url}
+          className='img-size-50p' />;
       } else if(this.state.avatar.preview) {
-        avatar = <img src={this.state.avatar.preview} />;
+        avatar = <img src={this.state.avatar.preview}
+          className='img-size-50p' />;
       }
     }
     return(
@@ -44,7 +46,7 @@ export default class FormEdit extends React.Component {
             <Dropzone onDrop={this.onDrop.bind(this)} ref='dropzoneField'
               multiple={false} accept='image/*' />
           </div>
-          <div className='image-preview'>
+          <div className='image-preview image-center'>
             {avatar}
           </div>
         </div>
@@ -103,9 +105,9 @@ export default class FormEdit extends React.Component {
       formData.append('user[' + key + ']', user[key]);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let method = 'PATCH';    
+    let method = 'PATCH';
     axios({
-      url: this.props.url + '/' + this.props.user.id,
+      url: this.props.url + this.props.user.id,
       method: method,
       data: formData,
       headers: {'Accept': 'application/json'}

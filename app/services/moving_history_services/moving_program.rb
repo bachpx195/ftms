@@ -1,7 +1,7 @@
 class MovingHistoryServices::MovingProgram
-  include MovingHistory
+  include MovingHistoryUtil
 
-  def initialize args
+  def initialize args = {}
     @user = args[:user]
     @destination = args[:destination]
     @params = args[:params]
@@ -9,7 +9,7 @@ class MovingHistoryServices::MovingProgram
 
   def perform
     if @user.profile.update_attributes program_id: @destination.id
-      MovingHistoryServices::MovingProgram.new.create_moving_history @user, @params
+      create_moving_history @user, @params.merge(move_date: Date.today)
     end
   end
 end
