@@ -175,3 +175,12 @@
 .layout-top-nav .main-header > .logo:hover {
   background-color: $c-logo-hover;
 }
+
+.nav-tabs {
+  .active {
+    .tab-header,
+    .tab-header:hover {
+      color: $c-white;
+    }
+  }
+}

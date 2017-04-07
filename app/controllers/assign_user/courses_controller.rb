@@ -7,10 +7,11 @@ class AssignUser::CoursesController < ApplicationController
         assign_user_form = AssignUserCourseForm.new course: @course,
           user_courses: user_courses_params[:user_courses_attributes]
         if assign_user_form.save
-          @supports = Supports::CourseSupport.new course: @course
+          @course_supports = Supports::CourseSupport.new course: @course
           render json: {
             course: Serializers::AssignUser::CourseSerializer
-              .new(object: @supports, scope: {course: @course}).serializer
+              .new(object: @course, scope: {course_supports: course_supports})
+              .serializer
           }
         else
           render json: {message: flash_message("not_updated")},

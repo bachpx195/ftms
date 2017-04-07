@@ -48,7 +48,7 @@ export default class HomePage extends React.Component {
         <div key={language.id} className="col-md-6">
           <div className="language clearfix">
             <div className="col-sm-3 language-image">
-              <img src={`${language.image}`} />
+              <img src={`${language.image.url}`} />
             </div>
             <div className="col-sm-9 detail">
               <div className="row head">

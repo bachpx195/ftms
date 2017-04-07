@@ -17,7 +17,8 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def task
     Serializers::Subjects::TasksSerializer
-      .new(object: subject_supports).serializer
+      .new(object: object, scope: {subject_supports: subject_supports})
+      .serializer
   end
 
   def subject_task

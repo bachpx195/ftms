@@ -7,7 +7,6 @@ class Serializers::Courses::CourseDetailSerializer <
     :evaluation_template, :member_evaluations, :course_subjects
 
   delegate :creator, to: :object
-
   delegate :owner, to: :object
 
   def managers

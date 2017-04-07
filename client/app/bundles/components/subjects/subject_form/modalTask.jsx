@@ -34,7 +34,8 @@ export default class ModalTask extends React.Component{
           .findIndex(_user_task => _user_task.id == task.id) < 0;
       });
     }
-    this.state.task[this.state.type] = available_tasks
+    let list_available_tasks = Object.assign({}, this.state.task,
+      {[this.state.type]: available_tasks});
     if(this.state.list_user) {
       button_name = I18n.t('buttons.add_task')
       user_task = (
@@ -46,7 +47,7 @@ export default class ModalTask extends React.Component{
       button_name = I18n.t('buttons.list_task')
       user_task = (
         <div className='panel-project panel-body'>
-          <ListTasks task={this.state.task} type={this.state.type}
+          <ListTasks task={list_available_tasks} type={this.state.type}
             afterChoose={this.afterChoose.bind(this)}
             ownerable_id={this.props.ownerable_id}
             ownerable_type={this.props.ownerable_type}
