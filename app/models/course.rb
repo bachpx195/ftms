@@ -2,13 +2,12 @@ class Course < ApplicationRecord
   acts_as_paranoid
 
   mount_uploader :image, ImageUploader
-  mount_uploader :document, DocumentUploader
 
   USER_COURSE_ATTRIBUTES_PARAMS = [user_courses_attributes: [:id, :user_id,
     :type, :_destroy]]
   ATTRIBUTE_PARAMS = [:name, :image, :description, :status, :start_date,
     :language_id, :program_id, :end_date, :training_standard_id, :owner_id,
-    :document, :remove_document]
+    :documents]
 
   enum status: [:init, :in_progress, :finished]
 
@@ -51,6 +50,7 @@ class Course < ApplicationRecord
     source_type: Project.name
   has_many :dynamic_test_rules, through: :dynamic_tasks, source: :targetable,
     source_type: TestRule.name
+  has_many :documents, as: :documentable, dependent: :destroy
 
   accepts_nested_attributes_for :user_courses, allow_destroy: true
 

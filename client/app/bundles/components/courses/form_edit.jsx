@@ -16,47 +16,17 @@ export default class FormEdit extends React.Component {
       course: props.course,
       image:  props.course.image,
       changeImage: false,
-      document: props.course.document,
-      changeDocument: false,
-      removeDocument: false,
       errors: null,
     }
   }
 
   render() {
     let image = '';
-    let document = '';
     if (this.state.image) {
       if (this.state.image.url) {
         image = <img src={this.state.image.url} />;
       } else if (this.state.image.preview) {
         image = <img src={this.state.image.preview} />;
-      }
-    }
-    if (this.state.document) {
-      if (this.state.document.url) {
-        let document_url = this.state.document.url;
-        let document_name =
-          document_url.substring(document_url.lastIndexOf('/') + 1);
-        document = (
-          <div>
-            <a href={document_url}>{document_name}</a>
-            <button type='button' className='btn btn-warning btn-remove-file'
-              onClick={this.onRemoveDocumentClick.bind(this)}>
-              <i className='fa fa-close'></i>
-            </button>
-          </div>
-        );
-      } else if (this.state.document.name) {
-        document = (
-          <div>
-            <span>{this.state.document.name}</span>
-            <button type='button' className='btn btn-warning btn-remove-file'
-              onClick={this.onRemoveDocumentClick.bind(this)}>
-              <i className='fa fa-close'></i>
-            </button>
-          </div>
-        );
       }
     }
     return (
@@ -92,27 +62,6 @@ export default class FormEdit extends React.Component {
                   </div>
                   <div className='image-preview image-course'>
                     {image}
-                  </div>
-                </div>
-                <div className='form-group'>
-                  <div className='dropzone'>
-                    <div className='form-group'>
-                      <button type='button'
-                        className='btn btn-danger btn-select-files'
-                        onClick={this.onOpenDocumentClick.bind(this)}>
-                        <i className='fa fa-upload'></i>
-                        {I18n.t('courses.select_document')}
-                      </button>
-                    </div>
-                  </div>
-                  <div className='hidden'>
-                    <Dropzone ref='dropzoneDocumentField'
-                      multiple={false}
-                      accept={app_constants.ACCEPT_DOCUMENT_TYPES}
-                      onDrop={this.onDocumentDrop.bind(this)}/>
-                  </div>
-                  <div className='document-preview'>
-                    {document}
                   </div>
                 </div>
                 <div className="form-group">
@@ -185,10 +134,7 @@ export default class FormEdit extends React.Component {
     this.setState({
       course: nextProps.course,
       image: nextProps.course.image,
-      document: nextProps.course.document,
       changeImage: false,
-      changeDocument: false,
-      removeDocument: false,
       errors: null
     });
   }
@@ -212,25 +158,6 @@ export default class FormEdit extends React.Component {
     this.refs.dropzoneField.open();
   }
 
-  onDocumentDrop(acceptedFiles, rejectedFiles) {
-    this.setState({
-      document: acceptedFiles[0],
-      changeDocument: true,
-      removeDocument: false,
-    });
-  }
-
-  onOpenDocumentClick() {
-    this.refs.dropzoneDocumentField.open();
-  }
-
-  onRemoveDocumentClick() {
-    this.setState({
-      document: {},
-      removeDocument: true
-    });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     var form_data = $('form').serializeArray();
@@ -241,12 +168,6 @@ export default class FormEdit extends React.Component {
     let course = _.omit(this.state, 'errors');
     if (this.state.changeImage) {
       formData.append('course[image]', course.image);
-    }
-    if (this.state.changeDocument) {
-      formData.append('course[document]', course.document);
-    }
-    if (this.state.removeDocument) {
-      formData.append('course[remove_document]', true);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     axios({
@@ -262,9 +183,6 @@ export default class FormEdit extends React.Component {
         image: '',
         errors: null,
         changeImage: false,
-        document: '',
-        changeDocument: false,
-        removeDocument: false
       });
       this.props.handleAfterUpdate(response.data.course)
     })

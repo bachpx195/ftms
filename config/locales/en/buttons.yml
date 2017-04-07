@@ -3,6 +3,7 @@ en:
     new: "New"
     save: Save
     edit: Edit
+    download: "Download"
     delete: Delete
     cancel: Cancel
     new_sub_organization: "New Sub Organization"

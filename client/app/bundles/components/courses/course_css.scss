@@ -34,20 +34,8 @@
   padding-right: 10px;
 }
 
-.direct-document {
-  overflow: hidden;
-  float: left;
-  max-width: 150px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.preview-document-button {
-  float: right;
-}
-
 .view-members-course {
   bottom: 20%;
-  position: absolute;
   left: 35%;
+  position: absolute;
 }

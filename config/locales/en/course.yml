@@ -22,7 +22,7 @@ en:
     delete: "Delete"
     list_courses: "Courses"
     image: "Image"
-    document: "Document"
+    documents: "Documents"
     name: "Name"
     start_date: "Start date"
     end_date: "End date"

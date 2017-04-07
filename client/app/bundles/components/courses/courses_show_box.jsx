@@ -5,6 +5,7 @@ import ModalAssignMember from './modal_assign_member/modal';
 import ModalTask from './add_tasks/modal_task';
 import ModalEvaluateMember from './modal_evaluate_member/modal';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
+import Dropzone from 'react-dropzone';
 import css from './course_css.scss';
 
 import * as app_constants from 'constants/app_constants';
@@ -38,7 +39,8 @@ export default class CoursesShowBox extends React.Component {
       remain_items: [],
       targetable_type: '',
       foo: true,
-      document_preview: false
+      documents: [],
+      document_preview: {}
     }
   }
 
@@ -68,6 +70,7 @@ export default class CoursesShowBox extends React.Component {
           evaluation_standards: response.data.course.evaluation_standards,
           evaluation_template: response.data.course.evaluation_template,
           member_evaluations: response.data.course.member_evaluations,
+          documents: response.data.course.documents
         });
       }).catch(error => console.log(error));
   }
@@ -229,36 +232,66 @@ export default class CoursesShowBox extends React.Component {
     );
   }
 
-  renderDocument() {
-    if (this.state.course.document && this.state.course.document.url) {
-      let document_url = this.state.course.document.url;
-      let document_name =
-        document_url.substring(document_url.lastIndexOf('/') + 1);
+  renderDocument(document) {
+    let document_url = document.file.url;
+    let document_name =
+      document_url.substring(document_url.lastIndexOf('/') + 1);
 
-      return (
-        <div className='col-md-3 info-panel'>
-          <div className='box box-primary'>
+    return (
+      <li className='document-item' key={document.id}>
+        <span className='direct-document'>
+          <a href={document_url} title={document_name}
+            download={document_name} target='_blank'>
+            {document_name}
+          </a>
+        </span>
+        <div className='pull-right preview-document-button'>
+          <button
+            onClick={this.clickPreviewDocument.bind(this, document)}
+            className='pull-right btn btn-info btn-xs'>
+            {I18n.t("courses.buttons.preview")}
+          </button>
+        </div>
+      </li>
+    );
+  }
+
+  renderDocuments() {
+    return (
+      <div className='col-md-3 info-panel'>
+        <div className='box box-primary'>
           <div className='box-header with-border box-header-gray'>
             <h3 className='label box-title'>
-              {I18n.t("courses.document")}
+              {I18n.t("courses.documents")}
             </h3>
-          </div>
-          <div className='box-body document-box'>
-            <div className='direct-document'>
-              <a href={document_url} download={document_name} target='_blank'>
-                {document_name}
-              </a>
+            <div className="pull-right">
+              <button type="button" className="btn btn-default"
+                onClick={this.handleUploadDocument.bind(this)}
+                title={I18n.t("courses.select_document")}>
+                <i className="fa fa-upload"></i>
+              </button>
+              <form encType="multipart/form-data">
+                <div className='hidden'>
+                  <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
+                    ref='dropzoneDocumentsField'
+                    multiple={false}
+                    accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
+                </div>
+              </form>
             </div>
-            <button
-              onClick={this.clickPreviewDocument.bind(this)}
-              className='btn btn-info btn-xs preview-document-button'>
-              {I18n.t("courses.buttons.preview")}
-            </button>
+          </div>
+          <div className='box-body'>
+            <ul className='document-list clearfix'>
+              {
+                this.state.documents.map((document, index) => {
+                  return this.renderDocument(document);
+                })
+              }
+            </ul>
           </div>
         </div>
-        </div>
-      );
-    }
+      </div>
+    );
   }
 
   render() {
@@ -348,7 +381,7 @@ export default class CoursesShowBox extends React.Component {
           }
         </div>
         {
-          this.renderDocument()
+          this.renderDocuments()
         }
         <ModalAssignMember unassignedUsers={this.state.course.unassigned_users}
           managers={this.state.course.managers}
@@ -376,8 +409,8 @@ export default class CoursesShowBox extends React.Component {
         />
 
         <ModalPreviewDocument
-          document={this.state.course.document}
           document_preview={this.state.document_preview}
+          handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
         />
       </div>
     );
@@ -437,12 +470,11 @@ export default class CoursesShowBox extends React.Component {
     if (new_course.image) {
       this.state.course.image.url = new_course.image.url;
     }
-    if (new_course.document) {
-      this.state.course.document.url = new_course.document.url;
+    if (new_course.documents) {
+      this.state.documents = new_course.documents;
     }
     this.setState({
-      course: this.state.course,
-      document_preview: false
+      course: this.state.course
     });
   }
 
@@ -478,10 +510,44 @@ export default class CoursesShowBox extends React.Component {
     }
   }
 
-  clickPreviewDocument() {
+  handleUploadDocument() {
+    this.refs.dropzoneDocumentsField.open();
+  }
+
+  onDocumentsDrop(acceptedFiles, rejectedFiles) {
+    let formData = new FormData();
+    formData.append('document[documentable_id]', this.state.course.id);
+    formData.append('document[documentable_type]', 'Course');
+    formData.append('document[file]', acceptedFiles[0]);
+    formData.append('authenticity_token', ReactOnRails.authenticityToken());
+
+    let url = app_constants.APP_NAME + 'documents';
+
+    axios({
+      url: url,
+      method: 'POST',
+      data: formData,
+      headers: {'Accept': 'application/json'}
+    })
+    .then(response => {
+      this.handleDocumentUploaded(response.data.document);
+    })
+    .catch(error => this.setState({errors: error.response.data.errors}));
+  }
+
+  handleDocumentUploaded(document) {
+    this.state.documents.push(document);
+    this.setState({documents: this.state.documents});
+  }
+
+  handleDocumentDeleted(document) {
     this.setState({
-      document_preview: true
+      documents: this.state.documents.filter(item => item.id != document.id)
     });
+  }
+
+  clickPreviewDocument(document) {
+    this.setState({document_preview: document});
     $('.modal-preview-document').modal();
   }
 }
