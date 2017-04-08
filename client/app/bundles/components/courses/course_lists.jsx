@@ -25,13 +25,9 @@ export default class CourseLists extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(COURSES_URL + '.json')
-      .then(response => {
-        this.setState({
-         courses: response.data.courses,
-         courses_search: response.data.courses,
-      });
-    }).catch(error => console.log(error));
+    this.setState({
+      courses_search: this.state.courses
+    });
   }
 
   renderCourseLists(){
@@ -49,43 +45,24 @@ export default class CourseLists extends React.Component {
     );
   }
 
-  renderMembers(course){
-    if(course.members) {
-      if(course.members.length > LIMIT_MEMBERS){
-        let members = course.members.slice(0, LIMIT_MEMBERS - 1);
-        let html = members.map(member => {
-          return this.renderMember(member);
-        });
-
-        html.push(<li className='member-list' key={course.members[LIMIT_MEMBERS].id} >
-          <img className='many-member' src={course.members[LIMIT_MEMBERS].avatar.url} />
-          <p className='many-member text-center'>+{course.members.length - LIMIT_MEMBERS}</p>
-        </li>);
-        return html;
-      }else{
-        let members = course.members.slice(0, LIMIT_MEMBERS);
-        return members.map(member => {
-          return this.renderMember(member);
-        });
-      }
-    }
-  }
-
   renderCourse(course){
     let course_path = COURSE_URL + course.program_id +'/' +
       course_constants.COURSES_PATH + course.id;
     let course_managers = course.managers ? course.managers.slice(0, 5) : null;
     let images= null;
+
     if (course_managers) {
       images = course_managers.map(course_manager => {
         return <img key={course_manager.id} src={course_manager.avatar.url}
           className='td-course-manager-avatar' />;
       });
     }
+
     let description = course.description;
     if(description.length > LIMIT_DESCRIPTION){
       description = course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
+
     return(
       <div key={course.id}
         className='col-md-4 col-xs-4 col-lg-4 td-program-list-course'>
@@ -137,6 +114,7 @@ export default class CourseLists extends React.Component {
       </div>
     );
   }
+
   render() {
     return (
       <div>
@@ -154,6 +132,7 @@ export default class CourseLists extends React.Component {
       </div>
     );
   }
+
   filterCourses(event){
     let value = event.target.value;
     this.state.courses = this.state.courses_search.filter(course => {

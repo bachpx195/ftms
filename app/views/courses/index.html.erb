@@ -1,5 +1,6 @@
-<% if @courses %>
-  <%= react_component "CoursesBox", props: {courses: @courses}, prerender: false %>
+<% if @course_serializer.any? %>
+  <%= react_component "CoursesBox", props: {courses: @course_serializer},
+  	prerender: false %>
 <% else %>
-  <div><%= I18n.t "course.no_content" %></div>
+  <div><%= I18n.t "courses.no_content" %></div>
 <% end %>
