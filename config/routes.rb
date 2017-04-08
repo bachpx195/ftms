@@ -71,7 +71,7 @@ Rails.application.routes.draw do
   end
 
   namespace :my_space do
-    resources :courses, only: :index
+    resources :courses, only: [:index, :show]
   end
   resources :user_courses do
     resources :subjects, default: {format: "json"}
