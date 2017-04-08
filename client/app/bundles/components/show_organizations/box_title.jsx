@@ -4,8 +4,7 @@ import axios from 'axios';
 import FormEdit from './form_edit'
 import * as app_constants from 'constants/app_constants';
 
-const SUB_ORGANIZATION_URL = app_constants.APP_NAME + 'sub_organizations';
-const ORGANIZATION_URL = app_constants.APP_NAME + 'organizations/';
+const ORGANIZATION_URL = app_constants.APP_NAME + 'organizations';
 
 require('../../assets/sass/organization.scss');
 
@@ -49,8 +48,10 @@ export default class BoxTitle extends React.Component{
               <h4 className='modal-title'>{I18n.t('buttons.edit')}</h4>
             </div>
             <div className='modal-body'>
-              <FormEdit url={SUB_ORGANIZATION_URL} index={this.state.organization.id}
-              name={this.state.organization.name} afterSave={this.fetchOrganizations.bind(this)}/>
+              <FormEdit url={ORGANIZATION_URL}
+                index={this.state.organization.id}
+                name={this.state.organization.name}
+                afterSave={this.afterSave.bind(this)}/>
             </div>
           </div>
         </div>
@@ -62,15 +63,9 @@ export default class BoxTitle extends React.Component{
     $('#modal').modal();
   }
 
-  fetchOrganizations(){
-    const url = ORGANIZATION_URL + this.state.organization.id;
-    axios.get(url + ".json")
-      .then(response => {
-        this.setState({organization: response.data.organization});
-        this.props.handleAfter(this.state.organization, this.props.programs);
-      })
-      .catch(error => {
-        console.log(error)
-      });
+  afterSave(organization){
+    this.setState({
+      organization: organization
+    })
   }
 }

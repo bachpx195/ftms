@@ -119,7 +119,7 @@ class OrganizationsController < ApplicationController
   end
 
   def authorize_request
-    authorize_with_multiple page_params.merge(organization: @organization,
-      function: @function), OrganizationPolicy
+    authorize_with_multiple page_params.merge(organization: @organization),
+      OrganizationPolicy
   end
 end

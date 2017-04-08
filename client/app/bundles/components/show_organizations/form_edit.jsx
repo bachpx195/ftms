@@ -54,14 +54,15 @@ export default class FormEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.patch(this.props.url + "/" + this.props.index, {
+    let URL = this.props.url + "/" + this.props.index + ".json";
+    axios.patch(URL , {
       organization: {
         name: this.refs.nameField.value
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
+      this.props.afterSave(response.data.organization);
       $('#modal').modal('hide');
-      this.props.afterSave();
     })
     .catch(error => {
       console.log(error)
