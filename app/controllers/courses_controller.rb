@@ -4,38 +4,14 @@ class CoursesController < ApplicationController
   before_action :authorize_class
 
   def index
-    @courses = Course.all
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          courses: Serializers::Courses::CoursesSerializer
-            .new(object: @courses).serializer
-        }
-      end
-    end
-  end
-
-  def new
-  end
-
-  def show
-    @supports = Supports::CourseSupport.new course: @course, program: @program
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          course: Serializers::Courses::CourseDetailSerializer
-            .new(object: @course, scope: {supports: @supports}).serializer,
-          course_subjects: Serializers::Courses::CourseSubjectsSerializer
-            .new(object: @supports.course_subjects).serializer
-        }
-      end
-    end
+    courses = Course.includes :owner, :creator, :members,
+      :managers, program: [:organization], training_standard: :subjects
+    @course_serializer = Serializers::Courses::CoursesSerializer
+      .new(object: courses).serializer
   end
 
   def create
-    training_standard = @program.training_standards
+    training_standard = TrainingStandard
       .find_by id: course_params[:training_standard_id]
     subject_ids =
       if training_standard
@@ -59,6 +35,21 @@ class CoursesController < ApplicationController
           render json: {message: flash_message("not_created"),
             errors: @course.errors}, status: :unprocessable_entity
         end
+      end
+    end
+  end
+
+  def show
+    @supports = Supports::CourseSupport.new course: @course, program: @program
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          course: Serializers::Courses::CourseDetailSerializer
+            .new(object: @course, scope: {supports: @supports}).serializer,
+          course_subjects: Serializers::Courses::CourseSubjectsSerializer
+            .new(object: @supports.course_subjects).serializer
+        }
       end
     end
   end
