@@ -1,6 +1,7 @@
 class SubjectsController < ApplicationController
   before_action :find_subject, except: [:index, :new, :create]
   before_action :find_course_subject, only: :show
+  before_action :authorize_request
 
   def index
     @subjects = Subject.select :id, :name, :image, :description, :during_time
@@ -89,6 +90,10 @@ class SubjectsController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(subject: @subject), SubjectPolicy
   end
 
   def find_course_subject
