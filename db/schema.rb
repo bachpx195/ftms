@@ -421,9 +421,11 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.integer  "opportunity"
     t.integer  "number_of_test"
     t.integer  "creator_id"
+    t.integer  "organization_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.index ["creator_id"], name: "index_test_rules_on_creator_id", using: :btree
+    t.index ["organization_id"], name: "index_test_rules_on_organization_id", using: :btree
   end
 
   create_table "trainee_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

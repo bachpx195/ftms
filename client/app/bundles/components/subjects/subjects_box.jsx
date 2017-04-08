@@ -55,9 +55,15 @@ export default class SubjectBox extends React.Component {
             </div>
 
             <div className='box-footer'>
-              <SubjectLists subjects={this.state.subjects}
-                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
+              <SubjectPolicy
+                  permit={[
+                    {action: ['create'], target: 'children'},
+                    {action: ['index'], target: 'children'},
+                  ]}>
+                <SubjectLists subjects={this.state.subjects}
+                  handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                  handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
+              </SubjectPolicy>
             </div>
           </div>
         </div>

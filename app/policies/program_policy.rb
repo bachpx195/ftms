@@ -1,18 +1,22 @@
 class ProgramPolicy < ApplicationPolicy
 
   def show?
-    super &&
-      (@user.organizations.include? record[:program].organization ||
-        record[:program].organization.creator == @user ||
-        record[:program].organization.owner == @user ||
-        record[:program].creator == @user)
+    super && has_function?
   end
 
   def update?
-    show?
+    super && has_function?
   end
 
   def destroy?
-    show?
+    super && has_function?
+  end
+
+  private
+  def has_function?
+    @user.organizations.include? record[:program].organization ||
+      record[:program].organization.creator == @user ||
+      record[:program].organization.owner == @user ||
+      record[:program].creator == @user
   end
 end
