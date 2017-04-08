@@ -1,5 +1,7 @@
 en:
   courses:
+    courses_manager: "Courses Manager"
+    courses_trainee: "Join Courses"
     subjects: "Subjects "
     titles:
       all: "Courses"

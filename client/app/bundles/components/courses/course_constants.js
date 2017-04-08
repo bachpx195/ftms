@@ -1,4 +1,5 @@
 export const MY_COURSES_PATH = 'courses';
+export const MY_SPACE_PATH = 'my_space/';
 export const COURSES_PATH = 'courses/';
 export const ASSIGN_USER_COURSES_PATH = 'assign_user/courses/';
 export const USER_COURSES_PATH = 'user_courses';
