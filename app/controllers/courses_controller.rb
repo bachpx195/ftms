@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :find_program, except: [:index]
-  before_action :find_course, except: [:index, :new, :create]
+  before_action :find_program, only: [:create]
+  before_action :find_course, only: [:update, :destroy, :show]
   before_action :authorize_class
 
   def index
@@ -40,6 +40,7 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @program = @course.program
     @supports = Supports::CourseSupport.new course: @course, program: @program
     respond_to do |format|
       format.html
@@ -110,10 +111,10 @@ class CoursesController < ApplicationController
   end
 
   def find_course
-    @course = @program.courses.find_by id: params[:id]
+    @course = Course.find_by id: params[:id]
     unless @course
       respond_to do |format|
-        format.html{redirect_to program_courses_path(@program)}
+        format.html{redirect_to courses_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
