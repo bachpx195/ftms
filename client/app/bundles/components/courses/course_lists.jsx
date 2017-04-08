@@ -8,7 +8,7 @@ import * as program_constants from '../programs/program_constants';
 import CSS from '../../assets/sass/course-lists.scss';
 
 const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
-const COURSES_URL = app_constants.APP_NAME + course_constants.MY_COURSES_PATH;
+
 const LIMIT_MEMBERS = course_constants.LIMIT_COURSE_MEMBERS;
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
 const LIMIT_DESCRIPTION = app_constants.LIMIT_DESCRIPTION;
@@ -18,25 +18,26 @@ export default class CourseLists extends React.Component {
     super(props);
 
     this.state = {
-      parent: null,
       courses: props.courses,
-      courses_search: [],
+      url: props.url,
+      courses_search: props.courses,
     }
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      courses_search: this.state.courses
-    });
+      url: nextProps.url,
+      courses_search: nextProps.courses,
+    })
   }
 
-  renderCourseLists(){
+  renderCourseLists() {
     return this.state.courses.map(course =>{
       return this.renderCourse(course)}
     );
   }
 
-  renderMember(member){
+  renderMember(member) {
     return (
       <li key={member.id}>
         <img className='img-circle' src={member.avatar.url}
@@ -45,21 +46,17 @@ export default class CourseLists extends React.Component {
     );
   }
 
-  renderCourse(course){
-    let course_path = COURSE_URL + course.program_id +'/' +
-      course_constants.COURSES_PATH + course.id;
+  renderCourse(course) {
     let course_managers = course.managers ? course.managers.slice(0, 5) : null;
     let images= null;
-
     if (course_managers) {
       images = course_managers.map(course_manager => {
         return <img key={course_manager.id} src={course_manager.avatar.url}
           className='td-course-manager-avatar' />;
       });
     }
-
     let description = course.description;
-    if(description.length > LIMIT_DESCRIPTION){
+    if (description.length > LIMIT_DESCRIPTION) {
       description = course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
 
@@ -71,7 +68,7 @@ export default class CourseLists extends React.Component {
             <div className='course-manager'>{images}</div>
             <div className='clearfix'></div>
           </div>
-          <a className='link-course' href={course_path}>
+          <a className='link-course' href={this.state.url + '/' + course.id}>
             <div className='td-card-course-inner'>
               <h3 className='custom-course-name'>
                 <div>{course.name}</div>
@@ -133,7 +130,7 @@ export default class CourseLists extends React.Component {
     );
   }
 
-  filterCourses(event){
+  filterCourses(event) {
     let value = event.target.value;
     this.state.courses = this.state.courses_search.filter(course => {
       return course.name.toLowerCase().includes(value.toLowerCase()) ||

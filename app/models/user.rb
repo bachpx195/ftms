@@ -18,6 +18,10 @@ class User < ApplicationRecord
   has_many :user_programs, dependent: :destroy
   has_many :user_subjects, dependent: :destroy
   has_many :course_subjects, through: :user_subjects
+  has_many :course_members, dependent: :destroy
+  has_many :course_managers, dependent: :destroy
+  has_many :member_courses, through: :course_members, source: :course
+  has_many :manager_courses, through: :course_managers, source: :course
 
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
