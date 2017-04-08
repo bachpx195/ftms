@@ -36,7 +36,7 @@ export default class OrganizationList extends React.Component{
     return(
       <div>
         <ListPrograms organization={this.state.organization}
-          programs={this.state.programs} 
+          programs={this.state.programs}
           afterEditProgram={this.fetchData.bind(this)}
           afterCreateProgram={this.fetchData.bind(this)}
           afterDeleteProgram={this.fetchData.bind(this)}/>
@@ -72,8 +72,8 @@ export default class OrganizationList extends React.Component{
     }else{
       title= I18n.t('organizations.create_sub')
       form = (
-        <FormCreate url={SUB_ORGANIZATION_URL} index={this.state.index} 
-          afterCreate={this.fetchData.bind(this)} parent={this.state.parent}/> 
+        <FormCreate url={SUB_ORGANIZATION_URL} index={this.state.index}
+          afterCreate={this.fetchData.bind(this)} parent={this.state.parent}/>
       )
     }
     return(

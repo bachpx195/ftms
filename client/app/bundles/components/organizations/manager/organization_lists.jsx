@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import FormEdit from '../organization_form/form_edit';
-import FormCreate from '../organization_form/form_create';
 import * as table_constants from 'constants/griddle_table_constants';
 import Row from '../griddle/row';
 import OrganizationPolicy from 'policy/organization_policy';

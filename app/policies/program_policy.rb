@@ -1,11 +1,18 @@
 class ProgramPolicy < ApplicationPolicy
 
-  def create?
-    super && (@user.profile.organization == record[:organization])
-  end
-
   def show?
     super &&
-      (@user.profile.organization == record[:program].organization)
+      (@user.organizations.include? record[:program].organization ||
+        record[:program].organization.creator == @user ||
+        record[:program].organization.owner == @user ||
+        record[:program].creator == @user)
+  end
+
+  def update?
+    show?
+  end
+
+  def destroy?
+    show?
   end
 end
