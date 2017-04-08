@@ -1,3 +1,4 @@
 en:
   documents:
-    name: Documents
+    title: "Documents"
+    select_document: "Select document"

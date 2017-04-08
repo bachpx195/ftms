@@ -17,6 +17,7 @@ class Program < ApplicationRecord
 
   has_many :user_programs, dependent: :destroy
   has_many :users, through: :user_programs, source: :user
+  has_many :documents, as: :documentable, dependent: :destroy
 
   has_many :sources, as: :sourceable,
     class_name: MovingHistory.name, dependent: :destroy
