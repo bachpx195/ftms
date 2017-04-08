@@ -4,6 +4,7 @@ class Supports::CourseSupport
   def initialize args = {}
     @course = args[:course]
     @program = args[:program]
+    @user = args[:user]
   end
 
   def managers
@@ -53,5 +54,22 @@ class Supports::CourseSupport
 
   def remain_testings
     @remain_testings ||= TestRule.where.not id: selected_testings
+  end
+
+  def courses_managed
+    course_manager_ids = @user.course_managers.pluck(:course_id)
+    @user.courses.where(program: @program, id: course_manager_ids)
+      .where.not id: @course.id
+  end
+
+  def user_subjects user_id
+    user = User.find_by id: user_id
+    if user
+      user_courses = user.user_courses.where(course: course)
+        .where.not status: "rejected"
+      user_courses.last.user_subjects
+    else
+      []
+    end
   end
 end

@@ -6,5 +6,5 @@ class UserCourse < ApplicationRecord
 
   has_many :user_subjects, dependent: :destroy
 
-  enum status: [:init, :in_progress, :finished]
+  enum status: [:init, :in_progress, :finished, :rejected]
 end

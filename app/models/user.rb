@@ -59,11 +59,14 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :user_functions, allow_destroy: true
 
+  scope :course_members_not_rejected, -> {CourseMember.where.not status: "rejected"}
+
   def user_tasks task_name
     tasks = self.dynamic_tasks.map do |dynamic_task|
-      if dynamic_task.targetable && dynamic_task.targetable
-          .targetable_type == task_name
-        dynamic_task.targetable.targetable
+      dynamic_task_targetable = dynamic_task.targetable
+      if dynamic_task_targetable &&
+        dynamic_task_targetable.targetable_type == task_name
+        dynamic_task_targetable.targetable
       end
     end
     tasks.reject! &:nil?
@@ -75,10 +78,7 @@ class User < ApplicationRecord
     return "UserShowBox" unless function
     controller = function.controller_name
     action = function.action
-    if action == "show"
-      controller.split("/").first.capitalize.singularize + "ShowBox"
-    else
-      controller.split("/").first.capitalize.singularize + "Box"
-    end
+    box_component = (action == "show") ? "ShowBox" : "Box"
+    controller.split("/").first.capitalize.singularize + box_component
   end
 end

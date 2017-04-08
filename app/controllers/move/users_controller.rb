@@ -30,34 +30,19 @@ class Move::UsersController < ApplicationController
 
   def find_user
     unless @move_user_supports.user
-      respond_to do |format|
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
-        end
-      end
+      not_found
     end
   end
 
   def find_source
     unless @move_user_supports.source
-      respond_to do |format|
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
-        end
-      end
+      not_found
     end
   end
 
   def find_destination
     unless @move_user_supports.destination
-      respond_to do |format|
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
-        end
-      end
+      not_found
     end
   end
 
@@ -74,6 +59,15 @@ class Move::UsersController < ApplicationController
       MovingHistoryServices::MovingProgram.new user: user,
         source: source, destination: destination,
         params: moving_history_params
+    end
+  end
+
+  def not_found
+    respond_to do |format|
+      format.json do
+        render json: {message: flash_message("not_found")},
+          status: :not_found
+      end
     end
   end
 end
