@@ -24,3 +24,5 @@ en:
     owners: " Owners"
     members: " Members: "
     all_members: "All members"
+    documents: "Documents"
+    select_document: "Select document"

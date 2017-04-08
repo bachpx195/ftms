@@ -1,7 +1,7 @@
 class Serializers::Programs::ProgramDetailSerializer <
   Serializers::SupportSerializer
   attrs :id, :name, :program_type, :organization, :parent, :children, :users,
-    :user_counts, :training_standards, :courses, :course_counts,
+    :user_counts, :training_standards, :courses, :course_counts, :documents,
     :program_subjects, :program_subject_counts, :languages, :statuses
   delegate :statuses, to: :supports
 
@@ -57,5 +57,10 @@ class Serializers::Programs::ProgramDetailSerializer <
   def languages
     Serializers::Languages::LanguagesSerializer
       .new(object: supports.languages).serializer
+  end
+
+  def documents
+    Serializers::Documents::DocumentsSerializer
+      .new(object: object.documents).serializer
   end
 end

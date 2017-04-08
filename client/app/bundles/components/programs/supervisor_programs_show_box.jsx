@@ -3,6 +3,8 @@ import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
 import Modal from './modal';
 import Errors from '../shareds/errors';
+import ModalPreviewDocument from '../shareds/modal_preview_document';
+import Dropzone from 'react-dropzone';
 
 import UserLists from './user_lists';
 import CourseLists from './course_lists';
@@ -35,6 +37,8 @@ export default class SupervisorProgramsShowBox extends React.Component {
       owners: [],
       organization: [],
       errors: null,
+      documents: [],
+      document_preview: {}
     };
   }
 
@@ -53,6 +57,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
           all_roles: response.data.all_roles,
           owners: response.data.owners,
           organization: response.data.program_detail.organization,
+          documents: response.data.program_detail.documents
         });
       })
       .catch(error => console.log(error));
@@ -247,6 +252,68 @@ export default class SupervisorProgramsShowBox extends React.Component {
     );
   }
 
+    renderDocument(document) {
+    let document_url = document.file.url;
+    let document_name =
+      document_url.substring(document_url.lastIndexOf('/') + 1);
+
+    return (
+      <li className='document-item' key={document.id}>
+        <span className='direct-document'>
+          <a href={document_url} title={document_name} className='document-name'
+            download={document_name} target='_blank'>
+            {document_name}
+          </a>
+        </span>
+        <div className='pull-right preview-document-button'>
+          <button
+            onClick={this.clickPreviewDocument.bind(this, document)}
+            className='pull-right btn btn-info btn-xs'>
+            {I18n.t("buttons.preview")}
+          </button>
+        </div>
+      </li>
+    );
+  }
+
+  renderDocuments() {
+    return (
+      <div className='col-md-3 info-panel'>
+        <div className='box box-primary'>
+          <div className='box-header with-border box-header-gray'>
+            <h3 className='label box-title'>
+              {I18n.t("documents.title")}
+            </h3>
+            <div className="pull-right">
+              <button type="button" className="btn btn-default"
+                onClick={this.handleUploadDocument.bind(this)}
+                title={I18n.t("documents.select_document")}>
+                <i className="fa fa-upload"></i>
+              </button>
+              <form encType="multipart/form-data">
+                <div className='hidden'>
+                  <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
+                    ref='dropzoneDocumentsField'
+                    multiple={false}
+                    accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className='box-body'>
+            <ul className='document-list clearfix'>
+              {
+                this.state.documents.map((document, index) => {
+                  return this.renderDocument(document);
+                })
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let url_programs = PROGRAM_URL + '/' + this.props.organization.id + '/' +
     program_constants.PROGRAMS_PATH + this.props.program.id;
@@ -318,6 +385,13 @@ export default class SupervisorProgramsShowBox extends React.Component {
         <div className='col-md-3 info-panel'>
           {this.renderProgramRightPanel()}
         </div>
+        {
+          this.renderDocuments()
+        }
+        <ModalPreviewDocument
+          document_preview={this.state.document_preview}
+          handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
+        />
         {modalEdit}
         {this.renderModalCreateStandard()}
       </div>
@@ -443,5 +517,46 @@ export default class SupervisorProgramsShowBox extends React.Component {
       program_detail: this.state.program_detail,
       course: {},
     });
+  }
+
+  handleUploadDocument() {
+    this.refs.dropzoneDocumentsField.open();
+  }
+
+  onDocumentsDrop(acceptedFiles, rejectedFiles) {
+    let formData = new FormData();
+    formData.append('document[documentable_id]', this.state.program_detail.id);
+    formData.append('document[documentable_type]', 'Program');
+    formData.append('document[file]', acceptedFiles[0]);
+    formData.append('authenticity_token', ReactOnRails.authenticityToken());
+
+    let url = app_constants.APP_NAME + 'documents';
+
+    axios({
+      url: url,
+      method: 'POST',
+      data: formData,
+      headers: {'Accept': 'application/json'}
+    })
+    .then(response => {
+      this.handleDocumentUploaded(response.data.document);
+    })
+    .catch(error => this.setState({errors: error.response.data.errors}));
+  }
+
+  handleDocumentUploaded(document) {
+    this.state.documents.push(document);
+    this.setState({documents: this.state.documents});
+  }
+
+  handleDocumentDeleted(document) {
+    this.setState({
+      documents: this.state.documents.filter(item => item.id != document.id)
+    });
+  }
+
+  clickPreviewDocument(document) {
+    this.setState({document_preview: document});
+    $('.modal-preview-document').modal();
   }
 }
