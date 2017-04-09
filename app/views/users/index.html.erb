@@ -1,1 +1,3 @@
-<%= react_component "UserIndexBox", props: {users: @users}, prevender: false %>
+<%= react_component "UserIndexBox",
+  props: {users: @user_supports.users_serializer},
+  prerender: false %>

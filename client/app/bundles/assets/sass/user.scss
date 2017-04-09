@@ -1,8 +1,33 @@
+$fa-green: #5cb85c;
+
 .roles {
   overflow: hidden;
 
   .checkbox {
     float: left;
     margin-left: 80px;
+  }
+}
+
+.img-size-50p {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.image-center {
+  text-align: center;
+}
+
+.btn {
+  margin-right: 5px;
+}
+
+.modal-body {
+  .arrow {
+    color: $fa-green;
+    font-size: 40pt;
+    margin-left: 30%;
+    margin-top: 30%;
+    vertical-align: middle;
   }
 }

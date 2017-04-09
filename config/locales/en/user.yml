@@ -15,6 +15,7 @@ en:
     buttons:
       save: "Save"
       edit_role: "Edit role"
+      change_program: "Change Program"
     action: "Action"
     id: "ID"
     users: "Users"
@@ -22,3 +23,8 @@ en:
     id: "ID"
     roles:
       name: "User roles "
+    modal_change_program:
+      title: "Change User Program"
+      from: "From"
+      to: "To"
+      select_program: "Select Program"

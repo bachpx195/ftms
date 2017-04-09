@@ -34,7 +34,7 @@ export default class MovingHistoryBox extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='row'>
         <div className='col-md-9'>
           <div className='box box-success'>
             <div className='box-header with-border'>
