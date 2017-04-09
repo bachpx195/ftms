@@ -28,7 +28,7 @@ const MOVING_HISTORY_URL = app_constants.APP_NAME +
   dashboard_constands.MOVING_HISTORY_PATH;
 const PROJECTS_URL = app_constants.APP_NAME +
   dashboard_constands.PROJECTS_PATH;
-
+const CATEGORY_URL = app_constants.APP_NAME + dashboard_constands.CATEGORY_PATH;
 
 export default class Sidebar extends React.Component {
   constructor(props) {
@@ -167,6 +167,15 @@ export default class Sidebar extends React.Component {
                     <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
                       <span>{I18n.t('sidebar.universities')}</span>
+                    </a>
+                  </li>
+                </Permit>
+
+                <Permit action='categories/index'>
+                  <li className='sub-li' data-page="categories">
+                    <a href={CATEGORY_URL} onClick={this.onClick.bind(this)}>
+                      <i className="fa fa-circle-o"></i>
+                      <span>{I18n.t('sidebar.categories')}</span>
                     </a>
                   </li>
                 </Permit>

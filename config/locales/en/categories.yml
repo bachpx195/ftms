@@ -1,0 +1,9 @@
+en:
+  categories:
+    titles:
+      all: "List Categories"
+    form:
+      name: "Name"
+      placeholder_name: "Input name category"
+      description: "Description"
+      placeholder_description: "Input description"
