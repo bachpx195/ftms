@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   before_action :find_program, only: [:create]
   before_action :find_course, only: [:update, :destroy, :show]
-  before_action :authorize_class
+  before_action :authorize_request
 
   def index
     courses = Course.includes :owner, :creator, :members,
@@ -121,5 +121,9 @@ class CoursesController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(course: @course), CoursePolicy
   end
 end

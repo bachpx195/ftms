@@ -41,25 +41,37 @@ namespace :db do
         avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))}
     ])
 
-    puts "1. Crawl function & trainee"
+    puts "1. Create role"
+    Role.create!([
+      {name: "admin"},
+      {name: "organization supervior", parent_id: 1},
+      {name: "program supervior", parent_id: 1},
+      {name: "GL", parent_id: 1},
+      {name: "trainer", parent_id: 1},
+      {name: "trainee", parent_id: 1}
+    ])
+
+    puts "2. Crawl function & trainee"
     functions = []
     def check_supply object
       object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) &&
         object[:controller] != "sessions" && !/^(new|edit)$/.match(object[:action])
     end
 
-    function = Function.create controller_name: "organizations", action: "index"
-    function = Function.create controller_name: "users", action: "show"
+    function = Function.create! controller_name: "organizations", action: "index"
 
     Rails.application.routes.routes.map do |router|
       functions.push controller_name: router.defaults[:controller],
         action: router.defaults[:action], parent_id: 1 if check_supply router.defaults
     end
+
     functions.uniq.each do |f|
       Function.create! f
     end
 
-    f = Function.find_by controller_name: "users", action: "show"
+    f1 = Function.find_by controller_name: "users", action: "show"
+    f2 = Function.find_by controller_name: "courses", action: "show"
+    f3 = Function.find_by controller_name: "subjects", action: "show"
 
     10.times do |n|
       user = User.create!(
@@ -69,8 +81,17 @@ namespace :db do
         created_at: "01/09/2016".to_date, updated_at: "01/09/2016".to_date,
         avatar: File.open(File.join(Rails.root, "app/assets/images/profile.png"))
       )
-      UserFunction.create user: user, function: f
+      UserFunction.create!([
+        {user: user, function: f1},
+        {user: user, function: f2},
+        {user: user, function: f3}
+      ])
     end
+    RoleFunction.create!([
+      {role_id: 6, function: f1},
+      {role_id: 6, function: f2},
+      {role_id: 6, function: f3},
+    ])
 
     puts "2. Create languages"
     ["Ruby", "PHP", "Android", "Java", "iOS"].each do |name|
@@ -344,16 +365,6 @@ namespace :db do
       course_subject.user_subjects.create! user_id: 13,
         user_course_id: user_course.id, subject_id: course_subject.subject.id
     end
-
-    puts "17. Create role"
-    Role.create!([
-      {name: "admin"},
-      {name: "organization supervior", parent_id: 1},
-      {name: "program supervior", parent_id: 1},
-      {name: "GL", parent_id: 1},
-      {name: "trainer", parent_id: 1},
-      {name: "trainee", parent_id: 1}
-    ])
 
     puts "18. create Profile"
     User.all.limit(9).each do |user|

@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @user = User.new user_params
     respond_to do |format|
       if @user.save
+        @user.roles << Role.find(6)
         format.html{redirect_to @user}
         format.json do
           render json: {message: flash_message("created"),
