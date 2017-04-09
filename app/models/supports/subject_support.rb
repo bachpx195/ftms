@@ -64,4 +64,7 @@ class Supports::SubjectSupport
     @evaluation_standards ||= evaluation_template.evaluation_standards
   end
 
+  def member_ids
+    @course.members.map(&:id).uniq
+  end
 end

@@ -1,4 +1,5 @@
 import React from 'react';
+import CoursePolicy from 'policy/course_policy';
 import Dropzone from 'react-dropzone';
 
 import * as app_constants from 'constants/app_constants';
@@ -49,21 +50,23 @@ export default class Documents extends React.Component {
             <h3 className='label box-title'>
               {I18n.t("documents.title")}
             </h3>
-            <div className="pull-right">
-              <button type="button" className="btn btn-default"
-                onClick={this.handleUploadDocument.bind(this)}
-                title={I18n.t("documents.select_document")}>
-                <i className="fa fa-upload"></i>
-              </button>
-              <form encType="multipart/form-data">
-                <div className='hidden'>
-                  <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
-                    ref='dropzoneDocumentsField'
-                    multiple={false}
-                    accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
-                </div>
-              </form>
-            </div>
+            <CoursePolicy permit={this.props.courseListPermit} >
+              <div className="pull-right">
+                <button type="button" className="btn btn-default"
+                  onClick={this.handleUploadDocument.bind(this)}
+                  title={I18n.t("documents.select_document")}>
+                  <i className="fa fa-upload"></i>
+                </button>
+                <form encType="multipart/form-data">
+                  <div className='hidden'>
+                    <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
+                      ref='dropzoneDocumentsField'
+                      multiple={false}
+                      accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
+                  </div>
+                </form>
+              </div>
+            </CoursePolicy>
           </div>
           <div className='box-body'>
             <ul className='document-list clearfix'>

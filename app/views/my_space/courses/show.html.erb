@@ -8,6 +8,7 @@
       selected_surveys: @supports.selected_surveys,
       remain_testings: @supports.remain_testings,
       selected_testings: @supports.selected_testings,
+      members_ids: @supports.members.pluck(:id),
     }, prerender: false %>
 <% else %>
   <div><%= I18n.t "courses.no_content" %></div>

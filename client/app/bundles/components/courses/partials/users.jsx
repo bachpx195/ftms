@@ -1,4 +1,5 @@
 import React from 'react';
+import CoursePolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from '../../users/user_constants';
 
@@ -49,27 +50,29 @@ export default class Users extends React.Component {
             src={user.avatar.url} width='30' height='30'/>
           {user.name}
         </a>
-        <div className="pull-right user-course">
-          <div id="user-course-113">
-            <div className="menu-right-user-course">
-              <div className="dropdown action-user-course">
-                <span id="dLabe" data-toggle="dropdown"
-                  className="evaluation-show">
-                  <i className="glyphicon glyphicon-align-justify text-danger">
-                  </i>
-                </span>
-                <ul className="dropdown-menu dropdown-menu-right" >
-                  <li>
-                    <a href="#"
-                      onClick={this.handleEvaluateModal.bind(this, user)} >
-                      {I18n.t('courses.evaluation.evaluate')}
-                    </a>
-                  </li>
-                </ul>
+        <CoursePolicy permit={this.props.courseListPermit} >
+          <div className="pull-right user-course">
+            <div id="user-course-113">
+              <div className="menu-right-user-course">
+                <div className="dropdown action-user-course">
+                  <span id="dLabe" data-toggle="dropdown"
+                    className="evaluation-show">
+                    <i className="glyphicon glyphicon-align-justify text-danger">
+                    </i>
+                  </span>
+                  <ul className="dropdown-menu dropdown-menu-right" >
+                    <li>
+                      <a href="#"
+                        onClick={this.handleEvaluateModal.bind(this, user)} >
+                        {I18n.t('courses.evaluation.evaluate')}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </CoursePolicy>
       </li>
     );
   }
@@ -111,13 +114,15 @@ export default class Users extends React.Component {
             <span className='badge label-primary'>
               {user_count}
             </span>
-            <div className="pull-right">
-              <button type="button" className="btn btn-default"
-                onClick={this.handleAssignMember.bind(this)}
-                title={I18n.t("courses.assign_user")}>
-                <i className="fa fa-user-plus"></i>
-              </button>
-            </div>
+            <CoursePolicy permit={this.props.courseListPermit} >
+              <div className="pull-right">
+                <button type="button" className="btn btn-default"
+                  onClick={this.handleAssignMember.bind(this)}
+                  title={I18n.t("courses.assign_user")}>
+                  <i className="fa fa-user-plus"></i>
+                </button>
+              </div>
+            </CoursePolicy>
           </div>
           <div className='box-body'>
             <div>
