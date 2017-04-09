@@ -82,6 +82,7 @@ export default class CourseDetail extends React.Component {
           <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
             course_constants.COURSES_PATH + this.state.course.id}
             course={this.state.course}
+            courseListPermit={this.props.courseListPermit}
             handleAfterEdit={this.handleAfterUpdate.bind(this)}
             program={this.props.program}
             handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)} />

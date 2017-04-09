@@ -4,6 +4,7 @@ import ModalAssignMember from './modal_assign_member/modal';
 import ModalTask from './add_tasks/modal_task';
 import ModalEvaluateMember from './modal_evaluate_member/modal';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
+import CoursePolicy from 'policy/course_policy';
 import css from './course_css.scss';
 
 import * as app_constants from 'constants/app_constants';
@@ -39,7 +40,7 @@ export default class CoursesShowBox extends React.Component {
       targetable_type: '',
       foo: true,
       documents: [],
-      document_preview: {}
+      document_preview: {},
     }
   }
 
@@ -75,24 +76,33 @@ export default class CoursesShowBox extends React.Component {
   }
 
   render() {
+    let members_ids = this.props.members_ids;
+    const courseListPermit =[
+      {controller: 'courses', action: ['ownerController'], target: 'children',
+        data: {controller: 'courses'}},
+      {controller: 'my_space/courses', action: ['ownerController',
+        'course_manager'], target: 'children', data: {
+        controller: 'my_space/courses', members_ids: members_ids}}
+    ];
     return (
       <div className='row course-show'>
         <div className='col-md-9'>
           <CourseDetail
+            courseListPermit={courseListPermit}
             course={this.state.course}
             program={this.props.program}
             clickButtonList={this.clickButtonList.bind(this)}
             handleAfterUpdate={this.handleAfterUpdate.bind(this)}
             handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)}
           />
-
-          <button className="btn add-task"
-            title={I18n.t("courses.title_add_task")}
-            onClick={this.addTask.bind(this)}>
-            <i className="fa fa-plus" aria-hidden="true"></i>
-            {I18n.t("courses.add_task")}
-          </button>
-
+          <CoursePolicy permit={courseListPermit} >
+            <button className="btn add-task"
+              title={I18n.t("courses.title_add_task")}
+              onClick={this.addTask.bind(this)}>
+              <i className="fa fa-plus" aria-hidden="true"></i>
+              {I18n.t("courses.add_task")}
+            </button>
+          </CoursePolicy>
           <CourseSubjects
             course_subjects={this.state.course_subjects}
             course={this.state.course}
@@ -100,11 +110,13 @@ export default class CoursesShowBox extends React.Component {
         </div>
 
         <Users
+          courseListPermit={courseListPermit}
           course={this.state.course}
           handleEvaluateModal={this.handleEvaluateModal.bind(this)}
           handleAssignMember={this.handleAssignMember.bind(this)}
         />
         <Documents
+          courseListPermit={courseListPermit}
           documents={this.state.documents}
           onDocumentsDrop={this.onDocumentsDrop.bind(this)}
           handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}

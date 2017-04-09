@@ -14,7 +14,7 @@ export default class SubjectsShowBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      admin: true,
+      admin: this.setAdmin(),
       course_subject_teams: [],
       user_subjects: props.user_subjects,
       current_user: props.current_user,
@@ -77,6 +77,21 @@ export default class SubjectsShowBox extends React.Component {
       });
     })
     .catch(error => console.log(error));
+  }
+
+  setAdmin() {
+    let current_user = JSON.parse(localStorage.current_user);
+    var result = true;
+    if (!this.props.member_ids || this.props.member_ids.length == 0) {
+      return result;
+    }
+    for(var member_id of this.props.member_ids) {
+      if(member_id == current_user.id) {
+        result = false;
+        break;
+      }
+    }
+    return result;
   }
 
   render() {

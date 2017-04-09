@@ -2,7 +2,8 @@ import React from 'react'
 import ReactOnRails from 'react-on-rails';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import FormEdit from './form_edit'
+import FormEdit from './form_edit';
+import CoursePolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from '../programs/program_constants';
 import * as course_constants from './course_constants';
@@ -23,19 +24,23 @@ export default class MenuCourse extends React.Component {
     return(
       <div className="td-course-edit-delete pull-right hidden">
         {this.renderButtonFinish()}
-        <a onClick={this.handleEdit.bind(this)} title={I18n.t("courses.edit")}>
-          <span className="btn glyphicon glyphicon-edit"
-            aria-hidden="true">
-          </span>
-        </a>
-        <a onClick={this.handleDelete.bind(this)} title={I18n.t("courses.delete")}>
-          <span className="btn glyphicon glyphicon-trash"
-            aria-hidden="true">
-          </span>
-        </a>
-        <FormEdit course={this.state.course}
-          url={this.state.url}
-          handleAfterUpdate={this.handleAfterEdit.bind(this)} />
+        <CoursePolicy permit={this.props.courseListPermit}>
+          <div className="td-course-edit-delete pull-right hidden">
+            <a onClick={this.handleEdit.bind(this)} title={I18n.t("courses.edit")}>
+              <span className="btn glyphicon glyphicon-edit"
+                aria-hidden="true">
+              </span>
+            </a>
+            <a onClick={this.handleDelete.bind(this)} title={I18n.t("courses.delete")}>
+              <span className="btn glyphicon glyphicon-trash"
+                aria-hidden="true">
+              </span>
+            </a>
+            <FormEdit course={this.state.course}
+              url={this.state.url}
+              handleAfterUpdate={this.handleAfterEdit.bind(this)} />
+          </div>
+        </CoursePolicy>
       </div>
     );
   }
