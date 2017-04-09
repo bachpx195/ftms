@@ -1,0 +1,16 @@
+en:
+  test_rules:
+    titles:
+      all: "List Test Rule"
+      create: "Create Test Rule"
+      edit: "Edit Test Rule"
+    form:
+      name: "Name :"
+      total_question: "Total question :"
+      placeholder_name: "Input name"
+      time_of_test: "Time of test :"
+      min_score_for_pass: "Min score for pass :"
+      opportunity: "Opportunity :"
+      number_of_test: "Number of test :"
+    buttons:
+      create: "Create Test Rule"

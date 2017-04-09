@@ -1,4 +1,7 @@
 class TestRule < ApplicationRecord
+  ATTRIBUTE_PARAMS = [:name, :total_question, :time_of_test,
+    :min_score_for_pass, :opportunity, :number_of_test]
+
   has_many :rule_questions
   has_many :rule_categories
   has_many :exams

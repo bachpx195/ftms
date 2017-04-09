@@ -42,6 +42,7 @@ import CoursesBox from '../components/courses/courses_box';
 import ProjectBox from '../components/projects/projects_box';
 import ProjectsShowBox from '../components/projects/projects_show_box';
 import CategoryBox from '../components/categories/categories_box';
+import TestRuleBox from '../components/test_rules/test_rules_box';
 
 ReactOnRails.register({
   Policies,
@@ -77,5 +78,6 @@ ReactOnRails.register({
   ProjectBox,
   ProjectsShowBox,
   MovingHistoryBox,
-  CategoryBox
+  CategoryBox,
+  TestRuleBox
 });
