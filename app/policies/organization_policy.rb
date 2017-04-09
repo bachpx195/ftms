@@ -1,9 +1,9 @@
 class OrganizationPolicy < ApplicationPolicy
-
   def index?
     function = Function.where controller_name: "organizations", action: "create"
     (@user.functions.include? function) || super
   end
+
   def show?
     super && has_function?
   end
@@ -18,8 +18,7 @@ class OrganizationPolicy < ApplicationPolicy
 
   private
   def has_function?
-    (record[:organization].creator == @user ||
-      record[:organization].owner == @user) &&
-      (@user.organizations.include? record[:organization])
+    record[:organization].creator == @user ||
+      record[:organization].owner == @user
   end
 end

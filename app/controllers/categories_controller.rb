@@ -8,15 +8,12 @@ class CategoriesController < ApplicationController
   def create
     category = Category.new category_params
     respond_to do |format|
-      if category.save
-        format.json do
+      format.json do
+        if category.save
           render json: {category: category}
-        end
-      else
-        format.json do
-          render json: {message: flash_message("not_created"),
-            errors: category.errors}, status: :unprocessable_entity
-        end
+        else
+        render json: {message: flash_message("not_created"),
+          errors: category.errors}, status: :unprocessable_entity
       end
     end
   end
