@@ -17,7 +17,7 @@ export default class CourseIndex extends React.Component {
   render() {
     return (
       <div className="box box-success">
-        <div className="box-header with-border">
+        <div className="box-header">
           <h3 className="box-title">{I18n.t("courses.titles.all")}</h3>
           <div className="box-tools pull-right">
             <button type="button" className="btn btn-box-tool"
@@ -33,7 +33,7 @@ export default class CourseIndex extends React.Component {
         <div className="box-body no-padding">
           <div className="row">
             <div className="col-md-9">
-              <div className='course-container'>
+              <div className='course-scoll'>
                 <div className='row'>
                   <CourseList courses={this.state.courses} url={COURSES_URL} />
                 </div>

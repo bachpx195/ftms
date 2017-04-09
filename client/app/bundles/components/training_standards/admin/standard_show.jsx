@@ -103,6 +103,10 @@ export default class TrainingStandardShow extends React.Component {
       <p title={value}>{value}</p>
     );
 
+    const LinkShowSubject = ({value, griddleKey}) => (
+      <a href={SUBJECT_URL + '/' + this.props.selected_subjects[griddleKey].id}>{value}</a>
+    );
+
     let url = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
       '/evaluation_template';
 
@@ -112,7 +116,8 @@ export default class TrainingStandardShow extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")} />
+            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")}
+              customComponent={LinkShowSubject} />
             <ColumnDefinition id="description" title={I18n.t("subjects.headers.description")}
               customComponent={DescriptionSubject}/>
             <ColumnDefinition id="reject" title=' '

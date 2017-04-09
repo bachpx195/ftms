@@ -42,7 +42,10 @@ export default class Form extends React.Component {
           <div className='text-right'>
             <button type='submit' className='btn btn-primary'
               onClick={this.handleSubmit.bind(this)}>
-              {I18n.t('buttons.save')}</button>
+              {I18n.t('buttons.save')}</button>&nbsp;
+            <button type='submit' className='btn btn-default'
+              onClick={this.handleCancel.bind(this)}>
+              {I18n.t('buttons.cancel')}</button>
           </div>
         </div>
       </form>
@@ -101,5 +104,9 @@ export default class Form extends React.Component {
     .catch(error => {
       this.setState({errors: error.response.data.errors});
     });
+  }
+
+  handleCancel() {
+    this.props.handleCancel();
   }
 }
