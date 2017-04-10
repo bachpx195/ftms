@@ -101,3 +101,15 @@ en:
       preview: "Preview"
     list_managers: "Manager"
     close: "Close"
+    change_course: "Change Course"
+    move_courses:
+      move_course: "Change course"
+      content_right_1: "Subjects of course"
+      content_right_2: "Nothing show!"
+      change_course_for: 'Change course for user: "%{user}"'
+      from: "FROM COURSE: %{course}"
+      to: "TO COURSE: "
+      user_subjects_of_course: "User subjects of course"
+      records: "%{record} records"
+      choose_course: "Choose the course to transfer ..."
+      title_click_remove: "Click remove course subject for new course"

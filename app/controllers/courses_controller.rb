@@ -41,7 +41,8 @@ class CoursesController < ApplicationController
 
   def show
     @program = @course.program
-    @supports = Supports::CourseSupport.new course: @course, program: @program
+    @supports = Supports::CourseSupport.new course: @course, program: @program,
+      user: current_user
     respond_to do |format|
       format.html
       format.json do
@@ -49,7 +50,10 @@ class CoursesController < ApplicationController
           course: Serializers::Courses::CourseDetailSerializer
             .new(object: @course, scope: {supports: @supports}).serializer,
           course_subjects: Serializers::Courses::CourseSubjectsSerializer
-            .new(object: @supports.course_subjects).serializer
+            .new(object: @supports.course_subjects).serializer,
+          courses_of_user_manages: Serializers::Courses::CourseInProgramsSerializer
+            .new(object: @supports.courses_managed).serializer,
+          user_subjects: @supports.user_subjects(params[:user_id])
         }
       end
     end

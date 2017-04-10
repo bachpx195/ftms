@@ -370,8 +370,6 @@ namespace :db do
       {user_id: 11, course_id: 1, status: "in_progress"},
       {user_id: 12, course_id: 1, status: "in_progress"},
       {user_id: 13, course_id: 1, status: "in_progress"},
-      {user_id: 11, course_id: 2, status: "in_progress"},
-      {user_id: 10, course_id: 3, status: "in_progress"},
       {user_id: 15, course_id: 1, status: "in_progress"},
       {user_id: 16, course_id: 2, status: "in_progress"},
       {user_id: 14, course_id: 3, status: "in_progress"},

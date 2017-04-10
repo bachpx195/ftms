@@ -1,5 +1,9 @@
 @import '../../assets/sass/color_status';
 
+$c-white: #fff;
+$c-darkgray: #a9a9a9;
+$c-black: #000;
+
 .cursor {
   cursor: pointer;
 }
@@ -34,6 +38,7 @@
   padding-right: 10px;
 }
 
+
 .view-members-course {
   bottom: 20%;
   left: 35%;
@@ -50,4 +55,76 @@
   padding-left: 20px;
   padding-right: 17px;
   width: 100%;
+}
+
+.modal-change-course {
+  .remove-item {
+    background-color: $c-darkgray;
+    color: $c-white;
+    text-decoration: line-through;
+  }
+
+  .cursor {
+    cursor: pointer;
+  }
+
+  .init {
+    background-color: $init-color;
+    border-radius: 3px;
+    bottom: 5px;
+    color: $c-white;
+    padding: 5px 10px;
+    position: absolute;
+    right: 5px;
+  }
+
+  .status {
+    border-radius: 3px;
+    bottom: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    right: 5px;
+  }
+
+  .in_progress {
+    background-color: $progress-color;
+    color: $c-white;
+  }
+
+  .waiting {
+    background-color: $waiting-color;
+    color: $c-black;
+  }
+
+  .finished {
+    background-color: $finish-color;
+    color: $c-white;
+  }
+
+  .modal-dialog {
+    min-width: 80%;
+  }
+
+  .panel-heading {
+    min-height: 55px;
+  }
+
+  .title {
+    border-bottom: 1px solid $c-black;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+
+  .list-group-item {
+    margin-bottom: 10px;
+  }
+
+  .list-group-item-left {
+    position: relative;
+  }
+
+  .panel-body {
+    max-height: 380px;
+    overflow-y: auto;
+  }
 }

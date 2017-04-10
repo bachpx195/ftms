@@ -1,5 +1,6 @@
 import React from 'react';
 import CoursePolicy from 'policy/course_policy';
+import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from '../../users/user_constants';
 
@@ -65,6 +66,10 @@ export default class Users extends React.Component {
                       <a href="#"
                         onClick={this.handleEvaluateModal.bind(this, user)} >
                         {I18n.t('courses.evaluation.evaluate')}
+                      </a>
+                      <a href="#"
+                        onClick={this.openModalChangeCourse.bind(this, user)} >
+                        {I18n.t('courses.move_courses.move_course')}
                       </a>
                     </li>
                   </ul>
@@ -161,5 +166,10 @@ export default class Users extends React.Component {
 
   handleAssignMember() {
     this.props.handleAssignMember();
+  }
+
+  openModalChangeCourse(user, event) {
+    event.preventDefault();
+    this.props.openModalChangeCourse(user);
   }
 }
