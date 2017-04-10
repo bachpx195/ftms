@@ -77,7 +77,7 @@ export default class Sidebar extends React.Component {
           {this.renderUserPanel()}
           <ul className='sidebar-menu td-admin-sidebar'>
             <li className="header">{I18n.t('sidebar.space')}</li>
-            <Permit action='my_space/courses/index'>
+            <Permit action='my_space/courses'>
               <li data-page='my_courses'>
                 <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-clone'></i>
@@ -86,7 +86,7 @@ export default class Sidebar extends React.Component {
               </li>
             </Permit>
             <li className="header">{I18n.t('sidebar.main_nav')}</li>
-            <Permit action='organizations/index'>
+            <Permit action='organizations'>
               <li data-page='organizations'>
                 <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-folder'></i>
@@ -94,7 +94,7 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
-            <Permit action='courses/index'>
+            <Permit action='courses'>
               <li data-page='courses'>
                 <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-folder'></i>
@@ -102,7 +102,7 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
-            <Permit action='projects/index'>
+            <Permit action='projects'>
               <li data-page='projects'>
                 <a href={PROJECTS_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-folder'></i>
@@ -120,7 +120,7 @@ export default class Sidebar extends React.Component {
                 </span>
               </a>
               <ul id="subMasterMenu" className={this.state.master_menu}>
-                <Permit action='languages/index'>
+                <Permit action='languages'>
                   <li className='sub-li' data-page='languages'>
                     <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -128,7 +128,7 @@ export default class Sidebar extends React.Component {
                     </a>
                   </li>
                 </Permit>
-                <Permit action='stages/index'>
+                <Permit action='stages'>
                   <li className='sub-li' data-page='stages'>
                     <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -137,7 +137,7 @@ export default class Sidebar extends React.Component {
                   </li>
                 </Permit>
 
-                <Permit action='subjects/index'>
+                <Permit action='subjects'>
                   <li className='sub-li' data-page='subjects'>
                     <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -146,7 +146,7 @@ export default class Sidebar extends React.Component {
                   </li>
                 </Permit>
 
-                <Permit action='trainee_types/index'>
+                <Permit action='trainee_types'>
                   <li className='sub-li' data-page="trainee_types">
                     <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -155,7 +155,7 @@ export default class Sidebar extends React.Component {
                   </li>
                 </Permit>
 
-                <Permit action='training_standards/index'>
+                <Permit action='training_standards'>
                   <li className='sub-li' data-page="training_standards">
                     <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -164,7 +164,7 @@ export default class Sidebar extends React.Component {
                   </li>
                 </Permit>
 
-                <Permit action='universities/index'>
+                <Permit action='universities'>
                   <li className='sub-li' data-page="universities">
                     <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -173,7 +173,7 @@ export default class Sidebar extends React.Component {
                   </li>
                 </Permit>
 
-                <Permit action='categories/index'>
+                <Permit action='categories'>
                   <li className='sub-li' data-page="categories">
                     <a href={CATEGORY_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -194,7 +194,7 @@ export default class Sidebar extends React.Component {
                 </span>
               </a>
               <ul id="subRoleMenu" className={this.state.roles_menu}>
-                <Permit action='roles/index'>
+                <Permit action='roles'>
                   <li className='sub-li' data-page="roles">
                     <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -202,7 +202,7 @@ export default class Sidebar extends React.Component {
                     </a>
                   </li>
                 </Permit>
-                <Permit action='functions/index'>
+                <Permit action='functions'>
                   <li className='sub-li' data-page="functions">
                     <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -212,7 +212,7 @@ export default class Sidebar extends React.Component {
                 </Permit>
               </ul>
             </li>
-            <Permit action='users/index'>
+            <Permit action='users'>
               <li>
                 <a href={USERS_URL} onClick={this.onClick.bind(this)}>
                   <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
@@ -220,7 +220,7 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
-            <Permit action='moving_histories/index'>
+            <Permit action='moving_histories'>
               <li data-page='moving_history'>
                 <a href={MOVING_HISTORY_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-history'></i>
