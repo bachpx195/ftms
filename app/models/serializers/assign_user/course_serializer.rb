@@ -4,7 +4,8 @@ class Serializers::AssignUser::CourseSerializer <
 
   def managers
     Serializers::Courses::CourseMembersSerializer
-      .new(object: @course_supports.managers, scope: {course: object}).serializer
+      .new(object: @course_supports.managers,
+      scope: {course: object}).serializer
   end
 
   def members

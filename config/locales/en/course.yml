@@ -98,3 +98,6 @@ en:
     buttons:
       save: "Save"
       finish: "Finish"
+      preview: "Preview"
+    list_managers: "Manager"
+    close: "Close"
