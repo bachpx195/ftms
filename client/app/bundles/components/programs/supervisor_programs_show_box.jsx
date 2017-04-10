@@ -9,6 +9,7 @@ import Dropzone from 'react-dropzone';
 import UserLists from './user_lists';
 import CourseLists from './course_lists';
 import SubjectLists from './subject_lists';
+import CourseManagers from './list_items/course_managers';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './program_constants';
 import * as user_constants from '../users/user_constants';
@@ -94,6 +95,63 @@ export default class SupervisorProgramsShowBox extends React.Component {
     }
   }
 
+  renderCourseMember(member){
+    return (
+      <li key={member.id}>
+        <img src={member.avatar.url}
+          className='td-member-avatar img-circle' title={member.name}/>
+      </li>
+    );
+  }
+
+
+  renderManagerProfile(managers) {
+    return managers.map((manager, index) => {
+      return ( <li key={index} className="col-xs-4 td-list-manager">
+        <div className="width-100 td-manager-box">
+          <img src={manager.user_avatar}
+            className='col-sm-4 img-circle width-80'/>
+          <div className="col-sm-8">
+            <p className="td-manager-name" title={manager.user_name}>
+              {manager.user_name}
+            </p>
+            <p className="td-manager-email" title={manager.user_email}>
+              {manager.user_email}
+            </p>
+          </div>
+          <div className="clearfix"></div>
+        </div>
+      </li>);
+    });
+  }
+
+  renderModalManagers(course) {
+    let managers = course.course_managers;
+    return (
+      <div className={`modal-manager-${course.id} modal fade
+        td-modal-manager-profile`}
+        key={course.id} role="dialog">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">
+                &times;</button>
+              <h4 className="modal-title">{I18n.t('courses.list_managers')}</h4>
+            </div>
+            <div className="modal-body td-manager-profile-list">
+              {this.renderManagerProfile(managers)}
+              <div className="clearfix"></div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-default"
+                data-dismiss="modal">{I18n.t('courses.close')}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   renderListCourses() {
     return _.map(this.state.program_detail.courses, course => {
       if (course.training_standard.id == this.state.selected_standard) {
@@ -106,15 +164,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
   }
 
   renderCourses(course) {
-    let course_managers = course.course_managers ?
-      course.course_managers.slice(0, 5) : null;
-    let images= null;
-    if (course_managers) {
-      images = course_managers.map((course_manager, index) => {
-        return <img key={index} src={course_manager.user_avatar}
-          className='td-course-manager-avatar' />;
-      });
-    }
     let course_path = COURSE_URL + this.props.program.id + '/' +
       course_constants.COURSES_PATH + course.id;
     let description = course.description;
@@ -126,7 +175,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
         className='col-md-4 col-xs-4 col-lg-4 td-program-list-course' >
         <div className="td-course-box">
           <div className="td-course-image-manager">
-            {images}
+            <CourseManagers course={course} />
             <div className="clearfix"></div>
           </div>
           <a href={course_path}>
@@ -169,6 +218,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
         <div className="clearfix"></div>
         <div className="td-course-box-before"></div>
         <div className="td-course-box-after"></div>
+        {this.renderModalManagers(course)}
       </div>
     );
   }

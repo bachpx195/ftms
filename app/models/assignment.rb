@@ -11,5 +11,4 @@ class Assignment < ApplicationRecord
   belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
   ATTRIBUTE_PARAMS = [:name, :content]
-
 end

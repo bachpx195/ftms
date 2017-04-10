@@ -10,6 +10,8 @@ $td-program-list-course-shadow: #e5b85e;
 $course-container-background: #f5f5f5;
 $course-container-scrollbar-thumb: #bcb8b8;
 $course-container-scrollbar-track-shadow: rgba(0, 0, 0, .3);
+$list-manager-background: #f4f8fa;
+$list-manager-border: #dbe3e7;
 
 .td-padding-top {
   padding-top: 50px;
@@ -70,39 +72,32 @@ $course-container-scrollbar-track-shadow: rgba(0, 0, 0, .3);
     height: 25px;
     position: relative;
 
-    .td-course-manager-avatar {
-      border: 4px solid $white;
-      border-radius: 50%;
-      box-shadow: 0 0 3px 2px $box-shadow;
-      cursor: pointer;
-      height: 36px;
-      left: calc(50% - 18px);
+    li {
+      float: left;
+      list-style: none;
       position: absolute;
       right: -10px;
       top: -20px;
+      left: calc(50% - 18px);
+    }
+
+    .td-course-manager-avatar {
+      border-radius: 50%;
+      box-shadow: 0 0 3px 2px $box-shadow;
+      height: 36px;
       width: 36px;
       z-index: 1;
     }
   }
 
   .td-course-image-manager:hover {
-    img:nth-child(2) {
+    li:nth-child(2) {
       left: calc(50% - 58px);
       transition-duration: 1s;
     }
 
-    img:nth-child(3) {
-      left: calc(50% - 58px);
-      transition-duration: 1s;
-    }
-
-    img:nth-child(4) {
-      left: calc(50% + 58px);
-      transition-duration: 1s;
-    }
-
-    img:nth-child(5) {
-      left: calc(50% + 58px);
+    li:nth-child(3) {
+      left: calc(50% + 22px);
       transition-duration: 1s;
     }
   }
@@ -318,4 +313,67 @@ p {
 
 .btn-remove-file {
   margin-left: 10px;
+}
+
+li {
+  &.manager-list {
+    cursor: pointer;
+    height: 36px;
+
+    .many-manager {
+      background-color: $many-member-background-color;
+      border-radius: 50%;
+      box-shadow: 0 0 3px 2px $box-shadow;
+      color: $white;
+      cursor: pointer;
+      height: 36px;
+      position: absolute;
+      width: 36px;
+      z-index: -1;
+      line-height: 36px;
+    }
+  }
+}
+
+.td-list-manager {
+  list-style-type: none;
+  margin-bottom: 10px;
+
+  .td-manager-box {
+    background-color: $list-manager-background;
+    border: 1px solid $list-manager-border;
+    box-shadow: 0 2px 3px $list-manager-border;
+    padding-bottom: 20px;
+    padding-top: 20px;
+
+    .td-manager-email {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .td-manager-name {
+      font-weight: 600;
+    }
+  }
+
+}
+
+.td-modal-manager-profile {
+  .modal-dialog {
+    width: 70%;
+
+    .td-manager-profile-list {
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+  }
+}
+
+.width-80 {
+  width: 80px;
+}
+
+.width-100 {
+  width: 100%;
 }
