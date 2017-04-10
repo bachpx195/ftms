@@ -59,6 +59,7 @@ namespace :db do
     end
 
     function = Function.create! controller_name: "organizations", action: "index"
+    function = Function.create! controller_name: "users", action: "show"
 
     Rails.application.routes.routes.map do |router|
       functions.push controller_name: router.defaults[:controller],
@@ -71,7 +72,8 @@ namespace :db do
 
     f1 = Function.find_by controller_name: "users", action: "show"
     f2 = Function.find_by controller_name: "courses", action: "show"
-    f3 = Function.find_by controller_name: "subjects", action: "show"
+    f3 = Function.find_by controller_name: "courses", action: "index"
+    f4 = Function.find_by controller_name: "subjects", action: "show"
 
     10.times do |n|
       user = User.create!(
@@ -346,7 +348,7 @@ namespace :db do
       {user_id: 12, course_id: 1, status: "in_progress"},
       {user_id: 13, course_id: 1, status: "in_progress"},
       {user_id: 11, course_id: 2, status: "in_progress"},
-      {user_id: 11, course_id: 3, status: "in_progress"},
+      {user_id: 10, course_id: 3, status: "in_progress"},
       {user_id: 15, course_id: 1, status: "in_progress"},
       {user_id: 16, course_id: 2, status: "in_progress"},
       {user_id: 14, course_id: 3, status: "in_progress"},
@@ -367,7 +369,7 @@ namespace :db do
     end
 
     puts "18. create Profile"
-    User.all.limit(9).each do |user|
+    User.all.each do |user|
       Profile.create!([
         {user: user, language_id: 1, organization_id: 2, program_id: 1,
           staff_code: "#{user.id + 1}"},
