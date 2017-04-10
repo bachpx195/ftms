@@ -250,6 +250,9 @@ export default class CoursesShowBox extends React.Component {
   }
 
   onDocumentsDrop(acceptedFiles, rejectedFiles) {
+    if (app_constants.isOverMaxDocumentSize(acceptedFiles[0])) {
+      return;
+    }
     let formData = new FormData();
     formData.append('document[documentable_id]', this.state.course.id);
     formData.append('document[documentable_type]', 'Course');

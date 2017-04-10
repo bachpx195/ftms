@@ -524,6 +524,9 @@ export default class SupervisorProgramsShowBox extends React.Component {
   }
 
   onDocumentsDrop(acceptedFiles, rejectedFiles) {
+    if (app_constants.isOverMaxDocumentSize(acceptedFiles[0])) {
+      return;
+    }
     let formData = new FormData();
     formData.append('document[documentable_id]', this.state.program_detail.id);
     formData.append('document[documentable_type]', 'Program');

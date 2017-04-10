@@ -1,7 +1,7 @@
 class Serializers::Subjects::SubjectDetailsSerializer <
   Serializers::SupportSerializer
   attrs :id, :name, :content, :description, :during_time, :image,
-    :training_standard, :statuses, :task, :subject_task
+    :training_standard, :statuses, :task, :subject_task, :documents
   attrs :course_subject_task, :course_subject, :user_subjects,
     :course_subject_teams, if: :check_course_subject
   attrs :course_member, if: :check_course
@@ -54,6 +54,11 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   def course_subject_teams
     Serializers::Subjects::CourseSubjectTeamsSerializer
       .new(object: course_subjects.teams).serializer
+  end
+
+  def documents
+    Serializers::Documents::DocumentsSerializer
+      .new(object: object.documents).serializer
   end
 
   private

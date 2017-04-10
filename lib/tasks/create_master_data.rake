@@ -80,7 +80,7 @@ namespace :db do
     f8 = Function.find_by controller_name: "meta_task", action: "create"
     f9 = Function.find_by controller_name: "meta_task", action: "show"
     f10 = Function.find_by controller_name: "meta_task", action: "update"
-    f10 = Function.find_by controller_name: "meta_task", action: "destroy"
+    f11 = Function.find_by controller_name: "meta_task", action: "destroy"
 
     10.times do |n|
       user = User.create!(
@@ -98,7 +98,7 @@ namespace :db do
         {user: user, function: f5},
         {user: user, function: f6},
         {user: user, function: f7},
-        {user: user, function: f7},
+        {user: user, function: f8},
         {user: user, function: f9},
         {user: user, function: f10},
         {user: user, function: f11}

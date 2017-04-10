@@ -6,7 +6,7 @@ export default class TabsHeader extends React.Component {
       return (
         <ul className='nav nav-tabs pull-left'>
           <li className='active'>
-            <a data-toggle='tab' href='#list_team'>
+            <a data-toggle='tab' href='#tab-team-list'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-pencil-square-o'></i>
                 {I18n.t('subjects.titles.list_team')}
@@ -14,7 +14,7 @@ export default class TabsHeader extends React.Component {
             </a>
           </li>
           <li>
-            <a data-toggle='tab' href='#user-subject'>
+            <a data-toggle='tab' href='#tab-user-subject-list'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-file-text-o'></i>
                 {I18n.t('subjects.titles.unassigned_members')}
@@ -22,7 +22,7 @@ export default class TabsHeader extends React.Component {
             </a>
           </li>
           <li>
-            <a data-toggle='tab' href='#home'>
+            <a data-toggle='tab' href='#tab-surveys'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-file-text-o'></i>
                 {I18n.t('subjects.titles.surveys')}
@@ -30,7 +30,7 @@ export default class TabsHeader extends React.Component {
             </a>
           </li>
           <li>
-            <a data-toggle='tab' href='#menu1'>
+            <a data-toggle='tab' href='#tab-assignments'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-pencil-square-o'></i>
                 {I18n.t('subjects.titles.assignments')}
@@ -38,10 +38,18 @@ export default class TabsHeader extends React.Component {
             </a>
           </li>
           <li>
-            <a data-toggle='tab' href='#menu2'>
+            <a data-toggle='tab' href='#tab-test-rules'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-check-square-o'></i>
                 {I18n.t('subjects.titles.tests')}
+              </div>
+            </a>
+          </li>
+          <li>
+            <a data-toggle='tab' href='#tab-documents'>
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-file-text-o'></i>
+                {I18n.t('subjects.titles.documents')}
               </div>
             </a>
           </li>
@@ -51,7 +59,7 @@ export default class TabsHeader extends React.Component {
       return (
         <ul className='nav nav-tabs pull-left'>
           <li className='active'>
-            <a data-toggle='tab' href='#home'>
+            <a data-toggle='tab' href='#tab-surveys'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-file-text-o'></i>
                 {I18n.t('subjects.titles.surveys')}
@@ -59,7 +67,7 @@ export default class TabsHeader extends React.Component {
             </a>
           </li>
           <li>
-            <a data-toggle='tab' href='#menu1'>
+            <a data-toggle='tab' href='#tab-assignments'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-pencil-square-o'></i>
                 {I18n.t('subjects.titles.assignments')}
@@ -67,10 +75,18 @@ export default class TabsHeader extends React.Component {
             </a>
           </li>
           <li>
-            <a data-toggle='tab' href='#menu2'>
+            <a data-toggle='tab' href='#tab-test-rules'>
               <div className='custom-subjects-titles'>
                 <i className='fa fa-check-square-o'></i>
                 {I18n.t('subjects.titles.tests')}
+              </div>
+            </a>
+          </li>
+          <li>
+            <a data-toggle='tab' href='#tab-documents'>
+              <div className='custom-subjects-titles'>
+                <i className='fa fa-file-text-o'></i>
+                {I18n.t('subjects.titles.documents')}
               </div>
             </a>
           </li>
