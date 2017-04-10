@@ -46,7 +46,7 @@ class Supports::SubjectSupport
 
   def user_assigmnent
     @user_assignment = user_static_task
-      .includes(:targetable).map(&:targetable)
+      .includes(:targetable).map(&:targetable).uniq
   end
 
   def training_standard

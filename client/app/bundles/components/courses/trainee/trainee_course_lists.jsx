@@ -18,7 +18,7 @@ export default class TraineeCourseLists extends React.Component {
 
   renderCourseLists(text, courses) {
     let html = null;
-    if (courses) {
+    if (courses.length > 0) {
       html = (
         <div className="box box-success">
           <div className="box-header with-border">
