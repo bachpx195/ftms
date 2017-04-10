@@ -100,7 +100,7 @@ export default class SubjectShowBoxTrainee extends React.Component {
   }
 
   renderAssignment() {
-    return this.state.assigments_of_user_subjects.map(assignment => {
+    return this.state.assigments_of_user_subjects.map((assignment, index) => {
       let status= '';
       let tmp_dynamic_task = '';
 
@@ -115,7 +115,7 @@ export default class SubjectShowBoxTrainee extends React.Component {
         }
       })
       return <AssignmentItem
-        key={assignment.id}
+        key={index}
         status={status}
         course_subject_teams={this.state.course_subject_teams}
         current_user={this.state.current_user}

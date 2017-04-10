@@ -78,6 +78,7 @@ export default class CoursesShowBox extends React.Component {
   render() {
     let members_ids = this.props.members_ids;
     const courseListPermit =[
+      {controller: 'programs', action: ['show'], target: 'children'},
       {controller: 'courses', action: ['ownerController'], target: 'children',
         data: {controller: 'courses'}},
       {controller: 'my_space/courses', action: ['ownerController',
