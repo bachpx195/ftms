@@ -10,7 +10,7 @@ export default class ListUsers extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let filter = $('#filter-' + this.props.id).val();
+    let filter = $('#filter-' + this.props.className).val();
     let users = nextProps.users.filter(user => {
       return user.name.toLowerCase().includes(filter.toLowerCase());
     });
@@ -29,10 +29,10 @@ export default class ListUsers extends React.Component {
         </div>
         <div className="panel-body">
           <input className="form-control search_form"
-            id={`filter-${this.props.id}`}
+            id={`filter-${this.props.className}`}
             placeholder={I18n.t('courses.search_user')}
             autoComplete="off" onChange={this.filterUsers.bind(this)} />
-          <div className="list-group" id={this.props.id}>
+          <div className={`list-group ${this.props.className}`}>
             {this.renderUsers()}
           </div>
           <div className="panel-footer count-member">
@@ -47,7 +47,7 @@ export default class ListUsers extends React.Component {
   renderUsers() {
     return this.state.users.map(user => {
       let checked = this.state.checked_users.indexOf(user) >= 0;
-      return <li key={`${this.props.id}-${user.id}`}
+      return <li key={`${this.props.className}-${user.id}`}
         className={`list-group-item ${checked ? 'active' : ''}`}
         onClick={this.handleClickUser.bind(this, user, checked)}>
         <span className={`glyphicon

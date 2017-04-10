@@ -19,8 +19,7 @@ export default class TeamList extends React.Component {
       course_subject: props.course_subject,
       unassigned_user_subjects: props.unassigned_user_subjects,
       owner_id: props.owner_id,
-    };
-
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,8 +33,8 @@ export default class TeamList extends React.Component {
 
   renderTeamList(){
     return this.state.course_subject_teams.map(team => {
-      let team_path = COURSE_SUBJECT_URL + team.course_subject_id + '/' +
-        subject_constants.TEAM_PATH + team.id
+      let team_path = app_constants.APP_NAME + subject_constants.TEAM_PATH +
+        team.id;
       return (
         <div key={team.id} className='col-lg-6 col-md-6 col-sm-6'>
           <a href={team_path}>
@@ -51,9 +50,9 @@ export default class TeamList extends React.Component {
     var owner_id = this.state.owner_id;
     return(
       <div className='list-container'>
-        <SubjectPolicy 
+        <SubjectPolicy
           permit={
-            [{action: ['owner'], target: 'children', 
+            [{action: ['owner'], target: 'children',
                 data: {owner_id: owner_id}},
               {controller: 'courses', action: ['show'],
                 target: 'children', data: {controller: 'courses'}}]}
@@ -74,11 +73,11 @@ export default class TeamList extends React.Component {
   }
 
   renderModal() {
-    let url = COURSE_SUBJECT_URL + this.state.course_subject.id + '/' +
-      subject_constants.TEAM_PATH;
+    let url = app_constants.APP_NAME + subject_constants.TEAM_PATH;
     return (
       <Modal url={url} handleAfterSaved={this.handleAfterCreated.bind(this)}
-        unassigned_user_subjects={this.state.unassigned_user_subjects} />
+        unassigned_user_subjects={this.state.unassigned_user_subjects}
+        course_subject={this.props.course_subject} />
     );
   }
 

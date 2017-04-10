@@ -27,6 +27,7 @@ export default class Modal extends React.Component {
             </div>
             <div className='modal-body'>
               <Form
+                course_subject={this.props.course_subject}
                 team={this.props.team}
                 url={this.props.url}
                 handleAfterSaved={this.handleAfterSaved.bind(this)}

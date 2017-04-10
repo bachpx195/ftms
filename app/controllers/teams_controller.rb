@@ -1,28 +1,26 @@
 class TeamsController < ApplicationController
-  before_action :find_course_subject
+  before_action :load_supports
   before_action :find_team, only: :show
 
   def create
-    @team = @course_subject.teams.build team_params
-    if @team.save
-      @team.user_subject_ids = params[:user_subject_ids]
-      respond_to do |format|
-        format.json do
+    respond_to do |format|
+      format.json do
+        team = Team.new team_params
+        if team.save
+          team.user_subject_ids = params[:user_subject_ids]
           render json: {
             team: Serializers::Teams::CreateTeamsSerializer
-              .new(object: @team).serializer
+              .new(object: team).serializer
           }
+        else
+          render json: {message: flash_message("not_created"),
+            errors: team.errors}, status: :unprocessable_entity
         end
       end
-    else
-      render json: {message: flash_message("not_created"),
-        errors: @team.errors}, status: :unprocessable_entity
     end
   end
 
   def show
-    @team_supports = Supports::TeamSupport
-      .new course_subject: @course_subject, team: @team
   end
 
   private
@@ -30,22 +28,12 @@ class TeamsController < ApplicationController
     params.require(:team).permit Team::ATTRIBUTE_PARAMS
   end
 
-  def find_course_subject
-    @course_subject = CourseSubject.find_by id: params[:course_subject_id]
-    unless @course_subject
-      respond_to do |format|
-        format.html{redirect_to :back}
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
-        end
-      end
-    end
+  def load_supports
+    @team_supports = Supports::TeamSupport.new params: params
   end
 
   def find_team
-    @team = @course_subject.teams.find_by id: params[:id]
-    unless @team
+    unless @team_supports.team
       respond_to do |format|
         format.html{redirect_to :back}
         format.json do

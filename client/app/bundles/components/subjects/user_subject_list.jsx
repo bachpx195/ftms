@@ -83,6 +83,7 @@ export default class UserSubjectList extends React.Component {
       }
       return null;
     }
+
     return (
       <SubjectPolicy permit={
         [{action: ['owner'], target: 'children', 

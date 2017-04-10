@@ -9,4 +9,14 @@ class Team < ApplicationRecord
   has_many :user_subjects, dependent: :destroy
   has_many :users, through: :user_subjects, source: :user
   has_many :documents, as: :documentable, dependent: :destroy
+  has_many :static_tasks, as: :ownerable,
+    class_name: StaticTask.name, dependent: :destroy
+  has_many :assignments, through: :static_tasks, source: :targetable,
+    source_type: Assignment.name
+  has_many :surveys, through: :static_tasks, source: :targetable,
+    source_type: Survey.name
+  has_many :projects, through: :static_tasks, source: :targetable,
+    source_type: Project.name
+  has_many :test_rules, through: :static_tasks, source: :targetable,
+    source_type: TestRule.name
 end

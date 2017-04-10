@@ -79,7 +79,7 @@ export default class ListTabs extends React.Component {
                 <button type='button' className='close'
                   data-dismiss='modal'>&times;</button>
                 <h4 className='modal-title'>
-                  {I18n.t('subjects.headers.user_course')}
+                  {I18n.t('subjects.headers.list_task')}
                 </h4>
               </div>
               {panelUserTask}

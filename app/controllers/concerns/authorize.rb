@@ -7,7 +7,7 @@ module Authorize
     "Stage", "University", "TraineeType", "Function", "User", "Role",
     "RoleFunction", "ChangeRole::User", "AssignUser::Course", "UserFunction",
     "UserSubject", "AssignTask::Task", "CreateTask::Task", "MySpace::Course",
-    "UserCourse", "Task", "MetaTask", "CourseSubject"]
+    "UserCourse", "Task", "MetaTask", "CourseSubject", "Team"]
 
   def user_not_authorized
     flash[:alert] = t "flashs.errors.not_authorize"

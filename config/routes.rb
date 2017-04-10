@@ -1,4 +1,3 @@
-
 class ActionDispatch::Routing::Mapper
   def draw routes_name
     instance_eval(File.read(Rails.root.join("config/routes/#{routes_name}.rb")))
@@ -77,9 +76,7 @@ Rails.application.routes.draw do
     resources :subjects, default: {format: "json"}
   end
 
-  resources :course_subjects do
-    resources :teams
-  end
+  resources :teams
 
   resources :assignments, only: [:show, :create]
   resources :dynamic_tasks, only: [:update]

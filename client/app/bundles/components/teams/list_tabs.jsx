@@ -1,7 +1,6 @@
 import React from 'react';
-import ModalTask from '../subject_form/modalTask';
-import ModalBody from '../subject_form/modalBody';
-import TabsHeader from './tabs_header';
+import ModalTask from '../subjects/subject_form/modalTask';
+import ModalBody from '../subjects/subject_form/modalBody';
 import TabsContent from './tabs_content';
 
 export default class ListTabs extends React.Component {
@@ -9,7 +8,6 @@ export default class ListTabs extends React.Component {
     super(props);
     this.state = {
       subject_detail: props.subject_detail,
-      course_subject_teams: props.course_subject_teams,
       user: props.user,
       user_index: props.user_index,
       member_evaluations: props.member_evaluations
@@ -19,7 +17,6 @@ export default class ListTabs extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       subject_detail: nextProps.subject_detail,
-      course_subject_teams: nextProps.course_subject_teams,
       user: nextProps.user,
       user_index: nextProps.user_index,
       member_evaluations: nextProps.member_evaluations
@@ -30,18 +27,68 @@ export default class ListTabs extends React.Component {
     return (
       <div className='blocks'>
         <div className='col-md-12'>
-          <TabsHeader course={this.props.course} />
+          <ul className='nav nav-tabs tab-bar'>
+            <li className='active'>
+              <a data-toggle='tab' href='#user-subject' className='tab-header'>
+                <i className='fa fa-file-text-o'></i>
+                  {this.props.team.name}
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#surveys'>
+                <div className='custom-subjects-titles'>
+                  <i className='fa fa-file-text-o'></i>
+                  {I18n.t('subjects.titles.surveys')}
+                </div>
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#assignments'>
+                <div className='custom-subjects-titles'>
+                  <i className='fa fa-pencil-square-o'></i>
+                  {I18n.t('subjects.titles.assignments')}
+                </div>
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#test-rules'>
+                <div className='custom-subjects-titles'>
+                  <i className='fa fa-check-square-o'></i>
+                  {I18n.t('subjects.titles.tests')}
+                </div>
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#projects'>
+                <div className='custom-subjects-titles'>
+                  <i className='fa fa-check-square-o'></i>
+                  {I18n.t('subjects.titles.projects')}
+                </div>
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#tab-documents' className='tab-header'>
+                <i className='fa fa-file-pdf-o'></i>
+                {I18n.t('subjects.titles.documents')}
+              </a>
+            </li>
+          </ul>
         </div>
-        <TabsContent course_subject_teams={this.state.course_subject_teams}
-          subject_detail={this.state.subject_detail} course={this.props.course}
-          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-          handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
-          afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+        <TabsContent team={this.props.team} course={this.props.course}
+          subject_detail={this.state.subject_detail}
+          statuses={this.props.statuses}
+          handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+          afterAddTaskForUser={this.props.afterAddTaskForUser}
           training_standard={this.props.training_standard}
           evaluation_template={this.props.evaluation_template}
           evaluation_standards={this.props.evaluation_standards}
           member_evaluations={this.state.member_evaluations}
-          subject={this.props.subject} />
+          subject={this.props.subject} documents={this.props.documents}
+          document_preview={this.props.document_preview}
+          onDocumentsDrop={this.props.onDocumentsDrop}
+          handleDocumentUploaded={this.props.handleDocumentUploaded}
+          handleDocumentDeleted={this.props.handleDocumentDeleted}
+          clickPreviewDocument={this.props.clickPreviewDocument} />
         {this.renderUserTaskModal()}
         {this.renderTaskModal()}
       </div>
@@ -49,29 +96,27 @@ export default class ListTabs extends React.Component {
   }
 
   renderUserTaskModal() {
-    let modalUserTask = null;
+    let panelUserTask = null;
+    if(this.state.subject_detail.user_subjects &&
+      this.state.subject_detail.user_subjects[this.state.user_index]) {
+      panelUserTask = (
+        <ModalTask task={this.state.subject_detail.team_task}
+          user_tasks={this.state.subject_detail
+            .user_subjects[this.state.user_index].user_course_task}
+          user_index={this.state.user_index}
+          ownerable_id={this.state.subject_detail.course_subject.id}
+          ownerable_type='Team'
+          subject_detail={this.state.subject_detail}
+          handleAfterAddTask={this.props.handleAfterAddTask}
+          afterCreateTask={this.props.afterCreateTask}
+          user={this.state.user}
+          handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+        />
+      )
+    }
 
-    if (this.props.course) {
-      let panelUserTask = null;
-      if(this.state.subject_detail.user_subjects &&
-        this.state.subject_detail.user_subjects[this.state.user_index]) {
-        panelUserTask = (
-          <ModalTask task={this.state.subject_detail.course_subject_task}
-            user_tasks={this.state.subject_detail
-              .user_subjects[this.state.user_index].user_course_task}
-            user_index={this.state.user_index}
-            ownerable_id={this.state.subject_detail.course_subject.id}
-            ownerable_type='CourseSubject'
-            subject_detail={this.state.subject_detail}
-            handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-            afterCreateTask={this.afterCreateTask.bind(this)}
-            user={this.state.user}
-            handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-          />
-        )
-      }
-
-      modalUserTask = (
+    return (
+      <div className='modalUser'>
         <div id='modalUserTask' className='modal fade in' role='dialog'>
           <div className='modal-dialog'>
             <div className='modal-content'>
@@ -79,38 +124,18 @@ export default class ListTabs extends React.Component {
                 <button type='button' className='close'
                   data-dismiss='modal'>&times;</button>
                 <h4 className='modal-title'>
-                  {I18n.t('subjects.headers.user_course')}
+                  {I18n.t('subjects.headers.list_task')}
                 </h4>
               </div>
               {panelUserTask}
             </div>
           </div>
         </div>
-      )
-    }
-
-    return(
-      <div className='modalUser'>
-        {modalUserTask}
       </div>
     )
   }
 
   renderTaskModal() {
-    let task = null;
-    let ownerable_id = null;
-    let ownerable_type = '';
-
-    if (this.props.course) {
-      task = this.state.subject_detail.subject_task;
-      ownerable_id = this.state.subject_detail.course_subject.id;
-      ownerable_type = 'CourseSubject';
-    } else {
-      task = this.state.subject_detail.task;
-      ownerable_id = this.state.subject_detail.id;
-      ownerable_type = 'Subject';
-    }
-
     return(
       <div className='modal-task'>
         <div id='modalAddTask' className='modal fade in' role='dialog'>
@@ -121,39 +146,18 @@ export default class ListTabs extends React.Component {
                   data-dismiss='modal'>&times;</button>
                 <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
               </div>
-              <ModalBody task={task} ownerable_id={ownerable_id}
-                ownerable_type={ownerable_type} course={this.props.course}
+              <ModalBody task={this.state.subject_detail.course_subject_task}
+                ownerable_id={this.props.team.id}
+                ownerable_type='Team' course={this.props.course}
                 subject_detail={this.state.subject_detail}
-                handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-                afterCreateTask={this.afterCreateTask.bind(this)}
-                course_subject_task={this.state.subject_detail
-                  .course_subject_task}
+                handleAfterAddTask={this.props.handleAfterAddTask}
+                afterCreateTask={this.props.afterCreateTask}
+                course_subject_task={this.state.subject_detail.team_task}
               />
             </div>
           </div>
         </div>
       </div>
     )
-  }
-
-  handleAfterDeleteTask(index, task, type, user_index, user) {
-    this.props.handleAfterDeleteTask(index, task, type, user_index, user);
-  }
-
-  handleAfterAddTask(type, targetable_ids,targets, subject_detail, user_id,user_index) {
-    this.props.handleAfterAddTask(type, targetable_ids,targets, subject_detail,
-      user_id, user_index);
-  }
-
-  afterCreateTask(target, type, owner) {
-    this.props.afterCreateTask(target, type, owner);
-  }
-
-  afterAddTaskForUser(user, user_index) {
-    this.props.afterAddTaskForUser(user, user_index);
-  }
-
-  handleAfterCreatedTeam(course_subject_teams, subject_detail) {
-    this.props.handleAfterCreatedTeam(course_subject_teams, subject_detail);
   }
 }

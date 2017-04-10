@@ -40,7 +40,7 @@ export default class ModalTask extends React.Component{
       button_name = I18n.t('buttons.add_task')
       user_task = (
         <UserTasks user_tasks={this.state.user_tasks} type={this.state.type}
-          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+          handleAfterDeleteTask={this.props.handleAfterDeleteTask}
           user_index={this.props.user_index} user={this.props.user} />
       )
     } else {
@@ -52,8 +52,8 @@ export default class ModalTask extends React.Component{
             ownerable_id={this.props.ownerable_id}
             ownerable_type={this.props.ownerable_type}
             subject_detail={this.props.subject_detail}
-            handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-            afterCreateTask={this.afterCreateTask.bind(this)}
+            handleAfterAddTask={this.props.handleAfterAddTask}
+            afterCreateTask={this.props.afterCreateTask}
             user={this.props.user} targetable_type="StaticTask"
             user_index={this.props.user_index}
             changePanel={this.changePanel.bind(this)}/>
@@ -111,18 +111,5 @@ export default class ModalTask extends React.Component{
     this.setState({
       id: id
     });
-  }
-
-  handleAfterDeleteTask(task_id, task, type, user_index, user) {
-    this.props.handleAfterDeleteTask(task_id, task, type, user_index, user)
-  }
-
-  handleAfterAddTask(type, ids, targets, subject_detail, user_id, user_index) {
-    this.props.handleAfterAddTask(type, ids, targets,
-      subject_detail, user_id, user_index);
-  }
-
-  afterCreateTask(target, type, owner) {
-    this.props.afterCreateTask(target, type, owner)
   }
 }

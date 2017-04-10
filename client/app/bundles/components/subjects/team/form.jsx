@@ -11,6 +11,7 @@ export default class Form extends React.Component {
     super(props);
 
     this.state = {
+      course_subject_id: props.course_subject.id,
       name: props.team ? props.team.name : '',
       user_subjects: props.user_subjects,
       selected_user_subjects: [],

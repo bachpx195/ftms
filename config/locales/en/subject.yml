@@ -7,6 +7,7 @@ en:
       surveys: "Surveys"
       assignments: "Assignments"
       tests: "Tests"
+      projects: "Projects"
       unassigned_members: "Unassigned members"
       list_team: "List team"
       members: "Members"
@@ -34,6 +35,7 @@ en:
       user_course: "List User Course"
       content: "Content"
       evaluate: "Evaluate"
+      list_task: "List task"
     modals:
       header_create: "Create subject"
       header_edit: "Edit subject"

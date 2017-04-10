@@ -5,11 +5,11 @@ import * as app_constants from 'constants/app_constants';
 import * as subject_constants from '../subject_constants';
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
-export default class ModalCreatSubject extends React.Component {
+export default class ModalCreateSubject extends React.Component {
 
   render() {
     return (
-      <div id='modalCreatSubject' className='modal fade in' role='dialog'>
+      <div id='ModalCreateSubject' className='modal fade in' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
@@ -28,6 +28,6 @@ export default class ModalCreatSubject extends React.Component {
 
   handleAfterCreated(subject) {
     this.props.handleAfterCreated(subject);
-    $('#modalCreatSubject').modal('hide');
+    $('#ModalCreateSubject').modal('hide');
   }
 }

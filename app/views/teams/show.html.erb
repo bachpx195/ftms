@@ -1,13 +1,15 @@
-<%= react_component "TeamsShowBox", props: {
-  course: @team_supports.course,
-  course_subject: @course_subject,
-  subject: @team_supports.subject,
-  training_standard: @team_supports.training_standard,
-  evaluation_template: @team_supports.evaluation_template,
-  evaluation_standards: @team_supports.evaluation_standards,
-  member_evaluations: @team_supports.member_evaluations,
-  user_subjects: @team_supports.user_subjects,
-  team: @team,
-  statuses: @team_supports.statuses,
-  documents: @team_supports.documents
+<%= react_component "TeamsShowBox",
+  props: {
+    course: @team_supports.course,
+    course_subject: @team_supports.course_subject,
+    subject: @team_supports.subject,
+    training_standard: @team_supports.training_standard,
+    evaluation_template: @team_supports.evaluation_template,
+    evaluation_standards: @team_supports.evaluation_standards,
+    member_evaluations: @team_supports.member_evaluations,
+    user_subjects: @team_supports.user_subjects,
+    documents: @team_supports.documents,
+    team: @team_supports.team,
+    statuses: @team_supports.statuses,
+    team_detail: @team_supports.team_detail
   }, prerender: false %>
