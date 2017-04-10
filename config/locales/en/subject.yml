@@ -73,6 +73,7 @@ en:
       end_date: "End Date"
     assignments:
       total_task: "%{total} tasks"
-      status:
+      statuses:
         in_progress: "In Progress"
         finish: "Finish"
+        init: "Init"

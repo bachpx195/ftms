@@ -81,7 +81,7 @@ export default class AssignmentItem extends React.Component {
         <div className="col-md-10 info-detail">
           <div className="row title-assignment">
             <div className="div-status"
-              title={`${I18n.t("subjects.assignments.status." + this.props.status)}`}>
+              title={`${I18n.t("subjects.assignments.statuses." + this.props.status)}`}>
               {this.props.status}
               <em className={`status ${status_css} cursor`}></em>
             </div>
