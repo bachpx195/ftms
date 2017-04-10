@@ -4,7 +4,7 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
   acts_as_paranoid
 
-  devise :database_authenticatable, :rememberable, :validatable
+  devise :database_authenticatable, :rememberable, :validatable, :trackable
 
   ATTRIBUTES_PARAMS = [:email, :password]
   ATTRIBUTES_FUNCTION_PARAMS = [user_functions_attributes: [:id,

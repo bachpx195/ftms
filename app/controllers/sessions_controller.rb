@@ -3,17 +3,14 @@ class SessionsController < Devise::SessionsController
   respond_to :json
 
   def create
-    session["user_auth"] = params[:user]
     resource = warden.authenticate!(scope: resource_name,
       recall: "#{controller_path}#failure")
-
     sign_in resource_name, resource
-    message = t "devise.sessions.signed_in"
-
     yield resource if block_given?
+    message = t "devise.sessions.signed_in"
     cookies["current_user_id"] = current_user.id
 
-    render json: {success: true, login: true, data: {message: message,
+    render json: {success: true, data: {message: message,
       current_user: current_user}}
   end
 
