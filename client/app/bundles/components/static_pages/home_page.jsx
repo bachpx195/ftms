@@ -12,7 +12,6 @@ export default class HomePage extends React.Component {
     super(props);
 
     this.state = {
-      signed_in: false,
       errors: null
     };
   }
@@ -416,7 +415,6 @@ export default class HomePage extends React.Component {
     .then(response => {
       if (response.data.success) {
         this.setState({
-          signed_in: true,
           errors: response.data.data.message
         });
         this.setLocalStorage(response);
@@ -433,10 +431,7 @@ export default class HomePage extends React.Component {
   }
 
   setLocalStorage(response) {
-    if (localStorage.current_user == undefined ||
-      typeof localStorage.current_user === typeof undefined) {
-      localStorage.setItem('current_user',
-        JSON.stringify(response.data.data.current_user));
-    }
+    localStorage.setItem('current_user',
+      JSON.stringify(response.data.data.current_user));
   }
 }

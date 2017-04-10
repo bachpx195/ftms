@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= react_component "#{current_user.find_base_component}",
+  <%= react_component current_user.find_base_component,
     props: {
       user: @supports.user,
       user_detail: @supports.user_serializer
