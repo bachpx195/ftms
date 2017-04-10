@@ -1,4 +1,5 @@
 $fa-green: #5cb85c;
+$box-shadow: #dfdfdf;
 
 .roles {
   overflow: hidden;
@@ -30,4 +31,13 @@ $fa-green: #5cb85c;
     margin-top: 30%;
     vertical-align: middle;
   }
+}
+
+.box {
+  box-shadow: 0 2px 3px 3px $box-shadow;
+  padding: 15px;
+}
+
+.roles-box {
+  margin-top: 25px;
 }

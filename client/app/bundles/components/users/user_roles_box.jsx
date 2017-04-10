@@ -75,18 +75,18 @@ export default class UserRolesBox extends React.Component {
   renderRole() {
     return _.map(this.state.roles, role => {
       return(
-        <p key={role.id} className='form-group'>{role.name}</p>
+        <div key={role.id} >{role.name}</div>
       )
     })
   }
 
   render() {
     return(
-      <div>
-        <div>
-          <h1>{I18n.t('users.roles.name')}</h1>
-          <div>{this.renderRole()}</div>
-        </div>
+      <div className='text-center roles-box'>
+        <span>
+          <strong>{I18n.t('users.roles.name')}: </strong>
+          {this.renderRole()}
+        </span>
         <div className='btn btn-primary' onClick={this.handleEdit.bind(this)}>
           {I18n.t('users.buttons.edit_role')}
         </div>
