@@ -42,4 +42,8 @@ class Supports::TeamSupport
       Serializers::Evaluations::MemberEvaluationsSerializer
         .new(object: @course_subject.member_evaluations).serializer
   end
+
+  def documents
+    @documents ||= @team.documents
+  end
 end

@@ -1,8 +1,14 @@
 import React from 'react';
+import axios from 'axios';
 import TeamList from '../subjects/team/team_list';
 import UserSubjectList from '../subjects/user_subject_list';
 import ModalBody from '../subjects/subject_form/modalBody';
 import ModalTask from '../subjects/subject_form/modalTask';
+
+import Documents from './partials/documents';
+import ModalPreviewDocument from '../shareds/modal_preview_document';
+
+import * as app_constants from 'constants/app_constants';
 
 export default class TeamsShowBox extends React.Component {
   constructor(props) {
@@ -14,7 +20,9 @@ export default class TeamsShowBox extends React.Component {
       team: props.team,
       statuses: props.statuses,
       course: props.course,
-      course_subjects: props.course_subjects
+      course_subjects: props.course_subjects,
+      documents: props.documents,
+      document_preview: {}
     }
   }
 
@@ -24,15 +32,22 @@ export default class TeamsShowBox extends React.Component {
         <div className='col-md-12'>
           <ul className='nav nav-tabs tab-bar'>
             <li className='active'>
-              <a data-toggle='tab' href='#user-subject' className='tab-header'>
+              <a data-toggle='tab' href='#tab-user-subject'
+                className='tab-header'>
                 <i className='fa fa-file-text-o'></i>
-                  {this.state.team.name}
+                {this.state.team.name}
+              </a>
+            </li>
+            <li>
+              <a data-toggle='tab' href='#tab-documents' className='tab-header'>
+                <i className='fa fa-file-pdf-o'></i>
+                {I18n.t('subjects.titles.documents')}
               </a>
             </li>
           </ul>
         </div>
         <div className='tab-content'>
-          <div id='user-subject' className='tab-pane fade in active'>
+          <div id='tab-user-subject' className='tab-pane fade in active'>
             <div className='col-md-12'>
               <div className='box box-success'>
                 <div className='box-body'>
@@ -51,6 +66,17 @@ export default class TeamsShowBox extends React.Component {
                 </div>
               </div>
             </div>
+          </div>
+          <div id='tab-documents' className='tab-pane fade'>
+            <Documents
+              documents={this.state.documents}
+              onDocumentsDrop={this.onDocumentsDrop.bind(this)}
+              handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
+              clickPreviewDocument={this.clickPreviewDocument.bind(this)}/>
+            <ModalPreviewDocument
+              document_preview={this.state.document_preview}
+              handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
+            />
           </div>
           <div className='clearfix'></div>
         </div>
@@ -99,5 +125,45 @@ export default class TeamsShowBox extends React.Component {
       user: ''
     })
     $('#modalAddTask').modal();
+  }
+
+  onDocumentsDrop(acceptedFiles, rejectedFiles) {
+    if (app_constants.isOverMaxDocumentSize(acceptedFiles[0])) {
+      return;
+    }
+    let formData = new FormData();
+    formData.append('document[documentable_id]', this.state.team.id);
+    formData.append('document[documentable_type]', 'Team');
+    formData.append('document[file]', acceptedFiles[0]);
+    formData.append('authenticity_token', ReactOnRails.authenticityToken());
+
+    let url = app_constants.APP_NAME + 'documents';
+
+    axios({
+      url: url,
+      method: 'POST',
+      data: formData,
+      headers: {'Accept': 'application/json'}
+    })
+    .then(response => {
+      this.handleDocumentUploaded(response.data.document);
+    })
+    .catch(error => this.setState({errors: error.response.data.errors}));
+  }
+
+  handleDocumentUploaded(document) {
+    this.state.documents.push(document);
+    this.setState({documents: this.state.documents});
+  }
+
+  handleDocumentDeleted(document) {
+    this.setState({
+      documents: this.state.documents.filter(item => item.id != document.id)
+    });
+  }
+
+  clickPreviewDocument(document) {
+    this.setState({document_preview: document});
+    $('.modal-preview-document').modal();
   }
 }
