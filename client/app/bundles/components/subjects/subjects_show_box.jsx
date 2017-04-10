@@ -25,6 +25,7 @@ export default class SubjectsShowBox extends React.Component {
       member_evaluations: [],
       subject_detail: {
         image: {},
+        documents: [],
         training_standard: {},
         statuses:[],
         task: {

@@ -6,3 +6,12 @@ export const DEFAULT_IMAGE_SUBJECT_URL = '/assets/subject.jpeg';
 export const DEFAULT_IMAGE_USER_URL = '/assets/profile.png';
 export const LIMIT_DESCRIPTION = 36;
 export const ACCEPT_DOCUMENT_TYPES = 'application/pdf,.doc,.docx';
+export const MAX_DOCUMENT_SIZE = 5;
+
+export function isOverMaxDocumentSize(file) {
+  let is_over = (file.size/1048576) >= MAX_DOCUMENT_SIZE;
+  if (is_over) {
+    alert(I18n.t("documents.alert.max_file_size"));
+  }
+  return is_over;
+}

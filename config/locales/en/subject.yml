@@ -12,6 +12,7 @@ en:
       members: "Members"
       list_members: "List members"
       list_tasks: "List tasks"
+      documents: "Documents"
     headers:
       id: "ID"
       name: "Name"

@@ -2,3 +2,5 @@ en:
   documents:
     title: "Documents"
     select_document: "Select document"
+    alert:
+      max_file_size: "Over max file size !"

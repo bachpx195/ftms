@@ -20,6 +20,7 @@ class Subject < ApplicationRecord
     source_type: Survey.name
   has_many :test_rules, through: :static_tasks, source: :targetable,
     source_type: TestRule.name
+  has_many :documents, as: :documentable, dependent: :destroy
 
   belongs_to :organization
   belongs_to :creator, foreign_key: :creator_id, class_name: User.name

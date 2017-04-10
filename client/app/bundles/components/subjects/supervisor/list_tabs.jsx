@@ -156,4 +156,16 @@ export default class ListTabs extends React.Component {
   handleAfterCreatedTeam(course_subject_teams, subject_detail) {
     this.props.handleAfterCreatedTeam(course_subject_teams, subject_detail);
   }
+
+  handleDocumentUploaded(document) {
+    this.props.handleDocumentUploaded(document);
+  }
+
+  handleDocumentDeleted(document) {
+    this.props.handleDocumentDeleted(document);
+  }
+
+  clickPreviewDocument(document) {
+    this.props.clickPreviewDocument(document);
+  }
 }
