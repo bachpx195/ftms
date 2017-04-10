@@ -65,6 +65,8 @@ class Supports::SubjectSupport
   end
 
   def member_ids
-    @course.members.map(&:id).uniq
+    if @course
+      @course.members.map(&:id).uniq
+    end
   end
 end

@@ -1,9 +1,7 @@
 class AssignTask::TasksController < ApplicationController
-  include Authorize
-
   before_action :find_task, only: :destroy
   before_action :find_ownerable, only: :create
-  before_action :namespace_authorize, only: [:create, :destroy]
+  before_action :authorize_request, only: [:create, :destroy]
 
   def create
     list_targets = TaskServices::AssignTask.new(params: params,
@@ -52,5 +50,10 @@ class AssignTask::TasksController < ApplicationController
     else
       raise "Forbidden"
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(ownerable: @ownerable),
+      AssignTask::TaskPolicy
   end
 end
