@@ -18,6 +18,7 @@ export default class UserShowBox extends React.Component {
       user_program: this.props.user_detail.user_program,
       user_organization_programs: this.props
         .user_detail.user_organization_programs,
+      user_profile: this.props.user_detail.user_profile,
     }
   }
 
@@ -58,13 +59,50 @@ export default class UserShowBox extends React.Component {
   }
 
   render() {
-    let btn_change_program = '';
+    let btn_change_program, division, join_div_date, naitei_company,
+      finish_training_date, leave_date = <tr></tr>;
     if(this.state.user_program) {
       btn_change_program = <div className='btn btn-primary'
         onClick={this.handleChangeProgram.bind(this)}>
         {I18n.t('users.buttons.change_program')}
       </div>;
     }
+
+    if(this.state.user_profile.division) {
+      division = <tr>
+        <td>{I18n.t('users.profile_detail.division')}</td>
+        <td>{this.state.user_profile.division.name}</td>
+      </tr>;
+    }
+
+    if(this.state.user_profile.join_div_date) {
+      join_div_date = <tr>
+        <td>{I18n.t('users.profile_detail.join_div_date')}</td>
+        <td>{this.state.user_profile.join_div_date}</td>
+      </tr>;
+    }
+
+    if(this.state.user_profile.naitei_company) {
+      naitei_company = <tr>
+        <td>{I18n.t('users.profile_detail.naitei_company')}</td>
+        <td>{this.state.user_profile.naitei_company}</td>
+      </tr>;
+    }
+
+    if(this.state.user_profile.finish_training_date) {
+      finish_training_date = <tr>
+        <td>{I18n.t('users.profile_detail.finish_training_date')}</td>
+        <td>{this.state.user_profile.finish_training_date}</td>
+      </tr>;
+    }
+
+    if(this.state.user_profile.leave_date) {
+      leave_date = <tr>
+        <td>{I18n.t('users.profile_detail.leave_date')}</td>
+        <td>{this.state.user_profile.leave_date}</td>
+      </tr>;
+    }
+
     return(
       <div className='user-profile'>
         <div className='panel panel-info'>
@@ -82,25 +120,102 @@ export default class UserShowBox extends React.Component {
             </span>
             <h2>{I18n.t('users.user_profile')}</h2>
           </div>
-          <div className='panel panel-body'>
-            <div className='col-md-3'>
+          <div className='panel panel-body col-md-12'>
+            <div className='col-md-2 '>
               <img src={this.state.user_detail.avatar.url}
                 className='img-circle img-responsive img-size-50p'/>
-            </div>
-            <div className='col-md-9 row'>
-              <table className='table table-user-information'>
-                <tbody>
-                  <tr>
-                    <td>{I18n.t('users.name')}</td>
-                    <td>{this.state.user_detail.name}</td>
-                  </tr>
-                  <tr>
-                    <td>{I18n.t('users.email')}</td>
-                    <td>{this.state.user_detail.email}</td>
-                  </tr>
-                </tbody>
-              </table>
               <UserRolesBox user={this.props.user}/>
+            </div>
+            <div className='col-md-5'>
+              <div className='box'>
+                <table className='table table-user-information'>
+                  <tbody>
+                    <tr>
+                      <td>{I18n.t('users.name')}</td>
+                      <td>{this.state.user_detail.name}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.email')}</td>
+                      <td>{this.state.user_detail.email}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.university')}</td>
+                      <td>{this.state.user_profile.university ?
+                        this.state.user_profile.university.name : ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.working_day')}</td>
+                      <td>{this.state.user_profile.working_day || ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.user_status')}</td>
+                      <td>{this.state.user_profile.user_status ?
+                        this.state.user_profile.user_status.name : ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.graduation')}</td>
+                      <td>{this.state.user_profile.graduation || ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.ready_for_project')}</td>
+                      <td>{this.state.user_profile.ready_for_project ?
+                        I18n.t('users.profile_detail.ready') :
+                        I18n.t('users.profile_detail.not_ready')}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.start_training_date')}</td>
+                      <td>{this.state.user_profile.start_training_date || ''}</td>
+                    </tr>
+                    {finish_training_date}
+                    {leave_date}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className='col-md-5'>
+              <div className='box'>
+                <table className='table table-user-information'>
+                  <tbody>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.organization')}</td>
+                      <td>{this.state.user_profile.organization ?
+                        this.state.user_profile.organization.name : ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.program')}</td>
+                      <td>{this.state.user_profile.program ?
+                        this.state.user_profile.program.name : ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.staff_code')}</td>
+                      <td>{this.state.user_profile.staff_code || ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.language')}</td>
+                      <td>{this.state.user_profile.language ?
+                        this.state.user_profile.language.name : ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.trainee_type')}</td>
+                      <td>{this.state.user_profile.trainee_type ?
+                        this.state.user_profile.trainee_type.name : ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.stage')}</td>
+                      <td>{this.state.user_profile.stage ?
+                        this.state.user_profile.stage.name : ''}</td>
+                    </tr>
+                    <tr>
+                      <td>{I18n.t('users.profile_detail.contract_date')}</td>
+                      <td>{this.state.user_profile.contract_date || ''}</td>
+                    </tr>
+                    {division}
+                    {join_div_date}
+                    {naitei_company}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
