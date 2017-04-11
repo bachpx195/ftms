@@ -71,9 +71,17 @@ export default class MenuCourse extends React.Component {
         headers: {'Accept': 'application/json'}
       })
       .then(response => {
-        window.location.href = COURSE_URL + 'organizations/' +
-          response.data.program.organization_id +
-          '/programs/' + response.data.program.id;
+        var path = window.location.pathname;
+        path = path.match(/[^\s|0-9]+[^\0-9]/g).join([]);
+        var program_courses_path = '/' + program_constants.PROGRAMS_PATH +
+          course_constants.MY_COURSES_PATH;
+        if (path == program_courses_path) {
+          window.location.href = COURSE_URL + 'organizations/' +
+            response.data.program.organization_id + '/'
+            + program_constants.PROGRAMS_PATH + response.data.program.id;
+        } else {
+          window.location.href = app_constants.APP_NAME + path.substr(1, path.length - 1);
+        }
       })
       .catch(error => this.setState({errors: error.response.data.errors}));
     }

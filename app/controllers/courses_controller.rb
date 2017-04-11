@@ -40,7 +40,6 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @program = @course.program
     @supports = Supports::CourseSupport.new course: @course, program: @program,
       user: current_user
     respond_to do |format|
@@ -117,6 +116,7 @@ class CoursesController < ApplicationController
   def find_course
     @course = Course.find_by id: params[:id]
     unless @course
+      @program = @course.program
       respond_to do |format|
         format.html{redirect_to courses_path}
         format.json do

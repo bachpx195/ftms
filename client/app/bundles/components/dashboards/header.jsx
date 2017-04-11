@@ -26,6 +26,7 @@ export default class Header extends React.Component {
   dropdownProfile() {
     if (localStorage.current_user !== undefined) {
       let current_user = JSON.parse(localStorage.current_user);
+      let path = ROOT_URL + dashboard_constands.USERS_PATH + '/' + current_user.id;
       return (
         <div className="navbar-custom-menu">
           <ul className="nav navbar-nav">
@@ -46,7 +47,7 @@ export default class Header extends React.Component {
                 </li>
                 <li className="user-footer">
                   <div className="pull-left">
-                    <a href="#" className="btn btn-default btn-flat ev-default">
+                    <a href={path} className="btn btn-default btn-flat ev-default">
                       {I18n.t("header.profile")}
                     </a>
                   </div>

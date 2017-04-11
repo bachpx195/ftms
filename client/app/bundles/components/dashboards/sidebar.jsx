@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Permit from 'policy/sidebar_policy';
+import CustomPolicy from 'policy/course_policy';
 
 import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';
@@ -38,7 +39,8 @@ export default class Sidebar extends React.Component {
     }
     this.state = {
       roles_menu: 'hiddened',
-      master_menu: 'hiddened'
+      master_menu: 'hiddened',
+      organization_ids: props.organization_ids
     };
   }
 
@@ -85,7 +87,9 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
-            <li className="header">{I18n.t('sidebar.main_nav')}</li>
+            <Permit action='organizations'>
+              <li className="header">{I18n.t('sidebar.main_nav')}</li>
+            </Permit>
             <Permit action='organizations'>
               <li data-page='organizations'>
                 <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
@@ -111,14 +115,16 @@ export default class Sidebar extends React.Component {
               </li>
             </Permit>
             <li>
-              <a href="#" onClick={this.onClickMasterdata.bind(this)}>
-                <i className="fa fa-database" aria-hidden="true"></i>
-                <span>{I18n.t('sidebar.master')}</span>
-                <span className='pull-right-container'>
-                  <i className={`fa
-                    fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></i>
-                </span>
-              </a>
+              <Permit action='languages'>
+                <a href="#" onClick={this.onClickMasterdata.bind(this)}>
+                  <i className="fa fa-database" aria-hidden="true"></i>
+                  <span>{I18n.t('sidebar.master')}</span>
+                  <span className='pull-right-container'>
+                    <i className={`fa
+                      fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></i>
+                  </span>
+                </a>
+              </Permit>
               <ul id="subMasterMenu" className={this.state.master_menu}>
                 <Permit action='languages'>
                   <li className='sub-li' data-page='languages'>
@@ -137,7 +143,7 @@ export default class Sidebar extends React.Component {
                   </li>
                 </Permit>
 
-                <Permit action='subjects'>
+                <Permit action='subjects/index'>
                   <li className='sub-li' data-page='subjects'>
                     <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -185,14 +191,16 @@ export default class Sidebar extends React.Component {
             </li>
 
             <li>
-              <a href="#" onClick={this.onClickSubMenu.bind(this)}>
-                <i className="glyphicon glyphicon-th-list" aria-hidden="true"></i>
-                <span>{I18n.t('sidebar.mange_role')}</span>
-                <span className='pull-right-container'>
-                  <i className={`fa
-                    fa-chevron-${this.state.roles_menu == "showed" ? "down" : "right"}`}></i>
-                </span>
-              </a>
+              <Permit action='roles'>
+                <a href="#" onClick={this.onClickSubMenu.bind(this)}>
+                  <i className="glyphicon glyphicon-th-list" aria-hidden="true"></i>
+                  <span>{I18n.t('sidebar.mange_role')}</span>
+                  <span className='pull-right-container'>
+                    <i className={`fa
+                      fa-chevron-${this.state.roles_menu == "showed" ? "down" : "right"}`}></i>
+                  </span>
+                </a>
+              </Permit>
               <ul id="subRoleMenu" className={this.state.roles_menu}>
                 <Permit action='roles'>
                   <li className='sub-li' data-page="roles">
@@ -212,14 +220,16 @@ export default class Sidebar extends React.Component {
                 </Permit>
               </ul>
             </li>
-            <Permit action='users'>
+            <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
+              {action: ['setOwner'], target: 'children', data: {organization_ids:
+                this.state.organization_ids}}]} >
               <li>
                 <a href={USERS_URL} onClick={this.onClick.bind(this)}>
                   <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
                   <span>{I18n.t('sidebar.manage_user')}</span>
                 </a>
               </li>
-            </Permit>
+            </CustomPolicy>
             <Permit action='moving_histories'>
               <li data-page='moving_history'>
                 <a href={MOVING_HISTORY_URL} onClick={this.onClick.bind(this)}>

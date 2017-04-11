@@ -21,7 +21,6 @@ export const CustomFunction = {
     }
     return result;
   },
-
   owner: (data) => {
     var current_user = $.parseJSON(localStorage.current_user);
     if (current_user.id == data.owner_id) {
@@ -29,5 +28,10 @@ export const CustomFunction = {
     }
     return false;
   },
-
+  setOwner: (data) => {
+    if (data.organization_ids && data.organization_ids.length > 0) {
+      return true;
+    }
+    return false;
+  }
 }
