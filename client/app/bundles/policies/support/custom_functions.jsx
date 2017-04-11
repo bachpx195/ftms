@@ -21,4 +21,13 @@ export const CustomFunction = {
     }
     return result;
   },
+
+  owner: (data) => {
+    var current_user = $.parseJSON(localStorage.current_user);
+    if (current_user.id == data.owner_id) {
+      return true;
+    }
+    return false;
+  },
+
 }
