@@ -76,11 +76,12 @@ namespace :db do
     f4 = Function.find_by controller_name: "subjects", action: "show"
     f5 = Function.find_by controller_name: "my_space/courses", action: "index"
     f6 = Function.find_by controller_name: "my_space/courses", action: "show"
-    f7 = Function.find_by controller_name: "meta_task", action: "index"
-    f8 = Function.find_by controller_name: "meta_task", action: "create"
-    f9 = Function.find_by controller_name: "meta_task", action: "show"
-    f10 = Function.find_by controller_name: "meta_task", action: "update"
-    f11 = Function.find_by controller_name: "meta_task", action: "destroy"
+    f7 = Function.find_by controller_name: "meta_tasks", action: "index"
+    f8 = Function.find_by controller_name: "meta_tasks", action: "create"
+    f9 = Function.find_by controller_name: "meta_tasks", action: "show"
+    f10 = Function.find_by controller_name: "meta_tasks", action: "update"
+    f11 = Function.find_by controller_name: "meta_tasks", action: "destroy"
+    f12 = Function.find_by controller_name: "assignments", action: "create"
 
     10.times do |n|
       user = User.create!(
@@ -101,7 +102,8 @@ namespace :db do
         {user: user, function: f8},
         {user: user, function: f9},
         {user: user, function: f10},
-        {user: user, function: f11}
+        {user: user, function: f11},
+        {user: user, function: f12}
       ])
     end
     RoleFunction.create!([
@@ -115,7 +117,8 @@ namespace :db do
       {role_id: 6, function: f8},
       {role_id: 6, function: f9},
       {role_id: 6, function: f10},
-      {role_id: 6, function: f11}
+      {role_id: 6, function: f11},
+      {role_id: 6, function: f12}
     ])
 
     puts "2. Create languages"

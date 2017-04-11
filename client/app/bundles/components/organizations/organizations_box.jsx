@@ -68,22 +68,25 @@ export default class OrganizationBox extends React.Component {
         <div className='col-md-9'>
           <div className='box box-success'>
             <div className='box-header with-border'>
-              <h3 className='box-title'>{I18n.t('organizations.titles.all')}</h3>
-              <OrganizationPolicy permit={[
-                {action: ['create'], target: 'children'}
-              ]}>
+              <h3 className='box-title'>
+                {I18n.t('organizations.titles.all')}
+              </h3>
                 <div className='box-tools pull-right'>
-                  {this.state.status ? (
-                    <button className='btn btn-new'
-                      onClick={this.onClickButtonCreate.bind(this)}>
-                      {I18n.t('buttons.cancel')}
-                    </button>
-                   ) : (
-                    <button className='btn btn-new'
-                      onClick={this.onClickButtonCreate.bind(this)}>
-                      {I18n.t('organizations.create')}
-                    </button>
-                   )}
+                  <OrganizationPolicy permit={[
+                    {action: ['create'], target: 'children'}
+                  ]}>
+                    {this.state.status ? (
+                      <button className='btn btn-new'
+                        onClick={this.onClickButtonCreate.bind(this)}>
+                        {I18n.t('buttons.cancel')}
+                      </button>
+                    ) : (
+                      <button className='btn btn-new'
+                        onClick={this.onClickButtonCreate.bind(this)}>
+                        {I18n.t('organizations.create')}
+                      </button>
+                    )}
+                  </OrganizationPolicy>
                   <button type='button' className='btn btn-box-tool'
                     data-widget='collapse'>
                     <i className='fa fa-minus'></i>
@@ -93,7 +96,6 @@ export default class OrganizationBox extends React.Component {
                     <i className='fa fa-times'></i>
                   </button>
                 </div>
-              </OrganizationPolicy>
             </div>
 
             <div className='box-body no-padding'>

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import UniversityLists from './university_lists';
 import Form from './form';
-
+import UniversityPolicy from 'policy/university_policy';
 import * as app_constants from 'constants/app_constants';
 import * as university_constants from './university_constants';
 
@@ -40,17 +40,26 @@ export default class UniversityBox extends React.Component {
             <div className='box-body no-padding'>
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
-                  <Form
-                    university={this.state.university}
-                    url={UNIVERSITY_URL}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                  <UniversityPolicy permit={[
+                    {action: ['create'], target: 'children'}
+                    ]}>
+                    <Form
+                      university={this.state.university}
+                      url={UNIVERSITY_URL}
+                      handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                  </UniversityPolicy>
                 </div>
               </div>
             </div>
             <div className='box-footer'>
-              <UniversityLists universities={this.state.universities}
-                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
+              <UniversityPolicy permit={[
+                {action: ['create'], target: 'children'},
+                {action: ['index'], target: 'children'}
+              ]}>
+                <UniversityLists universities={this.state.universities}
+                  handleAfterUpdated={this.handleAfterUpdated.bind(this)}
+                  handleAfterDeleted={this.handleAfterDeleted.bind(this)}/>
+              </UniversityPolicy>
             </div>
           </div>
         </div>

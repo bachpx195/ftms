@@ -16,8 +16,7 @@ export default class LanguageLists extends React.Component {
     super(props);
     this.state = {
       languages: props.languages,
-      language: {},
-      functions: props.functions
+      language: {}
     };
     Row.prototype.languages = this.state.languages;
   }
