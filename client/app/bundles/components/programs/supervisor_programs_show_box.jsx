@@ -6,8 +6,8 @@ import Errors from '../shareds/errors';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
 import Dropzone from 'react-dropzone';
 
+import CourseListsBox from '../courses/course_lists_box';
 import UserLists from './user_lists';
-import CourseLists from './course_lists';
 import SubjectLists from './subject_lists';
 import CourseManagers from './list_items/course_managers';
 import * as app_constants from 'constants/app_constants';
@@ -64,36 +64,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
       .catch(error => console.log(error));
   }
 
-  renderCourseMember(member){
-    return (
-      <li key={member.id}>
-        <img className='img-circle' src={member.avatar.url}
-          className='td-member-avatar' title={member.name}/>
-      </li>
-    );
-  }
-
-  renderCourseMembers(course){
-    if(course.members) {
-      if(course.members.length > LIMIT_COURSE_MEMBERS){
-        let members = course.members.slice(0, LIMIT_COURSE_MEMBERS - 1);
-        let html = members.map((member) => {
-          return this.renderCourseMember(member);
-        });
-
-        html.push(<li className="member-list" key={course.members[LIMIT_COURSE_MEMBERS].id} >
-          <img className="many-member" src={course.members[LIMIT_COURSE_MEMBERS].avatar.url} />
-          <p className="many-member text-center">+{course.members.length - LIMIT_COURSE_MEMBERS}</p>
-        </li>);
-        return html;
-      }else{
-        let members = course.members.slice(0, LIMIT_COURSE_MEMBERS);
-        return members.map((member) => {
-          return this.renderCourseMember(member);
-        });
-      }
-    }
-  }
 
   renderCourseMember(member){
     return (
@@ -101,54 +71,6 @@ export default class SupervisorProgramsShowBox extends React.Component {
         <img src={member.avatar.url}
           className='td-member-avatar img-circle' title={member.name}/>
       </li>
-    );
-  }
-
-
-  renderManagerProfile(managers) {
-    return managers.map((manager, index) => {
-      return ( <li key={index} className="col-xs-4 td-list-manager">
-        <div className="width-100 td-manager-box">
-          <img src={manager.user_avatar}
-            className='col-sm-4 img-circle width-80'/>
-          <div className="col-sm-8">
-            <p className="td-manager-name" title={manager.user_name}>
-              {manager.user_name}
-            </p>
-            <p className="td-manager-email" title={manager.user_email}>
-              {manager.user_email}
-            </p>
-          </div>
-          <div className="clearfix"></div>
-        </div>
-      </li>);
-    });
-  }
-
-  renderModalManagers(course) {
-    let managers = course.course_managers;
-    return (
-      <div className={`modal-manager-${course.id} modal fade
-        td-modal-manager-profile`}
-        key={course.id} role="dialog">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal">
-                &times;</button>
-              <h4 className="modal-title">{I18n.t('courses.list_managers')}</h4>
-            </div>
-            <div className="modal-body td-manager-profile-list">
-              {this.renderManagerProfile(managers)}
-              <div className="clearfix"></div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default"
-                data-dismiss="modal">{I18n.t('courses.close')}</button>
-            </div>
-          </div>
-        </div>
-      </div>
     );
   }
 
@@ -166,60 +88,9 @@ export default class SupervisorProgramsShowBox extends React.Component {
   renderCourses(course) {
     let course_path = COURSE_URL + this.props.program.id + '/' +
       course_constants.COURSES_PATH + course.id;
-    let description = course.description;
-    if(description && description.length > LIMIT_DESCRIPTION){
-      description = course.description.substring(0, LIMIT_DESCRIPTION) + '...';
-    }
     return (
-      <div key={course.id}
-        className='col-md-4 col-xs-4 col-lg-4 td-program-list-course' >
-        <div className="td-course-box">
-          <div className="td-course-image-manager">
-            <CourseManagers course={course} />
-            <div className="clearfix"></div>
-          </div>
-          <a href={course_path}>
-            <div className='td-card-course-inner'>
-              <h3 className="course-name">{course.name}</h3>
-              <div className='td-course-content'>
-                <div className='td-course-image col-xs-4'>
-                  <img src={course.image.url ? course.image.url : DEFAULT_IMAGE_COURSE}
-                    className='img-responsive' />
-                </div>
-                <div className='col-xs-8 td-course-content-left'>
-                  <div className='training_standard'>
-                    <p>{course.training_standard.name}</p>
-                  </div>
-                  <div className="td-course-description"
-                    title={course.description}>
-                    <p>
-                      {description ? description : I18n.t('courses.default_description')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className='view-members'>
-                <div className='with-border'>
-                  <span className='members-count'>
-                    {I18n.t('courses.members')}
-                  </span>
-                  <span className='badge label-primary'>
-                    {course.members ? course.members.length : '0'}
-                  </span>
-                </div>
-                <ul className='user-list clearfix'>
-                  {this.renderCourseMembers(course)}
-                </ul>
-              </div>
-            </div>
-          </a>
-          <div className="clearfix"></div>
-        </div>
-        <div className="clearfix"></div>
-        <div className="td-course-box-before"></div>
-        <div className="td-course-box-after"></div>
-        {this.renderModalManagers(course)}
-      </div>
+      <CourseListsBox key={course.id} url={course_path}
+        course={course} managers={course.course_managers} />
     );
   }
 
@@ -435,9 +306,7 @@ export default class SupervisorProgramsShowBox extends React.Component {
         <div className='col-md-3 info-panel'>
           {this.renderProgramRightPanel()}
         </div>
-        {
-          this.renderDocuments()
-        }
+        {this.renderDocuments()}
         <ModalPreviewDocument
           document_preview={this.state.document_preview}
           handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}

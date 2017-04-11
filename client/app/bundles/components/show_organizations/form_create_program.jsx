@@ -3,11 +3,12 @@ import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import Errors from '../shareds/errors';
 import * as app_constants from 'constants/app_constants';
+import * as program_constants from '../programs/program_constants';
 
 export default class FormCreateProgram extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       name: '',
       errors: []
@@ -41,13 +42,15 @@ export default class FormCreateProgram extends React.Component {
     });
   }
 
-  formValid(){
+  formValid() {
     return this.state.name != '';
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.post(this.props.url + '/' + this.props.organization.id + '/programs', {
+    let path = this.props.url + '/' + this.props.organization.id + '/' +
+      program_constants.PROGRAMS_PATH;
+    axios.post(path, {
       program: {
         name: this.refs.nameField.value
       }, authenticity_token: ReactOnRails.authenticityToken()
@@ -55,7 +58,7 @@ export default class FormCreateProgram extends React.Component {
       .then(response => {
         this.refs.nameField.value = '';
         this.setState({name: ''});
-        this.props.afterCreate(response.data.program);
+        window.location.href = path + response.data.program.id;
       })
       .catch(error => this.setState({errors: error.response.data.errors}));
   }
