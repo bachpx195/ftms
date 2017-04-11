@@ -1,0 +1,42 @@
+.form-group {
+  .submit {
+    padding: 7px 25px;
+  }
+}
+
+.form-create {
+  padding: 10px 25px;
+}
+
+.list-categories {
+  margin: 50px 40px 0 !important;
+}
+
+.modal-test-rule{
+  width: 70%;
+
+  .tab-content{
+    padding: 20px;
+    min-height: 300px;
+  }
+
+  .form-preview{
+    border: 1px gray solid;
+    padding: 20px;
+  }
+
+  .icon-remove{
+    float: right;
+  }
+
+  .list-group-item{
+    cursor: pointer;
+  }
+
+  .show-value{
+    border: none;
+    padding: 5px 10px;
+    color: #fff!important;
+    background-color: #4CAF50!important;
+  }
+}

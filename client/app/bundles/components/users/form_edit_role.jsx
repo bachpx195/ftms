@@ -81,14 +81,14 @@ export default class FormEditRole extends React.Component {
         <div className='roles'>{this.renderAllRole()}</div>
         <UserFunctionBox user_id={this.props.user_id}
           data={this.state.functions}
-          check_all={this.state.check_all}
+          check_all='none'
           dataChange={this.dataChange.bind(this)}/>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <div className="text-right">
-              <button type="submit" className="btn btn-primary">
+              <buttaxioson type="submit" className="btn btn-primary">
                 {I18n.t("users.buttons.save")}
-              </button>
+              </buttaxioson>
             </div>
           </div>
         </form>

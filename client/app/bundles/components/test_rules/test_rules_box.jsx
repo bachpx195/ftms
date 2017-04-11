@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import Form from './form'
-import Modal from './modal'
+import Form from './templates/form'
+import Modal from './templates/modal'
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as test_rule_constants from './test_rule_constants';
-import css from './test_rule.scss';
+import * as test_rule_constants from './constants/test_rule_constants';
+import css from './css/test_rule.scss';
 
 const TEST_RULE_URL = app_constants.APP_NAME +
   test_rule_constants.TEST_RULE_PATH
