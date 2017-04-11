@@ -12,8 +12,9 @@ class CategoriesController < ApplicationController
         if category.save
           render json: {category: category}
         else
-        render json: {message: flash_message("not_created"),
-          errors: category.errors}, status: :unprocessable_entity
+          render json: {message: flash_message("not_created"),
+            errors: category.errors}, status: :unprocessable_entity
+        end
       end
     end
   end

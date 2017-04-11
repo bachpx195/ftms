@@ -9,7 +9,7 @@ export default class Permit extends BasePolicy {
   render() {
     var policies = [];
     for(var policy of this.ALLOW_FUNCTIONS) {
-      policies.push(policy['controller'] + '/' + policy['action'])
+      policies.push(policy['controller'])
     }
 
     if($.inArray(this.props.action, policies) >= 0)

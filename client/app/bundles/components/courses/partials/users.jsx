@@ -98,17 +98,24 @@ export default class Users extends React.Component {
     let course = this.state.course;
     let user_count = course.managers.length + course.members.length;
     let link_owner = null;
-    if (course.owner) {
-      let owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
-        course.owner.id;
-      user_count = user_count + 1;
-      link_owner = <li>
-        <a href={owner_path} title={course.owner.name}>
-          <img className='img-circle' src={course.owner.avatar.url}
-            width='30' height='30'/>
-        </a>
-      </li>;
+    let all_manager = course.managers.map(member => member.id);
+    let course_owner = course.owner;
+    let owner_path;
+    if (course_owner){
+      if (!(all_manager.includes(course_owner.id))) {
+        owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
+          course.owner.id;
+          debugger
+        user_count = user_count + 1;
+        link_owner = <li>
+          <a href={owner_path} title={course.owner.name}>
+            <img className='img-circle' src={course.owner.avatar.url}
+              width='30' height='30'/>
+          </a>
+        </li>;
+      }
     }
+
     return (
       <div>
         <div className='box box-primary'>

@@ -8,9 +8,11 @@ class ApplicationPolicy
 
   Settings.functions.each do |function_name|
     define_method "#{function_name}?" do
+      function_create = Function.find_by controller_name: record[:controller],
+        action: "create"
       function = Function.find_by controller_name: record[:controller],
         action: function_name.to_s
-      @user.functions.include? function
+      (@user.functions.include? function) || (@user.functions.include? function_create)
     end
   end
 
