@@ -3,9 +3,11 @@ import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import Modal from './modal';
 import Form from './form';
+import UniversityPolicy from 'policy/university_policy';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as university_constants from './university_constants';
+import Row from './griddle/row';
 
 const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
 
@@ -16,7 +18,8 @@ export default class UniversityLists extends React.Component {
     this.state = {
       universities: props.universities,
       university: {}
-    }
+    };
+    Row.prototype.universities = this.state.universities;
   }
 
   render() {
@@ -38,19 +41,39 @@ export default class UniversityLists extends React.Component {
       </div>
     );
 
-    const ButtonEdit = ({griddleKey}) => (
-      <button className='btn btn-info' data-index={griddleKey}
-        onClick={this.handleEdit.bind(this)}>
-        {I18n.t('buttons.edit')}
-      </button>
-    );
+    const ButtonEdit = ({griddleKey}) => {
+      var creator_id = this.state.universities[griddleKey].creator_id;
+      return (
+        <UniversityPolicy
+          permit={[
+            {action: ['update', 'creator'], target: 'children',
+              data: {creator_id: creator_id}}
+          ]}
+        >
+          <button className='btn btn-info' data-index={griddleKey}
+            onClick={this.handleEdit.bind(this)}>
+            {I18n.t('buttons.edit')}
+          </button>
+        </UniversityPolicy>
+      );
+    };
 
-    const ButtonDelete = ({griddleKey}) => (
-      <button className='btn btn-danger' data-index={griddleKey}
-        onClick={this.handleDelete.bind(this)}>
-        {I18n.t('buttons.delete')}
-      </button>
-    );
+    const ButtonDelete = ({griddleKey}) => {
+      var creator_id = this.state.universities[griddleKey].creator_id;
+      return (
+        <UniversityPolicy
+          permit={[
+            {action: ['destroy', 'creator'], target: 'children',
+              data: {creator_id: creator_id}}
+          ]}
+        >
+          <button className='btn btn-danger' data-index={griddleKey}
+            onClick={this.handleDelete.bind(this)}>
+            {I18n.t('buttons.delete')}
+          </button>
+        </UniversityPolicy>
+      );
+    };
 
     let modalEdit = null;
     if(this.state.university.id){
@@ -64,7 +87,7 @@ export default class UniversityLists extends React.Component {
     return (
       <div>
         <Griddle data={this.state.universities} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
+          components={{Layout: NewLayout, Row: Row}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
             <ColumnDefinition id="name" title={I18n.t("universities.name")} />

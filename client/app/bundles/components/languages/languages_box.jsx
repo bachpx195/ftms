@@ -15,8 +15,7 @@ export default class LanguageBox extends React.Component {
 
     this.state = {
       languages: props.languages,
-      language: {},
-      functions: props.functions
+      language: {}
     };
   }
 
@@ -59,8 +58,7 @@ export default class LanguageBox extends React.Component {
                 ]}>
                 <LanguageLists languages={this.state.languages}
                   handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                  handleAfterDeleted={this.handleAfterDeleted.bind(this)}
-                  functions={this.state.functions} />
+                  handleAfterDeleted={this.handleAfterDeleted.bind(this)}/>
               </LanguagePolicy>
             </div>
           </div>

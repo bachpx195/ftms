@@ -1,5 +1,6 @@
 class UniversitiesController < ApplicationController
   before_action :find_university, except: [:index, :new, :create]
+  before_action :authorize_request
 
   def index
     universities_serializer = Serializers::UniversitiesSerializer
@@ -98,5 +99,10 @@ class UniversitiesController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(University: @university),
+      UniversityPolicy
   end
 end

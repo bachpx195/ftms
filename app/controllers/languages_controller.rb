@@ -1,19 +1,16 @@
 class LanguagesController < ApplicationController
   before_action :find_language, except: [:index, :new, :create]
-  before_action :authorize_class
+  before_action :authorize_request
 
   def index
     @languages = Language.select :id, :name, :image, :description, :creator_id
     @languages.map{|language| language[:image] = {url: language.image.url}}
-    @functions = current_user.functions.where controller_name: "languages"
     respond_to do |format|
       format.html
       format.json do
         render json: {
           languages: Serializers::Languages::LanguagesSerializer
-            .new(object: @languages).serializer,
-          functions: Serializers::Roles::FunctionsSerializer
-            .new(object: @functions).serializer
+            .new(object: @languages).serializer
         }
       end
     end
@@ -104,5 +101,10 @@ class LanguagesController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(language: @language),
+      LanguagePolicy
   end
 end
