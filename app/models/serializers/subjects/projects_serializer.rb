@@ -1,5 +1,5 @@
 class Serializers::Subjects::ProjectsSerializer < Serializers::SupportSerializer
-  attrs :id, :name, :content
+  attrs :id, :name
   support_attrs :task_id, if: :owner?
 
   private

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import ModalCreatSubject from './subject_form/modal_creat_subject'
+import ModalCreateSubject from './subject_form/modal_create_subject'
 import SubjectLists from './subject_lists';
 import Form from './subject_form/form';
 import SubjectPolicy from 'policy/subject_policy';
@@ -49,7 +49,7 @@ export default class SubjectBox extends React.Component {
                     </button>
                   </SubjectPolicy>
                 </div>
-                <ModalCreatSubject subject={this.state.subject}
+                <ModalCreateSubject subject={this.state.subject}
                   handleAfterCreated={this.handleAfterCreated.bind(this)} />
               </div>
             </div>
@@ -96,6 +96,6 @@ export default class SubjectBox extends React.Component {
   }
 
   handleCreateSubject() {
-    $('#modalCreatSubject').modal();
+    $('#ModalCreateSubject').modal();
   }
 }

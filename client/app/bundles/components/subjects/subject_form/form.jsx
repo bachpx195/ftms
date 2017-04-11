@@ -125,7 +125,7 @@ export default class Form extends React.Component {
     })
     .then(response => {
       if(this.props.subject.id) {
-        $('#modalCreatSubject').modal('hide');
+        $('#modalCreateSubject').modal('hide');
         $('#modalEdit').modal('hide');
       } else {
         this.setState({

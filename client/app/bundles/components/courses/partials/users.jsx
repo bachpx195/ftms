@@ -31,10 +31,18 @@ export default class Users extends React.Component {
   }
 
   renderManagerList(users) {
+    let managers = users.map(user => user);
+    let course = this.state.course;
+    if (course.owner) {
+      let index = managers.findIndex(user => user.id == course.owner.id);
+      if (index < 0) {
+        managers.unshift(course.owner);
+      }
+    }
     return (
       <ul className='user-list clearfix'>
         {
-          users.map((user, index) => {
+          managers.map((user, index) => {
             return this.renderManager(user)
           })
         }
@@ -97,22 +105,12 @@ export default class Users extends React.Component {
   renderUsers() {
     let course = this.state.course;
     let user_count = course.managers.length + course.members.length;
-    let link_owner = null;
-    let all_manager = course.managers.map(member => member.id);
-    let course_owner = course.owner;
-    let owner_path;
-    if (course_owner){
-      if (!(all_manager.includes(course_owner.id))) {
-        owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
-          course.owner.id;
-          debugger
-        user_count = user_count + 1;
-        link_owner = <li>
-          <a href={owner_path} title={course.owner.name}>
-            <img className='img-circle' src={course.owner.avatar.url}
-              width='30' height='30'/>
-          </a>
-        </li>;
+    if (course.owner) {
+      let owner_is_manager = course.managers.findIndex(user => {
+        return user.id == course.owner.id;
+      }) >= 0;
+      if (!owner_is_manager) {
+        user_count++;
       }
     }
 
@@ -142,7 +140,6 @@ export default class Users extends React.Component {
                 {I18n.t('courses.member.trainers')}
               </div>
               <ul className='user-list clearfix'>
-                {link_owner}
                 {this.renderManagerList(course.managers)}
               </ul>
               <div className='member-title'>

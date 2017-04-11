@@ -9,7 +9,7 @@ import ModalPreviewDocument from '../../shareds/modal_preview_document';
 
 import * as app_constants from 'constants/app_constants';
 
-export default class TabsHeader extends React.Component {
+export default class TabsContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

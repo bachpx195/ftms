@@ -28,6 +28,7 @@ class Serializers::BaseSerializer
   end
 
   def single_serializer
+    return Hash.new if @object.nil?
     serializers = Hash.new
     return serializers unless @object
     self.attributes.each do |attribute|

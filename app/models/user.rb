@@ -32,7 +32,8 @@ class User < ApplicationRecord
   has_many :universities, foreign_key: :creator_id, dependent: :destroy
   has_many :languages, foreign_key: :creator_id, dependent: :destroy
   has_many :stages, foreign_key: :creator_id, dependent: :destroy
-  has_many :organizations, foreign_key: :creator_id, dependent: :destroy
+  has_many :created_organizations, foreign_key: :creator_id,
+    dependent: :destroy
   has_many :programs, foreign_key: :creator_id, dependent: :destroy
   has_many :teams, foreign_key: :creator_id, dependent: :destroy
   has_many :evaluation_templates, foreign_key: :creator_id, dependent: :destroy
@@ -64,11 +65,12 @@ class User < ApplicationRecord
 
   scope :course_members_not_rejected, -> {CourseMember.where.not status: "rejected"}
 
-  def user_tasks task_name
+  def user_tasks task_name, ownerable
     tasks = self.dynamic_tasks.map do |dynamic_task|
       dynamic_task_targetable = dynamic_task.targetable
       if dynamic_task_targetable &&
-        dynamic_task_targetable.targetable_type == task_name
+        dynamic_task_targetable.targetable_type == task_name &&
+        dynamic_task.ownerable == ownerable
         dynamic_task_targetable.targetable
       end
     end

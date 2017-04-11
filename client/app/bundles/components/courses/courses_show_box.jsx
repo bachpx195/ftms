@@ -28,7 +28,6 @@ export default class CoursesShowBox extends React.Component {
       course: props.course,
       course_subjects: [],
       evaluation_template: {},
-      rerender: false,
       remain_surveys: props.remain_surveys,
       selected_surveys: props.selected_surveys,
       evaluation_standards: [],
@@ -39,7 +38,6 @@ export default class CoursesShowBox extends React.Component {
       selected_items: [],
       remain_items: [],
       targetable_type: '',
-      foo: true,
       documents: [],
       document_preview: {},
       courses_of_user_manages: [],
@@ -134,7 +132,7 @@ export default class CoursesShowBox extends React.Component {
         <ModalAssignMember unassignedUsers={this.state.course.unassigned_users}
           managers={this.state.course.managers}
           members={this.state.course.members}
-          rerender={this.state.rerender} course={this.state.course}
+          course={this.state.course}
           afterAssignUsers={this.afterAssignUsers.bind(this)} />
 
         <ModalTask
@@ -196,7 +194,6 @@ export default class CoursesShowBox extends React.Component {
 
   addTask() {
     $('#modalTaskSurvey').modal();
-    this.setState({foo: !this.state.foo})
   }
 
   afterSubmitCreateTask(selected_items, remain_items) {
@@ -236,7 +233,6 @@ export default class CoursesShowBox extends React.Component {
   }
 
   handleAssignMember() {
-    this.setState({rerender: true});
     $('.modal-assign-member').modal();
   }
 
