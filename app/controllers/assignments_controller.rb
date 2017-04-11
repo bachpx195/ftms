@@ -2,6 +2,7 @@ class AssignmentsController < ApplicationController
   before_action :find_assignment, only: [:show, :find_static_task]
   before_action :find_static_task, only: :show
   before_action :find_user_team, only: :create
+  before_action :authorize_request
 
   def show
     respond_to do |format|
@@ -97,5 +98,10 @@ class AssignmentsController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(assignment: @assignment,
+      team: @user_team.team), AssignmentPolicy
   end
 end

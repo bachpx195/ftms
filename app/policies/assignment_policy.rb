@@ -1,3 +1,5 @@
 class AssignmentPolicy < ApplicationPolicy
-  include PolicyObject
+  def create?
+    record[:team].users.include? @user
+  end
 end
