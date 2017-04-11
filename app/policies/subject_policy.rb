@@ -4,7 +4,7 @@ class SubjectPolicy < ApplicationPolicy
   end
 
   def show?
-    check_owner? || check_creator? ||
+    check_owner? || check_creator_subject? ||
     (super &&
       (@user.organizations.include?(record[:subject].organization) ||
       record[:subject].organization.creator == @user ||
@@ -15,11 +15,11 @@ class SubjectPolicy < ApplicationPolicy
   end
 
   def update?
-    check_owner_organization || check_creator_subject || (super && has_function?)
+    check_owner? || check_creator_subject || (super && has_function?)
   end
 
   def destroy?
-    check_owner_organization || check_creator_subject || (super && has_function?)
+    check_owner? || check_creator_subject || (super && has_function?)
   end
 
   private
@@ -35,11 +35,7 @@ class SubjectPolicy < ApplicationPolicy
     record[:subject].creator == @user
   end
 
-  def check_owner_subject?
-    record[:subject].organization.owner == @user
-  end
-
-  def check_owner_organization?
+   def check_owner?
     record[:subject].organization.owner == @user
   end
 end

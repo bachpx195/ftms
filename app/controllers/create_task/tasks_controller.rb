@@ -1,8 +1,6 @@
 class CreateTask::TasksController < ApplicationController
-  include Authorize
-
   before_action :find_ownerable, only: :create
-  before_action :namespace_authorize, only: :create
+  before_action :authorize_request, only: :create
 
   def create
     @target = class_eval(params[:task][:type].classify).new task_params
@@ -33,5 +31,10 @@ class CreateTask::TasksController < ApplicationController
     else
       raise "Forbidden"
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(ownerable: @ownerable),
+      CreateTask::TaskPolicy
   end
 end
