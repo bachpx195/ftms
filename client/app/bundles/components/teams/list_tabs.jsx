@@ -2,6 +2,7 @@ import React from 'react';
 import ModalTask from '../subjects/subject_form/modalTask';
 import ModalBody from '../subjects/subject_form/modalBody';
 import TabsContent from './tabs_content';
+import TeamPolicy from 'policy/team_policy';
 
 export default class ListTabs extends React.Component {
   constructor(props) {
@@ -28,12 +29,17 @@ export default class ListTabs extends React.Component {
       <div className='blocks'>
         <div className='col-md-12'>
           <ul className='nav nav-tabs tab-bar'>
-            <li className='active'>
-              <a data-toggle='tab' href='#user-subject' className='tab-header'>
-                <i className='fa fa-file-text-o'></i>
-                  {this.props.team.name}
-              </a>
-            </li>
+            <TeamPolicy permit={
+              [{action: ['owner'], target: 'children', 
+                  data: {owner_id: this.props.course.owner_id}}]}
+            >
+              <li className='active'>
+                <a data-toggle='tab' href='#user-subject' className='tab-header'>
+                  <i className='fa fa-file-text-o'></i>
+                    {this.props.team.name}
+                </a>
+              </li>
+            </TeamPolicy>
             <li>
               <a data-toggle='tab' href='#surveys'>
                 <div className='custom-subjects-titles'>

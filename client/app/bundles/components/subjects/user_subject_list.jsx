@@ -5,7 +5,7 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as app_constants from 'constants/app_constants';
 import ModalEvaluateMember from '../courses/modal_evaluate_member/modal';
 import * as subject_constants from './subject_constants';
-import SubjectPolicy from 'policy/subject_policy';
+import TeamPolicy from 'policy/team_policy';
 
 const USER_SUBJECT_URL = app_constants.APP_NAME +
   subject_constants.USER_SUBJECT_PATH;
@@ -83,13 +83,11 @@ export default class UserSubjectList extends React.Component {
       }
       return null;
     }
-
+    
     return (
-      <SubjectPolicy permit={
+      <TeamPolicy permit={
         [{action: ['owner'], target: 'children', 
-            data: {owner_id: this.state.owner_id}},
-          {controller: 'courses', action: ['show'],
-            target: 'children', data: {controller: 'courses'}}]}
+            data: {owner_id: this.props.course.owner_id}}]}
       >
         <div>
           <Griddle data={this.state.user_subjects}
@@ -128,7 +126,7 @@ export default class UserSubjectList extends React.Component {
             afterEvaluateMember={this.afterEvaluateMember.bind(this)}
           />
         </div>
-      </SubjectPolicy>
+      </TeamPolicy>
     );
   }
 
