@@ -5,6 +5,7 @@ import * as user_constants from './user_constants';
 import FormEdit from './form_edit';
 import UserRolesBox from './user_roles_box';
 import ModalChangeProgram from './change_program/modal';
+import CustomPolicy from 'policy/course_policy';
 
 require('../../assets/sass/user.scss');
 
@@ -108,15 +109,23 @@ export default class UserShowBox extends React.Component {
         <div className='panel panel-info'>
           <div className='panel panel-heading'>
             <span className='pull-right'>
-              {btn_change_program}
+              <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
+                {action: ['setOwner'], target: 'children', data: {organization_ids:
+                this.state.organization_ids}}]} >
+                {btn_change_program}
+              </CustomPolicy>
               <a onClick={this.handleEdit.bind(this)} data-original-title={I18n.t('users.edit_user')}
                 data-toggle='tooltip' type='button' className='btn btn-md btn-primary'>
                 <i className='glyphicon glyphicon-edit'></i>
               </a>
-              <a href='#' data-original-title={I18n.t('users.delete_user')}
-                data-toggle='tooltip' type='button' className='btn btn-md btn-danger'>
-                <i className='glyphicon glyphicon-trash'></i>
-              </a>
+              <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
+                {action: ['setOwner'], target: 'children', data: {organization_ids:
+                this.state.organization_ids}}]} >
+                <a href='#' data-original-title={I18n.t('users.delete_user')}
+                  data-toggle='tooltip' type='button' className='btn btn-md btn-danger'>
+                  <i className='glyphicon glyphicon-trash'></i>
+                </a>
+              </CustomPolicy>
             </span>
             <h2>{I18n.t('users.user_profile')}</h2>
           </div>

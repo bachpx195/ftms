@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 import FormEditRole from './form_edit_role';
+import CustomPolicy from 'policy/course_policy';
 
 const ROLES_URL = app_constants.APP_NAME + 'change_role/' + user_constants.USER_PATH;
 const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
@@ -82,16 +83,20 @@ export default class UserRolesBox extends React.Component {
 
   render() {
     return(
-      <div className='text-center roles-box'>
-        <span>
-          <strong>{I18n.t('users.roles.name')}: </strong>
-          {this.renderRole()}
-        </span>
-        <div className='btn btn-primary' onClick={this.handleEdit.bind(this)}>
-          {I18n.t('users.buttons.edit_role')}
+      <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
+        {action: ['setOwner'], target: 'children', data: {organization_ids:
+        this.state.organization_ids}}]} >
+        <div className='text-center roles-box'>
+          <span>
+            <strong>{I18n.t('users.roles.name')}: </strong>
+            {this.renderRole()}
+          </span>
+          <div className='btn btn-primary' onClick={this.handleEdit.bind(this)}>
+            {I18n.t('users.buttons.edit_role')}
+          </div>
+          {this.renderModal()}
         </div>
-        {this.renderModal()}
-      </div>
+      </CustomPolicy>
     )
   }
 

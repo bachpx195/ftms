@@ -25,6 +25,7 @@ $trainee-assignment-border-status-progress-red: #fb6e52;
 $trainee-assignment-status-progress-orange: #cfcfcf;
 $trainee-assignment-border-status-progress-orange: #757575;
 $trainee-avatar-border-white: #f3f3e7;
+$c_black: black;
 
 .admin-subject-show {
   margin-bottom: 10px;
@@ -162,6 +163,9 @@ $trainee-avatar-border-white: #f3f3e7;
     .list-menu {
       min-width: 100px;
       top: -40px;
+      a {
+        color: $c_black !important;
+      }
     }
 
     .list-menu::before {
