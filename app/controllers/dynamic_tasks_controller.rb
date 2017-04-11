@@ -1,6 +1,7 @@
 class DynamicTasksController < ApplicationController
   before_action :find_dynamic_task, :find_course_subject,
     :load_team_user_ids, :load_team_dynamic_tasks, only: :update
+  before_action :authorize_request
 
   def update
     respond_to do |format|
@@ -75,5 +76,10 @@ class DynamicTasksController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(dynamic_task: @dynamic_task,
+      team_mem: @team_user_ids.push(current_user.id), course_subject: @course_subject), DynamicTaskPolicy
   end
 end
