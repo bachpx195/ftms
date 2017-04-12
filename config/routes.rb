@@ -58,6 +58,10 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update]
   end
 
+  namespace :filter_role do
+    resources :roles, only: [:index]
+  end
+
   namespace :assign_user do
     resources :courses, only: [:update]
   end

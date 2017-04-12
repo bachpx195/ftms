@@ -20,6 +20,7 @@ class OrganizationsController < ApplicationController
   end
 
   def show
+    @role_support = Supports::FilterRoleSupport.new role_id: params[:role_id]
     respond_to do |format|
       format.html
       format.json do
@@ -29,7 +30,11 @@ class OrganizationsController < ApplicationController
               .new(object: @organization).serializer,
           programs:
             Serializers::Organizations::ProgramSerializer
-              .new(object: @organization.programs).serializer
+              .new(object: @organization.programs).serializer,
+          owners: Serializers::Users::UsersSerializer
+            .new(object: @role_support.owners).serializer,
+          all_roles: Serializers::Roles::RolesSerializer
+            .new(object: @role_support.all_roles).serializer
         }
       end
     end
@@ -39,7 +44,8 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = current_user.organizations.build organization_params
+    @organization = Organization.new organization_params
+      .merge(creator_id: current_user.id)
     respond_to do |format|
       if @organization.save
         @message = flash_message "created"
@@ -72,7 +78,9 @@ class OrganizationsController < ApplicationController
             messages: @message,
             organization: Serializers::Organizations::OrganizationsSerializer
               .new(object: @organization, scope: {show_program: false})
-              .serializer
+              .serializer,
+            owner: Serializers::Users::UsersSerializer
+              .new(object: @organization.owner).serializer
           }
         end
       else

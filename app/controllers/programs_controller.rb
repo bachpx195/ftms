@@ -56,8 +56,8 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    @supports = Supports::ProgramSupport.new program: @program,
-      role_id: params[:role_id]
+    @supports = Supports::ProgramSupport.new program: @program
+    @role_support = Supports::FilterRoleSupport.new role_id: params[:role_id]
     respond_to do |format|
       format.html
       format.json do
@@ -65,9 +65,9 @@ class ProgramsController < ApplicationController
           program_detail: Serializers::Programs::ProgramDetailSerializer
             .new(object: @program, scope: {supports: @supports}).serializer,
           owners: Serializers::Users::UsersSerializer
-            .new(object: @supports.owners).serializer,
+            .new(object: @role_support.owners).serializer,
           all_roles: Serializers::Roles::RolesSerializer
-            .new(object: @supports.all_roles).serializer
+            .new(object: @role_support.all_roles).serializer
         }
       end
     end
