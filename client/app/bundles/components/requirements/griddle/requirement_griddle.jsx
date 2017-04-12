@@ -1,8 +1,8 @@
 import React from 'react';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import {IntlProvider, FormattedDate} from 'react-intl';
-import RequirementEdit from './requirement_edit';
-import ModalRequirement from './modal';
+import RequirementEdit from '../actions/edit';
+import ModalRequirement from '../templates/modal';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 require('../../../assets/sass/projects.scss');

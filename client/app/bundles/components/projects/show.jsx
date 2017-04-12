@@ -1,16 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
-import Form from './form';
-import Modal from './requirements/modal';
-import RequirementLists from './requirements/requirement_lists';
-import RenderTextButton from './render_text_button';
+import Form from './templates/form';
+import Modal from '../requirements/templates/modal';
+import RequirementLists from '../requirements/requirements';
+import RenderTextButton from './templates/render_text_button';
 import * as app_constants from 'constants/app_constants';
-import * as project_constants from './project_constants';
+import * as project_constants from './constants/project_constants';
+import * as subject_constants from '../subjects/subject_constants';
 
-const PROJECTS_URL = app_constants.APP_NAME + project_constants.PROJECT_PATH;
+const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
-export default class ProjectsShowBox extends React.Component {
+export default class ProjectBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,21 +22,11 @@ export default class ProjectsShowBox extends React.Component {
       showForm: false
     }
   }
-
-  componentDidMount() {
-    axios.get(PROJECTS_URL + '/' + this.state.project.id + '.json')
-    .then(response => {
-      this.setState({
-        project: response.data.project,
-        organizations: response.data.organizations,
-        requirements: response.data.requirements
-      });
-    }).catch(error => console.log(error));
-  }
-
+  
   render() {
     let form = null;
-    let url = PROJECTS_URL + '/' + this.state.project.id;
+    let url = SUBJECT_URL + this.state.project.course_subject.subject_id 
+      + '/'+ 'projects' + '/' + this.state.project.id;
     if (this.state.showForm) {
       form = <Form project={this.state.project} url={url}
         organizations={this.state.organizations}

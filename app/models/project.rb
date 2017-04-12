@@ -15,6 +15,10 @@ class Project < ApplicationRecord
   has_many :tasks, as: :targetable, class_name: Task.name, dependent: :destroy
   has_many :course_subjects, through: :tasks, source: :targetable,
     source_type: Project.name
+  has_many :teams, through: :static_tasks, source: :ownerable, 
+    source_type: Team.name
+
+  belongs_to :course_subject
 
   validates :name, presence: true
 end

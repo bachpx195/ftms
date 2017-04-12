@@ -1,30 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import Form from './form';
+import Form from './templates/form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as project_constants from './project_constants';
+import * as project_constants from './constants/project_constants';
+import * as subject_constants from '../subjects/subject_constants';
 
-const PROJECT_URL = app_constants.APP_NAME + project_constants.PROJECT_PATH;
+const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
-export default class ProjectLists extends React.Component {
+export default class Projects extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       projects: props.projects,
-      project: {}
     }
-  }
-
-  componentDidMount() {
-    axios.get(PROJECT_URL + '.json')
-      .then(response => {
-        this.setState({
-         projects: response.data.projects,
-      });
-    }).catch(error => console.log(error));
   }
 
   render() {
@@ -50,7 +41,8 @@ export default class ProjectLists extends React.Component {
       let project = this.state.projects[griddleKey];
       let link = '#';
       if (project) {
-        link = PROJECT_URL + '/' + project.id;
+        link = SUBJECT_URL + project.course_subject.subject_id 
+          + '/'+ 'projects' + '/' + project.id;
       }
       return <a href={link}>{value}</a>;
     };
@@ -72,7 +64,8 @@ export default class ProjectLists extends React.Component {
           <RowDefinition>
             <ColumnDefinition id='name' title={I18n.t('projects.headers.name')}
               customComponent={LinkToProject} />
-            <ColumnDefinition id='organization' title={I18n.t('projects.organization')}
+            <ColumnDefinition id='organization' 
+              title={I18n.t('projects.organization')}
               customComponent={OrganizationName} />
             <ColumnDefinition id='description'
               title={I18n.t('projects.headers.description')} />

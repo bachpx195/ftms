@@ -16,8 +16,8 @@ import Policies from '../policies/policies';
 import ProfileShowBox from '../components/users/profile_show_box';
 import ProgramsBox from '../components/programs/box';
 import ProgramsShowBox from '../components/programs/programs_show_box';
-import ProjectBox from '../components/projects/projects_box';
-import ProjectsShowBox from '../components/projects/projects_show_box';
+import ProjectBox from '../components/projects/show';
+import ProjectsBox from '../components/projects/box';
 import RoleBox from '../components/roles/roles_box';
 import ShowOrganizationBox from '../components/show_organizations/organizations_box';
 import Sidebar from '../components/dashboards/sidebar';
@@ -56,7 +56,7 @@ ReactOnRails.register({
   ProgramsBox,
   ProgramsShowBox,
   ProjectBox,
-  ProjectsShowBox,
+  ProjectsBox,
   RoleBox,
   ShowOrganizationBox,
   Sidebar,
