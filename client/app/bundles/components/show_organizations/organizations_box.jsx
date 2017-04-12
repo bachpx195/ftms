@@ -123,6 +123,9 @@ export default class OrganizationBox extends React.Component {
       link_to_owner = this.renderOwner(owner);
     }
 
+    let ORGANIZATION_MEMBERS_URL = ORGANIZATION_URL + '/' + 
+      this.state.organization.id + '/' + 'users';
+
     return (
       <div className='row'>
         <div className='col-md-9'>
@@ -198,7 +201,9 @@ export default class OrganizationBox extends React.Component {
               <div className='member-title'>
                 <i className='fa fa-users' aria-hidden='true'></i>
                 <strong>
-                  {I18n.t('organizations.members')}
+                  <a href={ORGANIZATION_MEMBERS_URL}>
+                    {I18n.t('organizations.manage_user')}
+                  </a>
                 </strong>
                 <span className='badge label-primary'>
                   {count_users}

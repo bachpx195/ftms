@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :load_supports
   before_action :find_user, except: [:index, :create]
   before_action :authorize_class
+  before_action :find_organization, only: :index
 
   def index
     respond_to do |format|
@@ -83,6 +84,18 @@ class UsersController < ApplicationController
     unless @user_supports.user
       respond_to do |format|
         format.html{redirect_to users_path}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
+  end
+
+  def find_organization
+    unless @user_supports.organization
+      respond_to do |format|
+        format.html{redirect_to organizations_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
