@@ -9,7 +9,6 @@ class EvaluationStandard < ApplicationRecord
   has_many :member_evaluation_items, dependent: :destroy
 
   validates :name, presence: true
-  validates :min_point, presence: true, numericality: true
-  validates :max_point, presence: true, numericality: true
-  validates :average_point, presence: true
+  validates :min_point, numericality: true
+  validates :max_point, numericality: true
 end

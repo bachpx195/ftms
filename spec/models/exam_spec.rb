@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Answer, type: :model do
+RSpec.describe Exam, type: :model do
   describe "association" do
     it{is_expected.to have_many :results}
 
