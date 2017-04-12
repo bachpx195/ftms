@@ -98,7 +98,7 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
-            <Permit action='courses'>
+            <Permit action='programs'>
               <li data-page='courses'>
                 <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-folder'></i>

@@ -62,7 +62,8 @@ export default class FormCreate extends React.Component {
     }, app_constants.AXIOS_CONFIG)
       .then(response => {
         this.refs.nameField.value = '';
-        this.props.handleAfterSaved(response.data.organization);
+        window.location.href = this.props.url + '/' +
+          response.data.organization.id;
       })
       .catch(error => {
         console.log(error);
