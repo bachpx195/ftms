@@ -22,7 +22,7 @@ en:
     num_training_standards: " Training Standards: "
     num_courses: " Courses: "
     owners: " Owners"
-    members: " Members: "
+    manage_user: "Manage Users: "
     all_members: "All members"
     documents: "Documents"
     select_document: "Select document"

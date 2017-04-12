@@ -8,8 +8,8 @@ class Supports::UserSupport
   end
 
   def users_serializer
-    @users_serializer = Serializers::Users::UsersSerializer
-      .new(object: User.all).serializer
+    @users_serializer ||= Serializers::Users::UsersSerializer
+      .new(object: @organization.users).serializer
   end
 
   def user_serializer
@@ -28,4 +28,8 @@ class Supports::UserSupport
   def roles
     @roles ||= Role.all
   end
+
+  def organization
+    @organization ||= Organization.find_by id: @params[:organization_id]
+  end 
 end
