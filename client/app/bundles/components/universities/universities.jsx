@@ -16,9 +16,15 @@ export default class Universities extends React.Component {
 
     this.state = {
       universities: props.universities,
-      university: {}
+      selected_university: {}
     };
     Row.prototype.universities = this.state.universities;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selected_university: {}
+    });
   }
 
   render() {
@@ -27,8 +33,12 @@ export default class Universities extends React.Component {
     );
 
     const ButtonEdit = ({griddleKey}) => {
+      let university = this.state.universities[griddleKey];
+      let renderModal = university.id == this.state.selected_university.id;
       return (
-        <Update university={this.state.universities[griddleKey]}
+        <Update university={university} renderModal={renderModal}
+          selected_university={this.state.selected_university}
+          setUniversity={this.setUniversity.bind(this)}
           handleAfterUpdated={this.props.handleAfterUpdated} />
       );
     };
@@ -57,9 +67,9 @@ export default class Universities extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  setUniversity(selected_university) {
     this.setState({
-      university: {}
+      selected_university: selected_university
     });
   }
 }
