@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import Permit from 'policy/sidebar_policy';
 import CustomPolicy from 'policy/course_policy';
-
 import * as app_constants from 'constants/app_constants';
 import * as dashboard_constands from './dashboard_constands';
 
@@ -21,12 +20,9 @@ const FUNCTIONS_URL = app_constants.APP_NAME +
   dashboard_constands.FUNCTIONS_PATH;
 const ROLES_URL = app_constants.APP_NAME +
   dashboard_constands.ROLES_PATH;
-const USERS_URL = app_constants.APP_NAME +
-  dashboard_constands.USERS_PATH;
+
 const MY_SPACE_COURSES_URL = app_constants.APP_NAME +
   dashboard_constands.MY_SPACE_COURSES_PATH;
-const MOVING_HISTORY_URL = app_constants.APP_NAME +
-  dashboard_constands.MOVING_HISTORY_PATH;
 const PROJECTS_URL = app_constants.APP_NAME +
   dashboard_constands.PROJECTS_PATH;
 const CATEGORY_URL = app_constants.APP_NAME + dashboard_constands.CATEGORY_PATH;
@@ -143,7 +139,7 @@ export default class Sidebar extends React.Component {
                   </li>
                 </Permit>
 
-                <Permit action='subjects/index'>
+                <Permit action='subjects'>
                   <li className='sub-li' data-page='subjects'>
                     <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
@@ -220,24 +216,6 @@ export default class Sidebar extends React.Component {
                 </Permit>
               </ul>
             </li>
-            <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
-              {action: ['setOwner'], target: 'children', data: {organization_ids:
-                this.state.organization_ids}}]} >
-              <li>
-                <a href={USERS_URL} onClick={this.onClick.bind(this)}>
-                  <i className="glyphicon glyphicon-user" aria-hidden="true"></i>
-                  <span>{I18n.t('sidebar.manage_user')}</span>
-                </a>
-              </li>
-            </CustomPolicy>
-            <Permit action='moving_histories'>
-              <li data-page='moving_history'>
-                <a href={MOVING_HISTORY_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-history'></i>
-                  <span>{I18n.t('sidebar.moving_history')}</span>
-                </a>
-              </li>
-            </Permit>
           </ul>
         </section>
       </aside>
