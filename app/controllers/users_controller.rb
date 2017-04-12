@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :load_supports
-  before_action :find_user, except: [:index, :create]
+  before_action :find_organization
+  before_action :find_user, except: [:index, :new, :create]
   before_action :authorize_class
-  before_action :find_organization, only: :index
 
   def index
     respond_to do |format|
@@ -15,12 +15,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def new
+  end
+
   def create
-    user = User.new user_params
+    user = UserServices::CreateUser.new(user_params: user_params).perform
     respond_to do |format|
       format.json do
         if user.save
-          user.roles << Role.find(6)
+          UserServices::AddRoleUser.new(user: user).perform
           render json: {message: flash_message("created"),
             user: user}
         else
@@ -72,8 +75,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user)
-      .permit :name, :email, :avatar, :password, :password_confirmation
+    params.require(:user).permit User::USER_PROFILE_ATTRIBUTES_PARAMS
   end
 
   def load_supports

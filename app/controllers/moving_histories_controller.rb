@@ -1,5 +1,6 @@
 class MovingHistoriesController < ApplicationController
-  before_action :find_organization_moving_hitories, only: :index
+  before_action :load_supports
+  before_action :find_organization_moving_histories, only: :index
 
   def index
     respond_to do |format|
@@ -7,18 +8,20 @@ class MovingHistoriesController < ApplicationController
       format.json do
         render json: {
           organization_moving_histories:
-            Serializers::MovingHistories::MovingHistoriesSerializer
-              .new(object: @organization_moving_histories).serializer
+          @moving_history_support.moving_history_serializer
         }
       end
     end
   end
 
   private
-  def find_organization_moving_hitories
-    @organization_moving_histories = MovingHistory
-      .where organization_id: current_user.profile.organization_id
-    unless @organization_moving_histories
+  def load_supports
+    @moving_history_support = Supports::MovingHistorySupport
+      .new user_organization_id: current_user.organization_ids
+  end
+
+  def find_organization_moving_histories
+    unless @moving_history_support.organization_moving_histories
       respond_to do |format|
         format.html{redirect_to moving_histories_path}
         format.json do

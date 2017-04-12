@@ -15,21 +15,9 @@ export default class MovingHistoryBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      organization_moving_histories: [],
+      organization_moving_histories:
+      this.props.organization_moving_histories || [],
     };
-  }
-
-  componentDidMount() {
-    this.fetchOrganizationMovingHistories();
-  }
-
-  fetchOrganizationMovingHistories() {
-    axios.get(MOVING_HISTORIES_URL + '.json')
-      .then(response => {
-        this.setState({
-          organization_moving_histories: response.data.organization_moving_histories,
-        });
-      }).catch(error => console.log(error));
   }
 
   render() {

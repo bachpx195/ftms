@@ -2,7 +2,7 @@ class Serializers::Users::UsersSerializer <
   Serializers::SupportSerializer
   attrs :id, :email, :name, :avatar, :trainer_id, :created_at, :updated_at,
     :type
-  attrs :user_program, :user_organization_programs, :user_profile,
+  attrs :user_program, :remaining_organization_programs, :user_profile,
     :user_organization, if: :check_profile
 
   delegate :type, to: :object
@@ -12,10 +12,9 @@ class Serializers::Users::UsersSerializer <
       .new(object: object.profile.program).serializer
   end
 
-  def user_organization_programs
-    user_profile = object.profile
-    remaining_programs = user_profile.organization.programs -
-      [user_profile.program]
+  def remaining_organization_programs
+    profile = object.profile
+    remaining_programs = profile.organization.programs - [profile.program]
     Serializers::Users::UserProgramSerializer
       .new(object: remaining_programs).serializer
   end

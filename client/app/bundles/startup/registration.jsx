@@ -35,6 +35,7 @@ import TrainingStandardShow from '../components/training_standards/admin/standar
 import UniversityBox from '../components/universities/box';
 import UserCoursesBox from '../components/user_courses/user_courses_box';
 import UserIndexBox from '../components/users/user_index_box';
+import UserNewBox from '../components/users/user_new_box';
 import UserRolesBox from '../components/users/user_roles_box';
 import UserShowBox from '../components/users/user_show_box';
 
@@ -62,6 +63,7 @@ ReactOnRails.register({
   Sidebar,
   StageBox,
   StaticPageBox,
+  SupervisorProgramsShowBox,
   SubOrganizationShowBox,
   SubjectBox,
   SubjectsShowBox,
@@ -73,6 +75,7 @@ ReactOnRails.register({
   TrainingStandardShow,
   UniversityBox,
   UserCoursesBox,
+  UserNewBox,
   UserIndexBox,
   UserRolesBox,
   UserShowBox,
