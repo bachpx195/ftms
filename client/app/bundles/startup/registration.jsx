@@ -5,7 +5,7 @@ import Policies from '../policies/policies';
 import Header from '../components/dashboards/header';
 import Sidebar from '../components/dashboards/sidebar';
 import Footer from '../components/dashboards/footer';
-import UniversityBox from '../components/universities/universities_box';
+import UniversityBox from '../components/universities/box';
 import LanguageBox from '../components/languages/languages_box';
 import SubjectBox from '../components/subjects/subjects_box';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';

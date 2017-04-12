@@ -16,7 +16,7 @@ class UniversitiesController < ApplicationController
   end
 
   def create
-    @university = University.new university_params
+    @university = University.new university_params.merge(creator: current_user)
     respond_to do |format|
       if @university.save
         universities_serializer = Serializers::UniversitiesSerializer

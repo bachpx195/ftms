@@ -1,11 +1,13 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
 
-import UniversityLists from './university_lists';
-import Form from './form';
 import UniversityPolicy from 'policy/university_policy';
+
 import * as app_constants from 'constants/app_constants';
-import * as university_constants from './university_constants';
+import * as university_constants from './constants/university_constants';
+
+import Form from './templates/form';
+import Universities from './universities';
 
 const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
 
@@ -25,13 +27,18 @@ export default class UniversityBox extends React.Component {
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>
-              <h3 className='box-title'>{I18n.t('universities.titles.all')}</h3>
+              <h3 className='box-title'>
+                {I18n.t('universities.titles.all')}
+              </h3>
 
               <div className="box-tools pull-right">
-                <button type="button" className="btn btn-box-tool" data-widget="collapse">
+                <button type="button" className="btn btn-box-tool"
+                  data-widget="collapse">
                   <i className="fa fa-minus"></i>
                 </button>
-                <button type="button" className="btn btn-box-tool" data-widget="remove">
+
+                <button type="button" className="btn btn-box-tool"
+                  data-widget="remove">
                   <i className="fa fa-times"></i>
                 </button>
               </div>
@@ -41,8 +48,7 @@ export default class UniversityBox extends React.Component {
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
                   <UniversityPolicy permit={[
-                    {action: ['create'], target: 'children'}
-                    ]}>
+                    {action: ['create'], target: 'children'}]}>
                     <Form
                       university={this.state.university}
                       url={UNIVERSITY_URL}
@@ -51,14 +57,14 @@ export default class UniversityBox extends React.Component {
                 </div>
               </div>
             </div>
+
             <div className='box-footer'>
               <UniversityPolicy permit={[
                 {action: ['create'], target: 'children'},
-                {action: ['index'], target: 'children'}
-              ]}>
-                <UniversityLists universities={this.state.universities}
+                {action: ['index'], target: 'children'}]}>
+                <Universities universities={this.state.universities}
                   handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                  handleAfterDeleted={this.handleAfterDeleted.bind(this)}/>
+                  handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
               </UniversityPolicy>
             </div>
           </div>
