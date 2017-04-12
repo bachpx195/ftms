@@ -36,8 +36,9 @@ class Supports::CourseSupport
   end
 
   def evaluation_standards
-    @evaluation_standards ||= @course
-      .training_standard.evaluation_template.evaluation_standards
+    evaluation_template ||= @course.training_standard.evaluation_template
+    return Array.new unless evaluation_template
+    @evaluation_standards = evaluation_template.evaluation_standards
   end
 
   def selected_surveys
