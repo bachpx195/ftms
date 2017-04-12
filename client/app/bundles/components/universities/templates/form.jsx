@@ -1,9 +1,11 @@
+import axios from 'axios';
+import Dropzone from 'react-dropzone';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
-import Errors from '../shareds/errors';
 import _ from 'lodash';
+
+import Errors from '../../shareds/errors';
+
 import * as app_constants from 'constants/app_constants';
 
 export default class Form extends React.Component {
@@ -27,8 +29,10 @@ export default class Form extends React.Component {
         </div>
         <div className='form-group'>
           <div className='text-right'>
-            <button type='submit' disabled={!this.formValid()} className='btn btn-primary'>
-              {I18n.t('buttons.save')}</button>
+            <button type='submit' disabled={!this.formValid()}
+              className='btn btn-primary'>
+              {I18n.t('buttons.save')}
+            </button>
           </div>
         </div>
       </form>
@@ -72,7 +76,7 @@ export default class Form extends React.Component {
     })
     .then(response => {
       if(this.props.university.id) {
-        $('#modalEdit').modal('hide');
+        $('.modal-edit').modal('hide');
       } else {
         this.setState({
           name: '',
