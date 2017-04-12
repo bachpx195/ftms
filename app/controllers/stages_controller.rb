@@ -16,7 +16,7 @@ class StagesController < ApplicationController
   end
 
   def create
-    @stage = Stage.new stage_params
+    @stage = current_user.stages.build stage_params
     respond_to do |format|
       if @stage.save
         stages_serializer = Serializers::StagesSerializer

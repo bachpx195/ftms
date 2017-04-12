@@ -1,27 +1,24 @@
 import React from 'react';
 import axios from 'axios';
-
 import * as app_constants from 'constants/app_constants';
 import * as university_constants from '../constants/university_constants';
 
-import UniversityPolicy from 'policy/university_policy';
-
-import Modal from '../templates/modal';
-
 const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
 
-export default class Update extends React.Component {
+export default class Create extends React.Component {
   render() {
     return (
-      <button className='btn btn-info' onClick={this.handleSubmit.bind(this)}>
-        {I18n.t('buttons.edit')}
+      <button type='submit' onClick={this.createUniversity.bind(this)}
+        className='btn btn-primary'>
+        {I18n.t('buttons.save')}
       </button>
-    );
-  }
+     );
+   }
 
-  handleSubmit(event) {
+  createUniversity(event) {
     event.preventDefault();
     let formData = new FormData();
+
     let university = _.omit(this.props.state, 'errors');
 
     for(let key of Object.keys(university)) {
@@ -29,14 +26,13 @@ export default class Update extends React.Component {
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     axios({
-      url: this.props.url,
-      method: 'PUT',
+      url: UNIVERSITY_URL,
+      method: 'POST',
       data: formData,
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-     $('.modal-edit').modal('hide');
-      this.props.handleAfterUpdated(response.data.university);
+      this.props.handleAfterCreated(response.data.university);
     })
     .catch(error => {
       console.log(error);

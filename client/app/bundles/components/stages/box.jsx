@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 
-import StageLists from './stage_lists';
-import Form from './form';
+import Stages from './stages';
+import Form from './templates/form';
 
 import * as app_constants from 'constants/app_constants';
-import * as stage_constants from './stage_constants';
+import * as stage_constants from './constants/stage_constants';
 
 const STAGE_URL = app_constants.APP_NAME + stage_constants.STAGE_PATH;
 
@@ -43,12 +43,12 @@ export default class StageBox extends React.Component {
                   <Form
                     stage={this.state.stage}
                     url={STAGE_URL}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                    handleAfterCreated={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
             <div className='box-footer'>
-              <StageLists stages={this.state.stages}
+              <Stages stages={this.state.stages}
                 handleAfterUpdated={this.handleAfterUpdated.bind(this)}
                 handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
             </div>

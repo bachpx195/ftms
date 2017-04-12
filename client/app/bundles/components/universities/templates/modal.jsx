@@ -16,16 +16,14 @@ export default class Modal extends React.Component {
               </h4>
             </div>
             <div className='modal-body'>
-              <Form university={this.props.university} url={this.props.url}
-                handleAfterSaved={this.handleAfterUpdated.bind(this)} />
+              <Form
+                url={this.props.url}
+                university={this.props.university}
+                handleAfterUpdated={this.props.handleAfterUpdated} />
             </div>
           </div>
         </div>
       </div>
     );
-  }
-
-  handleAfterUpdated(university) {
-    this.props.handleAfterUpdated(university);
   }
 }

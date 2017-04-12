@@ -52,7 +52,7 @@ export default class UniversityBox extends React.Component {
                     <Form
                       university={this.state.university}
                       url={UNIVERSITY_URL}
-                      handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                      handleAfterCreated={this.handleAfterCreated.bind(this)} />
                   </UniversityPolicy>
                 </div>
               </div>
@@ -94,6 +94,8 @@ export default class UniversityBox extends React.Component {
   handleAfterDeleted(deleted_university) {
     _.remove(this.state.universities,
       university => university.id === deleted_university.id);
-    this.setState({universities: this.state.universities});
+    this.setState({
+      universities: this.state.universities
+    });
   }
 }
