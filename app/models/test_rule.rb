@@ -1,10 +1,12 @@
 class TestRule < ApplicationRecord
+  acts_as_paranoid
+
   ATTRIBUTE_PARAMS = [:name, :total_question, :time_of_test,
     :min_score_for_pass, :opportunity, :number_of_test]
 
-  has_many :rule_questions
-  has_many :rule_categories
-  has_many :exams
+  has_many :test_rule_questions, dependent: :destroy
+  has_many :test_rule_categories, dependent: :destroy
+  has_many :exams, dependent: :destroy
 
   has_many :tasks, as: :targetable,
     class_name: StaticTask.name, dependent: :destroy

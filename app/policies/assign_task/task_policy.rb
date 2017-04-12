@@ -10,8 +10,8 @@ class AssignTask::TaskPolicy < ApplicationPolicy
       (record[:ownerable].organization.owner == @user) ||
         (super && has_function_subject?)
     elsif record[:ownerable].class == Team
-      (record[:ownerable].course_subject.course.organization.owner == @user) ||
-        (super && has_function_team?)
+      (record[:ownerable].course_subject.course.program.organization
+        .owner == @user) || (super && has_function_team?)
     end
   end
 
@@ -26,8 +26,8 @@ class AssignTask::TaskPolicy < ApplicationPolicy
       (record[:ownerable].organization.owner == @user) ||
         (super && has_function_subject?)
     elsif record[:ownerable].class == Team
-      (record[:ownerable].course_subject.course.organization.owner == @user) ||
-        (super && has_function_team?)
+      (record[:ownerable].course_subject.course.program.organization
+        .owner == @user) || (super && has_function_team?)
     end
   end
 

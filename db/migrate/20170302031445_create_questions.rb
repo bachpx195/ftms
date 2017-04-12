@@ -5,6 +5,7 @@ class CreateQuestions < ActiveRecord::Migration[5.0]
       t.string :content
       t.integer :level
       t.integer :type
+      t.datetime :deleted_at
 
       t.timestamps
     end

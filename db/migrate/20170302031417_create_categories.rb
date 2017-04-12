@@ -4,7 +4,8 @@ class CreateCategories < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :description
       t.integer :creator_id
-      
+      t.datetime :deleted_at
+
       t.timestamps
     end
   end

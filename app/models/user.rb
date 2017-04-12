@@ -56,8 +56,7 @@ class User < ApplicationRecord
     foreign_key: :manager_id, dependent: :destroy
   has_many :static_tasks, through: :dynamic_tasks, class_name: StaticTask.name,
      as: :targetable
-  has_many :rules, through: :static_tasks, source: :targetable,
-    source_type: TestRule.name
+  has_many :test_rules, through: :static_tasks, source: :targetable
 
   accepts_nested_attributes_for :user_functions, allow_destroy: true
   accepts_nested_attributes_for :profile, allow_destroy: true,

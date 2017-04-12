@@ -154,12 +154,11 @@ namespace :db do
     if user
       Organization.create!([
         {name: "Framgia", user_id: user.id, parent_id: nil, creator_id: 1},
-        {name: "Framgia Ha noi Education", user_id: user.id, parent_id: 1, creator_id: 1},
-        {name: "Framgia Da nang ", user_id: user.id, parent_id: 1, creator_id: 1},
+        {name: "Framgia Ha Noi Education", user_id: user.id, parent_id: 1, creator_id: 1},
+        {name: "Framgia Da Nang ", user_id: user.id, parent_id: 1, creator_id: 1},
         {name: "Framgia Ho Chi Minh", user_id: user.id, parent_id: 1, creator_id: 1},
-        {name: "Hust Education", user_id: user.id, parent_id: nil, creator_id: 1},
-        {name: "Ta Quang Buu Lab", user_id: user.id, parent_id: 5, creator_id: 1},
-        {name: "Janpan JAV Education", user_id: user.id, parent_id: nil, creator_id: 1}])
+        {name: "HUST Education", user_id: user.id, parent_id: nil, creator_id: 1},
+        {name: "Ta Quang Buu Lab", user_id: user.id, parent_id: 5, creator_id: 1}])
     end
 
     puts "8. Create program"
@@ -439,6 +438,11 @@ namespace :db do
     end
 
     puts "25. create TestRule"
+    5.times do |n|
+      TestRule.create name: "Test rule #{n}", total_question: 30,
+        time_of_test: 20, min_score_for_pass: 25, creator_id: 4,
+        organization_id: 2
+    end
 
     puts "26. Create Static Subject"
     subject = Subject.first
@@ -475,6 +479,13 @@ namespace :db do
     end
     team.user_subject_ids = user_subject_ids
 
+    puts "30. Create Exams"
+    course_subject = CourseSubject.first
+    TestRule.all.each.with_index 1 do |test_rule, index|
+      test_rule.exams.create duration: 20,
+        course_subject_id: course_subject.id,
+        user_id: course_subject.user_subjects.first.user.id
+    end
 
     puts "31. Create Project"
     Project.create!([

@@ -4,6 +4,8 @@ class CreateResults < ActiveRecord::Migration[5.0]
       t.integer :exam_id
       t.integer :question_id
       t.integer :answer_id
+      t.datetime :deleted_at
+
       t.timestamps
     end
   end
