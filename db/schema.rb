@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.integer  "question_id"
     t.string   "content"
     t.boolean  "is_correct",  default: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.string   "name"
     t.string   "description"
     t.integer  "creator_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -123,8 +125,13 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.datetime "started_at"
     t.integer  "score"
     t.integer  "duration"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "course_subject_id"
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.integer  "test_rule_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -274,6 +281,7 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.string   "content"
     t.integer  "level"
     t.integer  "type"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -294,6 +302,7 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.integer  "exam_id"
     t.integer  "question_id"
     t.integer  "answer_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -310,28 +319,6 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.integer  "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "rule_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "rule_id"
-    t.integer  "category_id"
-    t.integer  "number_question"
-    t.integer  "easy"
-    t.integer  "normal"
-    t.integer  "hard"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["category_id"], name: "index_rule_categories_on_category_id", using: :btree
-    t.index ["rule_id"], name: "index_rule_categories_on_rule_id", using: :btree
-  end
-
-  create_table "rule_questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "rule_id"
-    t.integer  "question_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["question_id"], name: "index_rule_questions_on_question_id", using: :btree
-    t.index ["rule_id"], name: "index_rule_questions_on_rule_id", using: :btree
   end
 
   create_table "stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -414,6 +401,30 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.index ["creator_id"], name: "index_teams_on_creator_id", using: :btree
   end
 
+  create_table "test_rule_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "test_rule_id"
+    t.integer  "category_id"
+    t.integer  "number_question"
+    t.integer  "easy"
+    t.integer  "normal"
+    t.integer  "hard"
+    t.datetime "deleted_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["category_id"], name: "index_test_rule_categories_on_category_id", using: :btree
+    t.index ["test_rule_id"], name: "index_test_rule_categories_on_test_rule_id", using: :btree
+  end
+
+  create_table "test_rule_questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "test_rule_id"
+    t.integer  "question_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["question_id"], name: "index_test_rule_questions_on_question_id", using: :btree
+    t.index ["test_rule_id"], name: "index_test_rule_questions_on_test_rule_id", using: :btree
+  end
+
   create_table "test_rules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "total_question"
@@ -423,6 +434,7 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.integer  "number_of_test"
     t.integer  "creator_id"
     t.integer  "organization_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.index ["creator_id"], name: "index_test_rules_on_creator_id", using: :btree

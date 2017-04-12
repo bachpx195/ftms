@@ -9,6 +9,7 @@ class CreateTestRules < ActiveRecord::Migration[5.0]
       t.integer :number_of_test
       t.integer :creator_id, index: true
       t.integer :organization_id, index: true
+      t.datetime :deleted_at
 
       t.timestamps
     end

@@ -1,5 +1,7 @@
 class Exam < ApplicationRecord
-  has_many :results
+  acts_as_paranoid
 
-  belongs_to :rule
+  has_many :results, dependent: :destroy
+
+  belongs_to :test_rule
 end
