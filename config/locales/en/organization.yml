@@ -3,8 +3,10 @@ en:
     titles:
       all: "All organizations"
       info: "Info"
+      assign_owner_for: "Assign owner for "
     headers:
       name: "Name"
+      current_owner: "Current Owner: "
     parent_name: "Parent Name"
     create_sub: "Create Sub Organization"
     id: "ID"
@@ -26,3 +28,4 @@ en:
     all_members: "All members"
     documents: "Documents"
     select_document: "Select document"
+    assign_owner: "Assign owner"

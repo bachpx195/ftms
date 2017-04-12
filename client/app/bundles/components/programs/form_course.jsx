@@ -9,6 +9,7 @@ import CourseLists from './course_lists';
 import SubjectLists from './subject_lists';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './program_constants';
+import * as role_constants from '../roles/role_constants';
 
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
@@ -164,7 +165,9 @@ export default class FormCourse extends React.Component {
   }
 
   handleChangeRole(event) {
-    const url = this.props.url_programs + '.json?role_id=' + $('#list-roles').val();
+    let url = app_constants.APP_NAME + role_constants.FILTER_ROLE_PATH
+      + $('#list-roles').val();
+
     axios.get(url)
       .then(response => {
         this.setState({

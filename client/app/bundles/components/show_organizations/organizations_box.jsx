@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-
+import _ from 'lodash';
 import FormCreate from './form_create';
 import OrganizationLists from './organization_lists';
 import BoxTitle from './box_title';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
+import ModalAssignOwner from './modal_assign_owner/modal';
 import Dropzone from 'react-dropzone';
 
 import * as app_constants from 'constants/app_constants';
@@ -21,6 +22,7 @@ export default class OrganizationBox extends React.Component {
     this.state = {
       organization: {},
       programs: [],
+      all_roles: [],
       parent: null,
       user: this.props.user,
       documents: [],
@@ -40,6 +42,7 @@ export default class OrganizationBox extends React.Component {
         this.setState({
           organization: response.data.organization,
           programs: response.data.programs,
+          all_roles: response.data.all_roles,
           documents: response.data.organization.documents
         })
       })
@@ -118,12 +121,7 @@ export default class OrganizationBox extends React.Component {
       count_courses +=program.courses.length;
     }
 
-    let link_to_owner = '';
-    if(owner) {
-      link_to_owner = this.renderOwner(owner);
-    }
-
-    let ORGANIZATION_MEMBERS_URL = ORGANIZATION_URL + '/' + 
+    let ORGANIZATION_MEMBERS_URL = ORGANIZATION_URL + '/' +
       this.state.organization.id + '/' + 'users';
 
     return (
@@ -164,8 +162,12 @@ export default class OrganizationBox extends React.Component {
                   {I18n.t('organizations.owners')}
                 </strong>
                 <div className='block-trainer'>
-                  {link_to_owner}
+                  {this.renderOwner(owner)}
                 </div>
+                <a href="#"
+                  onClick={this.handleAssignOwnerModal.bind(this)} >
+                  {I18n.t('organizations.assign_owner')}
+                </a>
               </div>
               <br />
               <div className='member-title'>
@@ -219,6 +221,11 @@ export default class OrganizationBox extends React.Component {
           document_preview={this.state.document_preview}
           handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
         />
+        <ModalAssignOwner
+          organization={this.state.organization}
+          all_roles={this.state.all_roles}
+          handleOwnerAssigned={this.handleOwnerAssigned.bind(this)}
+        />
       </div>
     )
   }
@@ -265,14 +272,16 @@ export default class OrganizationBox extends React.Component {
   }
 
   renderOwner(owner) {
-    return(
-      <a className='image'
-        onError={this.checkImage.bind(this)}
-        title={owner.name}
-        href={USER_URL + owner.id} >
-        <img src={owner.avatar.url} className='img-circle' />
-      </a>
-    )
+    if (!_.isEmpty(owner)) {
+      return(
+        <a className='image'
+          onError={this.checkImage.bind(this)}
+          title={owner.name}
+          href={USER_URL + owner.id} >
+          <img src={owner.avatar.url} className='img-circle' />
+        </a>
+      )
+    }
   }
 
   handleUploadDocument() {
@@ -317,5 +326,17 @@ export default class OrganizationBox extends React.Component {
   clickPreviewDocument(document) {
     this.setState({document_preview: document});
     $('.modal-preview-document').modal();
+  }
+
+  handleAssignOwnerModal(event) {
+    event.preventDefault();
+    $('.modal-assign-owner').modal();
+  }
+
+  handleOwnerAssigned(owner) {
+    this.state.organization.owner = owner;
+    this.setState({
+      organization: this.state.organization
+    });
   }
 }

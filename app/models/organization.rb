@@ -2,7 +2,7 @@ class Organization < ApplicationRecord
   acts_as_paranoid
   acts_as_tree order: "created_at DESC", dependent: :destroy
 
-  ATTRIBUTES_PARAMS = [:name, :parent_id]
+  ATTRIBUTES_PARAMS = [:name, :parent_id, :user_id]
 
   belongs_to :owner, class_name: User.name, foreign_key: :user_id
   belongs_to :creator, foreign_key: :creator_id, class_name: User.name
