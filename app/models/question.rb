@@ -1,7 +1,8 @@
 class Question < ApplicationRecord
   acts_as_paranoid
 
-  ATTRIBUTE_PARAMS = [:content, answers_attributes: [:content, :is_correct]]
+  ATTRIBUTE_PARAMS = [:content,
+    answers_attributes: [:id, :content, :is_correct]]
 
   belongs_to :category
   has_many :test_rule_questions, dependent: :destroy

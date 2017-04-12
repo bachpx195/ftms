@@ -1,7 +1,8 @@
-import Form from './form';
+import axios from 'axios';
+import FormQuestion from './form_question'
 import React from 'react';
 
-export default class Modal extends React.Component {
+export default class ModalQuestion extends React.Component {
   render() {
     return (
       <div className='modal fade in modal-edit' role='dialog'>
@@ -12,10 +13,10 @@ export default class Modal extends React.Component {
               <h4 className='modal-title'>{I18n.t('subjects.modals.header_edit')}</h4>
             </div>
             <div className='modal-body'>
-              <Form
-                category={this.props.category}
+              <FormQuestion question={this.props.question}
                 url={this.props.url}
-                handleAfterUpdated={this.props.handleAfterUpdated} />
+                afterUpdateQuestion={this.props.afterUpdateQuestion}
+                />
             </div>
           </div>
         </div>

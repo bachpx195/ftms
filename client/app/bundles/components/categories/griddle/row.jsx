@@ -1,5 +1,5 @@
-import React from 'react';
 import CategoryPolicy from 'policy/category_policy';
+import React from 'react';
 
 export default class Row extends React.Component {
   constructor(props) {

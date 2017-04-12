@@ -1,4 +1,4 @@
 class Serializers::Questions::AnswersSerializer <
   Serializers::SupportSerializer
-  attrs :id, :content
+  attrs :id, :content, :is_correct
 end
