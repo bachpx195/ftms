@@ -1,6 +1,7 @@
 import ReactOnRails from 'react-on-rails';
 
 import CategoryBox from '../components/categories/box';
+import CategoryBox from '../components/categories/category_box'
 import CoursesBox from '../components/courses/box';
 import CourseBox from '../components/courses/show';
 import EvaluationTemplatesBox from '../components/evaluation_templates/evaluation_templates_box';
@@ -39,7 +40,7 @@ import UserShowBox from '../components/users/user_show_box';
 
 ReactOnRails.register({
   CategoryBox,
-  CourseBox,
+  CategoryShowBox,
   CoursesBox,
   EvaluationTemplatesBox,
   ExamsBox,

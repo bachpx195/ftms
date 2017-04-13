@@ -101,7 +101,9 @@ Rails.application.routes.draw do
     resources :users, only: :create
   end
 
-  resources :categories
+  resources :categories do
+    resources :questions
+  end
   resources :test_rules
   resources :exams, only: [:index, :show]
 end

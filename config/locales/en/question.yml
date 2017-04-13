@@ -1,0 +1,9 @@
+en:
+  questions:
+    titles:
+      create_question: "Create Question"
+    buttons:
+      add_question: "Add Question"
+      add_answer: "Add Answer"
+      input_question: "Input question"
+      input_answer: "Input answer"
