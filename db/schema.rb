@@ -337,13 +337,6 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.datetime "updated_at",           null: false
   end
 
-  create_table "standard_programs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "program_id"
-    t.integer  "training_standard_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
   create_table "standard_subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "subject_id"
     t.integer  "training_standard_id"
@@ -450,12 +443,11 @@ ActiveRecord::Schema.define(version: 20170406022049) do
 
   create_table "training_standards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.integer  "organization_id"
     t.integer  "creator_id"
-    t.text     "description",     limit: 65535
+    t.text     "description", limit: 65535
     t.datetime "deleted_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["creator_id"], name: "index_training_standards_on_creator_id", using: :btree
   end
 

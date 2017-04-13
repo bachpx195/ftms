@@ -20,7 +20,7 @@ class Supports::ProgramSupport
   end
 
   def training_standards
-    @training_standards ||= @program.training_standards
+    @training_standards ||= @program.organization.training_standards
   end
 
   def program_subjects
