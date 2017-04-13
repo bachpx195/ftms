@@ -32,25 +32,9 @@ class SubjectsController < ApplicationController
   def show
     params_course = params[:course_id]
     @course = Course.find_by id: params_course if params_course
-
     @subject_supports = Supports::SubjectSupport
       .new subject: @subject, course: @course, course_subject: @course_subject,
       current_user: current_user
-    respond_to do |format|
-      format.html
-      format.json do
-        member_evaluations = @course_subject ? @course_subject
-          .member_evaluations : Array.new
-        render json: {
-          subject_detail: Serializers::Subjects::SubjectDetailsSerializer
-            .new(object: @subject, scope: {subject_supports: @subject_supports,
-            course_subjects: @course_subject, courses: @course}).serializer,
-          member_evaluations:
-            Serializers::Evaluations::MemberEvaluationsSerializer
-              .new(object: member_evaluations).serializer
-        }
-      end
-    end
   end
 
   def update

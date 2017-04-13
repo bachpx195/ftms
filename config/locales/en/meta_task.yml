@@ -8,5 +8,6 @@ en:
     send_pull: Send pull
     placeholder_title: Title for pull...
     placeholder_value: Link github for pull...
-    finish_assigment: Finish Assignment
-    receive_assignment: Receive Assignment
+    statuses:
+      in_progress: Finish Assignment
+      init: Receive Assignment
