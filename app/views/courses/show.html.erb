@@ -1,13 +1,13 @@
 <% if @course %>
-  <%= react_component "CoursesShowBox",
+  <%= react_component "CourseBox",
     props: {
-      program: @program,
-      course: @course,
-      course_subjects: @supports.course_subjects,
-      remain_surveys: @supports.remain_surveys,
-      selected_surveys: @supports.selected_surveys,
-      remain_testings: @supports.remain_testings,
-      selected_testings: @supports.selected_testings,
+      course: @course_supports.course_serializer,
+      course_subjects: @course_supports.subject_serializer,
+      remain_surveys: @course_supports.remain_surveys,
+      selected_surveys: @course_supports.selected_surveys,
+      remain_testings: @course_supports.remain_testings,
+      selected_testings: @course_supports.selected_testings,
+      managed_courses: @course_supports.managed_courses_serializer
     }, prerender: false %>
 <% else %>
   <div><%= I18n.t "courses.no_content" %></div>

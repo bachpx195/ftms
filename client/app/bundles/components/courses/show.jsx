@@ -21,60 +21,28 @@ import CourseDetail from './partials/course_detail';
 
 require('../../assets/sass/course.scss');
 
-export default class CoursesShowBox extends React.Component {
+export default class CourseShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      program: props.course.program,
       course: props.course,
-      course_subjects: [],
+      course_subjects: props.course_subjects,
       evaluation_template: {},
       remain_surveys: props.remain_surveys,
       selected_surveys: props.selected_surveys,
-      evaluation_standards: [],
+      evaluation_standards: props.course.evaluation_standards,
       user: {},
-      member_evaluations: [],
+      member_evaluations: props.course.member_evaluations,
       remain_testings: props.remain_testings,
       selected_testings: props.selected_testings,
       selected_items: [],
       remain_items: [],
       targetable_type: '',
-      documents: [],
+      documents: props.course.documents,
       document_preview: {},
-      courses_of_user_manages: [],
-      user_subjects: []
+      courses_of_user_manages: props.managed_courses
     }
-  }
-
-  componentWillMount() {
-    Object.assign(this.state.course, {
-      unassigned_users: [],
-      managers: [],
-      members: []
-    });
-    this.setState({course: this.state.course});
-  }
-
-  componentDidMount() {
-    this.fetchCourse();
-  }
-
-  fetchCourse() {
-    const COURSES_URL = app_constants.APP_NAME +
-      program_constants.PROGRAMS_PATH + this.props.program.id + '/'
-      + course_constants.COURSES_PATH + this.props.course.id;
-
-    axios.get(COURSES_URL + '.json')
-      .then(response => {
-        this.setState({
-          course: response.data.course,
-          course_subjects: response.data.course_subjects,
-          evaluation_standards: response.data.course.evaluation_standards,
-          evaluation_template: response.data.course.evaluation_template,
-          member_evaluations: response.data.course.member_evaluations,
-          documents: response.data.course.documents,
-          courses_of_user_manages: response.data.courses_of_user_manages
-        });
-      }).catch(error => console.log(error));
   }
 
   render() {
@@ -93,7 +61,7 @@ export default class CoursesShowBox extends React.Component {
           <CourseDetail
             courseListPermit={courseListPermit}
             course={this.state.course}
-            program={this.props.program}
+            program={this.state.program}
             clickButtonList={this.clickButtonList.bind(this)}
             handleAfterUpdate={this.handleAfterUpdate.bind(this)}
             handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)}
@@ -147,7 +115,7 @@ export default class CoursesShowBox extends React.Component {
 
         <ModalEvaluateMember
           evaluation_standards={this.state.evaluation_standards}
-          program={this.props.program}
+          program={this.state.program}
           member_evaluations={this.state.member_evaluations}
           user={this.state.user} course={this.state.course}
           evaluation_template={this.state.evaluation_template}
@@ -162,7 +130,7 @@ export default class CoursesShowBox extends React.Component {
         <ModalChangeCourse
           user={this.state.user}
           course={this.state.course}
-          program={this.props.program}
+          program={this.state.program}
           subjects={this.state.course_subjects}
           user_subjects={this.state.user_subjects}
           courses_of_user_manages={this.state.courses_of_user_manages}

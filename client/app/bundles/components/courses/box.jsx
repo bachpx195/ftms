@@ -9,8 +9,6 @@ import * as app_constants from 'constants/app_constants';
 import * as course_constants from './constants/course_constants';
 
 const COURSES_URL = app_constants.APP_NAME + course_constants.MY_COURSES_PATH;
-const MY_COURSES = app_constants.APP_NAME + course_constants.MY_SPACE_PATH +
-  course_constants.MY_COURSES_PATH;
 
 export default class CourseBox extends React.Component {
   constructor(props) {
@@ -20,7 +18,7 @@ export default class CourseBox extends React.Component {
     };
   }
 
-  renderCourses(title, courses, url) {
+  renderCourses(title, courses) {
     let html = null;
     if (courses.length > 0) {
       html = (
@@ -40,7 +38,7 @@ export default class CourseBox extends React.Component {
           </div>
           <div className="box-body no-padding">
             <div className="row">
-              <Courses courses={courses} url={url} />
+              <Courses courses={courses} url={COURSES_URL} />
             </div>
           </div>
         </div>);
@@ -60,7 +58,7 @@ export default class CourseBox extends React.Component {
       return (
         <div>
           {this.renderCourses(I18n.t("courses.titles.all"),
-            this.state.courses, COURSES_URL)}
+            this.state.courses)}
         </div>
       );
     }
@@ -69,9 +67,9 @@ export default class CourseBox extends React.Component {
       return (
         <div>
           {this.renderCourses(I18n.t("courses.courses_manager"),
-            this.state.courses.manager_courses, MY_COURSES)}
+            this.state.courses.manager_courses)}
           {this.renderCourses(I18n.t("courses.courses_trainee"),
-            this.state.courses.member_courses, MY_COURSES)}
+            this.state.courses.member_courses)}
         </div>
       );
     }

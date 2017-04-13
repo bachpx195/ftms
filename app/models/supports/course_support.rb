@@ -3,7 +3,6 @@ class Supports::CourseSupport
 
   def initialize args = {}
     @course = args[:course]
-    @program = args[:program]
     @user = args[:user]
   end
 
@@ -17,10 +16,6 @@ class Supports::CourseSupport
 
   def unassigned_users
     @unassigned_users ||= (program.users - managers - members).uniq
-  end
-
-  def course_subjects
-    @course_subjects ||= @course.subjects
   end
 
   def languages
@@ -46,7 +41,7 @@ class Supports::CourseSupport
   end
 
   def remain_surveys
-    @remain_surveys ||= Survey.where.not id: selected_surveys
+    @remain_surveys ||= Survey.all - selected_surveys
   end
 
   def selected_testings
@@ -54,23 +49,31 @@ class Supports::CourseSupport
   end
 
   def remain_testings
-    @remain_testings ||= TestRule.where.not id: selected_testings
+    @remain_testings ||= TestRule.all - selected_testings
   end
 
-  def courses_managed
-    course_manager_ids = @user.course_managers.pluck(:course_id)
-    @user.courses.where(program: @program, id: course_manager_ids)
-      .where.not id: @course.id
+  def course_serializer
+    Serializers::Courses::CourseDetailSerializer
+      .new(object: @course, scope: {supports: self}).serializer
   end
 
-  def user_subjects user_id
-    user = User.find_by id: user_id
-    if user
-      user_courses = user.user_courses.where(course: course)
-        .where.not status: "rejected"
-      user_courses.last.user_subjects
-    else
-      []
-    end
+  def subject_serializer
+    Serializers::Courses::CourseSubjectsSerializer
+      .new(object: subjects).serializer
+  end
+
+  def managed_courses_serializer
+    Serializers::Courses::CourseInProgramsSerializer
+      .new(object: managed_courses).serializer
+  end
+
+  private
+  def subjects
+    @subjects ||= @course.subjects
+  end
+
+  def managed_courses
+    course_manager_ids = @user.course_managers.pluck(:course_id) - [@course.id]
+    @user.courses.where program: program, id: course_manager_ids
   end
 end
