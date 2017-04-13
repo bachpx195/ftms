@@ -7,3 +7,10 @@ en:
       placeholder_name: "Input name category"
       description: "Description"
       placeholder_description: "Input description"
+    show:
+      create_question: "Create Question"
+      name: "Name"
+      total_question: "Total question"
+      time_of_test: "Time of test"
+      min_score_for_pass: "Min score for pass"
+      number_of_test: "Number of test"
