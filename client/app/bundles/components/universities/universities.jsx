@@ -1,14 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-
-import * as table_constants from 'constants/griddle_table_constants';
-
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import { NewLayout } from '../shareds/griddles/new_layout';
 import Row from './griddle/row';
-
 import Destroy from "./actions/destroy";
 import Update from "./actions/update";
-import Header from "./templates/header";
+import UniversityPolicy from 'policy/university_policy';
+import ModalEdit from './templates/modal';
+
+import * as table_constants from 'constants/griddle_table_constants';
+import * as app_constants from 'constants/app_constants';
+import * as university_constants from './constants/university_constants';
+
+const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
 
 export default class Universities extends React.Component {
   constructor(props) {
@@ -16,7 +20,7 @@ export default class Universities extends React.Component {
 
     this.state = {
       universities: props.universities,
-      selected_university: {}
+      university: {}
     };
     Row.prototype.universities = this.state.universities;
   }
@@ -28,18 +32,20 @@ export default class Universities extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <Header Table={Table} Pagination={Pagination} Filter={Filter} />
-    );
+    {NewLayout}
 
     const ButtonEdit = ({griddleKey}) => {
       let university = this.state.universities[griddleKey];
-      let renderModal = university.id == this.state.selected_university.id;
       return (
-        <Update university={university} renderModal={renderModal}
-          selected_university={this.state.selected_university}
-          setUniversity={this.setUniversity.bind(this)}
-          handleAfterUpdated={this.props.handleAfterUpdated} />
+        <UniversityPolicy
+          permit={[
+            {action: ['update', 'creator'], target: 'children',
+            data: {creator_id: university.creator_id}}]}>
+          <button className='btn btn-info' data-index={griddleKey}
+            onClick={this.handleEdit.bind(this)}>
+            {I18n.t('buttons.edit')}
+          </button>
+        </UniversityPolicy>
       );
     };
 
@@ -49,6 +55,16 @@ export default class Universities extends React.Component {
           handleAfterDeleted={this.props.handleAfterDeleted} />
       );
     };
+
+    let modalEdit = null;
+    if(this.state.university.id){
+      modalEdit = (
+        <ModalEdit
+          url={UNIVERSITY_URL + '/' + this.state.university.id}
+          university={this.state.university}
+          handleAfterUpdated={this.props.handleAfterUpdated} />
+      );
+    }
 
     return (
       <div>
@@ -63,6 +79,7 @@ export default class Universities extends React.Component {
               title="  " />
           </RowDefinition>
         </Griddle>
+        {modalEdit}
       </div>
     );
   }
@@ -70,6 +87,16 @@ export default class Universities extends React.Component {
   setUniversity(selected_university) {
     this.setState({
       selected_university: selected_university
+    });
+  }
+
+  handleEdit(event) {
+    let $target = $(event.target);
+    $target.blur();
+    this.setState({
+      university: this.state.universities[$target.data('index')]
+    }, () => {
+      $('.modal-edit').modal();
     });
   }
 }

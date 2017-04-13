@@ -9,7 +9,7 @@ import UniversityBox from '../components/universities/box';
 import LanguageBox from '../components/languages/languages_box';
 import SubjectBox from '../components/subjects/subjects_box';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
-import StageBox from '../components/stages/stages_box';
+import StageBox from '../components/stages/box';
 import ShowOrganizationBox from '../components/show_organizations/organizations_box';
 import StaticPageBox from '../components/static_pages/static_pages_box';
 import ProgramsBox from '../components/programs/programs_box';
