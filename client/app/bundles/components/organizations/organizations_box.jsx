@@ -16,7 +16,6 @@ export default class OrganizationBox extends React.Component {
     this.state = {
       organizations: [],
       parent: null,
-      admin: true,
       status: false
     };
   }
@@ -56,12 +55,8 @@ export default class OrganizationBox extends React.Component {
         }
       }
     }
-    if (this.state.admin) { //Check tam neu la admin thi render ra Manager... else render ra trainee....
-      formList = <ManagerOrganizationLists
-        organizations={this.state.organizations}/>
-    } else {
-      null;
-    }
+    formList = <ManagerOrganizationLists
+      organizations={this.state.organizations}/>
 
     return (
       <div className='row' id='admin-organization'>
