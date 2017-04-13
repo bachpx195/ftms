@@ -6,7 +6,7 @@ import FormEdit from './form_edit';
 import CoursePolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from '../programs/program_constants';
-import * as course_constants from './course_constants';
+import * as course_constants from './constants/course_constants';
 
 const COURSE_URL = app_constants.APP_NAME;
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;

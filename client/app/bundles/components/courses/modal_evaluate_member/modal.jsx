@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import * as app_constants from 'constants/app_constants';
-import * as course_constants from '../course_constants';
+import * as course_constants from '../constants/course_constants';
 
 require('../../../assets/sass/modal_evaluate_member.scss');
 

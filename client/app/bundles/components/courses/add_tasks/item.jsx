@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import css from '../course_css.scss';
+import css from '../assets/course.scss';
 import * as app_constants from 'constants/app_constants';
 
 export default class Item extends React.Component {

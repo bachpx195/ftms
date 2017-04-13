@@ -6,11 +6,11 @@ import ModalEvaluateMember from './modal_evaluate_member/modal';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
 import CoursePolicy from 'policy/course_policy';
 import ModalChangeCourse from './move_courses/move_course_modal';
-import css from './course_css.scss';
+import css from './assets/course.scss';
 
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from '../programs/program_constants';
-import * as course_constants from './course_constants';
+import * as course_constants from './constants/course_constants';
 import * as subject_constants from '../subjects/subject_constants';
 import * as user_constants from '../users/user_constants';
 
