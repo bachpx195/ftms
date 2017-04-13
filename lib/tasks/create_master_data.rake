@@ -55,7 +55,9 @@ namespace :db do
     functions = []
     def check_supply object
       object[:controller] && object[:action] && !/^rails\/\d*/.match(object[:controller]) &&
-        object[:controller] != "sessions" && !/^(new|edit)$/.match(object[:action])
+        object[:controller] != "sessions" && !/^(new|edit)$/.match(object[:action]) &&
+        (object[:controller] != "organizations" || object[:action] != "index") &&
+        (object[:controller] != "users" || object[:action] != "show")
     end
 
     function = Function.create! controller_name: "organizations", action: "index"

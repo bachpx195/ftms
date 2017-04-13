@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20170406022049) do
 
   create_table "exams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "status"
-    t.integer  "spend_time"
+    t.integer  "spent_time"
     t.datetime "started_at"
     t.integer  "score"
     t.integer  "duration"

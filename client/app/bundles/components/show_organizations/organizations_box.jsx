@@ -10,6 +10,7 @@ import Dropzone from 'react-dropzone';
 
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from '../users/user_constants';
+import * as exam_constants from '../exams/constants/exam_constants';
 
 const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
 
@@ -123,6 +124,8 @@ export default class OrganizationBox extends React.Component {
 
     let ORGANIZATION_MEMBERS_URL = ORGANIZATION_URL + '/' +
       this.state.organization.id + '/' + 'users';
+    let ORGANIZATION_EXAMS_URL = ORGANIZATION_URL + '/' +
+      this.state.organization.id + '/' + exam_constants.EXAMS_PATH;
 
     return (
       <div className='row'>
@@ -210,6 +213,15 @@ export default class OrganizationBox extends React.Component {
                 <span className='badge label-primary'>
                   {count_users}
                 </span>
+              </div>
+              <br />
+              <div className='member-title'>
+                <i className='fa fa-check-square-o'></i>
+                <strong>
+                  <a href={ORGANIZATION_EXAMS_URL}>
+                    {I18n.t('organizations.exams')}
+                  </a>
+                </strong>
               </div>
             </div>
           </div>
