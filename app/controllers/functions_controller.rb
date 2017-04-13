@@ -16,20 +16,17 @@ class FunctionsController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def create
     @function = Function.new function_params
     respond_to do |format|
       if @function.save
-        format.html{redirect_to [:admin, @function]}
+        format.html
         format.json do
           render json: {message: flash_message("created"),
             function: @function}
         end
       else
-        format.html{render :new}
+        format.html
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @function.errors}, status: :unprocessable_entity
@@ -45,7 +42,7 @@ class FunctionsController < ApplicationController
     respond_to do |format|
       if @function.update_attributes function_params
         @message = flash_message "updated"
-        format.html{redirect_to [:admin, @function]}
+        format.html
         format.json
       else
         format.html{render :edit}
@@ -60,7 +57,7 @@ class FunctionsController < ApplicationController
   def destroy
     @function.destroy
     respond_to do |format|
-      format.html{redirect_to admin_functions_path}
+      format.html
       format.json do
         if @function.deleted?
           @message = flash_message "deleted"
@@ -82,7 +79,7 @@ class FunctionsController < ApplicationController
     @function = Function.find_by id: params[:id]
     unless @function
       respond_to do |format|
-        format.html{redirect_to admin_functions_path}
+        format.html
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

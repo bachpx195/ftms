@@ -12,9 +12,6 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def create
     @university = University.new university_params.merge(creator: current_user)
     respond_to do |format|
@@ -22,13 +19,13 @@ class UniversitiesController < ApplicationController
         universities_serializer = Serializers::UniversitiesSerializer
           .new object: @university
         @university = universities_serializer.serializer
-        format.html{redirect_to [:admin, @university]}
+        format.html
         format.json do
           render json: {message: flash_message("created"),
             university: @university}
         end
       else
-        format.html{render :new}
+        format.html
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @university.errors}, status: :unprocessable_entity
@@ -53,7 +50,7 @@ class UniversitiesController < ApplicationController
         universities_serializer = Serializers::UniversitiesSerializer
           .new object: @university
         @university = universities_serializer.serializer
-        format.html{redirect_to [:admin, @university]}
+        format.html
         format.json do
           render json: {message: flash_message("updated"),
             university: @university}
@@ -71,7 +68,7 @@ class UniversitiesController < ApplicationController
   def destroy
     @university.destroy
     respond_to do |format|
-      format.html{redirect_to admin_universities_path}
+      format.html
       format.json do
         if @university.deleted?
           render json: {message: flash_message("deleted")}
@@ -92,7 +89,7 @@ class UniversitiesController < ApplicationController
     @university = University.find_by id: params[:id]
     unless @university
       respond_to do |format|
-        format.html{redirect_to admin_universities_path}
+        format.html
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
