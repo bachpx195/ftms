@@ -3,17 +3,14 @@ class OrganizationsController < ApplicationController
   before_action :authorize_request
 
   def index
-    if current_user.roles.pluck(:name).include? "admin"
-      @organizations = Organization.all
-    else
-      @organizations = current_user.organizations
-    end
+    organizations = current_user.organizations
+    organizations.present? ? organizations : current_user.profile.organization
     respond_to do |format|
       format.html
       format.json do
         render json: {
           organizations: Serializers::Organizations::OrganizationsSerializer
-            .new(object: @organizations, scope: {show_program: true}).serializer
+            .new(object: organizations, scope: {show_program: true}).serializer
         }
       end
     end
