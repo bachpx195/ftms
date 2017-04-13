@@ -1,0 +1,10 @@
+en:
+  exams:
+    title: "Exams"
+    headers:
+      user: "User"
+      subject: "Subject"
+      course: "Course"
+      created_at: "Created at"
+      spent_time: "Spent time"
+      score: "Score"

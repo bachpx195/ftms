@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :programs
     resources :subjects
     resources :users, only: :index
+    resources :exams, only: [:index, :show]
   end
   resources :subjects do
     resources :surveys
@@ -102,4 +103,5 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :test_rules
+  resources :exams, only: [:index, :show]
 end

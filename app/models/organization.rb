@@ -20,6 +20,7 @@ class Organization < ApplicationRecord
   has_many :test_rules, dependent: :destroy
   has_many :moving_histories, dependent: :destroy
   has_many :documents, as: :documentable, dependent: :destroy
+  has_many :exams, through: :users
 
   validates :name, presence: true
 

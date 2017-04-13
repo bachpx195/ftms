@@ -38,7 +38,7 @@ export default class CourseDetail extends React.Component {
       </a>;
     }
     let description = this.state.course.description;
-    if (description.length > LIMIT_DESCRIPTION) {
+    if (description && description.length > LIMIT_DESCRIPTION) {
       description =
         this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
