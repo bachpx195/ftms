@@ -3,7 +3,7 @@ import axios from 'axios';
 import ListUsers from './list_users';
 
 import * as app_constants from 'constants/app_constants';
-import * as course_constants from '../course_constants';
+import * as course_constants from '../constants/course_constants';
 
 require('../../../assets/sass/modal_assign_member.scss');
 

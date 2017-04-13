@@ -6,14 +6,13 @@ import Errors from '../shareds/errors';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
 import Dropzone from 'react-dropzone';
 
-import CourseListsBox from '../courses/course_lists_box';
+import CourseListsBox from '../courses/course';
 import UserLists from './user_lists';
 import SubjectLists from './subject_lists';
-import CourseManagers from './list_items/course_managers';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './program_constants';
 import * as user_constants from '../users/user_constants';
-import * as course_constants from '../courses/course_constants';
+import * as course_constants from '../courses/constants/course_constants';
 
 require('../../assets/sass/program_show.scss');
 
@@ -21,7 +20,6 @@ const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH
 const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
 const ASSIGN_STANDARD_URL = app_constants.APP_NAME + program_constants.ASSIGN_STANDARD_PATH;
 const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
-const LIMIT_COURSE_MEMBERS = program_constants.LIMIT_COURSE_MEMBERS;
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
 const LIMIT_DESCRIPTION = app_constants.LIMIT_DESCRIPTION;
 

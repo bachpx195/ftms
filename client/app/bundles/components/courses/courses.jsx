@@ -1,7 +1,9 @@
 import React from 'react';
-import CourseListsBox from './course_lists_box';
 
-export default class CourseLists extends React.Component {
+import Course from './course';
+import CoursesStatistic from "./templates/courses_statistic";
+
+export default class Courses extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,12 +14,11 @@ export default class CourseLists extends React.Component {
     }
   }
 
-  renderListCourses() {
+  renderCourses() {
     return _.map(this.state.courses, course => {
       if (course) {
-        let course_path = this.state.url + '/' + course.id;
         return (
-          <CourseListsBox key={course.id} url={course_path}
+          <Course key={course.id} url={`${this.state.url}/${course.id}`}
             course={course} managers={course.managers} />
         );
       }
@@ -42,34 +43,11 @@ export default class CourseLists extends React.Component {
           </div>
           <div className='course-container'>
             <div className='row td-padding-top'>
-              {this.renderListCourses()}
+              {this.renderCourses()}
             </div>
           </div>
         </div>
-        <div className='col-md-3 info-panel td-padding-top-course-lists
-          custom-info'>
-          <div className="custom-info">
-            <div className='box box-primary'>
-              <div className='box-header with-border'>
-                <h3 className='box-title'>
-                  <strong>{I18n.t('organizations.titles.info')}</strong>
-                </h3>
-              </div>
-              <div className='box-body'>
-                <div>
-                  <div className='member-title'>
-                    <i className='fa fa-book' aria-hidden='true'></i>
-                    <strong>
-                      {I18n.t('organizations.num_courses')}
-                    </strong>
-                    <span className='badge label-primary'>
-                      {this.state.courses.length}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CoursesStatistic number={this.state.courses.length} />
       </div>
     );
   }

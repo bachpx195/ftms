@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
-import * as course_constants from '../course_constants';
+import * as course_constants from '../constants/course_constants';
 import Item from './item';
 
 const TASK_URL = app_constants.APP_NAME + course_constants.TASK_PATH;

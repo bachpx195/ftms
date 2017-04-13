@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import MenuCourse from '../menu_course';
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from '../../programs/program_constants';
-import * as course_constants from '../course_constants';
+import * as course_constants from '../constants/course_constants';
 import * as user_constants from '../../users/user_constants';
 
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;

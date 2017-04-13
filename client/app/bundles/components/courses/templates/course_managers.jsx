@@ -1,17 +1,14 @@
 import React from 'react';
-import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
-import Errors from '../../shareds/errors';
-import * as program_constants from '../program_constants';
+
 import * as app_constants from 'constants/app_constants';
+import * as course_constants from '../constants/course_constants';
 
-const LIMIT_COURSE_MEMBERS = program_constants.LIMIT_COURSE_MEMBERS;
 const DEFAULT_IMAGE_USER = app_constants.DEFAULT_IMAGE_USER_URL;
-
-require('../../../assets/sass/program_show.scss');
+const LIMIT_COURSE_MEMBERS = course_constants.LIMIT_COURSE_MEMBERS;
 
 export default class CourseManagers extends React.Component {
-  renderCourseManagers(managers) {
+  renderManagers(managers) {
     return managers.map((manager, index) => {
       let avatar = DEFAULT_IMAGE_USER;
       if (manager.user_avatar && manager.user_avatar != undefined) {
@@ -54,7 +51,7 @@ export default class CourseManagers extends React.Component {
       );
       managers = managers.slice(0, LIMIT_COURSE_MEMBERS - 1);
     }
-    let html = this.renderCourseManagers(managers, this.props.course.id);
+    let html = this.renderManagers(managers, this.props.course.id);
     return <ul>
       {html}
       {see_more}

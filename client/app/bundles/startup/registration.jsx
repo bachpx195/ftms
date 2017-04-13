@@ -38,7 +38,7 @@ import TrainingStandardShow from '../components/training_standards/admin/standar
 import OrganizationBox from '../components/organizations/organizations_box';
 
 //1. Trainee Course index
-import CoursesBox from '../components/courses/courses_box';
+import CoursesBox from '../components/courses/box';
 import ProjectBox from '../components/projects/projects_box';
 import ProjectsShowBox from '../components/projects/projects_show_box';
 import CategoryBox from '../components/categories/categories_box';

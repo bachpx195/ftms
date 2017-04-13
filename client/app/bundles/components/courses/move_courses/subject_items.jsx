@@ -1,5 +1,5 @@
 import React from 'react';
-import css from '../course_css.scss';
+import css from '../assets/course.scss';
 
 export default class ModalChangeCourse extends React.Component {
   constructor(props) {
