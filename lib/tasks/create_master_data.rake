@@ -181,7 +181,14 @@ namespace :db do
       {name: "OpenEducation 4", creator_id: 4,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
     ])
-    TrainingStandard.all.each{|training_standard| training_standard.programs << Program.first}
+    StandardOrganization.create!([
+      {organization_id: 2, training_standard_id: 1},
+      {organization_id: 2, training_standard_id: 2},
+      {organization_id: 2, training_standard_id: 3},
+      {organization_id: 2, training_standard_id: 4},
+      {organization_id: 3, training_standard_id: 1},
+      {organization_id: 3, training_standard_id: 2}
+    ])
 
     puts "10. Create subject"
     Subject.create!([

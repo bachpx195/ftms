@@ -32,7 +32,7 @@ class Supports::CourseSupport
   end
 
   def training_standards
-    @training_standards ||= program.training_standards
+    @training_standards ||= program.organization.training_standards
   end
 
   def evaluation_standards

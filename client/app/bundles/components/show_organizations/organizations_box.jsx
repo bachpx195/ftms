@@ -117,7 +117,7 @@ export default class OrganizationBox extends React.Component {
     let count_training_standards = 0;
     let count_courses = 0;
     for(let program of this.state.programs){
-      count_training_standards += program.training_standards.length;
+      count_training_standards += this.state.organization.training_standards.length;
       count_courses +=program.courses.length;
     }
 
