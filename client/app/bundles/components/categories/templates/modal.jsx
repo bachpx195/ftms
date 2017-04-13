@@ -4,7 +4,7 @@ import Form from './form';
 export default class Modal extends React.Component {
   render() {
     return (
-      <div className='modal fade in modalEdit' role='dialog'>
+      <div className='modal fade in modal-edit' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
