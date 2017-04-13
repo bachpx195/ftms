@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Errors from '../shareds/errors';
+import Errors from '../../shareds/errors';
+import Create from '../actions/create';
+import Update from '../actions/update';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -21,8 +23,24 @@ export default class Form extends React.Component {
   }
 
   render() {
+    let actions;
+    if (this.props.category.id) {
+      actions = (
+        <Update category={this.props.category}
+          url={this.props.url}
+          state={this.state}
+          handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
+      )
+    } else {
+      actions = (
+        <Create category={this.props.category}
+          url={this.props.url}
+          state={this.state}
+          handleAfterCreated={this.handleAfterCreated.bind(this)}/>
+      )
+    }
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form>
         <Errors errors={this.state.errors}/>
         <div className='form-group'>
           <label className='name'>{I18n.t('categories.form.name')}</label>
@@ -42,18 +60,13 @@ export default class Form extends React.Component {
             className='form-control' name='description' />
         </div>
         <div className='form-group'>
-          <div className='text-right'>
-            <button type='submit' className='btn btn-primary'
-              disabled={!this.formValid()}> {I18n.t('buttons.save')}</button>
-          </div>
+          {actions}
         </div>
       </form>
     )
   }
 
-  formValid() {
-    return this.state.name != '';
-  }
+
 
   handleChange(event) {
     let attribute = event.target.name;
@@ -62,36 +75,11 @@ export default class Form extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    let category = _.omit(this.state, 'errors');
-    let formData = new FormData();
-    for(let key of Object.keys(category)) {
-      formData.append('category[' + key + ']', category[key]);
-    }
+  handleAfterUpdated(category) {
+    this.props.handleAfterUpdated(category)
+  }
 
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-
-    let method = this.props.category.id ? 'PUT' : 'POST';
-    axios({
-      url: this.props.url,
-      method: method,
-      data: formData,
-      headers: {'Accept': 'application/json'}
-    })
-    .then(response => {
-      if (this.props.category.id) {
-        $('.modalEdit').modal('hide');
-        this.props.handleAfterUpdated(response.data.category)
-      } else {
-        this.setState({
-          name: '',
-          description: '',
-          errors: null,
-        });
-        this.props.afterCreateCategory(response.data.category)
-      }
-    })
-    .catch(error => this.setState({errors: error.response.data.errors}));
+  handleAfterCreated(category) {
+    this.props.handleAfterCreated(category)
   }
 }

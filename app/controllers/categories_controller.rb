@@ -1,16 +1,20 @@
 class CategoriesController < ApplicationController
   before_action :load_supports
-  before_action :find_category, only: [:update, :destroy]
+  before_action :find_category, only: [:update, :destroy, :show]
+  before_action :authorize_request
 
   def index
   end
 
   def create
-    category = Category.new category_params
+    category = Category.new category_params.merge(creator_id: current_user.id)
     respond_to do |format|
       format.json do
         if category.save
-          render json: {category: category}
+          render json: {
+            category: Serializers::Categories::CategoriesSerializer
+              .new(object: category).serializer
+          }
         else
           render json: {message: flash_message("not_created"),
             errors: category.errors}, status: :unprocessable_entity
@@ -19,13 +23,19 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def update
     category = @category_supports.category
     respond_to do |format|
       format.json do
         if category.update_attributes category_params
-          render json: {message: flash_message("updated"),
-            category: category}
+          render json: {
+            message: flash_message("updated"),
+            category: Serializers::Categories::CategoriesSerializer
+              .new(object: category).serializer
+          }
         else
           render json: {message: flash_message("not_updated"),
             errors: category.errors}, status: :unprocessable_entity
@@ -42,7 +52,8 @@ class CategoriesController < ApplicationController
           render json: {message: flash_message("deleted"),
             category: category}
         else
-          render json: {message: flash_message("deleted")}
+          render json: {message: flash_message("not_deleted")},
+            status: :unprocessable_entity
         end
       end
     end
@@ -67,5 +78,10 @@ class CategoriesController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params
+      .merge(category_supports: @category_supports), CategoryPolicy
   end
 end

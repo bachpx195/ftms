@@ -1,6 +1,6 @@
 import ReactOnRails from 'react-on-rails';
 
-import CategoryBox from '../components/categories/categories_box';
+import CategoryBox from '../components/categories/box';
 import CoursesBox from '../components/courses/box';
 import CoursesShowBox from '../components/courses/courses_show_box';
 import EvaluationTemplatesBox from '../components/evaluation_templates/evaluation_templates_box';
