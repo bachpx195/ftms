@@ -40,22 +40,8 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @supports = Supports::CourseSupport.new course: @course, program: @program,
+    @course_supports = Supports::CourseSupport.new course: @course,
       user: current_user
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          course: Serializers::Courses::CourseDetailSerializer
-            .new(object: @course, scope: {supports: @supports}).serializer,
-          course_subjects: Serializers::Courses::CourseSubjectsSerializer
-            .new(object: @supports.course_subjects).serializer,
-          courses_of_user_manages: Serializers::Courses::CourseInProgramsSerializer
-            .new(object: @supports.courses_managed).serializer,
-          user_subjects: @supports.user_subjects(params[:user_id])
-        }
-      end
-    end
   end
 
   def update
@@ -86,7 +72,8 @@ class CoursesController < ApplicationController
       format.html
       format.json do
         if @course.deleted?
-          render json: {message: flash_message("deleted"), program: @program}
+          render json: {message: flash_message("deleted"),
+            program: @course.program}
         else
           render json: {message: flash_message("not_deleted")},
             status: :unprocessable_entity
@@ -104,7 +91,7 @@ class CoursesController < ApplicationController
     @program = Program.find_by id: params[:program_id]
     unless @program
       respond_to do |format|
-        format.html{redirect_to programs_path}
+        format.html {redirect_to programs_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -115,11 +102,9 @@ class CoursesController < ApplicationController
 
   def find_course
     @course = Course.find_by id: params[:id]
-    if @course
-      @program = @course.program
-    else
+    unless @course
       respond_to do |format|
-        format.html{redirect_to courses_path}
+        format.html {redirect_to courses_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

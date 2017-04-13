@@ -4,10 +4,11 @@ class Serializers::Courses::CourseDetailSerializer <
     :language_id, :training_standard_id, :managers, :members,
     :unassigned_users, :start_date, :end_date, :creator, :owner,
     :training_standards, :languages, :evaluation_standards,
-    :evaluation_template, :member_evaluations, :course_subjects
+    :evaluation_template, :member_evaluations, :course_subjects, :program
 
   delegate :creator, to: :object
   delegate :owner, to: :object
+  delegate :program, to: :object
 
   def image
     Hash[:url, object.image.url]

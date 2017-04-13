@@ -59,8 +59,7 @@ export default class Program extends React.Component{
           role="tabpanel" aria-labelledby={'heading'+this.state.program.id}>
           <div className="panel-body">
             <CourseLists program_name={this.state.program.name}
-              courses={this.state.program.courses}
-              url={PROGRAM_URL + this.state.program.id} />
+              courses={this.state.program.courses} />
           </div>
         </div>
       </div>

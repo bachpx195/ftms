@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   end
 
   resources :programs do
-    resources :courses, except: [:index]
+    resources :courses, except: [:index, :show]
   end
 
   resources :courses do
@@ -76,7 +76,7 @@ Rails.application.routes.draw do
   end
 
   namespace :my_space do
-    resources :courses, only: [:index, :show]
+    resources :courses, only: :index
   end
   resources :user_courses do
     resources :subjects, default: {format: "json"}
