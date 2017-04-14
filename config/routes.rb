@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   resources :organizations do
     resources :programs
     resources :subjects
-    resources :users, only: :index
     resources :exams, only: [:index, :show]
+    resources :users
   end
   resources :subjects do
     resources :surveys

@@ -29,8 +29,15 @@ en:
       contract_date: "Contract Date: "
       ready: "Ready"
       not_ready: "Not Ready"
+      type: "Type: "
+      password: "Password: "
+      password_confirmation: "Password Confirmation: "
+      trainer: "Trainer: "
+      status: "Status: "
     edit_user_role: "Edit User Role"
     buttons:
+      create: "Create"
+      new: "New"
       save: "Save"
       edit_role: "Edit role"
       change_program: "Change Program"
@@ -46,3 +53,12 @@ en:
       from: "From"
       to: "To"
       select_program: "Select Program"
+    box_title:
+      new_user: "New User"
+    form_select:
+      select_program: "Select a program"
+      select_trainer: "Select a trainer"
+      select_university: "Select a university"
+      select_type: "Select a type"
+      select_language: "Select a language"
+      select_status: "Select a status"

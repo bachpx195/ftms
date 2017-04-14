@@ -1,1 +1,4 @@
-<%= react_component "MovingHistoryBox", props: {}, prerender: false %>
+<%= react_component "MovingHistoryBox",
+  props: {organization_moving_histories:
+    @moving_history_support.moving_history_serializer},
+  prerender: false %>

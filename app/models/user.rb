@@ -7,6 +7,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :rememberable, :validatable, :trackable
 
   ATTRIBUTES_PARAMS = [:email, :password]
+  USER_PROFILE_ATTRIBUTES_PARAMS = [:name, :email, :password,
+    :password_confirmation, :avatar, :trainer_id,
+    profile_attributes: Profile::ATTRIBUTES_PARAMS]
   ATTRIBUTES_FUNCTION_PARAMS = [user_functions_attributes: [:id,
     :function_id, :user_id, :_destroy]]
 
@@ -59,9 +62,11 @@ class User < ApplicationRecord
   has_many :test_rules, through: :static_tasks, source: :targetable
   has_many :exams, dependent: :destroy
 
+  validates :name, presence: true
+  validates :email, presence: true
+
   accepts_nested_attributes_for :user_functions, allow_destroy: true
-  accepts_nested_attributes_for :profile, allow_destroy: true,
-    reject_if: proc{|attributes| attributes[:program_id].blank?}
+  accepts_nested_attributes_for :profile
 
   scope :course_members_not_rejected, -> {CourseMember.where.not status: "rejected"}
 

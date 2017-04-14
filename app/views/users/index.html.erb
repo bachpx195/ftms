@@ -1,3 +1,6 @@
 <%= react_component "UserIndexBox",
-  props: {users: @user_supports.users_serializer},
+  props: {
+    users: @user_supports.users_serializer,
+    organization: @user_supports.organization,
+  },
   prerender: false %>

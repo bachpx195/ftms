@@ -29,21 +29,15 @@ class Move::UsersController < ApplicationController
   end
 
   def find_user
-    unless @move_user_supports.user
-      not_found
-    end
+    not_found unless @move_user_supports.user
   end
 
   def find_source
-    unless @move_user_supports.source
-      not_found
-    end
+    not_found unless @move_user_supports.source
   end
 
   def find_destination
-    unless @move_user_supports.destination
-      not_found
-    end
+    not_found unless @move_user_supports.destination
   end
 
   def handle_service

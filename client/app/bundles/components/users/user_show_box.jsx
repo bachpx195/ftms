@@ -17,8 +17,8 @@ export default class UserShowBox extends React.Component {
     this.state = {
       user_detail: this.props.user_detail,
       user_program: this.props.user_detail.user_program,
-      user_organization_programs: this.props
-        .user_detail.user_organization_programs,
+      remaining_organization_programs: this.props
+        .user_detail.remaining_organization_programs,
       user_profile: this.props.user_detail.user_profile,
     }
   }
@@ -52,7 +52,7 @@ export default class UserShowBox extends React.Component {
         <ModalChangeProgram
           user={this.state.user_detail}
           user_program={this.state.user_program}
-          user_organization_programs={this.state.user_organization_programs}
+          remaining_organization_programs={this.state.remaining_organization_programs}
           afterChangeProgram={this.afterChangeProgram.bind(this)}
         />
       );
@@ -194,7 +194,7 @@ export default class UserShowBox extends React.Component {
                     <tr>
                       <td>{I18n.t('users.profile_detail.program')}</td>
                       <td>{this.state.user_profile.program ?
-                        this.state.user_profile.program.name : ''}</td>
+                        this.state.user_program.name : ''}</td>
                     </tr>
                     <tr>
                       <td>{I18n.t('users.profile_detail.staff_code')}</td>
@@ -255,10 +255,10 @@ export default class UserShowBox extends React.Component {
     $('.modal-change-program').modal();
   }
 
-  afterChangeProgram(new_user_program, new_user_organization_programs) {
+  afterChangeProgram(new_user_program, new_remaining_organization_programs) {
     this.setState({
       user_program: new_user_program,
-      user_organization_programs: new_user_organization_programs,
+      remaining_organization_programs: new_remaining_organization_programs,
     });
   }
 }

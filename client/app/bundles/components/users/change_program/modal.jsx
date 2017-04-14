@@ -82,7 +82,7 @@ export default class ModalChangeProgram extends React.Component {
   }
 
   renderOptionProgram(){
-    return this.props.user_organization_programs.map(program => {
+    return this.props.remaining_organization_programs.map(program => {
       return (
         <option key={program.id} value={program.id.toString()}>
           {program.name}
@@ -123,7 +123,7 @@ export default class ModalChangeProgram extends React.Component {
       axios.post(url, formData)
         .then(response => {
           this.props.afterChangeProgram(response.data.user_detail.user_program,
-            response.data.user_detail.user_organization_programs);
+            response.data.user_detail.remaining_organization_programs);
           $('.modal-change-program').modal('hide');
         })
         .catch(error => console.log(error));

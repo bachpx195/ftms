@@ -3,17 +3,18 @@ import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 import UserListBox from './user_list_box';
 
-const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
-
 export default class UserIndexBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: props.users
+      users: props.users,
     }
   }
 
   render() {
+    const NEW_USER_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
+      + this.props.organization.id + '/' + user_constants.USER_PATH
+      + user_constants.NEW_PATH;
     return(
       <div className="row">
         <div className="col-md-12">
@@ -34,7 +35,14 @@ export default class UserIndexBox extends React.Component {
             </div>
 
             <div className='box-footer'>
-              <UserListBox users={this.state.users}/>
+              <a className='btn btn-primary button-new'
+                href={NEW_USER_URL}>
+                {I18n.t('users.buttons.new')}
+              </a>
+              <UserListBox
+                users={this.state.users}
+                organization={this.props.organization}
+                />
             </div>
 
           </div>

@@ -145,17 +145,17 @@ namespace :db do
     end
 
     puts "4. Create Stage"
-    ["Intern", "VPG", "JPG", "New dev", "QA"].each do |name|
+    ["In Education", "Joined Div", "Away", "Resigned"].each do |name|
       Stage.create! name: name, creator_id: 1
     end
 
     puts "5. Trainee types"
-    ["Practice", "Intern", "OpenEducation", "Hust Intern", "Da Nang Education"].each do |name|
+    ["Practice", "Intern", "OpenEducation", "New Dev", "Naitei"].each do |name|
       TraineeType.create! name: name
     end
 
     puts "6. User status"
-    ["Studying", "Project preparation work", "Doning project",
+    ["Studying", "Project preparation work", "Doing project",
       "Doing Internal Project", "Finish training", "Pending"].each do |name|
       UserStatus.create! name: name
     end
@@ -441,6 +441,7 @@ namespace :db do
     role = Role.find_by id: 1
     User.all.limit(9).each do |user|
       UserRole.create! user_id: user.id, role_id: 1
+      UserRole.create! user_id: user.id, role_id: 5
       user.functions = role.functions
     end
 
