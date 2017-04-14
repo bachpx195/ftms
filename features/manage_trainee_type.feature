@@ -6,7 +6,7 @@ Feature: Trainee type
   Background:
     Given User with email is "admin@tms.com" and password "12345678"
       And User manage trainee type include create, show, update, delete.
-      And System existed trainee types with name "Intern", "New dev", "Join div"
+      And System existed trainee types with name "Intern, New dev, Join div"
 
     When User login
 
@@ -108,7 +108,7 @@ Feature: Trainee type
   Scenario: Update trainee type when name more than 255 characters
     Given User can update trainee type
       And Edit trainee type with name "Rails"
-      And Update to trainee type  name "Câu chuyện là những trang nhật ký về cuộc sống thường ngày và tâm tư của cậu bé Thiều Thiều đang là học sinh lớp 7 sống ở một vùng quê nghèo cùng với người em trai tên Tường Tường là một cậu bé dễ thương hiền lành bao dung rất yêu mến anh trai và thích chơi đùa với nhiều loài động vật gồm cả sâu bọ "
+      And Update to trainee type with name "Câu chuyện là những trang nhật ký về cuộc sống thường ngày và tâm tư của cậu bé Thiều Thiều đang là học sinh lớp 7 sống ở một vùng quê nghèo cùng với người em trai tên Tường Tường là một cậu bé dễ thương hiền lành bao dung rất yêu mến anh trai và thích chơi đùa với nhiều loài động vật gồm cả sâu bọ "
 
     When In the Trainee type screen. User click button Save.
 
@@ -182,7 +182,7 @@ Feature: Trainee type
   Scenario: Check paginate when data have 10 records
     Given User can show all trainee types
       And system has 3 trainee types above
-      And system existed trainee types with name is "Intern 2", "Open education 1", "Open education 2", "Practice", "BO", "HR", "PA"
+      And System existed trainee types with name "Intern 2, Open education 1, Open education 2, Practice, BO, HR, PA"
 
     When User open trainee types screen
 
@@ -191,7 +191,7 @@ Feature: Trainee type
   Scenario: Check paginate when data >10 records
     Given User can show all trainee types
       And system has 3 trainee types above
-      And system existed trainee types with name is "Intern 2", "Open education 1", "Open education 2", "Practice", "BO", "HR", "PA", "Trainer"
+      And System existed trainee types with name "Intern 2, Open education 1, Open education 2, Practice, BO, HR, PA, Trainer"
 
     When User open trainee type screen
       And User click button Next
