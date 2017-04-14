@@ -7,24 +7,17 @@ export default class CourseSubjects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      course_subjects: props.course_subjects,
+      subjects: props.subjects,
       course: props.course
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      course_subjects: nextProps.course_subjects,
-      course: nextProps.course
-    });
-  }
-
-  renderCourseSubjects() {
-    return this.state.course_subjects.map((course_subject, index) => {
+  renderSubjects() {
+    return this.state.subjects.map((subject, index) => {
       let course_subject_path = app_constants.APP_NAME +
         course_constants.COURSES_PATH + this.props.course.id + '/' +
-        subject_constants.SUBJECT_PATH + course_subject.id;
-      let subject_image = course_subject.image.url;
+        subject_constants.SUBJECT_PATH + subject.id;
+      let subject_image = subject.image.url;
       return (
         <tr key={index} className="item ui-sortable-handle">
           <td >
@@ -36,13 +29,16 @@ export default class CourseSubjects extends React.Component {
                 </div>
                 <div className="col-xs-10 infor">
                   <div>
-                    <span className="subject-name">{course_subject.name}
+                    <span className="subject-name">{subject.name}
                     </span>&nbsp;
-                    <span><i>{course_subject.during_time}
-                      {I18n.t('courses.during_time')}</i>
+                    <span>
+                      <i>
+                        {`${subject.during_time} ${I18n.t('courses.during_time')}`}
+                      </i>
                     </span>&nbsp;&nbsp;
                   </div>
-                  <div>{course_subject.description}
+                  <div>
+                    {subject.description}
                   </div>
                 </div>
               </a>
@@ -58,7 +54,7 @@ export default class CourseSubjects extends React.Component {
       <div className='subject-list content row'>
         <table className="table" id="sortable">
           <tbody className="sortable-table">
-            {this.renderCourseSubjects()}
+            {this.renderSubjects()}
           </tbody>
         </table>
       </div>

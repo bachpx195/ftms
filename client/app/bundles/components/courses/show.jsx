@@ -1,20 +1,20 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
+
 import ModalAssignMember from './modal_assign_member/modal';
-import ModalTask from './add_tasks/modal_task';
+import ModalChangeCourse from './move_courses/move_course_modal';
 import ModalEvaluateMember from './modal_evaluate_member/modal';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
+import ModalTask from './add_tasks/modal_task';
+
 import CoursePolicy from 'policy/course_policy';
-import ModalChangeCourse from './move_courses/move_course_modal';
 import css from './assets/course.scss';
 
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../programs/program_constants';
 import * as course_constants from './constants/course_constants';
-import * as subject_constants from '../subjects/subject_constants';
-import * as user_constants from '../users/user_constants';
+import * as program_constants from '../programs/program_constants';
 
-import CourseSubjects from './partials/course_subjects';
+import Subjects from './partials/subjects';
 import Users from './partials/users';
 import Documents from './partials/documents';
 import CourseDetail from './partials/course_detail';
@@ -27,7 +27,7 @@ export default class CourseShow extends React.Component {
     this.state = {
       program: props.course.program,
       course: props.course,
-      course_subjects: props.course_subjects,
+      subjects: props.subjects,
       evaluation_template: {},
       remain_surveys: props.remain_surveys,
       selected_surveys: props.selected_surveys,
@@ -74,10 +74,7 @@ export default class CourseShow extends React.Component {
               {I18n.t("courses.add_task")}
             </button>
           </CoursePolicy>
-          <CourseSubjects
-            course_subjects={this.state.course_subjects}
-            course={this.state.course}
-          />
+          <Subjects subjects={this.state.subjects} course={this.state.course} />
         </div>
 
         <Users
@@ -131,7 +128,7 @@ export default class CourseShow extends React.Component {
           user={this.state.user}
           course={this.state.course}
           program={this.state.program}
-          subjects={this.state.course_subjects}
+          subjects={this.state.subjects}
           user_subjects={this.state.user_subjects}
           courses_of_user_manages={this.state.courses_of_user_manages}
           afterMoveCourse={this.afterMoveCourse.bind(this)}
