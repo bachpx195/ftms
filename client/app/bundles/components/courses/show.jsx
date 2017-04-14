@@ -12,7 +12,7 @@ import css from './assets/course.scss';
 
 import * as app_constants from 'constants/app_constants';
 import * as course_constants from './constants/course_constants';
-import * as program_constants from '../programs/program_constants';
+import * as program_constants from '../programs/constants/program_constants';
 
 import Subjects from './partials/subjects';
 import Users from './partials/users';

@@ -3,7 +3,7 @@ import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import Errors from '../shareds/errors';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../programs/program_constants';
+import * as program_constants from '../programs/constants/program_constants';
 
 export default class FormCreateProgram extends React.Component {
   constructor(props) {

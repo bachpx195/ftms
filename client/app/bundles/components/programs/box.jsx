@@ -1,25 +1,22 @@
-import React from 'react';
 import axios from 'axios';
-
-import ProgramLists from './program_lists';
-import FormCreate from './form_create';
+import Form from './templates/form';
+import React from 'react';
+import ProgramLists from './programs';
 
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './program_constants';
+import * as program_constants from './constants/program_constants';
 
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
+const ORGANIZATION_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 
-export default class ProgramBox extends React.Component {
+export default class Box extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       programs: [],
-      program: {
-        name: ''
-      },
+      program: '',
       organization: this.props.organization,
       not_assigned_programs: [],
-      parent: null
+      parent: ''
     };
   }
 
@@ -28,7 +25,7 @@ export default class ProgramBox extends React.Component {
   }
 
   fetchPrograms() {
-    const url = PROGRAM_URL + '/' + this.props.organization.id + '/programs';
+    const url = ORGANIZATION_URL + '/' + this.props.organization.id + '/programs';
     axios.get(url + '.json')
       .then(response => {
         this.setState({
@@ -43,7 +40,7 @@ export default class ProgramBox extends React.Component {
   }
 
   render() {
-    const url = PROGRAM_URL + '/' + this.props.organization.id + '/programs';
+    const url = ORGANIZATION_URL + '/' + this.props.organization.id + '/programs';
     return (
       <div className="row">
         <div className="col-md-12">
@@ -66,9 +63,11 @@ export default class ProgramBox extends React.Component {
             <div className="box-body no-padding">
               <div className="row">
                 <div className="col-md-8 col-md-offset-2">
-                  <FormCreate program={this.state.program} url={url}
-                    parent={this.state.parent}
-                    handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                  <Form
+                    url={url}
+                    program={this.state.program}
+                    parent_id={this.state.parent ? this.state.parent.id : ''}
+                    handleAfterCreated={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
             </div>
@@ -90,11 +89,12 @@ export default class ProgramBox extends React.Component {
     );
   }
 
-  handleAfterCreated(program) {
-    this.state.programs.push(program);
+  handleAfterCreated(response) {
+    this.state.programs.push(response.data.program);
     this.setState({
       programs: this.state.programs,
-      parent: null
+      parent: '',
+      program: ''
     });
   }
 
@@ -110,7 +110,7 @@ export default class ProgramBox extends React.Component {
     this.state.programs[index] = new_program;
     this.setState({
       programs: this.state.programs,
-      parent: null
+      parent: ''
     });
   }
 
@@ -121,7 +121,7 @@ export default class ProgramBox extends React.Component {
     });
     this.setState({
       programs: this.state.programs,
-      parent: null
+      parent: ''
     });
   }
 

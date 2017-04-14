@@ -13,7 +13,7 @@ import MovingHistoryBox from '../components/moving_histories/moving_histories_bo
 import OrganizationBox from '../components/organizations/organizations_box';
 import Policies from '../policies/policies';
 import ProfileShowBox from '../components/users/profile_show_box';
-import ProgramsBox from '../components/programs/programs_box';
+import ProgramsBox from '../components/programs/box';
 import ProgramsShowBox from '../components/programs/programs_show_box';
 import ProjectBox from '../components/projects/projects_box';
 import ProjectsShowBox from '../components/projects/projects_show_box';

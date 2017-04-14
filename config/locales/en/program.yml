@@ -9,6 +9,7 @@ en:
     modals:
       header_edit: "Program"
     create_sub: "Create Sub Program"
+    create: "Create Program"
     id: "ID"
     name: "Program Name"
     parent: "Parent Name"
