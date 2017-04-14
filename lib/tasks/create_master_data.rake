@@ -84,6 +84,8 @@ namespace :db do
     f10 = Function.find_by controller_name: "meta_tasks", action: "update"
     f11 = Function.find_by controller_name: "meta_tasks", action: "destroy"
     f12 = Function.find_by controller_name: "assignments", action: "create"
+    f13 = Function.find_by controller_name: "my_space/exams", action: "index"
+    f14 = Function.find_by controller_name: "exams", action: "show"
 
     10.times do |n|
       user = User.create!(
@@ -105,7 +107,9 @@ namespace :db do
         {user: user, function: f9},
         {user: user, function: f10},
         {user: user, function: f11},
-        {user: user, function: f12}
+        {user: user, function: f12},
+        {user: user, function: f13},
+        {user: user, function: f14}
       ])
     end
     RoleFunction.create!([
@@ -120,7 +124,9 @@ namespace :db do
       {role_id: 6, function: f9},
       {role_id: 6, function: f10},
       {role_id: 6, function: f11},
-      {role_id: 6, function: f12}
+      {role_id: 6, function: f12},
+      {role_id: 6, function: f13},
+      {role_id: 6, function: f14}
     ])
 
     puts "2. Create languages"
@@ -516,6 +522,21 @@ namespace :db do
     ["Ruby", "PHP", "Android", "Java", "iOS"].each do |name|
       Category.create! name: name, description: "Master your Ruby skills and increase your Rails street cred by learning to build dynamic, sustainable applications for the web.",
         creator_id: 1
+    end
+
+    puts "34. Create Questions"
+    Category.all.each do |category|
+      30.times do |n|
+        category.questions.create! content: "Lorem ipsum is simply dummy text",
+          level: n % 3, question_type: 0
+      end
+    end
+
+    puts "35. Create Test Rule Condition"
+    test_rule = TestRule.first
+    Category.take(3).each do |category|
+      test_rule.test_rule_categories.create! category_id: category.id,
+        number_question: 10, easy: 50, normal: 30, hard: 20
     end
   end
 end

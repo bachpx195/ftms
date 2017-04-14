@@ -2,30 +2,32 @@ import React, { PropTypes } from 'react';
 import Permit from 'policy/sidebar_policy';
 import CustomPolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
-import * as dashboard_constands from './dashboard_constands';
+import * as dashboard_constants from './dashboard_constants';
 
-const LANGUAGES_URL = app_constants.APP_NAME + dashboard_constands.LANGUAGES_PATH;
+const LANGUAGES_URL = app_constants.APP_NAME + dashboard_constants.LANGUAGES_PATH;
 const ORGANIZATIONS_URL = app_constants.APP_NAME +
-  dashboard_constands.ORGANIZATIONS_PATH;
-const STAGES_URL = app_constants.APP_NAME + dashboard_constands.STAGES_PATH;
-const SUBJECTS_URL = app_constants.APP_NAME + dashboard_constands.SUBJECTS_PATH;
-const COURSES_URL = app_constants.APP_NAME + dashboard_constands.COURSES_PATH;
+  dashboard_constants.ORGANIZATIONS_PATH;
+const STAGES_URL = app_constants.APP_NAME + dashboard_constants.STAGES_PATH;
+const SUBJECTS_URL = app_constants.APP_NAME + dashboard_constants.SUBJECTS_PATH;
+const COURSES_URL = app_constants.APP_NAME + dashboard_constants.COURSES_PATH;
 const TRAINEE_TYPES_URL = app_constants.APP_NAME +
-  dashboard_constands.TRAINEE_TYPES_PATH;
+  dashboard_constants.TRAINEE_TYPES_PATH;
 const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
-  dashboard_constands.TRAINING_STANDARDS_PATH;
+  dashboard_constants.TRAINING_STANDARDS_PATH;
 const UNIVERSITIES_URL = app_constants.APP_NAME +
-  dashboard_constands.UNIVERSITIES_PATH;
+  dashboard_constants.UNIVERSITIES_PATH;
 const FUNCTIONS_URL = app_constants.APP_NAME +
-  dashboard_constands.FUNCTIONS_PATH;
+  dashboard_constants.FUNCTIONS_PATH;
 const ROLES_URL = app_constants.APP_NAME +
-  dashboard_constands.ROLES_PATH;
+  dashboard_constants.ROLES_PATH;
 
 const MY_SPACE_COURSES_URL = app_constants.APP_NAME +
-  dashboard_constands.MY_SPACE_COURSES_PATH;
+  dashboard_constants.MY_SPACE_COURSES_PATH;
+const MY_SPACE_EXAMS_URL = app_constants.APP_NAME +
+  dashboard_constants.MY_SPACE_EXAMS_PATH;
 const PROJECTS_URL = app_constants.APP_NAME +
-  dashboard_constands.PROJECTS_PATH;
-const CATEGORY_URL = app_constants.APP_NAME + dashboard_constands.CATEGORY_PATH;
+  dashboard_constants.PROJECTS_PATH;
+const CATEGORY_URL = app_constants.APP_NAME + dashboard_constants.CATEGORY_PATH;
 
 export default class Sidebar extends React.Component {
   constructor(props) {
@@ -80,6 +82,14 @@ export default class Sidebar extends React.Component {
                 <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-clone'></i>
                   <span>{I18n.t('sidebar.my_courses')}</span>
+                </a>
+              </li>
+            </Permit>
+            <Permit action='my_space/exams'>
+              <li data-page='my_exams'>
+                <a href={MY_SPACE_EXAMS_URL} onClick={this.onClick.bind(this)}>
+                  <i className='fa fa-check'></i>
+                  <span>{I18n.t('sidebar.my_exams')}</span>
                 </a>
               </li>
             </Permit>

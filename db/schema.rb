@@ -280,10 +280,10 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.integer  "category_id"
     t.string   "content"
     t.integer  "level"
-    t.integer  "type"
+    t.integer  "question_type"
     t.datetime "deleted_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "requirements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

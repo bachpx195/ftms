@@ -24,10 +24,11 @@ export default class ExamsBox extends React.Component {
             </div>
 
             <div className='box-footer'>
-              <ExamPolicy
-                permit={[
-                  {action: ['index'], target: 'children'},
-                ]}>
+              <ExamPolicy permit={[
+                {controller: 'exams', action: ['index'], target: 'children'},
+                {controller: 'my_space/exams', action: ['index'],
+                  target: 'children'}
+              ]}>
                 <Exams exams={this.props.exams}
                   organization={this.props.organization} />
               </ExamPolicy>
