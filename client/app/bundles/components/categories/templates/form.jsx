@@ -1,7 +1,7 @@
-import React from 'react';
 import axios from 'axios';
-import Errors from '../../shareds/errors';
 import Create from '../actions/create';
+import Errors from '../../shareds/errors';
+import React from 'react';
 import Update from '../actions/update';
 
 export default class Form extends React.Component {
@@ -29,14 +29,14 @@ export default class Form extends React.Component {
         <Update category={this.props.category}
           url={this.props.url}
           state={this.state}
-          handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
+          handleAfterUpdated={this.props.handleAfterUpdated} />
       )
     } else {
       actions = (
         <Create category={this.props.category}
           url={this.props.url}
           state={this.state}
-          handleAfterCreated={this.handleAfterCreated.bind(this)}/>
+          handleAfterCreated={this.props.handleAfterCreated}/>
       )
     }
     return (
@@ -73,13 +73,5 @@ export default class Form extends React.Component {
     this.setState({
       [attribute]: event.target.value
     });
-  }
-
-  handleAfterUpdated(category) {
-    this.props.handleAfterUpdated(category)
-  }
-
-  handleAfterCreated(category) {
-    this.props.handleAfterCreated(category)
   }
 }

@@ -1,5 +1,5 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
 
 export default class FormAnswer extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class FormAnswer extends React.Component {
                 </a>
               </div>
             </li>
-            <li className='correct-answer'>
+            <li className='correct-answer form-check'>
               <div className={`check ${check}`}>
                 <a onClick={this.afterClickCorrectAnswer.bind(this)}>
                   <i className='fa fa-check'></i>
@@ -37,6 +37,7 @@ export default class FormAnswer extends React.Component {
             <div className='form-input-answer'>
               <input type='text'
                 placeholder={I18n.t('questions.buttons.input_answer')}
+                value={this.state.answer.content}
                 onChange={this.handleChange.bind(this)}
                 className='form-control' name='content' />
             </div>

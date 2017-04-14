@@ -1,10 +1,8 @@
-import React from 'react';
-import axios from 'axios';
-
-import CategoryPolicy from 'policy/category_policy';
-
 import * as app_constants from 'constants/app_constants';
 import * as category_constants from '../constants/category_constants';
+import axios from 'axios';
+import CategoryPolicy from 'policy/category_policy';
+import React from 'react';
 
 const CATEGORY_URL = app_constants.APP_NAME + category_constants.CATEGORY_PATH
 

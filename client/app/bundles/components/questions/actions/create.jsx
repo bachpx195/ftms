@@ -6,7 +6,7 @@ import * as app_constants from 'constants/app_constants';
 export default class Create extends React.Component {
   render() {
     return (
-      <div className='text-right'>
+      <div className='text-right save-question'>
         <button type='submit' className='btn btn-primary'
           onClick={this.handleSubmit.bind(this)}>
           {I18n.t('buttons.save')}
@@ -17,14 +17,15 @@ export default class Create extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let category = _.omit(this.props.state, 'errors');
     let formData = new FormData();
-    for(let key of Object.keys(category)) {
-      formData.append('category[' + key + ']', category[key]);
-    }
-
+    formData.append('question[content]', this.props.question.content);
+    this.props.question.answers.map((answer, answer_index) => {
+      formData.append('question[answers_attributes][' + answer_index +
+        '][content]', answer.content);
+      formData.append('question[answers_attributes][' + answer_index +
+        '][is_correct]', answer.is_correct);
+    });
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-
     axios({
       url: this.props.url,
       method: 'POST',
@@ -32,15 +33,10 @@ export default class Create extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      this.setState({
-        name: '',
-        description: '',
-        errors: null,
-      });
-      this.props.handleAfterCreated(response.data.category)
+      this.props.afterCreateQuestion(response.data.question);
     })
     .catch(error => {
-      this.setState({errors: error.response.data.errors})
+      this.setState({errors: error.response.data.message})
     });
   }
 }

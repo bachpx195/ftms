@@ -1,7 +1,7 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
 
-export default class AnswerShow extends React.Component {
+export default class Answer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,7 @@ export default class AnswerShow extends React.Component {
         <div className='tool-bar col-xs-4'>
           <ul className='list-action'>
             <li className='correct-answer'>
-              <div className={`check ${check}`}>
+              <div className={`check ${check} pointer`}>
                 <i className='fa fa-check'></i>
               </div>
             </li>
