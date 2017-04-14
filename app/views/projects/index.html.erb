@@ -1,2 +1,3 @@
-<%= react_component "ProjectBox", props: {projects: @projects,
-  organizations: @organizations}, prerender: false %>
+<%= react_component "ProjectsBox",
+  props: {projects: @project_supports.projects_serializer},
+  prerender: false %>

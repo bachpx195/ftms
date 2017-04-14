@@ -507,9 +507,9 @@ namespace :db do
 
     puts "31. Create Project"
     Project.create!([
-      {name: "Project1", organization_id: 1, creator_id: 1},
-      {name: "Project2", organization_id: 1, creator_id: 2},
-      {name: "Project3", organization_id: 2, creator_id: 3}])
+      {name: "Project1", organization_id: 1, creator_id: 1, course_subject_id: 1},
+      {name: "Project2", organization_id: 1, creator_id: 2, course_subject_id: 1},
+      {name: "Project3", organization_id: 2, creator_id: 3, course_subject_id: 1}])
 
     puts "32. Create Moving History"
     5.times do |n|

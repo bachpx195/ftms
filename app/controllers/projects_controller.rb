@@ -1,18 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :find_project, except: [:index, :create]
   before_action :load_organizations, only: [:index, :show]
+  before_action :load_supports
+  before_action :authorize_request
 
   def index
-    @projects = Project.all
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          projects: Serializers::Projects::ProjectsSerializer
-            .new(object: @projects).serializer
-        }
-      end
-    end
+    
   end
 
   def create
@@ -79,6 +72,10 @@ class ProjectsController < ApplicationController
     params.require(:project).permit Project::ATTRIBUTE_PARAMS
   end
 
+  def load_supports
+    @project_supports = Supports::ProjectSupport.new params: params
+  end
+
   def find_project
     @project = Project.find_by id: params[:id]
     unless @project
@@ -94,5 +91,10 @@ class ProjectsController < ApplicationController
 
   def load_organizations
     @organizations = Organization.all
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(project: @project),
+      ProjectPolicy
   end
 end

@@ -1,18 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import ProjectLists from './project_lists';
-import Form from './form';
+import Projects from './projects';
 import * as app_constants from 'constants/app_constants';
-import * as project_constants from './project_constants';
 
-export default class ProjectBox extends React.Component {
+export default class ProjectsBox extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      organizations: props.organizations,
       projects: props.projects,
-      project: {},
     };
   }
 
@@ -35,7 +31,7 @@ export default class ProjectBox extends React.Component {
               </div>
             </div>
             <div className='box-footer'>
-              <ProjectLists projects={this.state.projects} />
+              <Projects projects={this.state.projects} />
             </div>
           </div>
         </div>

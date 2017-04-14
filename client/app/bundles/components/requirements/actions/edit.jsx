@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
 import * as app_constants from 'constants/app_constants';
-import * as project_constants from '../project_constants';
+import * as project_constants from '../../projects/constants/project_constants';
 
 const PROJECTS_URL = app_constants.APP_NAME + project_constants.PROJECT_PATH;
 

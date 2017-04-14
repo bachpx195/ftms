@@ -264,15 +264,15 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.string   "name"
     t.string   "description"
     t.integer  "organization_id"
-    t.integer  "subject_id"
+    t.integer  "course_subject_id"
     t.integer  "task_id"
     t.integer  "creator_id"
     t.datetime "deleted_at"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["course_subject_id"], name: "index_projects_on_course_subject_id", using: :btree
     t.index ["creator_id"], name: "index_projects_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_projects_on_organization_id", using: :btree
-    t.index ["subject_id"], name: "index_projects_on_subject_id", using: :btree
     t.index ["task_id"], name: "index_projects_on_task_id", using: :btree
   end
 
