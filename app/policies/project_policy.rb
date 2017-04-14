@@ -1,19 +1,19 @@
 class ProjectPolicy < ApplicationPolicy
   def show?
-    course_members? ||(super && has_function?)
+    is_course_members? ||(super && has_function?)
   end
 
   def update?
-    course_managers? || (super && has_function?)
+    is_course_managers? || (super && has_function?)
   end
 
   def destroy?
-    course_managers? || (super && has_function?)
+    is_course_managers? || (super && has_function?)
   end
   
   private
   def has_function?
-    check_organization?|| creator?
+    belong_to_organization?|| is_creator?
   end
 
   def is_course_members?
