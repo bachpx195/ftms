@@ -1,16 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
-import Modal from './modal';
+import Modal from './templates/modal_course';
 import Errors from '../shareds/errors';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
 import Dropzone from 'react-dropzone';
 
 import CourseListsBox from '../courses/course';
 import UserLists from './user_lists';
-import SubjectLists from './subject_lists';
+import SubjectLists from './subjects';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './program_constants';
+import * as program_constants from './constants/program_constants';
 import * as user_constants from '../users/user_constants';
 import * as course_constants from '../courses/constants/course_constants';
 

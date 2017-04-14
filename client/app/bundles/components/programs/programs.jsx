@@ -1,21 +1,21 @@
-import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import FormEdit from './form_edit';
-import FormCreate from './form_create';
+import ModalCreateSubProgram from './templates/modal_create_sub_program';
+import React from 'react';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './program_constants';
+import * as program_constants from './constants/program_constants';
 
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
+const ORGANIZATION_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
+const PROGRAM_PATH = program_constants.PROGRAMS_PATH;
 
 export default class ProgramLists extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      parent: null,
+      parent: '',
       programs: props.programs,
-      program: null,
+      program: '',
       organization: props.organization,
       not_assigned_programs: props.not_assigned_programs
     }
@@ -83,7 +83,7 @@ export default class ProgramLists extends React.Component {
       let program = this.state.programs[griddleKey];
       let link = '#';
       if (program.organization) {
-        link = PROGRAM_URL + '/' + program.organization.id +
+        link = ORGANIZATION_URL + '/' + program.organization.id +
           '/programs/' + program.id;
       }
       return <a href={link}>{value}</a>;
@@ -93,7 +93,7 @@ export default class ProgramLists extends React.Component {
       let organization = this.state.programs[griddleKey].organization;
       let link = '#';
       if (organization) {
-        link = PROGRAM_URL + '/' + organization.id + '/programs/';
+        link = ORGANIZATION_URL + '/' + organization.id + '/programs/';
         return <a href={link}>{organization.name}</a>;
       }
       return null;
@@ -104,7 +104,7 @@ export default class ProgramLists extends React.Component {
       if (program) {
         let link = '#';
         if (program.organization) {
-          link = PROGRAM_URL + '/' + program.organization.id +
+          link = ORGANIZATION_URL + '/' + program.organization.id +
             '/programs/' + program.id;
         }
         return <a href={link}>{program.name}</a>;
@@ -112,6 +112,8 @@ export default class ProgramLists extends React.Component {
         return null;
       }
     };
+
+    let url = ORGANIZATION_URL + "/" + this.state.organization.id + "/" + PROGRAM_PATH;
 
     return (
       <div>
@@ -136,39 +138,16 @@ export default class ProgramLists extends React.Component {
               title={I18n.t("programs.unassign")} />
           </RowDefinition>
         </Griddle>
-        {this.renderModal()}
+        <ModalCreateSubProgram
+          url={url}
+          parent={this.state.parent}
+          program={this.state.program}
+          handleAfterUpdated={this.props.handleAfterUpdated}
+          handleAfterCreated={this.props.handleAfterCreated}
+        />
         {this.renderModalAssignProgram()}
       </div>
     );
-  }
-
-  renderModal() {
-    let modalEdit = null;
-    const url = PROGRAM_URL + "/" + this.state.organization.id + "/programs";
-    let title = this.state.parent ? this.state.parent.name : I18n.t("programs.edit");
-    let form = null;
-    if (this.state.parent) {
-      form = <FormCreate parent={this.state.parent} url={url}
-        handleAfterSaved={this.handleAfterCreated.bind(this)} />;
-    } else {
-      form = <FormEdit program={this.state.program} url={url}
-        handleAfterSaved={this.handleAfterUpdated.bind(this)} />
-    }
-
-    return (<div className="modalEdit modal fade in" role="dialog">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <button type="button" className="close"
-              data-dismiss="modal">&times;</button>
-            <h4 className="modal-title">{title}</h4>
-          </div>
-          <div className="modal-body">
-            {form}
-          </div>
-        </div>
-      </div>
-    </div>);
   }
 
   renderModalAssignProgram() {
@@ -228,7 +207,7 @@ export default class ProgramLists extends React.Component {
     let $target = $(event.target);
     $target.blur();
     this.setState({
-      parent: null,
+      parent: '',
       program: this.props.programs[$target.data('index')]
     });
     $(".modalEdit").modal();
@@ -239,7 +218,7 @@ export default class ProgramLists extends React.Component {
     $target.blur();
     this.setState({
       parent: this.props.programs[$target.data('index')],
-      program: null
+      program: ''
     });
     $(".modalEdit").modal();
   }
@@ -257,7 +236,7 @@ export default class ProgramLists extends React.Component {
     $target.blur();
     let program = this.props.programs[$target.data('index')];
     if (confirm(I18n.t("data.confirm_delete"))) {
-      const url = PROGRAM_URL + '/' + this.state.organization.id + '/programs';
+      const url = ORGANIZATION_URL + '/' + this.state.organization.id + '/programs';
       axios.delete(url + '/' + program.id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()

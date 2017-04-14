@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 import UserLists from './user_lists';
-import CourseLists from './course_lists';
-import SubjectLists from './subject_lists';
+import CourseLists from './courses';
+import SubjectLists from './subjects';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './program_constants';
+import * as program_constants from './constants/program_constants';
 
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 

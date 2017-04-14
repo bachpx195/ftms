@@ -5,7 +5,7 @@ import axios from 'axios';
 import FormEdit from './form_edit';
 import CoursePolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../programs/program_constants';
+import * as program_constants from '../programs/constants/program_constants';
 import * as course_constants from './constants/course_constants';
 
 const COURSE_URL = app_constants.APP_NAME;

@@ -30,7 +30,7 @@ class ProgramsController < ApplicationController
     @program =
       if params[:program][:parent_id].present?
         parent = Program.find_by id: params[:program].delete(:parent_id)
-        parent.children.build program_params
+        parent.children.build program_params.merge organization: @organization
       else
         @organization.programs.build program_params.merge(creator_id:
           current_user.id)

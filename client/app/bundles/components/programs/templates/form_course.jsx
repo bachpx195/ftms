@@ -1,21 +1,20 @@
+import _ from 'lodash';
+import axios from 'axios';
+import CourseLists from '../courses';
+import Dropzone from 'react-dropzone';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
-import Errors from '../shareds/errors';
-import _ from 'lodash';
-import UserLists from './user_lists';
-import CourseLists from './course_lists';
-import SubjectLists from './subject_lists';
+import SubjectLists from '../subjects';
+import UserLists from '../user_lists';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './program_constants';
-import * as role_constants from '../roles/role_constants';
+import * as program_constants from '../constants/program_constants';
+import * as role_constants from '../../roles/role_constants';
 
 const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
 const ASSIGN_STANDARD_URL = app_constants.APP_NAME + program_constants.ASSIGN_STANDARD_PATH;
 
-require('../../assets/sass/program_show.scss');
+require('../../../assets/sass/program_show.scss');
 
 export default class FormCourse extends React.Component {
   constructor(props) {
@@ -45,7 +44,6 @@ export default class FormCourse extends React.Component {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}
         encType="multipart/form-data">
-        <Errors errors={this.state.errors} />
         <div className='form-group'>
           <div className='dropzone'>
             <div className='form-group'>

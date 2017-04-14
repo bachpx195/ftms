@@ -1,9 +1,9 @@
-import React from 'react';
 import FormCourse from './form_course';
+import React from 'react';
 
-require('../../assets/sass/program_show.scss');
+require('../../../assets/sass/program_show.scss');
 
-export default class Modal extends React.Component {
+export default class ModalCourse extends React.Component {
   render() {
     return (
       <div className='modalEdit modal fade in' role='dialog'>

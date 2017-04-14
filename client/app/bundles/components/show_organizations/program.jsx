@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import CourseLists from '../programs/course_lists';
+import CourseLists from '../programs/courses';
 import * as app_constants from 'constants/app_constants';
 
 const PROGRAM_URL = app_constants.APP_NAME + 'programs/';
