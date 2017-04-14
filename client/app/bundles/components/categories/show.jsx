@@ -1,9 +1,10 @@
-import React from 'react';
-import axios from 'react';
-import CategoryPolicy from 'policy/category_policy';
 import * as app_constants from 'constants/app_constants';
 import * as category_constants from './constants/category_constants';
-import FormQuestion from '../questions/form_question';
+import axios from 'react';
+import FormQuestion from '../questions/templates/form_question';
+import QuestionPolicy from 'policy/question_policy';
+import Questions from '../questions/questions';
+import React from 'react';
 
 export default class CategoryBox extends React.Component {
   constructor(props) {
@@ -18,6 +19,8 @@ export default class CategoryBox extends React.Component {
   }
 
   render() {
+    const QUESTION_URL = app_constants.APP_NAME + category_constants.CATEGORY_PATH
+      + this.state.category.id + '/' + category_constants.QUESTION_PATH;
     return (
       <div className='row'>
         <div className='col-md-12'>
@@ -36,15 +39,22 @@ export default class CategoryBox extends React.Component {
             </div>
 
             <div className='box-body no-padding'>
-              <div className='create-question'>
-                <CategoryPolicy permit={[
-                  {controller: 'questions', action: ['create'], target: 'children'}]}>
-                  <FormQuestion question={this.state.question}
-                    category={this.state.category}
-                    afterCreateQuestion={this.afterCreateQuestion.bind(this)}/>
-                </CategoryPolicy>
-              </div>
-              <div className='list-question'>
+              <div className='category-show'>
+                <div className='create-question'>
+                  <QuestionPolicy permit={[
+                    {action: ['create'], target: 'children'}]} >
+                    <FormQuestion question={this.state.question}
+                      url={QUESTION_URL}
+                      category={this.state.category}
+                      afterCreateQuestion={this.afterCreateQuestion.bind(this)}/>
+                  </QuestionPolicy>
+                </div>
+                <div className='list-question'>
+                  <Questions questions={this.state.category.questions}
+                    afterDeleteQuestion={this.afterDeleteQuestion.bind(this)}
+                    afterUpdateQuestion={this.afterUpdateQuestion.bind(this)}
+                    url={QUESTION_URL} />
+                </div>
               </div>
             </div>
           </div>
@@ -56,7 +66,31 @@ export default class CategoryBox extends React.Component {
   afterCreateQuestion(question) {
     this.state.category.questions.push(question)
     this.setState({
-      category: this.state.category
+      category: this.state.category,
+      question: {
+        content: '',
+        answers: [
+          {content: '', is_correct: false}
+        ]
+      }
     })
+  }
+
+  afterDeleteQuestion(question) {
+    _.remove(this.state.category.questions, _question => {
+      return _question == question;
+    });
+    this.setState({
+      category: this.state.category
+    });
+  }
+
+  afterUpdateQuestion(question) {
+    let index = this.state.category.questions
+      .findIndex(_question => _question.id === question.id);
+    this.state.category.questions[index] = question;
+    this.setState({
+      category: this.state.category
+    });
   }
 }
