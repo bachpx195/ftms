@@ -13,7 +13,8 @@ export default class Show extends React.Component {
     url += exam_constants.EXAMS_PATH + this.props.exam.id;
 
     return(
-      <ExamPolicy permit={[{action: ['show'], target: 'children'}]}>
+      <ExamPolicy
+        permit={[{controller: 'exams', action: ['show'], target: 'children'}]}>
         <a href={url} className='btn btn-success'>
           {I18n.t('buttons.view')}
         </a>

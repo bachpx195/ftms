@@ -65,7 +65,7 @@ export default class Exams extends React.Component {
               title={I18n.t('exams.headers.spent_time')} />
             <ColumnDefinition id='score'
               title={I18n.t('exams.headers.score')} />
-            <ColumnDefinition id='view' title=''
+            <ColumnDefinition id='view' title=' '
               customComponent={ButtonView} />
           </RowDefinition>
         </Griddle>
