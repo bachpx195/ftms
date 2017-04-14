@@ -1,108 +1,23 @@
 import React from 'react';
+
 import CoursePolicy from 'policy/course_policy';
-import axios from 'axios';
+
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from '../../users/user_constants';
+
+import Managers from "../templates/managers";
+import Members from "../templates/members";
 
 export default class Users extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       course: props.course
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      course: nextProps.course
-    });
-  }
-
-  renderManager(user) {
-    let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
-    return (
-      <li key={user.id}>
-        <a href={user_path} title={user.name}>
-          <img className='img-circle'
-            src={user.avatar.url} width='30' height='30'/>
-        </a>
-      </li>
-    );
-  }
-
-  renderManagerList(users) {
-    let managers = users.map(user => user);
-    let course = this.state.course;
-    if (course.owner) {
-      let index = managers.findIndex(user => user.id == course.owner.id);
-      if (index < 0) {
-        managers.unshift(course.owner);
-      }
-    }
-    return (
-      <ul className='user-list clearfix'>
-        {
-          managers.map((user, index) => {
-            return this.renderManager(user)
-          })
-        }
-      </ul>
-    );
-  }
-
-  renderMember(user) {
-    let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
-    return (
-      <li className="member-item" key={user.id}>
-        <a href={user_path} title={user.name}>
-          <img className='img-circle'
-            src={user.avatar.url} width='30' height='30'/>
-          {user.name}
-        </a>
-        <CoursePolicy permit={this.props.courseListPermit} >
-          <div className="pull-right user-course">
-            <div id="user-course-113">
-              <div className="menu-right-user-course">
-                <div className="dropdown action-user-course">
-                  <span id="dLabe" data-toggle="dropdown"
-                    className="evaluation-show">
-                    <i className="glyphicon glyphicon-align-justify text-danger">
-                    </i>
-                  </span>
-                  <ul className="dropdown-menu dropdown-menu-right" >
-                    <li>
-                      <a href="#"
-                        onClick={this.handleEvaluateModal.bind(this, user)} >
-                        {I18n.t('courses.evaluation.evaluate')}
-                      </a>
-                      <a href="#"
-                        onClick={this.openModalChangeCourse.bind(this, user)} >
-                        {I18n.t('courses.move_courses.move_course')}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CoursePolicy>
-      </li>
-    );
-  }
-
-  renderMemberList(users) {
-    return (
-      <ul className='member-list clearfix'>
-        {
-          users.map((user, index) => {
-            return this.renderMember(user);
-          })
-        }
-      </ul>
-    );
-  }
-
-  renderUsers() {
+  render() {
     let course = this.state.course;
     let user_count = course.managers.length + course.members.length;
     if (course.owner) {
@@ -115,7 +30,7 @@ export default class Users extends React.Component {
     }
 
     return (
-      <div>
+      <div className="col-md-3 info-panel">
         <div className='box box-primary'>
           <div className='box-header with-border box-header-gray'>
             <h3 className='label box-title'>
@@ -134,18 +49,22 @@ export default class Users extends React.Component {
               </div>
             </CoursePolicy>
           </div>
+
           <div className='box-body'>
             <div>
               <div className='member-title'>
                 {I18n.t('courses.member.trainers')}
               </div>
               <ul className='user-list clearfix'>
-                {this.renderManagerList(course.managers)}
+                <Managers course={course} />
               </ul>
               <div className='member-title'>
                 {I18n.t('courses.member.trainee')}
               </div>
-              {this.renderMemberList(course.members)}
+              <Members course={course}
+                courseListPermit={this.props.courseListPermit}
+                handleEvaluateModal={this.props.handleEvaluateModal}
+                openModalChangeCourse={this.props.openModalChangeCourse} />
             </div>
           </div>
         </div>
@@ -153,27 +72,7 @@ export default class Users extends React.Component {
     );
   }
 
-  render() {
-    return (
-      <div className="col-md-3 info-panel">
-        {
-          this.renderUsers()
-        }
-      </div>
-    )
-  }
-
-  handleEvaluateModal(user, event) {
-    event.preventDefault();
-    this.props.handleEvaluateModal(user);
-  }
-
   handleAssignMember() {
     this.props.handleAssignMember();
-  }
-
-  openModalChangeCourse(user, event) {
-    event.preventDefault();
-    this.props.openModalChangeCourse(user);
   }
 }

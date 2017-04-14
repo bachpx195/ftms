@@ -8,7 +8,7 @@ import * as user_constants from '../../users/user_constants';
 
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
 const LIMIT_DESCRIPTION = course_constants.LIMIT_DESCRIPTION;
-const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
+const COURSE_URL = app_constants.APP_NAME + program_constants.COURSES_PATH;
 
 export default class CourseDetail extends React.Component {
   constructor(props) {
@@ -17,13 +17,6 @@ export default class CourseDetail extends React.Component {
       course: props.course
     }
   }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      course: nextProps.course
-    });
-  }
-
 
   render() {
     let course = this.state.course;
@@ -79,8 +72,7 @@ export default class CourseDetail extends React.Component {
         <div className='col-md-5'>
           <span className="btn glyphicon glyphicon-list pull-right"
             onClick={this.clickButtonList.bind(this)}></span>
-          <MenuCourse url={COURSE_URL + this.props.program.id + '/' +
-            course_constants.COURSES_PATH + this.state.course.id}
+          <MenuCourse url={COURSE_URL + this.state.course.id}
             course={this.state.course}
             courseListPermit={this.props.courseListPermit}
             handleAfterEdit={this.handleAfterUpdate.bind(this)}
