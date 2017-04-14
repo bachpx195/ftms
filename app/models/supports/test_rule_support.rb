@@ -11,4 +11,19 @@ class Supports::TestRuleSupport
     Serializers::TestRules::TestRulesSerializer
       .new(object: TestRule.all).serializer
   end
+
+  def categories
+    Serializers::Categories::CategoriesSerializer
+      .new(object: Category.all).serializer
+  end
+
+  def questions
+    Serializers::Categories::QuestionsSerializer
+      .new(object: Question.all).serializer
+  end
+
+  def test_rule_serializer test_rule
+    Serializers::TestRules::TestRulesSerializer
+      .new(object: test_rule).serializer
+  end
 end

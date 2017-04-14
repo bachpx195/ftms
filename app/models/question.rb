@@ -4,7 +4,7 @@ class Question < ApplicationRecord
   ATTRIBUTE_PARAMS = [:content, answers_attributes: [:content, :is_correct]]
 
   belongs_to :category
-  belongs_to :test_rule_question
+  has_many :test_rule_questions, dependent: :destroy
 
   has_many :answers, dependent: :destroy
   has_many :results, dependent: :destroy
@@ -12,4 +12,6 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :answers
 
   validates :content, presence: true
+
+  enum level: [:easy, :normal, :hard]
 end

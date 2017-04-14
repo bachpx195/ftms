@@ -1,6 +1,6 @@
 class TestRulesController < ApplicationController
   before_action :load_supports
-  before_action :find_test_rule, only: [:update, :destroy]
+  before_action :find_test_rule, only: [:show, :update, :destroy]
 
   def index
   end
@@ -10,7 +10,7 @@ class TestRulesController < ApplicationController
     respond_to do |format|
       format.json do
         if test_rule.save
-          render json: {test_rule: test_rule}
+          render json: {test_rule: @test_rule_supports.test_rule_serializer(test_rule)}
         else
           render json: {message: flash_message("not_created"),
             errors: test_rule.errors}, status: :unprocessable_entity
@@ -25,7 +25,7 @@ class TestRulesController < ApplicationController
       format.json do
         if test_rule.update_attributes test_rule_params
           render json: {message: flash_message("updated"),
-            test_rule: test_rule}
+            test_rule: @test_rule_supports.test_rule_serializer(test_rule)}
         else
           render json: {message: flash_message("not_updated"),
             errors: test_rule.errors}, status: :unprocessable_entity

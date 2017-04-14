@@ -1,3 +1,7 @@
 <%= react_component "TestRuleBox",
-  props: {test_rules: @test_rule_supports.test_rules_serializer},
+  props: {
+    test_rules: @test_rule_supports.test_rules_serializer,
+    categories: @test_rule_supports.categories,
+    questions: @test_rule_supports.questions,
+  },
   prerender: false %>

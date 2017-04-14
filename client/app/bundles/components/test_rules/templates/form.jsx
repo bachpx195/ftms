@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Errors from '../shareds/errors';
+import Errors from '../../shareds/errors';
 
 export default class Form extends React.Component {
   constructor(props) {
