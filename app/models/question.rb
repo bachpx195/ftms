@@ -4,8 +4,6 @@ class Question < ApplicationRecord
   ATTRIBUTE_PARAMS = [:content,
     answers_attributes: [:id, :content, :is_correct]]
 
-  enum level: [:easy, :normal, :hard]
-
   belongs_to :category
   has_many :test_rule_questions, dependent: :destroy
 

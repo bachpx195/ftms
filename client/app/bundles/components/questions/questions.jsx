@@ -3,7 +3,7 @@ import ModalQuestion from './templates/modal_question';
 import React from 'react';
 import Question from './templates/question';
 
-export default class ListQuestions extends React.Component {
+export default class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ export default class ListQuestions extends React.Component {
         <Question question={question} key={index} index={index}
           url={this.props.url + '/' + question.id}
           afterDeleteQuestion={this.props.afterDeleteQuestion}
-          afterClickEditQuestion={this.props.afterClickEditQuestion.bind(this)} />
+          afterClickEditQuestion={this.afterClickEditQuestion.bind(this)} />
       )
     });
 

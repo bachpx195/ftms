@@ -10,7 +10,7 @@ import Row from './griddle/row';
 
 const CATEGORY_URL = app_constants.APP_NAME + category_constants.CATEGORY_PATH
 
-export default class CategoryBox extends React.Component {
+export default class CategoriesBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
