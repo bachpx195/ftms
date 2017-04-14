@@ -6,7 +6,7 @@ Feature: Language
   Background:
     Given User with email is "admin@tms.com" and password "12345678"
       And User manage language include create, show, update, delete.
-      And System existed languages with name "Ruby", "Rails", "Ruby on rails"
+      And System existed languages with name "Ruby, Rails, Ruby on rails"
 
     When User login
 
@@ -619,7 +619,7 @@ Feature: Language
   Scenario: Check paginate when data have 10 records
     Given User can show all languages
       And system has 3 languages above
-      And system existed language with name is "Pascal", "C", "Java", "Android", "Python", "PHP", "IOS"
+      And system existed language with name is "Pascal, C, Java, Android, Python, PHP, IOS"
 
     When User open language screen
 
@@ -628,8 +628,7 @@ Feature: Language
   Scenario: Check paginate when data >10 records
     Given User can show all languages
       And system has 3 languages above
-      And system existed language with name is "Pascal", "C", "Java", "Android", "Python", "PHP", "IOS", "C#"
-
+      And system existed language with name is "Pascal, C, Java, Android, Python, PHP, IOS, C++"
     When User open language screen
       And User click button Next
 

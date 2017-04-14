@@ -2,7 +2,7 @@ Given(/^User manage trainee type include create, show, update, delete\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^System existed trainee types with name "([^"]*)", "([^"]*)", "([^"]*)"$/) do |name1, name2, name3|
+Given(/^System existed trainee types with name "([^"]*)"$/) do |name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -10,7 +10,7 @@ Given(/^User can create trainee type$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^Input name "([^"]*)"$/) do |arg1|
+Given(/^Input name "([^"]*)"$/) do |name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -31,10 +31,6 @@ Given(/^Edit trainee type with name "([^"]*)"$/) do |old_name|
 end
 
 Given(/^Update to trainee type with name "([^"]*)"$/) do |new_name|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given(/^Update to trainee type  name "([^"]*)"$/) do |name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -66,7 +62,7 @@ When(/^In the list trainee type screen, user insert data$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^Display all records with data name contain "([^"]*)"$/) do |name|
+Then(/^Display all records with data name contain "([^"]*)"$/) do |content|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -86,15 +82,6 @@ Given(/^system has (\d+) trainee types above$/) do |arg1|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^system existed trainee types with name is "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/) do |name1, name2, name3, name4, name5, name6, name7|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When(/^User open trainee types screen$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
-
-Given(/^system existed trainee types with name is "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/) do |name1, name2, name3, name4, name5, name6, name7, name8|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-

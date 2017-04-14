@@ -6,7 +6,7 @@ Given(/^User manage language include create, show, update, delete\.$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^System existed languages with name "([^"]*)", "([^"]*)", "([^"]*)"$/) do |image, name, description|
+Given(/^System existed languages with name "([^"]*)"$/) do |name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -150,11 +150,7 @@ Given(/^system has (\d+) languages above$/) do |arg1|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given(/^system existed language with name is "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/) do |name1, name2, name3, name4, name5, name6, name7|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given(/^system existed language with name is "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"$/) do |name1, name2, name3, name4, name5, name6, name7, name8|
+Given(/^system existed language with name is "([^"]*)"$/) do |name|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
