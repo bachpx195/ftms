@@ -1,5 +1,6 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
+import { NewLayout } from '../shareds/griddles/new_layout';
 
 export default class UserLists extends React.Component {
 
@@ -45,31 +46,13 @@ export default class UserLists extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
-          </div>
-          <div className='col-md-12'>
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
+    {NewLayout}
+    let user_list_counts = this.state.user_counts - 7;
 
     const Image = ({griddleKey}) => (
       <img src={this.state.users[griddleKey].avatar}
         className='thumbnail-image td-user-avatar'/>
     );
-
-    let user_list_counts = this.state.user_counts - 7
-
     return (
       <div className='col-lg-3 col-xs-6'>
         <ul className='users-list clearfix td-program-users'>
