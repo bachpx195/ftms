@@ -33,5 +33,23 @@ export const CustomFunction = {
       return true;
     }
     return false;
+  },
+  setUserTeam: (data) => {
+    var current_user_id = $.parseJSON(localStorage.current_user).id;
+    var status = 'in_progress';
+    var result = false;
+    if (data.course_subject_teams) {
+      for(var subject_team of data.course_subject_teams) {
+        var user_subject = subject_team.user_subjects.filter(subject => {
+          return subject.user_id.toString().toLowerCase().includes(
+            current_user_id.toString().toLowerCase())
+            && subject.status.toLowerCase().includes(status.toLowerCase())});
+        if (user_subject.length > 0) {
+          result = true;
+          break;
+        }
+      }
+    }
+    return result;
   }
 }

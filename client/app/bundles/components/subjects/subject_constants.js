@@ -9,3 +9,4 @@ export const TEAM_PATH = 'teams/';
 export const ASSIGNMENT_PATH = 'assignments'
 export const DYNAMICTASK_PATH = 'dynamic_tasks'
 export const META_TASK_PATH = 'meta_tasks'
+export const OWNERABLE_COURSE_SUBJECT = 'CourseSubject';

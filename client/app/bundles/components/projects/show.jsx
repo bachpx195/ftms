@@ -22,10 +22,10 @@ export default class ProjectBox extends React.Component {
       showForm: false
     }
   }
-  
+
   render() {
     let form = null;
-    let url = SUBJECT_URL + this.state.project.course_subject.subject_id 
+    let url = SUBJECT_URL + this.state.project.course_subject.subject_id
       + '/'+ 'projects' + '/' + this.state.project.id;
     if (this.state.showForm) {
       form = <Form project={this.state.project} url={url}

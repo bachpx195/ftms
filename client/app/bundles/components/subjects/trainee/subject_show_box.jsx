@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import css from '../subject.scss';
 import ModalSendPull from '../meta_tasks/send_pull';
+import PublicPolicy from 'policy/public_policy';
 
 import AssignmentItem from './assignment_item';
 import FormTask from '../subject_form/form_task'
@@ -10,6 +11,7 @@ import * as app_constants from 'constants/app_constants';
 import * as subject_constants from '../subject_constants';
 
 const ASSIGNMENT_URL = app_constants.APP_NAME + subject_constants.ASSIGNMENT_PATH;
+const OWNERABLE_COURSE_SUBJECT = subject_constants.OWNERABLE_COURSE_SUBJECT;
 
 export default class SubjectShowBoxTrainee extends React.Component {
   constructor(props) {
@@ -67,11 +69,13 @@ export default class SubjectShowBoxTrainee extends React.Component {
                         {I18n.t("subjects.assignments.total_task",
                           {total: this.state.assigments_of_user_subjects.length})}
                       </span>
-
-                      <button type='button' className="pull-right btn btn-info"
-                        onClick={this.afterClickCreateAssignment.bind(this)}>
-                        {I18n.t("subjects.trainee.create_assignments")}
-                      </button>
+                      <PublicPolicy permit={[{action: ['setUserTeam'], target: 'children',
+                        data: {course_subject_teams: this.state.course_subject_teams}}]}>
+                        <button type='button' className="pull-right btn btn-info"
+                          onClick={this.afterClickCreateAssignment.bind(this)}>
+                          {I18n.t("subjects.trainee.create_assignments")}
+                        </button>
+                      </PublicPolicy>
                     </h1>
                     {this.renderAssignment()}
                   </div>
@@ -132,8 +136,10 @@ export default class SubjectShowBoxTrainee extends React.Component {
 
   renderModal() {
     let course_subject_id = '';
+    let ownerable_type = '';
     if (this.state.course_subject) {
-      course_subject_id = this.state.course_subject.id
+      course_subject_id = this.state.course_subject.id;
+      ownerable_type = OWNERABLE_COURSE_SUBJECT;
     }
     let modalCreateAssignment = (
       <div id='modalCreateAssignment' className='modal fade in' role='dialog'>
@@ -148,7 +154,7 @@ export default class SubjectShowBoxTrainee extends React.Component {
             <div className="modal-body">
               <FormTask type={this.state.type}
                 ownerable_id={course_subject_id}
-                ownerable_type={this.props.ownerable_type}
+                ownerable_type={ownerable_type}
                 afterCreateTask={this.afterCreateTask.bind(this)}
                 subject_detail={this.props.subject_detail}
                 course={this.props.course}

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PublicPolicy from 'policy/public_policy';
 import css from '../subject.scss';
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from '../subject_constants';
@@ -14,9 +15,7 @@ export default class AssignmentItem extends React.Component {
 
     this.state = {
       assignment: props.assignment,
-      current_user: props.current_user,
       course_subject_teams: props.course_subject_teams,
-      user_dynamic_course_subjects: props.user_dynamic_course_subjects,
       course_subject: props.course_subject,
       dynamic_task: props.dynamic_task,
       meta_tasks: []
@@ -25,56 +24,41 @@ export default class AssignmentItem extends React.Component {
 
   componentWillReceiveProps(nextProps){
     this.setState({
-      assigments_of_user_subjects: nextProps.assigments_of_user_subjects,
-      user_dynamic_course_subjects: nextProps.user_dynamic_course_subjects,
-      course_subject: nextProps.course_subject,
-      course_subject_teams: nextProps.course_subject_teams,
-      current_user: nextProps.current_user,
-      assignment: nextProps.assignment,
-      dynamic_task: nextProps.dynamic_task,
       meta_tasks: nextProps.meta_tasks
     });
   }
 
   render() {
-    let {current_user, assignment} = this.state;
-    let status_css,menu_action,receive_option, finish_option, send_pull = '';
-    if (this.props.status == "finish") {
-      status_css = "status-finish";
-    } else if (this.props.status == "reject") {
-      status_css = "status-reject";
-    } else if (this.props.status == "in_progress") {
-      status_css = "status-progress";
+    let current_user = JSON.parse(localStorage.current_user);
+    let status = this.props.status;
+    let menu_action, finish_or_receive_option, send_pull = '';
+    if (this.props.status == 'in_progress' || this.props.status == 'init') {
       menu_action =
         <span className="menu-assignment pull-right dropdown-toggle"
           data-toggle="dropdown" >
           <i className="glyphicon glyphicon-align-justify cursor"></i>
         </span>;
-      finish_option = <li><a href="#"
-        onClick={this.finishAssignment.bind(this)}>
-        {I18n.t("meta_tasks.finish_assigment")}</a></li>;
-
-      send_pull = <li><a href="#"
-        onClick={this.sendPullRequest.bind(this)}>{I18n.t("meta_tasks.send_pull")}
-        </a></li>
-    } else {
-      status_css = "status-init";
-      menu_action =
-        <span className="menu-assignment pull-right dropdown-toggle"
-          data-toggle="dropdown" >
-          <i className="glyphicon glyphicon-align-justify cursor"></i>
-        </span>;
-      receive_option = <li><a href="#"
-        onClick={this.receiveAssignment.bind(this)}>
-        {I18n.t("meta_tasks.receive_assignment")}</a></li>;
-    }
+      let text_status = 'in_progress';
+      let team_status = 'reject';
+      if (this.props.status == 'in_progress') {
+        send_pull = <li><a
+          onClick={this.sendPullRequest.bind(this)}>{I18n.t('meta_tasks.send_pull')}
+          </a></li>
+        status = 'progress';
+        text_status = 'finish';
+        team_status = 'finish';
+      }
+      finish_or_receive_option = <li><a onClick={
+          this.submitAssignment.bind(this, text_status, team_status)}>
+        {I18n.t('meta_tasks.statuses' + this.props.status)}</a></li>;
+      }
     return (
       <div className="assignment-item clearfix">
         <div className="col-md-2 avatar-user">
-          <a href="#">
+          <a>
             <img className="img-circle" src={current_user.avatar.url}
               title={current_user.name}
-              alt={I18n.t("subjects.trainee.avatar")} />
+              alt={I18n.t('subjects.trainee.avatar')} />
           </a>
         </div>
 
@@ -83,16 +67,20 @@ export default class AssignmentItem extends React.Component {
             <div className="div-status"
               title={`${I18n.t("subjects.assignments.statuses." + this.props.status)}`}>
               {this.props.status}
-              <em className={`status ${status_css} cursor`}></em>
+              <em className={`status status-${status} cursor`}></em>
             </div>
-            <p className="name">{assignment.name}</p>
-            <p className="content-assignment">{assignment.content}</p>
-            {menu_action}
-            <ul className="dropdown-menu pull-right list-menu cursor" >
-              {send_pull}
-              {receive_option}
-              {finish_option}
-            </ul>
+            <p className="name">{this.state.assignment.name}</p>
+            <p className="content-assignment">{this.state.assignment.content}</p>
+            <PublicPolicy permit={[{action: ['setUserTeam'], target: 'children',
+              data: {course_subject_teams: this.state.course_subject_teams}}]}>
+              <div>
+                {menu_action}
+                <ul className="dropdown-menu pull-right list-menu cursor" >
+                  {send_pull}
+                  {finish_or_receive_option}
+                </ul>
+              </div>
+            </PublicPolicy>
           </div>
 
           <div className="detail row">
@@ -121,34 +109,13 @@ export default class AssignmentItem extends React.Component {
     );
   }
 
-  receiveAssignment(event) {
-    event.preventDefault();
+  submitAssignment(status, team_status) {
     let course_subject = this.state.course_subject;
-
-    axios.put(DYNAMICTASK_URL + "/" + this.state.dynamic_task.id + ".json", {
+    axios.put(DYNAMICTASK_URL + '/' + this.state.dynamic_task.id + '.json', {
       course_subject: course_subject,
       dynamic_task: {
-        status: "in_progress",
-        team_status: "reject"
-      }, authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
-    .then(response => {
-      this.props.afterUpdateStatus(response.data.dynamic_task);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-  finishAssignment(event) {
-    event.preventDefault();
-    let course_subject = this.state.course_subject;
-
-    axios.put(DYNAMICTASK_URL + "/" + this.state.dynamic_task.id + ".json", {
-      course_subject: course_subject,
-      dynamic_task: {
-        status: "finish",
-        team_status: "finish"
+        status: status,
+        team_status: team_status
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
@@ -166,8 +133,8 @@ export default class AssignmentItem extends React.Component {
   }
 
   fetchListMetaTask(dynamic_task) {
-    let url = DYNAMICTASK_URL + "/" + dynamic_task.id + "/" + META_TASK_PATH;
-    axios.get(url + ".json")
+    let url = DYNAMICTASK_URL + '/' + dynamic_task.id + '/' + META_TASK_PATH;
+    axios.get(url + '.json')
       .then(response => {
         this.setState({
           meta_tasks: response.data.meta_tasks

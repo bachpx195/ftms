@@ -69,4 +69,17 @@ class Supports::SubjectSupport
       @course.members.map(&:id).uniq
     end
   end
+
+  def subject_detail
+    Serializers::Subjects::SubjectDetailsSerializer
+      .new(object: @subject, scope: {subject_supports: self,
+        course_subjects: @course_subject, courses: @course}).serializer
+  end
+
+  def member_evaluations
+    member_evaluations = @course_subject ? @course_subject
+      .member_evaluations : Array.new
+    Serializers::Evaluations::MemberEvaluationsSerializer
+      .new(object: member_evaluations).serializer
+  end
 end
