@@ -8,9 +8,9 @@ import RenderTextButton from './templates/render_text_button';
 import Destroy from './actions/destroy';
 import * as app_constants from 'constants/app_constants';
 import * as project_constants from './constants/project_constants';
-import * as subject_constants from '../subjects/subject_constants';
-import * as requirement_constants from 
+import * as requirement_constants from
   '../requirements/constants/requirement_constants';
+import * as subject_constants from '../subjects/constants/subject_constants';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 const PROJECTS_URL = app_constants.APP_NAME + project_constants.PROJECT_PATH;
@@ -37,7 +37,7 @@ export default class ProjectBox extends React.Component {
         organizations={this.state.organizations}
         handleAfterUpdate={this.handleAfterUpdate.bind(this)} />;
     }
-    let path = PROJECTS_URL + '/' + this.state.project.id + 
+    let path = PROJECTS_URL + '/' + this.state.project.id +
       requirement_constants.REQUIREMENT_PATH;
     if (this.state.requirement.id != undefined) {
       path = this.state.url;

@@ -1,11 +1,11 @@
-import React from 'react';
 import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import * as table_constants from 'constants/griddle_table_constants';
 import CheckBox from './check_box'
-import FormTask from './form_task'
+import FormTask from '../../assignments/actions/create'
+import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import React from 'react';
 import * as app_constants from '../../../../constants/app_constants';
-import * as subject_constants from '../subject_constants';
+import * as subject_constants from '../constants/subject_constants';
+import * as table_constants from 'constants/griddle_table_constants';
 
 const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
 const SUBJECT_TASK_URL = app_constants.APP_NAME + subject_constants.SUBJECT_TASK_PATH;

@@ -1,17 +1,17 @@
-import React from 'react';
 import axios from 'axios';
+import Form from './subject_form/form';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import Modal from './subject_form/modal';
-import Form from './subject_form/form';
+import React from 'react';
+import SubjectPolicy from 'policy/subject_policy';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from './subject_constants';
-import SubjectPolicy from 'policy/subject_policy';
+import * as subject_constants from './constants/subject_constants';
 
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 const DEFAULT_IMAGE_SUBJECT = app_constants.DEFAULT_IMAGE_SUBJECT_URL;
+const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
-export default class SubjectLists extends React.Component {
+export default class Subjects extends React.Component {
   constructor(props) {
     super(props);
 

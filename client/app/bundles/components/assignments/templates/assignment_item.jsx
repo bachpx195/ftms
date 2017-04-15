@@ -1,9 +1,10 @@
-import React from 'react';
 import axios from 'axios';
+import css from '../../subjects/assets/subject.scss';
 import PublicPolicy from 'policy/public_policy';
-import css from '../subject.scss';
+import React from 'react';
+import Update from '../actions/update'
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../subject_constants';
+import * as subject_constants from '../../subjects/constants/subject_constants';
 
 const ASSIGNMENT_URL = app_constants.APP_NAME + subject_constants.ASSIGNMENT_PATH;
 const DYNAMICTASK_URL = app_constants.APP_NAME + subject_constants.DYNAMICTASK_PATH;
@@ -15,8 +16,7 @@ export default class AssignmentItem extends React.Component {
 
     this.state = {
       assignment: props.assignment,
-      course_subject_teams: props.course_subject_teams,
-      course_subject: props.course_subject,
+      subject_detail: props.subject_detail,
       dynamic_task: props.dynamic_task,
       meta_tasks: []
     };
@@ -31,26 +31,25 @@ export default class AssignmentItem extends React.Component {
   render() {
     let current_user = JSON.parse(localStorage.current_user);
     let status = this.props.status;
-    let menu_action, finish_or_receive_option, send_pull = '';
+    let menu_action, update_assignment, send_pull = '';
     if (this.props.status == 'in_progress' || this.props.status == 'init') {
       menu_action =
         <span className="menu-assignment pull-right dropdown-toggle"
           data-toggle="dropdown" >
           <i className="glyphicon glyphicon-align-justify cursor"></i>
         </span>;
-      let text_status = 'in_progress';
-      let team_status = 'reject';
       if (this.props.status == 'in_progress') {
         send_pull = <li><a
           onClick={this.sendPullRequest.bind(this)}>{I18n.t('meta_tasks.send_pull')}
           </a></li>
         status = 'progress';
-        text_status = 'finish';
-        team_status = 'finish';
       }
-      finish_or_receive_option = <li><a onClick={
-          this.submitAssignment.bind(this, text_status, team_status)}>
-        {I18n.t('meta_tasks.statuses' + this.props.status)}</a></li>;
+      update_assignment =
+        <Update
+          status={this.props.status}
+          course_subject={this.state.subject_detail.course_subject}
+          dynamic_task={this.state.dynamic_task}
+          afterUpdateStatus={this.props.afterUpdateStatus} />;
       }
     return (
       <div className="assignment-item clearfix">
@@ -72,12 +71,13 @@ export default class AssignmentItem extends React.Component {
             <p className="name">{this.state.assignment.name}</p>
             <p className="content-assignment">{this.state.assignment.content}</p>
             <PublicPolicy permit={[{action: ['setUserTeam'], target: 'children',
-              data: {course_subject_teams: this.state.course_subject_teams}}]}>
+              data: {course_subject_teams:
+              this.state.subject_detail.course_subject_teams}}]}>
               <div>
                 {menu_action}
                 <ul className="dropdown-menu pull-right list-menu cursor" >
                   {send_pull}
-                  {finish_or_receive_option}
+                  {update_assignment}
                 </ul>
               </div>
             </PublicPolicy>
@@ -109,27 +109,10 @@ export default class AssignmentItem extends React.Component {
     );
   }
 
-  submitAssignment(status, team_status) {
-    let course_subject = this.state.course_subject;
-    axios.put(DYNAMICTASK_URL + '/' + this.state.dynamic_task.id + '.json', {
-      course_subject: course_subject,
-      dynamic_task: {
-        status: status,
-        team_status: team_status
-      }, authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
-    .then(response => {
-      this.props.afterUpdateStatus(response.data.dynamic_task);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
   sendPullRequest(event) {
     event.preventDefault();
     this.fetchListMetaTask(this.state.dynamic_task);
-    $('#modalSendPull').modal();
+    $('.modal-send-pull').modal();
   }
 
   fetchListMetaTask(dynamic_task) {

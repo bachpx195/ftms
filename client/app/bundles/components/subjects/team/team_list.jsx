@@ -1,11 +1,10 @@
-import React from 'react';
 import axios from 'axios';
-import Team from './team';
 import Modal from './modal';
-
-import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../subject_constants';
+import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
+import Team from './team';
+import * as app_constants from 'constants/app_constants';
+import * as subject_constants from '../constants/subject_constants';
 
 const COURSE_SUBJECT_URL = app_constants.APP_NAME +
   subject_constants.COURSE_SUBJECT_PATH;

@@ -6,7 +6,7 @@ import Form from './templates/form';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 import * as project_constants from './constants/project_constants';
-import * as subject_constants from '../subjects/subject_constants';
+import * as subject_constants from '../subjects/constants/subject_constants';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
@@ -26,7 +26,7 @@ export default class Projects extends React.Component {
       let project = this.state.projects[griddleKey];
       let link = '#';
       if (project) {
-        link = SUBJECT_URL + project.course_subject.subject_id 
+        link = SUBJECT_URL + project.course_subject.subject_id
           + '/'+ 'projects' + '/' + project.id;
       }
       return <a href={link}>{value}</a>;
@@ -49,7 +49,7 @@ export default class Projects extends React.Component {
           <RowDefinition>
             <ColumnDefinition id='name' title={I18n.t('projects.headers.name')}
               customComponent={LinkToProject} />
-            <ColumnDefinition id='organization' 
+            <ColumnDefinition id='organization'
               title={I18n.t('projects.organization')}
               customComponent={OrganizationName} />
             <ColumnDefinition id='description'

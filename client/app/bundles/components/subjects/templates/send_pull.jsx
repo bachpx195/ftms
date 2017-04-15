@@ -1,10 +1,10 @@
+import axios from 'axios';
+import css from '../assets/subject.scss';
+import MetaList from './meta_lists';
 import React from 'react';
 import _ from 'lodash';
-import axios from 'axios';
-import MetaList from './meta_lists';
-import css from '../subject.scss';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../subject_constants';
+import * as subject_constants from '../constants/subject_constants';
 
 const DYNAMICTASK_URL = app_constants.APP_NAME + subject_constants.DYNAMICTASK_PATH;
 const META_TASK_PATH = subject_constants.META_TASK_PATH;
@@ -30,7 +30,7 @@ export default class PullRequestList extends React.Component {
 
   render() {
     return(
-      <div className="modal fade modal-send-pull" id="modalSendPull" role="dialog">
+      <div className="modal-send-pull modal fade" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">

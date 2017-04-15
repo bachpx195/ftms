@@ -1,8 +1,8 @@
-import React from 'react';
 import Form from './form';
-
+import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../subject_constants';
+import * as subject_constants from '../constants/subject_constants';
+
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
 export default class ModalCreateSubject extends React.Component {
