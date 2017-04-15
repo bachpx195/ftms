@@ -12,9 +12,10 @@ class Organization < ApplicationRecord
   has_many :programs, dependent: :destroy
   has_many :courses, through: :programs
   has_many :managers, through: :courses
-  has_many :standard_organizations, dependent: :destroy
-  has_many :training_standards, through: :standard_organizations,
+  has_many :share_withs, dependent: :destroy
+  has_many :shared_training_standards, through: :share_withs,
     source: :training_standard
+  has_many :training_standards, dependent: :destroy
   has_many :surveys, dependent: :destroy
   has_many :assignments, dependent: :destroy
   has_many :subjects, dependent: :destroy
