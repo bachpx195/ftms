@@ -3,8 +3,13 @@ class Supports::ProjectSupport
     @params = args[:params]
   end
 
-  def projects
-    Project.all
+  %w(projects organizations requirements).each do |method|
+    define_method method do
+      unless instance_variable_get "@#{method}"
+        instance_variable_set "@#{method}", method.classify.constantize.all
+      end
+      instance_variable_get "@#{method}"
+    end
   end
 
   %w(projects_serializer project_serializer).each do |method|
