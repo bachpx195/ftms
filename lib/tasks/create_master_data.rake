@@ -180,22 +180,22 @@ namespace :db do
 
     puts "9. Create Training Standard"
     TrainingStandard.create!([
-      {name: "OpenEducation 1", creator_id: 4,
+      {name: "OpenEducation 1", creator_id: 4, organization_id: 2, policy: 1,
+        description: "Lorem Ipsum is simply dummy <te></te>xt of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+      {name: "OpenEducation 2", creator_id: 4, organization_id: 2, policy: 1,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-      {name: "OpenEducation 2", creator_id: 4,
+      {name: "OpenEducation 3", creator_id: 4, organization_id: 2, policy: 1,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-      {name: "OpenEducation 3", creator_id: 4,
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
-      {name: "OpenEducation 4", creator_id: 4,
+      {name: "OpenEducation 4", creator_id: 4, organization_id: 2, policy: 1,
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
     ])
-    StandardOrganization.create!([
-      {organization_id: 2, training_standard_id: 1},
-      {organization_id: 2, training_standard_id: 2},
-      {organization_id: 2, training_standard_id: 3},
-      {organization_id: 2, training_standard_id: 4},
+    ShareWith.create!([
       {organization_id: 3, training_standard_id: 1},
-      {organization_id: 3, training_standard_id: 2}
+      {organization_id: 3, training_standard_id: 2},
+      {organization_id: 3, training_standard_id: 3},
+      {organization_id: 3, training_standard_id: 4},
+      {organization_id: 4, training_standard_id: 1},
+      {organization_id: 4, training_standard_id: 2}
     ])
 
     puts "10. Create subject"
@@ -528,8 +528,12 @@ namespace :db do
     puts "34. Create Questions"
     Category.all.each do |category|
       30.times do |n|
-        category.questions.create! content: "Lorem ipsum is simply dummy text",
-          level: n % 3, question_type: 0
+          question = category.questions.create! content: "Lorem ipsum is simply dummy text",
+            level: n % 3, question_type: 0
+          4.times do |n|
+              question.answers.create! content:  "Lorem ipsum is simply dummy text"
+          end
+          question.answers.sample.update_attributes is_correct: true
       end
     end
 
