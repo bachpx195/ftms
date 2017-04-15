@@ -45,13 +45,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
     user = @user_supports.user
     respond_to do |format|
       format.json do
         if user.update_attributes user_params
           render json: {message: flash_message("updated"),
-            user: user}
+            user_detail: @user_supports.user_serializer}
         else
           render json: {message: flash_message("not_updated"),
             errors: user.errors}, status: :unprocessable_entity

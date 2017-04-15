@@ -1,6 +1,6 @@
 class Serializers::Users::UserProfileSerializer <
   Serializers::SupportSerializer
-  attrs :user_id, :star_training, :leave_date,
+  attrs :user_id, :start_training_date, :leave_date,
     :finish_training_date, :ready_for_project, :contract_date, :naitei_company,
     :university, :graduation, :language, :trainee_type,
     :user_status, :stage, :organization, :working_day, :program,

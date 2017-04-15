@@ -17,12 +17,12 @@ class Supports::UserSupport
   end
 
   def user_serializer
-    @users_serializer = Serializers::Users::UsersSerializer
+    @user_serializer ||= Serializers::Users::UsersSerializer
       .new(object: user).serializer
   end
 
   %w(organizations programs roles universities trainee_types languages
-    user_statuses).each do |method|
+    user_statuses stages).each do |method|
     define_method method do
       unless instance_variable_get "@#{method}"
         instance_variable_set "@#{method}", method.classify.constantize.all

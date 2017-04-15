@@ -3,7 +3,7 @@ import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 import UserListBox from './user_list_box';
 
-export default class UserIndexBox extends React.Component {
+export default class UsersBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
