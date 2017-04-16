@@ -3,21 +3,26 @@ import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
 import Form from './templates/form';
 import Modal from '../requirements/templates/modal';
-import RequirementLists from '../requirements/requirements';
+import Requirements from '../requirements/requirements';
 import RenderTextButton from './templates/render_text_button';
+import Destroy from './actions/destroy';
 import * as app_constants from 'constants/app_constants';
 import * as project_constants from './constants/project_constants';
 import * as subject_constants from '../subjects/subject_constants';
+import * as requirement_constants from 
+  '../requirements/constants/requirement_constants';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+const PROJECTS_URL = app_constants.APP_NAME + project_constants.PROJECT_PATH;
 
 export default class ProjectBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      requirements: {},
+      requirements: props.requirements,
       requirement: {},
       project: props.project,
+      organizations: props.organizations,
       url: null,
       showForm: false
     }
@@ -32,11 +37,14 @@ export default class ProjectBox extends React.Component {
         organizations={this.state.organizations}
         handleAfterUpdate={this.handleAfterUpdate.bind(this)} />;
     }
-
-    let path = url + project_constants.REQUIREMENT_PATH;
+    let path = PROJECTS_URL + '/' + this.state.project.id + 
+      requirement_constants.REQUIREMENT_PATH;
     if (this.state.requirement.id != undefined) {
       path = this.state.url;
     }
+
+    let action_destroy = '';
+    action_destroy = <Destroy project={this.state.project} url={url}/>
 
     return(
       <div className='row evaluation_templates' id='admin-evaluation_templates'>
@@ -52,9 +60,7 @@ export default class ProjectBox extends React.Component {
                   onClick={this.handleClickButton.bind(this)}>
                   <RenderTextButton showForm={this.state.showForm} />
                 </button>&nbsp;
-                <button className="btn btn-danger"
-                  onClick={this.handleDelete.bind(this)}>
-                  {I18n.t('buttons.delete')}</button>
+                {action_destroy}
               </div>
             </div>
             <div className='box-body'>
@@ -67,7 +73,7 @@ export default class ProjectBox extends React.Component {
                 <div className="clearfix"></div>
               </div>
             </div>
-              <RequirementLists requirements={this.state.requirements}
+              <Requirements requirements={this.state.requirements}
                 requirement={this.state.requirement}
                 handleOnClickEdit={this.handleOnClickEdit.bind(this)} />
           </div>
@@ -104,17 +110,5 @@ export default class ProjectBox extends React.Component {
       project: new_project,
       showForm: false
     });
-  }
-
-  handleDelete() {
-    if (confirm(I18n.t('data.confirm_delete'))) {
-      const url = PROJECTS_URL + '/' + this.state.project.id;
-      axios.delete(url, {
-        params: {authenticity_token: ReactOnRails.authenticityToken()},
-        headers: {'Accept': 'application/json'}
-      })
-      .then(response => {window.location.href = PROJECTS_URL;})
-      .catch(error => console.log(error));
-    }
   }
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import { NewLayout } from '../../shareds/griddles/new_layout';
 import {IntlProvider, FormattedDate} from 'react-intl';
-import RequirementEdit from '../actions/edit';
+import Update from '../actions/update';
 import ModalRequirement from '../templates/modal';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
@@ -26,28 +27,12 @@ export default class RequirementGriddle extends React.Component {
 
   render() {
     const Buttons = ({value, griddleKey}) => (
-      <RequirementEdit requirement={this.state.requirements[griddleKey]}
+      <Update requirement={this.state.requirements[griddleKey]}
         handleOnClickEdit={this.handleOnClickEdit.bind(this)}
         handleAfterDelete={this.handleAfterDelete.bind(this)}  />
       );
 
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
-          </div>
-          <div className='col-md-12'>
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
+    {NewLayout}
 
     return (
       <div>

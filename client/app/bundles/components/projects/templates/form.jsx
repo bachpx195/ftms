@@ -82,7 +82,7 @@ export default class Form extends React.Component {
       formData.append('project[key]', null);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let method = this.props.project.id ? 'PUT' : 'POST';
+    let method = this.state.project.id ? 'PUT' : 'POST';
     axios({
       url: this.props.url + '.json',
       method: method,
@@ -95,6 +95,8 @@ export default class Form extends React.Component {
       });
       this.props.handleAfterUpdate(response.data.project);
     })
-    .catch(error => this.setState({errors: error.response.data.errors}));
+    .catch(error => {
+      console.log(error);
+    });
   }
 }

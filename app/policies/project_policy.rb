@@ -18,12 +18,12 @@ class ProjectPolicy < ApplicationPolicy
 
   def is_course_members?
     (record[:project].course_subject.user_subjects.pluck(:user_id)
-      .include? @user.id == @user)
+      .include? @user.id)
   end
 
   def is_course_managers?
     (record[:project].course_subject.course.course_managers.
-      pluck(:user_id).include? @user.id == @user)
+      pluck(:user_id).include? @user.id)
   end
 
   def belong_to_organization?

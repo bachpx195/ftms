@@ -5,13 +5,12 @@ import * as app_constants from 'constants/app_constants';
 import * as user_constants from '../users/user_constants';
 require('../../assets/sass/projects.scss');
 
-export default class RequirementLists extends React.Component {
+export default class Requirements extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       requirements: props.requirements,
-      project: {},
       showRequirement: {}
     }
   }
