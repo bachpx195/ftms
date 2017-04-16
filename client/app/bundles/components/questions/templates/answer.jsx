@@ -16,7 +16,11 @@ export default class Answer extends React.Component {
   }
 
   render() {
-    let check = this.state.answer.is_correct ? 'check-enable' : 'check-disable';
+    let check = 'check-disable'
+    if(this.state.answer.is_correct){
+      check = this.state.answer.is_correct ? 'check-enable' : 'check-disable';
+    }
+
     return (
       <div className='list-answers'>
         <div className='tool-bar col-xs-4'>

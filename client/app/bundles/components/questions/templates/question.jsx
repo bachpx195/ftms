@@ -3,6 +3,7 @@ import axios from 'axios';
 import Destroy from '../actions/destroy'
 import QuestionPolicy from 'policy/question_policy';
 import React from 'react';
+import ToolBar from './tool_bar';
 
 export default class Question extends React.Component {
   constructor(props) {
@@ -21,9 +22,23 @@ export default class Question extends React.Component {
   render() {
     let list_answers = this.state.question.answers.map((answer, index) => {
       return (
-        <Answer answer={answer} key={index} />
+        <Answer answer={answer} key={index} question={this.state.question} />
       )
     });
+
+    let tool_bar = '';
+    if(!this.props.exam) {
+      tool_bar = (
+        <div className='tool-bar'>
+          <ToolBar url={this.props.url}
+            afterDeleteQuestion={this.afterDeleteQuestion.bind(this)}
+            afterClickEditQuestion={this.afterClickEditQuestion.bind(this)}
+            question={this.state.question}
+          />
+        </div>
+      )
+    }
+
     return (
       <div className='block-question'>
         <div className='block-content'>
@@ -32,22 +47,7 @@ export default class Question extends React.Component {
               <div className='number'>
                 {this.props.index + 1}
               </div>
-              <div className='delete-question'>
-                <QuestionPolicy
-                  permit={[{action: ['destroy'], target: 'children'}]} >
-                  <Destroy afterDeleteQuestion={this.afterDeleteQuestion.bind(this)}
-                  url={this.props.url} question={this.props.question} />
-                </QuestionPolicy>
-              </div>
-              <div className='edit-question'>
-                <QuestionPolicy permit={[
-                  {action: ['update'], target: 'children'}]} >
-                  <a onClick={this.afterClickEditQuestion.bind(this)}
-                    data-index={this.props.question.id}>
-                    <i className="fa fa-pencil"></i>
-                  </a>
-                </QuestionPolicy>
-              </div>
+              {tool_bar}
             </div>
             <div className='side-right'>
               <div className='form-group'>
