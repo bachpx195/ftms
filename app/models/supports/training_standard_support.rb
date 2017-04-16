@@ -1,20 +1,11 @@
 class Supports::TrainingStandardSupport
   def initialize args = {}
     @training_standard = args[:training_standard]
+    @params = args[:params]
   end
 
   def subjects
     @subjects ||= Subject.select :id, :name
-  end
-
-  def training_standards
-    admin = true
-    @training_standards =
-      if admin
-        TrainingStandard.select :id, :name, :description
-      else
-        current_user.training_standards
-      end
   end
 
   def selected_subjects
@@ -23,5 +14,21 @@ class Supports::TrainingStandardSupport
 
   def remain_subjects
     @subjects_remain ||= Subject.find_remain_subjects @selected_subjects.ids
+  end
+
+  def organization
+    @organization ||= Organization.find_by id: @params[:organization_id]
+  end
+
+  def training_standards_serializer
+    @training_standards_serializer ||=
+      Serializers::TrainingStandards::TrainingStandardsSerializer
+        .new(object: @organization.training_standards).serializer
+  end
+
+  def training_standard_serializer
+    @training_standards_serializer =
+      Serializers::TrainingStandards::TrainingStandardsSerializer
+        .new(object: training_standard).serializer
   end
 end
