@@ -1,2 +1,8 @@
-<%= react_component "SupervisorProgramsShowBox",
-  props: {organization: @organization, program: @program}, prerender: false %>
+<%= react_component "ProgramsShowBox",
+  props: {
+    organization: @organization,
+    program: @program,
+    program_detail: @supports.program_detail,
+    owners: @supports.owners,
+    all_roles: @supports.all_roles
+  }, prerender: false %>
