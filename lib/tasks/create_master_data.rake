@@ -528,12 +528,12 @@ namespace :db do
     puts "34. Create Questions"
     Category.all.each do |category|
       30.times do |n|
-          question = category.questions.create! content: "Lorem ipsum is simply dummy text",
-            level: n % 3, question_type: 0
-          4.times do |n|
-              question.answers.create! content:  "Lorem ipsum is simply dummy text"
-          end
-          question.answers.sample.update_attributes is_correct: true
+        question = category.questions.create! content: "Lorem ipsum is simply dummy text",
+          level: n % 3, question_type: 0
+        4.times do n
+          question.answers.create! content: "Lorem ipsum is simply dummy text"
+        end
+        question.answers.sample.update_attributes is_correct: true
       end
     end
 

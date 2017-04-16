@@ -39,6 +39,14 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
     @show_program ||= nil
   end
 
+  def question_results
+    @question_results ||= nil
+  end
+
+  def results
+    @results ||= nil
+  end
+
   def task_id
     task =
       if user_id

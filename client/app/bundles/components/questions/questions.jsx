@@ -22,17 +22,24 @@ export default class Questions extends React.Component {
   }
 
   render() {
-    let list_questions = this.state.questions.map((question, index) => {
-      return (
-        <Question question={question} key={index} index={index}
-          url={this.props.url + '/' + question.id}
-          afterDeleteQuestion={this.props.afterDeleteQuestion}
-          afterClickEditQuestion={this.afterClickEditQuestion.bind(this)} />
-      )
+    let list_questions = [] ;
+    this.state.questions.map((question, index) => {
+      if(this.props.exam){
+        list_questions.push(
+          <Question question={question} exam={this.props.exam} index={index}
+          key={index}/>
+        )
+      } else {
+        list_questions.push(
+          <Question question={question} key={index} index={index}
+            url={this.props.url + '/' + question.id}
+            afterDeleteQuestion={this.props.afterDeleteQuestion}
+            afterClickEditQuestion={this.afterClickEditQuestion.bind(this)} />
+        )
+      }
     });
-
     let modal_question = '';
-    if (this.state.question.id != '') {
+    if (this.state.question.id != '' && !this.props.exam) {
       modal_question = (
         <ModalQuestion
           question={this.state.question}

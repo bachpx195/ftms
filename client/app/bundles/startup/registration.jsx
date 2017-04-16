@@ -5,6 +5,7 @@ import CategoryBox from '../components/categories/show';
 import CoursesBox from '../components/courses/box';
 import CourseBox from '../components/courses/show';
 import EvaluationTemplatesBox from '../components/evaluation_templates/evaluation_templates_box';
+import ExamBox from '../components/exams/show';
 import ExamsBox from '../components/exams/box';
 import Footer from '../components/dashboards/footer';
 import FunctionsBox from '../components/functions/functions_box';
@@ -45,6 +46,7 @@ ReactOnRails.register({
   CoursesBox,
   CourseBox,
   EvaluationTemplatesBox,
+  ExamBox,
   ExamsBox,
   Footer,
   FunctionsBox,

@@ -16,6 +16,18 @@ class ExamsController < ApplicationController
       user: current_user
   end
 
+  def find_exam
+    unless @exam_supports.exam
+      respond_to do |format|
+        format.html{redirect_to exams_path}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
+  end
+
   def find_organization
     if params[:organization_id] && !@exam_supports.organization
       respond_to do |format|
