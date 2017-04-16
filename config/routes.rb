@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :exams, only: [:index, :show]
     resources :users
     resources :training_standards
+    get "/statistics/:type" => "statistics#show", as: :statistics_page
   end
   resources :subjects do
     resources :surveys
@@ -111,4 +112,5 @@ Rails.application.routes.draw do
   resources :test_rules
   resources :exams, only: :show
   resources :timelines, only: :index
+  get "/statistics/:type" => "statistics#show", as: :statistics_page
 end
