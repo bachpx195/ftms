@@ -52,7 +52,8 @@ export default class SubjectsShow extends React.Component {
           evaluation_template={this.props.evaluation_template}
           evaluation_standards={this.props.evaluation_standards}
           member_evaluations={this.state.member_evaluations}
-          member_ids={this.props.member_ids} />
+          member_ids={this.props.member_ids}
+          organizations={this.props.organizations} />
       );
     } else {
       return(

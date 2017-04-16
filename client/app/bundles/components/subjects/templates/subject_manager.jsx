@@ -1,11 +1,13 @@
 import axios from 'axios';
+import Create from '../../projects/actions/create';
 import ListTabs from '../supervisor/list_tabs';
+import Modal from '../../projects/templates/modal';
 import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
+
 import * as app_constants from 'constants/app_constants';
 import * as subject_constants from '../constants/subject_constants';
 
-const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
 export default class SubjectManager extends React.Component {
@@ -21,6 +23,8 @@ export default class SubjectManager extends React.Component {
   }
 
   render() {
+    let projects_url = SUBJECT_URL + this.state.subject_detail.id + '/' + 
+      'projects';
     return (
       <div className='admin-subject-show clearfix'>
         <div className='row'>
@@ -59,6 +63,15 @@ export default class SubjectManager extends React.Component {
                 {I18n.t('subjects.add_task')}
               </button>
             </SubjectPolicy>
+            </div>
+            <div className='col-md-3 text-right'>
+              <Create />
+              <Modal organizations={this.props.organizations}
+                subject_detail={this.state.subject_detail} />
+            </div>
+            <div className='col-md-3 text-right'>
+              <a className='btn btn-primary' href={projects_url}>
+                {I18n.t('buttons.list_projects')}</a>
             </div>
           </div>
         </div>
@@ -164,4 +177,5 @@ export default class SubjectManager extends React.Component {
       subject_detail: this.state.subject_detail
     });
   }
+
 }

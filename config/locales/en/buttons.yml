@@ -21,3 +21,5 @@ en:
     next: Next
     back: Back
     add: Add
+    add_project: "Add Project"
+    list_projects: "List Projects"

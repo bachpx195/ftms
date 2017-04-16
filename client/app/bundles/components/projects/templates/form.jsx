@@ -12,7 +12,7 @@ export default class Form extends React.Component {
     super(props);
 
     this.state = {
-      project: props.project,
+      project: props.project || {},
       organizations: props.organizations,
       errors: null,
     };
@@ -93,6 +93,7 @@ export default class Form extends React.Component {
         project: {},
         errors: null,
       });
+      $('#modalCreate').modal('hide');
       this.props.handleAfterUpdate(response.data.project);
     })
     .catch(error => {
