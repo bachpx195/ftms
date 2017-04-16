@@ -1,3 +1,4 @@
 <%= react_component "TrainingStandardBox",
-  props: {training_standards: @supports.training_standards,
+  props: {training_standards: @supports.training_standards_serializer,
+  organization: @supports.organization,
   subjects: @supports.subjects}, prerender: false %>

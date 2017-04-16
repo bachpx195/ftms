@@ -1,6 +1,8 @@
 class TrainingStandardsController < ApplicationController
   before_action :find_training_standard, except: [:index, :new, :create]
-  before_action :supports, only: [:index, :show]
+  before_action :supports
+  before_action :find_organization
+  before_action :authorize_request
 
   def index
     respond_to do |format|
@@ -87,7 +89,24 @@ class TrainingStandardsController < ApplicationController
   end
 
   def supports
-    @supports = Supports::TrainingStandardSupport
-      .new training_standard: @training_standard
+    @supports = Supports::TrainingStandardSupport.
+      new training_standard: @training_standard, params: params
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(training_standard: @training_standard),
+      TrainingStandardPolicy
+  end
+
+  def find_organization
+    unless @supports.organization
+      respond_to do |format|
+        format.html{redirect_to organizations_path}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
   end
 end

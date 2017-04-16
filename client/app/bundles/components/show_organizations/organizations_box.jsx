@@ -124,6 +124,8 @@ export default class OrganizationBox extends React.Component {
 
     let ORGANIZATION_MEMBERS_URL = ORGANIZATION_URL + '/' +
       this.state.organization.id + '/' + 'users';
+    let ORGANIZATION_TRAINING_STANDARDS_URL = ORGANIZATION_URL + '/' +
+      this.state.organization.id + '/' + 'training_standards';
     let ORGANIZATION_EXAMS_URL = ORGANIZATION_URL + '/' +
       this.state.organization.id + '/' + exam_constants.EXAMS_PATH;
 
@@ -186,7 +188,9 @@ export default class OrganizationBox extends React.Component {
               <div className='member-title'>
                 <i className='fa fa-certificate' aria-hidden='true'></i>
                 <strong>
-                  {I18n.t('organizations.num_training_standards')}
+                  <a href={ORGANIZATION_TRAINING_STANDARDS_URL}>
+                    {I18n.t('organizations.num_training_standards')}
+                  </a>
                 </strong>
                 <span className='badge label-primary'>
                   {count_training_standards}

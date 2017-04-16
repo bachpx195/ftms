@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :subjects
     resources :exams, only: [:index, :show]
     resources :users
+    resources :training_standards
   end
   resources :subjects do
     resources :surveys
