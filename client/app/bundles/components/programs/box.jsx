@@ -98,7 +98,8 @@ export default class Box extends React.Component {
     });
   }
 
-  handleAfterUpdated(new_program) {
+  handleAfterUpdated(response) {
+    let new_program = response.data.program;
     for(let i = 0; i < this.state.programs.length; i++){
       let parent = this.state.programs[i].parent;
       if(parent && parent.id == new_program.id) {
@@ -114,7 +115,8 @@ export default class Box extends React.Component {
     });
   }
 
-  handleAfterDeleted(program) {
+  handleAfterDeleted(response) {
+    let program = response.data.program
     this.removeChildren(program);
     _.remove(this.state.programs, _program => {
       return _program.id == program.id;

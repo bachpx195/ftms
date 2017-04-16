@@ -3,21 +3,21 @@ import React from 'react';
 
 export default class Update extends React.Component {
   render() {
-    return(
+    return (
       <button type="submit" className="btn btn-primary"
-        onClick={this.onClickCreateProgram.bind(this)}>
+        onClick={this.onClickUpdateProgram.bind(this)}>
         {I18n.t("buttons.edit")}
       </button>
     );
   }
 
-  onClickCreateProgram(event) {
+  onClickUpdateProgram(event) {
     event.preventDefault();
     let formData = new FormData();
 
-    let attribute = this.props.attribute;
+    let attributes = this.props.attributes;
 
-    for(let key of Object.keys(attribute)) {
+    for(let key of Object.keys(attributes)) {
       formData.append(this.props.params + '[' + key + ']', attributes[key]);
     }
 
@@ -30,7 +30,7 @@ export default class Update extends React.Component {
     })
     .then(response => {
       $('.modalEdit').modal('hide');
-      this.props.handleAfterCreated(response);
+      this.props.handleAfterUpdated(response);
     })
     .catch(error => {
       console.log(error);

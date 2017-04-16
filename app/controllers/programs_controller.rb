@@ -101,6 +101,7 @@ class ProgramsController < ApplicationController
         if @program.deleted?
           @message = flash_message "deleted"
           @programs = @organization.programs
+          render json: {message: @message, program: @program}
         else
           render json: {message: flash_message("not_deleted")},
             status: :unprocessable_entity

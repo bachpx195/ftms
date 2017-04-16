@@ -1,9 +1,11 @@
-import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import React from 'react';
+import Trainers from './trainers';
+import {IntlProvider, FormattedDate} from 'react-intl';
+import {NewLayout} from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import {IntlProvider, FormattedDate} from 'react-intl';
 import * as user_constants from '../users/user_constants';
 
 const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
@@ -29,19 +31,8 @@ export default class CourseLists extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='row'>
-        <div className='griddle-head clearfix'>
-          <div className='col-md-6'>
-            <Filter />
-          </div>
-          <div className='col-md-6 text-right'>
-            <Pagination />
-          </div>
-        </div>
-        <Table />
-      </div>
-    );
+    {NewLayout}
+
     const Image = ({griddleKey}) => (
       <div className='td-box'>
         <img src={this.state.courses[griddleKey].image.url}
@@ -61,62 +52,17 @@ export default class CourseLists extends React.Component {
 
     const ListTrainer = ({griddleKey}) => {
       let course = this.state.courses[griddleKey];
-      let trainers = [];
-      let subsit_users = null;
-      if(course.users){
-        let count_subsit_users = course.users.length - 2;
-        trainers = course.users.slice(0,2).map((trainer, index) => {
-          return (<div key={index} className="block-trainer">
-            <a className="image" onError={this.checkImage.bind(this)}
-              title={trainer.name} href={USER_URL + trainer.id} >
-              <img src={trainer.avatar.url} className='img-circle' />
-            </a>
-          </div>);
-        });
-        if(count_subsit_users > 0) {
-          subsit_users = (
-            <div className='subsit-users'>
-              <div className="block-trainer">
-                <p className="image image-others"
-                  onClick={this.handleClick.bind(this)}
-                  title={I18n.t('organizations.other_managers')} >
-                  <img src='/assets/profile.png' className='img-circle' />
-                  <span className='count-users'>{count_subsit_users}+</span>
-                </p>
-              </div>
-              <div id='modalManager' className='modal fade in' role='dialog'>
-                <div className='modal-dialog'>
-                  <div className='modal-content'>
-                    <div className='modal-header'>
-                      <button type='button' className='close'
-                        data-dismiss='modal'>&times;</button>
-                      <h4 className='modal-title'>
-                        {I18n.t('organizations.all_managers')}
-                      </h4>
-                    </div>
-                    <div className='modal-body'>
-                      {this.renderOtherManagers(course.users.slice(0, course.users.length))}
-                    </div>
-                    <div className='clearfix'></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
-        }
-      }
-      return(
-        <div className="list-trainers" key={'course'+course.id}>
-          {trainers}
-          {subsit_users}
-        </div>
-      )
+      return (
+        <Trainers
+          user_url={USER_URL}
+          course={course}
+        />);
     }
 
 
     const Status = ({griddleKey}) => {
       let course = this.state.courses[griddleKey];
-      return(
+      return (
         <p className={I18n.t('courses.class_status.' + course.status)}
           data-index={griddleKey}>
           {I18n.t('courses.' + course.status)}
@@ -134,13 +80,13 @@ export default class CourseLists extends React.Component {
     const Description = ({griddleKey}) => {
       let description = this.state.courses[griddleKey].description;
       if (description.length > 15){
-        return(
+        return (
           <p className='description' title={description}>
             {description.substring(0, 15)+ '...'}
           </p>
         )
       } else {
-        return(
+        return (
           <p className='description' title={description}>
             {description}
           </p>
@@ -208,20 +154,4 @@ export default class CourseLists extends React.Component {
     $target.blur();
     $('#modalManager').modal();
   }
-
-  renderOtherManagers(course_users) {
-    return(
-      course_users.map((trainer, index) => {
-        return(
-          <div key={index} className="block-trainer">
-            <a className="image" onError={this.checkImage.bind(this)}
-              title={trainer.name} href={USER_URL + trainer.id} >
-              <img src={trainer.avatar.url} className='img-circle' />
-            </a>
-          </div>
-        )
-      })
-    )
-  }
-
 }
