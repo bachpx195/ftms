@@ -16,7 +16,6 @@ import OrganizationBox from '../components/organizations/organizations_box';
 import Policies from '../policies/policies';
 import ProfileShowBox from '../components/users/profile_show_box';
 import ProgramsBox from '../components/programs/box';
-import ProgramsShowBox from '../components/programs/programs_show_box';
 import ProjectBox from '../components/projects/show';
 import ProjectsBox from '../components/projects/box';
 import RoleBox from '../components/roles/roles_box';
@@ -27,7 +26,7 @@ import StaticPageBox from '../components/static_pages/static_pages_box';
 import SubOrganizationShowBox from '../components/sub_organizations/show_box';
 import SubjectBox from '../components/subjects/subjects_box';
 import SubjectsShowBox from  '../components/subjects/subjects_show_box';
-import SupervisorProgramsShowBox from '../components/programs/supervisor_programs_show_box';
+import ProgramsShowBox from '../components/programs/show';
 import TeamsShowBox from '../components/teams/teams_show_box';
 import TestRuleBox from '../components/test_rules/test_rules_box';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
@@ -65,11 +64,9 @@ ReactOnRails.register({
   Sidebar,
   StageBox,
   StaticPageBox,
-  SupervisorProgramsShowBox,
   SubOrganizationShowBox,
   SubjectBox,
   SubjectsShowBox,
-  SupervisorProgramsShowBox,
   TeamsShowBox,
   TestRuleBox,
   TraineeTypeBox,

@@ -1,6 +1,7 @@
 en:
   programs:
     info: "Info"
+    sort: "Sort"
     titles:
       all: "All Programs"
     headers:

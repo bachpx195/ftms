@@ -1,6 +1,7 @@
 class Supports::ProgramSupport
   def initialize args = {}
     @program = args[:program]
+    @role_support = args[:role_support]
   end
 
   def users
@@ -25,5 +26,20 @@ class Supports::ProgramSupport
 
   def program_subjects
     @program_subjects ||= @program.program_subjects
+  end
+
+  def program_detail
+    Serializers::Programs::ProgramDetailSerializer
+      .new(object: @program, scope: {supports: self}).serializer
+  end
+
+  def owners
+    Serializers::Users::UsersSerializer
+      .new(object: @role_support.owners).serializer
+  end
+
+  def all_roles
+    Serializers::Roles::RolesSerializer
+      .new(object: @role_support.all_roles).serializer
   end
 end
