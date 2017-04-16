@@ -1,11 +1,11 @@
-import React from 'react';
 import axios from 'axios';
-import * as table_constants from 'constants/griddle_table_constants';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import * as app_constants from 'constants/app_constants';
 import ModalEvaluateMember from '../courses/modal_evaluate_member/modal';
-import * as subject_constants from './subject_constants';
+import React from 'react';
 import TeamPolicy from 'policy/team_policy';
+import * as app_constants from 'constants/app_constants';
+import * as subject_constants from './constants/subject_constants';
+import * as table_constants from 'constants/griddle_table_constants';
 
 const USER_SUBJECT_URL = app_constants.APP_NAME +
   subject_constants.USER_SUBJECT_PATH;
@@ -83,10 +83,10 @@ export default class UserSubjectList extends React.Component {
       }
       return null;
     }
-    
+
     return (
       <TeamPolicy permit={
-        [{action: ['owner'], target: 'children', 
+        [{action: ['owner'], target: 'children',
             data: {owner_id: this.props.course.owner_id}}]}
       >
         <div>

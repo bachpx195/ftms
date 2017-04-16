@@ -1,12 +1,11 @@
-import React from 'react';
 import axios from 'axios';
-import ModalCreateSubject from './subject_form/modal_create_subject'
-import SubjectLists from './subject_lists';
 import Form from './subject_form/form';
+import ModalCreateSubject from './subject_form/modal_create_subject';
+import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
-
+import Subjects from './subjects';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from './subject_constants';
+import * as subject_constants from './constants/subject_constants';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
@@ -60,7 +59,7 @@ export default class SubjectBox extends React.Component {
                     {action: ['create'], target: 'children'},
                     {action: ['index'], target: 'children'},
                   ]}>
-                <SubjectLists subjects={this.state.subjects}
+                <Subjects subjects={this.state.subjects}
                   handleAfterUpdated={this.handleAfterUpdated.bind(this)}
                   handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
               </SubjectPolicy>

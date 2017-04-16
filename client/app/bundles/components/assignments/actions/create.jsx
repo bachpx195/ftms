@@ -1,23 +1,23 @@
-import React from 'react';
 import axios from 'axios';
-import css from '../subject.scss';
-import * as app_constants from '../../../../constants/app_constants';
-import * as subject_constants from '../subject_constants';
+import css from '../../subjects/assets/subject.scss';
+import React from 'react';
+import * as app_constants from 'constants/app_constants';
+import * as subject_constants from '../../subjects/constants/subject_constants';
 
-export default class FormTask extends React.Component {
+export default class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       task: {
         name: ''
       },
-      type: props.type,
+      type: props.type || '',
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      type: nextProps.type
+      type: nextProps.type || ''
     })
   }
 
@@ -49,6 +49,7 @@ export default class FormTask extends React.Component {
       </form>
     )
   }
+
   formValid() {
     return this.state.task.name != '';
   }

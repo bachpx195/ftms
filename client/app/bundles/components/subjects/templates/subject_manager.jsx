@@ -1,15 +1,14 @@
-import React from 'react';
 import axios from 'axios';
-import ListTabs from './list_tabs';
-
-import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../subject_constants';
+import ListTabs from '../supervisor/list_tabs';
+import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
+import * as app_constants from 'constants/app_constants';
+import * as subject_constants from '../constants/subject_constants';
 
 const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
-export default class SupervisorSubjectShowBox extends React.Component {
+export default class SubjectManager extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,15 +18,6 @@ export default class SupervisorSubjectShowBox extends React.Component {
       member_evaluations: props.member_evaluations,
       member_ids: props.member_ids
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      course_subject_teams: nextProps.course_subject_teams,
-      subject_detail: nextProps.subject_detail,
-      member_evaluations: nextProps.member_evaluations,
-      member_ids: nextProps.member_ids
-    });
   }
 
   render() {
@@ -57,11 +47,11 @@ export default class SupervisorSubjectShowBox extends React.Component {
               </div>
             </div>
             <div className='col-md-3 text-right'>
-            <SubjectPolicy 
+            <SubjectPolicy
               permit={
-                [{action: ['owner'], target: 'children', 
+                [{action: ['owner'], target: 'children',
                     data: {owner_id: this.props.course.owner_id}},
-                  {action: ['course_manager'], target: 'children', 
+                  {action: ['course_manager'], target: 'children',
                     data: {members_ids: this.state.member_ids}}]}
             >
               <button type='button' className='btn btn-primary'

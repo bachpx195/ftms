@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../../subjects/subject_constants';
+import * as subject_constants from '../../subjects/constants/subject_constants';
 
 const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 

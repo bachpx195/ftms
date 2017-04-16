@@ -1,10 +1,10 @@
-import React from 'react';
 import axios from 'axios';
-
-import * as subject_constants from '../subject_constants';
-import * as app_constants from 'constants/app_constants';
-import * as table_constants from 'constants/griddle_table_constants';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import React from 'react';
+import * as app_constants from 'constants/app_constants';
+import * as subject_constants from '../constants/subject_constants';
+import * as table_constants from 'constants/griddle_table_constants';
+
 const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
 
 export default class UserTasks extends React.Component{
