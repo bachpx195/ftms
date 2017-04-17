@@ -16,16 +16,17 @@ export default class CategoriesObject extends React.Component {
       categories: nextProps.categories
     })
     var category_preview = null;
-    if(nextProps.categories[0]){
+    if(nextProps.categories[0]) {
       nextProps.categories[0].active = true;
       category_preview = nextProps.categories[0]
-    } else
+    } else {
       category_preview = [];
-    this.props.handleRefresh(['category_preview'], 
+    }
+    this.props.handleRefresh(['category_preview'],
       {category: category_preview});
   }
 
-  render(){
+  render() {
     if(this.state.categories.length <= 0 ) return null;
     const categories = _.map(this.state.categories,
       (item, index) => {
@@ -56,7 +57,7 @@ export default class CategoriesObject extends React.Component {
 
   filterCategories(event) {
     let value = event.target.value;
-    for(var category of this.state.categories){
+    for(var category of this.state.categories) {
       if(category.info.name.toLowerCase().includes(value.toLowerCase()))
         category['isHidden'] = false;
       else
@@ -83,7 +84,7 @@ export default class CategoriesObject extends React.Component {
     var categories = this.state.categories;
     var category = categories[$target.data('index')];
     category['_destroy'] = 1;
-    if(category.active) {
+    if (category.active) {
       category['active'] = false;
       this.props.handleRefresh(['category_preview'],
         {category: FunctionsHelper.findNodeActive(categories)});
@@ -93,9 +94,9 @@ export default class CategoriesObject extends React.Component {
     })
   }
 
-  refreshObject(data){
+  refreshObject(data) {
     this.setState(data);
-    this.props.handleRefresh(['category_preview'], 
+    this.props.handleRefresh(['category_preview'],
       {category: FunctionsHelper.findNodeActive(data.categories)});
   }
 }

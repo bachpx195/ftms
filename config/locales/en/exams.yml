@@ -8,3 +8,5 @@ en:
       created_at: "Created at"
       spent_time: "Spent time"
       score: "Score"
+    buttons:
+      finish: "Finish"

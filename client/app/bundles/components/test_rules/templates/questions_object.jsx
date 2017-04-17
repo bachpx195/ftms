@@ -94,9 +94,8 @@ export default class QuestionsObject extends React.Component {
   }
 
   refreshObject(data){
-    debugger;
     this.setState(data);
-    this.props.handleRefresh(['question_preview'], 
+    this.props.handleRefresh(['question_preview'],
       {question: FunctionsHelper.findNodeActive(data.questions)});
   }
 }
