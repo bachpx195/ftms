@@ -26,6 +26,7 @@ course:
   number_member_show: 5
 users:
   default_password: "1234578"
+  default_avatar: "app/assets/images/profile.png"
 class_names:
   - "Session"
   - "AssignProgram::Organization"

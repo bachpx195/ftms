@@ -1,6 +1,7 @@
-<%= react_component "UserShowBox",
+<%= react_component "UserShow",
   props: {
     user: @user_supports.user,
-    user_detail: @user_supports.user_serializer
+    user_detail: @user_supports.user_serializer,
+    organization: @user_supports.organization,
   },
   prerender: false %>

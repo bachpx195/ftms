@@ -5,13 +5,14 @@ import * as user_constants from './user_constants';
 import FormEdit from './form_edit';
 import UserRolesBox from './user_roles_box';
 import ModalChangeProgram from './change_program/modal';
+import AvatarBox from './templates/show_partials/avatar_box';
 import CustomPolicy from 'policy/course_policy';
 
 require('../../assets/sass/user.scss');
 
 const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
 
-export default class UserShowBox extends React.Component {
+export default class UserShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,29 +26,6 @@ export default class UserShowBox extends React.Component {
 
   componentDidMount() {
     load_timeline();
-  }
-
-  renderModal(){
-    let title = '';
-    title = I18n.t('users.edit_info_user');
-    return (
-      <div id='modal' className='modal fade in' role='dialog'>
-        <div className='modal-dialog'>
-          <div className='modal-content'>
-            <div className='modal-header'>
-              <button type='button' className='close'
-                data-dismiss='modal'>&times;</button>
-              <h4 className='modal-title'>{title}</h4>
-            </div>
-            <div className='modal-body'>
-              <FormEdit user={this.state.user_detail} url={USER_URL}
-                handleAfterSaved={this.handleAfterUpdated.bind(this)}
-                avatar={this.state.user_detail.avatar}/>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   renderChangeProgramModal(){
@@ -66,6 +44,10 @@ export default class UserShowBox extends React.Component {
   render() {
     let btn_change_program, division, join_div_date, naitei_company,
       finish_training_date, leave_date = <tr></tr>;
+    const EDIT_USER_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
+      + this.props.organization.id + '/' + user_constants.USER_PATH
+      + this.props.user_detail.id + '/'+ user_constants.EDIT_PATH;
+
     if(this.state.user_program) {
       btn_change_program = <div className='btn btn-primary'
         onClick={this.handleChangeProgram.bind(this)}>
@@ -109,8 +91,8 @@ export default class UserShowBox extends React.Component {
     }
 
     return(
-      <div className='user-profile row'>
-        <div className='panel panel-info'>
+      <div className='user-profile row clearfix'>
+        <div className='panel panel-info clearfix'>
           <div className='panel panel-heading'>
             <span className='pull-right'>
               <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
@@ -118,7 +100,7 @@ export default class UserShowBox extends React.Component {
                 this.state.organization_ids}}]} >
                 {btn_change_program}
               </CustomPolicy>
-              <a onClick={this.handleEdit.bind(this)} data-original-title={I18n.t('users.edit_user')}
+              <a href={EDIT_USER_URL} data-original-title={I18n.t('users.edit_user')}
                 data-toggle='tooltip' type='button' className='btn btn-md btn-primary'>
                 <i className='glyphicon glyphicon-edit'></i>
               </a>
@@ -135,8 +117,8 @@ export default class UserShowBox extends React.Component {
           </div>
           <div className='panel panel-body col-md-12'>
             <div className='col-md-2 '>
-              <img src={this.state.user_detail.avatar.url}
-                className='img-circle img-responsive img-size-50p'/>
+              <AvatarBox user_detail={this.state.user_detail}
+                organization={this.props.organization}/>
               <UserRolesBox user={this.props.user}/>
             </div>
             <div className='col-md-5'>
@@ -171,9 +153,7 @@ export default class UserShowBox extends React.Component {
                     </tr>
                     <tr>
                       <td>{I18n.t('users.profile_detail.ready_for_project')}</td>
-                      <td>{this.state.user_profile.ready_for_project ?
-                        I18n.t('users.profile_detail.ready') :
-                        I18n.t('users.profile_detail.not_ready')}
+                      <td>{this.state.user_profile.ready_for_project || ''}
                       </td>
                     </tr>
                     <tr>
@@ -235,7 +215,6 @@ export default class UserShowBox extends React.Component {
         <div className='col-md-12'>
           <div id="timeline-embed"></div>
         </div>
-        {this.renderModal()}
         {this.renderChangeProgramModal()}
       </div>
     )
@@ -245,15 +224,6 @@ export default class UserShowBox extends React.Component {
     this.setState({
       user_detail: new_user
     })
-  }
-
-  handleEdit(event) {
-    let $target = $(event.target);
-    $target.blur();
-    this.setState({
-      user: this.props.user[$target.data('show')]
-    });
-    $('#modal').modal();
   }
 
   handleChangeProgram(event) {

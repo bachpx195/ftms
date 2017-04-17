@@ -1,5 +1,7 @@
 $fa-green: #5cb85c;
 $box-shadow: #dfdfdf;
+$white: #fff;
+$black: #000;
 
 .roles {
   overflow: hidden;
@@ -10,7 +12,44 @@ $box-shadow: #dfdfdf;
   }
 }
 
-.img-size-50p {
+.avatar-container {
+  height: 150px;
+  line-height: 0;
+  position: relative;
+  width: 100%;
+
+  .avatar-size {
+    height: 100%;
+    margin: 0 auto;
+    width: 150px;
+  }
+
+  .upload-btn-overlay {
+    background: $black;
+    bottom: 0;
+    color: $white;
+    display: none;
+    line-height: 35px;
+    opacity: .2;
+    position: absolute;
+    transition: opacity .13s ease-out;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+.avatar-container:hover {
+  .upload-btn-overlay {
+    display: block;
+  }
+
+  .upload-btn-overlay:hover {
+    cursor: pointer;
+    opacity: .7;
+  }
+}
+
+.img-size {
   margin: 0 auto;
   width: 50%;
 }

@@ -1,5 +1,7 @@
 en:
   users:
+    avatar:
+      upload_profile_picture: "Upload Profile Picture"
     user_profile: "User profile"
     name: "Name: "
     email: "Email:"
@@ -37,10 +39,11 @@ en:
     edit_user_role: "Edit User Role"
     buttons:
       create: "Create"
+      change_program: "Change Program"
+      edit_role: "Edit role"
       new: "New"
       save: "Save"
-      edit_role: "Edit role"
-      change_program: "Change Program"
+      update: "Update"
     action: "Action"
     id: "ID"
     users: "Users"
@@ -53,8 +56,11 @@ en:
       from: "From"
       to: "To"
       select_program: "Select Program"
+    modal_upload_image:
+      title: "Update Profile Picture"
     box_title:
       new_user: "New User"
+      edit_info: "Edit Info"
     form_select:
       select_program: "Select a program"
       select_trainer: "Select a trainer"
@@ -62,3 +68,4 @@ en:
       select_type: "Select a type"
       select_language: "Select a language"
       select_status: "Select a status"
+      select_stage: "Select a stage"

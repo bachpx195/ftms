@@ -5,7 +5,7 @@ class CreateProfiles < ActiveRecord::Migration[5.0]
       t.date :start_training_date
       t.date :leave_date
       t.date :finish_training_date
-      t.boolean :ready_for_project
+      t.date :ready_for_project
       t.date :contract_date
       t.string :naitei_company
       t.integer :university_id

@@ -2,11 +2,13 @@
   props: {
     universities: @user_supports.universities,
     trainee_types: @user_supports.trainee_types,
-    languages: @user_supports.languages,
-    stage: @user_supports.stage, stages: @user_supports.stages,
+    languages: @user_supports.languages, stages: @user_supports.stages,
+    stage: @user_supports.stage, user: @user_supports.user,
+    profile: @user_supports.user.profile,
     trainers: @user_supports.current_organization_trainers,
     user_statuses: @user_supports.user_statuses,
     organization_programs: @user_supports.current_organization_programs,
     organization: @user_supports.organization,
   },
-  prerender: false %>
+  prerender: false
+ %>
