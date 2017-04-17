@@ -413,25 +413,16 @@ export default class HomePage extends React.Component {
       authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
-      if (response.data.success) {
-        this.setState({
-          errors: response.data.data.message
-        });
-        this.setLocalStorage(response);
-        window.location.reload();
-      } else {
-        this.setState({errors: response.data.data.message});
-      }
+      this.setState({
+        errors: response.data.message
+      });
+      this.setLocalStorage(response.data.current_user);
+      window.location.reload();
     })
-    .catch(
-      error => {
-        this.setState({errors: error.response.data.error})
-      }
-    );
+    .catch(error => this.setState({errors: error.response.data.message}));
   }
 
-  setLocalStorage(response) {
-    localStorage.setItem('current_user',
-      JSON.stringify(response.data.data.current_user));
+  setLocalStorage(current_user) {
+    localStorage.setItem('current_user', JSON.stringify(current_user));
   }
 }

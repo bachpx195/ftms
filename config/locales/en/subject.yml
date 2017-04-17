@@ -48,6 +48,7 @@ en:
       in_progress: "In progress"
       waiting: "Waiting"
       finished: "Finished"
+      reject: "Reject"
     members: "Members"
     init_subjects: "Init Subjects "
     progress_subjects: "Progress Subjects "

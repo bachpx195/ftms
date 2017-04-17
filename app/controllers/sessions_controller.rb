@@ -10,8 +10,7 @@ class SessionsController < Devise::SessionsController
     message = t "devise.sessions.signed_in"
     cookies["current_user_id"] = current_user.id
 
-    render json: {success: true, data: {message: message,
-      current_user: current_user}}
+    render json: {message: message, current_user: current_user}
   end
 
   def failure
@@ -19,8 +18,8 @@ class SessionsController < Devise::SessionsController
 
     respond_to do |format|
       format.json do
-        render json: {success: false,
-          data: {message: message, cause: "invalid"}}
+        render json: {message: message, cause: "invalid"},
+          status: :unprocessable_entity
       end
       format.html{redirect_to "/users/sessions/new"}
     end

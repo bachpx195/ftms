@@ -20,40 +20,40 @@ export default class SubjectDetail extends React.Component {
       <div className='col-md-12'>
         <div className='box box-success'>
           <div className='box-header with-border'>
-            <div className="box-tools pull-right">
-              <button type="button" className="btn btn-box-tool"
-                data-widget="collapse">
-                <i className="fa fa-minus"></i>
+            <div className='box-tools pull-right'>
+              <button type='button' className='btn btn-box-tool'
+                data-widget='collapse'>
+                <i className='fa fa-minus'></i>
               </button>
-              <button type="button" className="btn btn-box-tool"
-                data-widget="remove">
-                <i className="fa fa-times"></i>
+              <button type='button' className='btn btn-box-tool'
+                data-widget='remove'>
+                <i className='fa fa-times'></i>
               </button>
             </div>
           </div>
           <div className='box-body no-padding'>
             <div className='row'>
               <div className='col-md-8'>
-                <div className="assignment-box">
-                  <h1 className="header-task">
-                    {I18n.t("subjects.trainee.title_assignment")}
-                    <span className="label label-danger label-header">
-                      {I18n.t("subjects.assignments.total_task",
+                <div className='assignment-box'>
+                  <h1 className='header-task'>
+                    {I18n.t('subjects.trainee.title_assignment')}
+                    <span className='label label-danger label-header'>
+                      {I18n.t('subjects.assignments.total_task',
                         {total: this.state.assigments_of_user_subjects.length})}
                     </span>
                     <PublicPolicy permit={[{action: ['setUserTeam'], target: 'children',
                       data: {course_subject_teams: course_subject_teams}}]}>
-                      <button type='button' className="pull-right btn btn-info"
+                      <button type='button' className='pull-right btn btn-info'
                         onClick={this.handleClickButton.bind(this)}>
-                        {I18n.t("subjects.trainee.create_assignments")}
+                        {I18n.t('subjects.trainee.create_assignments')}
                       </button>
                     </PublicPolicy>
                   </h1>
                   {this.renderAssignment()}
                 </div>
               </div>
-              <div className="col-md-4">
-                <div className="member_user_course">
+              <div className='col-md-4'>
+                <div className='member_user_course'>
                 </div>
               </div>
             </div>

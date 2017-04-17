@@ -23,8 +23,32 @@ export default class SubjectManager extends React.Component {
   }
 
   render() {
-    let projects_url = SUBJECT_URL + this.state.subject_detail.id + '/' + 
+    let projects_url = SUBJECT_URL + this.state.subject_detail.id + '/' +
       'projects';
+    let add_task_button = null;
+    if (this.props.course) {
+      add_task_button = (
+        <SubjectPolicy
+          permit={
+            [{action: ['owner'], target: 'children',
+                data: {owner_id: this.props.course.owner_id}},
+              {action: ['course_manager'], target: 'children',
+                data: {members_ids: this.state.member_ids}}]}
+        >
+          <button type='button' className='btn btn-primary'
+            onClick={this.afterClickAddTask.bind(this)}>
+            {I18n.t('subjects.add_task')}
+          </button>
+        </SubjectPolicy>
+      );
+    } else {
+      add_task_button = (
+        <button type='button' className='btn btn-primary'
+          onClick={this.afterClickAddTask.bind(this)}>
+          {I18n.t('subjects.add_task')}
+        </button>
+      );
+    }
     return (
       <div className='admin-subject-show clearfix'>
         <div className='row'>
@@ -51,18 +75,7 @@ export default class SubjectManager extends React.Component {
               </div>
             </div>
             <div className='col-md-3 text-right'>
-            <SubjectPolicy
-              permit={
-                [{action: ['owner'], target: 'children',
-                    data: {owner_id: this.props.course.owner_id}},
-                  {action: ['course_manager'], target: 'children',
-                    data: {members_ids: this.state.member_ids}}]}
-            >
-              <button type='button' className='btn btn-primary'
-                onClick={this.afterClickAddTask.bind(this)}>
-                {I18n.t('subjects.add_task')}
-              </button>
-            </SubjectPolicy>
+              {add_task_button}
             </div>
             <div className='col-md-3 text-right'>
               <Create />
