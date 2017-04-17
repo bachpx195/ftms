@@ -17,6 +17,10 @@ class DynamicTask < Task
 
   enum status: [:init, :in_progress, :finish, :reject]
 
+  def targetable_type= type
+    super type.to_s.classify.constantize.base_class.to_s
+  end
+
   class << self
     def user_static_tasks
       StaticTask.where id: self.pluck(:targetable_id)

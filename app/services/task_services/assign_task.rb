@@ -13,6 +13,10 @@ class TaskServices::AssignTask
         .send(@params[:task][:user_id] ? "dynamic_tasks" : "static_tasks")
         .new @task_params
       task.targetable_id = targetable_id
+      if task.class == DynamicTask && task.targetable.targetable
+        .class == Assignment
+        task.status = "init"
+      end
       return false unless task.save
       if @task_params[:targetable_type] == "StaticTask"
         list_targets << task.targetable.targetable.attributes

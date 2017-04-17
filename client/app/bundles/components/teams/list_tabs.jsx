@@ -30,7 +30,7 @@ export default class ListTabs extends React.Component {
         <div className='col-md-12'>
           <ul className='nav nav-tabs tab-bar'>
             <TeamPolicy permit={
-              [{action: ['owner'], target: 'children', 
+              [{action: ['owner'], target: 'children',
                   data: {owner_id: this.props.course.owner_id}}]}
             >
               <li className='active'>
@@ -111,7 +111,7 @@ export default class ListTabs extends React.Component {
             .user_subjects[this.state.user_index].user_course_task}
           user_index={this.state.user_index}
           ownerable_id={this.state.subject_detail.course_subject.id}
-          ownerable_type='Team'
+          ownerable_type='CourseSubject'
           subject_detail={this.state.subject_detail}
           handleAfterAddTask={this.props.handleAfterAddTask}
           afterCreateTask={this.props.afterCreateTask}
