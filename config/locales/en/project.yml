@@ -18,3 +18,4 @@ en:
       description: "Description"
     modals:
       header_edit: "Edit language"
+      manage_project: "Manage Project"

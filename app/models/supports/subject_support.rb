@@ -82,4 +82,8 @@ class Supports::SubjectSupport
     Serializers::Evaluations::MemberEvaluationsSerializer
       .new(object: member_evaluations).serializer
   end
+
+  def organizations
+    @organizations ||= Organization.all
+  end
 end
