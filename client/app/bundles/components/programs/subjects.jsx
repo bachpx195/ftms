@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import css from '../training_standards/training_standard.scss';
+import css from '../training_standards/assets/training_standard.scss';
 
 export default class SubjectLists extends React.Component {
   constructor(props) {
