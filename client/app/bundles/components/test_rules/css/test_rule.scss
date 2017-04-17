@@ -1,3 +1,8 @@
+$c-white: #fff;
+$c-blue: #4caf50;
+$c-black: rgba(0, 0, 0, .3);
+$c-border: #808080;
+
 .form-group {
   .submit {
     padding: 7px 25px;
@@ -12,31 +17,67 @@
   margin: 50px 40px 0 !important;
 }
 
-.modal-test-rule{
+.modal-test-rule {
   width: 70%;
 
-  .tab-content{
-    padding: 20px;
+  .tab-content {
     min-height: 300px;
-  }
-
-  .form-preview{
-    border: 1px gray solid;
     padding: 20px;
   }
 
-  .icon-remove{
-    float: right;
+  .form-preview {
+    border: 1px $c-border solid;
+    padding: 16px;
   }
 
-  .list-group-item{
-    cursor: pointer;
+  .list-node {
+    padding: 10px;
   }
 
-  .show-value{
-    border: none;
+  .icon-remove {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .list-group-item.node-item {
+    cursor: pointer !important;
+    padding: 0 !important;
+  }
+
+  .show-value {
+    background-color: $c-blue !important;
+    border: 0;
+    color: $c-white !important;
     padding: 5px 10px;
-    color: #fff!important;
-    background-color: #4CAF50!important;
+  }
+
+  .list-category {
+    height: 25vh;
+    min-height: 20vh;
+    overflow-y: scroll;
+  }
+
+  .list-question {
+    height: 35vh;
+    min-height: 20vh;
+    overflow-y: scroll;
+  }
+
+  .scroll-bar::-webkit-scrollbar-track {
+    background-color: $c-white;
+  }
+
+  .scroll-bar::-webkit-scrollbar {
+    background-color: $c-white;
+    width: 8px;
+  }
+
+  .scroll-bar::-webkit-scrollbar-thumb {
+    border: 2px solid $c-black;
+  }
+
+  .range-select {
+    padding-top: 20px;
   }
 }

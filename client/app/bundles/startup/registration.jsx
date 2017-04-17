@@ -28,7 +28,7 @@ import SubjectBox from '../components/subjects/box';
 import SubjectsShowBox from  '../components/subjects/show';
 import ProgramsShowBox from '../components/programs/show';
 import TeamsShowBox from '../components/teams/teams_show_box';
-import TestRuleBox from '../components/test_rules/test_rules_box';
+import TestRulesBox from '../components/test_rules/box';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
 import TrainingStandardBox from '../components/training_standards/box';
 import TrainingStandardShow from '../components/training_standards/admin/standard_show';
@@ -68,7 +68,7 @@ ReactOnRails.register({
   SubjectBox,
   SubjectsShowBox,
   TeamsShowBox,
-  TestRuleBox,
+  TestRulesBox,
   TraineeTypeBox,
   TrainingStandardBox,
   TrainingStandardShow,

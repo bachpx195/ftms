@@ -1,12 +1,12 @@
-import React from 'react';
-import axios from 'axios';
 import Errors from '../../shareds/errors';
+import React from 'react';
 
 export default class Form extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       errors: null,
+      test_rule: [],
       name: props.test_rule.name || '',
       total_question: props.test_rule.total_question || '',
       time_of_test: props.test_rule.time_of_test || '',
@@ -18,6 +18,7 @@ export default class Form extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      test_rule: nextProps.test_rule,
       name: nextProps.test_rule.name || '',
       total_question: nextProps.test_rule.total_question || '',
       time_of_test: nextProps.test_rule.time_of_test || '',
@@ -30,7 +31,7 @@ export default class Form extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <div>
         <Errors errors={this.state.errors}/>
         <div className='form-group'>
           <div className='row'>
@@ -120,12 +121,12 @@ export default class Form extends React.Component {
         <div className='form-group'>
           <div className='row'>
             <div className='col-xs-offset-9'>
-              <button type='submit' className='btn btn-primary submit'
-                disabled={!this.formValid()}> {I18n.t('buttons.save')}</button>
+              <button type='button' className='btn btn-primary submit'
+                onClick={this.handleNext.bind(this)}> {I18n.t('buttons.next')}</button>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     )
   }
 
@@ -135,37 +136,13 @@ export default class Form extends React.Component {
 
   handleChange(event) {
     let attribute = event.target.name;
+    Object.assign(this.state.test_rule, {[attribute]: event.target.value});
     this.setState({
       [attribute]: event.target.value
     });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    let test_rule = _.omit(this.state, 'errors');
-    let formData = new FormData();
-    for(let key of Object.keys(test_rule)) {
-      formData.append('test_rule[' + key + ']', test_rule[key]);
-    }
-
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-
-    let method = this.props.test_rule.id ? 'PUT' : 'POST';
-    axios({
-      url: this.props.url,
-      method: method,
-      data: formData,
-      headers: {'Accept': 'application/json'}
-    })
-    .then(response => {
-      if (this.props.test_rule.id) {
-        this.props.handleAfterUpdated(response.data.test_rule)
-      } else {
-        this.props.afterCreateTestRule(response.data.test_rule)
-      }
-      $('.modalForm').modal('hide');
-    })
-    .catch(error => {
-      this.setState({errors: error.response.data.errors})});
+  handleNext() {
+    $('a[href="#phrase-2"]').trigger('click');
   }
 }

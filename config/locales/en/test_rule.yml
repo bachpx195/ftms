@@ -14,9 +14,9 @@ en:
       opportunity: "Opportunity :"
       number_of_test: "Number of test :"
       number_question: Number questions
-      easy: Easy
-      normal: Normal
-      hard: Hard
+      easy: Percent Easy
+      normal: Percent Normal
+      hard: Percent Hard
       description: Description
       content: Content
       level: Level
