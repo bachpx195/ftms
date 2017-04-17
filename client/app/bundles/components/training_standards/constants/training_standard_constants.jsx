@@ -4,3 +4,4 @@ export const SUBJECT_PATH = 'subjects';
 export const ORGANIZATION_PATH = 'organizations';
 export const NEW_PATH = 'new';
 export const POLICIES = [{id: "privated", name: "Privated"}, {id: "publiced", name: "Publiced"}]
+export const SHARE_WITH_PATH = 'share_withs'

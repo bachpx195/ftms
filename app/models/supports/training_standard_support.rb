@@ -31,4 +31,10 @@ class Supports::TrainingStandardSupport
       Serializers::TrainingStandards::TrainingStandardsSerializer
         .new(object: training_standard).serializer
   end
+
+  def selected_organizations
+    @selected_organizations ||= (Organization.all -
+      @training_standard.shared_organizations -
+      [@training_standard.organization])
+  end
 end
