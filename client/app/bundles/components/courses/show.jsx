@@ -1,22 +1,13 @@
 import axios from 'axios';
 import React from 'react';
-
-import ModalAssignMember from './modal_assign_member/modal';
-import ModalChangeCourse from './move_courses/move_course_modal';
-import ModalEvaluateMember from './modal_evaluate_member/modal';
-import ModalPreviewDocument from '../shareds/modal_preview_document';
 import ModalTask from './add_tasks/modal_task';
-
+import CoursePanelRight from './templates/course_panel_right';
 import CoursePolicy from 'policy/course_policy';
 import css from './assets/course.scss';
-
 import * as app_constants from 'constants/app_constants';
 import * as course_constants from './constants/course_constants';
-import * as program_constants from '../programs/constants/program_constants';
 
 import Subjects from './partials/subjects';
-import Users from './partials/users';
-import Documents from './partials/documents';
 import CourseDetail from './partials/course_detail';
 
 require('../../assets/sass/course.scss');
@@ -41,7 +32,7 @@ export default class CourseShow extends React.Component {
       targetable_type: '',
       documents: props.course.documents,
       document_preview: {},
-      courses_of_user_manages: props.managed_courses
+      managed_courses: props.managed_courses
     }
   }
 
@@ -58,14 +49,15 @@ export default class CourseShow extends React.Component {
     return (
       <div className='row course-show'>
         <div className='col-md-9'>
+
           <CourseDetail
             courseListPermit={courseListPermit}
             course={this.state.course}
             program={this.state.program}
-            clickButtonList={this.clickButtonList.bind(this)}
             handleAfterUpdate={this.handleAfterUpdate.bind(this)}
             handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)}
           />
+
           <CoursePolicy permit={courseListPermit} >
             <button className="btn add-task"
               title={I18n.t("courses.title_add_task")}
@@ -74,31 +66,29 @@ export default class CourseShow extends React.Component {
               {I18n.t("courses.add_task")}
             </button>
           </CoursePolicy>
-          <Subjects subjects={this.state.subjects} course={this.state.course} />
+
+          <Subjects
+            subjects={this.state.subjects}
+            course={this.state.course}
+          />
         </div>
 
-        <Users
-          courseListPermit={courseListPermit}
-          course={this.state.course}
-          handleEvaluateModal={this.handleEvaluateModal.bind(this)}
-          handleAssignMember={this.handleAssignMember.bind(this)}
-          openModalChangeCourse={this.openModalChangeCourse.bind(this)}
-        />
-
-        <Documents
-          courseListPermit={courseListPermit}
-          documents={this.state.documents}
-          onDocumentsDrop={this.onDocumentsDrop.bind(this)}
-          handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
-          handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
-          clickPreviewDocument={this.clickPreviewDocument.bind(this)}
-        />
-
-        <ModalAssignMember unassignedUsers={this.state.course.unassigned_users}
-          managers={this.state.course.managers}
-          members={this.state.course.members}
-          course={this.state.course}
-          afterAssignUsers={this.afterAssignUsers.bind(this)} />
+        <div className="col-md-3">
+          <CoursePanelRight
+            state={this.state}
+            courseListPermit={courseListPermit}
+            onDocumentsDrop={this.onDocumentsDrop.bind(this)}
+            handleEvaluateModal={this.handleEvaluateModal.bind(this)}
+            openModalChangeCourse={this.openModalChangeCourse.bind(this)}
+            onDocumentsDrop={this.onDocumentsDrop.bind(this)}
+            handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
+            handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
+            clickPreviewDocument={this.clickPreviewDocument.bind(this)}
+            afterAssignUsers={this.afterAssignUsers.bind(this)}
+            afterMoveCourse={this.afterMoveCourse.bind(this)}
+            afterEvaluateMember={this.afterEvaluateMember.bind(this)}
+          />
+        </div>
 
         <ModalTask
           targetable={this.state.course}
@@ -108,30 +98,6 @@ export default class CourseShow extends React.Component {
           targetable_type={this.state.targetable_type}
           afterSubmitCreateTask={this.afterSubmitCreateTask.bind(this)}
           afterChangeSelectBox={this.afterChangeSelectBox.bind(this)}
-        />
-
-        <ModalEvaluateMember
-          evaluation_standards={this.state.evaluation_standards}
-          program={this.state.program}
-          member_evaluations={this.state.member_evaluations}
-          user={this.state.user} course={this.state.course}
-          evaluation_template={this.state.evaluation_template}
-          afterEvaluateMember={this.afterEvaluateMember.bind(this)}
-        />
-
-        <ModalPreviewDocument
-          document_preview={this.state.document_preview}
-          handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
-        />
-
-        <ModalChangeCourse
-          user={this.state.user}
-          course={this.state.course}
-          program={this.state.program}
-          subjects={this.state.subjects}
-          user_subjects={this.state.user_subjects}
-          courses_of_user_manages={this.state.courses_of_user_manages}
-          afterMoveCourse={this.afterMoveCourse.bind(this)}
         />
       </div>
     );
@@ -197,10 +163,6 @@ export default class CourseShow extends React.Component {
     });
   }
 
-  handleAssignMember() {
-    $('.modal-assign-member').modal();
-  }
-
   afterAssignUsers(unassigned_users, managers, members) {
     Object.assign(this.state.course, {
       unassigned_users: unassigned_users,
@@ -212,20 +174,8 @@ export default class CourseShow extends React.Component {
 
   handleAfterChangeStatus(new_course) {
     this.setState({
-      course: new_course,
+      course: new_course
     })
-  }
-
-  clickButtonList() {
-    if ($('.td-course-edit-delete').hasClass('hidden')) {
-      $('.td-course-edit-delete').removeClass('hidden');
-    } else {
-      $('.td-course-edit-delete').addClass('hidden');
-    }
-
-    if ($('.td-course-edit-delete').find('.finish-button')) {
-      $('.td-course-edit-delete').css('margin-left','0%');
-    }
   }
 
   onDocumentsDrop(acceptedFiles, rejectedFiles) {
@@ -239,7 +189,6 @@ export default class CourseShow extends React.Component {
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
     let url = app_constants.APP_NAME + 'documents';
-
     axios({
       url: url,
       method: 'POST',
@@ -249,7 +198,9 @@ export default class CourseShow extends React.Component {
     .then(response => {
       this.handleDocumentUploaded(response.data.document);
     })
-    .catch(error => this.setState({errors: error.response.data.errors}));
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   handleDocumentUploaded(document) {
@@ -269,22 +220,22 @@ export default class CourseShow extends React.Component {
   }
 
   openModalChangeCourse(user) {
-    const COURSES_URL = app_constants.APP_NAME +
-      program_constants.PROGRAMS_PATH + this.props.program.id + '/'
-      + course_constants.COURSES_PATH + this.state.course.id;
-    axios.get(COURSES_URL + ".json", {
+    const MOVE_COURSES_URL = app_constants.APP_NAME +
+      course_constants.MOVE_COURSES_PATH + "/" +
+      this.state.course.id;
+    axios.get(MOVE_COURSES_URL + ".json", {
       params: {
         user_id: user.id
       }
     }).then(response => {
       this.setState({
-        user_subjects: response.data.user_subjects,
-        user: user
-      })
-      $('.modal-change-course').modal();
+      user_subjects: response.data.user_subjects,
+      user: user
+    })
+    $('.modal-change-course').modal();
     }).catch(error => {
       console.log(error);
-    })
+    });
   }
 
   afterMoveCourse(user) {

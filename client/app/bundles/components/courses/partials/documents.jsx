@@ -44,7 +44,7 @@ export default class Documents extends React.Component {
 
   render() {
     return (
-      <div className='col-md-3 info-panel'>
+      <div className='info-panel clearfix'>
         <div className='box box-primary'>
           <div className='box-header with-border box-header-gray'>
             <h3 className='label box-title'>

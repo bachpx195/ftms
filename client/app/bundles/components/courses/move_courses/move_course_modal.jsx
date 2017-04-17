@@ -4,6 +4,7 @@ import SubjectItems from './subject_items';
 import SubjectList from './subject_list';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from '../../users/user_constants';
+import * as course_constants from '../constants/course_constants';
 
 const MOVEUSER_URL = app_constants.APP_NAME + user_constants.MOVE_USER_PATH;
 
@@ -14,7 +15,7 @@ export default class ModalChangeCourse extends React.Component {
       subjects: props.subjects,
       user: props.user || '',
       course: props.course,
-      courses_of_user_manages: props.courses_of_user_manages || [],
+      managed_courses: props.managed_courses || [],
       course_checked: '',
       program: props.program,
       target_subjects: [],
@@ -27,7 +28,7 @@ export default class ModalChangeCourse extends React.Component {
     this.setState({
       subjects: nextProps.subjects,
       user: nextProps.user || '',
-      courses_of_user_manages: nextProps.courses_of_user_manages,
+      managed_courses: nextProps.managed_courses,
       user_subjects: nextProps.user_subjects || []
     })
   }
@@ -154,7 +155,7 @@ export default class ModalChangeCourse extends React.Component {
   }
 
   renderAllCourse() {
-    return this.state.courses_of_user_manages.map(course => {
+    return this.state.managed_courses.map(course => {
       return(
         <option name={course.name}
           value={course.id}
@@ -172,13 +173,13 @@ export default class ModalChangeCourse extends React.Component {
         course_checked: target.value
       });
     } else {
-      let COURSES_URL = app_constants.APP_NAME +
-        "programs/" + this.state.program.id + '/'
-        + "courses/" + target.value;
-      axios.get(COURSES_URL + ".json")
+      const MOVE_COURSES_URL = app_constants.APP_NAME +
+        course_constants.MOVE_COURSES_PATH + "/" +
+        this.state.course.id;
+      axios.get(MOVE_COURSES_URL + ".json")
         .then(response => {
           this.setState({
-            target_subjects: response.data.course_subjects,
+            target_subjects: response.data.subjects,
             choose_course_subjects: [],
             course_checked: target.value
           });
