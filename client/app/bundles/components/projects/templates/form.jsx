@@ -93,7 +93,7 @@ export default class Form extends React.Component {
         project: {},
         errors: null,
       });
-      $('#modalCreate').modal('hide');
+      $('.modal-create').modal('hide');
       this.props.handleAfterUpdate(response.data.project);
     })
     .catch(error => {
