@@ -23,3 +23,5 @@
 //= require app.min.js
 //= require home_page
 //= require cable
+//= require timelineJS/embed
+//= require timeline

@@ -2,6 +2,7 @@ en:
   date:
     formats:
       default: "%d/%m/%Y"
+      timeline_js: "%Y,%m,%d"
   layouts:
     framgia: In Side Out
     courses: "COURSES"
