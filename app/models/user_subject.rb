@@ -21,4 +21,13 @@ class UserSubject < ApplicationRecord
     source_type: TestRule.name
 
   enum status: [:init, :in_progress, :waiting, :finished, :reject]
+
+  %w(assignments projects surveys test_rules).each do |task|
+    define_method task do
+      tasks = DynamicTask.where ownerable: course_subject,
+        user_id: self.user_id,
+        targetable: StaticTask.where(targetable_type: task.classify)
+      tasks.map{|task| task.targetable.targetable}
+    end
+  end
 end

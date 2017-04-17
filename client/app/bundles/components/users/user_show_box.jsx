@@ -23,6 +23,10 @@ export default class UserShowBox extends React.Component {
     }
   }
 
+  componentDidMount() {
+    load_timeline();
+  }
+
   renderModal(){
     let title = '';
     title = I18n.t('users.edit_info_user');
@@ -105,7 +109,7 @@ export default class UserShowBox extends React.Component {
     }
 
     return(
-      <div className='user-profile'>
+      <div className='user-profile row'>
         <div className='panel panel-info'>
           <div className='panel panel-heading'>
             <span className='pull-right'>
@@ -228,8 +232,11 @@ export default class UserShowBox extends React.Component {
             </div>
           </div>
         </div>
-      {this.renderModal()}
-      {this.renderChangeProgramModal()}
+        <div className='col-md-12'>
+          <div id="timeline-embed"></div>
+        </div>
+        {this.renderModal()}
+        {this.renderChangeProgramModal()}
       </div>
     )
   }

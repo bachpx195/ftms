@@ -109,4 +109,5 @@ Rails.application.routes.draw do
   end
   resources :test_rules
   resources :exams, only: :show
+  resources :timelines, only: :index
 end
