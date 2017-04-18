@@ -2,33 +2,37 @@ import Highcharts from 'highcharts';
 import React from 'react';
 import ReactHighcharts from 'react-highcharts';
 
-export default class PieChart extends React.Component {
+export default class ColumnChart extends React.Component {
   render() {
     let config = {
       chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
+        type: 'column'
       },
-      title: false,
-      tooltip: {
-        formatter: function () {
-          return I18n.t('statistics.languages.headers.language') + ': '
-            + '<strong>' + this.key + '</strong>' + ' <br/>'
-            + I18n.t('statistics.languages.series_name') + ': '
-            + '<strong>' + this.y + '</strong>';
+      title: {
+        text: false
+      },
+      xAxis: {
+        categories: this.props.trainee_types,
+        crosshair: true
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: I18n.t('statistics.trainee_types.y_axis.title')
+        },
+        labels: {
+          overflow: 'justify'
         }
       },
       plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
+        column: {
+          pointPadding: 0.2,
+          borderWidth: 0,
           dataLabels: {
             enabled: true,
-            format: '<b>{point.name}</b>: {point.extraValue}'
-          },
-          showInLegend: true
+            crop: false,
+            overflow: 'none'
+          }
         }
       },
       legend: {
@@ -45,7 +49,7 @@ export default class PieChart extends React.Component {
       credits: {
         enabled: false
       },
-      series: this.props.trainees_by_languages
+      series: this.props.trainees_by_trainee_types
     };
 
     return (
