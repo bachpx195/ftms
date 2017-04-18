@@ -4,13 +4,13 @@ import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 
-const ORGANIZATION_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH;
+const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
 const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
 
 import * as table_constants from 'constants/griddle_table_constants';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 
-export default class UserListBox extends React.Component {
+export default class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,8 +40,7 @@ export default class UserListBox extends React.Component {
     );
 
     const LinkShowUser = ({value, griddleKey}) => (
-      <a href={ORGANIZATION_URL + this.props.organization.id + '/'
-        + user_constants.USER_PATH + this.props.users[griddleKey].id}>{value}</a>
+      <a href={USER_URL + this.props.users[griddleKey].id}>{value}</a>
     );
 
     return(

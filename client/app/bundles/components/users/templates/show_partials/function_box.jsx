@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import SelectSell from '../shareds/select_cell';
-import Checkbox from '../shareds/checkbox';
+import SelectSell from '../../../shareds/select_cell';
+import Checkbox from '../../../shareds/checkbox';
 
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from './user_constants';
+import * as user_constants from '../../user_constants';
 
 const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
 
@@ -12,7 +12,7 @@ import * as table_constants from 'constants/griddle_table_constants';
 
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 
-export default class UserFunctionBox extends React.Component {
+export default class FunctionBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

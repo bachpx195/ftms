@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :programs
     resources :subjects
     resources :exams, only: [:index, :show]
-    resources :users
+    resources :users, except: [:show, :edit]
     resources :training_standards
     get "/statistics/:type" => "statistics#show", as: :statistics_page
   end
@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   resources :universities
   resources :trainee_types
   resources :functions
-  resources :users
+  resources :users, only: [:show, :edit]
   resources :roles
   resources :role_functions
   resources :documents, only: [:create, :destroy]

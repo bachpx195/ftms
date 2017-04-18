@@ -37,11 +37,20 @@ class Supports::UserSupport
   end
 
   def current_organization_trainers
-    @current_organization_trainers ||= organization.users
-      .where id: UserRole.trainer_ids
+    @current_organization_trainers ||=
+      if organization
+        organization.users.where id: UserRole.trainer_ids
+      else
+        user.profile.organization.users.where id: UserRole.trainer_ids
+      end
   end
 
   def current_organization_programs
-    @current_organization_programs ||= organization.programs
+    @current_organization_programs ||=
+      if organization
+        organization.programs
+      else
+        user.profile.organization.programs
+      end
   end
 end

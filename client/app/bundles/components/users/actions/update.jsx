@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
+import * as user_constants from '../user_constants';
 
 export default class Create extends React.Component {
   render() {
@@ -22,9 +23,6 @@ export default class Create extends React.Component {
     for(let key of Object.keys(profile)) {
       formData.append('user[profile_attributes][' + key + ']', profile[key]);
     }
-    formData.append('user[profile_attributes][stage_id]]', this.props.stage.id);
-    formData.append('user[profile_attributes][organization_id]]',
-     this.props.organization.id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let url = this.props.url + user.id;
     axios({
@@ -34,7 +32,8 @@ export default class Create extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      window.location.href = this.props.url + response.data.user_detail.id;
+      window.location.href = app_constants.APP_NAME + user_constants.USER_PATH
+        + response.data.user_detail.id;
     })
     .catch(error => {this.props.handleErrors(error.response.data.errors);});
   }

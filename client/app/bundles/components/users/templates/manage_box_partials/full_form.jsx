@@ -1,26 +1,23 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import Errors from '../../shareds/errors';
-import Create from '../actions/create';
-import Update from '../actions/update';
+import Errors from '../../../shareds/errors';
+import Create from '../../actions/create';
+import Update from '../../actions/update';
 import * as app_constants from 'constants/app_constants';
 
-export default class Form extends React.Component {
+export default class FullForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user || {
-        name: '', email: '', trainer_id: ''
-      },
+      user: props.user || {name: '', email: '', trainer_id: ''},
       profile: props.profile || {
         start_training_date: '', leave_date: '', finish_training_date: '',
         ready_for_project: '', contract_date: '', naitei_company: '',
         university_id: '', graduation: '', language_id: '', trainee_type_id: '',
         user_status_id: '', working_day: 0, program_id: '', staff_code: '',
         division: '', join_div_date: '', stage_id: '1'
-      },
-      errors: null,
+      }, errors: null,
     }
   }
 
@@ -348,22 +345,16 @@ export default class Form extends React.Component {
   handleUserChange(event) {
     let attribute = event.target.name;
     Object.assign(this.state.user, {[attribute]: event.target.value});
-    this.setState({
-      user: this.state.user
-    });
+    this.setState({user: this.state.user});
   }
 
   handleProfileChange(event) {
     let attribute = event.target.name;
     Object.assign(this.state.profile, {[attribute]: event.target.value});
-    this.setState({
-      profile: this.state.profile
-    });
+    this.setState({profile: this.state.profile});
   }
 
   handleErrors(errors) {
-    this.setState({
-      errors: errors
-    });
+    this.setState({errors: errors});
   }
 }

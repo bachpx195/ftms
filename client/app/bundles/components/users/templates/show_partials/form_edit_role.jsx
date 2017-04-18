@@ -2,11 +2,11 @@ import React from 'react';
 import lodash from 'lodash';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import Errors from '../shareds/errors';
+import Errors from '../../../shareds/errors';
 import CheckRoleBox from './check_role_box';
-import UserFunctionBox from './user_function_box';
+import FunctionBox from './function_box';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from './user_constants';
+import * as user_constants from '../../user_constants';
 
 const ROLES_URL = app_constants.APP_NAME + 'change_role/' + user_constants.USER_PATH;
 
@@ -79,7 +79,7 @@ export default class FormEditRole extends React.Component {
     return(
       <div className='edit-role'>
         <div className='roles'>{this.renderAllRole()}</div>
-        <UserFunctionBox user_id={this.props.user_id}
+        <FunctionBox user_id={this.props.user_id}
           data={this.state.functions}
           check_all='none'
           dataChange={this.dataChange.bind(this)}/>

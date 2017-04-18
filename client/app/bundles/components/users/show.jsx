@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 import FormEdit from './form_edit';
-import UserRolesBox from './user_roles_box';
+import RolesBox from './templates/show_partials/roles_box';
 import ModalChangeProgram from './change_program/modal';
 import AvatarBox from './templates/show_partials/avatar_box';
 import CustomPolicy from 'policy/course_policy';
@@ -44,8 +44,7 @@ export default class UserShowBox extends React.Component {
   render() {
     let btn_change_program, division, join_div_date, naitei_company,
       finish_training_date, leave_date = <tr></tr>;
-    const EDIT_USER_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
-      + this.props.organization.id + '/' + user_constants.USER_PATH
+    const EDIT_USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
       + this.props.user_detail.id + '/'+ user_constants.EDIT_PATH;
 
     if(this.state.user_program) {
@@ -126,9 +125,8 @@ export default class UserShowBox extends React.Component {
           </div>
           <div className='panel panel-body col-md-12'>
             <div className='col-md-2 '>
-              <AvatarBox user_detail={this.state.user_detail}
-                organization={this.props.organization}/>
-              <UserRolesBox user={this.props.user}/>
+              <AvatarBox user_detail={this.state.user_detail} />
+              <RolesBox user={this.props.user} />
             </div>
             <div className='col-md-5'>
               <div className='box'>
