@@ -1,0 +1,9 @@
+<%= react_component "StatisticsLanguageBox",
+  props: {
+  	organization: @statistics.organization,
+    trainees_by_languages: @statistics
+      .trainees_by_languages[:trainees_by_languages],
+    trainees_by_languages_table: @statistics
+      .trainees_by_languages[:trainees_by_languages_table],
+    languages: @statistics.languages.map(&:name)},
+  prerender: false %>

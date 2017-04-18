@@ -1,0 +1,13 @@
+en:
+  statistics:
+    languages:
+      title: "Languages"
+      x_axis:
+        title: "members"
+      y_axis:
+        title: "Members"
+      headers:
+        organization: "Organization"
+        language: "Language"
+        number: "Number trainee"
+      series_name: Trainee

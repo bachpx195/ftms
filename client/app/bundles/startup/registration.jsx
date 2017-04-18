@@ -23,6 +23,7 @@ import ShowOrganizationBox from '../components/show_organizations/organizations_
 import Sidebar from '../components/dashboards/sidebar';
 import StageBox from '../components/stages/box';
 import StaticPageBox from '../components/static_pages/static_pages_box';
+import StatisticsLanguageBox from "../components/statistics/languages/languages";
 import SubOrganizationShowBox from '../components/sub_organizations/show_box';
 import SubjectBox from '../components/subjects/box';
 import SubjectsShowBox from  '../components/subjects/show';
@@ -64,6 +65,7 @@ ReactOnRails.register({
   Sidebar,
   StageBox,
   StaticPageBox,
+  StatisticsLanguageBox,
   SubOrganizationShowBox,
   SubjectBox,
   SubjectsShowBox,

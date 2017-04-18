@@ -18,4 +18,9 @@ en:
     not_member: "Not member"
     forgot_password: "Forgot password"
     remember: "Remember"
-
+  number:
+    percentage:
+      format:
+        delimiter: ""
+        precision: 2
+        format: "%n%"
