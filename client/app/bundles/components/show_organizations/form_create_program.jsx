@@ -28,7 +28,8 @@ export default class FormCreateProgram extends React.Component {
           <div className='text-right'>
             <button type='submit'
               className='btn btn-primary' disabled={!this.formValid()} >
-              {I18n.t('buttons.save')}
+              <i className="fa fa-floppy-o"></i>
+              &nbsp;{I18n.t('buttons.save')}
             </button>
           </div>
         </div>

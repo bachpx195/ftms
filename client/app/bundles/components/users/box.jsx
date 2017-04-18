@@ -8,6 +8,7 @@ export default class UsersBox extends React.Component {
     super(props);
     this.state = {
       users: props.users,
+      organizations: props.organizations,
     }
   }
 

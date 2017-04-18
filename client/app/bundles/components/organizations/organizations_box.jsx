@@ -71,14 +71,16 @@ export default class OrganizationBox extends React.Component {
                     {action: ['create'], target: 'children'}
                   ]}>
                     {this.state.status ? (
-                      <button className='btn btn-new'
+                      <button className='btn btn-primary'
                         onClick={this.onClickButtonCreate.bind(this)}>
-                        {I18n.t('buttons.cancel')}
+                        <i className="fa fa-times"></i>
+                        &nbsp;{I18n.t('buttons.cancel')}
                       </button>
                     ) : (
-                      <button className='btn btn-new'
+                      <button className='btn btn-primary'
                         onClick={this.onClickButtonCreate.bind(this)}>
-                        {I18n.t('organizations.create')}
+                        <i className="fa fa-plus"></i>
+                        &nbsp;{I18n.t('organizations.create')}
                       </button>
                     )}
                   </OrganizationPolicy>
