@@ -31,7 +31,7 @@ import TeamsShowBox from '../components/teams/teams_show_box';
 import TestRulesBox from '../components/test_rules/box';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
 import TrainingStandardBox from '../components/training_standards/box';
-import TrainingStandardShow from '../components/training_standards/admin/standard_show';
+import TrainingStandardShow from '../components/training_standards/templates/standard_show';
 import UniversityBox from '../components/universities/box';
 import UserCoursesBox from '../components/user_courses/user_courses_box';
 import UsersBox from '../components/users/box';

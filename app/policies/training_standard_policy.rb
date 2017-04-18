@@ -22,10 +22,10 @@ class TrainingStandardPolicy < ApplicationPolicy
   end
 
   def belong_to_organization?
-    record[:training_standard].organization.users.include? @user
+    record[:organization].users.include? @user
   end
 
-  def is_is_creator_organization?
+  def is_owner_organization?
     record[:training_standard].organization.owner == @user
   end
 
@@ -34,6 +34,6 @@ class TrainingStandardPolicy < ApplicationPolicy
   end
 
   def is_creator_organization?
-    record[:training_standard].organization.creator == @user
+    record[:organization].creator == @user
   end
 end

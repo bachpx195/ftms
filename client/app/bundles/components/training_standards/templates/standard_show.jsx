@@ -6,7 +6,7 @@ import Form from './form';
 import ModalEvaluation from './modal_evaluation'
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from '../training_standard_constants';
+import * as training_standard_constants from '../constants/training_standard_constants';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
 const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.STANDARD_SUBECTS_PATH;
@@ -29,7 +29,6 @@ export default class TrainingStandardShow extends React.Component {
 
   componentDidMount() {
     this.fetchStandardSubjects();
-    // this.fetchSubjects();
   }
 
   renderButton() {

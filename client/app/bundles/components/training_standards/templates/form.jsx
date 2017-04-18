@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
+import {POLICIES} from '../constants/training_standard_constants';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -11,15 +12,27 @@ export default class Form extends React.Component {
     this.state = {
       name: props.training_standard.name || '',
       description: props.training_standard.description || '',
+      policy: props.training_standard.policy || POLICIES[0].id,
       errors: null
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      name: nextProps.training_standard.name || '',
+      description: nextProps.training_standard.description || '',
+      policy: nextProps.training_standard.policy || POLICIES[0].id,
+      errors: null
+    });
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <div className='form-group row'>
-          <lable className='col-md-2'>{I18n.t('training_standards.headers.name')}</lable>
+          <lable className='col-md-2'>
+            {I18n.t('training_standards.headers.name')}
+          </lable>
           <div className='col-md-10'>
             <input type='text'
               value={this.state.name} ref='nameField'
@@ -29,13 +42,27 @@ export default class Form extends React.Component {
         </div>
 
         <div className='form-group row'>
-          <lable className='col-md-2'>{I18n.t('training_standards.headers.description')}</lable>
+          <lable className='col-md-2'>
+            {I18n.t('training_standards.headers.description')}
+          </lable>
           <div className='col-md-10'>
-
             <input type='text'
               value={this.state.description} ref='nameField'
               onChange={this.handleChange.bind(this)}
               className='form-control' name='description' />
+          </div>
+        </div>
+
+        <div className='form-group row'>
+          <lable className='col-md-2'>
+            {I18n.t('training_standards.headers.policy')}
+          </lable>
+          <div className='col-md-10'>
+            <select className="form-control" name="training_standard_policy"
+              value={this.state.policy} name='policy'
+              onChange={this.handleChange.bind(this)}>
+              {this.renderOptions(POLICIES)}
+            </select>
           </div>
         </div>
 
@@ -50,14 +77,6 @@ export default class Form extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      name: nextProps.training_standard.name || '',
-      description: nextProps.training_standard.description || '',
-      errors: null
-    });
-  }
-
   handleChange(event) {
     let attribute = event.target.name;
     this.setState({
@@ -65,8 +84,20 @@ export default class Form extends React.Component {
     });
   }
 
-  formValid(){
+  formValid() {
     return this.state.name != '' && this.state.description != ''
+  }
+
+  renderOptions(objects) {
+    if (objects) {
+      return objects.map(object => {
+        return (
+          <option key={object.id} value={object.id}>
+            {object.name}
+          </option>);
+      });
+    }
+    return null;
   }
 
   handleSubmit(event) {
@@ -77,6 +108,10 @@ export default class Form extends React.Component {
 
     for(let key of Object.keys(training_standard)) {
       formData.append('training_standard[' + key + ']', training_standard[key]);
+    }
+    if (this.props.training_standard.id == null) {
+      formData.append('training_standard[organization_id]',
+        this.props.organization.id);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let method = this.props.training_standard.id ? 'PUT' : 'POST';
@@ -89,11 +124,12 @@ export default class Form extends React.Component {
     .then(response => {
       if(this.props.training_standard.id) {
         $('.modalCreateTrainingStandard').modal('hide');
-        $('#modalEdit').modal('hide');
+        $('.modal-edit').modal('hide');
       } else {
         this.setState({
           name: '',
           description: '',
+          policy: POLICIES[0].id,
           errors: null,
         });
       }

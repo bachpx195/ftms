@@ -5,6 +5,7 @@ en:
     headers:
       name: "Name"
       description: "Description"
+      policy: "Policy"
     modals:
       header_edit: "Edit Training Standard"
       create: "Create training standard"

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from '../training_standard_constants';
+import * as training_standard_constants from '../constants/training_standard_constants';
 
 const STANDARD_SUBECTS_URL = app_constants.APP_NAME +
   training_standard_constants.STANDARD_SUBECTS_PATH;

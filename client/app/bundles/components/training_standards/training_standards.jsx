@@ -1,16 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import Modal from './modal';
-import Form from './form';
+import Modal from './templates/modal';
+import Form from './templates/form';
+import Destroy from "./actions/destroy";
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from '../training_standard_constants';
+import * as training_standard_constants from './constants/training_standard_constants';
 
 export default class TrainingStandards extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...props}
+    this.state = {...props};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,13 +45,13 @@ export default class TrainingStandards extends React.Component {
       </button>
     );
 
-    const ButtonDelete = ({griddleKey}) => (
-      <button className='btn btn-danger' data-index={griddleKey}
-        title={I18n.t('buttons.delete')}
-        onClick={this.handleDelete.bind(this)}>
-        <i className="fa fa-trash-o"></i> {I18n.t('buttons.delete')}
-      </button>
-    );
+    const ButtonDelete = ({griddleKey}) => {
+      return (
+        <Destroy training_standard={this.state.training_standards[griddleKey]}
+          organization={this.state.organization}
+          handleAfterDeleted={this.props.handleAfterDeleted} />
+      );
+    };
 
     const TRAINING_STANDARD_URL = app_constants.APP_NAME +
       training_standard_constants.ORGANIZATION_PATH + '/' +
@@ -63,11 +64,11 @@ export default class TrainingStandards extends React.Component {
     );
 
     let modalEdit = null;
-    if(this.state.training_standard.id){
+    if(this.state.training_standard && this.state.training_standard.id) {
       modalEdit = (
         <Modal url={TRAINING_STANDARD_URL + '/' + this.state.training_standard.id}
           training_standard={this.state.training_standard}
-          handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
+          handleAfterUpdated={this.props.handleAfterUpdated} />
       );
     }
 
@@ -92,45 +93,17 @@ export default class TrainingStandards extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.training_standard.id){
-      $('#modalEdit').modal();
-    }
-  }
-
   handleEdit(event) {
     let $target = $(event.target);
     $target.blur();
     this.setState({
-      training_standard: this.props.training_standards[$target.data('index')]
+      training_standard: this.state.training_standards[$target.data('index')]
+    }, () => {
+      $('.modal-edit').modal();
     });
-  }
-
-  handleDelete(event) {
-    let $target = $(event.target);
-    $target.blur();
-    let training_standard = this.props.training_standards[$target.data('index')];
-    if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(TRAINING_STANDARD_URL + '/' + training_standard.id, {
-        params: {
-          authenticity_token: ReactOnRails.authenticityToken()
-        },
-        headers: {'Accept': 'application/json'}
-      })
-      .then(response => {
-        this.setState({
-          training_standard: {}
-        });
-        this.props.handleAfterDeleted(training_standard);
-      })
-      .catch(error => console.log(error));
-    }
   }
 
   handleAfterUpdated(new_training_standard) {
-    this.setState({
-      training_standard: {}
-    });
     this.props.handleAfterUpdated(new_training_standard);
   }
 }

@@ -4,7 +4,7 @@ import Form from './form';
 export default class Modal extends React.Component {
   render() {
     return (
-      <div id='modalEdit' className='modal fade in' role='dialog'>
+      <div className='modal modal-edit fade in' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
@@ -13,7 +13,8 @@ export default class Modal extends React.Component {
             </div>
             <div className='modal-body'>
               <Form
-                training_standard={this.props.training_standard} url={this.props.url}
+                training_standard={this.props.training_standard}
+                url={this.props.url}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)} />
             </div>
           </div>

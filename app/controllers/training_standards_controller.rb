@@ -94,8 +94,9 @@ class TrainingStandardsController < ApplicationController
   end
 
   def authorize_request
-    authorize_with_multiple page_params.merge(training_standard: @training_standard),
-      TrainingStandardPolicy
+    authorize_with_multiple page_params
+      .merge(training_standard: @training_standard,
+      organization: @supports.organization), TrainingStandardPolicy
   end
 
   def find_organization
