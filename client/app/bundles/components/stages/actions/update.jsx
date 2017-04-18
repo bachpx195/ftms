@@ -6,7 +6,10 @@ export default class Create extends React.Component {
   render() {
     return (
       <button type='submit' onClick={this.handleSubmit.bind(this)}
-        className='btn btn-primary' >{I18n.t('buttons.edit')}</button>
+        className='btn btn-primary' >
+        <i className="fa fa-floppy-o"></i>
+        &nbsp;{I18n.t('buttons.save')}
+      </button>
      );
    }
 

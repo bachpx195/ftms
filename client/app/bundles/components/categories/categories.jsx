@@ -41,7 +41,8 @@ export default class Categories extends React.Component {
           <div>
             <button className='btn btn-info' onClick={this.handleEdit.bind(this)}
               data-index={griddleKey}>
-              {I18n.t('buttons.edit')}
+              <i className="fa fa-pencil-square-o"></i>
+              &nbsp;{I18n.t('buttons.edit')}
             </button>
           </div>
         </CategoryPolicy>

@@ -101,7 +101,7 @@ export default class Sidebar extends React.Component {
             <Permit action='my_space/exams'>
               <li data-page='my_exams'>
                 <a href={MY_SPACE_EXAMS_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-check'></i>
+                  <i className='fa fa-file-code-o'></i>
                   <span>{I18n.t('sidebar.my_exams')}</span>
                 </a>
               </li>
@@ -112,7 +112,7 @@ export default class Sidebar extends React.Component {
             <Permit action='organizations'>
               <li data-page='organizations'>
                 <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-folder'></i>
+                  <i className='fa fa-universal-access'></i>
                   <span>{I18n.t('sidebar.organizations')}</span>
                 </a>
               </li>
@@ -120,7 +120,7 @@ export default class Sidebar extends React.Component {
             <Permit action='programs'>
               <li data-page='courses'>
                 <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-folder'></i>
+                  <i className='fa fa-bookmark'></i>
                   <span>{I18n.t('sidebar.courses')}</span>
                 </a>
               </li>
@@ -128,7 +128,7 @@ export default class Sidebar extends React.Component {
             <Permit action='projects'>
               <li data-page='projects'>
                 <a href={PROJECTS_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-folder'></i>
+                  <i className='fa fa-folder-open'></i>
                   <span>{I18n.t('sidebar.projects')}</span>
                 </a>
               </li>
@@ -221,7 +221,7 @@ export default class Sidebar extends React.Component {
             <li>
               <Permit action='roles'>
                 <a href="#" onClick={this.onClickSubMenu.bind(this)}>
-                  <i className="glyphicon glyphicon-th-list" aria-hidden="true"></i>
+                  <i className="fa fa-list" aria-hidden="true"></i>
                   <span>{I18n.t('sidebar.mange_role')}</span>
                   <span className='pull-right-container'>
                     <i className={`fa

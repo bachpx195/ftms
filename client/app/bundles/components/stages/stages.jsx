@@ -40,7 +40,8 @@ export default class StageLists extends React.Component {
             data: {creator_id: stage.creator_id}}]}>
           <button className='btn btn-info' data-index={griddleKey}
             onClick={this.handleEdit.bind(this)}>
-            {I18n.t('buttons.edit')}
+            <i className="fa fa-pencil-square-o"></i>
+            &nbsp;{I18n.t('buttons.edit')}
           </button>
         </StagePolicy>
       );
