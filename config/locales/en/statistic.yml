@@ -22,3 +22,17 @@ en:
         trainee_type: "Trainee type"
         number: "Number trainee"
       series_name: Trainee
+    in_outs:
+      titles:
+        all: "Trainee in/out"
+        in: "Trainee join"
+        out: "Trainee out"
+      x_axis:
+        title: "members"
+      y_axis:
+        title: "Members"
+      headers:
+        organization: "Organization"
+        trainee_type: "Trainee type"
+        number: "Number trainee"
+      series_name: Trainee

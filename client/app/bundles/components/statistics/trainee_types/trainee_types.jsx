@@ -3,7 +3,7 @@ import TraineeTypeTable from "./table";
 import PieChart from "./pie_chart";
 import React from 'react';
 
-export default class StatisticsLanguageBox extends React.Component {
+export default class StatisticsTraineeTypeBox extends React.Component {
   render() {
     const Chart = () => {
       if (this.props.organization) {
