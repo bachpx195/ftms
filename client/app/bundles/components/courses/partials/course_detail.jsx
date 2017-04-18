@@ -84,7 +84,15 @@ export default class CourseDetail extends React.Component {
   }
 
   clickButtonList() {
-    this.props.clickButtonList();
+    if ($('.td-course-edit-delete').hasClass('hidden')) {
+      $('.td-course-edit-delete').removeClass('hidden');
+    } else {
+      $('.td-course-edit-delete').addClass('hidden');
+    }
+
+    if ($('.td-course-edit-delete').find('.finish-button')) {
+      $('.td-course-edit-delete').css('margin-left','0%');
+    }
   }
 
   handleAfterUpdate(new_course) {

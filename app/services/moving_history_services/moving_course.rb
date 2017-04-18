@@ -11,6 +11,7 @@ class MovingHistoryServices::MovingCourse
       UserCourse.transaction do
         rejected_source_course
         create_course_member
+        rejected_team
       end
     rescue
       false
@@ -18,9 +19,19 @@ class MovingHistoryServices::MovingCourse
   end
 
   private
+
+  def user_course
+    CourseMember.find_by course: @args[:source], user: @args[:user]
+  end
+
   def rejected_source_course
-    user_course = CourseMember.find_by course: @args[:source], user: @args[:user]
     user_course.rejected! if user_course
+  end
+
+  def rejected_team
+    user_course.user_subjects.map do |user_subject|
+      user_subject.update_attributes(team_id: nil) if user_subject.team_id.present?
+    end
   end
 
   def create_course_member

@@ -30,7 +30,7 @@ export default class Users extends React.Component {
     }
 
     return (
-      <div className="col-md-3 info-panel">
+      <div className="info-panel clearfix">
         <div className='box box-primary'>
           <div className='box-header with-border box-header-gray'>
             <h3 className='label box-title'>
@@ -61,7 +61,8 @@ export default class Users extends React.Component {
               <div className='member-title'>
                 {I18n.t('courses.member.trainee')}
               </div>
-              <Members course={course}
+              <Members
+                course={course}
                 courseListPermit={this.props.courseListPermit}
                 handleEvaluateModal={this.props.handleEvaluateModal}
                 openModalChangeCourse={this.props.openModalChangeCourse} />
@@ -73,6 +74,6 @@ export default class Users extends React.Component {
   }
 
   handleAssignMember() {
-    this.props.handleAssignMember();
+    $('.modal-assign-member').modal();
   }
 }
