@@ -1,0 +1,9 @@
+<%= react_component "StatisticsTraineeTypeBox",
+  props: {
+    organization: @statistics.organization,
+    trainees_by_trainee_types: @statistics
+      .trainees_by_trainee_types[:trainees_by_trainee_types],
+    trainees_by_trainee_types_table: @statistics
+      .trainees_by_trainee_types[:trainees_by_trainee_types_table],
+    trainee_types: @statistics.trainee_types.map(&:name)},
+  prerender: false %>

@@ -11,3 +11,14 @@ en:
         language: "Language"
         number: "Number trainee"
       series_name: Trainee
+    trainee_types:
+      title: "Trainee type"
+      x_axis:
+        title: "members"
+      y_axis:
+        title: "Members"
+      headers:
+        organization: "Organization"
+        trainee_type: "Trainee type"
+        number: "Number trainee"
+      series_name: Trainee

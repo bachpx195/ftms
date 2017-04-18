@@ -14,9 +14,9 @@ export default class PieChart extends React.Component {
       title: false,
       tooltip: {
         formatter: function () {
-          return I18n.t('statistics.languages.headers.language') + ': '
+          return I18n.t('statistics.trainee_types.headers.trainee_type') + ': '
             + '<strong>' + this.key + '</strong>' + ' <br/>'
-            + I18n.t('statistics.languages.series_name') + ': '
+            + I18n.t('statistics.trainee_types.series_name') + ': '
             + '<strong>' + this.y + '</strong>';
         }
       },
@@ -45,7 +45,7 @@ export default class PieChart extends React.Component {
       credits: {
         enabled: false
       },
-      series: this.props.trainees_by_languages
+      series: this.props.trainees_by_trainee_types
     };
 
     return (
