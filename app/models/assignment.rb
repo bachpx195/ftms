@@ -5,7 +5,8 @@ class Assignment < ApplicationRecord
     source_type: Subject.name
   has_many :course_subjects, through: :tasks, source: :targetable,
     source_type: CourseSubject.name
-  has_many :dynamic_tasks, through: :static_tasks, class_name: DynamicTask.name
+  has_many :dynamic_tasks, through: :static_tasks, source: :dynamic_tasks,
+    class_name: DynamicTask.name
 
   belongs_to :organization
   belongs_to :creator, foreign_key: :creator_id, class_name: User.name

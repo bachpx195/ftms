@@ -18,7 +18,8 @@ export default class SubjectManager extends React.Component {
       course_subject_teams: props.course_subject_teams,
       subject_detail: props.subject_detail,
       member_evaluations: props.member_evaluations,
-      member_ids: props.member_ids
+      member_ids: props.member_ids,
+      user_index: 0
     }
   }
 
@@ -49,6 +50,12 @@ export default class SubjectManager extends React.Component {
         </button>
       );
     }
+
+    let user = null;
+    if (this.props.course) {
+      user = this.state.subject_detail.user_subjects[this.state.user_index];
+    }
+
     return (
       <div className='admin-subject-show clearfix'>
         <div className='row'>
@@ -89,7 +96,7 @@ export default class SubjectManager extends React.Component {
           </div>
         </div>
         <ListTabs subject_detail={this.state.subject_detail}
-          course={this.props.course} user={this.state.user}
+          course={this.props.course} user={user}
           user_index={this.state.user_index}
           course_subject_teams={this.state.course_subject_teams}
           afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
@@ -133,19 +140,12 @@ export default class SubjectManager extends React.Component {
     if (user) {
       _.remove(this.state.subject_detail.user_subjects[user_index]
         .user_course_task[type], ({task_id}) => task_id == index);
-      this.state.subject_detail.course_subject_task[type].push(task)
-      this.state.subject_detail.course_subject_task[type]
-        .sort((obj1, obj2) => obj1.id - obj2.id);
     } else if (this.props.course) {
       _.remove(this.state.subject_detail.course_subject_task[type],
         ({task_id}) => task_id == index);
     } else {
       _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
         return task_id == index
-      });
-      this.state.subject_detail.task[type].push(task);
-      this.state.subject_detail.task[type].sort((obj1, obj2) => {
-        return obj1.id - obj2.id
       });
     }
     this.setState({
@@ -160,17 +160,11 @@ export default class SubjectManager extends React.Component {
           subject_detail.user_subjects[user_index].user_course_task[type].push(target)
         })
       } else {
-        _.remove(this.state.subject_detail.subject_task[type], targetable => {
-          return targetable_ids.indexOf(targetable.id) >= 0;
-        });
         _.mapValues(targets, function(target){
           subject_detail.course_subject_task[type].push(target)
         })
       }
     } else {
-      _.remove(this.state.subject_detail.task[type], targetable => {
-        return targetable_ids.indexOf(targetable.id) >= 0;
-      });
       _.mapValues(targets, function(target) {
         subject_detail.subject_task[type].push(target)
       })

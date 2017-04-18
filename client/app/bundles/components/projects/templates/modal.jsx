@@ -13,7 +13,7 @@ export default class Modal extends React.Component {
       project: {},
     }
   }
-  
+
   render() {
     let url = SUBJECT_URL + this.props.subject_detail.id + '/projects';
     return (
@@ -30,7 +30,7 @@ export default class Modal extends React.Component {
             </div>
             <div className='modal-body clearfix'>
               <Form organizations={this.props.organizations}
-                url={url}/>
+                url={url} project={this.state.project} />
             </div>
           </div>
         </div>
