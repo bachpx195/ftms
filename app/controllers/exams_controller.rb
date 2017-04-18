@@ -10,7 +10,25 @@ class ExamsController < ApplicationController
     ExamServices::CreateResults.new(exam: @exam_supports.exam).perform
   end
 
+  def update
+    exam = @exam_supports.exam
+    respond_to do |format|
+      format.json do
+        if exam.update_attributes exam_params
+          render json: {message: flash_message("updated")}
+        else
+          render json: {message: flash_message("not_updated"),
+            errors: exam.errors}, status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
   private
+  def exam_params
+    params.require(:exam).permit Exam::ATTRIBUTE_PARAMS
+  end
+
   def load_supports
     @exam_supports = Supports::ExamSupport.new params: params,
       user: current_user

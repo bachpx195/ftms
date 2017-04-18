@@ -86,6 +86,7 @@ namespace :db do
     f12 = Function.find_by controller_name: "assignments", action: "create"
     f13 = Function.find_by controller_name: "my_space/exams", action: "index"
     f14 = Function.find_by controller_name: "exams", action: "show"
+    f15 = Function.find_by controller_name: "exams", action: "update"
 
     10.times do |n|
       user = User.create!(
@@ -109,7 +110,8 @@ namespace :db do
         {user: user, function: f11},
         {user: user, function: f12},
         {user: user, function: f13},
-        {user: user, function: f14}
+        {user: user, function: f14},
+        {user: user, function: f15}
       ])
     end
     RoleFunction.create!([
@@ -126,7 +128,8 @@ namespace :db do
       {role_id: 6, function: f11},
       {role_id: 6, function: f12},
       {role_id: 6, function: f13},
-      {role_id: 6, function: f14}
+      {role_id: 6, function: f14},
+      {role_id: 6, function: f15},
     ])
 
     puts "2. Create languages"
@@ -527,14 +530,14 @@ namespace :db do
 
     puts "34. Create Questions"
     Category.all.each do |category|
-      30.times do |n|
-        question = category.questions.create! content: "Lorem ipsum is simply dummy text",
-          level: n % 3, question_type: 0
-        4.times do n
-          question.answers.create! content: "Lorem ipsum is simply dummy text"
+        30.times do |n|
+          question = category.questions.create! content: "Lorem ipsum is simply dummy text",
+            level: n % 3, question_type: 0
+          4.times do
+            question.answers.create! content: "Lorem ipsum is simply dummy text"
+          end
+          question.answers.sample.update_attributes is_correct: true
         end
-        question.answers.sample.update_attributes is_correct: true
-      end
     end
 
     puts "35. Create Test Rule Condition"

@@ -5,20 +5,47 @@ export default class Answer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer: props.answer
+      answer: props.answer,
+      question: props.question,
+      user_show: props.user_show
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      answer: nextProps.answer
+      answer: nextProps.answer,
+      question: nextProps.question,
+      user_show: nextProps.user_show
     })
   }
 
   render() {
-    let check = 'check-disable'
-    if(this.state.answer.is_correct){
-      check = this.state.answer.is_correct ? 'check-enable' : 'check-disable';
+    let check = 'check-disable';
+
+    let choose;
+
+    if (this.state.question.results && this.state.question.results.answer_id) {
+      choose = this.state.question.results.answer_id == this.state.answer.id
+    }
+    if (this.state.answer.is_correct || choose) {
+      check = (this.state.answer.is_correct || choose) ? 'check-enable' : 'check-disable';
+    }
+
+    let chooseAnswer = '';
+    if (this.state.user_show) {
+      chooseAnswer = (
+        <div className={`check ${check} pointer`}>
+          <i className='fa fa-check'></i>
+        </div>
+      );
+    } else {
+      chooseAnswer = (
+        <a onClick={this.afterChooseAnswer.bind(this)}>
+          <div className={`check ${check} choose-answer`}>
+            <i className='fa fa-check'></i>
+          </div>
+        </a>
+      );
     }
 
     return (
@@ -26,9 +53,7 @@ export default class Answer extends React.Component {
         <div className='tool-bar col-xs-4'>
           <ul className='list-action'>
             <li className='correct-answer'>
-              <div className={`check ${check} pointer`}>
-                <i className='fa fa-check'></i>
-              </div>
+              {chooseAnswer}
             </li>
           </ul>
         </div>
@@ -42,5 +67,10 @@ export default class Answer extends React.Component {
         <div className='clearfix'></div>
       </div>
     )
+  }
+
+  afterChooseAnswer() {
+    this.props.afterChooseAnswer(this.state.question.results.id,
+      this.state.answer.id)
   }
 }

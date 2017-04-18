@@ -6,13 +6,28 @@ class ExamPolicy < ApplicationPolicy
   end
 
   def show?
-    super && ((!record[:exam_supports].organization &&
-      record[:exam_supports].exam.user == @user) ||
-      (record[:exam_supports].organization &&
-        (check_owner? || check_creator? || check_course_manager?)))
+    super && check_show_exam?
+  end
+
+  def update?
+    super && check_show_exam?
   end
 
   private
+  def check_show_exam?
+    (!check_organization? && check_user?) ||
+      (check_organization? &&
+        (check_owner? || check_creator? || check_course_manager?))
+  end
+
+  def check_user?
+    record[:exam_supports].exam.user == @user
+  end
+
+  def check_organization?
+    record[:exam_supports].organization
+  end
+
   def check_owner?
     record[:exam_supports].organization.owner == @user
   end

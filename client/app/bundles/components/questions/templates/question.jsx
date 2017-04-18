@@ -20,14 +20,24 @@ export default class Question extends React.Component {
   }
 
   render() {
-    let list_answers = this.state.question.answers.map((answer, index) => {
-      return (
-        <Answer answer={answer} key={index} question={this.state.question} />
-      )
+    let list_answers = [];
+    this.state.question.answers.map((answer, index) => {
+      if (this.props.exam) {
+        list_answers.push(
+          <Answer answer={answer} key={index} question={this.state.question}
+            afterChooseAnswer={this.afterChooseAnswer.bind(this)}
+            user_show={this.props.user_show}/>
+        )
+      } else {
+        list_answers.push(
+          <Answer answer={answer} key={index} question={this.state.question}
+          user_show={this.props.user_show}/>
+        )
+      }
     });
 
     let tool_bar = '';
-    if(!this.props.exam) {
+    if (!this.props.exam) {
       tool_bar = (
         <div className='tool-bar'>
           <ToolBar url={this.props.url}
@@ -69,6 +79,11 @@ export default class Question extends React.Component {
 
   afterClickEditQuestion() {
     this.props.afterClickEditQuestion(this.state.question);
+  }
+
+  afterChooseAnswer(result_id, answer) {
+    this.state.question.results.answer_id = answer;
+    this.props.afterChooseAnswer(this.state.question);
   }
 
   afterDeleteQuestion(event) {

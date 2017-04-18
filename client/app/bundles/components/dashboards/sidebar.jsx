@@ -28,6 +28,7 @@ const MY_SPACE_EXAMS_URL = app_constants.APP_NAME +
 const PROJECTS_URL = app_constants.APP_NAME +
   dashboard_constants.PROJECTS_PATH;
 const CATEGORY_URL = app_constants.APP_NAME + dashboard_constants.CATEGORY_PATH;
+const TEST_RULE_URL = app_constants.APP_NAME + dashboard_constants.TEST_RULE_PATH;
 
 export default class Sidebar extends React.Component {
   constructor(props) {
@@ -190,6 +191,15 @@ export default class Sidebar extends React.Component {
                     <a href={CATEGORY_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
                       <span>{I18n.t('sidebar.categories')}</span>
+                    </a>
+                  </li>
+                </Permit>
+
+                <Permit action='test_rules'>
+                  <li className='sub-li' data-page="test_rules">
+                    <a href={TEST_RULE_URL} onClick={this.onClick.bind(this)}>
+                      <i className="fa fa-circle-o"></i>
+                      <span>{I18n.t('sidebar.test_rule')}</span>
                     </a>
                   </li>
                 </Permit>

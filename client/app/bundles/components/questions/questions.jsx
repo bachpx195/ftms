@@ -24,17 +24,22 @@ export default class Questions extends React.Component {
   render() {
     let list_questions = [] ;
     this.state.questions.map((question, index) => {
-      if(this.props.exam){
+      if (this.props.exam) {
         list_questions.push(
           <Question question={question} exam={this.props.exam} index={index}
-          key={index}/>
+          key={index}
+          afterChooseAnswer={this.afterChooseAnswer.bind(this)}
+          user_show={this.props.user_show}
+        />
         )
       } else {
         list_questions.push(
           <Question question={question} key={index} index={index}
             url={this.props.url + '/' + question.id}
             afterDeleteQuestion={this.props.afterDeleteQuestion}
-            afterClickEditQuestion={this.afterClickEditQuestion.bind(this)} />
+            afterClickEditQuestion={this.afterClickEditQuestion.bind(this)}
+            user_show={true}
+          />
         )
       }
     });
@@ -60,5 +65,12 @@ export default class Questions extends React.Component {
     this.setState({
       question: question
     })
+  }
+
+  afterChooseAnswer(question) {
+    let index = this.state.questions
+      .findIndex(_question => _question.id === question.id);
+    this.state.questions[index] = question;
+    this.props.afterChooseAnswer(this.state.questions)
   }
 }

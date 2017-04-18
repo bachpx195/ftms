@@ -20,6 +20,6 @@ class Serializers::Questions::QuestionsSerializer <
   end
 
   def results_
-    question_results.where question_id: object.id if question_results
+    question_results.find_by question_id: object.id if question_results
   end
 end

@@ -97,7 +97,7 @@ export default class CategoryPreview extends React.Component {
         this.state.normal = temp;
       }
     }
-    Object.assign(this.state.category, 
+    Object.assign(this.state.category,
       {easy: this.state.easy, normal: this.state.normal, hard: this.state.hard});
     this.setState({
       value: {min: this.state.easy, max: (this.state.easy + this.state.normal)}
