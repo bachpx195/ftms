@@ -34,9 +34,9 @@ export default class ListTabs extends React.Component {
         </div>
         <TabsContent course_subject_teams={this.state.course_subject_teams}
           subject_detail={this.state.subject_detail} course={this.props.course}
-          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-          handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
-          afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+          handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+          handleAfterCreatedTeam={this.props.handleAfterCreatedTeam}
+          afterAddTaskForUser={this.props.afterAddTaskForUser}
           training_standard={this.props.training_standard}
           evaluation_template={this.props.evaluation_template}
           evaluation_standards={this.props.evaluation_standards}
@@ -63,10 +63,10 @@ export default class ListTabs extends React.Component {
             ownerable_id={this.state.subject_detail.course_subject.id}
             ownerable_type='CourseSubject'
             subject_detail={this.state.subject_detail}
-            handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-            afterCreateTask={this.afterCreateTask.bind(this)}
+            handleAfterAddTask={this.props.handleAfterAddTask}
+            afterCreateTask={this.props.afterCreateTask}
             user={this.state.user}
-            handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+            handleAfterDeleteTask={this.props.handleAfterDeleteTask}
           />
         )
       }
@@ -124,8 +124,8 @@ export default class ListTabs extends React.Component {
               <ModalBody task={task} ownerable_id={ownerable_id}
                 ownerable_type={ownerable_type} course={this.props.course}
                 subject_detail={this.state.subject_detail}
-                handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-                afterCreateTask={this.afterCreateTask.bind(this)}
+                handleAfterAddTask={this.props.handleAfterAddTask}
+                afterCreateTask={this.props.afterCreateTask}
                 course_subject_task={this.state.subject_detail
                   .course_subject_task}
               />
@@ -134,38 +134,5 @@ export default class ListTabs extends React.Component {
         </div>
       </div>
     )
-  }
-
-  handleAfterDeleteTask(index, task, type, user_index, user) {
-    this.props.handleAfterDeleteTask(index, task, type, user_index, user);
-  }
-
-  handleAfterAddTask(type, targetable_ids,targets, subject_detail, user_id,user_index) {
-    this.props.handleAfterAddTask(type, targetable_ids,targets, subject_detail,
-      user_id, user_index);
-  }
-
-  afterCreateTask(target, type, owner) {
-    this.props.afterCreateTask(target, type, owner);
-  }
-
-  afterAddTaskForUser(user, user_index) {
-    this.props.afterAddTaskForUser(user, user_index);
-  }
-
-  handleAfterCreatedTeam(course_subject_teams, subject_detail) {
-    this.props.handleAfterCreatedTeam(course_subject_teams, subject_detail);
-  }
-
-  handleDocumentUploaded(document) {
-    this.props.handleDocumentUploaded(document);
-  }
-
-  handleDocumentDeleted(document) {
-    this.props.handleDocumentDeleted(document);
-  }
-
-  clickPreviewDocument(document) {
-    this.props.clickPreviewDocument(document);
   }
 }

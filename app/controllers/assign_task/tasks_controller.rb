@@ -53,6 +53,7 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def authorize_request
+    @ownerable ||= @task ? @task.ownerable : nil
     authorize_with_multiple page_params.merge(ownerable: @ownerable),
       AssignTask::TaskPolicy
   end
