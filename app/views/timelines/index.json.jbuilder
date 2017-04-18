@@ -25,17 +25,18 @@ json.timeline do
             list <<
               "<div class='task-container'>
                 <div class='pull-left'>-&nbsp;#{task.name}</div>
-                <div class='pull-right task' data-finish='#{dynamic_task.status == 'finish'}'></div>
+                <div class='pull-right task'
+                  data-finish='#{dynamic_task ? dynamic_task.status == "finish" : false}'></div>
               </div>"
           end
         json.credit "<span class='text-danger'>" +
-          "#{@timeline_supports.count_assignment("finish")}" + "&nbsp;" +
-            t("tasks.task_finish") +
+          "#{pluralize @timeline_supports.count_assignment('finish'), t('tasks.task')}"\
+            + "&nbsp;" + t("tasks.statuses.finished").downcase +
           "</span><span class='text-primary'><br>#{task.name}" +
-            "#{@timeline_supports.count_assignment("init")}" + "&nbsp;" +
-              t("tasks.task_init") + "<span>"
+            "#{pluralize @timeline_supports.count_assignment('init'), t('tasks.task')}"\
+              + "&nbsp;" + t("tasks.statuses.init").downcase + "</span>"
         else
-          list = "You don't have task"
+          list = t "have_no_task"
         end
         json.thumbnail image
         json.media list

@@ -19,4 +19,8 @@ class Supports::StaticPage
     @users_serializer = Serializers::Users::UsersSerializer
       .new(object: user).serializer
   end
+
+  def organization
+    @organization ||= user.profile.organization
+  end
 end

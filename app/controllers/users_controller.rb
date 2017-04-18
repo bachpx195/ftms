@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :load_supports
   before_action :find_organization
   before_action :find_user, except: [:index, :new, :create]
-  before_action :authorize_class
+  before_action :authorize_request
 
   def index
     respond_to do |format|
@@ -107,5 +107,10 @@ class UsersController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(user: @user_supports.user),
+      UserPolicy
   end
 end
