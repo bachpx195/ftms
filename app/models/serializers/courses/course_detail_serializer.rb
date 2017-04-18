@@ -5,7 +5,7 @@ class Serializers::Courses::CourseDetailSerializer <
     :unassigned_users, :start_date, :end_date, :creator, :owner,
     :training_standards, :languages, :evaluation_standards,
     :evaluation_template, :member_evaluations, :course_subjects, :program,
-    :organization
+    :organization, :training_standard
 
   delegate :creator, to: :object
   delegate :owner, to: :object
@@ -62,5 +62,10 @@ class Serializers::Courses::CourseDetailSerializer <
 
   def organization
     object.program.organization
+  end
+
+  def training_standard
+    Serializers::TrainingStandards::TrainingStandardsSerializer
+      .new(object: object.training_standard).serializer
   end
 end

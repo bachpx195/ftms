@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React from 'react';
-import ModalTask from './add_tasks/modal_task';
+import css from './assets/course.scss';
 import CoursePanelRight from './templates/course_panel_right';
 import CoursePolicy from 'policy/course_policy';
+import ModalTask from './add_tasks/modal_task';
+import ModalTrainingStandard from './templates/modal_training_standard'
+import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumbs/show';
-import css from './assets/course.scss';
 import * as app_constants from 'constants/app_constants';
 import * as course_constants from './constants/course_constants';
 
-import Subjects from './partials/subjects';
 import CourseDetail from './partials/course_detail';
+import Subjects from './partials/subjects';
 
 require('../../assets/sass/course.scss');
 
@@ -75,6 +76,13 @@ export default class CourseShow extends React.Component {
             </button>
           </CoursePolicy>
 
+          <button className='btn add-task btn-preview'
+            title={I18n.t("courses.title_preview")}
+            onClick={this.preview.bind(this)}>
+            <i className='fa fa-eye'></i>
+            {I18n.t('courses.preview')}
+          </button>
+          <ModalTrainingStandard course={this.state.course}/>
           <Subjects
             subjects={this.state.subjects}
             course={this.state.course}
@@ -252,5 +260,9 @@ export default class CourseShow extends React.Component {
     this.setState({
       course: this.state.course
     });
+  }
+
+  preview() {
+    $('.modal-training-standard').modal();
   }
 }
