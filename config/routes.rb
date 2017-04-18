@@ -65,7 +65,9 @@ Rails.application.routes.draw do
   namespace :filter_role do
     resources :roles, only: [:index]
   end
-
+  namespace :clone do
+    resources :training_standards, only: [:create]
+  end
   namespace :assign_user do
     resources :courses, only: [:update]
   end
