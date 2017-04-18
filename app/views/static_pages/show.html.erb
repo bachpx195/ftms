@@ -2,7 +2,9 @@
   <%= react_component current_user.find_base_component,
     props: {
       user: @supports.user,
-      user_detail: @supports.user_serializer
+      user_detail: @supports.user_serializer,
+      organization: @supports.organization,
+      home_page: true
     },
     prerender: false %>
 <% else %>

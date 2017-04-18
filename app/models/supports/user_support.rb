@@ -8,7 +8,8 @@ class Supports::UserSupport
   end
 
   def organization
-    @organization ||= Organization.find_by id: @params[:organization_id]
+    @organization ||= Organization.find_by(id: @params[:organization_id]) ||
+      user.profile.organization
   end
 
   def users_serializer

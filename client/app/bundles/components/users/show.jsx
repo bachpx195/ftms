@@ -12,7 +12,7 @@ require('../../assets/sass/user.scss');
 
 const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
 
-export default class UserShow extends React.Component {
+export default class UserShowBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,6 +88,15 @@ export default class UserShow extends React.Component {
         <td>{I18n.t('users.profile_detail.leave_date')}</td>
         <td>{this.state.user_profile.leave_date}</td>
       </tr>;
+    }
+
+    let timeline = null;
+    if (this.props.home_page) {
+      timeline = (
+        <div className='col-md-12'>
+          <div id="timeline-embed"></div>
+        </div>
+      );
     }
 
     return(
@@ -212,9 +221,7 @@ export default class UserShow extends React.Component {
             </div>
           </div>
         </div>
-        <div className='col-md-12'>
-          <div id="timeline-embed"></div>
-        </div>
+        {timeline}
         {this.renderChangeProgramModal()}
       </div>
     )

@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
 
   def index
     organizations = current_user.organizations
-    organizations.present? ? organizations : current_user.profile.organization
+    organizations = current_user.profile.organization if organizations.empty?
     respond_to do |format|
       format.html
       format.json do

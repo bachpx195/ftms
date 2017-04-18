@@ -40,7 +40,7 @@ import UserCoursesBox from '../components/user_courses/user_courses_box';
 import UsersBox from '../components/users/box';
 import UserFormBox from '../components/users/user_form_box';
 import UserRolesBox from '../components/users/user_roles_box';
-import UserShow from '../components/users/show';
+import UserShowBox from '../components/users/show';
 
 ReactOnRails.register({
   CategoriesBox,
@@ -83,5 +83,5 @@ ReactOnRails.register({
   UserFormBox,
   UsersBox,
   UserRolesBox,
-  UserShow,
+  UserShowBox,
 });
