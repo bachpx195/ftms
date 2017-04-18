@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   def find_user
     unless @user_supports.user
       respond_to do |format|
-        format.html{redirect_to users_path}
+        format.html{redirect_to root_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
@@ -98,12 +98,14 @@ class UsersController < ApplicationController
   end
 
   def find_organization
-    unless @user_supports.organization
-      respond_to do |format|
-        format.html{redirect_to organizations_path}
-        format.json do
-          render json: {message: flash_message("not_found")},
-            status: :not_found
+    if params[:organization_id]
+      unless @user_supports.organization
+        respond_to do |format|
+          format.html{redirect_to organizations_path}
+          format.json do
+            render json: {message: flash_message("not_found")},
+              status: :not_found
+          end
         end
       end
     end

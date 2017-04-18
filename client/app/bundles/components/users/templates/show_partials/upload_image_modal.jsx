@@ -88,13 +88,11 @@ export default class UploadImageModal extends React.Component {
       formData.append('user[avatar]', this.state.avatar);
       formData.append('authenticity_token', ReactOnRails.authenticityToken());
       let url =  app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
-          + this.props.organization.id + '/' + user_constants.USER_PATH
-          + this.props.user_detail.id;
+        + this.props.user_detail.user_profile.organization.id + '/'
+        + user_constants.USER_PATH + this.props.user_detail.id;
 
       axios({
-        url: url,
-        method: 'PATCH',
-        data: formData,
+        url: url, method: 'PATCH', data: formData,
         headers: {'Accept': 'application/json'}
       })
       .then(response => {

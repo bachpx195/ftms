@@ -16,7 +16,7 @@ export default class AvatarBox extends React.Component {
   renderUploadImageModal(){
     return(
       <UploadImageModal avatar={this.state.avatar}
-        organization={this.props.organization}
+        organization={this.props.user_detail.user_profile.organization.id}
         user_detail={this.props.user_detail}
         handleAfterUploaded={this.handleAfterUploaded.bind(this)}/>
     );

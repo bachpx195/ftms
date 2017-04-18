@@ -1,7 +1,7 @@
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
-import UserListBox from './user_list_box';
+import Users from './users';
 
 export default class UsersBox extends React.Component {
   constructor(props) {
@@ -39,10 +39,7 @@ export default class UsersBox extends React.Component {
                 href={NEW_USER_URL}>
                 {I18n.t('users.buttons.new')}
               </a>
-              <UserListBox
-                users={this.state.users}
-                organization={this.props.organization}
-                />
+              <Users users={this.state.users} />
             </div>
 
           </div>

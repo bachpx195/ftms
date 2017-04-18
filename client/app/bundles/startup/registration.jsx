@@ -38,8 +38,7 @@ import TrainingStandardShow from '../components/training_standards/templates/sta
 import UniversityBox from '../components/universities/box';
 import UserCoursesBox from '../components/user_courses/user_courses_box';
 import UsersBox from '../components/users/box';
-import UserFormBox from '../components/users/user_form_box';
-import UserRolesBox from '../components/users/user_roles_box';
+import ManageBox from '../components/users/manage_box';
 import UserShowBox from '../components/users/show';
 
 ReactOnRails.register({
@@ -80,8 +79,7 @@ ReactOnRails.register({
   TrainingStandardShow,
   UniversityBox,
   UserCoursesBox,
-  UserFormBox,
+  ManageBox,
   UsersBox,
-  UserRolesBox,
   UserShowBox,
 });

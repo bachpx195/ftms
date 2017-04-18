@@ -1,4 +1,4 @@
-<%= react_component "UserFormBox",
+<%= react_component "ManageBox",
   props: {
     universities: @user_supports.universities,
     trainee_types: @user_supports.trainee_types,
@@ -8,7 +8,7 @@
     trainers: @user_supports.current_organization_trainers,
     user_statuses: @user_supports.user_statuses,
     organization_programs: @user_supports.current_organization_programs,
-    organization: @user_supports.organization,
+    organization: @user_supports.user.profile.organization,
   },
   prerender: false
  %>

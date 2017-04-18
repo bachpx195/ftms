@@ -1,11 +1,11 @@
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
-import Form from './templates/form';
+import FullForm from './templates/manage_box_partials/full_form';
 
 require('../../assets/sass/user.scss');
 
-export default class UserFormBox extends React.Component {
+export default class ManageBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,15 +43,14 @@ export default class UserFormBox extends React.Component {
             </div>
 
             <div className='box-body no-padding row'>
-              <Form
+              <FullForm
                 url={ORGANIZATION_USER_URL} organization={this.props.organization}
                 universities={this.props.universities}
                 trainee_types={this.props.trainee_types}
                 trainers={this.props.trainers} user={this.props.user}
                 stage={this.props.stage} profile={this.props.profile}
                 organization_programs={this.props.organization_programs}
-                languages={this.props.languages}
-                stages={this.props.stages}
+                languages={this.props.languages} stages={this.props.stages}
                 user_statuses={this.props.user_statuses}
               />
             </div>
