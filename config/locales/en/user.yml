@@ -69,3 +69,6 @@ en:
       select_language: "Select a language"
       select_status: "Select a status"
       select_stage: "Select a stage"
+    view_type:
+      grid: "Grid view"
+      list: "List view"
