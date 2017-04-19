@@ -1,16 +1,18 @@
-import React from 'react';
-import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import ModalAssign from './modal_assign';
-import Form from './form';
-import ModalEvaluation from './modal_evaluation'
-import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from '../constants/training_standard_constants';
+import * as table_constants from 'constants/griddle_table_constants';
+import * as training_standard_constants from './constants/training_standard_constants';
+import axios from 'axios';
+import Form from './templates/form';
+import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import ModalAssign from './templates/modal_assign';
+import ModalEvaluation from './templates/modal_evaluation'
+import ModalShareTrainingStandard from './templates/modal_share_training_standard';
+import React from 'react';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
 const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.STANDARD_SUBECTS_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + training_standard_constants.SUBJECT_PATH;
+const SHARE_WITH_URL = app_constants.APP_NAME + training_standard_constants.SHARE_WITH_PATH;
 
 export default class TrainingStandardShow extends React.Component {
   constructor(props) {
@@ -22,17 +24,14 @@ export default class TrainingStandardShow extends React.Component {
       training_standard: props.training_standard,
       selected_subjects: props.selected_subjects,
       remain_subjects: props.remain_subjects,
+      selected_organizations: props.selected_organizations,
       subjects: [],
       standard_subjects: []
     }
   }
 
-  componentDidMount() {
-    this.fetchStandardSubjects();
-  }
-
   renderButton() {
-    if(this.props.evaluation_template){
+    if (this.props.evaluation_template) {
       let evaluation = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
         '/evaluation_template';
       return (
@@ -43,7 +42,7 @@ export default class TrainingStandardShow extends React.Component {
           </a>
         </div>
       );
-    }else{
+    } else {
       return (
         <div className='col-md-2'>
           <button className="btn btn-success"
@@ -53,6 +52,22 @@ export default class TrainingStandardShow extends React.Component {
           </button>
         </div>
       );
+    }
+  }
+
+  renderShareButton() {
+    if (this.state.training_standard.policy == "privated") {
+      return (
+        <div className='col-md-2'>
+          <button className="btn btn-success"
+            title={I18n.t("training_standards.share_training_standard")}
+            onClick={this.onClickShareTrainingStandard.bind(this)}>
+            <i className="fa fa-eye"></i> {I18n.t("training_standards.share_training_standard")}
+          </button>
+        </div>
+      );
+    } else {
+      return null;
     }
   }
 
@@ -69,6 +84,7 @@ export default class TrainingStandardShow extends React.Component {
                 <i className="fa fa-plus"></i> {I18n.t("training_standards.assign")}
               </button>
               {this.renderButton()}
+              {this.renderShareButton()}
             </div>
           </div>
         </div>
@@ -108,7 +124,6 @@ export default class TrainingStandardShow extends React.Component {
 
     let url = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
       '/evaluation_template';
-
     return(
       <div>
         <Griddle data={this.state.selected_subjects} plugins={[plugins.LocalPlugin]}
@@ -137,35 +152,16 @@ export default class TrainingStandardShow extends React.Component {
           training_standard={this.state.training_standard}
           handleAfterAssignSubject={this.handleAfterAssignSubject.bind(this)}
         />
+
+        <ModalShareTrainingStandard
+          url={TRAINING_STANDARD_URL}
+          training_standard={this.state.training_standard}
+          selected_organizations={this.state.selected_organizations}
+          handleAfterShareTrainingStandard={this.handleAfterShareTrainingStandard.bind(this)}
+        />
       </div>
     );
   }
-
-  fetchStandardSubjects() {
-    axios.get(STANDARD_SUBJECTS_URL + ".json")
-      .then(response => {
-        this.setState({
-          standard_subjects: response.data.standard_subjects
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      }
-    )
-  }
-
-  // fetchSubjects() {
-  //    axios.get(TRAINING_STANDARD_URL + ".json")
-  //     .then(response => {
-  //       this.setState({
-  //         subjects: response.data.subjects
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     }
-  //   )
-  // }
 
   onRejectSubject(event) {// Delete standard_subject
     let $target = $(event.target);
@@ -178,7 +174,7 @@ export default class TrainingStandardShow extends React.Component {
 
     let standard_subject = this.state.standard_subjects[index];
 
-    if(confirm(I18n.t('data.confirm_delete'))) {
+    if (confirm(I18n.t('data.confirm_delete'))) {
       axios.delete(STANDARD_SUBJECTS_URL + "/" + standard_subject.id + ".json", {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
@@ -204,6 +200,30 @@ export default class TrainingStandardShow extends React.Component {
   handleAfterAssignSubject(select_subjects) {// Handle create standard_subject
     select_subjects.map((select_subject) => {
       this.sendRequestAssign(select_subject);
+    });
+  }
+
+  handleAfterShareTrainingStandard(select_organizations) {
+    select_organizations.map((select_organization) => {
+      this.sendRequestShare(select_organization);
+    });
+  }
+
+  sendRequestShare(organization) {
+    axios.post(SHARE_WITH_URL + ".json", {
+      share_with: {
+        training_standard_id: this.state.training_standard.id,
+        organization_id: organization.id
+      }, authenticity_token: ReactOnRails.authenticityToken(),
+        headers: {'Accept': 'application/json'}
+    }).then(response => {
+      _.remove(this.state.selected_organizations,
+        shared => shared.id === response.data.share_with.organization_id);
+      this.setState({
+        selected_organizations: this.state.selected_organizations
+      });
+    }).catch(error => {
+      console.log(error);
     });
   }
 
@@ -234,6 +254,7 @@ export default class TrainingStandardShow extends React.Component {
   onClickButtonAssignSubject() {
     $('#modalAssignSubject').modal();
   }
+
   onClickCreateEvaluationTemplate(){
     let evaluation_template = this.state.evaluation_template;
     this.setState({
@@ -244,5 +265,9 @@ export default class TrainingStandardShow extends React.Component {
       showForm: '',
     });
     $('#modalEvaluation').modal();
+  }
+
+  onClickShareTrainingStandard() {
+    $('.modal-share-training-standard').modal();
   }
 }

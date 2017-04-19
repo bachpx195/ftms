@@ -113,4 +113,5 @@ Rails.application.routes.draw do
   resources :exams, except: [:new, :edit, :destroy]
   resources :timelines, only: :index
   get "/statistics/:type" => "statistics#show", as: :statistics_page
+  resources :share_withs, only: :create
 end
