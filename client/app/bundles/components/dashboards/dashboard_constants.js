@@ -17,3 +17,5 @@ export const PROJECTS_PATH = 'projects';
 export const CATEGORY_PATH = 'categories';
 export const TEST_RULE_PATH = 'test_rules';
 export const MY_SPACE_EXAMS_PATH = 'my_space/exams/';
+export const IN_OUT_STATISTIC_PATH = 'in_outs';
+export const STATISTIC_PATH = 'statistics/'

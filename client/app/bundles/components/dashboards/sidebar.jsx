@@ -29,6 +29,12 @@ const PROJECTS_URL = app_constants.APP_NAME +
   dashboard_constants.PROJECTS_PATH;
 const CATEGORY_URL = app_constants.APP_NAME + dashboard_constants.CATEGORY_PATH;
 const TEST_RULE_URL = app_constants.APP_NAME + dashboard_constants.TEST_RULE_PATH;
+const STATISTIC_LANGUAGE_PATH = app_constants.APP_NAME +
+  dashboard_constants.STATISTIC_PATH + dashboard_constants.LANGUAGES_PATH;
+const STATISTIC_TRAINEE_TYPE_PATH = app_constants.APP_NAME +
+  dashboard_constants.STATISTIC_PATH + dashboard_constants.TRAINEE_TYPES_PATH;
+const STATISTIC_IN_OUT_PATH = app_constants.APP_NAME
+  + dashboard_constants.STATISTIC_PATH + dashboard_constants.IN_OUT_STATISTIC_PATH;
 
 export default class Sidebar extends React.Component {
   constructor(props) {
@@ -39,6 +45,7 @@ export default class Sidebar extends React.Component {
     this.state = {
       roles_menu: 'hiddened',
       master_menu: 'hiddened',
+      statistic_menu: 'hiddened',
       organization_ids: props.organization_ids
     };
   }
@@ -46,14 +53,19 @@ export default class Sidebar extends React.Component {
   componentWillMount() {
     let roles_menu = localStorage.getItem('roles_menu') || 'hiddened';
     let master_menu = localStorage.getItem('master_menu') || 'hiddened';
-    this.setState({roles_menu: roles_menu, master_menu: master_menu});
+    let statistic_menu = localStorage.getItem('statistic_menu') || 'hiddened';
+    this.setState({
+      roles_menu: roles_menu,
+      master_menu: master_menu,
+      statistic_menu: statistic_menu
+    });
   }
 
   renderUserPanel(){
     if (localStorage.current_user !== undefined) {
       let current_user = JSON.parse(localStorage.current_user);
       let avatar = null;
-      if (current_user.avatar){
+      if (current_user.avatar) {
         avatar = <img src={current_user.avatar.url}
           className="img-circle"
           alt={I18n.t("header.user_image_alt")} />
@@ -236,6 +248,41 @@ export default class Sidebar extends React.Component {
                 </Permit>
               </ul>
             </li>
+
+            <li>
+              <Permit action='statistics'>
+                <a href="#" onClick={this.onClickStatistic.bind(this)}>
+                  <i className="fa fa-line-chart" aria-hidden="true"></i>
+                  <span>{I18n.t('sidebar.statistics.statistic')}</span>
+                  <span className='pull-right-container'>
+                    <i className={`fa
+                      fa-chevron-${this.state.statistic_menu == "showed" ? "down" : "right"}`}></i>
+                  </span>
+                </a>
+              </Permit>
+              <ul id="statistics" className={this.state.statistic_menu}>
+                <li className='sub-li' data-page='languages'>
+                  <a href={STATISTIC_LANGUAGE_PATH} onClick={this.onClick.bind(this)}>
+                    <i className="fa fa-circle-o"></i>
+                    <span>{I18n.t('sidebar.languages')}</span>
+                  </a>
+                </li>
+
+                <li className='sub-li' data-page='trainee_types'>
+                  <a href={STATISTIC_TRAINEE_TYPE_PATH} onClick={this.onClick.bind(this)}>
+                    <i className="fa fa-circle-o"></i>
+                    <span>{I18n.t('sidebar.trainee_types')}</span>
+                  </a>
+                </li>
+
+                <li className='sub-li' data-page='in_outs'>
+                  <a href={STATISTIC_IN_OUT_PATH} onClick={this.onClick.bind(this)}>
+                    <i className="fa fa-circle-o"></i>
+                    <span>{I18n.t('sidebar.statistics.in_outs')}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </section>
       </aside>
@@ -246,6 +293,7 @@ export default class Sidebar extends React.Component {
     this.setState({
       roles_menu: nextProps.roles_menu,
       master_menu: nextProps.master_menu,
+      statistic_menu: nextProps.statistic_menu
     });
   }
 
@@ -253,18 +301,18 @@ export default class Sidebar extends React.Component {
     localStorage.setItem('page', $(event.target).closest('li').data('page'));
   }
 
-  onClickSubMenu(event){
+  onClickSubMenu(event) {
     event.preventDefault();
     let target = event.target;
-    if(this.state.roles_menu == 'showed'){
-      $('#subRoleMenu').slideUp("slow", function(){
+    if (this.state.roles_menu == 'showed') {
+      $('#subRoleMenu').slideUp("slow", function() {
         $(target).find('.fa').removeClass('fa-chevron-down').addClass(
           'fa-chevron-right');
       });
       this.setState({roles_menu: 'hiddened'});
       localStorage.setItem('roles_menu', 'hiddened');
-    } else if(this.state.roles_menu == 'hiddened'){
-      $('#subRoleMenu').slideDown("slow", function(){
+    } else if (this.state.roles_menu == 'hiddened') {
+      $('#subRoleMenu').slideDown("slow", function() {
         $(target).find('.fa').removeClass('fa-chevron-right').addClass(
           'fa-chevron-down');
       });
@@ -276,20 +324,40 @@ export default class Sidebar extends React.Component {
   onClickMasterdata(event) {
     event.preventDefault();
     let target = event.target;
-    if(this.state.master_menu == 'showed'){
-      $('#subMasterMenu').slideUp("slow", function(){
+    if (this.state.master_menu == 'showed') {
+      $('#subMasterMenu').slideUp("slow", function() {
         $(target).find('.fa').removeClass('fa-chevron-down').addClass(
           'fa-chevron-right');
       });
       this.setState({master_menu: 'hiddened'});
       localStorage.setItem('master_menu', 'hiddened');
-    } else if(this.state.master_menu == 'hiddened'){
-      $('#subMasterMenu').slideDown("slow", function(){
+    } else if (this.state.master_menu == 'hiddened') {
+      $('#subMasterMenu').slideDown("slow", function() {
         $(target).find('.fa').removeClass('fa-chevron-right').addClass(
           'fa-chevron-down');
       });
       this.setState({master_menu: 'showed'});
       localStorage.setItem('master_menu', 'showed');
+    }
+  }
+
+  onClickStatistic(event) {
+    event.preventDefault();
+    let target = event.target;
+    if(this.state.statistic_menu == 'showed'){
+      $('#statistics').slideUp("slow", function(){
+        $(target).find('.fa').removeClass('fa-chevron-down').addClass(
+          'fa-chevron-right');
+      });
+      this.setState({statistic_menu: 'hiddened'});
+      localStorage.setItem('statistic_menu', 'hiddened');
+    } else if(this.state.statistic_menu == 'hiddened'){
+      $('#statistics').slideDown("slow", function(){
+        $(target).find('.fa').removeClass('fa-chevron-right').addClass(
+          'fa-chevron-down');
+      });
+      this.setState({statistic_menu: 'showed'});
+      localStorage.setItem('statistic_menu', 'showed');
     }
   }
 

@@ -37,3 +37,6 @@ en:
     categories: "Categories"
     my_exams: "My exams"
     test_rule: "Test Rules"
+    statistics:
+      statistic: "Statistic"
+      in_outs: "In/Out by month"
