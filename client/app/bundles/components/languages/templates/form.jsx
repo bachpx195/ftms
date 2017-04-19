@@ -2,8 +2,13 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import Errors from '../shareds/errors';
+import Create from '../actions/create';
+import Update from '../actions/update';
+
+import Errors from '../../shareds/errors';
+
 import _ from 'lodash';
+
 import * as app_constants from 'constants/app_constants';
 
 export default class Form extends React.Component {
@@ -28,8 +33,23 @@ export default class Form extends React.Component {
         image = <img src={this.state.image.preview} />;
       }
     }
+    let action = '';
+    if (this.props.language.id) {
+      action = <Update
+        url={this.props.url}
+        state={this.state}
+        language={this.props.language}
+        handleAfterUpdated={this.props.handleAfterUpdated}
+      />
+    } else {
+      action = <Create
+        state={this.state}
+        language={this.props.language}
+        handleAfterCreated={this.props.handleAfterCreated}
+      />
+    }
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form>
         <Errors errors={this.state.errors} />
         <div className='form-group'>
           <div className='dropzone'>
@@ -61,9 +81,7 @@ export default class Form extends React.Component {
         </div>
         <div className='form-group'>
           <div className='text-right'>
-            <button type='submit' className='btn btn-primary'
-              disabled={!this.formValid()}>
-              {I18n.t('buttons.save')}</button>
+            {action}
           </div>
         </div>
       </form>
@@ -100,40 +118,5 @@ export default class Form extends React.Component {
 
   onOpenClick() {
     this.refs.dropzoneField.open();
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    let language = _.omit(this.state, 'errors');
-    if(!this.state.changeImage) {
-      language = _.omit(language, 'image');
-    }
-    let formData = new FormData();
-    for(let key of Object.keys(language)) {
-      formData.append('language[' + key + ']', language[key]);
-    }
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let method = this.props.language.id ? 'PUT' : 'POST';
-    axios({
-      url: this.props.url,
-      method: method,
-      data: formData,
-      headers: {'Accept': 'application/json'}
-    })
-    .then(response => {
-      if(this.props.language.id) {
-        $('#modalEdit').modal('hide');
-      } else {
-        this.setState({
-          name: '',
-          description: '',
-          image: null,
-          errors: null,
-          changeImage: false
-        });
-      }
-      this.props.handleAfterSaved(response.data.language);
-    })
-    .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }

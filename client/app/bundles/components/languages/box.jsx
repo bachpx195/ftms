@@ -1,11 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 
-import LanguageLists from './language_lists';
-import Form from './form';
+import LanguageLists from './languages';
+import Form from './templates/form';
 import LanguagePolicy from 'policy/language_policy';
+import Breadcrumb from 'react-breadcrumb';
+
 import * as app_constants from 'constants/app_constants';
-import * as language_constants from './language_constants';
+import * as language_constants from './constants/language_constants';
 
 const LANGUAGE_URL = app_constants.APP_NAME + language_constants.LANGUAGE_PATH;
 
@@ -22,6 +24,20 @@ export default class LanguageBox extends React.Component {
   render() {
     return (
       <div className='row languages admin-languages'>
+        <Breadcrumb
+          path={
+            [
+              {
+                path: app_constants.APP_NAME,
+                label: I18n.t('breadcrumbs.home'),
+              },
+              {
+                path: LANGUAGE_URL,
+                label: I18n.t('breadcrumbs.languages'),
+              }
+            ]
+          }
+        />
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>
@@ -44,7 +60,7 @@ export default class LanguageBox extends React.Component {
                     {action: ['create'], target: 'children'}
                     ]}>
                     <Form language={this.state.language} url={LANGUAGE_URL}
-                      handleAfterSaved={this.handleAfterCreated.bind(this)} />
+                      handleAfterCreated={this.handleAfterCreated.bind(this)} />
                   </LanguagePolicy>
                 </div>
               </div>

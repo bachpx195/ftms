@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "griddle-react": "^1.0.0",
+    "react-breadcrumb": "^1.0.0",
     "react-intl": "^2.2.3"
   }
 }
