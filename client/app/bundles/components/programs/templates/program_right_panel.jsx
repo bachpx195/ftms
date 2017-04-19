@@ -1,12 +1,24 @@
 import React from  'react';
+import * as app_constants from 'constants/app_constants';
+import * as program_constants from '../constants/program_constants';
 
 export default class ProgramRightPanel extends React.Component {
   render() {
+    const PROGRAM_USER_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH
+      + this.props.program_detail.id + '/' + program_constants.USERS_NEW_PATH;
     return (
       <div className='col-md-3 info-panel'>
-
-        <div>
-          <div className='box box-primary'>
+        <div className='box box-primary'>
+          <div className='box-header with-border box-header-gray'>
+            <h3 className='box-title'>
+              <strong>{I18n.t('programs.user_panel.title')} </strong>
+            </h3>
+            <a className='btn btn-default pull-right' href={PROGRAM_USER_URL}>
+              <i className='fa fa-user-plus'></i>
+            </a>
+          </div>
+        </div>
+        <div className='box box-primary'>
             <div className='box-header with-border box-header-gray'>
               <h3 className='box-title'>
                 <strong>{I18n.t('programs.list_courses')} </strong>
@@ -16,50 +28,49 @@ export default class ProgramRightPanel extends React.Component {
               </span>
             </div>
             <div className='box-body'>
-              <div className="info-box bg-gray">
-                <span className="info-box-icon">
-                  <i className="fa fa-flag-checkered fa-1x"></i>
+              <div className='info-box bg-gray'>
+                <span className='info-box-icon'>
+                  <i className='fa fa-flag-checkered fa-1x'></i>
                 </span>
-                <div className="info-box-content">
-                  <span className="info-box-text">
+                <div className='info-box-content'>
+                  <span className='info-box-text'>
                     {I18n.t('programs.list_init_courses')}
                   </span>
-                  <span className="info-box-number">
-                    {this.countCoursesByStatus("init")}
+                  <span className='info-box-number'>
+                    {this.countCoursesByStatus('init')}
                   </span>
                 </div>
               </div>
-              <div className="clearfix"></div>
-              <div className="info-box bg-blue">
-                <span className="info-box-icon">
-                  <i className="fa fa-hourglass-half fa-1x"></i>
+              <div className='clearfix'></div>
+              <div className='info-box bg-blue'>
+                <span className='info-box-icon'>
+                  <i className='fa fa-hourglass-half fa-1x'></i>
                 </span>
-                <div className="info-box-content">
-                  <span className="info-box-text">
+                <div className='info-box-content'>
+                  <span className='info-box-text'>
                     {I18n.t('programs.list_in_progress_courses')}
                   </span>
-                  <span className="info-box-number">
-                    {this.countCoursesByStatus("in_progress")}
+                  <span className='info-box-number'>
+                    {this.countCoursesByStatus('in_progress')}
                   </span>
                 </div>
               </div>
-              <div className="clearfix"></div>
-              <div className="info-box bg-green">
-                <span className="info-box-icon">
-                  <i className="fa fa-check fa-1x"></i>
+              <div className='clearfix'></div>
+              <div className='info-box bg-green'>
+                <span className='info-box-icon'>
+                  <i className='fa fa-check fa-1x'></i>
                 </span>
-                <div className="info-box-content">
-                  <span className="info-box-text">
+                <div className='info-box-content'>
+                  <span className='info-box-text'>
                     {I18n.t('programs.list_finished_courses')}
                   </span>
-                  <span className="info-box-number">
-                    {this.countCoursesByStatus("finished")}
+                  <span className='info-box-number'>
+                    {this.countCoursesByStatus('finished')}
                   </span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     );
   }
@@ -67,9 +78,7 @@ export default class ProgramRightPanel extends React.Component {
   countCoursesByStatus(status) {
     let count = 0;
     _.map(this.props.program_detail.courses, course => {
-      if(course.status == status) {
-        count++;
-      }
+      if (course.status == status) count++;
     });
     return count;
   }

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   resources :programs do
     resources :courses, except: [:index, :show]
+    resources :users, only: :new
   end
 
   resources :courses do

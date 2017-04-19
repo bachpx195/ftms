@@ -1,7 +1,8 @@
+import BasicForm from './templates/manage_box_partials/basic_form';
+import FullForm from './templates/manage_box_partials/full_form';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
-import FullForm from './templates/manage_box_partials/full_form';
 
 require('../../assets/sass/user.scss');
 
@@ -17,9 +18,27 @@ export default class ManageBox extends React.Component {
       + this.props.organization.id + '/' + user_constants.USER_PATH;
     let title = '';
     let profile = null;
-    if(this.props.user) {
+    let current_user = JSON.parse(localStorage.current_user);
+    let form = <FullForm program={this.props.program}
+        url={ORGANIZATION_USER_URL} organization={this.props.organization}
+        universities={this.props.universities}
+        trainee_types={this.props.trainee_types}
+        trainers={this.props.trainers} user={this.props.user}
+        stage={this.props.stage} profile={this.props.profile}
+        organization_programs={this.props.organization_programs}
+        languages={this.props.languages} stages={this.props.stages}
+        user_statuses={this.props.user_statuses}
+      />;
+
+    if (this.props.user) {
       title = I18n.t('users.box_title.edit_info') + ': ' + this.props.user.name;
-    }else {
+      if (this.props.user.id == current_user.id) {
+        form = <BasicForm universities={this.props.universities}
+          user={this.props.user} profile={this.props.profile}
+          url={ORGANIZATION_USER_URL} organization={this.props.organization}
+        />;
+      }
+    } else {
       title = I18n.t('users.box_title.new_user');
     }
 
@@ -43,16 +62,7 @@ export default class ManageBox extends React.Component {
             </div>
 
             <div className='box-body no-padding row'>
-              <FullForm
-                url={ORGANIZATION_USER_URL} organization={this.props.organization}
-                universities={this.props.universities}
-                trainee_types={this.props.trainee_types}
-                trainers={this.props.trainers} user={this.props.user}
-                stage={this.props.stage} profile={this.props.profile}
-                organization_programs={this.props.organization_programs}
-                languages={this.props.languages} stages={this.props.stages}
-                user_statuses={this.props.user_statuses}
-              />
+              {form}
             </div>
 
           </div>

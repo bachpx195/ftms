@@ -106,9 +106,7 @@ export default class ProgramsShowBox extends React.Component {
           />
         </div>
 
-        <ProgramRightPanel
-          program_detail={this.state.program_detail}
-        />
+        <ProgramRightPanel program_detail={this.state.program_detail} />
 
         <Documents
           documents={this.state.documents}

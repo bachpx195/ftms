@@ -15,12 +15,12 @@ export default class UploadImageModal extends React.Component {
 
   render() {
     let avatar = null;
-    if(this.state.avatar) {
-      if(this.state.avatar.url) {
+    if (this.state.avatar) {
+      if (this.state.avatar.url) {
         avatar = <img src={this.state.avatar.url} className='img-size' />;
-      }else if(this.state.avatar.preview) {
+      } else if (this.state.avatar.preview) {
         avatar = <img src={this.state.avatar.preview} className='img-size' />;
-      }else {
+      } else {
         avatar = <img src={app_constants.DEFAULT_IMAGE_USER_URL} className='img-size' />;
       }
     }
@@ -84,7 +84,8 @@ export default class UploadImageModal extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let formData = new FormData();
-    if(this.state.changeImage) {
+    let current_user = JSON.parse(localStorage.current_user);
+    if (this.state.changeImage) {
       formData.append('user[avatar]', this.state.avatar);
       formData.append('authenticity_token', ReactOnRails.authenticityToken());
       let url =  app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
@@ -97,10 +98,13 @@ export default class UploadImageModal extends React.Component {
       })
       .then(response => {
         $('.modal-upload-image').modal('hide');
+        Object.assign(current_user, {avatar: response.data.user_detail.avatar});
+        localStorage.setItem('current_user', JSON.stringify(current_user));
         this.props.handleAfterUploaded(response.data.user_detail.avatar);
+        window.location.reload();
       })
       .catch(error => {console.log(error);});
-    }else {
+    } else {
       $('.modal-upload-image').modal('hide');
     }
   }
