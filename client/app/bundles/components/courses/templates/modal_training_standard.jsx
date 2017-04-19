@@ -1,3 +1,4 @@
+import EvaluationStandards from './evaluation_standards';
 import React from 'react';
 import TrainingStandardSubjects from './training_standard_subjects';
 
@@ -18,7 +19,10 @@ export default class ModalTrainingStandard extends React.Component {
               </h4>
             </div>
             <div className='modal-body td-manager-profile-list'>
-              <TrainingStandardSubjects course={this.props.course} />
+              <TrainingStandardSubjects
+                subjects={this.props.course.training_standard.subjects} />
+              <EvaluationStandards
+                evaluation_standards={this.props.course.evaluation_standards}/>
               <div className='clearfix'></div>
             </div>
             <div className='modal-footer'>

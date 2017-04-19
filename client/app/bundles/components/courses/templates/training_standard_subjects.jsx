@@ -11,11 +11,10 @@ export default class TrainingStandardSubjects extends React.Component {
   }
 
   renderSubject() {
-    return this.props.course.training_standard.subjects.map((subject, index) =>{
+    return this.props.subjects.map((subject) => {
       return(
-        <p key={index} className='list-group-item'>
-          <i>{index+1 + '. '}</i>
-          {subject.name}
+        <p key={subject.id} className='list-group-item'>
+          <i>{subject.id + '. '}</i> {subject.name}
         </p>
       )
     })
