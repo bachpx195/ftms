@@ -11,6 +11,7 @@ en:
     confirm_delete: "Are you sure?"
     confirm_unassign: "Confirm unassign?"
     confirm_change: "Confirm Moving User?"
+    confirm_clone: "You want to clone this training standard ?"
   sessions:
     email: "Email"
     password: "Password"

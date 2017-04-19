@@ -2,8 +2,9 @@ import * as app_constants from 'constants/app_constants';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as training_standard_constants from './constants/training_standard_constants';
 import axios from 'axios';
-import Form from './templates/form';
+import Clone from './templates/clone';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+
 import ModalAssign from './templates/modal_assign';
 import ModalEvaluation from './templates/modal_evaluation'
 import ModalShareTrainingStandard from './templates/modal_share_training_standard';
@@ -78,12 +79,17 @@ export default class TrainingStandardShow extends React.Component {
         <div className="row">
           <div className="col-md-12">
             <div className="border-btn">
-              <button className="btn btn-success"
-                title={I18n.t("training_standards.assign")}
-                onClick={this.onClickButtonAssignSubject.bind(this)}>
-                <i className="fa fa-plus"></i> {I18n.t("training_standards.assign")}
-              </button>
+              <div className="col-md-2">
+                <button className="btn btn-success"
+                  title={I18n.t("training_standards.assign")}
+                  onClick={this.onClickButtonAssignSubject.bind(this)}>
+                  <i className="fa fa-plus"></i>
+                  {I18n.t("training_standards.assign")}
+                </button>
+              </div>
               {this.renderButton()}
+              <Clone training_standard={this.state.training_standard}
+                organization={this.props.organization} />
               {this.renderShareButton()}
             </div>
           </div>
