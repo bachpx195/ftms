@@ -5,6 +5,6 @@ class Serializers::Questions::AnswersSerializer <
 
   private
   def is_correct?
-    results.nil?
+    correct_answer
   end
 end

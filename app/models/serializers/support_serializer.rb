@@ -47,6 +47,10 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
     @results ||= nil
   end
 
+  def correct_answer
+    @correct_answer ||= nil
+  end
+
   def task_id
     task =
       if user_id

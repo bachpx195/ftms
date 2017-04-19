@@ -113,6 +113,18 @@ $c-white: #fff;
   cursor: default;
 }
 
+.answer-fail {
+  background: $c-red;
+  border: 1px solid $c-red;
+  border-radius: 50%;
+  color: $c-white;
+  padding: 0 9px !important;
+
+  a {
+    color: $c-white;
+  }
+}
+
 .check-disable {
   border: 1px solid $c-gray;
   border-radius: 50%;
