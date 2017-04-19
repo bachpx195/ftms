@@ -1,7 +1,7 @@
 class TrainingStandardsController < ApplicationController
   before_action :find_training_standard, except: [:index, :new, :create]
   before_action :supports
-  before_action :find_organization, except: :show
+  before_action :find_organization
   before_action :authorize_request
 
   def index

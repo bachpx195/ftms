@@ -2,18 +2,17 @@ import * as app_constants from 'constants/app_constants';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as training_standard_constants from './constants/training_standard_constants';
 import axios from 'axios';
-import Clone from './templates/clone';
+import Clone from './actions/clone';
+import Share from './actions/share';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 
 import ModalAssign from './templates/modal_assign';
 import ModalEvaluation from './templates/modal_evaluation'
-import ModalShareTrainingStandard from './templates/modal_share_training_standard';
 import React from 'react';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
 const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.STANDARD_SUBECTS_PATH;
 const SUBJECT_URL = app_constants.APP_NAME + training_standard_constants.SUBJECT_PATH;
-const SHARE_WITH_URL = app_constants.APP_NAME + training_standard_constants.SHARE_WITH_PATH;
 
 export default class TrainingStandardShow extends React.Component {
   constructor(props) {
@@ -56,22 +55,6 @@ export default class TrainingStandardShow extends React.Component {
     }
   }
 
-  renderShareButton() {
-    if (this.state.training_standard.policy == "privated") {
-      return (
-        <div className='col-md-2'>
-          <button className="btn btn-success"
-            title={I18n.t("training_standards.share_training_standard")}
-            onClick={this.onClickShareTrainingStandard.bind(this)}>
-            <i className="fa fa-eye"></i> {I18n.t("training_standards.share_training_standard")}
-          </button>
-        </div>
-      );
-    } else {
-      return null;
-    }
-  }
-
   render() {
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className="box box-success">
@@ -89,8 +72,12 @@ export default class TrainingStandardShow extends React.Component {
               </div>
               {this.renderButton()}
               <Clone training_standard={this.state.training_standard}
-                organization={this.props.organization} />
-              {this.renderShareButton()}
+                organization={this.props.organization}
+                share_with_organization={this.props.share_with_organization} />
+              <Share training_standard={this.state.training_standard}
+                organization={this.props.organization}
+                selected_organizations={this.state.selected_organizations}
+              />
             </div>
           </div>
         </div>
@@ -158,13 +145,6 @@ export default class TrainingStandardShow extends React.Component {
           training_standard={this.state.training_standard}
           handleAfterAssignSubject={this.handleAfterAssignSubject.bind(this)}
         />
-
-        <ModalShareTrainingStandard
-          url={TRAINING_STANDARD_URL}
-          training_standard={this.state.training_standard}
-          selected_organizations={this.state.selected_organizations}
-          handleAfterShareTrainingStandard={this.handleAfterShareTrainingStandard.bind(this)}
-        />
       </div>
     );
   }
@@ -209,30 +189,6 @@ export default class TrainingStandardShow extends React.Component {
     });
   }
 
-  handleAfterShareTrainingStandard(select_organizations) {
-    select_organizations.map((select_organization) => {
-      this.sendRequestShare(select_organization);
-    });
-  }
-
-  sendRequestShare(organization) {
-    axios.post(SHARE_WITH_URL + ".json", {
-      share_with: {
-        training_standard_id: this.state.training_standard.id,
-        organization_id: organization.id
-      }, authenticity_token: ReactOnRails.authenticityToken(),
-        headers: {'Accept': 'application/json'}
-    }).then(response => {
-      _.remove(this.state.selected_organizations,
-        shared => shared.id === response.data.share_with.organization_id);
-      this.setState({
-        selected_organizations: this.state.selected_organizations
-      });
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-
   sendRequestAssign(subject) { //create standard_subject
     axios.post(STANDARD_SUBJECTS_URL + ".json", {
       standard_subject: {
@@ -271,9 +227,5 @@ export default class TrainingStandardShow extends React.Component {
       showForm: '',
     });
     $('#modalEvaluation').modal();
-  }
-
-  onClickShareTrainingStandard() {
-    $('.modal-share-training-standard').modal();
   }
 }
