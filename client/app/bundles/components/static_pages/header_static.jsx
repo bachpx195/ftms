@@ -53,7 +53,7 @@ export default class HeaderStatic extends React.Component {
                   <button className="btn btn-danger btn-login" data-toggle="modal"
                     data-target="#login-modal">
                     <i className="fa fa-sign-in"></i>
-                    {I18n.t('staticpages.login')}
+                    &nbsp;{I18n.t('staticpages.login')}
                   </button>
                 </li>
               </ul>

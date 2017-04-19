@@ -77,37 +77,35 @@ export default class OrganizationBox extends React.Component {
 
   renderDocuments() {
     return (
-      <div className='col-md-3 info-panel'>
-        <div className='box box-primary'>
-          <div className='box-header with-border box-header-gray'>
-            <h3 className='label box-title'>
-              {I18n.t("documents.title")}
-            </h3>
-            <div className="pull-right">
-              <button type="button" className="btn btn-default"
-                onClick={this.handleUploadDocument.bind(this)}
-                title={I18n.t("documents.select_document")}>
-                <i className="fa fa-upload"></i>
-              </button>
-              <form encType="multipart/form-data">
-                <div className='hidden'>
-                  <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
-                    ref='dropzoneDocumentsField'
-                    multiple={false}
-                    accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
-                </div>
-              </form>
-            </div>
+      <div className='box box-primary'>
+        <div className='box-header with-border box-header-gray'>
+          <h3 className='label box-title'>
+            {I18n.t("documents.title")}
+          </h3>
+          <div className="pull-right">
+            <button type="button" className="btn btn-default"
+              onClick={this.handleUploadDocument.bind(this)}
+              title={I18n.t("documents.select_document")}>
+              <i className="fa fa-upload"></i>
+            </button>
+            <form encType="multipart/form-data">
+              <div className='hidden'>
+                <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
+                  ref='dropzoneDocumentsField'
+                  multiple={false}
+                  accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
+              </div>
+            </form>
           </div>
-          <div className='box-body'>
-            <ul className='document-list clearfix'>
-              {
-                this.state.documents.map((document, index) => {
-                  return this.renderDocument(document);
-                })
-              }
-            </ul>
-          </div>
+        </div>
+        <div className='box-body'>
+          <ul className='document-list clearfix'>
+            {
+              this.state.documents.map((document, index) => {
+                return this.renderDocument(document);
+              })
+            }
+          </ul>
         </div>
       </div>
     );
@@ -242,10 +240,8 @@ export default class OrganizationBox extends React.Component {
               </div>
             </div>
           </div>
+          {this.renderDocuments()}
         </div>
-        {
-          this.renderDocuments()
-        }
         <ModalPreviewDocument
           document_preview={this.state.document_preview}
           handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}

@@ -21,10 +21,12 @@ export default class FilterTrainingStandards extends React.Component {
               </select>
             </fieldset>
             <button className='btn btn-info' onClick={this.handleCreateCourse.bind(this)}>
-              {I18n.t('courses.create_course')}
+              <i className="fa fa-plus"></i>
+              &nbsp;{I18n.t('courses.create_course')}
             </button>
             <button className='btn btn-info' onClick={this.handleCreateStandard.bind(this)}>
-              {I18n.t("training_standards.create")}
+              <i className="fa fa-plus"></i>
+              &nbsp;{I18n.t("training_standards.create")}
             </button>
           </div>
         </div>
