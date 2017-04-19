@@ -58,7 +58,7 @@ export default class ProgramLists extends React.Component {
     const ButtonDelete = ({griddleKey}) => {
       let program = this.props.programs[griddleKey];
       let url = ORGANIZATION_URL + '/' + this.state.organization.id + '/' +
-        PROGRAM_PATH + "/" + program.id;
+        PROGRAM_PATH + program.id;
       return <Destroy
         url={url}
         program={program}

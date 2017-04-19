@@ -110,7 +110,7 @@ Rails.application.routes.draw do
     resources :questions
   end
   resources :test_rules
-  resources :exams
+  resources :exams, except: [:new, :edit, :destroy]
   resources :timelines, only: :index
   get "/statistics/:type" => "statistics#show", as: :statistics_page
 end

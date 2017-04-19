@@ -2,6 +2,7 @@ import AssignmentItem from '../../assignments/templates/assignment_item';
 import css from '../assets/subject.scss';
 import React from 'react';
 import PublicPolicy from 'policy/public_policy';
+import StartExamButton from './start_exam_button';
 
 export default class SubjectDetail extends React.Component {
   constructor(props) {
@@ -34,6 +35,9 @@ export default class SubjectDetail extends React.Component {
           <div className='box-body no-padding'>
             <div className='row'>
               <div className='col-md-8'>
+                <StartExamButton test_rules={this.props.static_test_rules}
+                  course_subject={this.state.subject_detail.course_subject} />
+                <div className='clearfix'></div>
                 <div className='assignment-box'>
                   <h1 className='header-task'>
                     {I18n.t('subjects.trainee.title_assignment')}

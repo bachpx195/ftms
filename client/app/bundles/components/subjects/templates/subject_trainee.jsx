@@ -33,7 +33,8 @@ export default class SubjectTrainee extends React.Component {
           user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
           afterUpdateStatus={this.afterUpdateStatus.bind(this)}
           afterClickSendPullRequest={this.afterClickSendPullRequest.bind(this)}
-         />
+          static_test_rules={this.props.static_test_rules}
+        />
         <ModalCreateAssignment
           subject_detail={this.props.subject_detail}
           afterCreateTask={this.afterCreateTask.bind(this)}

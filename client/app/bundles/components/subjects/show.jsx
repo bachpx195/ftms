@@ -62,6 +62,7 @@ export default class SubjectsShow extends React.Component {
           user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
           assigments_of_user_subjects={this.state.assigments_of_user_subjects}
           static_task_assignment={this.state.static_task_assignment}
+          static_test_rules={this.props.static_test_rules}
         />
       );
     }

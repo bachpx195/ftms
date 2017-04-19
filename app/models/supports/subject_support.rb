@@ -86,4 +86,9 @@ class Supports::SubjectSupport
   def organizations
     @organizations ||= Organization.all
   end
+
+  def static_test_rules
+    return Array.new unless course_subject
+    @static_test_rules ||= course_subject.static_test_rules
+  end
 end
