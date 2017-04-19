@@ -70,6 +70,7 @@ en:
     select_role: "Select role"
     select_owner: "Select owner"
     add_task: "Add Task"
+    preview: "Preview"
     create_task_title_survey: "Assign Task: Survey"
     create_task_title_test_rule: "Assign Task: TestRule"
     survey_in_course: "Surveys in course"
@@ -81,6 +82,7 @@ en:
       testing: "Testing"
       choose: "Choose static task add for course..."
     title_add_task: "Add static task for course"
+    title_preview: "Traning Standard Preview"
     assign_user: "Assign user for course"
     evaluation:
       evaluate: "Evaluate"
@@ -113,3 +115,5 @@ en:
       records: "%{record} records"
       choose_course: "Choose the course to transfer ..."
       title_click_remove: "Click remove course subject for new course"
+    training_standard: "Training Standard"
+    subjects-list: "Subjects List"
