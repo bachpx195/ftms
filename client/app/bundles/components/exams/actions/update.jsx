@@ -1,10 +1,16 @@
 import * as app_constants from 'constants/app_constants';
-import axios from 'axios'
+import axios from 'axios';
 import * as exam_constants from '../constants/exam_constants';
 import ExamPolicy from 'policy/exam_policy';
 import React from 'react';
 
-export default class Create extends React.Component {
+export default class Update extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.submit) {
+      this.afterClickFinishExam();
+    }
+  }
+
   render() {
     return(
       <ExamPolicy
@@ -29,10 +35,8 @@ export default class Create extends React.Component {
         question.results.id);
       formData.append('exam[results_attributes][' + question_index + '][question_id]',
         question.id);
-      if (question.results.answer_id) {
-        formData.append('exam[results_attributes][' + question_index + '][answer_id]',
-          question.results.answer_id);
-      }
+      formData.append('exam[results_attributes][' + question_index + '][answer_id]',
+        question.results.answer_id || 0);
     });
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     axios({
@@ -42,7 +46,7 @@ export default class Create extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      alert('Submited');
+      this.props.examSubmited();
       window.location.reload()
     })
     .catch(error => console.log(error));

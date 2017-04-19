@@ -10,3 +10,8 @@ en:
       score: "Score"
     buttons:
       finish: "Finish"
+    time_remaining: "Time remaining:"
+    hours: "Hours"
+    minutes: "Minutes"
+    seconds: "Seconds"
+    times_up: "Time's up. Your exam's going to be submited."

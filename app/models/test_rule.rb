@@ -1,7 +1,7 @@
 class TestRule < ApplicationRecord
   acts_as_paranoid
 
-  ATTRIBUTE_PARAMS = [:id, :name, :total_question, :time_of_test,
+  ATTRIBUTE_PARAMS = [:id, :name, :total_question, :time_of_test, :duration,
     :min_score_for_pass, :opportunity, :number_of_test,
     test_rule_categories_attributes: [:id, :category_id,
       :number_question, :easy, :normal, :hard, :_destroy],
@@ -30,6 +30,7 @@ class TestRule < ApplicationRecord
   validates :name, presence: true
   validates :total_question, presence: true
   validates :time_of_test, presence: true
+  validates :duration, presence: true
   validates :min_score_for_pass, presence: true
   validate :validate_categories
 
