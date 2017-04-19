@@ -9,7 +9,8 @@ export default class StatisticsInOutBox extends React.Component {
       if (this.props.organization) {
         return (
           <InOutOrganization months={this.props.months}
-            trainees_in_outs={this.props.trainees_in_outs} />
+            trainees_in_outs={this.props.trainees_in_outs}
+            organization={this.props.organization} />
         );
       } else {
         return (

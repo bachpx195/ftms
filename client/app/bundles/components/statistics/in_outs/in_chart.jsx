@@ -55,14 +55,14 @@ export default class InChart extends React.Component {
             {I18n.t('statistics.in_outs.titles.in')}
           </h3>
 
-          <div className="box-tools pull-right">
-            <button type="button" className="btn btn-box-tool"
-              data-widget="collapse">
-              <i className="fa fa-minus"></i>
+          <div className='box-tools pull-right'>
+            <button type='button' className='btn btn-box-tool'
+              data-widget='collapse'>
+              <i className='fa fa-minus'></i>
             </button>
-            <button type="button" className="btn btn-box-tool"
-              data-widget="remove">
-              <i className="fa fa-times"></i>
+            <button type='button' className='btn btn-box-tool'
+              data-widget='remove'>
+              <i className='fa fa-times'></i>
             </button>
           </div>
         </div>

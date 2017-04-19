@@ -20,12 +20,12 @@ export default class StatisticsLanguageBox extends React.Component {
         <div className='box-header with-border'>
           <h3 className='box-title'>{I18n.t('statistics.languages.title')}</h3>
 
-          <div className="box-tools pull-right">
-            <button type="button" className="btn btn-box-tool" data-widget="collapse">
-              <i className="fa fa-minus"></i>
+          <div className='box-tools pull-right'>
+            <button type='button' className='btn btn-box-tool' data-widget='collapse'>
+              <i className='fa fa-minus'></i>
             </button>
-            <button type="button" className="btn btn-box-tool" data-widget="remove">
-              <i className="fa fa-times"></i>
+            <button type='button' className='btn btn-box-tool' data-widget='remove'>
+              <i className='fa fa-times'></i>
             </button>
           </div>
         </div>
@@ -37,12 +37,12 @@ export default class StatisticsLanguageBox extends React.Component {
               components={{Layout: NewLayout}}
               styleConfig={table_constants.styleConfig}>
               <RowDefinition>
-                <ColumnDefinition id="organization_name"
-                  title={I18n.t("statistics.languages.headers.organization")} />
-                <ColumnDefinition id="language_name"
-                  title={I18n.t("statistics.languages.headers.language")}/>
-                <ColumnDefinition id="number"
-                  title={I18n.t("statistics.languages.headers.number")} />
+                <ColumnDefinition id='organization_name'
+                  title={I18n.t('statistics.languages.headers.organization')} />
+                <ColumnDefinition id='language_name'
+                  title={I18n.t('statistics.languages.headers.language')}/>
+                <ColumnDefinition id='number'
+                  title={I18n.t('statistics.languages.headers.number')} />
               </RowDefinition>
             </Griddle>
           </div>

@@ -9,6 +9,7 @@ import ModalAssignOwner from './modal_assign_owner/modal';
 import Dropzone from 'react-dropzone';
 
 import * as app_constants from 'constants/app_constants';
+import * as dashboard_constants from '../dashboards/dashboard_constants';
 import * as user_constants from '../users/user_constants';
 import * as exam_constants from '../exams/constants/exam_constants';
 
@@ -128,6 +129,9 @@ export default class OrganizationBox extends React.Component {
       this.state.organization.id + '/' + 'training_standards';
     let ORGANIZATION_EXAMS_URL = ORGANIZATION_URL + '/' +
       this.state.organization.id + '/' + exam_constants.EXAMS_PATH;
+    let STATISTIC_IN_OUT_PATH = ORGANIZATION_URL + '/' +
+      this.state.organization.id + '/' +
+      dashboard_constants.STATISTIC_PATH + dashboard_constants.IN_OUT_STATISTIC_PATH;
 
     return (
       <div className='row'>
@@ -224,6 +228,15 @@ export default class OrganizationBox extends React.Component {
                 <strong>
                   <a href={ORGANIZATION_EXAMS_URL}>
                     {I18n.t('organizations.exams')}
+                  </a>
+                </strong>
+              </div>
+              <br />
+              <div className='member-title'>
+                <i className="fa fa-line-chart" aria-hidden="true"></i>
+                <strong>
+                  <a href={STATISTIC_IN_OUT_PATH}>
+                    {I18n.t('sidebar.statistics.statistic')}
                   </a>
                 </strong>
               </div>
