@@ -32,6 +32,7 @@ class ExamsController < ApplicationController
     respond_to do |format|
       format.json do
         if exam.update_attributes exam_params
+          ExamServices::UpdateScore.new(exam: exam).perform
           render json: {message: flash_message("updated")}
         else
           render json: {message: flash_message("not_updated"),

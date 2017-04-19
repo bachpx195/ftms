@@ -24,6 +24,10 @@ class Supports::ExamSupport
     Serializers::Exams::ExamSerializer.new(object: exam).serializer
   end
 
+  def exam_results_serializer
+    Serializers::Exams::ExamResultsSerializer.new(object: exam).serializer
+  end
+
   def exam
     @exam ||= Exam.find_by id: @params[:id]
   end

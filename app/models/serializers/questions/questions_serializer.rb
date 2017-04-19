@@ -5,7 +5,7 @@ class Serializers::Questions::QuestionsSerializer <
 
   def answers
     Serializers::Questions::AnswersSerializer
-      .new(object: object.answers, scope: {results: results_})
+      .new(object: object.answers, scope: {correct_answer: correct_answer})
       .serializer
   end
 

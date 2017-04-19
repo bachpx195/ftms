@@ -43,6 +43,7 @@ export default class Create extends React.Component {
     })
     .then(response => {
       alert('Submited');
+      window.location.reload()
     })
     .catch(error => console.log(error));
   }

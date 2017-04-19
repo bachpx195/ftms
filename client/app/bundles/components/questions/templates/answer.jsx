@@ -33,11 +33,27 @@ export default class Answer extends React.Component {
 
     let chooseAnswer = '';
     if (this.state.user_show) {
-      chooseAnswer = (
-        <div className={`check ${check} pointer`}>
-          <i className='fa fa-check'></i>
-        </div>
-      );
+      if (this.state.question.results.answer_id == this.state.answer.id) {
+        if (this.state.answer.is_correct) {
+          chooseAnswer = (
+            <div className={`check check-enable pointer`}>
+              <i className="fa fa-check"></i>
+            </div>
+          );
+        } else {
+          chooseAnswer = (
+            <div className={`check answer-fail pointer`}>
+              <i className='fa fa-times'></i>
+            </div>
+          );
+        }
+      } else {
+        chooseAnswer = (
+          <div className={`check check-disable pointer`}>
+            <i className='fa fa-check'></i>
+          </div>
+        );
+      }
     } else {
       chooseAnswer = (
         <a onClick={this.afterChooseAnswer.bind(this)}>
