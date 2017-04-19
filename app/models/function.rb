@@ -1,5 +1,5 @@
 class Function < ApplicationRecord
-  ATTRIBUTE_PARAMS = [:name, :controller_name, :action, :parent_id]
+  ATTRIBUTE_PARAMS = [:humanize_name, :controller_name, :action, :parent_id]
 
   has_many :role_functions, dependent: :destroy
   has_many :roles, through: :role_functions

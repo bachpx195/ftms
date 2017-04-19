@@ -12,9 +12,6 @@ class StagesController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def create
     @stage = current_user.stages.build stage_params
     respond_to do |format|
@@ -28,7 +25,7 @@ class StagesController < ApplicationController
             stage: @stage}
         end
       else
-        format.html{render :new}
+        format.html
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @stage.errors}, status: :unprocessable_entity

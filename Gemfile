@@ -51,6 +51,7 @@ gem "font-awesome-rails"
 group :development, :test do
   gem "spring"
   gem "pry"
+  gem "fabrication"
 end
 
 group :development do
@@ -59,7 +60,6 @@ group :development do
   gem "rack-mini-profiler"
   gem "pry-rails"
   gem "pry-byebug"
-  gem "fabrication"
   gem "web-console", "~> 2.0"
   gem "letter_opener"
   gem "faker"
