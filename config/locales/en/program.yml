@@ -39,3 +39,6 @@ en:
     no_content: "No Content"
     unassign: "Unassign"
     assigned_to_organization: "Assigned to organization"
+    user_panel:
+      title: "Create User"
+      user_numbers: "Number of Users: "

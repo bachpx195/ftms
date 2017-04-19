@@ -41,21 +41,34 @@ export default class FullForm extends React.Component {
 
   render() {
     let check_new_user = false;
-    let action = '';
+    let action, program = '';
 
-    if(this.state.user.id) {
+    if (this.state.user.id) {
       action =
         <Update
           state={this.state} url={this.props.url} stage={this.props.stage}
           organization={this.props.organization}
           handleErrors={this.handleErrors.bind(this)} />;
-    }else {
+    } else {
       check_new_user = true;
       action =
         <Create
           state={this.state} url={this.props.url} stage={this.props.stage}
-          organization={this.props.organization}
+          organization={this.props.organization} program={this.props.program}
           handleErrors={this.handleErrors.bind(this)} />;
+    }
+
+    if (this.props.program) {
+      program = <strong className='form-control'>{this.props.program.name}</strong>;
+    } else {
+      program = <div>
+        <select id='program' className='form-control'
+          name='program_id'
+          value={this.state.profile.program_id || ''}
+          onChange={this.handleProfileChange.bind(this)}>
+          <option value=''>-- {I18n.t('users.form_select.select_program')}</option>
+          {this.renderOptions(this.props.organization_programs)}
+        </select> </div>;
     }
     return(
       <form role='form'>
@@ -81,13 +94,7 @@ export default class FullForm extends React.Component {
                 <label htmlFor='program'>
                   {I18n.t('users.profile_detail.program')}
                 </label>
-                <select id='program' className='form-control'
-                  name='program_id'
-                  value={this.state.profile.program_id || ''}
-                  onChange={this.handleProfileChange.bind(this)}>
-                  <option value=''>-- {I18n.t('users.form_select.select_program')}</option>
-                  {this.renderOptions(this.props.organization_programs)}
-                </select>
+                {program}
               </div>
             </div>
             <div className='col-md-4'>

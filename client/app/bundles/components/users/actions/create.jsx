@@ -34,6 +34,9 @@ export default class Create extends React.Component {
      formData.append('user[profile_attributes][stage_id]]', this.props.stage.id);
      formData.append('user[profile_attributes][organization_id]]',
        this.props.organization.id);
+     if (this.props.program) {
+       formData.append('user[profile_attributes][program_id]]', this.props.program.id);
+     }
      formData.append('authenticity_token', ReactOnRails.authenticityToken());
      axios({
        url: this.props.url,

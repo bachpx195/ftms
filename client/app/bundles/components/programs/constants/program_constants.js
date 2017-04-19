@@ -4,4 +4,5 @@ export const COURSE_PATH = 'courses'
 export const LIMIT_DESCRIPTION = 36;
 export const ORGANIZATION_PATH = 'organizations';
 export const PROGRAMS_PATH = 'programs/';
+export const USERS_NEW_PATH = 'users/new';
 export const TRANINING_STANDARD_PATH = 'training_standards';

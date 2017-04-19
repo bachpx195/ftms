@@ -12,7 +12,8 @@ class ApplicationPolicy
         action: "create"
       function = Function.find_by controller_name: record[:controller],
         action: function_name.to_s
-      (@user.functions.include? function) || (@user.functions.include? function_create)
+      (@user.functions.include? function) ||
+        (@user.functions.include? function_create)
     end
   end
 

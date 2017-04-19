@@ -7,9 +7,17 @@ class Supports::UserSupport
     @user ||= User.find_by id: @params[:id]
   end
 
+  def program
+    @program ||= Program.find_by id: @params[:program_id]
+  end
+
   def organization
-    @organization ||= Organization.find_by(id: @params[:organization_id]) ||
-      user.profile.organization
+    @organization ||=
+      if program
+        program.organization
+      else
+        Organization.find_by id: @params[:organization_id]
+      end
   end
 
   def users_serializer
@@ -46,11 +54,13 @@ class Supports::UserSupport
   end
 
   def current_organization_programs
-    @current_organization_programs ||=
-      if organization
-        organization.programs
-      else
-        user.profile.organization.programs
-      end
+    unless @params[:program_id]
+      @current_organization_programs ||=
+        if organization
+          organization.programs
+        else
+          user.profile.organization.programs
+        end
+    end
   end
 end

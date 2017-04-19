@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :load_supports
   before_action :find_organization
+  before_action :find_program, only: :new
   before_action :find_user, except: [:index, :new, :create]
   before_action :authorize_request
 
@@ -53,6 +54,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json do
         if user.update_attributes user_params
+          if user_params[:password] && (user.id == current_user.id)
+            sign_in user, bypass: true
+          end
           render json: {message: flash_message("updated"),
             user_detail: @user_supports.user_serializer}
         else
@@ -102,6 +106,20 @@ class UsersController < ApplicationController
       unless @user_supports.organization
         respond_to do |format|
           format.html{redirect_to organizations_path}
+          format.json do
+            render json: {message: flash_message("not_found")},
+              status: :not_found
+          end
+        end
+      end
+    end
+  end
+
+  def find_program
+    if params[:program_id]
+      unless @user_supports.program
+        respond_to do |format|
+          format.html{redirect_to programs_path}
           format.json do
             render json: {message: flash_message("not_found")},
               status: :not_found
