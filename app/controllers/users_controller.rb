@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       format.html
       format.json do
         render json: {
-          users: @user_supports.users_serializer
+          organization: @user_supports.organization_chart
         }
       end
     end
