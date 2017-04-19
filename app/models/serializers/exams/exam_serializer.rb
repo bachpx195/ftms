@@ -1,5 +1,5 @@
 class Serializers::Exams::ExamSerializer < Serializers::SupportSerializer
-  attrs :id, :questions, :user_show
+  attrs :id, :started_at, :duration, :questions, :user_show
   def questions
     Serializers::Questions::QuestionsSerializer
       .new(object: object.results.questions,

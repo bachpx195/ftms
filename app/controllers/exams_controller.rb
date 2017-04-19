@@ -10,9 +10,11 @@ class ExamsController < ApplicationController
   def create
     respond_to do |format|
       format.json do
-        exam = @exam_supports.test_rule.exams.build user: current_user,
+        test_rule = @exam_supports.test_rule
+        exam = test_rule.exams.build user: current_user,
           course_subject: @exam_supports.course_subject,
-          course_id: @exam_supports.course
+          course: @exam_supports.course,
+          duration: test_rule.time_of_test
         if exam.save
           render json: {message: flash_message("created"), exam: exam}
         else
@@ -33,7 +35,7 @@ class ExamsController < ApplicationController
       format.json do
         if exam.update_attributes exam_params
           ExamServices::UpdateScore.new(exam: exam).perform
-          render json: {message: flash_message("updated")}
+          render json: {message: flash_message("updated"), exam: exam}
         else
           render json: {message: flash_message("not_updated"),
             errors: exam.errors}, status: :unprocessable_entity

@@ -1,9 +1,11 @@
 class Result < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :exam
   belongs_to :question
   belongs_to :answer, optional: true
 
-  scope :questions, lambda{all.map(&:question)}
+  scope :questions, ->{all.map(&:question)}
 
   class << self
     def score
