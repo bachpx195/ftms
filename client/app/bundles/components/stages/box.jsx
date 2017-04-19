@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Stages from './stages';
 import Form from './templates/form';
+import Breadcrumb from 'react-breadcrumb';
 
 import * as app_constants from 'constants/app_constants';
 import * as stage_constants from './constants/stage_constants';
@@ -22,6 +23,20 @@ export default class StageBox extends React.Component {
   render() {
     return (
       <div className='row stages'>
+        <Breadcrumb
+          path={
+            [
+              {
+                path: app_constants.APP_NAME,
+                label: I18n.t('breadcrumbs.home'),
+              },
+              {
+                path: STAGE_URL,
+                label: I18n.t('breadcrumbs.stages'),
+              }
+            ]
+          }
+        />
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>

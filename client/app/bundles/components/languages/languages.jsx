@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import Modal from './modal';
-import Form from './form';
+import Modal from './templates/modal';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as language_constants from './language_constants';
+import * as language_constants from './constants/language_constants';
 import Row from './griddle/row';
 import LanguagePolicy from 'policy/language_policy';
 
@@ -108,7 +107,7 @@ export default class LanguageLists extends React.Component {
     this.setState({
       language: this.props.languages[$target.data('index')]
     });
-    $('#modalEdit').modal();
+    $('.modal-edit').modal();
   }
 
   handleDelete(event) {

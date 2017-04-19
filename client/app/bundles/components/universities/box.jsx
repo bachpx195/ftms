@@ -8,6 +8,7 @@ import * as university_constants from './constants/university_constants';
 
 import Form from './templates/form';
 import Universities from './universities';
+import Breadcrumb from 'react-breadcrumb';
 
 const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
 
@@ -24,6 +25,20 @@ export default class UniversityBox extends React.Component {
   render() {
     return (
       <div className='row universities'>
+        <Breadcrumb
+          path={
+            [
+              {
+                path: app_constants.APP_NAME,
+                label: I18n.t('breadcrumbs.home'),
+              },
+              {
+                path: UNIVERSITY_URL,
+                label: I18n.t('breadcrumbs.universities'),
+              }
+            ]
+          }
+        />
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>

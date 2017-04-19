@@ -10,7 +10,7 @@ import ExamsBox from '../components/exams/box';
 import Footer from '../components/dashboards/footer';
 import FunctionsBox from '../components/functions/functions_box';
 import Header from '../components/dashboards/header';
-import LanguageBox from '../components/languages/languages_box';
+import LanguageBox from '../components/languages/box';
 import MovingHistoryBox from '../components/moving_histories/moving_histories_box';
 import OrganizationBox from '../components/organizations/organizations_box';
 import Policies from '../policies/policies';

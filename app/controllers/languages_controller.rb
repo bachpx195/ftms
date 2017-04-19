@@ -20,7 +20,7 @@ class LanguagesController < ApplicationController
   end
 
   def create
-    @language = Language.new language_params
+    @language = Language.new language_params.merge(creator: current_user)
     respond_to do |format|
       if @language.save
         format.html{redirect_to @language}
@@ -45,7 +45,7 @@ class LanguagesController < ApplicationController
       format.json do
         render json: {
           languages: Serializers::Languages::LanguagesSerializer
-            .new(object: @language).serializer,
+            .new(object: @language).serializer
         }
       end
     end
