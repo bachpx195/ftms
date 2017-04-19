@@ -28,7 +28,9 @@ export default class Form extends React.Component {
         <div className='form-group'>
           <div className='text-right'>
             <button type='submit' disabled={!this.formValid()} className='btn btn-primary'>
-              {I18n.t('buttons.save')}</button>
+              <i className="fa fa-floppy-o"></i>
+              &nbsp;{I18n.t('buttons.save')}
+            </button>
           </div>
         </div>
       </form>

@@ -17,7 +17,8 @@ export default class Destroy extends React.Component {
           data: {creator_id: this.props.university.creator_id}}]}>
         <button className='btn btn-danger'
           onClick={this.handleDelete.bind(this)}>
-          {I18n.t('buttons.delete')}
+          <i className="fa fa-trash"></i>
+          &nbsp;{I18n.t('buttons.delete')}
         </button>
       </UniversityPolicy>
     );

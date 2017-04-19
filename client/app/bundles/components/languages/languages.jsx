@@ -47,7 +47,8 @@ export default class LanguageLists extends React.Component {
           >
             <button className='btn btn-info' data-index={griddleKey}
               onClick={this.handleEdit.bind(this)}>
-              {I18n.t('buttons.edit')}
+              <i className="fa fa-pencil-square-o"></i>
+              &nbsp;{I18n.t('buttons.edit')}
             </button>
           </LanguagePolicy>
         );
@@ -61,7 +62,8 @@ export default class LanguageLists extends React.Component {
         >
           <button className='btn btn-danger' data-index={griddleKey}
             onClick={this.handleDelete.bind(this)}>
-            {I18n.t('buttons.delete')}
+            <i className="fa fa-trash"></i>
+            &nbsp;{I18n.t('buttons.delete')}
           </button>
         </LanguagePolicy>
       );

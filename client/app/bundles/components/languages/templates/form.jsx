@@ -57,7 +57,7 @@ export default class Form extends React.Component {
               <button type='button' className='btn btn-danger btn-select-file'
                 onClick={this.onOpenClick.bind(this)}>
                 <i className='fa fa-upload'></i>
-                {I18n.t('dropzones.select_image')}
+                &nbsp;{I18n.t('dropzones.select_image')}
               </button>
             </div>
           </div>

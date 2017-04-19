@@ -9,7 +9,8 @@ export default class Create extends React.Component {
       <div className='text-right'>
         <button type='submit' className='btn btn-primary'
           onClick={this.handleSubmit.bind(this)}>
-          {I18n.t('buttons.save')}
+          <i className="fa fa-floppy-o"></i>
+          &nbsp;{I18n.t('buttons.save')}
         </button>
       </div>
     );

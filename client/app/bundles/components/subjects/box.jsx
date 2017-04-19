@@ -44,7 +44,7 @@ export default class SubjectBox extends React.Component {
                     permit={[{action: ['create'], target: 'children'}]} >
                     <button type="button" className="btn btn-info create-subject"
                       onClick={this.handleCreateSubject.bind(this)}>
-                      <i className="fa fa-upload"></i> {I18n.t('subjects.buttons.create')}
+                      <i className="fa fa-plus"></i> {I18n.t('subjects.buttons.create')}
                     </button>
                   </SubjectPolicy>
                 </div>
