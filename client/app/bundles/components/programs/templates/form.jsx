@@ -7,7 +7,6 @@ import * as app_constants from 'constants/app_constants';
 import * as program_constants from '../constants/program_constants';
 
 const ORGANIZATION_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
-const PROGRAMS = program_constants.PROGRAMS_PATH;
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -32,13 +31,13 @@ export default class Form extends React.Component {
     let input_parent = '';
     let action = '';
     let attributes = _.omit(this.state, 'program');
-    let placeholder = this.state.parent_id ? I18n.t("programs.create_sub") :
-      I18n.t("programs.create")
+    let placeholder = this.state.parent_id ? I18n.t('programs.create_sub') :
+      I18n.t('programs.create')
     if (this.state.program) {
       action =
         <Update
           url={this.props.url}
-          params={"program"}
+          params={'program'}
           attributes={attributes}
           handleAfterUpdated={this.props.handleAfterUpdated}/>
     } else {
@@ -46,7 +45,7 @@ export default class Form extends React.Component {
       action =
         <Create
           url={this.props.url}
-          params={"program"}
+          params={'program'}
           attributes={attributes}
           handleAfterCreated={this.props.handleAfterCreated}
         />
@@ -55,16 +54,16 @@ export default class Form extends React.Component {
     return (
       <form>
 
-        <div className="form-group">
-          <input type="text" placeholder={placeholder}
-            className="form-control" name="name" ref="nameField"
+        <div className='form-group'>
+          <input type='text' placeholder={placeholder}
+            className='form-control' name='name' ref='nameField'
             value={this.state.name}
             onChange={this.handleChange.bind(this)} />
           {input_parent}
         </div>
 
-        <div className="form-group">
-          <div className="text-right">
+        <div className='form-group'>
+          <div className='text-right'>
             {action}
           </div>
         </div>

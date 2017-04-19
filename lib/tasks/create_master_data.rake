@@ -87,6 +87,8 @@ namespace :db do
     f13 = Function.find_by controller_name: "my_space/exams", action: "index"
     f14 = Function.find_by controller_name: "exams", action: "show"
     f15 = Function.find_by controller_name: "exams", action: "update"
+    f16 = Function.find_by controller_name: "exams", action: "create"
+    f17 = Function.find_by controller_name: "users", action: "edit"
 
     10.times do |n|
       user = User.create!(
@@ -111,7 +113,9 @@ namespace :db do
         {user: user, function: f12},
         {user: user, function: f13},
         {user: user, function: f14},
-        {user: user, function: f15}
+        {user: user, function: f15},
+        {user: user, function: f16},
+        {user: user, function: f17}
       ])
     end
     RoleFunction.create!([
@@ -130,6 +134,8 @@ namespace :db do
       {role_id: 6, function: f13},
       {role_id: 6, function: f14},
       {role_id: 6, function: f15},
+      {role_id: 6, function: f16},
+      {role_id: 6, function: f17},
     ])
 
     puts "2. Create languages"
@@ -474,12 +480,14 @@ namespace :db do
     Assignment.take(5).each do |assignment|
       StaticTask.create targetable: assignment, ownerable: subject
     end
+    StaticTask.create targetable: TestRule.first, ownerable: subject
 
     puts "27. Create Static CourseSubject"
     course_subject = CourseSubject.first
     Assignment.take(5).each do |assignment|
       StaticTask.create targetable: assignment, ownerable: course_subject
     end
+    StaticTask.create targetable: TestRule.first, ownerable: course_subject
 
     puts "28. Create Dynamic Task"
     course_subject = CourseSubject.first
@@ -530,14 +538,14 @@ namespace :db do
 
     puts "34. Create Questions"
     Category.all.each do |category|
-        30.times do |n|
-          question = category.questions.create! content: "Lorem ipsum is simply dummy text",
-            level: n % 3, question_type: 0
-          4.times do
-            question.answers.create! content: "Lorem ipsum is simply dummy text"
-          end
-          question.answers.sample.update_attributes is_correct: true
+      30.times do |n|
+        question = category.questions.create! content: "Lorem ipsum is simply dummy text",
+          level: n % 3, question_type: 0
+        4.times do
+          question.answers.create! content: "Lorem ipsum is simply dummy text"
         end
+        question.answers.sample.update_attributes is_correct: true
+      end
     end
 
     puts "35. Create Test Rule Condition"

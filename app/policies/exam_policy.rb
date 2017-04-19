@@ -9,6 +9,10 @@ class ExamPolicy < ApplicationPolicy
     super && check_show_exam?
   end
 
+  def create?
+    super && check_member_in_course?
+  end
+
   def update?
     super && check_show_exam?
   end
@@ -41,8 +45,15 @@ class ExamPolicy < ApplicationPolicy
   end
 
   def check_course_manager?
-    object = record[:exam_supports].exam.course_subject ||
-      record[:exam_supports].exam.course
-    object.course.managers.include? @user
+    course = (record[:exam_supports].exam.course_subject ||
+      record[:exam_supports].exam).course
+    return false unless course
+    course.managers.include? @user
+  end
+
+  def check_member_in_course?
+    return false unless record[:exam_supports].course_subject
+    record[:exam_supports].course_subject.course.members
+      .include? record[:exam_supports].user
   end
 end
