@@ -3,6 +3,7 @@ import React from 'react';
 import ModalTask from './add_tasks/modal_task';
 import CoursePanelRight from './templates/course_panel_right';
 import CoursePolicy from 'policy/course_policy';
+import ShowBreadCrumb from './templates/bread_crumbs/show';
 import css from './assets/course.scss';
 import * as app_constants from 'constants/app_constants';
 import * as course_constants from './constants/course_constants';
@@ -17,6 +18,7 @@ export default class CourseShow extends React.Component {
     super(props);
     this.state = {
       program: props.course.program,
+      organization: props.course.organization,
       course: props.course,
       subjects: props.subjects,
       evaluation_template: {},
@@ -32,7 +34,8 @@ export default class CourseShow extends React.Component {
       targetable_type: '',
       documents: props.course.documents,
       document_preview: {},
-      managed_courses: props.managed_courses
+      managed_courses: props.managed_courses,
+      other_courses: props.other_courses
     }
   }
 
@@ -48,8 +51,13 @@ export default class CourseShow extends React.Component {
     ];
     return (
       <div className='row course-show'>
+        <ShowBreadCrumb
+          course={this.state.course}
+          program={this.state.program}
+          organization={this.state.organization}
+          others={this.state.other_courses}
+        />
         <div className='col-md-9'>
-
           <CourseDetail
             courseListPermit={courseListPermit}
             course={this.state.course}

@@ -67,6 +67,10 @@ class Supports::CourseSupport
       .new(object: managed_courses).serializer
   end
 
+  def other_courses
+    @user.courses.where.not id: @course.id
+  end
+
   private
   def subjects
     @subjects ||= @course.subjects

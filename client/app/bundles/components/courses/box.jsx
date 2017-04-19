@@ -4,6 +4,7 @@ import React from 'react';
 import CoursePolicy from 'policy/course_policy';
 
 import Courses from './courses';
+import IndexBreadCrumb from './templates/bread_crumbs/index';
 
 import * as app_constants from 'constants/app_constants';
 import * as course_constants from './constants/course_constants';
@@ -76,6 +77,7 @@ export default class CourseBox extends React.Component {
 
     return (
       <div className="row">
+        <IndexBreadCrumb />
         <div className="col-md-12">
           <CoursePolicy
             permit={coursesPermit} courses={<CoursesIndex />}

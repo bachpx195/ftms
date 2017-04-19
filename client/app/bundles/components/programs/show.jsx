@@ -13,6 +13,7 @@ import ProgramInfo from './templates/program_info';
 import FilterTrainingStandard from './templates/filter_training_standards';
 import ProgramRightPanel from './templates/program_right_panel';
 import RenderListCourse from './templates/render_list_course_of_program';
+import ShowBreadCrumb from './templates/bread_crumbs/show';
 
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './constants/program_constants';
@@ -42,7 +43,8 @@ export default class ProgramsShowBox extends React.Component {
       course: {},
       errors: null,
       documents: props.program_detail.documents,
-      document_preview: {}
+      document_preview: {},
+      other_programs: props.other_programs
     };
   }
 
@@ -82,6 +84,11 @@ export default class ProgramsShowBox extends React.Component {
 
     return (
       <div className='clearfix'>
+        <ShowBreadCrumb
+          organization={this.state.organization}
+          program={this.props.program}
+          others={this.state.other_programs}
+        />
         <div className='col-md-9'>
 
           <div className='margin-select row'>
