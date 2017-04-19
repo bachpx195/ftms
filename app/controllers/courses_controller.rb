@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :find_program, only: [:create]
+  before_action :find_program, only: :create
   before_action :find_course, only: [:update, :destroy, :show]
   before_action :authorize_request
 
