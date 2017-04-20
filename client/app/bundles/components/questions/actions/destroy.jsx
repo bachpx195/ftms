@@ -6,7 +6,7 @@ export default class Destroy extends React.Component {
     return (
       <div>
         <a onClick={this.afterClickDeleteQuestion.bind(this)}>
-          <i className='fa fa-times'></i>
+          <i className='fa fa-trash'></i>
         </a>
       </div>
     );

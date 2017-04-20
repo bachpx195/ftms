@@ -122,7 +122,10 @@ export default class Form extends React.Component {
           <div className='row'>
             <div className='col-xs-offset-9'>
               <button type='button' className='btn btn-primary submit'
-                onClick={this.handleNext.bind(this)}> {I18n.t('buttons.next')}</button>
+                onClick={this.handleNext.bind(this)}>
+                {I18n.t('buttons.next')}&nbsp;
+                <i className="fa fa-angle-double-right"></i>
+              </button>
             </div>
           </div>
         </div>

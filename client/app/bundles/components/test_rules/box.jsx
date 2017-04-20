@@ -65,7 +65,8 @@ export default class TestRulesBox extends React.Component {
               <div className='form-create pull-right'>
                 <button className='btn btn-primary'
                   onClick={this.handleClickCreate.bind(this)}>
-                  {I18n.t('test_rules.buttons.create')}
+                  <i className="fa fa-plus"></i>
+                  &nbsp;{I18n.t('test_rules.buttons.create')}
                 </button>
               </div>
               <div className='list-categories clearfix'>

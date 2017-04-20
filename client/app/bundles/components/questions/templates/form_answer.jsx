@@ -19,7 +19,7 @@ export default class FormAnswer extends React.Component {
               <div className='delete'>
                 <a onClick={this.afterClickRemoveAnswer.bind(this)}
                   data-index={this.props.answer.id}>
-                  <i className='fa fa-times'></i>
+                  <i className='fa fa-trash'></i>
                 </a>
               </div>
             </li>

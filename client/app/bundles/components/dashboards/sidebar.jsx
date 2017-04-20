@@ -305,16 +305,16 @@ export default class Sidebar extends React.Component {
     event.preventDefault();
     let target = event.target;
     if (this.state.roles_menu == 'showed') {
-      $('#subRoleMenu').slideUp("slow", function() {
-        $(target).find('.fa').removeClass('fa-chevron-down').addClass(
-          'fa-chevron-right');
+      $('#subRoleMenu').slideUp('slow', function() {
+        $(target).find('.fa-chevron-down').removeClass('fa-chevron-down')
+          .addClass('fa-chevron-right');
       });
       this.setState({roles_menu: 'hiddened'});
       localStorage.setItem('roles_menu', 'hiddened');
     } else if (this.state.roles_menu == 'hiddened') {
-      $('#subRoleMenu').slideDown("slow", function() {
-        $(target).find('.fa').removeClass('fa-chevron-right').addClass(
-          'fa-chevron-down');
+      $('#subRoleMenu').slideDown('slow', function() {
+        $(target).find('.fa-chevron-right').removeClass('fa-chevron-right')
+          .addClass('fa-chevron-down');
       });
       this.setState({roles_menu: 'showed'});
       localStorage.setItem('roles_menu', 'showed');
@@ -325,14 +325,14 @@ export default class Sidebar extends React.Component {
     event.preventDefault();
     let target = event.target;
     if (this.state.master_menu == 'showed') {
-      $('#subMasterMenu').slideUp("slow", function() {
+      $('#subMasterMenu').slideUp('slow', function() {
         $(target).find('.fa').removeClass('fa-chevron-down').addClass(
           'fa-chevron-right');
       });
       this.setState({master_menu: 'hiddened'});
       localStorage.setItem('master_menu', 'hiddened');
     } else if (this.state.master_menu == 'hiddened') {
-      $('#subMasterMenu').slideDown("slow", function() {
+      $('#subMasterMenu').slideDown('slow', function() {
         $(target).find('.fa').removeClass('fa-chevron-right').addClass(
           'fa-chevron-down');
       });
@@ -345,7 +345,7 @@ export default class Sidebar extends React.Component {
     event.preventDefault();
     let target = event.target;
     if(this.state.statistic_menu == 'showed'){
-      $('#statistics').slideUp("slow", function(){
+      $('#statistics').slideUp('slow', function(){
         $(target).find('.fa').removeClass('fa-chevron-down').addClass(
           'fa-chevron-right');
       });

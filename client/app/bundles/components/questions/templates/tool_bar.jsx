@@ -18,7 +18,7 @@ export default class ToolBar extends React.Component {
             {action: ['update'], target: 'children'}]} >
             <a onClick={this.props.afterClickEditQuestion.bind(this)}
               data-index={this.props.question.id}>
-              <i className="fa fa-pencil"></i>
+              <i className="fa fa-pencil-square-o"></i>
             </a>
           </QuestionPolicy>
         </div>
