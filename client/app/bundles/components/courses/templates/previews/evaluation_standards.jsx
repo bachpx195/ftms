@@ -1,3 +1,4 @@
+import EvaluationStandardItem from './evaluation_standard_item';
 import React from 'react';
 
 export default class EvaluationStandards extends React.Component {
@@ -11,12 +12,9 @@ export default class EvaluationStandards extends React.Component {
   }
 
   renderEvaluationStandards() {
-    return this.props.evaluation_standards.map(evaluation_standard => {
-      return(
-        <p key={evaluation_standard.id} className='list-group-item'>
-          <i>{evaluation_standard.id + '. '}</i> {evaluation_standard.name}
-        </p>
-      )
-    })
+    return this.props.evaluation_standards.map((standard, index) => {
+      return <EvaluationStandardItem key={standard.id} index={index}
+        evaluation_standard={standard} />;
+    });
   }
 }

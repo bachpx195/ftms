@@ -128,3 +128,15 @@ $c-black: #000;
     overflow-y: auto;
   }
 }
+
+.modal-training-standard {
+  .subject-item {
+    & > .list-group-item {
+      cursor: pointer;
+    }
+
+    .list-group {
+      padding-left: 30px;
+    }
+  }
+}

@@ -118,3 +118,4 @@ en:
     training_standard: "Training Standard"
     subjects-list: "Subjects List"
     evaluation_standards_list: "Evaluation Standards List"
+    assignment_notice: "You have to finished %{count_assignment} assignments"

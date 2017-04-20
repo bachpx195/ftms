@@ -9,6 +9,6 @@ class Serializers::TrainingStandards::TrainingStandardsSerializer <
 
   def subjects
     Serializers::Subjects::SubjectsSerializer
-      .new(object: object.subjects).serializer
+      .new(object: object.subjects, scope: {show_tasks: true}).serializer
   end
 end
