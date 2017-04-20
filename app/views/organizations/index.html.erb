@@ -1,3 +1,6 @@
 <div id="admin-organization">
-  <%= react_component "OrganizationBox", prerender: false %>
+  <%= react_component "OrganizationBox",
+  props: {
+    organizations: @organizations
+  }, prerender: false %>
 </div>
