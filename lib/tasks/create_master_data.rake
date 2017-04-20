@@ -300,8 +300,6 @@ namespace :db do
     ])
 
     puts "11. Create user programs"
-    TrainingStandard.all.each{|training_standard| training_standard.subjects << Subject.limit(5)}
-
     2.times do |n|
       UserProgram.create! program_id: n+1,  user_id: 1
       UserProgram.create! program_id: n+1,  user_id: 4
@@ -315,9 +313,8 @@ namespace :db do
     end
 
     puts "12. Creat StandardSubject"
-    count_training_standard = TrainingStandard.all.size
-    Subject.all.each_with_index do |subject, index|
-      subject.standard_subjects.create! training_standard_id: (index % count_training_standard) + 1
+    TrainingStandard.all.each do |training_standard|
+      training_standard.subjects << Subject.limit(5)
     end
 
     puts "13. Create courses"
