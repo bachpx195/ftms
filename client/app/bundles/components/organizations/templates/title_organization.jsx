@@ -7,7 +7,7 @@ import * as organization_constants from '../constants/organization_constants';
 const INDEX_ORGANIZATION_URL = app_constants.APP_NAME +
   organization_constants.ORGANIZATION_PATH;
 
-require('../../../assets/sass/organization.scss');
+require('../assets/organization.scss');
 
 export default class TitleOrganization extends React.Component{
   constructor(props){
@@ -27,7 +27,7 @@ export default class TitleOrganization extends React.Component{
     return(
       <div className="organization">
         <div className="name-organization">
-          <h3>{this.state.organization.name}</h3>
+          <p>{this.state.organization.name}</p>
         </div>
         <div className="function">
           <i className="fa fa-pencil"
@@ -56,7 +56,10 @@ export default class TitleOrganization extends React.Component{
             <div className='modal-header'>
               <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
-              <h4 className='modal-title'>{I18n.t('buttons.edit')}</h4>
+              <h4 className='modal-title'>
+                {I18n.t('organizations.update',
+                  {name: this.state.organization.name})}
+              </h4>
             </div>
             <div className='modal-body'>
               <FormOrganization

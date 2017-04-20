@@ -31,3 +31,4 @@ en:
     assign_owner: "Assign owner"
     exams: "Exams"
     other_managers: "Other managers"
+    update: "Update: %{name}"

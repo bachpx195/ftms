@@ -43,15 +43,13 @@ export default class FormProgram extends React.Component {
         />
     }
     return (
-      <form>
-
-        <div className='form-group'>
+      <form className="form-inline">
+        <div className='form-group col-md-10'>
           <input type='text' placeholder={I18n.t('programs.create')}
-            className='form-control' name='name' ref='nameField'
-            value={this.state.name}
+            className='form-control input-program col-md-10' name='name'
+            ref='nameField' value={this.state.name}
             onChange={this.handleChange.bind(this)} />
         </div>
-
         <div className='form-group'>
           <div className='text-right'>
             {action}

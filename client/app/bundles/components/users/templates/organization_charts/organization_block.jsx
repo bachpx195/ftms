@@ -1,12 +1,12 @@
 import * as app_constants from 'constants/app_constants';
-import * as organization_constants from '../../../organizations/organization_constants';
+import * as organization_constants from '../../../organizations/constants/organization_constants';
 import AwayBlock from './away_block';
 import ManagerBlock from './manager_block';
 import React from 'react';
 import UserBlock from './user';
 
 const ORGANIZATION_URL = app_constants.APP_NAME +
-  organization_constants.ORGANIZATION_PATH + '/'
+  organization_constants.ORGANIZATION_PATH
 
 export default class OrganizationBlock extends React.Component {
   render() {

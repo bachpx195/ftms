@@ -4,6 +4,7 @@ import * as app_constants from 'constants/app_constants';
 import * as organization_constants from '../../constants/organization_constants';
 
 const APP_NAME = app_constants.APP_NAME;
+const INDEX_ORGANIZATION_URL = APP_NAME + organization_constants.ORGANIZATION_PATH;
 
 export default class ShowBreadCrumd extends React.Component {
   render() {
@@ -17,11 +18,11 @@ export default class ShowBreadCrumd extends React.Component {
                 label: I18n.t("breadcrumbs.home"),
               },
               {
-                path: ORGANIZATION_URL,
+                path: INDEX_ORGANIZATION_URL,
                 label: I18n.t("breadcrumbs.organizations"),
               },
               {
-                path: ORGANIZATION_URL + '/' + this.props.organization.id,
+                path: INDEX_ORGANIZATION_URL + this.props.organization.id,
                 label: this.props.organization.name,
               }
             ]

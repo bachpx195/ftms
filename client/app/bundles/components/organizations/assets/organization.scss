@@ -1,0 +1,36 @@
+@import '../../../assets/sass/color_status';
+
+.margin-form-create {
+  margin-top: 20px;
+}
+
+.btn-new {
+  background-color: $c-organization-back;
+  border: 0;
+  color: $c-white;
+
+  &:hover {
+    background-color: $c-organization-back;
+    color: $c-white;
+  }
+
+  &:focus {
+    background-color: $c-organization-back;
+    color: $c-white;
+  }
+}
+
+.organization {
+  .name-organization {
+    display: inline-block;
+  }
+
+  .name-organization p {
+    font-size: 12pt;
+  }
+
+  .function {
+    display: inline-block;
+    margin-left: 20px;
+  }
+}

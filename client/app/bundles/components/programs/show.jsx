@@ -1,19 +1,19 @@
-import React from 'react';
 import axios from 'axios';
-import ReactOnRails from 'react-on-rails';
-import Modal from './templates/modal_course';
+import Documents from '../shareds/documents/documents';
+import Dropzone from 'react-dropzone';
 import Errors from '../shareds/errors';
+import FilterTrainingStandard from './templates/filter_training_standards';
+import Modal from './templates/modal_course';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
 import ModalCreateStandard from './templates/modal_create_standard';
-import Dropzone from 'react-dropzone';
-import UserLists from './user_lists';
-import SubjectLists from './subjects';
-import Documents from './templates/documents';
 import ProgramInfo from './templates/program_info';
-import FilterTrainingStandard from './templates/filter_training_standards';
 import ProgramRightPanel from './templates/program_right_panel';
+import React from 'react';
+import ReactOnRails from 'react-on-rails';
 import RenderListCourse from './templates/render_list_course_of_program';
 import ShowBreadCrumb from './templates/bread_crumbs/show';
+import SubjectLists from './subjects';
+import UserLists from './user_lists';
 
 import * as app_constants from 'constants/app_constants';
 import * as program_constants from './constants/program_constants';
@@ -115,12 +115,17 @@ export default class ProgramsShowBox extends React.Component {
 
         <ProgramRightPanel program_detail={this.state.program_detail} />
 
+      <div className='col-md-3 info-panel'>
+
         <Documents
           documents={this.state.documents}
-          program_detail={this.state.program_detail}
+          documentable={this.state.program_detail}
+          document_type={"Program"}
           handlerAfterClickPreviewDocument={this.handlerAfterClickPreviewDocument.bind(this)}
           handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
         />
+
+      </div>
 
         <ModalPreviewDocument
           document_preview={this.state.document_preview}
