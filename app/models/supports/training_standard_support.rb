@@ -2,6 +2,7 @@ class Supports::TrainingStandardSupport
   def initialize args = {}
     @training_standard = args[:training_standard]
     @params = args[:params]
+    @is_shared = args[:params][:is_shared]
   end
 
   def subjects
@@ -23,7 +24,8 @@ class Supports::TrainingStandardSupport
   def training_standards_serializer
     @training_standards_serializer ||=
       Serializers::TrainingStandards::TrainingStandardsSerializer
-        .new(object: @organization.training_standards).serializer
+        .new(object: organization.filtered_training_standards(@is_shared))
+        .serializer
   end
 
   def training_standard_serializer

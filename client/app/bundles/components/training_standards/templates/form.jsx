@@ -58,7 +58,7 @@ export default class Form extends React.Component {
             {I18n.t('training_standards.headers.policy')}
           </lable>
           <div className='col-md-10'>
-            <select className="form-control" name="training_standard_policy"
+            <select className="form-control"
               value={this.state.policy} name='policy'
               onChange={this.handleChange.bind(this)}>
               {this.renderOptions(POLICIES)}

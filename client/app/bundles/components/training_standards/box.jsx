@@ -1,12 +1,11 @@
-import React from 'react';
-import axios from 'axios';
-
-import Create from './actions/create';
-import TrainingStandards from './training_standards';
-import Form from './templates/form';
-
 import * as app_constants from 'constants/app_constants';
 import * as training_standard_constants from './constants/training_standard_constants';
+import axios from 'axios';
+import Create from './actions/create';
+import FilterShared from './templates/filter_shared';
+import Form from './templates/form';
+import TrainingStandards from './training_standards';
+import React from 'react';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME +
   training_standard_constants.TRAINING_STANDARD_PATH;
@@ -41,6 +40,8 @@ export default class TrainingStandardBox extends React.Component {
             </div>
 
             <div className='box-body no-padding'>
+              <FilterShared organization={this.state.organization}
+                handleAfterFilterShared={this.handleAfterFilterShared.bind(this)} />
               <Create
                 training_standard={this.state.training_standard}
                 organization={this.state.organization}
@@ -58,6 +59,12 @@ export default class TrainingStandardBox extends React.Component {
       </div>
     );
   }
+
+    handleAfterFilterShared(new_training_standards) {
+      this.setState({
+        training_standards: new_training_standards
+      });
+    }
 
     handleAfterCreated(training_standard) {
       this.state.training_standards.push(training_standard);

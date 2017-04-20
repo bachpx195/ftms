@@ -7,7 +7,13 @@ class TrainingStandardsController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.json
+      format.json do
+        render json: {
+          training_standards: (Supports::TrainingStandardSupport
+            .new params: params)
+            .training_standards_serializer
+        }
+      end
     end
   end
 

@@ -2,6 +2,8 @@ en:
   training_standards:
     titles:
       all: "All Training Standard"
+      owned: "Owned Training Standards"
+      shared_with: "Shared + Public Training Standards"
     headers:
       name: "Name"
       description: "Description"

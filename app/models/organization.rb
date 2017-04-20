@@ -30,4 +30,13 @@ class Organization < ApplicationRecord
   def assign_programs program_ids
     self.program_ids = self.program_ids + program_ids
   end
+
+  def filtered_training_standards is_shared
+    if is_shared == "true"
+      self.shared_training_standards.privated +
+        TrainingStandard.publiced.where.not(organization: self)
+    else
+      self.training_standards
+    end
+  end
 end
