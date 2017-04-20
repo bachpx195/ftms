@@ -1,7 +1,7 @@
 class Serializers::TrainingStandards::TrainingStandardsSerializer <
   Serializers::SupportSerializer
   attrs :id, :name, :description, :organization_id, :policy, :subjects
-  attrs :organization
+  attrs :share_with_organization
 
   def organization
     Hash[:id, object.organization.id]
