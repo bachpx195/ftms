@@ -1,7 +1,9 @@
+import axios from "axios";
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 import Users from './users';
+import OrganizationChart from './templates/organization_charts/box';
 
 export default class UsersBox extends React.Component {
   constructor(props) {
@@ -9,20 +11,22 @@ export default class UsersBox extends React.Component {
     this.state = {
       users: props.users,
       organizations: props.organizations,
-      view_type: 'list'
+      view_type: 'list',
+      organization_chart: null
     }
   }
 
   render() {
-    const NEW_USER_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
-      + this.props.organization.id + '/' + user_constants.USER_PATH
-      + user_constants.NEW_PATH;
+    const USER_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
+      + this.props.organization.id + '/' + 'users';
+
+    const NEW_USER_URL = USER_URL + '/' + user_constants.NEW_PATH;
 
     const ChangeView = () => {
       if (this.state.view_type == 'list') {
         return (
           <button type='button' className='btn btn-box-tool'
-            data-widget='collapse' onClick={this.handleChangeView.bind(this)}
+            onClick={this.handleChangeView.bind(this, USER_URL)}
             title={I18n.t('users.view_type.grid')}>
             <i className='fa fa-th' aria-hidden='true'></i>
           </button>
@@ -30,7 +34,7 @@ export default class UsersBox extends React.Component {
       } else {
         return (
           <button type='button' className='btn btn-box-tool'
-            data-widget='collapse' onClick={this.handleChangeView.bind(this)}
+            onClick={this.handleChangeView.bind(this, USER_URL)}
             title={I18n.t('users.view_type.list')}>
             <i className='fa fa-list' aria-hidden='true'></i>
           </button>
@@ -52,7 +56,7 @@ export default class UsersBox extends React.Component {
       } else {
         return (
           <div className='box-body'>
-
+            <OrganizationChart data={this.state.organization_chart} />
           </div>
         );
       }
@@ -85,10 +89,23 @@ export default class UsersBox extends React.Component {
     );
   }
 
-  handleChangeView(event) {
+  handleChangeView(url, event) {
     event.preventDefault();
     if (this.state.view_type == 'list') {
-      this.setState({ view_type: 'grid' });
+      if (this.state.organization_chart == null) {
+        axios.get(url + '.json')
+        .then(response => {
+          this.setState({
+            organization_chart: response.data.organization,
+            view_type: 'grid'
+          })
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      } else {
+        this.setState({ view_type: 'grid' });
+      }
     } else {
       this.setState({ view_type: 'list' });
     }

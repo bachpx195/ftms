@@ -20,9 +20,14 @@ class Supports::UserSupport
       end
   end
 
+  def organization_chart
+    @organization_chart ||= Serializers::OrganizationChartSerializer
+      .new(object: organization).serializer
+  end
+
   def users_serializer
     @users_serializer ||= Serializers::Users::UsersSerializer
-      .new(object: @organization.users).serializer
+      .new(object: organization.users).serializer
   end
 
   def user_serializer

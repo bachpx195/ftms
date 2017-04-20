@@ -1,0 +1,8 @@
+en:
+  organization_charts:
+    positions:
+      manager: "Manager"
+      trainer: "Trainer"
+      trainee: "Trainee"
+      away_trainees: "Away trainees"
+      free_trainees: "Free trainees"
