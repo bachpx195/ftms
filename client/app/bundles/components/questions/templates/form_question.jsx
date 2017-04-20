@@ -77,7 +77,8 @@ export default class FormQuestion extends React.Component {
                 <div className='add-answer clearfix pull-right'>
                   <button className='btn btn-info'
                     onClick={this.afterClickAddAnswer.bind(this)}>
-                    {I18n.t('questions.buttons.add_answer')}
+                    <i className="fa fa-plus"></i>
+                    &nbsp;{I18n.t('questions.buttons.add_answer')}
                   </button>
                 </div>
               </div>

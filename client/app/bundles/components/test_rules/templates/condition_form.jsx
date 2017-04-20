@@ -36,11 +36,13 @@ export default class ConditionForm extends React.Component {
                   handleRegisterRefresh={this.handleRegisterRefresh.bind(this)}
                   categories={this.state.categories}/>
                 <button className="btn btn-primary" onClick={() =>
-                  {this.handleAddForm('category')}}>{I18n.t('buttons.add')}
+                  {this.handleAddForm('category')}}>
+                  <i className="fa fa-plus"></i>
+                  &nbsp;{I18n.t('buttons.add')}
                 </button>
               </div>
               <div className="col-md-8 form-preview">
-                <CategoryPreview 
+                <CategoryPreview
                   handleRegisterRefresh={this.handleRegisterRefresh.bind(this)}/>
               </div>
             </div>
@@ -57,7 +59,9 @@ export default class ConditionForm extends React.Component {
                   handleRegisterRefresh={this.handleRegisterRefresh.bind(this)}
                   questions={this.state.questions}/>
                 <button className="btn btn-primary" onClick={() =>
-                  {this.handleAddForm('question')}}>{I18n.t('buttons.add')}
+                  {this.handleAddForm('question')}}>
+                  <i className="fa fa-plus"></i>
+                  {I18n.t('buttons.add')}
                 </button>
               </div>
               <div className="col-md-8 form-preview">
@@ -72,9 +76,15 @@ export default class ConditionForm extends React.Component {
           <div className='row'>
             <div className='col-xs-offset-8'>
               <button type='button' className='btn btn-primary submit'
-                onClick={this.handleBack.bind(this)}> {I18n.t('buttons.back')}</button>
+                onClick={this.handleBack.bind(this)}>
+                <i className="fa fa-angle-double-left"></i>
+                &nbsp;{I18n.t('buttons.back')}
+              </button>
               <button type='button' className='btn btn-primary submit'
-                onClick={this.handleSubmit.bind(this)}> {I18n.t('buttons.save')}</button>
+                onClick={this.handleSubmit.bind(this)}>
+                <i className="fa fa-floppy-o"></i>
+                &nbsp;{I18n.t('buttons.save')}
+              </button>
             </div>
           </div>
         </div>
@@ -90,7 +100,7 @@ export default class ConditionForm extends React.Component {
     if(type == 'category'){
       this.props.handleRefresh(['addition_category'],
         {current_categories: this.state.categories});
-    } 
+    }
     else if(type == 'question'){
       this.props.handleRefresh(['addition_question'],
         {current_questions: this.state.questions});

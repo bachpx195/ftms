@@ -30,14 +30,16 @@ export default class TestRules extends React.Component {
     const ButtonEdit = ({griddleKey}) => (
       <button className='btn btn-info' data-index={griddleKey}
         onClick={this.handleClickEdit.bind(this)}>
-        {I18n.t('buttons.edit')}
+        <i className="fa fa-pencil-square-o"></i>
+        &nbsp;{I18n.t('buttons.edit')}
       </button>
     );
 
     const ButtonDelete = ({griddleKey}) => (
       <button className='btn btn-danger' data-index={griddleKey}
         data-type='delete' onClick={this.handleClickDelete.bind(this)}>
-        {I18n.t('buttons.delete')}
+        <i className="fa fa-trash"></i>
+        &nbsp;{I18n.t('buttons.delete')}
       </button>
     );
 

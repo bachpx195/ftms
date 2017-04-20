@@ -14,7 +14,8 @@ export default class Update extends React.Component {
   render() {
     return (
       <button className='btn btn-info' onClick={this.updateLanguage.bind(this)}>
-        {I18n.t('buttons.edit')}
+        <i className="fa fa-pencil-square-o"></i>
+        &nbsp;{I18n.t('buttons.edit')}
       </button>
     );
   }
