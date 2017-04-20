@@ -218,40 +218,34 @@ export default class Sidebar extends React.Component {
             </li>
 
             <li className='treeview'>
-              <Permit action='statistics'>
-                <a href='#'>
-                  <i className='fa fa-line-chart' aria-hidden='true'></i>
-                  <span>{I18n.t('sidebar.statistics.statistic')}</span>
-                  <span className='pull-right-container'>
-                    <i className='fa fa-chevron-down'></i>
-                  </span>
-                </a>
-              </Permit>
+              <a href='#'>
+                <i className='fa fa-line-chart' aria-hidden='true'></i>
+                <span>{I18n.t('sidebar.statistics.statistic')}</span>
+                <span className='pull-right-container'>
+                  <i className='fa fa-chevron-down'></i>
+                </span>
+              </a>
               <ul id='statistics' className='treeview-menu'>
-                <Permit action='languages'>
-                  <li data-page='languages'>
-                    <a href={STATISTIC_LANGUAGE_PATH} onClick={this.onClick.bind(this)}>
-                      <i className='fa fa-circle-o'></i>
-                      <span>{I18n.t('sidebar.languages')}</span>
-                    </a>
-                  </li>
-                </Permit>
-                <Permit action='trainee_types'>
-                  <li data-page='trainee_types'>
-                    <a href={STATISTIC_TRAINEE_TYPE_PATH} onClick={this.onClick.bind(this)}>
-                      <i className='fa fa-circle-o'></i>
-                      <span>{I18n.t('sidebar.trainee_types')}</span>
-                    </a>
-                  </li>
-                </Permit>
-                <Permit action='in_outs'>
-                  <li data-page='in_outs'>
-                    <a href={STATISTIC_IN_OUT_PATH} onClick={this.onClick.bind(this)}>
-                      <i className='fa fa-circle-o'></i>
-                      <span>{I18n.t('sidebar.statistics.in_outs')}</span>
-                    </a>
-                  </li>
-                </Permit>
+                <li data-page='languages'>
+                  <a href={STATISTIC_LANGUAGE_PATH} onClick={this.onClick.bind(this)}>
+                    <i className='fa fa-circle-o'></i>
+                    <span>{I18n.t('sidebar.languages')}</span>
+                  </a>
+                </li>
+
+                <li data-page='trainee_types'>
+                  <a href={STATISTIC_TRAINEE_TYPE_PATH} onClick={this.onClick.bind(this)}>
+                    <i className='fa fa-circle-o'></i>
+                    <span>{I18n.t('sidebar.trainee_types')}</span>
+                  </a>
+                </li>
+
+                <li data-page='in_outs'>
+                  <a href={STATISTIC_IN_OUT_PATH} onClick={this.onClick.bind(this)}>
+                    <i className='fa fa-circle-o'></i>
+                    <span>{I18n.t('sidebar.statistics.in_outs')}</span>
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>

@@ -24,6 +24,7 @@ class Program < ApplicationRecord
 
   scope :not_assigned_programs, ->{where organization_id: nil}
   scope :not_parent, ->{where parent_id: nil}
+  enum program_type: {internal_training: 1, open_education: 2}
 
   validates :name, presence: true
 end

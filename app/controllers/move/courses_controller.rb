@@ -18,10 +18,12 @@ class Move::CoursesController < ApplicationController
 
   def find_course
     @course = Course.find_by id: params[:id]
-    respond_to do |format|
-      format.json do
-        render json: {message: flash_message("not_found")},
-          status: :not_found
+    unless @course
+      respond_to do |format|
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
       end
     end
   end
