@@ -1,13 +1,10 @@
 import * as app_constants from 'constants/app_constants';
-import * as table_constants from 'constants/griddle_table_constants';
 import * as training_standard_constants from './constants/training_standard_constants';
 import axios from 'axios';
-import Clone from './actions/clone';
-import Share from './actions/share';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 
 import ModalAssign from './templates/modal_assign';
-import ModalEvaluation from './templates/modal_evaluation'
+import ModalEvaluation from './templates/modal_evaluation';
+import Subjects from './subjects';
 import React from 'react';
 
 const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
@@ -24,113 +21,28 @@ export default class TrainingStandardShow extends React.Component {
       training_standard: props.training_standard,
       selected_subjects: props.selected_subjects,
       remain_subjects: props.remain_subjects,
-      selected_organizations: props.selected_organizations,
+      standard_organizations: props.standard_organizations,
       subjects: [],
-      standard_subjects: []
-    }
-  }
-
-  renderButton() {
-    if (this.props.evaluation_template) {
-      let evaluation = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
-        '/evaluation_template';
-      return (
-        <div className='col-md-2'>
-          <a className="btn btn-success" href={evaluation}
-            title={I18n.t("training_standards.create_evaluation")}>
-            <i className="fa fa-eye"></i> {I18n.t("training_standards.show_evaluation")}
-          </a>
-        </div>
-      );
-    } else {
-      return (
-        <div className='col-md-2'>
-          <button className="btn btn-success"
-            title={I18n.t("training_standards.create_evaluation")}
-            onClick={this.onClickCreateEvaluationTemplate.bind(this)}>
-            <i className="fa fa-eye"></i> {I18n.t("training_standards.show_evaluation")}
-          </button>
-        </div>
-      );
     }
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className="box box-success">
-      <div className="row">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="border-btn">
-              <div className="col-md-2">
-                <button className="btn btn-success"
-                  title={I18n.t("training_standards.assign")}
-                  onClick={this.onClickButtonAssignSubject.bind(this)}>
-                  <i className="fa fa-plus"></i>
-                  {I18n.t("training_standards.assign")}
-                </button>
-              </div>
-              {this.renderButton()}
-              <Clone training_standard={this.state.training_standard}
-                organization={this.props.organization}
-                share_with_organization={this.props.share_with_organization} />
-              <Share training_standard={this.state.training_standard}
-                organization={this.props.organization}
-                selected_organizations={this.state.selected_organizations}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="row custom-padding-action">
-          <div className="col-md-4 griddle-head">
-            <Filter />
-          </div>
-          <div className="col-md-4 griddle-head">
-            <Pagination />
-          </div>
-        </div>
-        <div className="row custom-padding-table">
-          <div className="col-md-12">
-            <Table />
-          </div>
-        </div>
-      </div>
-      </div>
-    );
-
-    const ButtonReject = ({griddleKey}) => (
-      <button className="btn btn-danger"
-        onClick={this.onRejectSubject.bind(this)}
-        title={I18n.t("training_standards.reject")}
-        data-index={griddleKey} >
-        <i className="fa fa-times" aria-hidden="true" data-index={griddleKey}></i>
-      </button>
-    );
-
-    const DescriptionSubject =({value, griddleKey}) => (
-      <p title={value}>{value}</p>
-    );
-
-    const LinkShowSubject = ({value, griddleKey}) => (
-      <a href={SUBJECT_URL + '/' + this.props.selected_subjects[griddleKey].id}>{value}</a>
-    );
-
     let url = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
       '/evaluation_template';
     return(
       <div>
-        <Griddle data={this.state.selected_subjects} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")}
-              customComponent={LinkShowSubject} />
-            <ColumnDefinition id="description" title={I18n.t("subjects.headers.description")}
-              customComponent={DescriptionSubject}/>
-            <ColumnDefinition id="reject" title=' '
-              customComponent={ButtonReject} />
-          </RowDefinition>
-        </Griddle>
+        <Subjects selected_subjects={this.state.selected_subjects}
+          training_standard={this.state.training_standard}
+          afterRejectSubject={this.afterRejectSubject.bind(this)}
+          subject_url={SUBJECT_URL} standard_subject_url={STANDARD_SUBJECTS_URL}
+          evaluation_template={this.props.evaluation_template}
+          onClickCreateEvaluationTemplate={this.onClickCreateEvaluationTemplate.bind(this)}
+          onClickButtonAssignSubject={this.onClickButtonAssignSubject.bind(this)}
+          organization={this.props.organization}
+          share_with_organization={this.props.share_with_organization}
+          standard_organizations={this.state.standard_organizations}
+          url={TRAINING_STANDARD_URL}
+        />
 
         <ModalEvaluation
           url={url} showForm={this.state.showForm}
@@ -138,10 +50,8 @@ export default class TrainingStandardShow extends React.Component {
           evaluation_standards={this.state.evaluation_standards}/>
 
         <ModalAssign
-          url={TRAINING_STANDARD_URL}
           remain_subjects={this.state.remain_subjects}
           selected_subjects={this.state.selected_subjects}
-          standard_subjects={this.state.standard_subjects}
           training_standard={this.state.training_standard}
           handleAfterAssignSubject={this.handleAfterAssignSubject.bind(this)}
         />
@@ -149,38 +59,15 @@ export default class TrainingStandardShow extends React.Component {
     );
   }
 
-  onRejectSubject(event) {// Delete standard_subject
-    let $target = $(event.target);
-    $target.blur();
-    let subject = this.state.selected_subjects[$target.data('index')];
-    let index = this.state.standard_subjects.findIndex(
-      standard_subject => standard_subject.training_standard_id == this.state.training_standard.id &&
-      standard_subject.subject_id == subject.id);
-
-
-    let standard_subject = this.state.standard_subjects[index];
-
-    if (confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(STANDARD_SUBJECTS_URL + "/" + standard_subject.id + ".json", {
-        params: {
-          authenticity_token: ReactOnRails.authenticityToken()
-        }, headers: {'Accept': 'application/json'}
-      })
-      .then(response => {
-        index = this.state.standard_subjects.findIndex(value => value.id == standard_subject.id);
-        this.state.standard_subjects.splice(index, 1);
-        this.state.remain_subjects.push(subject);
-        index = this.state.selected_subjects.findIndex(value => value.id == subject.id);
-        this.state.selected_subjects.splice(index, 1);
-        this.setState({
-          standard_subjects: this.state.standard_subjects,
-          remain_subjects: this.state.remain_subjects,
-          selected_subjects: this.state.selected_subjects
-        });
-      }).catch(error => {
-        console.log(error);
-      });
-    }
+  afterRejectSubject(subject) {
+    _.remove(this.state.selected_subjects, _subject => {
+      return _subject == subject;
+    });
+    this.state.remain_subjects.push(subject);
+    this.setState({
+      selected_subjects: this.state.selected_subjects,
+      remain_subjects: this.state.remain_subjects
+    })
   }
 
   handleAfterAssignSubject(select_subjects) {// Handle create standard_subject
@@ -198,15 +85,12 @@ export default class TrainingStandardShow extends React.Component {
         headers: {'Accept': 'application/json'}
     }).then(response => {
       this.state.selected_subjects.push(subject);
-      let index = this.state.remain_subjects.findIndex(
-        remain_subject => remain_subject.id == subject.id);
-      this.state.remain_subjects.splice(index, 1);
-      this.state.standard_subjects.push(response.data.standard_subject);
-
+      _.remove(this.state.remain_subjects, _subject => {
+        return _subject == subject;
+      });
       this.setState({
         selected_subjects: this.state.selected_subjects,
         remain_subjects: this.state.remain_subjects,
-        standard_subjects: this.state.standard_subjects
       });
     }).catch(error => {
       console.log(error);

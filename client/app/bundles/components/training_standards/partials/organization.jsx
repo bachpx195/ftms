@@ -31,10 +31,10 @@ export default class Organization extends React.Component {
 
   onClickOrganization(event) {
     if (this.state.checked) {
-      let index = this.state.select_organizations.findIndex(
-        select_organizations => select_organizations.id == this.props.organization.id)
+      let index = this.state.standard_organizations.findIndex(
+        standard_organizations => standard_organizations.id == this.props.organization.id)
       this.state.select_organizations.splice(index, 1);
-      this.props.chooseOrganization(this.state.select_organizations);
+      this.props.chooseOrganization(this.state.standard_organizations);
     } else {
       this.state.select_organizations.push(this.props.organization);
       this.props.chooseOrganization(this.state.select_organizations);

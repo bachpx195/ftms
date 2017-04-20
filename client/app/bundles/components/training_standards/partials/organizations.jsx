@@ -28,21 +28,17 @@ export default class Organizations extends React.Component {
   }
 
   renderItem() {
-    return this.state.selected_organizations.map((organization) => {
+    return this.state.standard_organizations.map((organization, index) => {
       return(
         <Organization
-          key={organization.id}
+          key={index}
           organization={organization}
-          selected_organizations={this.state.selected_organizations}
+          standard_organizations={this.state.standard_organizations}
           select_organizations={this.state.select_organizations}
           training_standard={this.state.training_standard}
-          chooseOrganization={this.chooseOrganization.bind(this)}
+          chooseOrganization={this.props.chooseOrganization}
         />
       );
     });
-  }
-
-  chooseOrganization(select_organizations) {
-    this.props.chooseOrganization(this.state.select_organizations);
   }
 }
