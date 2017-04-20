@@ -5,43 +5,21 @@ class OrganizationsController < ApplicationController
   def index
     organizations = current_user.organizations
     organizations = current_user.profile.organization if organizations.empty?
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          organizations: Serializers::Organizations::OrganizationsSerializer
-            .new(object: organizations, scope: {show_program: true}).serializer
-        }
-      end
-    end
+    @organizations = Serializers::Organizations::OrganizationsSerializer
+      .new(object: organizations, scope: {show_program: true}).serializer
   end
 
   def show
     @role_support = Supports::FilterRoleSupport.new role_id: params[:role_id]
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          organization:
-            Serializers::Organizations::OrganizationDetailSerializer
-              .new(object: @organization).serializer,
-          programs:
-            Serializers::Organizations::ProgramSerializer
-              .new(object: @organization.programs).serializer,
-          owners: Serializers::Users::UsersSerializer
-            .new(object: @role_support.owners).serializer,
-          all_roles: Serializers::Roles::RolesSerializer
-            .new(object: @role_support.all_roles).serializer
-        }
-      end
-    end
+    @organization_supports = Supports::OrganizationSupport
+      .new organization: @organization, role_support: @role_support
   end
 
   def new
   end
 
   def create
-    @organization = Organization.new organization_params
+    @organization = current_user.organizations.build organization_params
       .merge(creator_id: current_user.id)
     respond_to do |format|
       if @organization.save
@@ -93,7 +71,6 @@ class OrganizationsController < ApplicationController
   def destroy
     @organization.destroy
     respond_to do |format|
-      format.html{redirect_to organizations_path}
       format.json do
         if @organization.deleted?
           render json: {message: flash_message("deleted")}

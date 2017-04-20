@@ -1,4 +1,10 @@
 <div id="organization-manager">
   <%= react_component "ShowOrganizationBox", prerender: false,
-    props: {organization: @organization, user: current_user.id} %>
+    props: {
+      organization: @organization_supports.organization,
+      programs: @organization_supports.programs,
+      owners: @organization_supports.owners,
+      all_roles: @organization_supports.all_roles,
+      documents: @organization_supports.documents,
+      user: current_user.id} %>
 </div>

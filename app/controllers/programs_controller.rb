@@ -38,7 +38,6 @@ class ProgramsController < ApplicationController
 
     respond_to do |format|
       if @program.save
-        format.html{redirect_to [:admin, @program]}
         format.json do
           render json: {
             program: Serializers::Programs::ProgramsSerializer
@@ -46,7 +45,6 @@ class ProgramsController < ApplicationController
           }
         end
       else
-        format.html{render :new}
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @program.errors}, status: :unprocessable_entity
