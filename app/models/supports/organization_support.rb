@@ -2,6 +2,7 @@ class Supports::OrganizationSupport
   def initialize args = {}
     @organization = args[:organization]
     @role_support = args[:role_support]
+    @user = args[:user]
   end
 
   def organization
@@ -26,5 +27,11 @@ class Supports::OrganizationSupport
 
   def documents
     @organization.documents
+  end
+
+  def other_organizations
+    other_orgs = @user.organizations.where.not id: @organization.id
+    Serializers::Organizations::SimpleOrganizationSerializer
+      .new(object: other_orgs).serializer
   end
 end

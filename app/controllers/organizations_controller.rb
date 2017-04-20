@@ -12,7 +12,8 @@ class OrganizationsController < ApplicationController
   def show
     @role_support = Supports::FilterRoleSupport.new role_id: params[:role_id]
     @organization_supports = Supports::OrganizationSupport
-      .new organization: @organization, role_support: @role_support
+      .new organization: @organization, role_support: @role_support,
+      user: current_user
   end
 
   def new
