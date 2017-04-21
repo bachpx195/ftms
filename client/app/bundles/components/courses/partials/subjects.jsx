@@ -15,7 +15,7 @@ export default class CourseSubjects extends React.Component {
   renderSubjects() {
     return this.state.subjects.map((subject, index) => {
       let course_subject_path = app_constants.APP_NAME +
-        course_constants.COURSES_PATH + this.props.course.id + '/' +
+        course_constants.COURSES_PATH + '/' + this.props.course.id + '/' +
         subject_constants.SUBJECT_PATH + subject.id;
       let subject_image = subject.image.url;
       return (
