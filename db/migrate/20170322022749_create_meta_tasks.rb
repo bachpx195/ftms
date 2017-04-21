@@ -3,7 +3,7 @@ class CreateMetaTasks < ActiveRecord::Migration[5.0]
     create_table :meta_tasks do |t|
       t.string :title
       t.text :value
-      t.string :meta_type
+      t.string :input_type
       t.integer :dynamic_task_id
 
       t.timestamps

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406022049) do
+ActiveRecord::Schema.define(version: 20170421073449) do
 
   create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "question_id"
@@ -179,10 +179,24 @@ ActiveRecord::Schema.define(version: 20170406022049) do
   create_table "meta_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
     t.text     "value",           limit: 65535
-    t.string   "meta_type"
+    t.string   "input_type"
     t.integer  "dynamic_task_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "meta_type_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "meta_type_id"
+    t.integer  "objectable_id"
+    t.string   "objectable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "meta_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "moving_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -369,6 +383,13 @@ ActiveRecord::Schema.define(version: 20170406022049) do
     t.datetime "updated_at",                    null: false
     t.index ["creator_id"], name: "index_surveys_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_surveys_on_organization_id", using: :btree
+  end
+
+  create_table "task_meta_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "task_id"
+    t.integer  "meta_type_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -8,6 +8,9 @@ class Assignment < ApplicationRecord
   has_many :dynamic_tasks, through: :static_tasks, source: :dynamic_tasks,
     class_name: DynamicTask.name
 
+  has_many :meta_type_relationships, as: :objectable 
+  has_many :meta_types, through: :meta_type_relationships
+
   belongs_to :organization
   belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
