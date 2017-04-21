@@ -1,7 +1,7 @@
-import React from 'react';
 import axios from 'axios';
-import SelectSell from '../../../shareds/select_cell';
 import Checkbox from '../../../shareds/checkbox';
+import React from 'react';
+import SelectSell from '../../../shareds/select_cell';
 
 import * as app_constants from 'constants/app_constants';
 import * as table_constants from 'constants/griddle_table_constants';
@@ -104,7 +104,7 @@ export default class FunctionBox extends React.Component {
   updateStateFunctions(griddleKey, checked){
     this.state.functions[griddleKey].checked = checked;
     var default_checked = this.state.functions[griddleKey].default_checked;
-    if(checked != default_checked)
+    if (checked != default_checked)
       this.state.functions[griddleKey].is_changed = true;
     else
       this.state.functions[griddleKey].is_changed = false;

@@ -1,8 +1,8 @@
-import React from 'react';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
-import FormEditRole from './form_edit_role';
 import CustomPolicy from 'policy/course_policy';
+import FormEditRole from './form_edit_role';
+import React from 'react';
+import * as app_constants from 'constants/app_constants';
 
 const ROLES_URL = app_constants.APP_NAME + 'change_role/' + app_constants.USERS_PATH;
 
@@ -20,7 +20,7 @@ export default class RolesBox extends React.Component {
 
   fetchRoles() {
     let user = '';
-    if(this.props.user == undefined){
+    if (this.props.user == undefined) {
       user = JSON.parse(localStorage.getItem('current_user'));
     } else {
       user = this.props.user;

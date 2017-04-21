@@ -44,6 +44,7 @@ en:
       new: "New"
       save: "Save"
       update: "Update"
+      export_user_profile: "Export User Profile"
     action: "Action"
     id: "ID"
     users: "Users"
@@ -72,3 +73,12 @@ en:
     view_type:
       grid: "Grid view"
       list: "List view"
+    nav-tab:
+      timeline: "Timeline"
+      activites: "Activities"
+      profile: "Profile"
+    about_tab:
+      title: "About"
+      university: "University"
+      graduation: "Graduation"
+      note: "Note"

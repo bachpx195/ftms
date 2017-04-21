@@ -1,13 +1,13 @@
-import React from 'react';
-import lodash from 'lodash';
-import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import Errors from '../../../shareds/errors';
 import CheckRoleBox from './check_role_box';
+import Errors from '../../../shareds/errors';
 import FunctionBox from './function_box';
+import lodash from 'lodash';
+import React from 'react';
+import ReactOnRails from 'react-on-rails';
 import * as app_constants from 'constants/app_constants';
 
-const ROLES_URL = app_constants.APP_NAME + 'change_role/' + 
+const ROLES_URL = app_constants.APP_NAME + 'change_role/' +
   app_constants.USERS_PATH;
 
 export default class FormEditRole extends React.Component {
@@ -23,11 +23,10 @@ export default class FormEditRole extends React.Component {
   componentWillReceiveProps(nextProps) {
     var data = nextProps.functions;
     for(var value of data){
-      if(value.user_func_id){
+      if (value.user_func_id) {
         value.checked = true;
         value.default_checked = true;
-      }
-      else{
+      } else {
         value.checked = false;
         value.default_checked = false;
       }
@@ -55,7 +54,7 @@ export default class FormEditRole extends React.Component {
   }
 
   handleAfterCheck(current_role, is_checked) {
-    if(is_checked) {
+    if (is_checked) {
       this.state.current_roles.push(current_role);
     } else {
       _.remove(this.state.current_roles, role => {
@@ -105,7 +104,7 @@ export default class FormEditRole extends React.Component {
     var data = {};
     var functions = [];
     for(var value of this.state.functions){
-      if(value.checked)
+      if (value.checked)
         functions.push({function_id: value.id, _destroy: 0});
     }
     data['user_functions_attributes'] = functions;
@@ -132,11 +131,10 @@ export default class FormEditRole extends React.Component {
     .then(response => {
       var data = response.data.functions;
       for(var value of data){
-        if(value.user_func_id){
+        if (value.user_func_id) {
           value.checked = true;
           value.default_checked = true;
-        }
-        else{
+        } else {
           value.checked = false;
           value.default_checked = false;
         }

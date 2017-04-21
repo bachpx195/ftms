@@ -2,6 +2,7 @@ $fa-green: #5cb85c;
 $box-shadow: #dfdfdf;
 $white: #fff;
 $black: #000;
+$hr-light-gray: #eee;
 
 .roles {
   overflow: hidden;
@@ -78,6 +79,7 @@ $black: #000;
 }
 
 .roles-box {
+  margin-bottom: 10px;
   margin-top: 25px;
 }
 
@@ -91,4 +93,26 @@ $black: #000;
 .basic-form {
   margin-bottom: 120px;
   margin-top: 60px;
+}
+
+.box-profile {
+  hr {
+    border: 0;
+    border-top: 1px solid $hr-light-gray;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+}
+
+.nav-user {
+  .active {
+    a {
+      background-color: $white !important;
+    }
+  }
+}
+
+.profile-container {
+  margin-bottom: 30px;
+  margin-top: 20px;
 }

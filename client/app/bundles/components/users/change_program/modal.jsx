@@ -91,7 +91,7 @@ export default class ModalChangeProgram extends React.Component {
   }
 
   formValid() {
-    if(this.state.selected_program_id > 0) {
+    if (this.state.selected_program_id > 0) {
       return true;
     }
     return false;
