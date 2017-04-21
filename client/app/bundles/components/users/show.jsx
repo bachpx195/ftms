@@ -1,12 +1,11 @@
-import React from 'react';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
-import * as user_constants from './user_constants';
-import FormEdit from './form_edit';
-import RolesBox from './templates/show_partials/roles_box';
-import ModalChangeProgram from './change_program/modal';
 import AvatarBox from './templates/show_partials/avatar_box';
 import CustomPolicy from 'policy/course_policy';
+import ModalChangeProgram from './change_program/modal';
+import React from 'react';
+import RolesBox from './templates/show_partials/roles_box';
+import * as app_constants from 'constants/app_constants';
+import * as user_constants from './user_constants';
 
 require('../../assets/sass/user.scss');
 
