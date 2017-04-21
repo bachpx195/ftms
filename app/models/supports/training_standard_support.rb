@@ -9,12 +9,12 @@ class Supports::TrainingStandardSupport
     @subjects ||= Subject.select :id, :name
   end
 
-  def selected_subjects
-    @selected_subjects ||= @training_standard.subjects
+  def standard_subjects
+    @standard_subjects ||= @training_standard.subjects
   end
 
   def remain_subjects
-    @subjects_remain ||= Subject.find_remain_subjects @selected_subjects.ids
+    @subjects_remain ||= Subject.find_remain_subjects @standard_subjects.ids
   end
 
   def organization
@@ -34,14 +34,14 @@ class Supports::TrainingStandardSupport
         .new(object: training_standard).serializer
   end
 
-  def selected_organizations
-    @selected_organizations ||= (Organization.all -
+  def standard_organizations
+    @standard_organizations ||= (Organization.all -
       @training_standard.shared_organizations -
       [@training_standard.organization])
   end
 
   def share_with_organization
-    @share_with_organization ||=  ShareWith.find_by organization: @organization,
+    @share_with_organization ||= ShareWith.find_by organization: @organization,
       training_standard: @training_standard
   end
 end

@@ -31,18 +31,18 @@ class StandardSubjectsController < ApplicationController
   end
 
   def destroy
-    @standard_subject = StandardSubject.find_by id: params[:id]
+    @standard_support = Supports::StandardSubjectSupport.new params: params
     respond_to do |format|
-      if @standard_subject.destroy
+      if @standard_support.standard_subject.destroy
         format.html{redirect_to root_path}
         format.json do
           render json: {message: flash_message("deleted"),
-            standard_subject: @standard_subject}
+            standard_subject: @standard_support.standard_subject}
         end
       else
         format.json do
           render json: {message: flash_message("not_deleted"),
-            errors: @standard_subject.errors}, status: :unprocessable_entity
+            errors: @standard_support.standard_subject.errors}, status: :unprocessable_entity
         end
       end
     end

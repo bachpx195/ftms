@@ -32,7 +32,7 @@ export default class ModalShareTrainingStandard extends React.Component {
             <div className='modal-body'>
               <Organizations
                 training_standard={this.state.training_standard}
-                selected_organizations={this.props.selected_organizations}
+                standard_organizations={this.props.standard_organizations}
                 chooseOrganization={this.chooseOrganization.bind(this)}
                 select_organizations={this.state.select_organizations}
               />
