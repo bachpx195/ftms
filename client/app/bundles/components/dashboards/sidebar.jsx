@@ -11,8 +11,6 @@ const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
 const COURSES_URL = app_constants.APP_NAME + app_constants.COURSES_PATH;
 const TRAINEE_TYPES_URL = app_constants.APP_NAME +
   app_constants.TRAINEE_TYPES_PATH;
-const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
-  app_constants.TRAINING_STANDARDS_PATH;
 const UNIVERSITIES_URL = app_constants.APP_NAME +
   app_constants.UNIVERSITIES_PATH;
 const FUNCTIONS_URL = app_constants.APP_NAME +
@@ -175,15 +173,6 @@ export default class Sidebar extends React.Component {
                     <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
                       <i className="fa fa-circle-o"></i>
                       <span>{I18n.t('sidebar.trainee_types')}</span>
-                    </a>
-                  </li>
-                </Permit>
-
-                <Permit action='training_standards'>
-                  <li data-page="training_standards">
-                    <a href={TRAINING_STANDARDS_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
-                      <span>{I18n.t('sidebar.training_standards')}</span>
                     </a>
                   </li>
                 </Permit>

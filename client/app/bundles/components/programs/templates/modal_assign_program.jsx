@@ -1,5 +1,4 @@
 import axios from 'axios';
-import FormCourse from './form_course';
 import React from 'react';
 
 export default class ModalCourse extends React.Component {

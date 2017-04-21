@@ -21,6 +21,9 @@ export default class SubjectDetail extends React.Component {
       <div className='col-md-12'>
         <div className='box box-success'>
           <div className='box-header with-border'>
+          <h3 className="box-title">
+            {this.state.subject_detail.name}
+          </h3>
             <div className='box-tools pull-right'>
               <button type='button' className='btn btn-box-tool'
                 data-widget='collapse'>

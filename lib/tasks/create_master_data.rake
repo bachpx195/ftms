@@ -74,7 +74,6 @@ namespace :db do
 
     f1 = Function.find_by controller_name: "users", action: "show"
     f2 = Function.find_by controller_name: "courses", action: "show"
-    f3 = Function.find_by controller_name: "courses", action: "index"
     f4 = Function.find_by controller_name: "subjects", action: "show"
     f5 = Function.find_by controller_name: "my_space/courses", action: "index"
     f6 = Function.find_by controller_name: "my_space/courses", action: "show"
@@ -101,7 +100,6 @@ namespace :db do
       UserFunction.create!([
         {user: user, function: f1},
         {user: user, function: f2},
-        {user: user, function: f3},
         {user: user, function: f4},
         {user: user, function: f5},
         {user: user, function: f6},
@@ -121,7 +119,6 @@ namespace :db do
     RoleFunction.create!([
       {role_id: 6, function: f1},
       {role_id: 6, function: f2},
-      {role_id: 6, function: f3},
       {role_id: 6, function: f4},
       {role_id: 6, function: f5},
       {role_id: 6, function: f6},
