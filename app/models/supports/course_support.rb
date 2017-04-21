@@ -62,6 +62,11 @@ class Supports::CourseSupport
       .new(object: subjects).serializer
   end
 
+  def current_user_subjects_serializer
+    Serializers::Subjects::UserSubjectsSerializer
+      .new(object: current_user_subjects).serializer
+  end
+
   def managed_courses_serializer
     Serializers::Courses::CourseInProgramsSerializer
       .new(object: managed_courses).serializer
@@ -74,6 +79,11 @@ class Supports::CourseSupport
   private
   def subjects
     @subjects ||= @course.subjects
+  end
+
+  def current_user_subjects
+    user_course = UserCourse.find_by user: @user, course: @course
+    @user.user_subjects.where user_course: user_course
   end
 
   def managed_courses

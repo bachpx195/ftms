@@ -1,0 +1,7 @@
+en:
+  user_subjects:
+    statuses:
+      init: "Init"
+      in_progress: "In Progress"
+      finished: "Finish"
+      reject: "Reject"
