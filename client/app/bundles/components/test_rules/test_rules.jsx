@@ -3,11 +3,8 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
 import { NewLayout } from 'shared/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import css from './css/test_rule.scss';
-
-const TEST_RULES_URL = app_constants.APP_NAME +
-  app_constants.TEST_RULES_PATH;
 
 export default class TestRules extends React.Component {
   constructor(props) {
@@ -82,7 +79,7 @@ export default class TestRules extends React.Component {
     $target.blur();
     let test_rule = this.state.test_rules[$target.data('index')];
     if (confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(TEST_RULES_URL + '/' + test_rule.id + '.json', {
+      axios.delete(routes.test_rule_url(test_rule.id) + '.json', {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         }

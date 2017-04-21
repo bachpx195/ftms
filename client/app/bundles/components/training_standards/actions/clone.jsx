@@ -1,7 +1,6 @@
 import axios from 'axios';
-import {APP_NAME, CLONE_PATH, ORGANIZATIONS_PATH, TRAINING_STANDARDS_PATH} from 
-  'constants/app_constants';
 import React from 'react';
+import * as routes from 'config/routes';
 
 export default class Clone extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ export default class Clone extends React.Component {
 
   onClone() {
     if (confirm(I18n.t("data.confirm_clone"))) {
-      let clone_path = APP_NAME + CLONE_PATH;
+      let clone_url = routes.clone_url();
       axios({
         url: clone_path,
         method: 'POST',
@@ -30,10 +29,8 @@ export default class Clone extends React.Component {
         headers: {'Accept': 'application/json'}
       }).then(response => {
         let new_training_standard = response.data.training_standard;
-        let training_standard_url = APP_NAME + ORGANIZATIONS_PATH + '/' +
-          this.state.organization.id + '/' + TRAINING_STANDARDS_PATH +
-          '/' + new_training_standard.id;
-
+        let training_standard_url = routes.organization_training_standard_url(
+          this.state.organization.id, new_training_standard.id);
         window.location.href =  training_standard_url;
       }).catch(error => {
         this.setState({errors: error.response.data.errors});

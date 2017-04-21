@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
-
-const LANGUAGES_URL = app_constants.APP_NAME + app_constants.LANGUAGES_PATH;
+import * as routes from 'config/routes';
 
 export default class Create extends React.Component {
   render() {
@@ -26,7 +24,7 @@ export default class Create extends React.Component {
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     axios({
-      url: LANGUAGES_URL,
+      url: routes.languages_url(),
       method: 'POST',
       data: formData,
       headers: {'Accept': 'application/json'}

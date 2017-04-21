@@ -1,7 +1,7 @@
 import BasicForm from './templates/forms_box_partials/basic_form';
 import FullForm from './templates/forms_box_partials/full_form';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 require('../../assets/sass/user.scss');
 
@@ -13,14 +13,12 @@ export default class UserFormsBox extends React.Component {
   }
 
   render() {
-    const ORGANIZATION_USER_URL = app_constants.APP_NAME + 
-      app_constants.ORGANIZATIONS_PATH + '/' + this.props.organization.id + '/' + 
-      app_constants.USERS_PATH;
     let title = '';
     let profile = null;
     let current_user = JSON.parse(localStorage.current_user);
     let form = <FullForm program={this.props.program}
-        url={ORGANIZATION_USER_URL} organization={this.props.organization}
+        url={routes.organization_users_url(this.props.organization.id)}
+        organization={this.props.organization}
         universities={this.props.universities}
         trainee_types={this.props.trainee_types}
         trainers={this.props.trainers} user={this.props.user}
@@ -35,7 +33,8 @@ export default class UserFormsBox extends React.Component {
       if (this.props.user.id == current_user.id) {
         form = <BasicForm universities={this.props.universities}
           user={this.props.user} profile={this.props.profile}
-          url={ORGANIZATION_USER_URL} organization={this.props.organization}
+          url={routes.organization_users_url(this.props.organization.id)}
+          organization={this.props.organization}
         />;
       }
     } else {

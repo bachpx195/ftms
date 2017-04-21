@@ -2,10 +2,10 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import MenuCourse from '../menu_course';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
 const LIMIT_DESCRIPTION = app_constants.LIMIT_DESCRIPTION;
-const COURSES_URL = app_constants.APP_NAME + app_constants.COURSES_PATH;
 
 export default class CourseDetail extends React.Component {
   constructor(props) {
@@ -68,7 +68,7 @@ export default class CourseDetail extends React.Component {
         <div className='col-md-5'>
           <span className="btn glyphicon glyphicon-list pull-right"
             onClick={this.clickButtonList.bind(this)}></span>
-          <MenuCourse url={COURSES_URL + '/' + this.state.course.id}
+          <MenuCourse url={routes.course_url(this.state.course.id)}
             course={this.state.course}
             courseListPermit={this.props.courseListPermit}
             handleAfterEdit={this.handleAfterUpdate.bind(this)}

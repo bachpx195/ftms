@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
 
 export default class Document extends React.Component {
   render() {

@@ -1,9 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import * as app_constants from 'constants/app_constants';
-
-const SUB_ORGANIZATIONS_URL = app_constants.APP_NAME + 
-  app_constants.SUB_ORGANIZATIONS_PATH;
+import * as routes from 'config/routes';
 
 require('../../assets/sass/sub_organization.scss');
 
@@ -26,59 +23,59 @@ export default class TreeNode extends React.Component {
 
   render() {
     return(
-      <div className={`${this.props.node.parent == "null" ?
-        "parent_program" : "sub-node"}`}>
-        <ul className="list-group">
-          <li className={`${this.props.node.parent == "null" ?
-            "list-group-item list-group-item-info" : "list-group-item"}`}>
+      <div className={`${this.props.node.parent == 'null' ?
+        'parent_program' : 'sub-node'}`}>
+        <ul className='list-group'>
+          <li className={`${this.props.node.parent == 'null' ?
+            'list-group-item list-group-item-info' : 'list-group-item'}`}>
 
-            <div className="col-md-1 pull-left">
-              <i className="fa fa-plus cursor"
-                title={I18n.t("sub_organizations.all_sub_program")}
-                onClick={this.onClickNode.bind(this)} aria-hidden="true">
+            <div className='col-md-1 pull-left'>
+              <i className='fa fa-plus cursor'
+                title={I18n.t('sub_organizations.all_sub_program')}
+                onClick={this.onClickNode.bind(this)} aria-hidden='true'>
               </i>
             </div>
 
-            <b>{I18n.t("sub_organizations.name")}</b>
-            <a className="title_node cursor"
+            <b>{I18n.t('sub_organizations.name')}</b>
+            <a className='title_node cursor'
               title={this.props.node.text}
-              href={SUB_ORGANIZATIONS_URL + "/" + this.props.organization.id +
-                "/programs/" + this.props.node.id}>
+              href={routes.sub_organization_url(this.props.organization.id) +
+                '/programs/' + this.props.node.id}>
               {this.props.node.text}
             </a>
 
-            <i className="fa fa-bars pull-right cursor"
-              title={I18n.t("sub_organizations.menu_manager_program")}
-              aria-hidden="true"
+            <i className='fa fa-bars pull-right cursor'
+              title={I18n.t('sub_organizations.menu_manager_program')}
+              aria-hidden='true'
               onClick={this.onClickMenuHandle.bind(this)}>
             </i>
 
-            <ul className="list-inline pull-right hidden
-              animation" data-index={this.props.node.id}>
+            <ul className='list-inline pull-right hidden
+              animation' data-index={this.props.node.id}>
               <li>
-                <i className="fa fa-pencil pull-right cursor"
-                  title={I18n.t("sub_organizations.update_program")}
+                <i className='fa fa-pencil pull-right cursor'
+                  title={I18n.t('sub_organizations.update_program')}
                   onClick={this.onClickEditProgram.bind(this)}
-                  aria-hidden="true"
+                  aria-hidden='true'
                   data-name={this.props.node.text}
                   data-id={this.props.node.id}>
                 </i>
               </li>
-              <li><i className="fa fa-plus pull-right cursor"
-                title={I18n.t("sub_organizations.new_sub_program")}
+              <li><i className='fa fa-plus pull-right cursor'
+                title={I18n.t('sub_organizations.new_sub_program')}
                 onClick={this.onClickCreate.bind(this)}
-                aria-hidden="true"
+                aria-hidden='true'
                 data-parent={this.props.node.id}></i>
               </li>
             </ul>
           </li>
-           <li className="list-group-item list-group-item-action flex-column align-items-start nothing hidden">
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">
+           <li className='list-group-item list-group-item-action flex-column align-items-start nothing hidden'>
+            <div className='d-flex w-100 justify-content-between'>
+              <h5 className='mb-1'>
                 {this.props.children.length > 0 ?
-                  <small>{I18n.t("sub_organizations.sub_program",
+                  <small>{I18n.t('sub_organizations.sub_program',
                   {number: this.props.children.length})}</small> :
-                  <small>{I18n.t("sub_organizations.nothing")}</small>
+                  <small>{I18n.t('sub_organizations.nothing')}</small>
                 }
               </h5>
             </div>

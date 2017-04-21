@@ -8,9 +8,7 @@ import React from 'react';
 import SubjectManagerInfo from  './subject_manager_info';
 import SubjectPolicy from 'policy/subject_policy';
 
-import * as app_constants from 'constants/app_constants';
-
-const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
+import * as routes from 'config/routes';
 
 export default class SubjectManager extends React.Component {
   constructor(props) {
@@ -28,9 +26,31 @@ export default class SubjectManager extends React.Component {
   }
 
   render() {
-    let projects_url = SUBJECTS_URL + '/' + this.state.subject_detail.id + '/' +
-      'projects';
-
+    let projects_url = routes.subject_projects_url(this.state.subject_detail.id);
+    let add_task_button = null;
+    if (this.props.course) {
+      add_task_button = (
+        <SubjectPolicy
+          permit={
+            [{action: ['owner'], target: 'children',
+                data: {owner_id: this.props.course.owner_id}},
+              {action: ['course_manager'], target: 'children',
+                data: {members_ids: this.state.member_ids}}]}
+        >
+          <button type='button' className='btn btn-primary'
+            onClick={this.afterClickAddTask.bind(this)}>
+            {I18n.t('subjects.add_task')}
+          </button>
+        </SubjectPolicy>
+      );
+    } else {
+      add_task_button = (
+        <button type='button' className='btn btn-primary'
+          onClick={this.afterClickAddTask.bind(this)}>
+          {I18n.t('subjects.add_task')}
+        </button>
+      );
+    }
 
     let user = null;
     if (this.props.course) {
@@ -70,11 +90,7 @@ export default class SubjectManager extends React.Component {
               <div className='box-header with-border box-header-gray'>
                 {I18n.t("assignments.title_action")}
               </div>
-
-              <button type='button' className='btn btn-primary'
-                onClick={this.afterClickAddTask.bind(this)}>
-                {I18n.t('subjects.add_task')}
-              </button>
+              {add_task_button}
               <CreateProject />
               <a className='btn btn-primary' href={projects_url}>
                 {I18n.t('buttons.list_projects')}</a>

@@ -1,16 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import * as app_constants from 'constants/app_constants';
 
 export default class AboutBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
-
   render(){
     return(
       <div className='box box-default box-solid'>

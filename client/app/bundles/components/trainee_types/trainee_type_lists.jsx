@@ -4,10 +4,7 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import Modal from './modal';
 import Form from './form';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
-
-const TRAINEE_TYPES_URL = app_constants.APP_NAME + 
-  app_constants.TRAINEE_TYPES_PATH;
+import * as routes from 'config/routes';
 
 export default class TraineeTypeLists extends React.Component {
   constructor(props) {
@@ -57,7 +54,7 @@ export default class TraineeTypeLists extends React.Component {
     let modalEdit = null;
     if(this.state.trainee_type.id){
       modalEdit = (
-        <Modal url={TRAINEE_TYPES_URL + '/' + this.state.trainee_type.id}
+        <Modal url={routes.trainee_type_url(this.state.trainee_type.id)}
           trainee_type={this.state.trainee_type}
           handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );
@@ -106,7 +103,7 @@ export default class TraineeTypeLists extends React.Component {
     $target.blur();
     let trainee_type = this.props.trainee_types[$target.data('index')];
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(TRAINEE_TYPES_URL + '/' + trainee_type.id, {
+      axios.delete(routes.trainee_type_url(trainee_type.id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

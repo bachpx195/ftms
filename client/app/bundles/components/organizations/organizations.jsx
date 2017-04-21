@@ -4,11 +4,7 @@ import ManagerOrganizations from './templates/manager_organizations';
 import OrganizationPolicy from 'policy/organization_policy';
 import React from 'react';
 
-import * as app_constants from 'constants/app_constants';
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME +
-  app_constants.ORGANIZATIONS_PATH;
-
+import * as routes from 'config/routes';
 
 export default class Organizations extends React.Component{
   constructor(props){
@@ -70,7 +66,7 @@ export default class Organizations extends React.Component{
               ]}>
                 {this.state.status ?
                   <FormOrganization
-                    url={ORGANIZATIONS_URL}
+                    url={routes.organizations_url()}
                   /> : null}
               </OrganizationPolicy>
             </div>

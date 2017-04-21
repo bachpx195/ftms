@@ -4,9 +4,7 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import { NewLayout } from '../shareds/griddles/new_layout';
 import Form from './templates/form';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
-
-const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
+import * as routes from 'config/routes';
 
 export default class Projects extends React.Component {
   constructor(props) {
@@ -22,12 +20,12 @@ export default class Projects extends React.Component {
 
     const LinkToProject = ({value, griddleKey}) => {
       let project = this.state.projects[griddleKey];
-      let link = '#';
+      let project_url = '#';
       if (project) {
-        link = SUBJECTS_URL + '/' + project.course_subject.subject_id
-          + '/'+ 'projects' + '/' + project.id;
+        project_url = routes.subject_project_url(project.course_subject.subject_id,
+          project.id);
       }
-      return <a href={link}>{value}</a>;
+      return <a href={project_url}>{value}</a>;
     };
 
     const OrganizationName = ({value, griddleKey}) => {

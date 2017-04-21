@@ -6,9 +6,7 @@ import lodash from 'lodash';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import * as app_constants from 'constants/app_constants';
-
-const ROLES_URL = app_constants.APP_NAME + 'change_role/' +
-  app_constants.USERS_PATH;
+import * as routes from 'config/routes';
 
 export default class FormEditRole extends React.Component {
   constructor(props) {
@@ -108,7 +106,7 @@ export default class FormEditRole extends React.Component {
         functions.push({function_id: value.id, _destroy: 0});
     }
     data['user_functions_attributes'] = functions;
-    axios.patch(ROLES_URL + this.props.user_id, {
+    axios.patch(routes.change_role_user_url(this.props.user_id), {
       roles: this.state.current_roles,
       functions: data,
       authenticity_token: ReactOnRails.authenticityToken()
@@ -123,7 +121,7 @@ export default class FormEditRole extends React.Component {
   }
 
   updateUserFunction(current_roles, user_id){
-    axios.patch(ROLES_URL + this.props.user_id + '.json', {
+    axios.patch(routes.change_role_user_url(this.props.user_id) + '.json', {
       update_show: "update_show",
       roles: current_roles,
       authenticity_token: ReactOnRails.authenticityToken()

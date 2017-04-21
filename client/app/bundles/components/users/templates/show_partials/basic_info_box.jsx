@@ -5,6 +5,7 @@ import ReactOnRails from 'react-on-rails';
 import RolesBox from './roles_box';
 import UploadImageModal from './upload_image_modal';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class BasicInfoBox extends React.Component {
   constructor(props) {
@@ -24,9 +25,6 @@ export default class BasicInfoBox extends React.Component {
   }
 
   render(){
-    const EDIT_USER_URL = app_constants.APP_NAME + app_constants.USERS_PATH + '/'
-      + this.props.user_detail.id + '/'+ app_constants.EDIT_PATH;
-
     return(
       <div className='box box-primary'>
         <div className='box-body box-profile'>
@@ -50,7 +48,8 @@ export default class BasicInfoBox extends React.Component {
           </h3>
           <p className='text-muted text-center'>
             <b>{I18n.t('users.email')} </b>{this.props.user_detail.email} &nbsp;
-            <a href={EDIT_USER_URL}><i className='fa fa-pencil'></i></a>
+            <a href={routes.edit_user_url(this.props.user_detail.id)}>
+              <i className='fa fa-pencil'></i></a>
           </p>
           <RolesBox user={this.props.user} />
           <div className='btn btn-primary col-md-12'>

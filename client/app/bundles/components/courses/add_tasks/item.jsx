@@ -14,7 +14,6 @@ export default class Item extends React.Component {
     }
   }
 
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       remain_item: nextProps.remain_item,

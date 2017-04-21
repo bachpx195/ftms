@@ -1,7 +1,6 @@
-import React from 'react';
-
 import Course from './course';
 import CoursesStatistic from "./templates/courses_statistic";
+import React from 'react';
 
 export default class Courses extends React.Component {
   constructor(props) {

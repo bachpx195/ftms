@@ -1,7 +1,6 @@
 import React from 'react';
 import RequirementGriddle from './griddle/requirement_griddle'
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
 require('../../assets/sass/projects.scss');
 
 export default class Requirements extends React.Component {

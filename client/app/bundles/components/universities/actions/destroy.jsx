@@ -1,12 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 import UniversityPolicy from 'policy/university_policy';
-
-const UNIVERSITIES_URL = app_constants.APP_NAME + 
-  app_constants.UNIVERSITIES_PATH;
 
 export default class Destroy extends React.Component {
   render() {
@@ -29,7 +26,7 @@ export default class Destroy extends React.Component {
     $target.blur();
 
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(UNIVERSITIES_URL + '/' + this.props.university.id, {
+      axios.delete(routes.university_url(this.props.university.id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

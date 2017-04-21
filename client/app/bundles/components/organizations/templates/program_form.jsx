@@ -3,7 +3,7 @@ import axios from 'axios';
 import Create from '../actions/create';
 import React from 'react';
 import Update from '../actions/update';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class FormProgram extends React.Component {
   constructor(props) {
@@ -69,9 +69,8 @@ export default class FormProgram extends React.Component {
 
   handleAfterCreated(response) {
     let program = response.data.program;
-    let ORGANIZATION_URL = app_constants.APP_NAME + 
-      app_constants.ORGANIZATIONS_PATH + '/' + this.state.organization_id;
-    window.location.href = ORGANIZATION_URL;
+    let organization_url = routes.organization_url(this.state.organization_id);
+    window.location.href = organization_url;
     this.refs.nameField.value = '';
   }
 }

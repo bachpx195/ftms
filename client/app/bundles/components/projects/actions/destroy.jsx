@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import * as app_constants from 'constants/app_constants';
-
-const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
+import * as routes from 'config/routes';
 
 export default class Destroy extends React.Component {
   render() {
@@ -17,13 +15,13 @@ export default class Destroy extends React.Component {
 
   handleDelete() {
     if (confirm(I18n.t('data.confirm_delete'))) {
-      const url = SUBJECTS_URL + '/' + this.props.project.course_subject.subject_id
-        + '/' + app_constants.PROJECTS_PATH;
+      const projects_url = routes.subject_projects_url(
+        this.props.project.course_subject.subject_id);
       axios.delete(this.props.url, {
         params: {authenticity_token: ReactOnRails.authenticityToken()},
         headers: {'Accept': 'application/json'}
       })
-      .then(response => {window.location.href = url;})
+      .then(response => {window.location.href = projects_url;})
       .catch(error => console.log(error));
     }
   }

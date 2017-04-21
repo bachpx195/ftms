@@ -15,17 +15,9 @@ import ShowBreadCrumb from './templates/bread_crumbs/show';
 import SubjectLists from './subjects';
 import UserLists from './user_lists';
 
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 require('../../assets/sass/program_show.scss');
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME + app_constants.ORGANIZATIONS_PATH;
-const STANDARD_URL = app_constants.APP_NAME +
-  app_constants.TRANINING_STANDARDS_PATH;
-const ASSIGN_STANDARD_URL = app_constants.APP_NAME + app_constants.ASSIGN_STANDARD_PATH;
-const COURSE_URL = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
-const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
-const LIMIT_DESCRIPTION = app_constants.LIMIT_DESCRIPTION;
 
 export default class ProgramsShowBox extends React.Component {
   constructor(props) {
@@ -55,10 +47,10 @@ export default class ProgramsShowBox extends React.Component {
   }
 
   renderUser(user) {
-    let user_path = app_constants.APP_NAME + app_constants.USERS_PATH + user.id;
+    let user_url = routes.user_url(user.id);
     return (
      <li key={user.id}>
-       <a href={user_path} title={user.name}>
+       <a href={user_url} title={user.name}>
          <img className='img-circle' src={user.avatar.url} width='20' height='20'/>
        </a>
      </li>
@@ -66,8 +58,8 @@ export default class ProgramsShowBox extends React.Component {
   }
 
   render() {
-    let url_programs = ORGANIZATIONS_URL + '/' + this.state.organization.id +
-      '/' + app_constants.PROGRAMS_PATH + '/' + this.props.program.id;
+    let program_url = routes.organization_program_url(
+      this.state.organization.id, this.props.program.id);
 
     return (
       <div className='clearfix'>
@@ -92,8 +84,6 @@ export default class ProgramsShowBox extends React.Component {
           </div>
 
           <RenderListCourse
-            course_url={COURSE_URL}
-            course_path={app_constants.COURSES_PATH}
             program={this.props.program}
             program_detail={this.state.program_detail}
             selected_standard={this.state.selected_standard}
@@ -120,21 +110,21 @@ export default class ProgramsShowBox extends React.Component {
         />
 
         <ModalCreateStandard
-          assign_standard_url={ASSIGN_STANDARD_URL}
-          standard_url={STANDARD_URL}
+          assign_standard_url={routes.assign_standards_url()}
+          standard_url={routes.training_standards_url()}
           program={this.props.program}
           handleAfterCreatedStandard={this.handleAfterCreatedStandard.bind(this)}
         />
 
         <ModalCourse
           program_detail={this.state.program_detail}
-          url={COURSE_URL + '/' + this.props.program.id +'/courses'}
+          url={routes.prorgam_courses_url(this.props.program.id)}
           image={this.state.image}
           program={this.props.program}
           all_roles={this.state.all_roles}
           owners={this.state.owners}
           course={this.state.course}
-          url_programs={url_programs} />
+          url_programs={program_url} />
       </div>
     );
   }

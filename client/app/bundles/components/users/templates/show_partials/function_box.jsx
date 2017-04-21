@@ -1,12 +1,10 @@
 import axios from 'axios';
 import Checkbox from '../../../shareds/checkbox';
+import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
 import SelectSell from '../../../shareds/select_cell';
 
-import * as app_constants from 'constants/app_constants';
 import * as table_constants from 'constants/griddle_table_constants';
-
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 
 export default class FunctionBox extends React.Component {
   constructor(props) {
@@ -51,13 +49,15 @@ export default class FunctionBox extends React.Component {
       }
 
       return (
-        <Checkbox handleClick={this.handleCheckbox.bind(this)} griddleKey={griddleKey} is_checked={checked}/>
+        <Checkbox handleClick={this.handleCheckbox.bind(this)} 
+          griddleKey={griddleKey} is_checked={checked}/>
       );
     };
 
     const SelectSellBox = () => {
       return (
-        <SelectSell checked={this.state.check_all} handleSelectCell={this.handleSelectCell.bind(this)}/>
+        <SelectSell checked={this.state.check_all} 
+          handleSelectCell={this.handleSelectCell.bind(this)}/>
       );
     };
 

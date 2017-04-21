@@ -6,10 +6,8 @@ import Form from './templates/form';
 import Destroy from './actions/destroy';
 import { NewLayout } from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import StagePolicy from 'policy/stage_policy';
-
-const STAGES_URL = app_constants.APP_NAME + app_constants.STAGES_PATH;
 
 export default class StageLists extends React.Component {
   constructor(props) {
@@ -54,7 +52,7 @@ export default class StageLists extends React.Component {
             {action: ['destroy', 'creator'], target: 'children',
             data: {creator_id: stage.creator_id}}]}>
           <Destroy
-            url={STAGES_URL}
+            url={routes.stages_url()}
             stage={this.state.stages[griddleKey]}
             handleAfterDeleted={this.props.handleAfterDeleted}
           />
@@ -65,7 +63,7 @@ export default class StageLists extends React.Component {
     let modalEdit = null;
     if(this.state.stage.id){
       modalEdit = (
-        <ModalEdit url={STAGES_URL + '/' + this.state.stage.id}
+        <ModalEdit url={routes.stage_url(this.state.stage.id)}
           stage={this.state.stage}
           handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );

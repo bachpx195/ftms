@@ -1,11 +1,7 @@
-import React from 'react';
-
 import CoursePolicy from 'policy/course_policy';
-
-import * as app_constants from 'constants/app_constants';
-
 import Managers from "../templates/managers";
 import Members from "../templates/members";
+import React from 'react';
 
 export default class Users extends React.Component {
   constructor(props) {

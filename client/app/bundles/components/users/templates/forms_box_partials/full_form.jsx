@@ -4,7 +4,6 @@ import axios from 'axios';
 import Errors from '../../../shareds/errors';
 import Create from '../../actions/create';
 import Update from '../../actions/update';
-import * as app_constants from 'constants/app_constants';
 
 export default class FullForm extends React.Component {
   constructor(props) {

@@ -1,10 +1,8 @@
 import axios from 'axios';
-import CustomPolicy from 'policy/course_policy';
+import * as routes from 'config/routes';
 import FormEditRole from './form_edit_role';
+import CustomPolicy from 'policy/course_policy';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
-
-const ROLES_URL = app_constants.APP_NAME + 'change_role/' + app_constants.USERS_PATH;
 
 export default class RolesBox extends React.Component {
   constructor(props) {
@@ -29,7 +27,7 @@ export default class RolesBox extends React.Component {
     this.setState({
      user: user
     })
-    axios.get(ROLES_URL + '/' + user.id +'.json')
+    axios.get(routes.change_role_user_url(user.id) +'.json')
     .then(response => {
       this.setState({
         roles: response.data.roles,
@@ -55,7 +53,8 @@ export default class RolesBox extends React.Component {
               <h4 className='modal-title'>{title}</h4>
             </div>
             <div className='modal-body user-roles'>
-              <FormEditRole all_roles={this.state.all_roles} functions={this.state.functions}
+              <FormEditRole all_roles={this.state.all_roles} 
+                functions={this.state.functions}
                 current_roles={this.state.roles} user_id={this.state.user.id}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)}/>
             </div>

@@ -9,8 +9,6 @@ import Errors from '../../shareds/errors';
 
 import _ from 'lodash';
 
-import * as app_constants from 'constants/app_constants';
-
 export default class Form extends React.Component {
   constructor(props) {
     super(props);

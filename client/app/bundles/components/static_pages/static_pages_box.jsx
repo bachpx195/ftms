@@ -4,10 +4,7 @@ import HeaderStatic from './header_static';
 import HomePage from './home_page';
 import FooterStatic from './footer_static';
 
-import * as app_constants from 'constants/app_constants';
-
-const ROOT_URL = app_constants.APP_NAME + app_constants.ROOT_PATH;
-const STATIC_PAGE_URL = app_constants.APP_NAME + app_constants.STATIC_PAGE_PATH;
+import * as routes from 'config/routes';
 
 export default class StaticPageBox extends React.Component {
   constructor(props) {
@@ -36,7 +33,7 @@ export default class StaticPageBox extends React.Component {
   }
 
   fetchStaticPages() {
-    axios.get(STATIC_PAGE_URL + '/show.json')
+    axios.get(routes.static_pages_url() + '/show.json')
       .then(response => this.setState({
         languages: response.data.languages,
         trainees_size: response.data.trainees_size,

@@ -3,11 +3,8 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import OrganizationPolicy from 'policy/organization_policy';
 import React from 'react';
 import Row from '../griddle/row';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME +
-  app_constants.ORGANIZATIONS_PATH;
 
 export default class ManagerOrganizations extends React.Component {
   constructor(props) {
@@ -45,8 +42,8 @@ export default class ManagerOrganizations extends React.Component {
       </div>
     );
     const LinkShowOrganization = ({value, griddleKey}) => {
-      return (<a href={ORGANIZATIONS_URL + '/' +
-        this.props.organizations[griddleKey].id}>{value}</a>);
+      return (<a href={routes.organization_url(
+        this.state.organizations[griddleKey].id)}>{value}</a>);
     }
     return (
       <div className='col-md-12'>

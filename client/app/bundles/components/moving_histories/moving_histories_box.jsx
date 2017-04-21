@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import MovingHistoryLists from './moving_history_lists';
 import RightSidebar from './right_sidebar';
-import * as app_constants from 'constants/app_constants';
 
 require('./moving_histories.scss');
 

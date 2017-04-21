@@ -3,12 +3,9 @@ import Modal from './templates/modal_testrule'
 import React from 'react';
 import TestRules from './test_rules';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import css from './css/test_rule.scss';
 import css_slider from 'react-input-range/src/scss/index.scss';
-
-const TEST_RULES_URL = app_constants.APP_NAME +
-  app_constants.TEST_RULES_PATH;
 
 export default class TestRulesBox extends React.Component {
   constructor(props) {
@@ -23,7 +20,7 @@ export default class TestRulesBox extends React.Component {
     let modal;
     if (this.state.test_rule.id) {
       modal = (
-        <Modal url={TEST_RULES_URL + '/' + this.state.test_rule.id}
+        <Modal url={routes.test_rule_url(this.state.test_rule.id)}
           test_rule={this.state.test_rule}
           title={I18n.t('test_rules.titles.edit')}
           categories={this.props.categories}
@@ -32,7 +29,7 @@ export default class TestRulesBox extends React.Component {
       )
     } else {
       modal = (
-        <Modal url={TEST_RULES_URL}
+        <Modal url={routes.test_rules_url()}
           test_rule={this.state.test_rule}
           title={I18n.t('test_rules.titles.create')}
           categories={this.props.categories}

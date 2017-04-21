@@ -2,7 +2,7 @@ import Highcharts from 'highcharts';
 import React from 'react';
 import ReactHighcharts from 'react-highcharts';
 
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class InOutOrganization extends React.Component {
   render() {
@@ -50,15 +50,6 @@ export default class InOutOrganization extends React.Component {
       series: this.props.trainees_in_outs
     };
 
-    let ORGANIZATIONS_URL = app_constants.APP_NAME + 'organizations' + '/' +
-      this.props.organization.id + '/' + app_constants.STATISTICS_PATH;
-
-    let STATISTIC_LANGUAGE_PATH = ORGANIZATIONS_URL +
-      app_constants.LANGUAGES_PATH;
-
-    let STATISTIC_TRAINEE_TYPE_PATH = ORGANIZATIONS_URL +
-      app_constants.TRAINEE_TYPES_PATH;
-
     return (
       <div>
         <div className='box box-success'>
@@ -79,13 +70,15 @@ export default class InOutOrganization extends React.Component {
                 </button>
                 <ul className='dropdown-menu' role='menu'>
                   <li>
-                    <a href={STATISTIC_LANGUAGE_PATH}>
+                    <a href={routes.organization_statistics_languages_url(
+                      this.props.organization.id)}>
                       {I18n.t('sidebar.languages')}
                     </a>
                   </li>
                   <li className='divider'></li>
                   <li>
-                    <a href={STATISTIC_TRAINEE_TYPE_PATH}>
+                    <a href={routes.organization_statistics_trainee_types_url(
+                      this.props.organization.id)}>
                       {I18n.t('sidebar.trainee_types')}
                     </a>
                   </li>

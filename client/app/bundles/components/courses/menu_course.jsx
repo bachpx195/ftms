@@ -5,10 +5,9 @@ import axios from 'axios';
 import FormEdit from './form_edit';
 import CoursePolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 const APP_URL = app_constants.APP_NAME;
-const ORGANIZATIONS_URL = app_constants.ORGANIZATIONS_PATH
-const PROGRAM_URL = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
 
 export default class MenuCourse extends React.Component {
   constructor(props) {
@@ -25,12 +24,14 @@ export default class MenuCourse extends React.Component {
         {this.renderButtonFinish()}
         <CoursePolicy permit={this.props.courseListPermit}>
           <div className="td-course-edit-delete pull-right hidden">
-            <a onClick={this.handleEdit.bind(this)} title={I18n.t("courses.edit")}>
+            <a onClick={this.handleEdit.bind(this)} 
+              title={I18n.t("courses.edit")}>
               <span className="btn glyphicon glyphicon-edit"
                 aria-hidden="true">
               </span>
             </a>
-            <a onClick={this.handleDelete.bind(this)} title={I18n.t("courses.delete")}>
+            <a onClick={this.handleDelete.bind(this)} 
+              title={I18n.t("courses.delete")}>
               <span className="btn glyphicon glyphicon-trash"
                 aria-hidden="true">
               </span>
@@ -75,11 +76,11 @@ export default class MenuCourse extends React.Component {
         var program_courses_path = '/' + app_constants.PROGRAMS_PATH + '/' +
           app_constants.MY_COURSES_PATH;
         if (path == program_courses_path) {
-          window.location.href = APP_URL + '/' + ORGANIZATIONS_URL + '/' +
-            response.data.program.organization_id + '/'
-            + app_constants.PROGRAMS_PATH + '/' + response.data.program.id;
+          window.location.href = routes.organization_program_url(
+            response.data.program.organization_id, response.data.program.id);
         } else {
-          window.location.href = app_constants.APP_NAME + path.substr(1, path.length - 1);
+          window.location.href = app_constants.APP_NAME + 
+            path.substr(1, path.length - 1);
         }
       })
       .catch(error => this.setState({errors: error.response.data.errors}));
@@ -109,8 +110,8 @@ export default class MenuCourse extends React.Component {
   }
 
   changeStatus() {
-    axios.patch(PROGRAM_URL+ '/' + this.props.program.id+ '/' +
-      app_constants.COURSES_PATH + '/' + this.state.course.id, {
+    axios.patch(routes.program_course_url(this.props.program.id, 
+      this.state.course.id), {
         status: 'finished',
         authenticity_token: ReactOnRails.authenticityToken(),
     }, app_constants.AXIOS_CONFIG)

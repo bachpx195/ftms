@@ -3,8 +3,6 @@ import axios from 'axios';
 import ReactOnRails from 'react-on-rails';
 import * as app_constants from 'constants/app_constants';
 
-const PROJECTS_URL = app_constants.APP_NAME + app_constants.PROJECTS_PATH;
-
 export default class Update extends React.Component {
   constructor(props) {
     super(props);
@@ -29,9 +27,9 @@ export default class Update extends React.Component {
   }
 
   handleClickButton() {
-    let url = PROJECTS_URL + '/' + this.state.requirement.project_id + '/' +
-      app_constants.REQUIREMENTS_PATH + '/' + this.state.requirement.id;
-    this.props.handleOnClickEdit(this.state.requirement, url);
+    let requirement_url = requirement_url = routes.project_requirement_url(
+        this.state.requirement.project_id, this.state.requirement.id);
+    this.props.handleOnClickEdit(this.state.requirement, requirement_url);
   }
 
   handleAfterUpdate(new_requirement) {
@@ -42,9 +40,9 @@ export default class Update extends React.Component {
 
   handleDelete() {
     if (confirm(I18n.t('data.confirm_delete'))) {
-      const url = PROJECTS_URL + '/' + this.state.requirement.project_id + '/' +
-        app_constants.REQUIREMENTS_PATH + '/' + this.state.requirement.id ;
-      axios.delete(url, {
+      const requirement_url = routes.project_requirement_url(
+        this.state.requirement.project_id, this.state.requirement.id);
+      axios.delete(requirement_url, {
         params: {authenticity_token: ReactOnRails.authenticityToken()}
       })
       .then(response => {

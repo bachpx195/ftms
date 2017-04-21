@@ -1,8 +1,7 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
+import * as routes from 'config/routes';
 require('../../assets/sass/modal_preview_document.scss');
-
-import * as app_constants from 'constants/app_constants';
 
 export default class ModalPreviewDocument extends React.Component {
   constructor(props) {
@@ -82,9 +81,9 @@ export default class ModalPreviewDocument extends React.Component {
 
   handleDeleteDocument() {
     if (confirm(I18n.t("data.confirm_delete"))) {
-      let url = app_constants.APP_NAME + 'documents/' + this.state.document.id;
+      let document_url = routes.document_url(this.state.document.id);
       axios({
-        url: url,
+        url: document_url,
         method: 'DELETE',
         headers: {'Accept': 'application/json'},
         params: {authenticity_token: ReactOnRails.authenticityToken()}

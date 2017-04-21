@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import Users from './users';
 import OrganizationChart from './templates/organization_charts/box';
 
@@ -16,16 +16,12 @@ export default class UsersBox extends React.Component {
   }
 
   render() {
-    const USER_URL = app_constants.APP_NAME + app_constants.ORGANIZATIONS_PATH +
-      '/' + this.props.organization.id + '/' + 'users';
-
-    const NEW_USER_URL = USER_URL + '/' + app_constants.NEW_PATH;
-
     const ChangeView = () => {
       if (this.state.view_type == 'list') {
         return (
           <button type='button' className='btn btn-box-tool'
-            onClick={this.handleChangeView.bind(this, USER_URL)}
+            onClick={this.handleChangeView.bind(this, 
+              routes.organization_users_url(this.props.organization.id))}
             title={I18n.t('users.view_type.grid')}>
             <i className='fa fa-th' aria-hidden='true'></i>
           </button>
@@ -33,7 +29,8 @@ export default class UsersBox extends React.Component {
       } else {
         return (
           <button type='button' className='btn btn-box-tool'
-            onClick={this.handleChangeView.bind(this, USER_URL)}
+            onClick={this.handleChangeView.bind(this, 
+              routes.organization_users_url(this.props.organization.id))}
             title={I18n.t('users.view_type.list')}>
             <i className='fa fa-list' aria-hidden='true'></i>
           </button>
@@ -45,7 +42,8 @@ export default class UsersBox extends React.Component {
       if (this.state.view_type == 'list') {
         return (
           <div className='box-body'>
-            <a className='btn btn-primary button-new' href={NEW_USER_URL}>
+            <a className='btn btn-primary button-new'
+              href={routes.new_organization_user_url(this.props.organization.id)}>
               {I18n.t('users.buttons.new')}
             </a>
             <Users users={this.state.users} />

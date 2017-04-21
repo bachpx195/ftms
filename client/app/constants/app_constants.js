@@ -15,7 +15,6 @@ export const PROGRAMS_PATH = 'programs';
 //Program
 export const ASSIGN_STANDARD_PATH = 'assign_program/standards';
 export const ASSIGN_PROGRAM_PATH = 'assign_program/organizations';
-export const COURSE_PATH = 'courses';
 export const LIMIT_DESCRIPTION_PROGRAM = 36;
 export const USERS_NEW_PATH = 'users/new';
 export const TRAINING_STANDARDS_PATH = 'training_standards';
@@ -41,6 +40,7 @@ export const LIMIT_DESCRIPTION_COURSE = 120;
 export const ROLES_PATH = 'roles';
 export const ROLE_FUNCTIONS_PATH = 'role_functions';
 export const FILTER_ROLE_PATH = 'filter_role/roles.json?role_id=';
+export const CHANGE_ROLE_PATH = 'change_role'
 
 //Subject
 export const SUBJECTS_PATH = 'subjects';
@@ -65,10 +65,9 @@ export const FUNCTIONS_PATH = 'functions';
 export const MY_SPACE_COURSES_PATH = 'my_space/courses';
 export const MOVING_HISTORIES_PATH = 'moving_histories';
 export const PROJECTS_PATH = 'projects';
-export const CATEGORY_PATH = 'categories';
-export const TEST_RULE_PATH = 'test_rules';
+export const TEST_RULES_PATH = 'test_rules';
 export const MY_SPACE_EXAMS_PATH = 'my_space/exams';
-export const IN_OUT_STATISTIC_PATH = 'in_outs';
+export const IN_OUTS_STATISTICS_PATH = 'in_outs';
 export const STATISTICS_PATH = 'statistics';
 
 //evaluation template
@@ -79,12 +78,11 @@ export const EVALUATION_STANDARDS_PATH = 'evaluation_standards';
 //categories
 export const CATEGORIES_PATH = 'categories';
 export const QUESTIONS_PATH = 'questions';
-
 export const REQUIREMENTS_PATH = 'requirements';
-
 export const STATIC_PAGE_PATH = 'static_pages';
-
 export const SUB_ORGANIZATIONS_PATH = 'sub_organizations';
+export const DOCUMENTS_PATH = 'documents';
+export const CHANGE_PROFILE = 'change_profile';
 
 //training standard
 export const STANDARD_SUBECTS_PATH = 'standard_subjects';
@@ -92,7 +90,6 @@ export const POLICIES = [{id: 'privated', name: 'Privated'},
   {id: 'publiced', name: 'Publiced'}]
 export const SHARE_WITH_PATH = 'share_withs'
 export const CLONE_PATH = 'clone/training_standards';
-
 //user_course
 export const LIMIT_DESCRIPTION_USER_COURSE = 120;
 export const SUBJECT_ = 120;

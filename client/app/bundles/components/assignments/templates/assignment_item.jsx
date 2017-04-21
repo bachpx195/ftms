@@ -3,10 +3,7 @@ import css from '../../subjects/assets/subject.scss';
 import PublicPolicy from 'policy/public_policy';
 import React from 'react';
 import Update from '../actions/update'
-import * as app_constants from 'constants/app_constants';
-
-const DYNAMICTASKS_URL = app_constants.APP_NAME + app_constants.DYNAMICTASKS_PATH;
-const META_TASKS_PATH = app_constants.META_TASKS_PATH;
+import * as routes from 'config/routes';
 
 export default class AssignmentItem extends React.Component {
   constructor(props) {
@@ -114,7 +111,7 @@ export default class AssignmentItem extends React.Component {
   }
 
   fetchListMetaTask(dynamic_task) {
-    let url = DYNAMICTASKS_URL + '/' + dynamic_task.id + '/' + META_TASKS_PATH;
+    let url = routes.dynamic_task_meta_tasks_url(dynamic_task.id);
     axios.get(url + '.json')
       .then(response => {
         this.setState({

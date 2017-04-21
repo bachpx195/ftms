@@ -1,4 +1,3 @@
-import * as app_constants from 'constants/app_constants';
 import axios from 'axios';
 import Create from './actions/create';
 import FilterShared from './templates/filter_shared';

@@ -2,6 +2,7 @@ import axios from 'axios';
 import Document from './document';
 import Dropzone from 'react-dropzone';
 import React from 'react';
+
 import * as app_constants from 'constants/app_constants';
 
 export default class Documents extends React.Component{
@@ -76,7 +77,7 @@ export default class Documents extends React.Component{
     formData.append('document[file]', acceptedFiles[0]);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
-    let url = app_constants.APP_NAME + 'documents';
+    let url = routes.documents_url();
 
     axios({
       url: url,

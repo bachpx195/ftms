@@ -1,9 +1,7 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import axios from 'axios';
 import CategoryPolicy from 'policy/category_policy';
 import React from 'react';
-
-const CATEGORIES_URL = app_constants.APP_NAME + app_constants.CATEGORIES_PATH;
 
 export default class Destroy extends React.Component {
   render() {
@@ -27,7 +25,7 @@ export default class Destroy extends React.Component {
     let $target = $(event.target);
     $target.blur();
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(CATEGORIES_URL + '/' + this.props.category.id, {
+      axios.delete(routes.category_url(this.props.category.id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

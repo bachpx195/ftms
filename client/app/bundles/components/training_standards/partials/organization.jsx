@@ -1,4 +1,3 @@
-import * as app_constants from 'constants/app_constants';
 import axios from 'axios';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';

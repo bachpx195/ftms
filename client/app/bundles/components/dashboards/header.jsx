@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
-const LOGOUT_URL = app_constants.APP_NAME + app_constants.LOGOUT_PATH;
+const LOGOUT_URL = routes.logout_url();
 const ROOT_URL = app_constants.APP_NAME;
 
 export default class Header extends React.Component {
   render () {
     return (
       <header className="main-header">
-        <a href={`${ROOT_URL}`} className="logo">
+        <a href={ROOT_URL} className="logo">
           <span className="logo-mini"><b>{I18n.t("header.short_logo")}</b></span>
           <span className="logo-lg"><b>{I18n.t("header.long_logo")}</b></span>
         </a>
@@ -25,7 +26,7 @@ export default class Header extends React.Component {
   dropdownProfile() {
     if (localStorage.current_user !== undefined) {
       let current_user = JSON.parse(localStorage.current_user);
-      let path = ROOT_URL + app_constants.USERS_PATH + '/' + current_user.id;
+      let user_url = routes.user_url(current_user.id);
       return (
         <div className="navbar-custom-menu">
           <ul className="nav navbar-nav">
@@ -46,7 +47,7 @@ export default class Header extends React.Component {
                 </li>
                 <li className="user-footer">
                   <div className="pull-left">
-                    <a href={path} className="btn btn-default btn-flat ev-default">
+                    <a href={user_url} className="btn btn-default btn-flat ev-default">
                       {I18n.t("header.profile")}
                     </a>
                   </div>

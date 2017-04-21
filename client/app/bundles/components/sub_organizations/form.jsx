@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME + 
-  app_constants.ORGANIZATIONS_PATH;
+import * as routes from 'config/routes';
 
 export default class FormEdit extends React.Component {
   constructor(props) {
@@ -42,8 +39,9 @@ export default class FormEdit extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.status == "edit") {
-      let url = ORGANIZATIONS_URL + "/" + this.props.organization.id + "/programs/" + this.state.id;
-      axios.patch(url, {
+      let program_url = routes.organization_program_url(
+        this.props.organization.id, this.state.id);
+      axios.patch(program_url, {
         program: {
           name: this.refs.nameField.value,
         }, authenticity_token: ReactOnRails.authenticityToken()
@@ -56,8 +54,9 @@ export default class FormEdit extends React.Component {
         console.log(error);
       })
     } else {
-      let url = ORGANIZATIONS_URL + "/" + this.props.organization.id + "/programs";
-       axios.post(url, {
+      let programs_url = routes.organization_programs_url(
+        this.props.organization.id);
+       axios.post(programs_url, {
         program: {
           name: this.refs.nameField.value,
         }, authenticity_token: ReactOnRails.authenticityToken()

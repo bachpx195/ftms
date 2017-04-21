@@ -1,11 +1,7 @@
-import React from 'react';
 import axios from 'axios';
-
-import * as app_constants from 'constants/app_constants';
-
-import UniversityPolicy from 'policy/university_policy';
-
 import Modal from '../templates/modal';
+import React from 'react';
+import UniversityPolicy from 'policy/university_policy';
 
 export default class Update extends React.Component {
   render() {

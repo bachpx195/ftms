@@ -3,7 +3,7 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from
   'griddle-react';
 import {NewLayout} from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import ExamPolicy from 'policy/exam_policy';
 import Show from './actions/show';
 
@@ -18,9 +18,8 @@ export default class Exams extends React.Component {
   render() {
     const UserLink = ({griddleKey}) => {
       let user = this.state.exams[griddleKey].user;
-      let url = app_constants.APP_NAME + app_constants.USERS_PATH + '/' + 
-        user.id;
-      return <a href={url}>{user.name}</a>;
+      let user_url = routes.user_url(user.id);
+      return <a href={user_url}>{user.name}</a>;
     };
 
     const SubjectLink = ({griddleKey}) => {
@@ -29,9 +28,8 @@ export default class Exams extends React.Component {
 
     const CourseLink = ({griddleKey}) => {
       let course = this.state.exams[griddleKey].course;
-      let url = app_constants.APP_NAME + app_constants.COURSES_PATH + '/' +
-        course.id;
-      return <a href={url}>{course.name}</a>;
+      let course_url = routes.course_url(course.id);
+      return <a href={course_url}>{course.name}</a>;
     };
 
     const CreatedDate = ({value}) => {

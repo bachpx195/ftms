@@ -1,9 +1,9 @@
-import React from 'react';
 import axios from 'axios';
-
+import BlockTasks from '../block_tasks'
 import ListTasks from './list_tasks';
-import BlockTasks from '../block_tasks';
-import UserTasks from './user_tasks';
+import React from 'react';
+import UserTasks from './user_tasks'
+
 export default class ModalBody extends React.Component{
   constructor(props){
     super(props);

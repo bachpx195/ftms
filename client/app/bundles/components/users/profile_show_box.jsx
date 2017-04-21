@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import FormEditProfile from './form_edit_profile';
-
-const PROFILES_URL = app_constants.APP_NAME + 'change_profile/' + 
-  app_constants.USERS_PATH
 
 export default class ProfileShowBox extends React.Component {
   constructor(props) {
@@ -35,7 +32,7 @@ export default class ProfileShowBox extends React.Component {
   }
 
   fetchUserProfile() {
-    axios.get(PROFILES_URL + '/' + this.props.profile.user_id + '.json')
+    axios.get(routes.change_role_user_url(this.props.profile.user_id) + '.json')
     .then(response => {
       this.setState({
         user_profile: response.data.user_profile
@@ -61,7 +58,7 @@ export default class ProfileShowBox extends React.Component {
             <div className='modal-body'>
               <FormEditProfile
                 user_profile={this.state.user_profile}
-                url={PROFILES_URL}
+                url={routes.change_profile_users_url()}
                 organization={this.state.organization}
                 program={this.state.program}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)}

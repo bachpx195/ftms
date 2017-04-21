@@ -1,15 +1,9 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import axios from 'axios';
 import ModalAssign from './templates/modal_assign';
 import ModalEvaluation from './templates/modal_evaluation';
 import Subjects from './subjects';
 import React from 'react';
-
-const TRAINING_STANDARDS_URL = app_constants.APP_NAME + 
-  app_constants.TRAINING_STANDARDS_PATH;
-const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + 
-  app_constants.STANDARD_SUBECTS_PATH;
-const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
 
 export default class TrainingStandardShow extends React.Component {
   constructor(props) {
@@ -27,25 +21,26 @@ export default class TrainingStandardShow extends React.Component {
   }
 
   render() {
-    let url = TRAINING_STANDARDS_URL + '/'+ this.state.training_standard.id +
-      '/evaluation_template';
+    let evaluation_template_url = routes.training_standard_evaluation_template_url(
+      this.state.training_standard.id);
     return(
       <div>
         <Subjects selected_subjects={this.state.selected_subjects}
           training_standard={this.state.training_standard}
           afterRejectSubject={this.afterRejectSubject.bind(this)}
-          subject_url={SUBJECTS_URL} standard_subject_url={STANDARD_SUBJECTS_URL}
+          subject_url={routes.subjects_url()} 
+          standard_subject_url={routes.standard_subjects_url()}
           evaluation_template={this.props.evaluation_template}
           onClickCreateEvaluationTemplate={this.onClickCreateEvaluationTemplate.bind(this)}
           onClickButtonAssignSubject={this.onClickButtonAssignSubject.bind(this)}
           organization={this.props.organization}
           share_with_organization={this.props.share_with_organization}
           standard_organizations={this.state.standard_organizations}
-          url={TRAINING_STANDARDS_URL}
+          url={routes.training_standards_url()}
         />
 
         <ModalEvaluation
-          url={url} showForm={this.state.showForm}
+          url={evaluation_template_url} showForm={this.state.showForm}
           evaluation_template={this.state.evaluation_template}
           evaluation_standards={this.state.evaluation_standards}/>
 
@@ -77,7 +72,7 @@ export default class TrainingStandardShow extends React.Component {
   }
 
   sendRequestAssign(subject) { //create standard_subject
-    axios.post(STANDARD_SUBJECTS_URL + ".json", {
+    axios.post(routes.standard_subjects_url() + ".json", {
       standard_subject: {
         training_standard_id: this.state.training_standard.id,
         subject_id: subject.id

@@ -6,10 +6,7 @@ import Modal from '../requirements/templates/modal';
 import Requirements from '../requirements/requirements';
 import RenderTextButton from './templates/render_text_button';
 import Destroy from './actions/destroy';
-import * as app_constants from 'constants/app_constants';
-
-const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
-const PROJECTS_URL = app_constants.APP_NAME + app_constants.PROJECTS_PATH;
+import * as routes from 'config/routes';
 
 export default class ProjectBox extends React.Component {
   constructor(props) {
@@ -26,21 +23,20 @@ export default class ProjectBox extends React.Component {
 
   render() {
     let form = null;
-    let url = SUBJECTS_URL + '/' + this.state.project.course_subject.subject_id
-      + '/'+ 'projects' + '/' + this.state.project.id;
+    let project_url = routes.subject_project_url(
+      this.state.project.course_subject.subject_id, this.state.project.id);
     if (this.state.showForm) {
-      form = <Form project={this.state.project} url={url}
+      form = <Form project={this.state.project} url={project_url}
         organizations={this.state.organizations}
         handleAfterUpdate={this.handleAfterUpdate.bind(this)} />;
     }
-    let path = PROJECTS_URL + '/' + this.state.project.id + '/' +
-      app_constants.REQUIREMENTS_PATH;
+    let requirements_url = routes.project_requirements_url(this.state.project.id);
     if (this.state.requirement.id != undefined) {
-      path = this.state.url;
+      requirements_url = this.state.url;
     }
 
     let action_destroy = '';
-    action_destroy = <Destroy project={this.state.project} url={url}/>
+    action_destroy = <Destroy project={this.state.project} url={project_url}/>
 
     return(
       <div className='row evaluation_templates' id='admin-evaluation_templates'>
@@ -74,7 +70,7 @@ export default class ProjectBox extends React.Component {
                 handleOnClickEdit={this.handleOnClickEdit.bind(this)} />
           </div>
         </div>
-        <Modal requirement={this.state.requirement} url={path}
+        <Modal requirement={this.state.requirement} url={requirements_url}
           requirements={this.state.requirements}
           handleAfterCreate={this.handleAfterCreate.bind(this)}
            />
