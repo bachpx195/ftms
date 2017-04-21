@@ -22,6 +22,7 @@ export default class CourseShow extends React.Component {
       organization: props.course.organization,
       course: props.course,
       subjects: props.subjects,
+      current_user_subjects: props.current_user_subjects,
       evaluation_template: {},
       remain_surveys: props.remain_surveys,
       selected_surveys: props.selected_surveys,
@@ -86,6 +87,7 @@ export default class CourseShow extends React.Component {
           <Subjects
             subjects={this.state.subjects}
             course={this.state.course}
+            current_user_subjects={this.state.current_user_subjects}
           />
         </div>
 

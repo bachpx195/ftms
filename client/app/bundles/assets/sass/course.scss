@@ -18,6 +18,14 @@ $box-header: #444;
 $info-black: #000;
 $td-course-edit-delete: #eee;
 $td-course-edit-delete-span: #1c1c1c;
+$user-subject-status-init: #58fa82;
+$user-subject-border-status-init: #04b404;
+$user-subject-status-in-progress: #b4e4f6;
+$user-subject-border-status-in-progress: #43bce9;
+$user-subject-status-finished: #f9c1b3;
+$user-subject-border-status-finished: #fb6e52;
+$user-subject-status-reject: #cfcfcf;
+$user-subject-border-status-reject: #757575;
 
 .course-subject {
   background-color: $show-course-subject-blue-sky;
@@ -37,15 +45,56 @@ $td-course-edit-delete-span: #1c1c1c;
 }
 
 .subject {
+  float: left;
+  width: 100%;
+}
+
+.subject-body {
   background-color: $show-course-subject-white;
   border-bottom-left-radius: 100px;
   border-bottom-right-radius: 100px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
   box-shadow: 0 1px 1px $course-show-subject;
-  margin: 7px 0;
-  margin-top: 15px;
+  margin: 15px 0 7px 40px;
   padding: 5px 2px;
+}
+
+.div-status {
+  float: left;
+  font-size: 0;
+  height: 40px;
+  left: -25px;
+  margin-top: 55px;
+  width: 15px;
+
+  .status {
+  border-radius: 100%;
+  height: 25px;
+  position: absolute;
+  width: 25px;
+  z-index: 1000;
+}
+
+  .status-init {
+    background-color: $user-subject-status-init;
+    border: 3px solid $user-subject-border-status-init;
+  }
+
+  .status-in_progress {
+    background-color: $user-subject-status-in-progress;
+    border: 3px solid $user-subject-border-status-in-progress;
+  }
+
+  .status-finished {
+    background-color: $user-subject-status-finished;
+    border: solid 3px $user-subject-border-status-finished;
+  }
+
+  .status-reject {
+    background-color: $user-subject-status-reject;
+    border: solid 3px $user-subject-border-status-reject;
+  }
 }
 
 .node--connected::after {
