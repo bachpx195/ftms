@@ -1,7 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
-
+require "wicked_pdf"
 # Require the gems listed in Gemfile, including any gems
 # you"ve limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -21,5 +21,6 @@ module Ftms
     config.action_view.embed_authenticity_token_in_remote_forms = true
     config.middleware.use I18n::JS::Middleware
     config.autoload_paths += %w(#{config.root}/app/models/ckeditor)
+    config.middleware.use WickedPdf::Middleware
   end
 end

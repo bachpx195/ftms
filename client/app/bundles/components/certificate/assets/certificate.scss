@@ -1,0 +1,139 @@
+$black: #000;
+$white: #fff;
+$excellent-orange: #ff7148;
+$great-yellow: #fff15e;
+$normal-green: #24cc51;
+$lighter-orange: #ff8d6d;
+$shadow-gray: #999;
+$h3-gray: #5b5b5b;
+
+.certificate-form {
+  background: url('/assets/top-left-corner.png') left 15px top 15px no-repeat,
+  url('/assets/top-right-corner.png') right 15px top 15px no-repeat,
+  url('/assets/bottom-left-corner.png') left 15px bottom 15px no-repeat,
+  url('/assets/bottom-right-corner.png') right 15px bottom 15px no-repeat,
+  $white;
+  background-size: 15%;
+  border: 1px solid $black;
+  height: 800px;
+  position: relative;
+
+  .certificate-header {
+    img {
+      width: 25%;
+    }
+  }
+
+  .certificate-body {
+    width: 100%;
+
+    .certificate-title {
+      font-size: 52px;
+      font-style: italic;
+      font-weight: bold;
+      text-shadow: 3px 3px $shadow-gray;
+    }
+
+    .main-content {
+      margin-top: 50px;
+    }
+  }
+
+  .certicate-footer {
+    bottom: 15px;
+    position: absolute;
+    width: 100%;
+  }
+
+  hr {
+    border: 1px solid $black;
+    width: 50%;
+  }
+
+  .individual-name {
+    font-size: 36px;
+  }
+
+  .static-text {
+    font-style: italic;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .certificate-program {
+    font-weight: bold;
+  }
+
+  .certificate-result {
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .result-size {
+    font-size: 32px;
+
+    h3 {
+      color: $h3-gray;
+      font-style: italic;
+    }
+  }
+
+  .excellent {
+    color: $excellent-orange;
+  }
+
+  .great {
+    color: $great-yellow;
+  }
+
+  .normal {
+    color: $normal-green;
+  }
+
+  .ribbon {
+    display: inline-block;
+    margin-bottom: 45px;
+    position: relative;
+    width: 500px;
+  }
+
+  .sub-ribbon {
+    background-color: $excellent-orange;
+    color: $white;
+    display: block;
+    font-size: 22px;
+    height: 40px;
+    position: absolute;
+    width: 500px;
+    z-index: 3;
+  }
+
+  .ribbon-before,
+  .ribbon-after {
+    border-style: solid;
+    border-width: 0;
+    content: '';
+    height: 0;
+    position: absolute;
+    top: 6px;
+    width: 0;
+    z-index: 1;
+  }
+
+  .ribbon-before {
+    border-color: $lighter-orange $lighter-orange $lighter-orange transparent;
+    border-width: 19px;
+    left: -25px;
+  }
+
+  .ribbon-after {
+    border-color: $lighter-orange transparent $lighter-orange $lighter-orange;
+    border-width: 19px;
+    right: -25px;
+  }
+}
+
+.button-download-pdf {
+  margin-top: 15px;
+  width: 50%;
+}

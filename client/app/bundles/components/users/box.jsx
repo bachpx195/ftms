@@ -20,7 +20,7 @@ export default class UsersBox extends React.Component {
       if (this.state.view_type == 'list') {
         return (
           <button type='button' className='btn btn-box-tool'
-            onClick={this.handleChangeView.bind(this, 
+            onClick={this.handleChangeView.bind(this,
               routes.organization_users_url(this.props.organization.id))}
             title={I18n.t('users.view_type.grid')}>
             <i className='fa fa-th' aria-hidden='true'></i>
@@ -29,7 +29,7 @@ export default class UsersBox extends React.Component {
       } else {
         return (
           <button type='button' className='btn btn-box-tool'
-            onClick={this.handleChangeView.bind(this, 
+            onClick={this.handleChangeView.bind(this,
               routes.organization_users_url(this.props.organization.id))}
             title={I18n.t('users.view_type.list')}>
             <i className='fa fa-list' aria-hidden='true'></i>

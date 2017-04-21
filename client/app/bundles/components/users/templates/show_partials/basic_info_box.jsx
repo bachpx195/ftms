@@ -15,7 +15,7 @@ export default class BasicInfoBox extends React.Component {
     }
   }
 
-  renderUploadImageModal(){
+  renderUploadImageModal() {
     return(
       <UploadImageModal avatar={this.state.avatar}
         organization={this.props.user_detail.user_profile.organization.id}
@@ -24,7 +24,10 @@ export default class BasicInfoBox extends React.Component {
     );
   }
 
-  render(){
+  render() {
+    const EDIT_USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
+      + this.props.user_detail.id + '/'+ user_constants.EDIT_PATH;
+
     return(
       <div className='box box-primary'>
         <div className='box-body box-profile'>
@@ -48,8 +51,7 @@ export default class BasicInfoBox extends React.Component {
           </h3>
           <p className='text-muted text-center'>
             <b>{I18n.t('users.email')} </b>{this.props.user_detail.email} &nbsp;
-            <a href={routes.edit_user_url(this.props.user_detail.id)}>
-              <i className='fa fa-pencil'></i></a>
+            <a href={EDIT_USER_URL}><i className='fa fa-pencil'></i></a>
           </p>
           <RolesBox user={this.props.user} />
           <div className='btn btn-primary col-md-12'>
@@ -61,11 +63,11 @@ export default class BasicInfoBox extends React.Component {
     );
   }
 
-  handleUploadImageModal(){
+  handleUploadImageModal() {
     $('.modal-upload-image').modal();
   }
 
-  handleAfterUploaded(avatar){
+  handleAfterUploaded(avatar) {
     this.setState({
       avatar: avatar,
     });

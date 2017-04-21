@@ -119,4 +119,5 @@ Rails.application.routes.draw do
   resources :share_withs, only: :create
   resources :meta_types, only: :create
   resources :profiles, only: :show
+  resources :certificates, only: :index
 end
