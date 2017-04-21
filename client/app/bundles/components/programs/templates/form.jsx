@@ -3,10 +3,6 @@ import axios from 'axios';
 import Create from '../actions/create';
 import React from 'react';
 import Update from '../actions/update';
-import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../constants/program_constants';
-
-const ORGANIZATION_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
 
 export default class Form extends React.Component {
   constructor(props) {

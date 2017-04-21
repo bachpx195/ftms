@@ -3,7 +3,6 @@ import axios from 'axios';
 import ListUsers from './list_users';
 
 import * as app_constants from 'constants/app_constants';
-import * as user_course_constants from '../user_course_constants';
 
 require('../../..assets/sass/modal_assign_member.scss');
 
@@ -214,7 +213,7 @@ export default class ModalAssignMember extends React.Component {
 
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
-    let url = app_constants.APP_NAME + user_course_constants.ASSIGN_USER_COURSES_PATH +
+    let url = app_constants.APP_NAME + app_constants.ASSIGN_USER_COURSES_PATH +
       this.props.course.id + '.json';
     axios.patch(url, formData)
       .then(response => {

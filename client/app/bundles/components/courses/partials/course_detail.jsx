@@ -2,13 +2,10 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import MenuCourse from '../menu_course';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../../programs/constants/program_constants';
-import * as course_constants from '../constants/course_constants';
-import * as user_constants from '../../users/user_constants';
 
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
-const LIMIT_DESCRIPTION = course_constants.LIMIT_DESCRIPTION;
-const COURSE_URL = app_constants.APP_NAME + program_constants.COURSES_PATH;
+const LIMIT_DESCRIPTION = app_constants.LIMIT_DESCRIPTION;
+const COURSES_URL = app_constants.APP_NAME + app_constants.COURSES_PATH;
 
 export default class CourseDetail extends React.Component {
   constructor(props) {
@@ -23,8 +20,8 @@ export default class CourseDetail extends React.Component {
     let link_creator = null;
     let creator_name = '';
     if (course.creator) {
-      let creator_path = app_constants.APP_NAME + user_constants.USER_PATH +
-        course.creator.id;
+      let creator_path = app_constants.APP_NAME + app_constants.USERS_PATH + 
+        '/' + course.creator.id;
       creator_name = course.creator.name;
       link_creator = <a href={creator_path} title={course.creator.name}>
         <img className='creator-image' src={course.creator.avatar.url} />
@@ -72,7 +69,7 @@ export default class CourseDetail extends React.Component {
         <div className='col-md-5'>
           <span className="btn glyphicon glyphicon-list pull-right"
             onClick={this.clickButtonList.bind(this)}></span>
-          <MenuCourse url={COURSE_URL + this.state.course.id}
+          <MenuCourse url={COURSES_URL + '/' + this.state.course.id}
             course={this.state.course}
             courseListPermit={this.props.courseListPermit}
             handleAfterEdit={this.handleAfterUpdate.bind(this)}

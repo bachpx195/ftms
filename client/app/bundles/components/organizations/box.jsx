@@ -4,11 +4,6 @@ import IndexBreadCrum from './templates/bread_crumbs/index';
 import OrganizationPanelInfo from './templates/organization_panel_info';
 import OrganizationLists from './organizations';
 
-import * as app_constants from 'constants/app_constants';
-import * as organization_constants from './constants/organization_constants';
-
-const ORGANIZATION_URL = app_constants.APP_NAME + organization_constants.ORGANIZATION_PATH;
-
 export default class OrganizationBox extends React.Component {
   constructor(props) {
     super(props);
@@ -34,12 +29,5 @@ export default class OrganizationBox extends React.Component {
         </div>
       </div>
     );
-  }
-
-  handleAfterSaved(organization) {
-    this.state.organizations.push(organization);
-    this.setState({
-      organizations: this.state.organizations
-    });
   }
 }

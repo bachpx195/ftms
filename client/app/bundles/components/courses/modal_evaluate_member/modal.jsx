@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 import * as app_constants from 'constants/app_constants';
-import * as course_constants from '../constants/course_constants';
 
 require('../../../assets/sass/modal_evaluate_member.scss');
 
@@ -189,8 +188,8 @@ export default class ModalEvaluateMember extends React.Component {
 
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
-    let url = app_constants.APP_NAME + course_constants.COURSES_PATH +
-      this.props.course.id + '/' + course_constants.MEMBER_EVALUATE_PATH +
+    let url = app_constants.APP_NAME + app_constants.COURSES_PATH +
+      this.props.course.id + '/' + app_constants.MEMBER_EVALUATIONS_PATH +
       evaluation_id;
     axios({
       url: url,

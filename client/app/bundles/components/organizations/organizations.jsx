@@ -5,10 +5,9 @@ import OrganizationPolicy from 'policy/organization_policy';
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as organization_constants from './constants/organization_constants';
 
-const INDEX_ORGANIZATION_URL = app_constants.APP_NAME +
-  organization_constants.ORGANIZATION_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME +
+  app_constants.ORGANIZATIONS_PATH;
 
 
 export default class Organizations extends React.Component{
@@ -71,7 +70,7 @@ export default class Organizations extends React.Component{
               ]}>
                 {this.state.status ?
                   <FormOrganization
-                    url={INDEX_ORGANIZATION_URL}
+                    url={ORGANIZATIONS_URL}
                   /> : null}
               </OrganizationPolicy>
             </div>

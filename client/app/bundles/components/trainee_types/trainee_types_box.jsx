@@ -5,9 +5,9 @@ import TraineeTypeLists from './trainee_type_lists';
 import Form from './form';
 
 import * as app_constants from 'constants/app_constants';
-import * as trainee_type_constants from './trainee_type_constants';
 
-const TRAINEE_TYPE_URL = app_constants.APP_NAME + trainee_type_constants.TRAINEE_TYPE_PATH;
+const TRAINEE_TYPES_URL = app_constants.APP_NAME +
+  app_constants.TRAINEE_TYPES_PATH;
 
 export default class TraineeTypeBox extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ export default class TraineeTypeBox extends React.Component {
                 <div className='col-md-8 col-md-offset-2'>
                   <Form
                     trainee_type={this.state.trainee_type}
-                    url={TRAINEE_TYPE_URL}
+                    url={TRAINEE_TYPES_URL}
                     handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>

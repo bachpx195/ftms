@@ -4,12 +4,8 @@ import axios from 'axios';
 import MovingHistoryLists from './moving_history_lists';
 import RightSidebar from './right_sidebar';
 import * as app_constants from 'constants/app_constants';
-import * as moving_history_constants from './moving_history_constants';
 
 require('./moving_histories.scss');
-
-const MOVING_HISTORIES_URL = app_constants.APP_NAME
-  + moving_history_constants.MOVING_HISTORIES_PATH
 
 export default class MovingHistoryBox extends React.Component {
   constructor(props) {

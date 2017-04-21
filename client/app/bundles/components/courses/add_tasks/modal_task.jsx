@@ -2,10 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
-import * as course_constants from '../constants/course_constants';
 import Item from './item';
 
-const TASK_URL = app_constants.APP_NAME + course_constants.TASK_PATH;
+const TASKS_URL = app_constants.APP_NAME + app_constants.TASKS_PATH;
 
 const arr_option = ["choose","survey", "testing"];
 export default class ModalTask extends React.Component {
@@ -122,7 +121,7 @@ export default class ModalTask extends React.Component {
       this.state.remain_items.push(item);
     }
 
-    axios.delete(TASK_URL + '/'+ item.id, {
+    axios.delete(TASKS_URL + '/'+ item.id, {
       params: {
         targetable_type: this.state.targetable_type,
         authenticity_token: ReactOnRails.authenticityToken()
@@ -172,7 +171,7 @@ export default class ModalTask extends React.Component {
       arr_targetable_id.push(select_item.id);
     });
 
-    axios.post(TASK_URL , {
+    axios.post(TASKS_URL , {
       task: {
         targetable_ids: arr_targetable_id,
         targetable_type: this.state.targetable_type,

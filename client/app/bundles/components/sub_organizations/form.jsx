@@ -3,8 +3,8 @@ import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
 
-import * as sub_org_constants from './sub_organization_constants';
-const ORGANIZATION_URL = sub_org_constants.ORGANIZATION_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME + 
+  app_constants.ORGANIZATIONS_PATH;
 
 export default class FormEdit extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ export default class FormEdit extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.status == "edit") {
-      let url = ORGANIZATION_URL + "/" + this.props.organization.id + "/programs/" + this.state.id;
+      let url = ORGANIZATIONS_URL + "/" + this.props.organization.id + "/programs/" + this.state.id;
       axios.patch(url, {
         program: {
           name: this.refs.nameField.value,
@@ -56,7 +56,7 @@ export default class FormEdit extends React.Component {
         console.log(error);
       })
     } else {
-      let url = ORGANIZATION_URL + "/" + this.props.organization.id + "/programs";
+      let url = ORGANIZATIONS_URL + "/" + this.props.organization.id + "/programs";
        axios.post(url, {
         program: {
           name: this.refs.nameField.value,

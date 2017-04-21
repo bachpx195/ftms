@@ -4,7 +4,6 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import Modal from './modal';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as evaluation_template_constants from './evaluation_template_constants';
 
 export default class EvaluationStandardsList extends React.Component {
   constructor(props) {
@@ -61,9 +60,9 @@ export default class EvaluationStandardsList extends React.Component {
     let modal = null;
     if(this.state.evaluation_standard.id){
       let url = app_constants.APP_NAME +
-        evaluation_template_constants.EVALUATION_TEMPLATES_PATH +
+        app_constants.EVALUATION_TEMPLATES_PATH + '/' +
         this.props.evaluation_template.id + '/' +
-        evaluation_template_constants.EVALUATION_STANDARDS_PATH +
+        app_constants.EVALUATION_STANDARDS_PATH + '/' +
         this.state.evaluation_standard.id;
       modal = (
         <Modal url={url}
@@ -72,9 +71,9 @@ export default class EvaluationStandardsList extends React.Component {
       );
     } else {
       let url = app_constants.APP_NAME +
-        evaluation_template_constants.EVALUATION_TEMPLATES_PATH +
+        app_constants.EVALUATION_TEMPLATES_PATH + '/' +
         this.props.evaluation_template.id + '/' +
-        evaluation_template_constants.EVALUATION_STANDARDS_PATH;
+        app_constants.EVALUATION_STANDARDS_PATH;
       modal = (
         <Modal url={url}
           evaluation_standard={this.state.evaluation_standard}
@@ -143,9 +142,9 @@ export default class EvaluationStandardsList extends React.Component {
     let evaluation_standard = this.props.evaluation_standards[$target.data('index')];
     if(confirm(I18n.t('data.confirm_delete'))) {
       let url = app_constants.APP_NAME +
-        evaluation_template_constants.EVALUATION_TEMPLATES_PATH +
+        app_constants.EVALUATION_TEMPLATES_PATH + '/' +
         this.props.evaluation_template.id + '/' +
-        evaluation_template_constants.EVALUATION_STANDARDS_PATH +
+        app_constants.EVALUATION_STANDARDS_PATH + '/' +
         evaluation_standard.id;
       axios.delete(url, {
         params: {

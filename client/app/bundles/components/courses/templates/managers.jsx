@@ -1,7 +1,6 @@
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../../users/user_constants';
 
 export default class Managers extends React.Component {
   constructor(props) {
@@ -13,7 +12,8 @@ export default class Managers extends React.Component {
   }
 
   renderManager(user) {
-    let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
+    let user_path = app_constants.APP_NAME + app_constants.USERS_PATH + '/' + 
+      user.id;
     return (
       <li key={user.id}>
         <a href={user_path} title={user.name}>

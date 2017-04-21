@@ -4,11 +4,10 @@ import ModalEvaluateMember from '../courses/modal_evaluate_member/modal';
 import React from 'react';
 import TeamPolicy from 'policy/team_policy';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from './constants/subject_constants';
 import * as table_constants from 'constants/griddle_table_constants';
 
-const USER_SUBJECT_URL = app_constants.APP_NAME +
-  subject_constants.USER_SUBJECT_PATH;
+const USER_SUBJECTS_URL = app_constants.APP_NAME +
+  app_constants.USER_SUBJECTS_PATH;
 
 export default class UserSubjectList extends React.Component {
 
@@ -112,7 +111,7 @@ export default class UserSubjectList extends React.Component {
                 title={I18n.t('subjects.headers.evaluate')}
                 customComponent={evaluate} />
               <ColumnDefinition id='add_task_for_user'
-                title={I18n.t('subjects.headers.add_task')}
+                title={I18n.t('subjects.headers.all_task')}
                 customComponent={addTask} />
             </RowDefinition>
           </Griddle>
@@ -140,7 +139,7 @@ export default class UserSubjectList extends React.Component {
 
   handleChange(griddleKey, event) {
     let user_subject = this.state.user_subjects[griddleKey];
-    axios.patch(USER_SUBJECT_URL + user_subject.id, {
+    axios.patch(USER_SUBJECTS_URL + '/' + user_subject.id, {
       status: event.target.value,
       authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)

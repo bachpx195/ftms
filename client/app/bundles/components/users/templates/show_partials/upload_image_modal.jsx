@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../../user_constants';
 
 export default class UploadImageModal extends React.Component {
   constructor(props) {
@@ -88,9 +87,9 @@ export default class UploadImageModal extends React.Component {
     if (this.state.changeImage) {
       formData.append('user[avatar]', this.state.avatar);
       formData.append('authenticity_token', ReactOnRails.authenticityToken());
-      let url =  app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
-        + this.props.user_detail.user_profile.organization.id + '/'
-        + user_constants.USER_PATH + this.props.user_detail.id;
+      let url =  app_constants.APP_NAME + app_constants.ORGANIZATIONS_PATH + 
+        '/' + this.props.user_detail.user_profile.organization.id + '/'
+        + app_constants.USERS_PATH + this.props.user_detail.id;
 
       axios({
         url: url, method: 'PATCH', data: formData,

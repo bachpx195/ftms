@@ -4,9 +4,8 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as table_constants from 'constants/griddle_table_constants';
 
 import * as app_constants from 'constants/app_constants';
-import * as moving_history_constants from './moving_history_constants';
 
-const USER_URL = app_constants.APP_NAME + moving_history_constants.USERS_PATH
+const USERS_URL = app_constants.APP_NAME + app_constants.USERS_PATH
 
 export default class MovingHistoryLists extends React.Component {
   constructor(props) {
@@ -38,7 +37,7 @@ export default class MovingHistoryLists extends React.Component {
     );
 
     const LinkShowUser = ({value, griddleKey}) => (
-      <a href={USER_URL + '/' +
+      <a href={USERS_URL + '/' +
         this.props.organization_moving_histories[griddleKey].user_id}>{value}</a>
     );
     return (

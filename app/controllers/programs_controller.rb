@@ -1,5 +1,5 @@
 class ProgramsController < ApplicationController
-  before_action :find_organization
+  before_action :find_organization, except: :show
   before_action :find_program, except: [:index, :new, :create]
   before_action :authorize_request
 
@@ -57,7 +57,7 @@ class ProgramsController < ApplicationController
     @role_support = Supports::FilterRoleSupport.new role_id: params[:role_id]
     @supports = Supports::ProgramSupport.new program: @program,
       role_support: @role_support
-    @other_programs = @organization.programs.where.not id: @program
+    @other_programs = @program.organization.programs.where.not id: @program
   end
 
   def update

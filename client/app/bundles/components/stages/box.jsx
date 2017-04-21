@@ -6,9 +6,8 @@ import Form from './templates/form';
 import Breadcrumb from 'react-breadcrumb';
 
 import * as app_constants from 'constants/app_constants';
-import * as stage_constants from './constants/stage_constants';
 
-const STAGE_URL = app_constants.APP_NAME + stage_constants.STAGE_PATH;
+const STAGES_URL = app_constants.APP_NAME + app_constants.STAGES_PATH;
 
 export default class StageBox extends React.Component {
   constructor(props) {
@@ -31,7 +30,7 @@ export default class StageBox extends React.Component {
                 label: I18n.t('breadcrumbs.home'),
               },
               {
-                path: STAGE_URL,
+                path: STAGES_URL,
                 label: I18n.t('breadcrumbs.stages'),
               }
             ]
@@ -57,7 +56,7 @@ export default class StageBox extends React.Component {
                 <div className='col-md-8 col-md-offset-2'>
                   <Form
                     stage={this.state.stage}
-                    url={STAGE_URL}
+                    url={STAGES_URL}
                     handleAfterCreated={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>

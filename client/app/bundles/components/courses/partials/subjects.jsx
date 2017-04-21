@@ -1,7 +1,5 @@
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as course_constants from '../constants/course_constants';
-import * as subject_constants from '../../subjects/constants/subject_constants';
 
 export default class CourseSubjects extends React.Component {
   constructor(props) {
@@ -31,8 +29,8 @@ export default class CourseSubjects extends React.Component {
   renderSubjects() {
     return this.state.subjects.map((subject, index) => {
       let course_subject_path = app_constants.APP_NAME +
-        course_constants.COURSES_PATH + '/' + this.props.course.id + '/' +
-        subject_constants.SUBJECT_PATH + subject.id;
+        app_constants.COURSES_PATH + '/' + this.props.course.id + '/' +
+        app_constants.SUBJECTS_PATH + '/' + subject.id;
       let subject_image = subject.image.url;
       return (
         <tr key={index} className="item ui-sortable-handle">

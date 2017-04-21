@@ -16,16 +16,14 @@ import SubjectLists from './subjects';
 import UserLists from './user_lists';
 
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './constants/program_constants';
-import * as user_constants from '../users/user_constants';
-import * as course_constants from '../courses/constants/course_constants';
 
 require('../../assets/sass/program_show.scss');
 
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
-const STANDARD_URL = app_constants.APP_NAME + program_constants.TRANINING_STANDARD_PATH;
-const ASSIGN_STANDARD_URL = app_constants.APP_NAME + program_constants.ASSIGN_STANDARD_PATH;
-const COURSE_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME + app_constants.ORGANIZATIONS_PATH;
+const STANDARD_URL = app_constants.APP_NAME + 
+  app_constants.TRANINING_STANDARDS_PATH;
+const ASSIGN_STANDARD_URL = app_constants.APP_NAME + app_constants.ASSIGN_STANDARD_PATH;
+const COURSE_URL = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
 const LIMIT_DESCRIPTION = app_constants.LIMIT_DESCRIPTION;
 
@@ -57,7 +55,7 @@ export default class ProgramsShowBox extends React.Component {
   }
 
   renderUser(user) {
-    let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
+    let user_path = app_constants.APP_NAME + app_constants.USERS_PATH + user.id;
     return (
      <li key={user.id}>
        <a href={user_path} title={user.name}>
@@ -68,8 +66,8 @@ export default class ProgramsShowBox extends React.Component {
   }
 
   render() {
-    let url_programs = PROGRAM_URL + '/' + this.props.organization.id + '/' +
-    program_constants.PROGRAMS_PATH + this.props.program.id;
+    let url_programs = ORGANIZATIONS_URL + '/' + this.state.organization.id + 
+      '/' + app_constants.PROGRAMS_PATH + '/' + this.props.program.id;
     let modalEdit = (
       <Modal
         program_detail={this.state.program_detail}
@@ -106,7 +104,7 @@ export default class ProgramsShowBox extends React.Component {
 
           <RenderListCourse
             course_url={COURSE_URL}
-            course_path={course_constants.COURSES_PATH}
+            course_path={app_constants.COURSES_PATH}
             program={this.props.program}
             program_detail={this.state.program_detail}
             selected_standard={this.state.selected_standard}

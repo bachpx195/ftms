@@ -10,14 +10,10 @@ import ShowBreadCrumb from './templates/bread_crumbs/show';
 import TitleOrganization from './templates/title_organization';
 
 import * as app_constants from 'constants/app_constants';
-import * as dashboard_constants from '../dashboards/dashboard_constants';
-import * as exam_constants from '../exams/constants/exam_constants';
-import * as organization_constants from './constants/organization_constants';
-import * as user_constants from '../users/user_constants';
 
-const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
-const INDEX_ORGANIZATION_URL = app_constants.APP_NAME +
-  organization_constants.ORGANIZATION_PATH;
+const USERS_URL = app_constants.APP_NAME + app_constants.USERS_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME +
+  app_constants.ORGANIZATIONS_PATH;
 
 require('../../assets/sass/show_organization.scss');
 
@@ -40,20 +36,20 @@ export default class OrganizationShow extends React.Component {
     let count_users = (this.state.organization.users || []).length;
     let count_training_standards = 0;
     let count_courses = 0;
+    count_training_standards += this.state.organization.training_standards.length;
     for(let program of this.state.programs){
-      count_training_standards += this.state.organization.training_standards.length;
       count_courses +=program.courses.length;
     }
 
-    let ORGANIZATION_MEMBERS_URL = INDEX_ORGANIZATION_URL +
+    let ORGANIZATION_MEMBERS_URL = ORGANIZATIONS_URL + '/' +
       this.state.organization.id + '/' + 'users';
-    let ORGANIZATION_TRAINING_STANDARDS_URL = INDEX_ORGANIZATION_URL + '/' +
+    let ORGANIZATION_TRAINING_STANDARDS_URL = ORGANIZATIONS_URL + '/' +
       this.state.organization.id + '/' + 'training_standards';
-    let ORGANIZATION_EXAMS_URL = INDEX_ORGANIZATION_URL +
-      this.state.organization.id + '/' + exam_constants.EXAMS_PATH;
-    let STATISTIC_IN_OUT_PATH = INDEX_ORGANIZATION_URL +
+    let ORGANIZATION_EXAMS_URL = ORGANIZATIONS_URL + '/' +
+      this.state.organization.id + '/' + app_constants.EXAMS_PATH;
+    let STATISTIC_IN_OUT_PATH = ORGANIZATIONS_URL + '/' +
       this.state.organization.id + '/' +
-      dashboard_constants.STATISTIC_PATH + dashboard_constants.IN_OUT_STATISTIC_PATH;
+      app_constants.STATISTICS_PATH + '/' + app_constants.IN_OUT_STATISTIC_PATH;
 
     return (
       <div className='row organization-show'>
@@ -226,7 +222,7 @@ export default class OrganizationShow extends React.Component {
         <a className='image'
           onError={this.checkImage.bind(this)}
           title={owner.name}
-          href={USER_URL + owner.id} >
+          href={USERS_URL + '/' + owner.id} >
           <img src={owner.avatar.url} className='img-circle' />
         </a>
       )

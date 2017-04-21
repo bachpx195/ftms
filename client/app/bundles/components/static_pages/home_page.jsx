@@ -1,7 +1,6 @@
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as static_page_constants from './static_page_constants';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../programs/constants/program_constants';
 
 import CourseManagers from './templates/course_managers';
 import BlockMembers from "./templates/block_members";

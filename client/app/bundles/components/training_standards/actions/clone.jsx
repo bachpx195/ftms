@@ -1,7 +1,6 @@
 import axios from 'axios';
-import {APP_NAME} from 'constants/app_constants';
-import {CLONE_PATH} from '../constants/training_standard_constants';
-import {ORGANIZATION_PATH, TRAINING_STANDARD_PATH} from '../constants/training_standard_constants';
+import {APP_NAME, CLONE_PATH, ORGANIZATIONS_PATH, TRAINING_STANDARDS_PATH} from 
+  'constants/app_constants';
 import React from 'react';
 
 export default class Clone extends React.Component {
@@ -31,8 +30,8 @@ export default class Clone extends React.Component {
         headers: {'Accept': 'application/json'}
       }).then(response => {
         let new_training_standard = response.data.training_standard;
-        let training_standard_url = APP_NAME + ORGANIZATION_PATH + '/' +
-          this.state.organization.id + '/' + TRAINING_STANDARD_PATH +
+        let training_standard_url = APP_NAME + ORGANIZATIONS_PATH + '/' +
+          this.state.organization.id + '/' + TRAINING_STANDARDS_PATH +
           '/' + new_training_standard.id;
 
         window.location.href =  training_standard_url;

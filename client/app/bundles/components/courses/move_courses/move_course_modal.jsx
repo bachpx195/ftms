@@ -3,10 +3,8 @@ import axios from 'axios';
 import SubjectItems from './subject_items';
 import SubjectList from './subject_list';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../../users/user_constants';
-import * as course_constants from '../constants/course_constants';
 
-const MOVEUSER_URL = app_constants.APP_NAME + user_constants.MOVE_USER_PATH;
+const MOVE_USERS_URL = app_constants.APP_NAME + app_constants.MOVE_USERS_PATH;
 
 export default class ModalChangeCourse extends React.Component {
   constructor(props) {
@@ -174,7 +172,7 @@ export default class ModalChangeCourse extends React.Component {
       });
     } else {
       const MOVE_COURSES_URL = app_constants.APP_NAME +
-        course_constants.MOVE_COURSES_PATH + "/" +
+        app_constants.MOVE_COURSES_PATH + "/" +
         this.state.course.id;
       axios.get(MOVE_COURSES_URL + ".json")
         .then(response => {
@@ -206,7 +204,7 @@ export default class ModalChangeCourse extends React.Component {
   }
 
   onSubmitChangeCourse(event) {
-    axios.post(MOVEUSER_URL + ".json", {
+    axios.post(MOVE_USERS_URL + ".json", {
       moving_history: {
         sourceable_id: this.state.course.id,
         sourceable_type: "Course",

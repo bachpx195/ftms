@@ -2,7 +2,6 @@ import axios from 'axios';
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from '../constants/training_standard_constants';
 
 export default class Reject extends React.Component {
   render() {

@@ -4,11 +4,11 @@ import FormTask from '../../assignments/actions/create'
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
 import * as app_constants from '../../../../constants/app_constants';
-import * as subject_constants from '../constants/subject_constants';
 import * as table_constants from 'constants/griddle_table_constants';
 
-const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
-const SUBJECT_TASK_URL = app_constants.APP_NAME + subject_constants.SUBJECT_TASK_PATH;
+const TASKS_URL = app_constants.APP_NAME + app_constants.TASKS_PATH;
+const SUBJECT_TASKS_URL = app_constants.APP_NAME + 
+  app_constants.SUBJECT_TASKS_PATH;
 
 export default class ListTasks extends React.Component {
   constructor(props) {
@@ -74,7 +74,7 @@ export default class ListTasks extends React.Component {
             afterCreateTask={this.afterCreateTask.bind(this)}
             subject_detail={this.props.subject_detail}
             course={this.props.course} user={this.props.user}
-            url={SUBJECT_TASK_URL} />
+            url={SUBJECT_TASKS_URL} />
         )
       }
       return(
@@ -120,7 +120,7 @@ export default class ListTasks extends React.Component {
   }
 
   afterSave() {
-    axios.post(TASK_URL, {
+    axios.post(TASKS_URL, {
       task: {
         targetable_ids: this.state.targetable_ids,
         targetable_type: this.props.targetable_type,

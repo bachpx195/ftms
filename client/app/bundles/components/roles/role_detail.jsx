@@ -2,9 +2,9 @@ import React from 'react';
 import RoleFunctions from './role_functions';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
-import * as role_constants from './role_constants'
 
-const ROLE_FUNCTION_URL = app_constants.APP_NAME + role_constants.ROLE_FUNCTION_PATH;
+const ROLE_FUNCTIONS_URL = app_constants.APP_NAME + 
+  app_constants.ROLE_FUNCTIONS_PATH;
 
 export default class RoleDetail extends React.Component {
   constructor(props) {
@@ -85,7 +85,7 @@ export default class RoleDetail extends React.Component {
     }
     data['role_functions_attributes'] = functions;
     data['authenticity_token'] = ReactOnRails.authenticityToken();
-    axios.patch(ROLE_FUNCTION_URL + '/' + this.state.role.id, data)
+    axios.patch(ROLE_FUNCTIONS_URL + '/' + this.state.role.id, data)
       .then(response => {
         var data = response.data.functions;
         for(var value of data){

@@ -4,11 +4,10 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import Modal from './templates/modal';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as language_constants from './constants/language_constants';
 import Row from './griddle/row';
 import LanguagePolicy from 'policy/language_policy';
 
-const LANGUAGE_URL = app_constants.APP_NAME + language_constants.LANGUAGE_PATH;
+const LANGUAGES_URL = app_constants.APP_NAME + app_constants.LANGUAGES_PATH;
 
 export default class LanguageLists extends React.Component {
   constructor(props) {
@@ -75,7 +74,7 @@ export default class LanguageLists extends React.Component {
     );
 
     let modalEdit = (
-      <Modal url={LANGUAGE_URL + '/' + this.state.language.id}
+      <Modal url={LANGUAGES_URL + '/' + this.state.language.id}
         language={this.state.language}
         handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
     );
@@ -117,7 +116,7 @@ export default class LanguageLists extends React.Component {
     $target.blur();
     let language = this.props.languages[$target.data('index')];
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(LANGUAGE_URL + '/' + language.id, {
+      axios.delete(LANGUAGES_URL + '/' + language.id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

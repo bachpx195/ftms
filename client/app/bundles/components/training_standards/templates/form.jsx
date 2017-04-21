@@ -4,7 +4,8 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
-import {POLICIES} from '../constants/training_standard_constants';
+
+const POLICIES = app_constants.POLICIES;
 
 export default class Form extends React.Component {
   constructor(props) {

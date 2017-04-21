@@ -4,10 +4,6 @@ import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
 import Team from './team';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../constants/subject_constants';
-
-const COURSE_SUBJECT_URL = app_constants.APP_NAME +
-  subject_constants.COURSE_SUBJECT_PATH;
 
 export default class TeamList extends React.Component {
   constructor(props) {
@@ -32,8 +28,8 @@ export default class TeamList extends React.Component {
 
   renderTeamList(){
     return this.state.course_subject_teams.map(team => {
-      let team_path = app_constants.APP_NAME + subject_constants.TEAM_PATH +
-        team.id;
+      let team_path = app_constants.APP_NAME + app_constants.TEAMS_PATH +
+        '/' + team.id;
       return (
         <div key={team.id} className='col-lg-6 col-md-6 col-sm-6'>
           <a href={team_path}>
@@ -72,7 +68,7 @@ export default class TeamList extends React.Component {
   }
 
   renderModal() {
-    let url = app_constants.APP_NAME + subject_constants.TEAM_PATH;
+    let url = app_constants.APP_NAME + app_constants.TEAMS_PATH;
     return (
       <Modal url={url} handleAfterSaved={this.handleAfterCreated.bind(this)}
         unassigned_user_subjects={this.state.unassigned_user_subjects}

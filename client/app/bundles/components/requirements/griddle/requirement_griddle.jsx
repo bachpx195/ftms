@@ -8,8 +8,6 @@ import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
 require('../../../assets/sass/projects.scss');
 
-const DEFAULT_IMAGE_USER_URL = app_constants.DEFAULT_IMAGE_USER_URL;
-
 export default class RequirementGriddle extends React.Component {
   constructor(props) {
     super(props);

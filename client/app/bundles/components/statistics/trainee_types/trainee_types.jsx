@@ -4,7 +4,6 @@ import PieChart from './pie_chart';
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as dashboard_constants from '../../dashboards/dashboard_constants';
 
 export default class StatisticsTraineeTypeBox extends React.Component {
   render() {
@@ -25,13 +24,13 @@ export default class StatisticsTraineeTypeBox extends React.Component {
     const Statistics = () => {
       if (this.props.organization) {
         let ORGANIZATION_URL = app_constants.APP_NAME + 'organizations' + '/' +
-          this.props.organization.id + '/' + dashboard_constants.STATISTIC_PATH;
+          this.props.organization.id + '/' + app_constants.STATISTICS_PATH;
 
         let STATISTIC_IN_OUTS_PATH = ORGANIZATION_URL +
-          dashboard_constants.IN_OUT_STATISTIC_PATH;
+          app_constants.IN_OUT_STATISTIC_PATH;
 
         let STATISTIC_LANGUAGES_PATH = ORGANIZATION_URL +
-          dashboard_constants.LANGUAGES_PATH;
+          app_constants.LANGUAGES_PATH;
 
         return (
           <div className='btn-group'>

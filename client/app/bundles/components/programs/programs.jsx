@@ -7,11 +7,12 @@ import UnAssign from './actions/unassign';
 import { NewLayout } from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './constants/program_constants';
 
-const ASSIGN_PROGRAM_URL = app_constants.APP_NAME + program_constants.ASSIGN_PROGRAM_PATH;
-const ORGANIZATION_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
-const PROGRAM_PATH = program_constants.PROGRAMS_PATH;
+const ASSIGN_PROGRAM_URL = app_constants.APP_NAME + 
+  app_constants.ASSIGN_PROGRAM_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME + 
+  app_constants.ORGANIZATIONS_PATH;
+const PROGRAMS_URL = app_constants.PROGRAMS_PATH;
 
 export default class ProgramLists extends React.Component {
   constructor(props) {
@@ -57,8 +58,7 @@ export default class ProgramLists extends React.Component {
 
     const ButtonDelete = ({griddleKey}) => {
       let program = this.props.programs[griddleKey];
-      let url = ORGANIZATION_URL + '/' + this.state.organization.id + '/' +
-        PROGRAM_PATH + program.id;
+      let url = PROGRAMS_URL + '/' + program.id;
       return <Destroy
         url={url}
         program={program}
@@ -75,7 +75,7 @@ export default class ProgramLists extends React.Component {
 
     const ButtonUnassign = ({griddleKey}) => {
       let program = this.state.programs[griddleKey];
-      let url = app_constants.APP_NAME + program_constants.ASSIGN_PROGRAM_PATH +
+      let url = app_constants.APP_NAME + app_constants.ASSIGN_PROGRAM_PATH +
         '/' + this.state.organization.id + '.json';
       return <UnAssign
         url={url}
@@ -89,8 +89,7 @@ export default class ProgramLists extends React.Component {
       let program = this.state.programs[griddleKey];
       let link = '#';
       if (program.organization) {
-        link = ORGANIZATION_URL + '/' + program.organization.id +
-          '/programs/' + program.id;
+        link = app_constants.APP_NAME + PROGRAMS_URL + '/' + program.id;
       }
       return <a href={link}>{value}</a>;
     };
@@ -99,7 +98,8 @@ export default class ProgramLists extends React.Component {
       let organization = this.state.programs[griddleKey].organization;
       let link = '#';
       if (organization) {
-        link = ORGANIZATION_URL + '/' + organization.id + '/programs/';
+        link = ORGANIZATIONS_URL + '/' + organization.id + '/'+ 
+          app_constants.PROGRAMS_PATH +'/';
         return <a href={link}>{organization.name}</a>;
       }
       return null;
@@ -110,7 +110,7 @@ export default class ProgramLists extends React.Component {
       if (program) {
         let link = '#';
         if (program.organization) {
-          link = ORGANIZATION_URL + '/' + program.organization.id +
+          link = ORGANIZATIONS_URL + '/' + program.organization.id +
             '/programs/' + program.id;
         }
         return <a href={link}>{program.name}</a>;
@@ -119,7 +119,8 @@ export default class ProgramLists extends React.Component {
       }
     };
 
-    let url = ORGANIZATION_URL + "/" + this.state.organization.id + "/" + PROGRAM_PATH;
+    let url = ORGANIZATIONS_URL + "/" + this.state.organization.id + "/" + 
+      PROGRAMS_URL;
 
     return (
       <div>

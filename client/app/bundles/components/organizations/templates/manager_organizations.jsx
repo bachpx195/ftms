@@ -4,11 +4,10 @@ import OrganizationPolicy from 'policy/organization_policy';
 import React from 'react';
 import Row from '../griddle/row';
 import * as app_constants from 'constants/app_constants';
-import * as organization_constants from '../constants/organization_constants';
 import * as table_constants from 'constants/griddle_table_constants';
 
-const INDEX_ORGANIZATION_URL = app_constants.APP_NAME +
-  organization_constants.ORGANIZATION_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME +
+  app_constants.ORGANIZATIONS_PATH;
 
 export default class ManagerOrganizations extends React.Component {
   constructor(props) {
@@ -46,7 +45,7 @@ export default class ManagerOrganizations extends React.Component {
       </div>
     );
     const LinkShowOrganization = ({value, griddleKey}) => {
-      return (<a href={INDEX_ORGANIZATION_URL +
+      return (<a href={ORGANIZATIONS_URL + '/' +
         this.props.organizations[griddleKey].id}>{value}</a>);
     }
     return (

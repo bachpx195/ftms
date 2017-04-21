@@ -3,7 +3,6 @@ import React from 'react';
 import CoursePolicy from 'policy/course_policy';
 
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../../users/user_constants';
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -15,7 +14,8 @@ export default class Users extends React.Component {
   }
 
   renderMember(user) {
-    let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
+    let user_path = app_constants.APP_NAME + app_constants.USER_PATH + '/' + 
+      user.id;
     return (
       <li className="member-item" key={user.id}>
         <a href={user_path} title={user.name}>

@@ -1,7 +1,8 @@
 import Create from '../actions/create';
 import React from 'react';
-import * as subject_constants from '../../subjects/constants/subject_constants';
-const OWNERABLE_COURSE_SUBJECT = subject_constants.OWNERABLE_COURSE_SUBJECT;
+import * as app_constants from 'constants/app_constants';
+
+const OWNERABLE_COURSE_SUBJECT = app_constants.OWNERABLE_COURSE_SUBJECT;
 
 export default class Modal extends React.Component {
   constructor(props) {

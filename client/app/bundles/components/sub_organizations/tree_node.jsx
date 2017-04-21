@@ -1,8 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import * as sub_org_constants from './sub_organization_constants';
+import * as app_constants from 'constants/app_constants';
 
-const SUB_ORGANIZATION_URL = sub_org_constants.SUB_ORGANIZATION_PATH;
+const SUB_ORGANIZATIONS_URL = app_constants.APP_NAME + 
+  app_constants.SUB_ORGANIZATIONS_PATH;
 
 require('../../assets/sass/sub_organization.scss');
 
@@ -41,7 +42,7 @@ export default class TreeNode extends React.Component {
             <b>{I18n.t("sub_organizations.name")}</b>
             <a className="title_node cursor"
               title={this.props.node.text}
-              href={SUB_ORGANIZATION_URL + "/" + this.props.organization.id +
+              href={SUB_ORGANIZATIONS_URL + "/" + this.props.organization.id +
                 "/programs/" + this.props.node.id}>
               {this.props.node.text}
             </a>

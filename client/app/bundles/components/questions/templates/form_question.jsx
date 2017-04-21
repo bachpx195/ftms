@@ -1,5 +1,4 @@
 import * as app_constants from 'constants/app_constants';
-import * as category_constants from '../../categories/constants/category_constants';
 import axios from 'axios';
 import Create from '../actions/create';
 import css from '../assets/question.scss';

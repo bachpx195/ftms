@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as static_page_constants from './static_page_constants';
 
 const ROOT_URL = app_constants.APP_NAME + app_constants.ROOT_PATH;
 

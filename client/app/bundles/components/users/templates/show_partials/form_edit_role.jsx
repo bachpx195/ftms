@@ -6,9 +6,9 @@ import Errors from '../../../shareds/errors';
 import CheckRoleBox from './check_role_box';
 import FunctionBox from './function_box';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../../user_constants';
 
-const ROLES_URL = app_constants.APP_NAME + 'change_role/' + user_constants.USER_PATH;
+const ROLES_URL = app_constants.APP_NAME + 'change_role/' + 
+  app_constants.USERS_PATH;
 
 export default class FormEditRole extends React.Component {
   constructor(props) {

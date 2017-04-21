@@ -3,10 +3,6 @@ import axios from 'axios';
 
 import MovingHistoryLists from './moving_history_lists';
 import * as app_constants from 'constants/app_constants';
-import * as moving_history_constants from './moving_history_constants';
-
-const MOVING_HISTORIES_URL = app_constants.APP_NAME
-  + moving_history_constants.MOVING_HISTORIES_PATH
 
 export default class RightSidebar extends React.Component {
   constructor(props) {

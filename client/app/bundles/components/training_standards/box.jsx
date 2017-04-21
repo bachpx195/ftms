@@ -1,16 +1,10 @@
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from './constants/training_standard_constants';
 import axios from 'axios';
 import Create from './actions/create';
 import FilterShared from './templates/filter_shared';
 import Form from './templates/form';
 import TrainingStandards from './training_standards';
 import React from 'react';
-
-const TRAINING_STANDARD_URL = app_constants.APP_NAME +
-  training_standard_constants.TRAINING_STANDARD_PATH;
-const STANDARD_SUBJECTS_URL = app_constants.APP_NAME +
-  training_standard_constants.STANDARD_SUBECTS_PATH;
 
 export default class TrainingStandardBox extends React.Component {
   constructor(props) {

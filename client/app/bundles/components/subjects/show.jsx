@@ -3,11 +3,6 @@ import css from './assets/subject.scss';
 import React from 'react';
 import SubjectManager from './templates/subject_manager';
 import SubjectTrainee from './templates/subject_trainee';
-import * as app_constants from 'constants/app_constants';
-import * as subject_constants from './constants/subject_constants';
-
-const COURSE_URL = app_constants.APP_NAME + subject_constants.COURSE_PATH;
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
 export default class SubjectsShow extends React.Component {
   constructor(props) {

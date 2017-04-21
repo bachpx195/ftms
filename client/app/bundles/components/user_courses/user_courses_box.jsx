@@ -1,16 +1,14 @@
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as user_course_constants from './user_course_constants';
-import * as user_constants from '../users/user_constants';
 
 require('../../assets/sass/color_status.scss');
 require('../../assets/sass/user_course.scss');
 
-const LIMIT_DESCRIPTION = user_course_constants.LIMIT_DESCRIPTION;
-const USER_COURSE_URL = app_constants.APP_NAME + user_course_constants.USER_COURSES_PATH;
+const LIMIT_DESCRIPTION = app_constants.LIMIT_DESCRIPTION_USER_COURSE;
+const USER_COURSES_URL = app_constants.APP_NAME + app_constants.USER_COURSES_PATH;
 const DEFAULT_IMAGE_COURSE = app_constants.DEFAULT_IMAGE_COURSE_URL;
-const SUBJECT_URL = user_course_constants.SUBJECT_PATH;
+const SUBJECTS_URL = app_constants.SUBJECTS_PATH;
 
 export default class UserCoursesBox extends React.Component {
   constructor(props) {
@@ -40,7 +38,8 @@ export default class UserCoursesBox extends React.Component {
       return (
         <div key={key} className='col-md-12'>
           <a className='user-course-subject'
-            href={USER_COURSE_URL + this.state.user_course.id + '/' + SUBJECT_URL + subject.id}>
+            href={USER_COURSES_URL + '/' + this.state.user_course.id + '/' + 
+              SUBJECTS_URL + '/' + subject.id}>
             <div className='subject row'>
               <div className='col-md-11 image-course-header'>
                 <div className='subject-image img-resposive'>
@@ -115,7 +114,8 @@ export default class UserCoursesBox extends React.Component {
   }
 
   renderUser(user) {
-    let user_path = app_constants.APP_NAME + user_constants.USER_PATH + user.id;
+    let user_path = app_constants.APP_NAME + app_constants.USERS_PATH + '/' + 
+      user.id;
     return (
       <li key={user.id}>
         <a href={user_path} title={user.name}>
@@ -142,7 +142,7 @@ export default class UserCoursesBox extends React.Component {
     let user_count = this.state.managers.length + this.state.members.length;
     let link_owner = null;
     if(course.owner) {
-      let owner_path = app_constants.APP_NAME + user_constants.USER_PATH +
+      let owner_path = app_constants.APP_NAME + app_constants.USERS_PATH + '/' +
         course.owner.id;
       user_count = user_count + 1;
       link_owner = <li>

@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from './user_constants';
 import Users from './users';
 import OrganizationChart from './templates/organization_charts/box';
 
@@ -17,10 +16,10 @@ export default class UsersBox extends React.Component {
   }
 
   render() {
-    const USER_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
-      + this.props.organization.id + '/' + 'users';
+    const USER_URL = app_constants.APP_NAME + app_constants.ORGANIZATIONS_PATH +
+      '/' + this.props.organization.id + '/' + 'users';
 
-    const NEW_USER_URL = USER_URL + '/' + user_constants.NEW_PATH;
+    const NEW_USER_URL = USER_URL + '/' + app_constants.NEW_PATH;
 
     const ChangeView = () => {
       if (this.state.view_type == 'list') {

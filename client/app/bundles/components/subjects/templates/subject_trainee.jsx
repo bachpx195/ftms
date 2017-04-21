@@ -5,9 +5,8 @@ import ModalSendPull from './send_pull';
 import React from 'react';
 import SubjectDetail from './subject_detail';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../constants/subject_constants';
 
-const ASSIGNMENT_URL = app_constants.APP_NAME + subject_constants.ASSIGNMENT_PATH;
+const ASSIGNMENTS_URL = app_constants.APP_NAME + app_constants.ASSIGNMENTS_PATH;
 
 export default class SubjectTrainee extends React.Component {
   constructor(props) {
@@ -38,7 +37,7 @@ export default class SubjectTrainee extends React.Component {
         <ModalCreateAssignment
           subject_detail={this.props.subject_detail}
           afterCreateTask={this.afterCreateTask.bind(this)}
-          url={ASSIGNMENT_URL}
+          url={ASSIGNMENTS_URL}
         />
         <ModalSendPull
           dynamic_task={this.state.dynamic_task}

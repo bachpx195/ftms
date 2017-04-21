@@ -1,11 +1,11 @@
 import React from  'react';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../constants/program_constants';
 
 export default class ProgramRightPanel extends React.Component {
   render() {
-    const PROGRAM_USER_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH
-      + this.props.program_detail.id + '/' + program_constants.USERS_NEW_PATH;
+    const PROGRAM_USER_URL = app_constants.APP_NAME + 
+      app_constants.PROGRAMS_PATH + '/' + this.props.program_detail.id + '/' + 
+      app_constants.USERS_NEW_PATH;
     return (
       <div className='col-md-3 info-panel'>
         <div className='box box-primary'>

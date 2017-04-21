@@ -2,10 +2,9 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 
 import * as app_constants from 'constants/app_constants';
-import * as course_constants from '../constants/course_constants';
 
 const DEFAULT_IMAGE_USER = app_constants.DEFAULT_IMAGE_USER_URL;
-const LIMIT_COURSE_MEMBERS = course_constants.LIMIT_COURSE_MEMBERS;
+const LIMIT_COURSE_MEMBERS = app_constants.LIMIT_COURSE_MEMBERS;
 
 export default class CourseManagers extends React.Component {
   renderManagers(managers) {
