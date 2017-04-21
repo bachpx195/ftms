@@ -1,12 +1,12 @@
-import BasicForm from './templates/manage_box_partials/basic_form';
-import FullForm from './templates/manage_box_partials/full_form';
+import BasicForm from './templates/forms_box_partials/basic_form';
+import FullForm from './templates/forms_box_partials/full_form';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as user_constants from './user_constants';
 
 require('../../assets/sass/user.scss');
 
-export default class ManageBox extends React.Component {
+export default class UserFormsBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -14,7 +14,6 @@ import LanguageBox from '../components/languages/box';
 import MovingHistoryBox from '../components/moving_histories/moving_histories_box';
 import OrganizationBox from '../components/organizations/box';
 import Policies from '../policies/policies';
-import ProfileShowBox from '../components/users/profile_show_box';
 import ProgramsBox from '../components/programs/box';
 import ProjectBox from '../components/projects/show';
 import ProjectsBox from '../components/projects/box';
@@ -38,7 +37,7 @@ import TrainingStandardShow from '../components/training_standards/show';
 import UniversityBox from '../components/universities/box';
 import UserCoursesBox from '../components/user_courses/user_courses_box';
 import UsersBox from '../components/users/box';
-import ManageBox from '../components/users/manage_box';
+import UserFormsBox from '../components/users/forms_box';
 import UserShowBox from '../components/users/show';
 
 ReactOnRails.register({
@@ -56,7 +55,6 @@ ReactOnRails.register({
   MovingHistoryBox,
   OrganizationBox,
   Policies,
-  ProfileShowBox,
   ProgramsBox,
   ProgramsShowBox,
   ProjectBox,
@@ -79,7 +77,7 @@ ReactOnRails.register({
   TrainingStandardShow,
   UniversityBox,
   UserCoursesBox,
-  ManageBox,
+  UserFormsBox,
   UsersBox,
   UserShowBox,
 });
