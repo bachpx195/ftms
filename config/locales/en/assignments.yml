@@ -1,0 +1,13 @@
+en:
+  assignments:
+    name: "Name"
+    content: "Content"
+    meta_type: "Meta Type"
+    nothing_show: "List %{list} nothing show"
+    create_static_task: "Create Static Task"
+    create_other_meta_type: "Create other meta type"
+    create_meta_type: "Create meta type"
+    create_assignment: "Create Assignment"
+    title_action: "Action course subject"
+    create_assignment: "Create Assignment"
+

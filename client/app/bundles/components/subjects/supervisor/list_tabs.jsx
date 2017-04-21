@@ -12,7 +12,8 @@ export default class ListTabs extends React.Component {
       course_subject_teams: props.course_subject_teams,
       user: props.user,
       user_index: props.user_index,
-      member_evaluations: props.member_evaluations
+      member_evaluations: props.member_evaluations,
+      meta_types: props.meta_types
     }
   }
 
@@ -22,7 +23,8 @@ export default class ListTabs extends React.Component {
       course_subject_teams: nextProps.course_subject_teams,
       user: nextProps.user,
       user_index: nextProps.user_index,
-      member_evaluations: nextProps.member_evaluations
+      member_evaluations: nextProps.member_evaluations,
+      meta_types: nextProps.meta_types
     });
   }
 
@@ -128,6 +130,7 @@ export default class ListTabs extends React.Component {
                 afterCreateTask={this.props.afterCreateTask}
                 course_subject_task={this.state.subject_detail
                   .course_subject_task}
+                meta_types={this.state.meta_types}
               />
             </div>
           </div>

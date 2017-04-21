@@ -7,7 +7,6 @@ import SubjectTrainee from './templates/subject_trainee';
 export default class SubjectsShow extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       admin: this.setAdmin(),
       course_subject_teams: [],
@@ -18,6 +17,7 @@ export default class SubjectsShow extends React.Component {
       static_task_assignment: props.static_task_assignment,
       member_evaluations: props.member_evaluations,
       subject_detail: props.subject_detail,
+      meta_types: props.meta_types
     }
   }
 
@@ -48,7 +48,9 @@ export default class SubjectsShow extends React.Component {
           evaluation_standards={this.props.evaluation_standards}
           member_evaluations={this.state.member_evaluations}
           member_ids={this.props.member_ids}
-          organizations={this.props.organizations} />
+          organizations={this.props.organizations}
+          meta_types={this.state.meta_types}
+        />
       );
     } else {
       return(

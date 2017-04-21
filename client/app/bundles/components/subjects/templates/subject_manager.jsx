@@ -1,8 +1,11 @@
 import axios from 'axios';
-import Create from '../../projects/actions/create';
+import CreateProject from '../../projects/actions/create';
+import Documents from '../../shareds/documents/documents';
+import ModalPreviewDocument from '../../shareds/modal_preview_document';
+import ModalCreateAssignment from './modal_create_assignment';
 import ListTabs from '../supervisor/list_tabs';
-import Modal from '../../projects/templates/modal';
 import React from 'react';
+import SubjectManagerInfo from  './subject_manager_info';
 import SubjectPolicy from 'policy/subject_policy';
 
 import * as app_constants from 'constants/app_constants';
@@ -12,43 +15,22 @@ const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
 export default class SubjectManager extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       course_subject_teams: props.course_subject_teams,
       subject_detail: props.subject_detail,
       member_evaluations: props.member_evaluations,
       member_ids: props.member_ids,
-      user_index: 0
+      user_index: 0,
+      meta_types: props.meta_types,
+      documents: props.subject_detail.documents,
+      document_preview: {}
     }
   }
 
   render() {
     let projects_url = SUBJECTS_URL + '/' + this.state.subject_detail.id + '/' +
       'projects';
-    let add_task_button = null;
-    if (this.props.course) {
-      add_task_button = (
-        <SubjectPolicy
-          permit={
-            [{action: ['owner'], target: 'children',
-                data: {owner_id: this.props.course.owner_id}},
-              {action: ['course_manager'], target: 'children',
-                data: {members_ids: this.state.member_ids}}]}
-        >
-          <button type='button' className='btn btn-primary'
-            onClick={this.afterClickAddTask.bind(this)}>
-            {I18n.t('subjects.add_task')}
-          </button>
-        </SubjectPolicy>
-      );
-    } else {
-      add_task_button = (
-        <button type='button' className='btn btn-primary'
-          onClick={this.afterClickAddTask.bind(this)}>
-          {I18n.t('subjects.add_task')}
-        </button>
-      );
-    }
+
 
     let user = null;
     if (this.props.course) {
@@ -58,59 +40,89 @@ export default class SubjectManager extends React.Component {
     return (
       <div className='admin-subject-show clearfix'>
         <div className='row'>
-          <div className='col-md-2'>
-            <img src={this.state.subject_detail.image.url}
-              alt={I18n.t('subjects.alt_image')} className='image-subject' />
+          <div className='col-md-9 content-list'>
+            <div className='box box-primary'>
+
+              <div className='box-header with-border'>
+                <SubjectManagerInfo subject_detail={this.state.subject_detail} />
+              </div>
+            </div>
+
+            <ListTabs
+              subject_detail={this.state.subject_detail}
+              course={this.props.course} user={user}
+              user_index={this.state.user_index}
+              course_subject_teams={this.state.course_subject_teams}
+              afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+              handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+              afterCreateTask={this.afterCreateTask.bind(this)}
+              handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
+              subject={this.props.subject}
+              training_standard={this.props.training_standard}
+              evaluation_template={this.props.evaluation_template}
+              evaluation_standards={this.props.evaluation_standards}
+              member_evaluations={this.state.member_evaluations} />
+
           </div>
-          <div className='col-md-10'>
-            <div className='subject-info col-md-9'>
-              <h2 className='subject-name'>
-                {this.state.subject_detail.name}
-              </h2>
-              <div className='description'>
-                {this.state.subject_detail.description}
+          <div className="col-md-3">
+            <div className='box box-primary'>
+              <div className='box-header with-border box-header-gray'>
+                {I18n.t("assignments.title_action")}
               </div>
-              <div className='workings-day'>
-                {I18n.t('subjects.headers.workings_day')}
-                {this.state.subject_detail.during_time}
-                {I18n.t('subjects.headers.days')}
-              </div>
-              <div className='organization'>
-                {I18n.t('subjects.headers.training_standard')}
-                {this.state.subject_detail.training_standard.name}
-              </div>
-            </div>
-            <div className='col-md-3 text-right'>
-              {add_task_button}
-            </div>
-            <div className='col-md-3 text-right'>
-              <Create />
-              <Modal organizations={this.props.organizations}
-                subject_detail={this.state.subject_detail} />
-            </div>
-            <div className='col-md-3 text-right'>
+
+              <button type='button' className='btn btn-primary'
+                onClick={this.afterClickAddTask.bind(this)}>
+                {I18n.t('subjects.add_task')}
+              </button>
+              <CreateProject />
               <a className='btn btn-primary' href={projects_url}>
                 {I18n.t('buttons.list_projects')}</a>
+              <button type='button' className='btn btn-primary'
+                onClick={this.onCreateAssignments.bind(this)}>
+                {I18n.t("assignments.create_assignment")}
+              </button>
             </div>
+
+            <Documents
+              document_type={'Subject'}
+              documents={this.state.documents}
+              documentable={this.props.subject}
+              handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
+              handlerAfterClickPreviewDocument={this.handlerAfterClickPreviewDocument.bind(this)}
+            />
           </div>
         </div>
-        <ListTabs subject_detail={this.state.subject_detail}
-          course={this.props.course} user={user}
-          user_index={this.state.user_index}
-          course_subject_teams={this.state.course_subject_teams}
-          afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
-          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-          handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-          afterCreateTask={this.afterCreateTask.bind(this)}
-          handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
-          subject={this.props.subject}
-          training_standard={this.props.training_standard}
-          evaluation_template={this.props.evaluation_template}
-          evaluation_standards={this.props.evaluation_standards}
-          member_evaluations={this.state.member_evaluations} />
-        <div className='clearfix'></div>
+
+        <ModalPreviewDocument
+          document_preview={this.state.document_preview}
+          handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
+        />
+
+        <ModalCreateAssignment
+          meta_types={this.state.meta_types}
+          subject_detail={this.state.subject_detail}
+          ownerable_id={this.state.subject_detail.course_subject.id}
+          ownerable_type='CourseSubject'
+        />
       </div>
     );
+  }
+
+  handleDocumentUploaded(document) {
+    this.state.documents.push(document);
+    this.setState({documents: this.state.documents});
+  }
+
+  handlerAfterClickPreviewDocument(document) {
+    this.setState({document_preview: document});
+    $('.modal-preview-document').modal();
+  }
+
+  handleDocumentDeleted(document) {
+    this.setState({
+      documents: this.state.documents.filter(item => item.id != document.id)
+    });
   }
 
   handleAfterCreatedTeam(course_subject_teams, subject_detail) {
@@ -118,6 +130,10 @@ export default class SubjectManager extends React.Component {
       course_subject_teams: course_subject_teams,
       subject_detail: subject_detail
     });
+  }
+
+  onCreateAssignments(event) {
+    $('.modal-create-assignment').modal();
   }
 
   afterClickAddTask() {

@@ -359,3 +359,32 @@ $c_black: black;
     min-width: 900px;
   }
 }
+
+.form-meta-type {
+  display: inline-block;
+
+  .input-meta-type {
+    margin-bottom: 0 !important;
+    margin-right: 10px;
+  }
+}
+
+.form-create-assignment {
+  display: inline-block;
+}
+
+.title-meta-type {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.modal-create-assignment {
+  .modal-dialog {
+    min-width: 800px;
+  }
+}
+
+.list-input {
+  display: inline-block;
+  margin-left: 20px;
+}

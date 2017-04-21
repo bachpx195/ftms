@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 import ListTasks from './list_tasks';
-import BlockTasks from '../block_tasks'
-import UserTasks from './user_tasks'
+import BlockTasks from '../block_tasks';
+import UserTasks from './user_tasks';
 export default class ModalBody extends React.Component{
   constructor(props){
     super(props);
@@ -12,7 +12,8 @@ export default class ModalBody extends React.Component{
       type: '',
       survey_id: '',
       course: props.course,
-      course_subject_task: props.course_subject_task
+      course_subject_task: props.course_subject_task,
+      meta_types: props.meta_types
     }
   }
 
@@ -20,7 +21,8 @@ export default class ModalBody extends React.Component{
     this.setState({
       task: nextProps.task,
       course: nextProps.course,
-      course_subject_task: nextProps.course_subject_task
+      course_subject_task: nextProps.course_subject_task,
+      meta_types: nextProps.meta_types
     });
   }
 
@@ -38,27 +40,36 @@ export default class ModalBody extends React.Component{
 
       task = (
         <div className='panel-project panel-body'>
-          <ListTasks task={this.state.task} type={this.state.type}
+          <ListTasks
+            task={this.state.task}
+            type={this.state.type}
             afterChoose={this.afterChoose.bind(this)}
             ownerable_id={this.props.ownerable_id}
             ownerable_type={this.props.ownerable_type}
             subject_detail={this.props.subject_detail}
             handleAfterAddTask={this.handleAfterAddTask.bind(this)}
             afterCreateTask={this.afterCreateTask.bind(this)}
-            user='' targetable_type={this.state.type} />
+            user=''
+            targetable_type={this.state.type}
+            meta_types={this.state.meta_types} />
         </div>
       )
     } else {
       task = (
         <div className='panel-project panel-body'>
-          <ListTasks task={this.state.task} type={this.state.type}
+          <ListTasks
+            task={this.state.task}
+            type={this.state.type}
             afterChoose={this.afterChoose.bind(this)}
             ownerable_id={this.props.ownerable_id}
             ownerable_type={this.props.ownerable_type}
             subject_detail={this.props.subject_detail}
             handleAfterAddTask={this.handleAfterAddTask.bind(this)}
             afterCreateTask={this.afterCreateTask.bind(this)}
-            user='' targetable_type={this.state.type} />
+            user=''
+            targetable_type={this.state.type}
+            meta_types={this.state.meta_types}
+          />
         </div>
       )
     }

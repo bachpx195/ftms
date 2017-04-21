@@ -1,14 +1,14 @@
 import axios from 'axios';
 import CheckBox from './check_box'
-import FormTask from '../../assignments/actions/create'
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
-import * as app_constants from '../../../../constants/app_constants';
+import * as app_constants from 'constants/app_constants';
 import * as table_constants from 'constants/griddle_table_constants';
 
 const TASKS_URL = app_constants.APP_NAME + app_constants.TASKS_PATH;
-const SUBJECT_TASKS_URL = app_constants.APP_NAME + 
+const SUBJECT_TASKS_URL = app_constants.APP_NAME +
   app_constants.SUBJECT_TASKS_PATH;
+
 
 export default class ListTasks extends React.Component {
   constructor(props) {
@@ -17,18 +17,13 @@ export default class ListTasks extends React.Component {
       task: props.task,
       type: props.type,
       targetable_ids: [],
-      course: props.course,
-      user_id: props.user.user_id || ''
+      user_id: props.user ? props.user.user_id : ''
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      task: nextProps.task,
-      type: nextProps.type,
-      user_id: nextProps.user.user_id,
-      targetable_ids: [],
-      course: nextProps.course
+      type: nextProps.type
     })
   }
 
@@ -39,9 +34,6 @@ export default class ListTasks extends React.Component {
         <div className='col-md-12'>
           <div className='row'>
             <div className='griddle-head clearfix'>
-              <div className='col-md-6'>
-                <Filter />
-              </div>
               <div className='col-md-6 text-right'>
                 <Pagination />
               </div>
@@ -59,48 +51,39 @@ export default class ListTasks extends React.Component {
         } else {
           id = this.state.task[this.props.type][griddleKey].id
         }
-        return <CheckBox id={id}
+        return <CheckBox
+          id={id}
           afterClickCheckbox={this.afterClickCheckbox.bind(this)}
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
-      let form_task ;
-      if (this.state.type != 'assignments') {
-        form_task = null;
-      } else {
-        form_task = (
-          <FormTask type={this.state.type}
-            ownerable_id={this.props.ownerable_id}
-            ownerable_type={this.props.ownerable_type}
-            afterCreateTask={this.afterCreateTask.bind(this)}
-            subject_detail={this.props.subject_detail}
-            course={this.props.course} user={this.props.user}
-            url={SUBJECT_TASKS_URL} />
-        )
-      }
+
       return(
         <div className='panel-task'>
-          <div className='create-task'>
-            {form_task}
+          {this.state.task[type].length > 0 ? (
+            <div className='list-task'>
+              <Griddle data={this.state.task[type]}
+                plugins={[plugins.LocalPlugin]}
+                components={{Layout: NewLayout}}
+                styleConfig={table_constants.styleConfig}>
+                <RowDefinition keyColumn='id'>
+                  <ColumnDefinition id='name'
+                    title='name'/>
+                  <ColumnDefinition id='content'
+                    title='content' />
+                  <ColumnDefinition id='action'
+                    title='action' customComponent={ChooseTargetable} />
+                  </RowDefinition>
+              </Griddle>
+
+            </div>
+          ) : (<h3><i>{I18n.t('assignments.nothing_show', {list: type})}</i></h3>)}
+          <div className='text-center'>
+
+            <button type='button' className='btn btn-primary'
+              onClick={this.handleSubmitCreateTask.bind(this)}>
+              {I18n.t("assignments.create_static_task")}
+            </button>
           </div>
-          <div className='list-task'>
-            <Griddle data={this.state.task[type]}
-              plugins={[plugins.LocalPlugin]}
-              components={{Layout: NewLayout}}
-              styleConfig={table_constants.styleConfig}>
-              <RowDefinition keyColumn='id'>
-                <ColumnDefinition id='name'
-                  title='name'/>
-                <ColumnDefinition id='content'
-                  title='content' />
-                <ColumnDefinition id='action'
-                  title='action' customComponent={ChooseTargetable} />
-                </RowDefinition>
-            </Griddle>
-          </div>
-          <button type='button' className='btn btn-primary'
-            onClick={this.afterSave.bind(this)}>
-            {I18n.t('subjects.save_changes')}
-          </button>
         </div>
       )
     } else {
@@ -119,7 +102,7 @@ export default class ListTasks extends React.Component {
     })
   }
 
-  afterSave() {
+  handleSubmitCreateTask() {
     axios.post(TASKS_URL, {
       task: {
         targetable_ids: this.state.targetable_ids,
