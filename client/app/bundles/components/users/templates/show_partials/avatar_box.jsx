@@ -32,9 +32,7 @@ export default class AvatarBox extends React.Component {
             onClick={this.handleUploadImageModal.bind(this)}>
             <div className='row'>
               <div className='col-md-12'>
-                <div className='col-md-2'>
-                  <i className='fa fa-camera'></i>
-                </div>
+                <div className='col-md-2'><i className='fa fa-camera'></i></div>
                 <div className='col-md-10'>
                   <span>{I18n.t('users.avatar.upload_profile_picture')}</span>
                 </div>
