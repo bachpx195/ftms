@@ -96,7 +96,7 @@ export default class OrganizationShow extends React.Component {
                 <div className='block-trainer'>
                   {this.renderOwner(owner)}
                 </div>
-                <a href="#"
+                <a href='#'
                   onClick={this.handleAssignOwnerModal.bind(this)} >
                   {I18n.t('organizations.assign_owner')}
                 </a>
@@ -125,7 +125,7 @@ export default class OrganizationShow extends React.Component {
               </div>
               <br />
               <div className='member-title'>
-                <i className='fa fa-book' aria-hidden='true'></i>
+                <i className='fa fa-bookmark'></i>
                 <strong>
                   {I18n.t('organizations.num_courses')}
                 </strong>
@@ -147,7 +147,7 @@ export default class OrganizationShow extends React.Component {
               </div>
               <br />
               <div className='member-title'>
-                <i className='fa fa-check-square-o'></i>
+                <i className='fa fa-file-code-o'></i>
                 <strong>
                   <a href={ORGANIZATION_EXAMS_URL}>
                     {I18n.t('organizations.exams')}
@@ -156,7 +156,7 @@ export default class OrganizationShow extends React.Component {
               </div>
               <br />
               <div className='member-title'>
-                <i className="fa fa-line-chart" aria-hidden="true"></i>
+                <i className='fa fa-line-chart' aria-hidden='true'></i>
                 <strong>
                   <a href={STATISTIC_IN_OUT_PATH}>
                     {I18n.t('sidebar.statistics.statistic')}
@@ -167,7 +167,7 @@ export default class OrganizationShow extends React.Component {
           </div>
 
           <Documents
-            document_type={"Organization"}
+            document_type={'Organization'}
             documents={this.state.documents}
             documentable={this.state.organization}
             handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}

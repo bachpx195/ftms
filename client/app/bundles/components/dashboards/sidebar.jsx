@@ -22,8 +22,6 @@ const MY_SPACE_COURSES_URL = app_constants.APP_NAME +
   app_constants.MY_SPACE_COURSES_PATH;
 const MY_SPACE_EXAMS_URL = app_constants.APP_NAME +
   app_constants.MY_SPACE_EXAMS_PATH;
-const PROJECTS_URL = app_constants.APP_NAME +
-  app_constants.PROJECTS_PATH;
 const CATEGORY_URL = app_constants.APP_NAME + app_constants.CATEGORY_PATH;
 const TEST_RULE_URL = app_constants.APP_NAME + app_constants.TEST_RULE_PATH;
 const STATISTIC_LANGUAGE_PATH = app_constants.APP_NAME +
@@ -64,15 +62,15 @@ export default class Sidebar extends React.Component {
       let avatar = null;
       if (current_user.avatar) {
         avatar = <img src={current_user.avatar.url}
-          className="img-circle"
-          alt={I18n.t("header.user_image_alt")} />
+          className='img-circle'
+          alt={I18n.t('header.user_image_alt')} />
       }
       return (
         <div className='user-panel'>
-          <div className="pull-left image">
+          <div className='pull-left image'>
             {avatar}
           </div>
-          <div className="pull-left info" >
+          <div className='pull-left info' >
             <p>{current_user.name}</p>
           </div>
         </div>
@@ -86,7 +84,7 @@ export default class Sidebar extends React.Component {
         <section className='sidebar'>
           {this.renderUserPanel()}
           <ul className='sidebar-menu td-admin-sidebar'>
-            <li className="header">{I18n.t('sidebar.space')}</li>
+            <li className='header'>{I18n.t('sidebar.space')}</li>
             <Permit action='my_space/courses'>
               <li data-page='my_courses'>
                 <a href={MY_SPACE_COURSES_URL} onClick={this.onClick.bind(this)}>
@@ -104,7 +102,7 @@ export default class Sidebar extends React.Component {
               </li>
             </Permit>
             <Permit action='organizations'>
-              <li className="header">{I18n.t('sidebar.main_nav')}</li>
+              <li className='header'>{I18n.t('sidebar.main_nav')}</li>
             </Permit>
             <Permit action='organizations'>
               <li data-page='organizations'>
@@ -122,30 +120,21 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
-            <Permit action='projects'>
-              <li data-page='projects'>
-                <a href={PROJECTS_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-folder-open'></i>
-                  <span>{I18n.t('sidebar.projects')}</span>
-                </a>
-              </li>
-            </Permit>
-            <li className="treeview">
+            <li className='treeview'>
               <Permit action='languages'>
-                <a href="#" onClick={this.onClickMasterdata.bind(this)}>
-                  <i className="fa fa-database" aria-hidden="true"></i>
+                <a href='#'>
+                  <i className='fa fa-database' aria-hidden='true'></i>
                   <span>{I18n.t('sidebar.master')}</span>
                   <span className='pull-right-container'>
-                    <i className={`fa
-                      fa-chevron-${this.state.master_menu == "showed" ? "down" : "right"}`}></i>
+                    <i className='fa fa-chevron-down'></i>
                   </span>
                 </a>
               </Permit>
-              <ul id="subMasterMenu" className="treeview-menu">
+              <ul id='subMasterMenu' className='treeview-menu'>
                 <Permit action='languages'>
                   <li data-page='languages'>
                     <a href={LANGUAGES_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.languages')}</span>
                     </a>
                   </li>
@@ -153,7 +142,7 @@ export default class Sidebar extends React.Component {
                 <Permit action='stages'>
                   <li data-page='stages'>
                     <a href={STAGES_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.stages')}</span>
                     </a>
                   </li>
@@ -162,43 +151,42 @@ export default class Sidebar extends React.Component {
                 <Permit action='subjects'>
                   <li data-page='subjects'>
                     <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.subjects')}</span>
                     </a>
                   </li>
                 </Permit>
 
                 <Permit action='trainee_types'>
-                  <li data-page="trainee_types">
+                  <li data-page='trainee_types'>
                     <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.trainee_types')}</span>
                     </a>
                   </li>
                 </Permit>
-
                 <Permit action='universities'>
-                  <li data-page="universities">
+                  <li data-page='universities'>
                     <a href={UNIVERSITIES_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.universities')}</span>
                     </a>
                   </li>
                 </Permit>
 
                 <Permit action='categories'>
-                  <li data-page="categories">
+                  <li data-page='categories'>
                     <a href={CATEGORY_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.categories')}</span>
                     </a>
                   </li>
                 </Permit>
 
                 <Permit action='test_rules'>
-                  <li data-page="test_rules">
+                  <li data-page='test_rules'>
                     <a href={TEST_RULE_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.test_rule')}</span>
                     </a>
                   </li>
@@ -206,30 +194,29 @@ export default class Sidebar extends React.Component {
               </ul>
             </li>
 
-            <li className="treeview">
+            <li className='treeview'>
               <Permit action='roles'>
-                <a href="#" onClick={this.onClickSubMenu.bind(this)}>
-                  <i className="fa fa-list" aria-hidden="true"></i>
+                <a href='#'>
+                  <i className='fa fa-list' aria-hidden='true'></i>
                   <span>{I18n.t('sidebar.mange_role')}</span>
                   <span className='pull-right-container'>
-                    <i className={`fa
-                      fa-chevron-${this.state.roles_menu == "showed" ? "down" : "right"}`}></i>
+                    <i className='fa fa-chevron-down'></i>
                   </span>
                 </a>
               </Permit>
-              <ul id="subRoleMenu" className="treeview-menu">
+              <ul id='subRoleMenu' className='treeview-menu'>
                 <Permit action='roles'>
-                  <li data-page="roles">
+                  <li data-page='roles'>
                     <a href={ROLES_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.roles')}</span>
                     </a>
                   </li>
                 </Permit>
                 <Permit action='functions'>
-                  <li data-page="functions">
+                  <li data-page='functions'>
                     <a href={FUNCTIONS_URL} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.all_functions')}</span>
                     </a>
                   </li>
@@ -237,22 +224,21 @@ export default class Sidebar extends React.Component {
               </ul>
             </li>
 
-            <li className="treeview">
+            <li className='treeview'>
               <Permit action='statistics'>
-                <a href="#" onClick={this.onClickStatistic.bind(this)}>
-                  <i className="fa fa-line-chart" aria-hidden="true"></i>
+                <a href='#'>
+                  <i className='fa fa-line-chart' aria-hidden='true'></i>
                   <span>{I18n.t('sidebar.statistics.statistic')}</span>
                   <span className='pull-right-container'>
-                    <i className={`fa
-                      fa-chevron-${this.state.statistic_menu == "showed" ? "down" : "right"}`}></i>
+                    <i className='fa fa-chevron-down'></i>
                   </span>
                 </a>
               </Permit>
-              <ul id="statistics" className="treeview-menu">
+              <ul id='statistics' className='treeview-menu'>
                 <Permit action='languages'>
                   <li data-page='languages'>
                     <a href={STATISTIC_LANGUAGE_PATH} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.languages')}</span>
                     </a>
                   </li>
@@ -260,7 +246,7 @@ export default class Sidebar extends React.Component {
                 <Permit action='trainee_types'>
                   <li data-page='trainee_types'>
                     <a href={STATISTIC_TRAINEE_TYPE_PATH} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.trainee_types')}</span>
                     </a>
                   </li>
@@ -268,7 +254,7 @@ export default class Sidebar extends React.Component {
                 <Permit action='in_outs'>
                   <li data-page='in_outs'>
                     <a href={STATISTIC_IN_OUT_PATH} onClick={this.onClick.bind(this)}>
-                      <i className="fa fa-circle-o"></i>
+                      <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.statistics.in_outs')}</span>
                     </a>
                   </li>
@@ -344,7 +330,7 @@ export default class Sidebar extends React.Component {
       this.setState({statistic_menu: 'hiddened'});
       localStorage.setItem('statistic_menu', 'hiddened');
     } else if(this.state.statistic_menu == 'hiddened'){
-      $('#statistics').slideDown("slow", function(){
+      $('#statistics').slideDown('slow', function(){
         $(target).find('.fa').removeClass('fa-chevron-right').addClass(
           'fa-chevron-down');
       });

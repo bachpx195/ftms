@@ -39,7 +39,7 @@ export default class OrganizationPanelInfo extends React.Component {
           <div className='box-body'>
             <div>
               <div className='member-title'>
-                <i className='fa fa-users' aria-hidden='true'></i>
+                <i className='fa fa-universal-access' aria-hidden='true'></i>
                 <strong>
                   {I18n.t('organizations.num_organizations')}
                 </strong>
@@ -67,7 +67,7 @@ export default class OrganizationPanelInfo extends React.Component {
               </div>
               <br />
               <div className='member-title'>
-                <i className='fa fa-book' aria-hidden='true'></i>
+                <i className='fa fa-bookmark'></i>
                 <strong>
                   {I18n.t('organizations.num_courses')}
                 </strong>

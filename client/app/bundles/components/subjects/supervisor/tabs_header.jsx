@@ -8,7 +8,7 @@ export default class TabsHeader extends React.Component {
           <li className='active'>
             <a data-toggle='tab' href='#tab-team-list'>
               <div className='custom-subjects-titles'>
-                <i className='fa fa-pencil-square-o'></i>
+                <i className='fa fa-list-alt'></i>
                 {I18n.t('subjects.titles.list_team')}
               </div>
             </a>
@@ -16,7 +16,7 @@ export default class TabsHeader extends React.Component {
           <li>
             <a data-toggle='tab' href='#tab-user-subject-list'>
               <div className='custom-subjects-titles'>
-                <i className='fa fa-file-text-o'></i>
+                <i className='fa fa-ban'></i>
                 {I18n.t('subjects.titles.unassigned_members')}
               </div>
             </a>
@@ -24,7 +24,7 @@ export default class TabsHeader extends React.Component {
           <li>
             <a data-toggle='tab' href='#tab-surveys'>
               <div className='custom-subjects-titles'>
-                <i className='fa fa-file-text-o'></i>
+                <i className='fa fa-file-excel-o'></i>
                 {I18n.t('subjects.titles.surveys')}
               </div>
             </a>
@@ -32,7 +32,7 @@ export default class TabsHeader extends React.Component {
           <li>
             <a data-toggle='tab' href='#tab-assignments'>
               <div className='custom-subjects-titles'>
-                <i className='fa fa-pencil-square-o'></i>
+                <i className='fa fa-file-word-o'></i>
                 {I18n.t('subjects.titles.assignments')}
               </div>
             </a>
@@ -48,7 +48,7 @@ export default class TabsHeader extends React.Component {
           <li>
             <a data-toggle='tab' href='#tab-documents'>
               <div className='custom-subjects-titles'>
-                <i className='fa fa-file-text-o'></i>
+                <i className='fa fa-file-pdf-o'></i>
                 {I18n.t('subjects.titles.documents')}
               </div>
             </a>
