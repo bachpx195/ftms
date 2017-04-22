@@ -45,8 +45,7 @@ export default class UsersBox extends React.Component {
       if (this.state.view_type == 'list') {
         return (
           <div className='box-body'>
-            <a className='btn btn-primary button-new'
-              href={NEW_USER_URL}>
+            <a className='btn btn-primary button-new' href={NEW_USER_URL}>
               {I18n.t('users.buttons.new')}
             </a>
             <Users users={this.state.users} />
