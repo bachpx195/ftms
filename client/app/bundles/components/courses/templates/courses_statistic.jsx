@@ -12,7 +12,7 @@ export default class CoursesStatistic extends React.Component {
     return (
       <div className='col-md-3 info-panel td-padding-top-course-lists
         custom-info'>
-        <div className="custom-info">
+        <div className='custom-info'>
           <div className='box box-primary'>
             <div className='box-header with-border'>
               <h3 className='box-title'>
@@ -24,7 +24,7 @@ export default class CoursesStatistic extends React.Component {
             <div className='box-body'>
               <div>
                 <div className='member-title'>
-                  <i className='fa fa-book' aria-hidden='true'></i>
+                  <i className='fa fa-bookmark' aria-hidden='true'></i>
                   <strong>
                     {I18n.t('organizations.num_courses')}
                   </strong>
