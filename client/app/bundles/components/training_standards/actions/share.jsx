@@ -1,13 +1,11 @@
 import * as app_constants from 'constants/app_constants';
 import axios from 'axios';
-import {CLONE_PATH} from '../constants/training_standard_constants';
 import ModalShareTrainingStandard from '../templates/modal_share_training_standard';
-import {ORGANIZATION_PATH, TRAINING_STANDARD_PATH, SHARE_WITH_PATH} from
-  '../constants/training_standard_constants';
 import React from 'react';
 
-const TRAINING_STANDARD_URL = app_constants.APP_NAME + TRAINING_STANDARD_PATH;
-const SHARE_WITH_URL = app_constants.APP_NAME + SHARE_WITH_PATH;
+const TRAINING_STANDARDS_URL = app_constants.APP_NAME + 
+  app_constants.TRAINING_STANDARDS_PATH;
+const SHARE_WITH_URL = app_constants.APP_NAME + app_constants.SHARE_WITH_PATH;
 
 export default class Share extends React.Component {
   constructor(props) {
@@ -38,7 +36,7 @@ export default class Share extends React.Component {
       return (
         <div className='col-md-2'>
           <ModalShareTrainingStandard
-            url={TRAINING_STANDARD_URL}
+            url={TRAINING_STANDARDS_URL}
             training_standard={this.state.training_standard}
             standard_organizations={this.state.standard_organizations}
             handleAfterShareTrainingStandard={this.handleAfterShareTrainingStandard.bind(this)}

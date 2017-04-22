@@ -5,10 +5,9 @@ import HomePage from './home_page';
 import FooterStatic from './footer_static';
 
 import * as app_constants from 'constants/app_constants';
-import * as static_page_constants from './static_page_constants';
 
 const ROOT_URL = app_constants.APP_NAME + app_constants.ROOT_PATH;
-const STATIC_PAGE_URL = app_constants.APP_NAME + static_page_constants.STATIC_PAGE_PATH;
+const STATIC_PAGE_URL = app_constants.APP_NAME + app_constants.STATIC_PAGE_PATH;
 
 export default class StaticPageBox extends React.Component {
   constructor(props) {

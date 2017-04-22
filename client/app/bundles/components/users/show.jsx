@@ -5,11 +5,8 @@ import ModalChangeProgram from './change_program/modal';
 import React from 'react';
 import RolesBox from './templates/show_partials/roles_box';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from './user_constants';
 
 require('../../assets/sass/user.scss');
-
-const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
 
 export default class UserShowBox extends React.Component {
   constructor(props) {
@@ -43,8 +40,8 @@ export default class UserShowBox extends React.Component {
   render() {
     let btn_change_program, division, join_div_date, naitei_company,
       finish_training_date, leave_date = <tr></tr>;
-    const EDIT_USER_URL = app_constants.APP_NAME + user_constants.USER_PATH
-      + this.props.user_detail.id + '/'+ user_constants.EDIT_PATH;
+    const EDIT_USER_URL = app_constants.APP_NAME + app_constants.USERS_PATH + '/'
+      + this.props.user_detail.id + '/'+ app_constants.EDIT_PATH;
 
     if(this.state.user_program) {
       btn_change_program = <div className='btn btn-primary'

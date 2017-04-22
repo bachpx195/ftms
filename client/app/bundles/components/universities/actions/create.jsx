@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
-import * as university_constants from '../constants/university_constants';
 
-const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
+const UNIVERSITIES_URL = app_constants.APP_NAME + 
+  app_constants.UNIVERSITIES_PATH;
 
 export default class Create extends React.Component {
   render() {
@@ -27,7 +27,7 @@ export default class Create extends React.Component {
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     axios({
-      url: UNIVERSITY_URL,
+      url: UNIVERSITIES_URL,
       method: 'POST',
       data: formData,
       headers: {'Accept': 'application/json'}

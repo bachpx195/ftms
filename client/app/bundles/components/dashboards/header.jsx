@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as dashboard_constants from './dashboard_constants';
 
-const LOGOUT_URL = app_constants.APP_NAME + dashboard_constants.LOGOUT_PATH;
+const LOGOUT_URL = app_constants.APP_NAME + app_constants.LOGOUT_PATH;
 const ROOT_URL = app_constants.APP_NAME;
 
 export default class Header extends React.Component {
@@ -26,7 +25,7 @@ export default class Header extends React.Component {
   dropdownProfile() {
     if (localStorage.current_user !== undefined) {
       let current_user = JSON.parse(localStorage.current_user);
-      let path = ROOT_URL + dashboard_constants.USERS_PATH + '/' + current_user.id;
+      let path = ROOT_URL + app_constants.USERS_PATH + '/' + current_user.id;
       return (
         <div className="navbar-custom-menu">
           <ul className="nav navbar-nav">

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import * as course_constants from '../constants/course_constants';
+import * as app_constants from 'constants/app_constants';
 
-const LIMIT_MEMBERS = course_constants.LIMIT_COURSE_MEMBERS;
+const LIMIT_MEMBERS = app_constants.LIMIT_COURSE_MEMBERS;
 
 export default class BlockMembers extends React.Component {
   renderMember(member) {

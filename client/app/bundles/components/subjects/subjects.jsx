@@ -6,10 +6,9 @@ import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from './constants/subject_constants';
 
 const DEFAULT_IMAGE_SUBJECT = app_constants.DEFAULT_IMAGE_SUBJECT_URL;
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
 
 export default class Subjects extends React.Component {
   constructor(props) {
@@ -65,13 +64,13 @@ export default class Subjects extends React.Component {
     );
 
     const LinkShowSubject = ({value, griddleKey}) => (
-      <a href={SUBJECT_URL + this.props.subjects[griddleKey].id}>{value}</a>
+      <a href={SUBJECTS_URL + '/' + this.props.subjects[griddleKey].id}>{value}</a>
     );
 
     let modalEdit = null;
     if(this.state.subject.id){
       modalEdit = (
-        <Modal url={SUBJECT_URL + '/' + this.state.subject.id}
+        <Modal url={SUBJECTS_URL + '/' + this.state.subject.id}
           subject={this.state.subject}
           handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );
@@ -123,7 +122,7 @@ export default class Subjects extends React.Component {
     $target.blur();
     let subject = this.props.subjects[$target.data('index')];
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(SUBJECT_URL + '/' + subject.id, {
+      axios.delete(SUBJECTS_URL + '/' + subject.id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

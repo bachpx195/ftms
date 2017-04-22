@@ -1,9 +1,8 @@
 import Form from './form';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../constants/subject_constants';
 
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
 
 export default class ModalCreateSubject extends React.Component {
 
@@ -17,7 +16,7 @@ export default class ModalCreateSubject extends React.Component {
               <h4 className='modal-title'>{I18n.t('subjects.modals.header_create')}</h4>
             </div>
             <div className='modal-body'>
-              <Form subject={this.props.subject} url={SUBJECT_URL}
+              <Form subject={this.props.subject} url={SUBJECTS_URL}
                 handleAfterSaved={this.handleAfterCreated.bind(this)} />
             </div>
           </div>

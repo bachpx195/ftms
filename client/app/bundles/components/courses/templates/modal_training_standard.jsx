@@ -2,8 +2,6 @@ import EvaluationStandards from './previews/evaluation_standards';
 import React from 'react';
 import StandardSubjects from './previews/standard_subjects';
 
-import * as app_constants from 'constants/app_constants';
-
 export default class ModalTrainingStandard extends React.Component {
   render() {
     return (

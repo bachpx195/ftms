@@ -6,9 +6,8 @@ import {IntlProvider, FormattedDate} from 'react-intl';
 import {NewLayout} from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../users/user_constants';
 
-const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
+const USERS_URL = app_constants.APP_NAME + app_constants.USERS_PATH;
 
 export default class CourseLists extends React.Component {
 
@@ -54,7 +53,7 @@ export default class CourseLists extends React.Component {
       let course = this.state.courses[griddleKey];
       return (
         <Trainers
-          user_url={USER_URL}
+          user_url={USERS_URL}
           course={course}
         />);
     }

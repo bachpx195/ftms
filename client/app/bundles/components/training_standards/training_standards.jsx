@@ -6,7 +6,6 @@ import Form from './templates/form';
 import Destroy from "./actions/destroy";
 import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from './constants/training_standard_constants';
 
 export default class TrainingStandards extends React.Component {
   constructor(props) {
@@ -53,10 +52,10 @@ export default class TrainingStandards extends React.Component {
       );
     };
 
-    const TRAINING_STANDARD_URL = app_constants.APP_NAME +
-      training_standard_constants.ORGANIZATION_PATH + '/' +
+    const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
+      app_constants.ORGANIZATIONS_PATH + '/' +
       this.props.organization.id + '/' +
-      training_standard_constants.TRAINING_STANDARD_PATH;
+      app_constants.TRAINING_STANDARDS_PATH;
 
     const LinkToStandardShow = ({value, griddleKey}) => (
       <a data-index={griddleKey} href={TRAINING_STANDARD_URL + "/" +

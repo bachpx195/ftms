@@ -1,12 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../../user_constants';
 import FormEditRole from './form_edit_role';
 import CustomPolicy from 'policy/course_policy';
 
-const ROLES_URL = app_constants.APP_NAME + 'change_role/' + user_constants.USER_PATH;
-const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
+const ROLES_URL = app_constants.APP_NAME + 'change_role/' + app_constants.USERS_PATH;
 
 export default class RolesBox extends React.Component {
   constructor(props) {
@@ -31,7 +29,7 @@ export default class RolesBox extends React.Component {
     this.setState({
      user: user
     })
-    axios.get(ROLES_URL + user.id +'.json')
+    axios.get(ROLES_URL + '/' + user.id +'.json')
     .then(response => {
       this.setState({
         roles: response.data.roles,

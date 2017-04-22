@@ -1,5 +1,4 @@
 import * as app_constants from 'constants/app_constants';
-import * as category_constants from './constants/category_constants'
 import axios from 'axios';
 import Categories from './categories'
 import css from './assets/categories.scss';
@@ -8,7 +7,7 @@ import Form from './templates/form'
 import React from 'react';
 import Row from './griddle/row';
 
-const CATEGORY_URL = app_constants.APP_NAME + category_constants.CATEGORY_PATH
+const CATEGORIES_URL = app_constants.APP_NAME + app_constants.CATEGORIES_PATH;
 
 export default class CategoriesBox extends React.Component {
   constructor(props){
@@ -43,7 +42,7 @@ export default class CategoriesBox extends React.Component {
                 <div className='col-md-8 col-md-offset-2'>
                   <CategoryPolicy permit={[
                     {action: ['create'], target: 'children'}]}>
-                    <Form url={CATEGORY_URL} category
+                    <Form url={CATEGORIES_URL} category
                       handleAfterCreated={this.handleAfterCreated.bind(this)} />
                   </CategoryPolicy>
                 </div>

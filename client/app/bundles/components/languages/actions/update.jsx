@@ -1,14 +1,9 @@
-import React from 'react';
 import axios from 'axios';
+import LanguagePolicy from 'policy/language_policy';
+import Modal from '../templates/modal';
+import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as language_constants from '../constants/language_constants';
-
-import LanguagePolicy from 'policy/language_policy';
-
-import Modal from '../templates/modal';
-
-const LANGUAGE_URL = app_constants.APP_NAME + language_constants.LANGUAGE_PATH;
 
 export default class Update extends React.Component {
   render() {

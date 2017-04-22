@@ -1,5 +1,4 @@
 import * as app_constants from 'constants/app_constants';
-import * as category_constants from './constants/category_constants';
 import axios from 'react';
 import FormQuestion from '../questions/templates/form_question';
 import QuestionPolicy from 'policy/question_policy';
@@ -19,8 +18,8 @@ export default class CategoryBox extends React.Component {
   }
 
   render() {
-    const QUESTION_URL = app_constants.APP_NAME + category_constants.CATEGORY_PATH
-      + this.state.category.id + '/' + category_constants.QUESTION_PATH;
+    const QUESTIONS_URL = app_constants.APP_NAME + app_constants.CATEGORIES_PATH
+      + '/' + this.state.category.id + '/' + app_constants.QUESTIONS_PATH;
     return (
       <div className='row'>
         <div className='col-md-12'>
@@ -44,7 +43,7 @@ export default class CategoryBox extends React.Component {
                   <QuestionPolicy permit={[
                     {action: ['create'], target: 'children'}]} >
                     <FormQuestion question={this.state.question}
-                      url={QUESTION_URL}
+                      url={QUESTIONS_URL}
                       category={this.state.category}
                       afterCreateQuestion={this.afterCreateQuestion.bind(this)}/>
                   </QuestionPolicy>
@@ -53,7 +52,7 @@ export default class CategoryBox extends React.Component {
                   <Questions questions={this.state.category.questions}
                     afterDeleteQuestion={this.afterDeleteQuestion.bind(this)}
                     afterUpdateQuestion={this.afterUpdateQuestion.bind(this)}
-                    url={QUESTION_URL} />
+                    url={QUESTIONS_URL} />
                 </div>
               </div>
             </div>

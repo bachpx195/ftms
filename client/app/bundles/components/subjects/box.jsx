@@ -5,9 +5,6 @@ import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
 import Subjects from './subjects';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from './constants/subject_constants';
-
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
 
 export default class SubjectBox extends React.Component {
   constructor(props) {

@@ -1,15 +1,15 @@
 import * as app_constants from 'constants/app_constants';
-import * as training_standard_constants from './constants/training_standard_constants';
 import axios from 'axios';
-
 import ModalAssign from './templates/modal_assign';
 import ModalEvaluation from './templates/modal_evaluation';
 import Subjects from './subjects';
 import React from 'react';
 
-const TRAINING_STANDARD_URL = app_constants.APP_NAME + training_standard_constants.TRAINING_STANDARD_PATH;
-const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + training_standard_constants.STANDARD_SUBECTS_PATH;
-const SUBJECT_URL = app_constants.APP_NAME + training_standard_constants.SUBJECT_PATH;
+const TRAINING_STANDARDS_URL = app_constants.APP_NAME + 
+  app_constants.TRAINING_STANDARDS_PATH;
+const STANDARD_SUBJECTS_URL = app_constants.APP_NAME + 
+  app_constants.STANDARD_SUBECTS_PATH;
+const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
 
 export default class TrainingStandardShow extends React.Component {
   constructor(props) {
@@ -27,21 +27,21 @@ export default class TrainingStandardShow extends React.Component {
   }
 
   render() {
-    let url = TRAINING_STANDARD_URL + '/'+ this.state.training_standard.id +
+    let url = TRAINING_STANDARDS_URL + '/'+ this.state.training_standard.id +
       '/evaluation_template';
     return(
       <div>
         <Subjects selected_subjects={this.state.selected_subjects}
           training_standard={this.state.training_standard}
           afterRejectSubject={this.afterRejectSubject.bind(this)}
-          subject_url={SUBJECT_URL} standard_subject_url={STANDARD_SUBJECTS_URL}
+          subject_url={SUBJECTS_URL} standard_subject_url={STANDARD_SUBJECTS_URL}
           evaluation_template={this.props.evaluation_template}
           onClickCreateEvaluationTemplate={this.onClickCreateEvaluationTemplate.bind(this)}
           onClickButtonAssignSubject={this.onClickButtonAssignSubject.bind(this)}
           organization={this.props.organization}
           share_with_organization={this.props.share_with_organization}
           standard_organizations={this.state.standard_organizations}
-          url={TRAINING_STANDARD_URL}
+          url={TRAINING_STANDARDS_URL}
         />
 
         <ModalEvaluation

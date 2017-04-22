@@ -6,9 +6,8 @@ import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
 
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../constants/subject_constants';
 
-const SUBJECT_URL = app_constants.APP_NAME + subject_constants.SUBJECT_PATH;
+const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
 
 export default class SubjectManager extends React.Component {
   constructor(props) {
@@ -24,7 +23,7 @@ export default class SubjectManager extends React.Component {
   }
 
   render() {
-    let projects_url = SUBJECT_URL + this.state.subject_detail.id + '/' +
+    let projects_url = SUBJECTS_URL + '/' + this.state.subject_detail.id + '/' +
       'projects';
     let add_task_button = null;
     if (this.props.course) {

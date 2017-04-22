@@ -2,11 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import TreeView from './tree_view';
 import FormCreate from './form_create';
+import * as app_constants from 'constants/app_constants';
 
-import * as sub_org_constants from './sub_organization_constants';
-
-const SUB_ORGANIZATION_URL = sub_org_constants.SUB_ORGANIZATION_PATH;
-const ORGANIZATION_URL = sub_org_constants.ORGANIZATION_PATH;
+const SUB_ORGANIZATIONS_URL = app_constants.APP_NAME + 
+  app_constants.SUB_ORGANIZATIONS_PATH;
+const ORGANIZATION_URL = app_constants.APP_NAME + app_constants.ORGANIZATIONS_PATH;
 
 export default class SubOrganizationBox extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class SubOrganizationBox extends React.Component {
   }
 
   fetchProgramsOfOrganization() {
-    let url = SUB_ORGANIZATION_URL + "/" + this.state.organization.id + ".json";
+    let url = SUB_ORGANIZATIONS_URL + "/" + this.state.organization.id + ".json";
     axios.get(url)
     .then(reponse => {
       this.setState({
@@ -57,7 +57,7 @@ export default class SubOrganizationBox extends React.Component {
             <div className="box-body no-padding">
               <div className="col-md-8 col-md-offset-2">
                 <FormCreate
-                  url={ORGANIZATION_URL}
+                  url={ORGANIZATIONS_URL}
                   organization={this.state.organization}
                   afterCreate={this.afterCreate.bind(this)}
                 />

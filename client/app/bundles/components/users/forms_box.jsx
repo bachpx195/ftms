@@ -2,7 +2,6 @@ import BasicForm from './templates/forms_box_partials/basic_form';
 import FullForm from './templates/forms_box_partials/full_form';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from './user_constants';
 
 require('../../assets/sass/user.scss');
 
@@ -14,8 +13,9 @@ export default class UserFormsBox extends React.Component {
   }
 
   render() {
-    const ORGANIZATION_USER_URL = app_constants.APP_NAME + user_constants.ORGANIZATION_PATH
-      + this.props.organization.id + '/' + user_constants.USER_PATH;
+    const ORGANIZATION_USER_URL = app_constants.APP_NAME + 
+      app_constants.ORGANIZATIONS_PATH + '/' + this.props.organization.id + '/' + 
+      app_constants.USERS_PATH;
     let title = '';
     let profile = null;
     let current_user = JSON.parse(localStorage.current_user);

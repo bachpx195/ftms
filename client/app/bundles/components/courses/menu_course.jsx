@@ -5,11 +5,10 @@ import axios from 'axios';
 import FormEdit from './form_edit';
 import CoursePolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../programs/constants/program_constants';
-import * as course_constants from './constants/course_constants';
 
-const COURSE_URL = app_constants.APP_NAME;
-const PROGRAM_URL = app_constants.APP_NAME + program_constants.PROGRAMS_PATH;
+const APP_URL = app_constants.APP_NAME;
+const ORGANIZATIONS_URL = app_constants.ORGANIZATIONS_PATH
+const PROGRAM_URL = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
 
 export default class MenuCourse extends React.Component {
   constructor(props) {
@@ -73,12 +72,12 @@ export default class MenuCourse extends React.Component {
       .then(response => {
         var path = window.location.pathname;
         path = path.match(/[^\s|0-9]+[^\0-9]/g).join([]);
-        var program_courses_path = '/' + program_constants.PROGRAMS_PATH +
-          course_constants.MY_COURSES_PATH;
+        var program_courses_path = '/' + app_constants.PROGRAMS_PATH + '/' +
+          app_constants.MY_COURSES_PATH;
         if (path == program_courses_path) {
-          window.location.href = COURSE_URL + 'organizations/' +
+          window.location.href = APP_URL + '/' + ORGANIZATIONS_URL + '/' +
             response.data.program.organization_id + '/'
-            + program_constants.PROGRAMS_PATH + response.data.program.id;
+            + app_constants.PROGRAMS_PATH + '/' + response.data.program.id;
         } else {
           window.location.href = app_constants.APP_NAME + path.substr(1, path.length - 1);
         }
@@ -110,8 +109,8 @@ export default class MenuCourse extends React.Component {
   }
 
   changeStatus() {
-    axios.patch(PROGRAM_URL+ this.props.program.id+ '/' +
-      course_constants.COURSES_PATH + this.state.course.id, {
+    axios.patch(PROGRAM_URL+ '/' + this.props.program.id+ '/' +
+      app_constants.COURSES_PATH + '/' + this.state.course.id, {
         status: 'finished',
         authenticity_token: ReactOnRails.authenticityToken(),
     }, app_constants.AXIOS_CONFIG)

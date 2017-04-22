@@ -2,7 +2,6 @@ import axios from 'axios';
 import css from '../../subjects/assets/subject.scss';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../../subjects/constants/subject_constants';
 
 export default class Create extends React.Component {
   constructor(props) {

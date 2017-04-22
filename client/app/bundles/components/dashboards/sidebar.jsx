@@ -2,39 +2,38 @@ import React, { PropTypes } from 'react';
 import Permit from 'policy/sidebar_policy';
 import CustomPolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
-import * as dashboard_constants from './dashboard_constants';
 
-const LANGUAGES_URL = app_constants.APP_NAME + dashboard_constants.LANGUAGES_PATH;
+const LANGUAGES_URL = app_constants.APP_NAME + app_constants.LANGUAGES_PATH;
 const ORGANIZATIONS_URL = app_constants.APP_NAME +
-  dashboard_constants.ORGANIZATIONS_PATH;
-const STAGES_URL = app_constants.APP_NAME + dashboard_constants.STAGES_PATH;
-const SUBJECTS_URL = app_constants.APP_NAME + dashboard_constants.SUBJECTS_PATH;
-const COURSES_URL = app_constants.APP_NAME + dashboard_constants.COURSES_PATH;
+  app_constants.ORGANIZATIONS_PATH;
+const STAGES_URL = app_constants.APP_NAME + app_constants.STAGES_PATH;
+const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
+const COURSES_URL = app_constants.APP_NAME + app_constants.COURSES_PATH;
 const TRAINEE_TYPES_URL = app_constants.APP_NAME +
-  dashboard_constants.TRAINEE_TYPES_PATH;
+  app_constants.TRAINEE_TYPES_PATH;
 const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
-  dashboard_constants.TRAINING_STANDARDS_PATH;
+  app_constants.TRAINING_STANDARDS_PATH;
 const UNIVERSITIES_URL = app_constants.APP_NAME +
-  dashboard_constants.UNIVERSITIES_PATH;
+  app_constants.UNIVERSITIES_PATH;
 const FUNCTIONS_URL = app_constants.APP_NAME +
-  dashboard_constants.FUNCTIONS_PATH;
+  app_constants.FUNCTIONS_PATH;
 const ROLES_URL = app_constants.APP_NAME +
-  dashboard_constants.ROLES_PATH;
+  app_constants.ROLES_PATH;
 
 const MY_SPACE_COURSES_URL = app_constants.APP_NAME +
-  dashboard_constants.MY_SPACE_COURSES_PATH;
+  app_constants.MY_SPACE_COURSES_PATH;
 const MY_SPACE_EXAMS_URL = app_constants.APP_NAME +
-  dashboard_constants.MY_SPACE_EXAMS_PATH;
+  app_constants.MY_SPACE_EXAMS_PATH;
 const PROJECTS_URL = app_constants.APP_NAME +
-  dashboard_constants.PROJECTS_PATH;
-const CATEGORY_URL = app_constants.APP_NAME + dashboard_constants.CATEGORY_PATH;
-const TEST_RULE_URL = app_constants.APP_NAME + dashboard_constants.TEST_RULE_PATH;
+  app_constants.PROJECTS_PATH;
+const CATEGORY_URL = app_constants.APP_NAME + app_constants.CATEGORY_PATH;
+const TEST_RULE_URL = app_constants.APP_NAME + app_constants.TEST_RULE_PATH;
 const STATISTIC_LANGUAGE_PATH = app_constants.APP_NAME +
-  dashboard_constants.STATISTIC_PATH + dashboard_constants.LANGUAGES_PATH;
+  app_constants.STATISTICS_PATH+ '/' + app_constants.LANGUAGES_PATH;
 const STATISTIC_TRAINEE_TYPE_PATH = app_constants.APP_NAME +
-  dashboard_constants.STATISTIC_PATH + dashboard_constants.TRAINEE_TYPES_PATH;
+  app_constants.STATISTICS_PATH + '/' + app_constants.TRAINEE_TYPES_PATH;
 const STATISTIC_IN_OUT_PATH = app_constants.APP_NAME
-  + dashboard_constants.STATISTIC_PATH + dashboard_constants.IN_OUT_STATISTIC_PATH;
+  + app_constants.STATISTICS_PATH + '/' + app_constants.IN_OUT_STATISTIC_PATH;
 
 export default class Sidebar extends React.Component {
   constructor(props) {

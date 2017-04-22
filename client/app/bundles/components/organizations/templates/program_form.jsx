@@ -69,8 +69,9 @@ export default class FormProgram extends React.Component {
 
   handleAfterCreated(response) {
     let program = response.data.program;
-      let PROGRAM_URL = this.props.url + program.id
-      window.location.href =  PROGRAM_URL;
+    let ORGANIZATION_URL = app_constants.APP_NAME + 
+      app_constants.ORGANIZATIONS_PATH + '/' + this.state.organization_id;
+    window.location.href = ORGANIZATION_URL;
     this.refs.nameField.value = '';
   }
 }

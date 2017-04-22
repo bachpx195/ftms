@@ -7,9 +7,8 @@ import LanguagePolicy from 'policy/language_policy';
 import Breadcrumb from 'react-breadcrumb';
 
 import * as app_constants from 'constants/app_constants';
-import * as language_constants from './constants/language_constants';
 
-const LANGUAGE_URL = app_constants.APP_NAME + language_constants.LANGUAGE_PATH;
+const LANGUAGES_URL = app_constants.APP_NAME + app_constants.LANGUAGES_PATH;
 
 export default class LanguageBox extends React.Component {
   constructor(props) {
@@ -32,7 +31,7 @@ export default class LanguageBox extends React.Component {
                 label: I18n.t('breadcrumbs.home'),
               },
               {
-                path: LANGUAGE_URL,
+                path: LANGUAGES_URL,
                 label: I18n.t('breadcrumbs.languages'),
               }
             ]
@@ -59,7 +58,7 @@ export default class LanguageBox extends React.Component {
                   <LanguagePolicy permit={[
                     {action: ['create'], target: 'children'}
                     ]}>
-                    <Form language={this.state.language} url={LANGUAGE_URL}
+                    <Form language={this.state.language} url={LANGUAGES_URL}
                       handleAfterCreated={this.handleAfterCreated.bind(this)} />
                   </LanguagePolicy>
                 </div>

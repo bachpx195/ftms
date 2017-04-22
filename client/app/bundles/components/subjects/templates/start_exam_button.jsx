@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from '../constants/subject_constants';
 
 export default class StartExamButton extends React.Component {
   render() {
@@ -24,7 +23,7 @@ export default class StartExamButton extends React.Component {
 
   startExam(test_rule, event) {
     $(event.target).prop('disabled', true);
-    let exams_url = app_constants.APP_NAME + subject_constants.EXAMS_PATH;
+    let exams_url = app_constants.APP_NAME + app_constants.EXAMS_PATH;
     axios.post(exams_url, {
       test_rule_id: test_rule.id,
       course_subject_id: this.props.course_subject.id,

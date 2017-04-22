@@ -2,13 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 import * as app_constants from 'constants/app_constants';
-import * as university_constants from '../constants/university_constants';
 
 import UniversityPolicy from 'policy/university_policy';
 
 import Modal from '../templates/modal';
-
-const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
 
 export default class Update extends React.Component {
   render() {

@@ -1,11 +1,10 @@
 import Breadcrumb from '../../../shareds/bread_crumb/bread_crumb';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from '../../constants/program_constants';
 
 const APP_NAME = app_constants.APP_NAME;
-const ORGANIZATION_URL = APP_NAME + program_constants.ORGANIZATION_PATH;
-const PROGRAM_PATH = program_constants.PROGRAMS_PATH;
+const ORGANIZATION_URL = APP_NAME + app_constants.ORGANIZATION_PATH;
+const PROGRAMS_URL = app_constants.PROGRAMS_PATH;
 
 export default class ShowBreadCrumd extends React.Component {
   render() {
@@ -28,12 +27,12 @@ export default class ShowBreadCrumd extends React.Component {
               },
               {
                 path: ORGANIZATION_URL + '/' + this.props.organization.id +
-                  '/' + PROGRAM_PATH,
+                  '/' + PROGRAMS_URL,
                 label: I18n.t("breadcrumbs.programs"),
               },
               {
                 path: ORGANIZATION_URL + '/' + this.props.organization.id +
-                  '/' + PROGRAM_PATH + '/' + this.props.program.id,
+                  '/' + PROGRAMS_URL + '/' + this.props.program.id,
                 label: this.props.program.name,
               }
             ]

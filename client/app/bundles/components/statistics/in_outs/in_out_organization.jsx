@@ -3,7 +3,6 @@ import React from 'react';
 import ReactHighcharts from 'react-highcharts';
 
 import * as app_constants from 'constants/app_constants';
-import * as dashboard_constants from '../../dashboards/dashboard_constants';
 
 export default class InOutOrganization extends React.Component {
   render() {
@@ -51,14 +50,14 @@ export default class InOutOrganization extends React.Component {
       series: this.props.trainees_in_outs
     };
 
-    let ORGANIZATION_URL = app_constants.APP_NAME + 'organizations' + '/' +
-      this.props.organization.id + '/' + dashboard_constants.STATISTIC_PATH;
+    let ORGANIZATIONS_URL = app_constants.APP_NAME + 'organizations' + '/' +
+      this.props.organization.id + '/' + app_constants.STATISTICS_PATH;
 
-    let STATISTIC_LANGUAGE_PATH = ORGANIZATION_URL +
-      dashboard_constants.LANGUAGES_PATH;
+    let STATISTIC_LANGUAGE_PATH = ORGANIZATIONS_URL +
+      app_constants.LANGUAGES_PATH;
 
-    let STATISTIC_TRAINEE_TYPE_PATH = ORGANIZATION_URL +
-      dashboard_constants.TRAINEE_TYPES_PATH;
+    let STATISTIC_TRAINEE_TYPE_PATH = ORGANIZATIONS_URL +
+      app_constants.TRAINEE_TYPES_PATH;
 
     return (
       <div>

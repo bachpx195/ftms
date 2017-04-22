@@ -4,13 +4,13 @@ import React from 'react';
 import UniversityPolicy from 'policy/university_policy';
 
 import * as app_constants from 'constants/app_constants';
-import * as university_constants from './constants/university_constants';
 
 import Form from './templates/form';
 import Universities from './universities';
 import Breadcrumb from 'react-breadcrumb';
 
-const UNIVERSITY_URL = app_constants.APP_NAME + university_constants.UNIVERSITY_PATH;
+const UNIVERSITIES_URL = app_constants.APP_NAME + 
+  app_constants.UNIVERSITIES_PATH;
 
 export default class UniversityBox extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class UniversityBox extends React.Component {
                 label: I18n.t('breadcrumbs.home'),
               },
               {
-                path: UNIVERSITY_URL,
+                path: UNIVERSITIES_URL,
                 label: I18n.t('breadcrumbs.universities'),
               }
             ]
@@ -66,7 +66,7 @@ export default class UniversityBox extends React.Component {
                     {action: ['create'], target: 'children'}]}>
                     <Form
                       university={this.state.university}
-                      url={UNIVERSITY_URL}
+                      url={UNIVERSITIES_URL}
                       handleAfterCreated={this.handleAfterCreated.bind(this)} />
                   </UniversityPolicy>
                 </div>

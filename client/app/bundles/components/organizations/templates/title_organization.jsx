@@ -2,10 +2,9 @@ import axios from 'axios';
 import FormOrganization from './organization_form';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import * as organization_constants from '../constants/organization_constants';
 
-const INDEX_ORGANIZATION_URL = app_constants.APP_NAME +
-  organization_constants.ORGANIZATION_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME +
+  app_constants.ORGANIZATION_PATH;
 
 require('../assets/organization.scss');
 
@@ -64,7 +63,7 @@ export default class TitleOrganization extends React.Component{
             <div className='modal-body'>
               <FormOrganization
                 organization={this.state.organization}
-                url={INDEX_ORGANIZATION_URL + organization.id}
+                url={ORGANIZATIONS_URL+ '/' + organization.id}
                 handleAfterUpdated={this.props.handleAfterUpdated}
                 />
             </div>

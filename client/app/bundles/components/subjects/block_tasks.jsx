@@ -2,10 +2,9 @@ import axios from 'axios'
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react'
 import * as app_constants from 'constants/app_constants';
-import * as subject_constants from './constants/subject_constants';
 import * as table_constants from 'constants/griddle_table_constants';
 
-const TASK_URL = app_constants.APP_NAME + subject_constants.TASK_PATH;
+const TASKS_URL = app_constants.APP_NAME + app_constants.TASKS_PATH;
 
 export default class BlockTasks extends React.Component{
   constructor(props){
@@ -77,7 +76,7 @@ export default class BlockTasks extends React.Component{
   }
   onClickDeleteTask(task){
     if (confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(TASK_URL + '/' + task.task_id, {
+      axios.delete(TASKS_URL + '/' + task.task_id, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

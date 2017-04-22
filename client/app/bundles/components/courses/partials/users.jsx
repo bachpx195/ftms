@@ -3,7 +3,6 @@ import React from 'react';
 import CoursePolicy from 'policy/course_policy';
 
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from '../../users/user_constants';
 
 import Managers from "../templates/managers";
 import Members from "../templates/members";

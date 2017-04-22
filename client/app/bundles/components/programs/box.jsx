@@ -5,9 +5,9 @@ import ProgramLists from './programs';
 import IndexBreadCrumb from './templates/bread_crumbs/index';
 
 import * as app_constants from 'constants/app_constants';
-import * as program_constants from './constants/program_constants';
 
-const ORGANIZATION_URL = app_constants.APP_NAME + program_constants.ORGANIZATION_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME + 
+  app_constants.ORGANIZATIONS_PATH;
 
 export default class Box extends React.Component {
   constructor(props) {
@@ -26,7 +26,8 @@ export default class Box extends React.Component {
   }
 
   fetchPrograms() {
-    const url = ORGANIZATION_URL + '/' + this.props.organization.id + '/programs';
+    const url = ORGANIZATIONS_URL + '/' + this.state.organization.id + '/' +
+      app_constants.PROGRAMS_PATH;
     axios.get(url + '.json')
       .then(response => {
         this.setState({
@@ -41,7 +42,8 @@ export default class Box extends React.Component {
   }
 
   render() {
-    const url = ORGANIZATION_URL + '/' + this.props.organization.id + '/programs';
+    const url = ORGANIZATIONS_URL + '/' + this.state.organization.id + '/' +
+      app_constants.PROGRAMS_PATH;
     return (
       <div className="row">
         <IndexBreadCrumb

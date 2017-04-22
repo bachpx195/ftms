@@ -2,10 +2,9 @@ import React from 'react';
 import axios from 'axios';
 
 import * as app_constants from 'constants/app_constants';
-import * as user_constants from './user_constants';
 
-const USER_URL = app_constants.APP_NAME + user_constants.USER_PATH;
-const USER_FUNCTION_URL = app_constants.APP_NAME + user_constants.USER_FUNCTION_PATH;
+const USERS_URL = app_constants.APP_NAME + app_constants.USERS_PATH;
+const USER_FUNCTIONS_URL = app_constants.APP_NAME + app_constants.USER_FUNCTIONS_PATH;
 
 import * as table_constants from 'constants/griddle_table_constants';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
@@ -40,7 +39,7 @@ export default class Users extends React.Component {
     );
 
     const LinkShowUser = ({value, griddleKey}) => (
-      <a href={USER_URL + this.props.users[griddleKey].id}>{value}</a>
+      <a href={USERS_URL + '/' + this.props.users[griddleKey].id}>{value}</a>
     );
 
     return(
@@ -63,7 +62,7 @@ export default class Users extends React.Component {
 
   handlePermission(key){
     $('#user_function_modal').modal();
-    axios.get(USER_FUNCTION_URL + key + '.json')
+    axios.get(USER_FUNCTIONS_URL + '/' + key + '.json')
       .then(response => {
         console.log(response.data);
         this.setState({user_functions: response.data.functions, user_id: key});

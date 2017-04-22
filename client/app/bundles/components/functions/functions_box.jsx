@@ -4,9 +4,8 @@ import axios from 'axios'
 import FunctionLists from './function_lists';
 
 import * as app_constants from 'constants/app_constants';
-import * as function_constants from './function_constants';
 
-const FUNCTION_URL = app_constants.APP_NAME + function_constants.FUNCTION_PATH;
+const FUNCTIONS_URL = app_constants.APP_NAME + app_constants.FUNCTIONS_PATH;
 
 export default class FunctionsBox extends React.Component {
   constructor(props) {
@@ -22,7 +21,7 @@ export default class FunctionsBox extends React.Component {
   }
 
   fetchFunctions() {
-    axios.get(FUNCTION_URL + '.json')
+    axios.get(FUNCTIONS_URL + '.json')
     .then(response =>{
       this.setState({functions: response.data.functions});
     })

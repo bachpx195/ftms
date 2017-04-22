@@ -4,11 +4,10 @@ import Program from './templates/program';
 import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
-import * as organization_constants from './constants/organization_constants';
 
-const ORGANIZATION_URL = app_constants.APP_NAME +
-   organization_constants.ORGANIZATION_PATH;
-const PROGRAM_PATH = organization_constants.PROGRAMS_PATH;
+const ORGANIZATIONS_URL = app_constants.APP_NAME + 
+  app_constants.ORGANIZATIONS_PATH;
+const PROGRAMS_URL = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
 
 require('../../assets/sass/list_programs.scss');
 
@@ -31,22 +30,23 @@ export default class Programs extends React.Component {
   }
 
   render() {
-    let INDEX_PROGRAM_URL = ORGANIZATION_URL + this.state.organization.id + '/' +
-      PROGRAM_PATH;
-    let SHOW_PROGRAM_URL = INDEX_PROGRAM_URL + this.state.program.id;
+    let PROGRAMS_URL = ORGANIZATIONS_URL + '/' + this.state.organization.id + 
+      '/' + app_constants.PROGRAMS_PATH;
+    let PROGRAM_URL = PROGRAMS_URL + '/' + this.state.program.id;
+    let programs_url = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
     return (
       <div className="box-programs">
         <div className="form-create">
           <FormProgram
-            url={INDEX_PROGRAM_URL}
+            url={PROGRAMS_URL}
             organization={this.state.organization}
           />
         </div>
         <div id="list-programs">
           <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            {this._renderProgram(INDEX_PROGRAM_URL)}
+            {this._renderProgram(programs_url)}
           </div>
-          {this.renderModal(this.state.program, SHOW_PROGRAM_URL)}
+          {this.renderModal(this.state.program, PROGRAM_URL)}
         </div>
       </div>
     )
@@ -75,7 +75,7 @@ export default class Programs extends React.Component {
     );
   }
 
-  _renderProgram(INDEX_PROGRAM_URL) {
+  _renderProgram(PROGRAMS_URL) {
     return this.state.programs.map((program) => {
       return (
         <div className="program" key={program.id}>
@@ -84,7 +84,7 @@ export default class Programs extends React.Component {
             organization={this.state.organization}
             afterEdit={this.afterClickEdit.bind(this)}
             handleAfterDeleted={this.handleAfterDeleted.bind(this)}
-            url={INDEX_PROGRAM_URL + program.id}/>
+            url={PROGRAMS_URL + '/' + program.id}/>
         </div>
       );
     });
