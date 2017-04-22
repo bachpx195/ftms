@@ -85,10 +85,11 @@ class User < ApplicationRecord
 
   def find_base_component
     function = self.functions.order_by_parent_id.first
-    return "UserShowBox" unless function
-    controller = function.controller_name
-    action = function.action
-    box_component = (action == "show") ? "ShowBox" : "Box"
-    controller.split("/").first.capitalize.singularize + box_component
+    box = function.controller_name.split("/").first.capitalize
+    if box == "Users"
+      "TimeLineBox"
+    else
+      box.singularize + "Box"
+    end
   end
 end

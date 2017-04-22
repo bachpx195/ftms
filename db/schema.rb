@@ -385,13 +385,6 @@ ActiveRecord::Schema.define(version: 20170421073449) do
     t.index ["organization_id"], name: "index_surveys_on_organization_id", using: :btree
   end
 
-  create_table "task_meta_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "task_id"
-    t.integer  "meta_type_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "targetable_id"
     t.string   "targetable_type"

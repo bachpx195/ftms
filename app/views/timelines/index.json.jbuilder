@@ -32,7 +32,7 @@ json.timeline do
         json.credit "<span class='text-danger'>" +
           "#{pluralize @timeline_supports.count_assignment('finish'), t('tasks.task')}"\
             + "&nbsp;" + t("tasks.statuses.finished").downcase +
-          "</span><span class='text-primary'><br>#{task.name}" +
+          "</span><span class='text-primary'><br>" +
             "#{pluralize @timeline_supports.count_assignment('init'), t('tasks.task')}"\
               + "&nbsp;" + t("tasks.statuses.init").downcase + "</span>"
         else
