@@ -3,7 +3,7 @@ import Documents from '../shareds/documents/documents';
 import Dropzone from 'react-dropzone';
 import Errors from '../shareds/errors';
 import FilterTrainingStandard from './templates/filter_training_standards';
-import Modal from './templates/modal_course';
+import ModalCourse from './templates/modal_course';
 import ModalPreviewDocument from '../shareds/modal_preview_document';
 import ModalCreateStandard from './templates/modal_create_standard';
 import ProgramInfo from './templates/program_info';
@@ -20,7 +20,7 @@ import * as app_constants from 'constants/app_constants';
 require('../../assets/sass/program_show.scss');
 
 const ORGANIZATIONS_URL = app_constants.APP_NAME + app_constants.ORGANIZATIONS_PATH;
-const STANDARD_URL = app_constants.APP_NAME + 
+const STANDARD_URL = app_constants.APP_NAME +
   app_constants.TRANINING_STANDARDS_PATH;
 const ASSIGN_STANDARD_URL = app_constants.APP_NAME + app_constants.ASSIGN_STANDARD_PATH;
 const COURSE_URL = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
@@ -66,19 +66,8 @@ export default class ProgramsShowBox extends React.Component {
   }
 
   render() {
-    let url_programs = ORGANIZATIONS_URL + '/' + this.state.organization.id + 
+    let url_programs = ORGANIZATIONS_URL + '/' + this.state.organization.id +
       '/' + app_constants.PROGRAMS_PATH + '/' + this.props.program.id;
-    let modalEdit = (
-      <Modal
-        program_detail={this.state.program_detail}
-        url={COURSE_URL + this.props.program.id +'/courses'}
-        image={this.state.image}
-        program={this.props.program}
-        all_roles={this.state.all_roles}
-        owners={this.state.owners}
-        course={this.state.course}
-        url_programs={url_programs} />
-    );
 
     return (
       <div className='clearfix'>
@@ -137,7 +126,15 @@ export default class ProgramsShowBox extends React.Component {
           handleAfterCreatedStandard={this.handleAfterCreatedStandard.bind(this)}
         />
 
-        {modalEdit}
+        <ModalCourse
+          program_detail={this.state.program_detail}
+          url={COURSE_URL + '/' + this.props.program.id +'/courses'}
+          image={this.state.image}
+          program={this.props.program}
+          all_roles={this.state.all_roles}
+          owners={this.state.owners}
+          course={this.state.course}
+          url_programs={url_programs} />
       </div>
     );
   }

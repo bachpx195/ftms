@@ -20,7 +20,7 @@ export default class CourseDetail extends React.Component {
     let link_creator = null;
     let creator_name = '';
     if (course.creator) {
-      let creator_path = app_constants.APP_NAME + app_constants.USERS_PATH + 
+      let creator_path = app_constants.APP_NAME + app_constants.USERS_PATH +
         '/' + course.creator.id;
       creator_name = course.creator.name;
       link_creator = <a href={creator_path} title={course.creator.name}>
@@ -46,8 +46,7 @@ export default class CourseDetail extends React.Component {
             <span className='header-title'>
               {this.state.course.name}
             </span>
-            <span className={'label-status' + ' ' +
-              this.state.course.status + '-background-color'}>
+            <span className={'label-status status-' + this.state.course.status}>
               {I18n.t(`courses.${this.state.course.status}`)}
             </span>
             <div className='show-creator'>

@@ -155,11 +155,25 @@ $user-subject-border-status-reject: #757575;
   margin-right: 10px;
 }
 
-.course-header .label-status {
-  border-radius: 3px;
-  color: $show-course-subject-white;
-  font-weight: 500;
-  padding: 0 3px 1px 5px;
+.course-header {
+  .label-status {
+    border-radius: 3px;
+    color: $show-course-subject-white;
+    font-weight: bold;
+    padding: 5px 5px 3px 5px;
+  }
+
+  .status-init {
+    background-color: $user-subject-border-status-init;
+  }
+
+  .status-in_progress {
+    background-color: $user-subject-border-status-in-progress;
+  }
+
+  .status-finished {
+    background-color: $user-subject-border-status-finished;
+  }
 }
 
 .info-panel .user-list {

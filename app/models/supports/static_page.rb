@@ -20,7 +20,11 @@ class Supports::StaticPage
       .new(object: user).serializer
   end
 
-  def organization
-    @organization ||= user.profile.organization
+  def organizations
+    @organizations = user.organizations
+    if @organizations.empty?
+      @organizations = user.profile.organization
+    end
+    @organizations
   end
 end

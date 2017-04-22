@@ -34,10 +34,9 @@ export default class OrganizationShow extends React.Component {
   render() {
     let owner = this.state.organization.owner;
     let count_users = (this.state.organization.users || []).length;
-    let count_training_standards = 0;
+    let count_training_standards = this.state.organization.training_standards.length;
     let count_courses = 0;
-    count_training_standards += this.state.organization.training_standards.length;
-    for(let program of this.state.programs){
+    for (let program of this.state.programs) {
       count_courses +=program.courses.length;
     }
 
