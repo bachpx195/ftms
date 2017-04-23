@@ -4,10 +4,7 @@ import axios from 'axios';
 import TraineeTypeLists from './trainee_type_lists';
 import Form from './form';
 
-import * as app_constants from 'constants/app_constants';
-
-const TRAINEE_TYPES_URL = app_constants.APP_NAME +
-  app_constants.TRAINEE_TYPES_PATH;
+import * as routes from 'config/routes';
 
 export default class TraineeTypeBox extends React.Component {
   constructor(props) {
@@ -42,7 +39,7 @@ export default class TraineeTypeBox extends React.Component {
                 <div className='col-md-8 col-md-offset-2'>
                   <Form
                     trainee_type={this.state.trainee_type}
-                    url={TRAINEE_TYPES_URL}
+                    url={routes.trainee_types_url()}
                     handleAfterSaved={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>

@@ -4,7 +4,6 @@ import axios from 'axios';
 import Errors from '../../shareds/errors';
 import ListUnassignedUserSubject from './list_unassigned_user_subject';
 import _ from 'lodash';
-import * as app_constants from 'constants/app_constants';
 
 export default class Form extends React.Component {
   constructor(props) {

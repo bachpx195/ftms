@@ -10,7 +10,7 @@ export default class FooterStatic extends React.Component {
         <div className='footer-left'>
           <h3><span>{I18n.t('layouts.footer.company')}</span></h3>
           <p className='footer-links'>
-            <a href='{`${ROOT_URL}`}'>
+            <a href={ROOT_URL}>
               {I18n.t('layouts.footer.home')}
             </a>
             <a href='#'>

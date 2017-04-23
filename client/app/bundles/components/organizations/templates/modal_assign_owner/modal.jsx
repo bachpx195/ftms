@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 require('../../../../assets/sass/show_organization.scss');
 
@@ -97,10 +97,8 @@ export default class ModalAssignOwner extends React.Component {
   }
 
   handleChangeRole(event) {
-    let url = app_constants.APP_NAME + app_constants.FILTER_ROLE_PATH
-      + $('#list-roles').val();
-
-    axios.get(url)
+    let role_url = routes.filter_role_url($('#list-roles').val());
+    axios.get(role_url)
       .then(response => {
         this.setState({
           owners: response.data.owners
@@ -132,11 +130,11 @@ export default class ModalAssignOwner extends React.Component {
     formData.append('organization[user_id]', this.state.organization.owner_id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
-    let url = app_constants.APP_NAME + 'organizations/'
-      + this.state.organization.id + '.json';
+    let organization_url = routes.organization_url(this.state.organization.id) +
+      '.json';
 
     axios({
-      url: url,
+      url: organization_url,
       method: 'PATCH',
       data: formData,
       headers: {'Accept': 'application/json'}

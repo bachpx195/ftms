@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import * as app_constants from 'constants/app_constants';
-
 export default class Create extends React.Component {
   render() {
     return (

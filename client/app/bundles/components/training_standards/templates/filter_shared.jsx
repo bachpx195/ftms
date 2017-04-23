@@ -1,4 +1,4 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import axios from 'axios';
 import React from 'react';
 
@@ -19,14 +19,10 @@ export default class FilterShared extends React.Component {
     )}
 
   handleChange(event) {
-    const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
-      app_constants.ORGANIZATIONS_PATH + '/' + this.props.organization.id + 
-      '/' + app_constants.TRAINING_STANDARDS_PATH;
-
     let is_shared = event.target.value;
 
     axios({
-      url: TRAINING_STANDARDS_URL,
+      url: routes.organization_training_standards_url(this.props.organization.id),
       method: 'GET',
       params: {'is_shared': is_shared},
       headers: {'Accept': 'application/json'}

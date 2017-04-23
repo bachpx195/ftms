@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class ModalChangeProgram extends React.Component {
   constructor(props) {
@@ -118,7 +118,7 @@ export default class ModalChangeProgram extends React.Component {
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
     if (confirm(I18n.t('data.confirm_change'))) {
-      let url = app_constants.APP_NAME + app_constants.MOVE_USERS_PATH + '.json';
+      let url = routes.move_users_url() + '.json';
       axios.post(url, formData)
         .then(response => {
           this.props.afterChangeProgram(response.data.user_detail.user_program,

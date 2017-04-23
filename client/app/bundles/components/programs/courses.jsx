@@ -5,9 +5,7 @@ import Trainers from './trainers';
 import {IntlProvider, FormattedDate} from 'react-intl';
 import {NewLayout} from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
-
-const USERS_URL = app_constants.APP_NAME + app_constants.USERS_PATH;
+import * as routes from 'config/routes';
 
 export default class CourseLists extends React.Component {
 
@@ -42,18 +40,18 @@ export default class CourseLists extends React.Component {
 
     const LinkToCourse = ({value, griddleKey}) => {
       let course = this.state.courses[griddleKey];
-      let link = '#';
+      let course_url = '#';
       if(course) {
-        link = app_constants.APP_NAME + 'courses/'  + course.id;
+        course_url = routes.course_url(course.id);
       }
-      return <a href={link} className="link-course">{value}</a>;
+      return <a href={course_url} className="link-course">{value}</a>;
     };
 
     const ListTrainer = ({griddleKey}) => {
       let course = this.state.courses[griddleKey];
       return (
         <Trainers
-          user_url={USERS_URL}
+          user_url={routes.users_url()}
           course={course}
         />);
     }

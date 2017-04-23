@@ -1,4 +1,4 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import axios from 'axios';
 import ExamPolicy from 'policy/exam_policy';
 import React from 'react';
@@ -25,8 +25,7 @@ export default class Update extends React.Component {
   }
 
   afterClickFinishExam() {
-    let EXAM_URL = app_constants.APP_NAME + app_constants.EXAMS_PATH + '/' +
-      this.props.exam.id;
+    let EXAM_URL = routes.exam_url(this.props.exam.id);
     let formData = new FormData();
     formData.append('exam[id]', this.props.exam.id);
     this.props.exam.questions.map((question, question_index) => {

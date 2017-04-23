@@ -1,11 +1,7 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import axios from 'axios';
 import ModalShareTrainingStandard from '../templates/modal_share_training_standard';
 import React from 'react';
-
-const TRAINING_STANDARDS_URL = app_constants.APP_NAME + 
-  app_constants.TRAINING_STANDARDS_PATH;
-const SHARE_WITH_URL = app_constants.APP_NAME + app_constants.SHARE_WITH_PATH;
 
 export default class Share extends React.Component {
   constructor(props) {
@@ -36,7 +32,7 @@ export default class Share extends React.Component {
       return (
         <div className='col-md-2'>
           <ModalShareTrainingStandard
-            url={TRAINING_STANDARDS_URL}
+            url={routes.training_standards_url()}
             training_standard={this.state.training_standard}
             standard_organizations={this.state.standard_organizations}
             handleAfterShareTrainingStandard={this.handleAfterShareTrainingStandard.bind(this)}
@@ -64,7 +60,7 @@ export default class Share extends React.Component {
 
 
   sendRequestShare(organization) {
-    axios.post(SHARE_WITH_URL + '.json', {
+    axios.post(routes.share_with_url() + '.json', {
       share_with: {
         training_standard_id: this.state.training_standard.id,
         organization_id: organization.id

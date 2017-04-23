@@ -3,8 +3,9 @@ import axios from 'axios';
 import SubjectItems from './subject_items';
 import SubjectList from './subject_list';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
-const MOVE_USERS_URL = app_constants.APP_NAME + app_constants.MOVE_USERS_PATH;
+const MOVE_USERS_URL = routes.move_users_url();
 
 export default class ModalChangeCourse extends React.Component {
   constructor(props) {
@@ -171,10 +172,7 @@ export default class ModalChangeCourse extends React.Component {
         course_checked: target.value
       });
     } else {
-      const MOVE_COURSES_URL = app_constants.APP_NAME +
-        app_constants.MOVE_COURSES_PATH + "/" +
-        this.state.course.id;
-      axios.get(MOVE_COURSES_URL + ".json")
+      axios.get(routes.move_course_url(this.state.course.id) + ".json")
         .then(response => {
           this.setState({
             target_subjects: response.data.subjects,

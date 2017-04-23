@@ -1,9 +1,9 @@
 import Breadcrumb from '../../../shareds/bread_crumb/bread_crumb';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 const APP_NAME = app_constants.APP_NAME;
-const ORGANIZATIONS_URL = APP_NAME + app_constants.ORGANIZATIONS_PATH;
 
 export default class ShowBreadCrumd extends React.Component {
   render() {
@@ -17,11 +17,11 @@ export default class ShowBreadCrumd extends React.Component {
                 label: I18n.t("breadcrumbs.home"),
               },
               {
-                path: ORGANIZATIONS_URL,
+                path: routes.organizations_url(),
                 label: I18n.t("breadcrumbs.organizations"),
               },
               {
-                path: ORGANIZATIONS_URL+ '/' + this.props.organization.id,
+                path: routes.organization_url(this.props.organization.id),
                 label: this.props.organization.name,
               }
             ]

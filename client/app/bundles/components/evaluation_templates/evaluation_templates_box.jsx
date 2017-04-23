@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Form from './form';
 import EvaluationStandardsList from './evaluation_standards_list';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class EvaluationTemplatesBox extends React.Component {
   constructor(props) {
@@ -26,10 +26,8 @@ export default class EvaluationTemplatesBox extends React.Component {
   render() {
     let form = null;
     if(this.state.showForm) {
-      const url = app_constants.APP_NAME +
-        app_constants.TRAINING_STANDARDS_PATH + '/' +
-        this.props.training_standard.id + '/' +
-        app_constants.EVALUATION_TEMPLATE_PATH;
+      const url = routes.training_standard_evaluation_template_url(
+        this.props.training_standard.id);
       form = <Form evaluation_template={this.state.evaluation_template}
         url={url} handleAfterSaved={this.handleAfterSaved.bind(this)}
         training_standard={this.props.training_standard}
@@ -124,10 +122,8 @@ export default class EvaluationTemplatesBox extends React.Component {
 
   handleDelete() {
     if (confirm(I18n.t('data.confirm_delete'))) {
-      const url = app_constants.APP_NAME +
-        app_constants.TRAINING_STANDARDS_PATH + '/' +
-        this.props.training_standard.id + '/' +
-        app_constants.EVALUATION_TEMPLATE_PATH;
+      const url = routes.training_standard_evaluation_template_url(
+        this.props.training_standard.id);
       axios.delete(url, {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()

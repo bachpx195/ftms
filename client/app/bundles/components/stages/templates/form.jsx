@@ -5,7 +5,6 @@ import Dropzone from 'react-dropzone';
 import ReactOnRails from 'react-on-rails';
 import Create from '../actions/create';
 import Update from '../actions/update';
-import * as app_constants from 'constants/app_constants';
 
 export default class Form extends React.Component {
   constructor(props) {

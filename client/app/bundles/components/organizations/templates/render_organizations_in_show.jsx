@@ -3,10 +3,7 @@ import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import ListPrograms from '../programs';
 import React from 'react';
 
-import * as app_constants from 'constants/app_constants';
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME + 
-app_constants.ORGANIZATIONS_PATH;
+import * as routes from 'config/routes';
 
 export default class OrganizationLists extends React.Component{
   constructor(props){
@@ -41,8 +38,8 @@ export default class OrganizationLists extends React.Component{
   }
 
   fetchData() {
-    const url = ORGANIZATIONS_URL+ '/' + this.state.organization.id;
-    axios.get(url + ".json")
+    const organization_url = routes.organization_url(this.state.organization.id)
+    axios.get(organization_url + ".json")
       .then(response => {
         this.setState({
           organization: response.data.organization,

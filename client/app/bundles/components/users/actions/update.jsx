@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class Create extends React.Component {
   render() {
@@ -31,8 +31,7 @@ export default class Create extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      window.location.href = app_constants.APP_NAME + app_constants.USERS_PATH +
-        + response.data.user_detail.id;
+      window.location.href = user_url(response.data.user_detail.id);
     })
     .catch(error => {this.props.handleErrors(error.response.data.errors);});
   }

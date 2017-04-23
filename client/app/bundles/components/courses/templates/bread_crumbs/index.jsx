@@ -1,9 +1,9 @@
 import Breadcrumb from '../../../shareds/bread_crumb/bread_crumb';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 const APP_NAME = app_constants.APP_NAME;
-const COURSES = APP_NAME + app_constants.COURSES_PATH;
 
 export default class IndexBreadCrumd extends React.Component {
   render() {
@@ -17,7 +17,7 @@ export default class IndexBreadCrumd extends React.Component {
                 label: I18n.t("breadcrumbs.home"),
               },
               {
-                path: COURSES,
+                path: routes.courses_url(),
                 label: I18n.t("breadcrumbs.courses"),
               }
             ]

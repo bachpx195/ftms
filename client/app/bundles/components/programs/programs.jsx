@@ -6,13 +6,7 @@ import React from 'react';
 import UnAssign from './actions/unassign';
 import { NewLayout } from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
-
-const ASSIGN_PROGRAM_URL = app_constants.APP_NAME + 
-  app_constants.ASSIGN_PROGRAM_PATH;
-const ORGANIZATIONS_URL = app_constants.APP_NAME + 
-  app_constants.ORGANIZATIONS_PATH;
-const PROGRAMS_URL = app_constants.PROGRAMS_PATH;
+import * as routes from 'config/routes';
 
 export default class ProgramLists extends React.Component {
   constructor(props) {
@@ -58,9 +52,8 @@ export default class ProgramLists extends React.Component {
 
     const ButtonDelete = ({griddleKey}) => {
       let program = this.props.programs[griddleKey];
-      let url = PROGRAMS_URL + '/' + program.id;
       return <Destroy
-        url={url}
+        url={routes.program_url(program.id)}
         program={program}
         handleAfterDeleted={this.props.handleAfterDeleted}
       />
@@ -75,8 +68,7 @@ export default class ProgramLists extends React.Component {
 
     const ButtonUnassign = ({griddleKey}) => {
       let program = this.state.programs[griddleKey];
-      let url = app_constants.APP_NAME + app_constants.ASSIGN_PROGRAM_PATH +
-        '/' + this.state.organization.id + '.json';
+      let url = routes.assign_program_url(this.state.organization.id) + '.json';
       return <UnAssign
         url={url}
         program={program}
@@ -89,18 +81,17 @@ export default class ProgramLists extends React.Component {
       let program = this.state.programs[griddleKey];
       let link = '#';
       if (program.organization) {
-        link = app_constants.APP_NAME + PROGRAMS_URL + '/' + program.id;
+        program_url = routes.program_url(program.id);
       }
-      return <a href={link}>{value}</a>;
+      return <a href={program_url}>{value}</a>;
     };
 
     const LinkToOrganization = ({griddleKey}) => {
       let organization = this.state.programs[griddleKey].organization;
       let link = '#';
       if (organization) {
-        link = ORGANIZATIONS_URL + '/' + organization.id + '/'+ 
-          app_constants.PROGRAMS_PATH +'/';
-        return <a href={link}>{organization.name}</a>;
+        organization_url = routes.organization_programs_url(organization.id);
+        return <a href={organization_url}>{organization.name}</a>;
       }
       return null;
     };
@@ -110,8 +101,8 @@ export default class ProgramLists extends React.Component {
       if (program) {
         let link = '#';
         if (program.organization) {
-          link = ORGANIZATIONS_URL + '/' + program.organization.id +
-            '/programs/' + program.id;
+          link = routes.organization_program_url(
+            program.organization.id, program.id);
         }
         return <a href={link}>{program.name}</a>;
       } else {
@@ -119,8 +110,7 @@ export default class ProgramLists extends React.Component {
       }
     };
 
-    let url = ORGANIZATIONS_URL + "/" + this.state.organization.id + "/" + 
-      PROGRAMS_URL;
+    let programs_url = routes.organization_programs_url(this.state.organization.id);
 
     return (
       <div>
@@ -152,7 +142,7 @@ export default class ProgramLists extends React.Component {
           </RowDefinition>
         </Griddle>
         <ModalCreateSubProgram
-          url={url}
+          url={programs_url}
           parent={this.state.parent}
           program={this.state.program}
           organization={this.state.organization}
@@ -160,7 +150,7 @@ export default class ProgramLists extends React.Component {
           handleAfterCreated={this.props.handleAfterCreated}
         />
         <ModalAssignProgram
-          url={ASSIGN_PROGRAM_URL}
+          url={routes.assign_programs_url()}
           organization={this.state.organization}
           not_assigned_programs={this.state.not_assigned_programs}
           handleAfterAssignProgram={this.props.handleAfterAssignProgram}

@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-
-const DYNAMICTASKS_URL = app_constants.APP_NAME + 
-  app_constants.DYNAMICTASKS_PATH;
+import * as routes from 'config/routes';
 
 export default class Update extends React.Component {
 
@@ -24,7 +22,7 @@ export default class Update extends React.Component {
       team_status = 'finish';
     }
     let course_subject = this.props.course_subject;
-    axios.put(DYNAMICTASKS_URL + '/' + this.props.dynamic_task.id + '.json', {
+    axios.put(routes.dynamic_task_url(this.props.dynamic_task.id) + '.json', {
       course_subject: course_subject,
       dynamic_task: {
         status: text_status,

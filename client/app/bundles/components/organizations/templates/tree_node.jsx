@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 
-import * as app_constants from 'constants/app_constants';
-
-const SUBORGANIZATION_PATH = app_constants.APP_NAME + 'sub_organizations'
+import * as routes from 'config/routes';
 
 export default class TreeNode extends React.Component{
   constructor(props){
@@ -73,7 +71,7 @@ export default class TreeNode extends React.Component{
             </div>
             <div className="name-organization inline">
               <div>
-                <a href={SUBORGANIZATION_PATH + '/'+ this.state.organization.id}>
+                <a href={routes.sub_organization_url(this.state.organization.id)}>
                   {this.state.organization.name}
                 </a>
               </div>

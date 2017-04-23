@@ -3,11 +3,7 @@ import FormProgram from './templates/program_form';
 import Program from './templates/program';
 import React from 'react';
 
-import * as app_constants from 'constants/app_constants';
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME + 
-  app_constants.ORGANIZATIONS_PATH;
-const PROGRAMS_URL = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
+import * as routes from 'config/routes';
 
 require('../../assets/sass/list_programs.scss');
 
@@ -30,23 +26,19 @@ export default class Programs extends React.Component {
   }
 
   render() {
-    let PROGRAMS_URL = ORGANIZATIONS_URL + '/' + this.state.organization.id + 
-      '/' + app_constants.PROGRAMS_PATH;
-    let PROGRAM_URL = PROGRAMS_URL + '/' + this.state.program.id;
-    let programs_url = app_constants.APP_NAME + app_constants.PROGRAMS_PATH;
     return (
       <div className="box-programs">
         <div className="form-create">
           <FormProgram
-            url={PROGRAMS_URL}
+            url={routes.organization_programs_url(this.state.organization.id)}
             organization={this.state.organization}
           />
         </div>
         <div id="list-programs">
           <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            {this._renderProgram(programs_url)}
+            {this._renderProgram(routes.programs_url())}
           </div>
-          {this.renderModal(this.state.program, PROGRAM_URL)}
+          {this.renderModal(this.state.program, routes.program_url(this.state.program.id))}
         </div>
       </div>
     )

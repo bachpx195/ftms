@@ -2,6 +2,7 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class FormCreate extends React.Component {
   render() {
@@ -25,7 +26,7 @@ export default class FormCreate extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.post(this.props.url + "/" + this.props.organization.id + "/programs", {
+    axios.post(routes.organization_programs_url(this.props.organization.id), {
       program: {
         name: this.refs.nameField.value
       }, authenticity_token: ReactOnRails.authenticityToken()

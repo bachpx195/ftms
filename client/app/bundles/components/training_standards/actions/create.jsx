@@ -1,16 +1,12 @@
 import axios from 'axios';
 import React from 'react';
 
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import Form from '../templates/form';
 
 export default class Create extends React.Component {
 
   renderModalCreate() {
-    const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
-      app_constants.ORGANIZATIONS_PATH + '/' + this.props.organization.id + 
-      '/' + app_constants.TRAINING_STANDARDS_PATH;
-
     return (
       <div className='modalCreateTrainingStandard modal fade in' role='dialog'>
         <div className='modal-dialog'>
@@ -25,7 +21,8 @@ export default class Create extends React.Component {
             </div>
             <div className='modal-body'>
               <Form
-                url={TRAINING_STANDARDS_URL}
+                url={routes.organization_training_standards(
+                  this.props.organization.id)}
                 training_standard={this.props.training_standard}
                 organization={this.props.organization}
                 handleAfterSaved={this.handleAfterCreated.bind(this)} />

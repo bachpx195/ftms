@@ -5,7 +5,7 @@ import Modal from './templates/modal';
 import Form from './templates/form';
 import Destroy from "./actions/destroy";
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class TrainingStandards extends React.Component {
   constructor(props) {
@@ -52,20 +52,17 @@ export default class TrainingStandards extends React.Component {
       );
     };
 
-    const TRAINING_STANDARDS_URL = app_constants.APP_NAME +
-      app_constants.ORGANIZATIONS_PATH + '/' +
-      this.props.organization.id + '/' +
-      app_constants.TRAINING_STANDARDS_PATH;
-
     const LinkToStandardShow = ({value, griddleKey}) => (
-      <a data-index={griddleKey} href={TRAINING_STANDARD_URL + "/" +
-        this.state.training_standards[griddleKey].id} title={value}>{value}</a>
+      <a data-index={griddleKey} 
+        href={routes.organization_training_standard_url(
+        this.state.training_standards[griddleKey].id)} title={value}>{value}</a>
     );
 
     let modalEdit = null;
     if(this.state.training_standard && this.state.training_standard.id) {
       modalEdit = (
-        <Modal url={TRAINING_STANDARD_URL + '/' + this.state.training_standard.id}
+        <Modal url={routes.organization_training_standard_url(
+          this.state.training_standard.id)}
           training_standard={this.state.training_standard}
           handleAfterUpdated={this.props.handleAfterUpdated} />
       );

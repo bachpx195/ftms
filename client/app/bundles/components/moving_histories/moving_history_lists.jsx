@@ -3,9 +3,7 @@ import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import * as table_constants from 'constants/griddle_table_constants';
 
-import * as app_constants from 'constants/app_constants';
-
-const USERS_URL = app_constants.APP_NAME + app_constants.USERS_PATH
+import * as routes from 'config/routes';
 
 export default class MovingHistoryLists extends React.Component {
   constructor(props) {
@@ -37,8 +35,9 @@ export default class MovingHistoryLists extends React.Component {
     );
 
     const LinkShowUser = ({value, griddleKey}) => (
-      <a href={USERS_URL + '/' +
-        this.props.organization_moving_histories[griddleKey].user_id}>{value}</a>
+      <a href={routes.user_url(
+        this.props.organization_moving_histories[griddleKey].user_id)}>{value}
+      </a>
     );
     return (
       <div className='col-md-10 col-md-offset-1'>

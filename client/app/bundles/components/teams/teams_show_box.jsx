@@ -3,6 +3,7 @@ import axios from 'axios';
 import ListTabs from './list_tabs';
 
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class TeamsShowBox extends React.Component {
   constructor(props) {
@@ -95,10 +96,10 @@ export default class TeamsShowBox extends React.Component {
     formData.append('document[file]', acceptedFiles[0]);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
-    let url = app_constants.APP_NAME + 'documents';
+    let documents_url = routes.documents_url();
 
     axios({
-      url: url,
+      url: documents_url,
       method: 'POST',
       data: formData,
       headers: {'Accept': 'application/json'}

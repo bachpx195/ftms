@@ -1,8 +1,6 @@
 import React from  'react';
 import CourseListsBox from '../../courses/course';
-import * as app_constants from 'constants/app_constants';
-
-const COURSES_URL = app_constants.APP_NAME + app_constants.COURSES_PATH;
+import * as routes from 'config/routes';
 
 export default class RenderListCourse extends React.Component {
   constructor(props) {
@@ -44,7 +42,7 @@ export default class RenderListCourse extends React.Component {
   }
 
   renderCourses(course) {
-    let url = COURSES_URL+ '/' + course.id;
+    let url = routes.course_url(course.id);
     return (
       <CourseListsBox
         key={course.id}

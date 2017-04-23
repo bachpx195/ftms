@@ -1,4 +1,4 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import axios from 'react';
 import FormQuestion from '../questions/templates/form_question';
 import QuestionPolicy from 'policy/question_policy';
@@ -18,8 +18,8 @@ export default class CategoryBox extends React.Component {
   }
 
   render() {
-    const QUESTIONS_URL = app_constants.APP_NAME + app_constants.CATEGORIES_PATH
-      + '/' + this.state.category.id + '/' + app_constants.QUESTIONS_PATH;
+    const QUESTIONS_URL = routes.questions_url(this.state.category.id);
+    
     return (
       <div className='row'>
         <div className='col-md-12'>

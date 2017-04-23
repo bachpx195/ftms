@@ -3,11 +3,7 @@ import css from '../assets/subject.scss';
 import MetaList from './meta_lists';
 import React from 'react';
 import _ from 'lodash';
-import * as app_constants from 'constants/app_constants';
-
-const DYNAMICTASKS_URL = app_constants.APP_NAME + 
-  app_constants.DYNAMICTASKS_PATH;
-const META_TASKS_PATH = app_constants.META_TASKS_PATH;
+import * as routes from 'config/routes';
 
 export default class PullRequestList extends React.Component {
   constructor(props) {
@@ -78,8 +74,7 @@ export default class PullRequestList extends React.Component {
     formData.append('meta_task[meta_type]', "Pull request");
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let method = this.state.meta_task.id ? 'PUT' : 'POST';
-    let url = DYNAMICTASKS_URL + "/" + this.state.dynamic_task.id + "/" + 
-      META_TASKS_PATH;
+    let url = routes.dynamic_task_meta_tasks_url(this.state.dynamic_task.id);
 
     axios({
       url: url + ".json",

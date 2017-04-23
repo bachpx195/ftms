@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 import MovingHistoryLists from './moving_history_lists';
-import * as app_constants from 'constants/app_constants';
 
 export default class RightSidebar extends React.Component {
   constructor(props) {

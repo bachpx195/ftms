@@ -1,5 +1,5 @@
-import React from 'react';
 import Dropzone from 'react-dropzone';
+import React from 'react';
 
 import * as app_constants from 'constants/app_constants';
 

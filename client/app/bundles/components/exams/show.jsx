@@ -5,7 +5,7 @@ import Update from './actions/update';
 import ExamPolicy from 'policy/exam_policy';
 import Questions from '../questions/questions';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class ExamShow extends React.Component {
   constructor(props) {
@@ -20,8 +20,7 @@ export default class ExamShow extends React.Component {
 
   componentDidMount() {
     if (!this.state.exam.started_at) {
-      let exam_url = app_constants.APP_NAME + app_constants.EXAMS_PATH + '/' +
-        this.state.exam.id + '.json';
+      let exam_url = routes.exam_url(this.state.exam.id) + '.json';
       let started_at = new Date();
       axios.patch(exam_url, {
         started_at: started_at,

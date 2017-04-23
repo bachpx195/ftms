@@ -3,7 +3,7 @@ import Modal from './modal';
 import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
 import Team from './team';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class TeamList extends React.Component {
   constructor(props) {
@@ -28,11 +28,10 @@ export default class TeamList extends React.Component {
 
   renderTeamList(){
     return this.state.course_subject_teams.map(team => {
-      let team_path = app_constants.APP_NAME + app_constants.TEAMS_PATH +
-        '/' + team.id;
+      let team_url = routes.team_url(team.id);
       return (
         <div key={team.id} className='col-lg-6 col-md-6 col-sm-6'>
-          <a href={team_path}>
+          <a href={team_url}>
             <Team
               team={team} user_subjects={team.user_subjects}/>
           </a>
@@ -68,9 +67,9 @@ export default class TeamList extends React.Component {
   }
 
   renderModal() {
-    let url = app_constants.APP_NAME + app_constants.TEAMS_PATH;
+    let teams_url = routes.teams_url();
     return (
-      <Modal url={url} handleAfterSaved={this.handleAfterCreated.bind(this)}
+      <Modal url={teams_url} handleAfterSaved={this.handleAfterCreated.bind(this)}
         unassigned_user_subjects={this.state.unassigned_user_subjects}
         course_subject={this.props.course_subject} />
     );

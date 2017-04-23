@@ -4,7 +4,6 @@ import ModalCreateSubject from './subject_form/modal_create_subject';
 import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
 import Subjects from './subjects';
-import * as app_constants from 'constants/app_constants';
 
 export default class SubjectBox extends React.Component {
   constructor(props) {

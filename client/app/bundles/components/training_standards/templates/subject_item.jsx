@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
 
 export default class SubjectItem extends React.Component {
   constructor(props) {

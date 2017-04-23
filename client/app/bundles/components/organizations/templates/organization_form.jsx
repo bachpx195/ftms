@@ -2,7 +2,6 @@ import Create from '../actions/create';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import Update from '../actions/update';
-import * as app_constants from 'constants/app_constants';
 
 export default class FormOrganization extends React.Component {
   constructor(props) {

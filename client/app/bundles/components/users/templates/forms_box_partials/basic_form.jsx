@@ -4,7 +4,6 @@ import Errors from '../../../shareds/errors';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import Update from '../../actions/update';
-import * as app_constants from 'constants/app_constants';
 
 export default class BasicForm extends React.Component {
   constructor(props) {

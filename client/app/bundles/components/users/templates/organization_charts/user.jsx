@@ -1,13 +1,10 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import React from 'react';
-
-const USERS_URL = app_constants.APP_NAME +
-  app_constants.USERS_PATH + '/';
 
 export default class UserBlock extends React.Component {
   render() {
     return (
-      <a href={`${USERS_URL}${this.props.user.id}`}
+      <a href={routes.user_url(this.props.user.id)}
         title={this.props.user.name}>
         <div className='profile-structure'>
           <div className='avatar'>

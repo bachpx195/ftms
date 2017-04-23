@@ -29,6 +29,7 @@ const config = {
       react: path.resolve('./node_modules/react'),
       'react-dom': path.resolve('./node_modules/react-dom'),
       shared: path.join(process.cwd(), 'app', 'bundles', 'components', 'shareds'),
+      config: path.join(process.cwd(), 'app', 'config'),
     },
   },
   plugins: [

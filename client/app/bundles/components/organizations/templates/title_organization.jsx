@@ -1,10 +1,7 @@
 import axios from 'axios';
 import FormOrganization from './organization_form';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME +
-  app_constants.ORGANIZATION_PATH;
+import * as routes from 'config/routes';
 
 require('../assets/organization.scss');
 
@@ -49,7 +46,8 @@ export default class TitleOrganization extends React.Component{
 
   renderModalEditOrganization(organization){
     return(
-      <div id='modal' className='modalEditOrganization modal fade in' role='dialog'>
+      <div id='modal' className='modalEditOrganization modal fade in' 
+        role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
@@ -63,7 +61,7 @@ export default class TitleOrganization extends React.Component{
             <div className='modal-body'>
               <FormOrganization
                 organization={this.state.organization}
-                url={ORGANIZATIONS_URL+ '/' + organization.id}
+                url={routes.organization_url(organization.id)}
                 handleAfterUpdated={this.props.handleAfterUpdated}
                 />
             </div>

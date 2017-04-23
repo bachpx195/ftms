@@ -7,8 +7,9 @@ import Courses from './courses';
 import IndexBreadCrumb from './templates/bread_crumbs/index';
 
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
-const COURSES_URL = app_constants.APP_NAME + app_constants.MY_COURSES_PATH;
+const COURSES_URL = routes.courses_url();
 
 export default class CourseBox extends React.Component {
   constructor(props) {

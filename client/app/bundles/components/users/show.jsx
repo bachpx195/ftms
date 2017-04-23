@@ -6,7 +6,8 @@ import ModalChangeProgram from './change_program/modal';
 import ProfileTabPane from './templates/show_partials/profile_tab_pane';
 import React from 'react';
 import TimelineTabPane from './templates/show_partials/timeline_tab_pane';
-import * as app_constants from 'constants/app_constants';
+import RolesBox from './templates/show_partials/roles_box';
+import * as routes from 'config/routes';
 
 require('../../assets/sass/user.scss');
 
@@ -41,7 +42,6 @@ export default class UserShowBox extends React.Component {
 
   render() {
     let btn_change_program = <tr></tr>;
-
     if (this.state.user_program) {
       btn_change_program = <div className='btn btn-primary'
         onClick={this.handleChangeProgram.bind(this)}>

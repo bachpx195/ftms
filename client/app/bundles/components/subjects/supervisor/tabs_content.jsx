@@ -7,6 +7,7 @@ import BlockTasks from '../block_tasks';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';
 
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class TabsContent extends React.Component {
   constructor(props) {

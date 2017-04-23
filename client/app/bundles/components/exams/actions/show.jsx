@@ -1,15 +1,16 @@
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import ExamPolicy from 'policy/exam_policy';
 
 export default class Show extends React.Component {
   render() {
-    let url = app_constants.APP_NAME;
+    let url = '';
     if (this.props.organization) {
-      url += app_constants.ORGANIZATIONS_PATH + '/' +
-        this.props.organization.id + '/';
+      url = routes.organization_exam_url(this.props.organization.id,
+        this.props.exam.id);
+    } else {
+      url = routes.exam_url(this.props.exam.id);
     }
-    url += app_constants.EXAMS_PATH + '/' + this.props.exam.id;
 
     return(
       <ExamPolicy

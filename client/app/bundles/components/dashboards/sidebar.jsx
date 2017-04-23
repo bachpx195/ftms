@@ -2,34 +2,27 @@ import React, { PropTypes } from 'react';
 import Permit from 'policy/sidebar_policy';
 import CustomPolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
-const LANGUAGES_URL = app_constants.APP_NAME + app_constants.LANGUAGES_PATH;
-const ORGANIZATIONS_URL = app_constants.APP_NAME +
-  app_constants.ORGANIZATIONS_PATH;
-const STAGES_URL = app_constants.APP_NAME + app_constants.STAGES_PATH;
-const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
-const COURSES_URL = app_constants.APP_NAME + app_constants.COURSES_PATH;
-const TRAINEE_TYPES_URL = app_constants.APP_NAME +
-  app_constants.TRAINEE_TYPES_PATH;
-const UNIVERSITIES_URL = app_constants.APP_NAME +
-  app_constants.UNIVERSITIES_PATH;
-const FUNCTIONS_URL = app_constants.APP_NAME +
-  app_constants.FUNCTIONS_PATH;
-const ROLES_URL = app_constants.APP_NAME +
-  app_constants.ROLES_PATH;
+const LANGUAGES_URL = routes.languages_url();
+const ORGANIZATIONS_URL = routes.organizations_url();
+const STAGES_URL = routes.stages_url();
+const SUBJECTS_URL = routes.subjects_url();
+const COURSES_URL = routes.courses_url();
+const TRAINEE_TYPES_URL = routes.trainee_types_url();
+const TRAINING_STANDARDS_URL = routes.training_standards_url();
+const UNIVERSITIES_URL = routes.universities_url();
+const FUNCTIONS_URL = routes.functions_url();
+const ROLES_URL = routes.roles_url();
 
-const MY_SPACE_COURSES_URL = app_constants.APP_NAME +
-  app_constants.MY_SPACE_COURSES_PATH;
-const MY_SPACE_EXAMS_URL = app_constants.APP_NAME +
-  app_constants.MY_SPACE_EXAMS_PATH;
-const CATEGORY_URL = app_constants.APP_NAME + app_constants.CATEGORY_PATH;
-const TEST_RULE_URL = app_constants.APP_NAME + app_constants.TEST_RULE_PATH;
-const STATISTIC_LANGUAGE_PATH = app_constants.APP_NAME +
-  app_constants.STATISTICS_PATH+ '/' + app_constants.LANGUAGES_PATH;
-const STATISTIC_TRAINEE_TYPE_PATH = app_constants.APP_NAME +
-  app_constants.STATISTICS_PATH + '/' + app_constants.TRAINEE_TYPES_PATH;
-const STATISTIC_IN_OUT_PATH = app_constants.APP_NAME
-  + app_constants.STATISTICS_PATH + '/' + app_constants.IN_OUT_STATISTIC_PATH;
+const MY_SPACE_COURSES_URL = routes.my_space_course_url();
+const MY_SPACE_EXAMS_URL = routes.my_space_exams_url();
+const PROJECTS_URL = routes.projects_url();
+const CATEGORIES_URL = routes.categories_url();
+const TEST_RULES_URL = routes.test_rules_url();
+const STATISTIC_LANGUAGE_PATH = routes.statistics_languages_url();
+const STATISTIC_TRAINEE_TYPE_PATH = routes.statistics_trainee_types_url();
+const STATISTIC_IN_OUT_PATH = routes.statistics_in_out_url();
 
 export default class Sidebar extends React.Component {
   constructor(props) {
@@ -176,7 +169,7 @@ export default class Sidebar extends React.Component {
 
                 <Permit action='categories'>
                   <li data-page='categories'>
-                    <a href={CATEGORY_URL} onClick={this.onClick.bind(this)}>
+                    <a href={CATEGORIES_URL} onClick={this.onClick.bind(this)}>
                       <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.categories')}</span>
                     </a>
@@ -185,7 +178,7 @@ export default class Sidebar extends React.Component {
 
                 <Permit action='test_rules'>
                   <li data-page='test_rules'>
-                    <a href={TEST_RULE_URL} onClick={this.onClick.bind(this)}>
+                    <a href={TEST_RULES_URL} onClick={this.onClick.bind(this)}>
                       <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.test_rule')}</span>
                     </a>

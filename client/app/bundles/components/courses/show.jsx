@@ -7,6 +7,7 @@ import ModalTrainingStandard from './templates/modal_training_standard'
 import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumbs/show';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 import CourseDetail from './partials/course_detail';
 import Subjects from './partials/subjects';
@@ -205,7 +206,7 @@ export default class CourseShow extends React.Component {
     formData.append('document[file]', acceptedFiles[0]);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
-    let url = app_constants.APP_NAME + 'documents';
+    let url = routes.documents_url();
     axios({
       url: url,
       method: 'POST',
@@ -237,10 +238,7 @@ export default class CourseShow extends React.Component {
   }
 
   openModalChangeCourse(user) {
-    const MOVE_COURSES_URL = app_constants.APP_NAME +
-      app_constants.MOVE_COURSES_PATH + "/" +
-      this.state.course.id;
-    axios.get(MOVE_COURSES_URL + ".json", {
+    axios.get(routes.move_course_url(this.state.course.id) + '.json', {
       params: {
         user_id: user.id
       }

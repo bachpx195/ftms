@@ -4,10 +4,7 @@ import React from 'react';
 import ProgramLists from './programs';
 import IndexBreadCrumb from './templates/bread_crumbs/index';
 
-import * as app_constants from 'constants/app_constants';
-
-const ORGANIZATIONS_URL = app_constants.APP_NAME + 
-  app_constants.ORGANIZATIONS_PATH;
+import * as routes from 'config/routes';
 
 export default class Box extends React.Component {
   constructor(props) {
@@ -26,9 +23,9 @@ export default class Box extends React.Component {
   }
 
   fetchPrograms() {
-    const url = ORGANIZATIONS_URL + '/' + this.state.organization.id + '/' +
-      app_constants.PROGRAMS_PATH;
-    axios.get(url + '.json')
+    const programs_url = routes.organization_programs_url(
+      this.state.organization.id);
+    axios.get(programs_url + '.json')
       .then(response => {
         this.setState({
           programs: response.data.programs,
@@ -42,8 +39,8 @@ export default class Box extends React.Component {
   }
 
   render() {
-    const url = ORGANIZATIONS_URL + '/' + this.state.organization.id + '/' +
-      app_constants.PROGRAMS_PATH;
+   const programs_url = routes.organization_programs_url(
+      this.state.organization.id);
     return (
       <div className="row">
         <IndexBreadCrumb
@@ -71,7 +68,7 @@ export default class Box extends React.Component {
               <div className="row">
                 <div className="col-md-8 col-md-offset-2">
                   <Form
-                    url={url}
+                    url={programs_url}
                     program={this.state.program}
                     parent_id={this.state.parent ? this.state.parent.id : ''}
                     handleAfterCreated={this.handleAfterCreated.bind(this)} />

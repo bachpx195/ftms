@@ -1,4 +1,4 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
 import axios from 'react';
 import CategoryPolicy from 'policy/category_policy';
@@ -9,8 +9,6 @@ import Modal from './templates/modal'
 import Row from './griddle/row';
 import React from 'react';
 import Update from './actions/update';
-
-const CATEGORIES_URL = app_constants.APP_NAME + app_constants.CATEGORIES_PATH;
 
 export default class Categories extends React.Component {
   constructor(props) {
@@ -57,13 +55,13 @@ export default class Categories extends React.Component {
     const LinkToCategory = ({griddleKey}) => {
       let {id, name} = this.state.categories[griddleKey] ;
       return(
-        <a href={CATEGORIES_URL + '/' + id}>{name}</a>
+        <a href={routes.category_url(id)}>{name}</a>
       )
     }
     let modal_edit = null;
     if(this.state.category.id){
       modal_edit = (
-        <Modal url={CATEGORIES_URL + '/' + this.state.category.id}
+        <Modal url={routes.category_url(this.state.category.id)}
           category={this.state.category}
           handleAfterUpdated={this.props.handleAfterUpdated.bind(this)} />
       );

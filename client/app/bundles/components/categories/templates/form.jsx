@@ -66,8 +66,6 @@ export default class Form extends React.Component {
     )
   }
 
-
-
   handleChange(event) {
     let attribute = event.target.name;
     this.setState({

@@ -1,8 +1,6 @@
 import Form from './form';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
-
-const SUBJECTS_URL = app_constants.APP_NAME + app_constants.SUBJECTS_PATH;
+import * as routes from 'config/routes';
 
 export default class Modal extends React.Component {
   constructor(props){
@@ -14,7 +12,7 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    let url = SUBJECTS_URL + '/' + this.props.subject_detail.id + '/projects';
+    let projects_url = routes.subject_projects_url(this.props.subject_detail.id);
     return (
       <div className='modal-create modal fade in' role='dialog'>
         <div className='modal-dialog'>
@@ -29,7 +27,7 @@ export default class Modal extends React.Component {
             </div>
             <div className='modal-body clearfix'>
               <Form organizations={this.props.organizations}
-                url={url} project={this.state.project} />
+                url={projects_url} project={this.state.project} />
             </div>
           </div>
         </div>

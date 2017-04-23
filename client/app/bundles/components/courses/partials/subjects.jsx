@@ -1,5 +1,5 @@
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class CourseSubjects extends React.Component {
   constructor(props) {
@@ -28,9 +28,8 @@ export default class CourseSubjects extends React.Component {
 
   renderSubjects() {
     return this.state.subjects.map((subject, index) => {
-      let course_subject_path = app_constants.APP_NAME +
-        app_constants.COURSES_PATH + '/' + this.props.course.id + '/' +
-        app_constants.SUBJECTS_PATH + '/' + subject.id;
+      let course_subject_path = routes.course_subject_url(
+        this.props.course.id, subject.id);
       let subject_image = subject.image.url;
       return (
         <tr key={index} className="item ui-sortable-handle">

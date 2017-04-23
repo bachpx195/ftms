@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Projects from './projects';
-import * as app_constants from 'constants/app_constants';
 
 export default class ProjectsBox extends React.Component {
   constructor(props) {

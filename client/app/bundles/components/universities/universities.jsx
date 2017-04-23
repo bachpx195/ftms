@@ -9,10 +9,7 @@ import UniversityPolicy from 'policy/university_policy';
 import ModalEdit from './templates/modal';
 
 import * as table_constants from 'constants/griddle_table_constants';
-import * as app_constants from 'constants/app_constants';
-
-const UNIVERSITIES_URL = app_constants.APP_NAME +
-  app_constants.UNIVERSITIES_PATH;
+import * as routes from 'config/routes';
 
 export default class Universities extends React.Component {
   constructor(props) {
@@ -61,7 +58,7 @@ export default class Universities extends React.Component {
     if(this.state.university.id){
       modalEdit = (
         <ModalEdit
-          url={UNIVERSITIES_URL + '/' + this.state.university.id}
+          url={routes.university_url(this.state.university.id)}
           university={this.state.university}
           handleAfterUpdated={this.props.handleAfterUpdated} />
       );

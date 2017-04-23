@@ -1,8 +1,7 @@
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import React from 'react';
 import TraineeBlock from './trainee_block';
-
-const SUBJECT_URL = app_constants.APP_NAME + 'subjects/'
 
 export default class SubjectBlock extends React.Component {
   constructor(props) {
@@ -46,7 +45,7 @@ export default class SubjectBlock extends React.Component {
       return (
         <div key={index} className='subject-block'>
           <div className='subject-name'>
-            <a href={`${SUBJECT_URL}#{subject.id}`} title={subject.name}>
+            <a href={routes.subject_url(subject.id)} title={subject.name}>
               <img src={subject.image.url}
                 className='img-circle' width='40' height='40'
                 alt={subject.name} />

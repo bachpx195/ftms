@@ -1,11 +1,8 @@
 import React from  'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 export default class ProgramRightPanel extends React.Component {
   render() {
-    const PROGRAM_USER_URL = app_constants.APP_NAME + 
-      app_constants.PROGRAMS_PATH + '/' + this.props.program_detail.id + '/' + 
-      app_constants.USERS_NEW_PATH;
     return (
       <div className='col-md-3 info-panel'>
         <div className='box box-primary'>
@@ -13,7 +10,8 @@ export default class ProgramRightPanel extends React.Component {
             <h3 className='box-title'>
               <strong>{I18n.t('programs.user_panel.title')} </strong>
             </h3>
-            <a className='btn btn-default pull-right' href={PROGRAM_USER_URL}>
+            <a className='btn btn-default pull-right' 
+              href={routes.new_program_user_url(this.props.program_detail.id)}>
               <i className='fa fa-user-plus'></i>
             </a>
           </div>

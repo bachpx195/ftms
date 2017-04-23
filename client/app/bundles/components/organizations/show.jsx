@@ -9,11 +9,7 @@ import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumbs/show';
 import TitleOrganization from './templates/title_organization';
 
-import * as app_constants from 'constants/app_constants';
-
-const USERS_URL = app_constants.APP_NAME + app_constants.USERS_PATH;
-const ORGANIZATIONS_URL = app_constants.APP_NAME +
-  app_constants.ORGANIZATIONS_PATH;
+import * as routes from 'config/routes';
 
 require('../../assets/sass/show_organization.scss');
 
@@ -39,16 +35,6 @@ export default class OrganizationShow extends React.Component {
     for (let program of this.state.programs) {
       count_courses +=program.courses.length;
     }
-
-    let ORGANIZATION_MEMBERS_URL = ORGANIZATIONS_URL + '/' +
-      this.state.organization.id + '/' + 'users';
-    let ORGANIZATION_TRAINING_STANDARDS_URL = ORGANIZATIONS_URL + '/' +
-      this.state.organization.id + '/' + 'training_standards';
-    let ORGANIZATION_EXAMS_URL = ORGANIZATIONS_URL + '/' +
-      this.state.organization.id + '/' + app_constants.EXAMS_PATH;
-    let STATISTIC_IN_OUT_PATH = ORGANIZATIONS_URL + '/' +
-      this.state.organization.id + '/' +
-      app_constants.STATISTICS_PATH + '/' + app_constants.IN_OUT_STATISTIC_PATH;
 
     return (
       <div className='row organization-show'>
@@ -115,7 +101,8 @@ export default class OrganizationShow extends React.Component {
               <div className='member-title'>
                 <i className='fa fa-certificate' aria-hidden='true'></i>
                 <strong>
-                  <a href={ORGANIZATION_TRAINING_STANDARDS_URL}>
+                  <a href={routes.organization_training_standards_url(
+                    this.state.organization.id)}>
                     {I18n.t('organizations.num_training_standards')}
                   </a>
                 </strong>
@@ -137,7 +124,8 @@ export default class OrganizationShow extends React.Component {
               <div className='member-title'>
                 <i className='fa fa-users' aria-hidden='true'></i>
                 <strong>
-                  <a href={ORGANIZATION_MEMBERS_URL}>
+                  <a href={routes.organization_members_url(
+                    this.state.organization.id)}>
                     {I18n.t('organizations.manage_user')}
                   </a>
                 </strong>
@@ -149,7 +137,8 @@ export default class OrganizationShow extends React.Component {
               <div className='member-title'>
                 <i className='fa fa-file-code-o'></i>
                 <strong>
-                  <a href={ORGANIZATION_EXAMS_URL}>
+                  <a href={routes.organization_exams_url(
+                    this.state.organization.id)}>
                     {I18n.t('organizations.exams')}
                   </a>
                 </strong>
@@ -158,7 +147,8 @@ export default class OrganizationShow extends React.Component {
               <div className='member-title'>
                 <i className='fa fa-line-chart' aria-hidden='true'></i>
                 <strong>
-                  <a href={STATISTIC_IN_OUT_PATH}>
+                  <a href={routes.organization_statistics_in_outs_url(
+                    this.state.organization.id)}>
                     {I18n.t('sidebar.statistics.statistic')}
                   </a>
                 </strong>
@@ -221,7 +211,7 @@ export default class OrganizationShow extends React.Component {
         <a className='image'
           onError={this.checkImage.bind(this)}
           title={owner.name}
-          href={USERS_URL + '/' + owner.id} >
+          href={routes.user_url(owner.id)} >
           <img src={owner.avatar.url} className='img-circle' />
         </a>
       )

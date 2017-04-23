@@ -1,4 +1,4 @@
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import axios from 'axios';
 import Categories from './categories'
 import css from './assets/categories.scss';
@@ -7,7 +7,7 @@ import Form from './templates/form'
 import React from 'react';
 import Row from './griddle/row';
 
-const CATEGORIES_URL = app_constants.APP_NAME + app_constants.CATEGORIES_PATH;
+const CATEGORIES_URL = routes.categories_url();
 
 export default class CategoriesBox extends React.Component {
   constructor(props){

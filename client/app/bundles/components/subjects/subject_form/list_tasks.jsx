@@ -3,12 +3,8 @@ import CheckBox from './check_box'
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
-
-const TASKS_URL = app_constants.APP_NAME + app_constants.TASKS_PATH;
-const SUBJECT_TASKS_URL = app_constants.APP_NAME +
-  app_constants.SUBJECT_TASKS_PATH;
-
 
 export default class ListTasks extends React.Component {
   constructor(props) {
@@ -56,7 +52,7 @@ export default class ListTasks extends React.Component {
           afterClickCheckbox={this.afterClickCheckbox.bind(this)}
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
-
+      
       return(
         <div className='panel-task'>
           {this.state.task[type].length > 0 ? (
@@ -103,7 +99,7 @@ export default class ListTasks extends React.Component {
   }
 
   handleSubmitCreateTask() {
-    axios.post(TASKS_URL, {
+    axios.post(routes.tasks_url(), {
       task: {
         targetable_ids: this.state.targetable_ids,
         targetable_type: this.props.targetable_type,

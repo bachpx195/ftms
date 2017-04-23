@@ -3,8 +3,6 @@ import LanguagePolicy from 'policy/language_policy';
 import Modal from '../templates/modal';
 import React from 'react';
 
-import * as app_constants from 'constants/app_constants';
-
 export default class Update extends React.Component {
   render() {
     return (

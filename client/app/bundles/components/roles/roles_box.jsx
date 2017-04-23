@@ -5,7 +5,6 @@ import RoleDetail from './role_detail';
 import * as app_constants from 'constants/app_constants';
 
 const goObj = go.GraphObject.make;
-const ROLES_URL = app_constants.APP_NAME + app_constants.ROLES_PATH;
 
 export default class RoleBox extends React.Component {
   constructor(props) {
@@ -229,7 +228,7 @@ export default class RoleBox extends React.Component {
 
   editRole(e, obj){
    $('.role-detail').modal('show');
-   axios.get(ROLES_URL + '/' + obj.part.data.key + '.json')
+   axios.get(routes.role_url(obj.part.data.key) + '.json')
     .then(response => {
       this.setState({dataRole: response.data});
       console.log(response.data);

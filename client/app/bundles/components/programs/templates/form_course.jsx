@@ -7,6 +7,7 @@ import ReactOnRails from 'react-on-rails';
 import SubjectLists from '../subjects';
 import UserLists from '../user_lists';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 require('../../../assets/sass/program_show.scss');
 
@@ -157,10 +158,8 @@ export default class FormCourse extends React.Component {
   }
 
   handleChangeRole(event) {
-    let url = app_constants.APP_NAME + app_constants.FILTER_ROLE_PATH
-      + $('#list-roles').val();
-
-    axios.get(url)
+    let role_url = routes.filter_role_url($('#list-roles').val());
+    axios.get(role_url)
       .then(response => {
         this.setState({
           owners: response.data.owners

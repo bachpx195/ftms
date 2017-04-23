@@ -1,10 +1,8 @@
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
-
-const TASKS_URL = app_constants.APP_NAME + app_constants.TASKS_PATH;
 
 export default class UserTasks extends React.Component{
   constructor(props) {
@@ -81,7 +79,7 @@ export default class UserTasks extends React.Component{
   }
   onClickDeleteTask(task) {
     if (confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(TASKS_URL + '/' + task.task_id, {
+      axios.delete(routes.task_url(task.task_id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },
