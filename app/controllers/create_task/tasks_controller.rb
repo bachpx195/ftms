@@ -5,14 +5,14 @@ class CreateTask::TasksController < ApplicationController
   def create
     @target = class_eval(params[:task][:type].classify).new task_params
     if @target.save
-      @task = StaticTask.new targetable: @target, ownerable: @ownerable
-      unless @task.save
+      static_task = TaskServices::CreateTask.new(targetable: @target,
+        ownerable: @ownerable, meta_types_checked: params[:meta_types_checked]).perform
+      unless static_task.save
         render json: {message: flash_message("not_created")},
           status: :unprocessable_entity
       end
     end
-    target = @target.attributes.merge task_id: @task.id
-    render json: {message: flash_message("created"), target: target}
+    render json: {message: flash_message("created"), target: @target}
   end
 
   private

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AssignmentMetaType from '../../subjects/templates/assignment_meta_type';
 import css from '../../subjects/assets/subject.scss';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
@@ -11,41 +12,67 @@ export default class Create extends React.Component {
         name: ''
       },
       type: props.type || '',
+      meta_types_checked: props.meta_types_checked,
+      meta_types: props.meta_types
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      type: nextProps.type || ''
+      type: nextProps.type || '',
+      meta_types: nextProps.meta_types,
+      meta_types_checked: nextProps.meta_types_checked
     })
   }
 
   render() {
     return(
-      <form onSubmit={this.handleSubmit.bind(this)} className="form-horizontal">
-        <div className="form-group">
-          <div className="col-md-12">
-            <input type="text" placeholder={I18n.t("subjects.headers.name")}
-              className="form-control" name="name" ref="nameField"
-              onChange={this.handleChange.bind(this)} />
+      <div>
+        <form onSubmit={this.handleSubmit.bind(this)} className="form-horizontal">
+          <div className="form-group">
+            <label className="control-label col-sm-2" for="email">
+              {I18n.t("assignments.name")}
+            </label>
+            <div className="col-md-10">
+              <input type="text" placeholder={I18n.t("subjects.headers.name")}
+                className="form-control" name="name" ref="nameField"
+                onChange={this.handleChange.bind(this)} />
+            </div>
           </div>
-        </div>
 
-        <div className="form-group">
-          <div className="col-md-12">
-            <input type="text" placeholder={I18n.t("subjects.headers.content")}
-              className="form-control" name="content" ref="contentField"
-              onChange={this.handleChange.bind(this)} />
+          <div className="form-group">
+            <label className="control-label col-sm-2" for="email">
+              {I18n.t("assignments.content")}
+            </label>
+            <div className="col-md-10">
+              <input type="text" placeholder={I18n.t("subjects.headers.content")}
+                className="form-control" name="content" ref="contentField"
+                onChange={this.handleChange.bind(this)} />
+            </div>
           </div>
-        </div>
 
-        <div className="form-group">
-          <div className="col-md-3 col-md-offset-9">
-            <button type="submit" className="btn btn-primary"
-              disabled={!this.formValid()}>{I18n.t("buttons.create_task")}</button>
+          <div className="form-group">
+            <label className="control-label col-sm-2" for="email">
+              {I18n.t("assignments.meta_type")}
+            </label>
+            <div className="col-md-10">
+              <AssignmentMetaType
+                meta_types={this.state.meta_types}
+                meta_types_checked={this.state.meta_types_checked}
+                handleAfterCreated={this.handleAfterCreated.bind(this)}
+                handleAfterChecked={this.handleAfterChecked.bind(this)}
+              />
+            </div>
           </div>
-        </div>
-      </form>
+
+          <div className="form-group">
+            <div className="col-md-12 text-center">
+              <button type="submit" className="btn btn-primary"
+                disabled={!this.formValid()}>{I18n.t("buttons.create_task")}</button>
+            </div>
+          </div>
+        </form>
+      </div>
     )
   }
 
@@ -62,9 +89,19 @@ export default class Create extends React.Component {
     });
   }
 
+  handleAfterCreated(meta_type) {
+    this.state.meta_types.push(meta_type);
+    this.state.meta_types_checked.push(meta_type);
+    this.setState({
+      meta_types: this.state.meta_types,
+      meta_types_checked: this.state.meta_types_checked
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     axios.post(this.props.url, {
+      meta_types_checked: this.state.meta_types_checked,
       task: {
         name: this.refs.nameField.value,
         content: this.refs.contentField.value,
@@ -76,9 +113,14 @@ export default class Create extends React.Component {
       .then(response => {
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
-        this.props.afterCreateTask(response.data.target,
-          this.props.type, this.props.ownerable_type);
+        this.props.handleAfterCreatedAssignment(this.state.meta_types);
       })
       .catch(error => console.log(error));
+  }
+
+  handleAfterChecked(meta_types_checked) {
+    this.setState({
+      meta_types_checked: meta_types_checked
+    })
   }
 }

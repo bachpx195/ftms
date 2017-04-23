@@ -61,6 +61,7 @@ class User < ApplicationRecord
      as: :targetable
   has_many :test_rules, through: :static_tasks, source: :targetable
   has_many :exams, dependent: :destroy
+  has_many :meta_types, dependent: :destroy, foreign_key: :user_id
 
   validates :name, presence: true
   validates :email, presence: true

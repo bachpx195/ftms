@@ -117,4 +117,5 @@ Rails.application.routes.draw do
   resources :timelines, only: :index
   get "/statistics/:type" => "statistics#show", as: :statistics_page
   resources :share_withs, only: :create
+  resources :meta_types, only: :create
 end

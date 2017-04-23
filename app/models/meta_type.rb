@@ -4,4 +4,6 @@ class MetaType < ApplicationRecord
     source_type: Task.name
   has_many :assignments, through: :meta_type_relationships,
     source: :objectable, source_type: Assignment.name
+
+  belongs_to :user
 end

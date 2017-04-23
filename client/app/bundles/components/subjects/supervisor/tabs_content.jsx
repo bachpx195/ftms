@@ -4,7 +4,6 @@ import axios from 'axios';
 import TeamList from '../team/team_list';
 import UserSubjectList from '../user_subject_list';
 import BlockTasks from '../block_tasks';
-import Documents from './partials/documents';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';
 
 import * as app_constants from 'constants/app_constants';
@@ -14,8 +13,6 @@ export default class TabsContent extends React.Component {
     super(props);
     this.state = {
       subject_detail: props.subject_detail,
-      documents: props.subject_detail.documents,
-      document_preview: {},
       course_subject_teams: props.course_subject_teams,
       member_evaluations: props.member_evaluations
     }
@@ -24,7 +21,6 @@ export default class TabsContent extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       subject_detail: nextProps.subject_detail,
-      documents: nextProps.subject_detail.documents,
       course_subject_teams: nextProps.course_subject_teams,
       member_evaluations: nextProps.member_evaluations
     });
@@ -90,17 +86,7 @@ export default class TabsContent extends React.Component {
                 type='test_rules'/>
             </div>
           </div>
-          <div id='tab-documents' className='tab-pane fade'>
-            <Documents
-              documents={this.state.documents}
-              onDocumentsDrop={this.onDocumentsDrop.bind(this)}
-              handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
-              clickPreviewDocument={this.clickPreviewDocument.bind(this)}/>
-            <ModalPreviewDocument
-              document_preview={this.state.document_preview}
-              handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
-            />
-          </div>
+
           <div className='clearfix'></div>
         </div>
       );
@@ -134,17 +120,6 @@ export default class TabsContent extends React.Component {
                 type='test_rules'/>
             </div>
           </div>
-          <div id='tab-documents' className='tab-pane fade'>
-            <Documents
-              documents={this.state.documents}
-              onDocumentsDrop={this.onDocumentsDrop.bind(this)}
-              handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
-              clickPreviewDocument={this.clickPreviewDocument.bind(this)}/>
-            <ModalPreviewDocument
-              document_preview={this.state.document_preview}
-              handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
-            />
-          </div>
           <div className='clearfix'></div>
         </div>
       );
@@ -170,45 +145,5 @@ export default class TabsContent extends React.Component {
 
   afterAddTaskForUser(user, user_index) {
     this.props.afterAddTaskForUser(user, user_index);
-  }
-
-  onDocumentsDrop(acceptedFiles, rejectedFiles) {
-    if (app_constants.isOverMaxDocumentSize(acceptedFiles[0])) {
-      return;
-    }
-    let formData = new FormData();
-    formData.append('document[documentable_id]', this.state.subject_detail.id);
-    formData.append('document[documentable_type]', 'Subject');
-    formData.append('document[file]', acceptedFiles[0]);
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-
-    let url = app_constants.APP_NAME + 'documents';
-
-    axios({
-      url: url,
-      method: 'POST',
-      data: formData,
-      headers: {'Accept': 'application/json'}
-    })
-    .then(response => {
-      this.handleDocumentUploaded(response.data.document);
-    })
-    .catch(error => this.setState({errors: error.response.data.errors}));
-  }
-
-  handleDocumentUploaded(document) {
-    this.state.documents.push(document);
-    this.setState({documents: this.state.documents});
-  }
-
-  handleDocumentDeleted(document) {
-    this.setState({
-      documents: this.state.documents.filter(item => item.id != document.id)
-    });
-  }
-
-  clickPreviewDocument(document) {
-    this.setState({document_preview: document});
-    $('.modal-preview-document').modal();
   }
 }

@@ -91,4 +91,8 @@ class Supports::SubjectSupport
     return Array.new unless course_subject
     @static_test_rules ||= course_subject.static_test_rules
   end
+
+  def meta_types
+    @current_user.meta_types
+  end
 end
