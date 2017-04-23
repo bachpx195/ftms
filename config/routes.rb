@@ -118,4 +118,5 @@ Rails.application.routes.draw do
   get "/statistics/:type" => "statistics#show", as: :statistics_page
   resources :share_withs, only: :create
   resources :meta_types, only: :create
+  resources :profiles, only: :show
 end
