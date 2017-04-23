@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Stages from './stages';
 import Form from './templates/form';
-import Breadcrumb from 'react-breadcrumb';
+import Breadcrumb from '../shareds/bread_crumb/bread_crumb';
 
 import * as app_constants from 'constants/app_constants';
 

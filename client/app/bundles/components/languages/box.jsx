@@ -4,7 +4,7 @@ import axios from 'axios';
 import LanguageLists from './languages';
 import Form from './templates/form';
 import LanguagePolicy from 'policy/language_policy';
-import Breadcrumb from 'react-breadcrumb';
+import Breadcrumb from '../shareds/bread_crumb/bread_crumb';
 
 import * as app_constants from 'constants/app_constants';
 

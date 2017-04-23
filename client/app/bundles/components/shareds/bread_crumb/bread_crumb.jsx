@@ -24,6 +24,7 @@ export default class Breadcrumb extends React.Component {
     this._bindFunctions();
     this.state = {
       pathConfiguration: this._buildPath(props),
+      others: props.others || [],
     };
   }
 
@@ -109,18 +110,15 @@ export default class Breadcrumb extends React.Component {
       }
     );
 
-    if (index == max - 1 && this.props.others.length > 0) {
+    if (index == max - 1 && this.state.others.length > 0) {
       let url = pathObj.path.substr(0, pathObj.path.length - 2);
       return(
         <div className={classNameContainer} key={index}>
-          <span className={classNameSeparator}>
-            {separatorChar}
-          </span>
-          <div className="dropdown Breadcrumb-container-dropdown">
-            <a className="dropdown-toggle text-danger"
-              type="button" data-toggle="dropdown">{pathObj.label}
-            <span className="caret"></span></a>
-            <ul className="dropdown-menu">
+          <div className='dropdown Breadcrumb-container-dropdown'>
+            <a className='dropdown-toggle text-danger breadcrumb-link'
+              type='button' data-toggle='dropdown'>{pathObj.label}
+            <span className='caret'></span></a>
+            <ul className='dropdown-menu'>
               {this._render_other_object_dropdown(url)}
             </ul>
           </div>
@@ -132,12 +130,6 @@ export default class Breadcrumb extends React.Component {
           className={classNameContainer}
           key={index}
         >
-          {
-            index > 0 &&
-            <span className={classNameSeparator}>
-              {separatorChar}
-            </span>
-          }
           <span
             onClick={this.handleClick(pathObj)}
             className={classNamePath}
@@ -151,9 +143,13 @@ export default class Breadcrumb extends React.Component {
   }
 
   _render_other_object_dropdown(url) {
-    return this.props.others.map(other => {
+    return this.state.others.map(other => {
       return (
-        <li key={"other" + other.id}><a href={url + '/' + other.id}>{other.name}</a></li>
+        <li key={'other' + other.id}>
+          <a href={url + '/' + other.id} className='breadcrumb-link'>
+            {other.name}
+          </a>
+        </li>
       );
     });
   }
@@ -161,7 +157,7 @@ export default class Breadcrumb extends React.Component {
   _getLinkPath(pathObj) {
     if (pathObj.path && pathObj.path !== '') {
       return (
-        <a href={pathObj.path}>
+        <a href={pathObj.path} className='breadcrumb-link'>
           {pathObj.label}
         </a>
       );
