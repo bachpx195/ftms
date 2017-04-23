@@ -5,19 +5,20 @@ class MetaTasksController < ApplicationController
   def index
     @meta_tasks = @dynamic_task.meta_tasks
     respond_to do |format|
-      format.json {render json: {meta_tasks: @meta_tasks}}
+      format.json{render json: {meta_tasks: @meta_tasks}}
     end
   end
 
   def create
-    @meta_task = @dynamic_task.meta_tasks.build meta_task_params
+    meta_tasks = MetaServices::CreateMetaTasks.new(dynamic_task: @dynamic_task,
+      params: params).perform
     respond_to do |format|
       format.json do
-        if @meta_task.save
-          render json: {meta_task: @meta_task}
+        if meta_tasks
+          render json: {meta_tasks: meta_tasks}
         else
-          render json: {message: flash_message("not_created"),
-            errors: @meta_task.errors}, status: :unprocessable_entity
+          render json: {message: flash_message("not_created")},
+            status: :unprocessable_entity
         end
       end
     end
@@ -26,24 +27,7 @@ class MetaTasksController < ApplicationController
   def show
   end
 
-  def update
-    respond_to do |format|
-      format.json do
-        if @meta_task.update_attributes meta_task_params
-          render json: {meta_task: @meta_task}
-        else
-          render json: {message: flash_message("not_created"),
-            errors: @meta_task.errors}, status: :unprocessable_entity
-        end
-      end
-    end
-  end
-
   private
-  def meta_task_params
-    params.require(:meta_task).permit :title, :value, :dynamic_task_id, :meta_type
-  end
-
   def find_dynamic_task
     @dynamic_task = DynamicTask.find_by id: params[:dynamic_task_id]
     unless @dynamic_task

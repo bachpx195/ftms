@@ -57,6 +57,15 @@ export default class SubjectManagerShowBox extends React.Component {
       user = this.state.subject_detail.user_subjects[this.state.user_index];
     }
 
+    let ownerable_id, ownerable_type = '';
+    if (this.props.course) {
+      ownerable_type = 'CourseSubject';
+      ownerable_id = this.state.subject_detail.course_subject.id
+    } else {
+      ownerable_type = 'Subject';
+      ownerable_id = this.props.subject.id
+    }
+
     return (
       <div className='admin-subject-show clearfix'>
         <div className='row'>
@@ -115,8 +124,9 @@ export default class SubjectManagerShowBox extends React.Component {
         <ModalCreateAssignment
           meta_types={this.state.meta_types}
           subject_detail={this.state.subject_detail}
-          ownerable_id={this.state.subject_detail.course_subject.id}
-          ownerable_type='CourseSubject'
+          ownerable_id={ownerable_id}
+          ownerable_type={ownerable_type}
+          handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
         />
       </div>
     );
@@ -201,6 +211,13 @@ export default class SubjectManagerShowBox extends React.Component {
       subject_detail: subject_detail
     })
   }
+
+  handleAfterCreatedAssignment(target) {
+    this.state.subject_detail.course_subject_task.assignments.push(target);
+    this.setState({
+      subject_detail: this.state.subject_detail
+    })
+  } 
 
   afterCreateTask(target, type, owner) {
     if (owner == 'CourseSubject') {

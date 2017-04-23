@@ -51,6 +51,14 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
     @correct_answer ||= nil
   end
 
+  def user_static_task
+    @user_static_task ||= nil
+  end
+
+  def user_dynamic_tasks
+    @user_dynamic_tasks ||= nil
+  end
+
   def task_id
     task =
       if user_id

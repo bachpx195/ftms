@@ -86,6 +86,15 @@ export function course_subject_url(course_id, subject_id) {
     subject_id;
 }
 
+export function create_meta_task_url(dynamic_task_id) {
+  return dynamic_task_url(dynamic_task_id) + '/' + app_constants.META_TASKS_PATH
+}
+
+export function update_meta_task_url(dynamic_task_id) {
+  return dynamic_task_url(dynamic_task_id) + '/'
+    + app_constants.UPDATE_META_TASK_PATH
+}
+
 //organization
 export function organizations_url() {
   return APP_URL + app_constants.ORGANIZATIONS_PATH;

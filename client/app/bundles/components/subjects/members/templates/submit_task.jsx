@@ -1,9 +1,8 @@
 import axios from 'axios';
-import css from '../assets/subject.scss';
-import MetaList from './meta_lists';
+import css from '../../assets/subject.scss';
 import React from 'react';
 import _ from 'lodash';
-import FormMetaTask from '../subject_form/form_meta_task'
+import FormMetaTask from '../../subject_form/form_meta_task';
 import * as routes from 'config/routes';
 
 export default class PullRequestList extends React.Component {
@@ -39,7 +38,7 @@ export default class PullRequestList extends React.Component {
     if (this.state.assignment.meta_types) {
       this.state.assignment.meta_types.map((meta_type, index) => {
         let id = _.findIndex(this.state.meta_tasks, meta_task => {
-          return meta_task.title === meta_type.name
+          return meta_task.title === meta_type.name;
         })
         if(id >= 0) {
           form_task.push(
@@ -59,7 +58,8 @@ export default class PullRequestList extends React.Component {
 
       })
     }
-    return(
+
+    return (
       <div className="modal-send-pull modal fade" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -78,7 +78,7 @@ export default class PullRequestList extends React.Component {
                     {form_task}
                     <button type="submit" className="btn btn-primary"
                       onClick={this.sendPull.bind(this)}>
-                      {I18n.t("meta_tasks.send_pull")}</button>
+                      {I18n.t("meta_tasks.submit_task")}</button>
                   </form>
                 </div>
               </div>
@@ -117,10 +117,10 @@ export default class PullRequestList extends React.Component {
     let method, url;
     if (this.props.meta_tasks.length > 0) {
       method = 'PUT';
-      url = routes.update_meta_task_url(this.state.dynamic_task.id)
+      url = routes.update_meta_task_url(this.state.dynamic_task.id);
     } else {
       method = 'POST';
-      url = routes.create_meta_task_url(this.state.dynamic_task.id)
+      url = routes.create_meta_task_url(this.state.dynamic_task.id);
     }
     axios({
       url: url + '.json',
@@ -129,7 +129,7 @@ export default class PullRequestList extends React.Component {
     })
     .then(response => {
       $('.modal-send-pull').modal('hide');
-      this.props.afterSendPull(dynamic_task, this.state.meta_tasks)
+      this.props.afterSendPull(dynamic_task, this.state.meta_tasks);
     })
     .catch(error => console.log(error));
   }
