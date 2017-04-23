@@ -7,9 +7,9 @@ import * as app_constants from 'constants/app_constants';
 
 import Form from './templates/form';
 import Universities from './universities';
-import Breadcrumb from 'react-breadcrumb';
+import Breadcrumb from '../shareds/bread_crumb/bread_crumb';
 
-const UNIVERSITIES_URL = app_constants.APP_NAME + 
+const UNIVERSITIES_URL = app_constants.APP_NAME +
   app_constants.UNIVERSITIES_PATH;
 
 export default class UniversityBox extends React.Component {

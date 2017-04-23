@@ -1,4 +1,4 @@
-import Breadcrumb from 'react-breadcrumb';
+import Breadcrumb from '../../../shareds/bread_crumb/bread_crumb';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 
@@ -22,7 +22,6 @@ export default class IndexBreadCrumd extends React.Component {
               }
             ]
           }
-          separatorChar={' > '}
         />
       </div>
     );

@@ -3,7 +3,7 @@ import React from 'react';
 import * as app_constants from 'constants/app_constants';
 
 const APP_NAME = app_constants.APP_NAME;
-const ORGANIZATION_URL = APP_NAME + app_constants.ORGANIZATION_PATH;
+const ORGANIZATION_URL = APP_NAME + app_constants.ORGANIZATIONS_PATH;
 const PROGRAMS_URL = app_constants.PROGRAMS_PATH;
 
 export default class ShowBreadCrumd extends React.Component {

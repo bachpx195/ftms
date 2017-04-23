@@ -383,8 +383,8 @@ namespace :db do
       {user_id: 4, course_id: 2, status: "in_progress"},
       {user_id: 4, course_id: 3, status: "in_progress"},
       {user_id: 6, course_id: 1, status: "in_progress"},
-      {user_id: 6, course_id: 2, status: "in_progress"},
-      {user_id: 6, course_id: 3, status: "in_progress"},
+      {user_id: 1, course_id: 2, status: "in_progress"},
+      {user_id: 1, course_id: 3, status: "in_progress"},
     ])
     CourseMember.create!([
       {user_id: 11, course_id: 1, status: "in_progress"},

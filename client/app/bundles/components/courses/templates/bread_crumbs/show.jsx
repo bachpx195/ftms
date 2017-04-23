@@ -27,7 +27,7 @@ export default class ShowBreadCrumd extends React.Component {
                 label: this.props.organization.name,
               },
               {
-                path: ORGANIZATIONS_URL + '/' + this.props.organization.id + '/' 
+                path: ORGANIZATIONS_URL + '/' + this.props.organization.id + '/'
                   + PROGRAM_URL,
                 label: I18n.t("breadcrumbs.programs"),
               },
@@ -46,7 +46,6 @@ export default class ShowBreadCrumd extends React.Component {
               }
             ]
           }
-          separatorChar={' > '}
           others={this.props.others}
         />
       </div>

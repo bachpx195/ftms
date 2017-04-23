@@ -186,11 +186,11 @@
 }
 
 .Breadcrumb {
-  background-color: #d2d6de;
+  background-color: $c-breadcrumb-background;
   border-radius: 5px;
-  padding: 8px;
-  color: black;
+  color: $c-black;
   margin-bottom: 10px;
+  padding: 8px;
 
   div {
     display: inline-block;
@@ -198,41 +198,100 @@
 
   .Breadcrumb-container .Breadcrumb-path {
     font-size: 12pt;
-    text-transform: capitalize;
     text-decoration: none;
+    text-transform: capitalize;
   }
 
   .Breadcrumb-container .Breadcrumb-path a {
     text-decoration: none;
-
-    &:hover {
-      color: white;
-      font-weight: bold;
-      border-bottom: 1px red solid;
-    }
   }
 
   .Breadcrumb-container .Breadcrumb-separator {
-    margin: 0 5px;
     font-weight: bold;
+    margin: 0 5px;
   }
 
   .Breadcrumb-container-dropdown a {
     text-decoration: none;
-
-    &:hover {
-      color: white;
-      font-weight: bold;
-      border-bottom: 1px red solid;
-    }
   }
 
-  .Breadcrumb-container-dropdown {
-    cursor: pointer;
+}
 
-    ul li a {
-      font-size: 12pt;
-      color: black;
+.Breadcrumb-container-dropdown {
+  cursor: pointer;
+
+  li {
+    a {
+      color: $c-black;
+      display: inline-block;
+      width: 100%;
+    }
+  }
+}
+
+.Breadcrumb-container {
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.Breadcrumb-container a {
+  color: $c-white;
+  display: block;
+  float: left;
+  font-size: 12px;
+  line-height: 36px;
+  outline: none;
+  padding: 0 10px 0 40px;
+  position: relative;
+  text-decoration: none;
+}
+
+.Breadcrumb-container:first-child a {
+  border-radius: 5px 0 0 5px;
+  padding-left: 20px;
+}
+
+.Breadcrumb-container:last-child a {
+  border-radius: 0 5px 5px 0;
+  padding-right: 20px;
+}
+
+.Breadcrumb-container:last-child a:after {
+  content: none;
+}
+
+.Breadcrumb-container a, .Breadcrumb-container a:after {
+  background: $c-white;
+  color: $c-black;
+  transition: all 0.5s;
+}
+
+.Breadcrumb-container a:hover, .Breadcrumb-container a.active,
+.Breadcrumb-container a:hover:after, .Breadcrumb-container a.active:after {
+  background: $c-skin-framgia;
+}
+
+.Breadcrumb-container a:after {
+  border-radius: 0 5px 0 50px;
+  box-shadow: 2px -2px 0 2px $c-breadcrumb-after-shadow-1,
+    3px -3px 0 2px $c-breadcrumb-after-shadow-2;
+  content: '';
+  height: 34px;
+  position: absolute;
+  right: -17px;
+  transform: scale(0.707) rotate(45deg);
+  top: 1px;
+  width: 34px;
+  z-index: 1;
+}
+
+.open {
+  .breadcrumb-link {
+    color: $c-black !important;
+
+    &:hover {
+      background: $c-skin-framgia !important;
+      font-style: italic;
     }
   }
 }
