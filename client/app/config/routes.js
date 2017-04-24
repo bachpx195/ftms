@@ -58,7 +58,7 @@ export function course_url(id) {
 
 //member evaluation
 export function member_evaluation_url(course_id, evaluation_id) {
-  return course_url(course_id) + '/' + app_constants.MEMBER_EVALUATIONS_PATH + 
+  return course_url(course_id) + '/' + app_constants.MEMBER_EVALUATIONS_PATH +
     '/' + evaluation_id;
 }
 
@@ -82,7 +82,7 @@ export function subject_url(id) {
 }
 
 export function course_subject_url(course_id, subject_id) {
-  return course_url(course_id) + '/' + app_constants.SUBJECTS_PATH + '/' + 
+  return course_url(course_id) + '/' + app_constants.SUBJECTS_PATH + '/' +
     subject_id;
 }
 
@@ -106,7 +106,7 @@ export function program_url(id) {
 
 //organization program
 export function organization_programs_url(organization_id) {
-  return organizations_url() + '/' + organization_id + '/' + 
+  return organizations_url() + '/' + organization_id + '/' +
     app_constants.PROGRAMS_PATH;
 }
 
@@ -178,6 +178,10 @@ export function training_standards_url() {
   return APP_URL + app_constants.TRAINING_STANDARDS_PATH;
 }
 
+export function training_standard_url(id) {
+  return training_standards_url() + '/' + id;
+}
+
 //university
 export function universities_url() {
   return APP_URL + app_constants.UNIVERSITIES_PATH;
@@ -231,7 +235,7 @@ export function test_rule_url(id) {
 
 //statistic language
 export function statistics_languages_url() {
-  return APP_URL + app_constants.STATISTICS_PATH + '/' + 
+  return APP_URL + app_constants.STATISTICS_PATH + '/' +
     app_constants.LANGUAGES_PATH
 }
 
@@ -300,12 +304,12 @@ export function organization_members_url(organization_id) {
 
 //ogranization training standards
 export function organization_training_standards_url(organization_id) {
-  return organization_url(organization_id) + '/' + 
+  return organization_url(organization_id) + '/' +
     app_constants.TRAINING_STANDARDS_PATH;
 }
 
 export function organization_training_standard_url(organization_id, standard_id) {
-  return organization_training_standards(organization_id) + '/' + standard_id;
+  return organization_training_standards_url(organization_id) + '/' + standard_id;
 }
 
 //organization statistics
@@ -314,7 +318,7 @@ export function organization_statistics_url(organization_id) {
 }
 
 export function organization_statistics_in_outs_url(organization_id) {
-  return organization_statistics_url(organization_id) + '/' + 
+  return organization_statistics_url(organization_id) + '/' +
     app_constants.IN_OUTS_STATISTICS_PATH;
 }
 
@@ -366,13 +370,13 @@ export function static_pages_url() {
 
 // organization statistics language
 export function organization_statistics_languages_url(organization_id) {
-  return organization_statistics_url(organization_id) + '/' + 
+  return organization_statistics_url(organization_id) + '/' +
     app_constants.LANGUAGES_PATH;
 }
 
 // organization statistics trainee types
 export function organization_statistics_trainee_types_url(organization_id) {
-  return organization_statistics_url(organization_id) + '/' + 
+  return organization_statistics_url(organization_id) + '/' +
     app_constants.TRAINEE_TYPES_PATH;
 }
 
@@ -402,7 +406,7 @@ export function clone_url() {
 
 //share with
 export function share_with_url() {
-  return APP_URL + app_constants.SHARE_WITH_URL;
+  return APP_URL + app_constants.SHARE_WITH_PATH;
 }
 
 //training standard evaluation template
@@ -424,7 +428,7 @@ export function user_course_subject_url(user_course_id, subject_id) {
 
 //change role
 export function change_role_user_url(user_id) {
-  return APP_URL + app_constants.CHANGE_ROLE_PATH + '/' + 
+  return APP_URL + app_constants.CHANGE_ROLE_PATH + '/' +
     app_constants.USERS_PATH + '/' + user_id;
 }
 

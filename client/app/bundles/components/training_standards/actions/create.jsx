@@ -21,7 +21,7 @@ export default class Create extends React.Component {
             </div>
             <div className='modal-body'>
               <Form
-                url={routes.organization_training_standards(
+                url={routes.organization_training_standards_url(
                   this.props.organization.id)}
                 training_standard={this.props.training_standard}
                 organization={this.props.organization}

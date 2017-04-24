@@ -28,34 +28,34 @@ export default class Create extends React.Component {
   render() {
     return(
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)} className="form-horizontal">
-          <div className="form-group">
-            <label className="control-label col-sm-2" for="email">
-              {I18n.t("assignments.name")}
+        <form onSubmit={this.handleSubmit.bind(this)} className='form-horizontal'>
+          <div className='form-group'>
+            <label className='control-label col-sm-2' htmlFor='email'>
+              {I18n.t('assignments.name')}
             </label>
-            <div className="col-md-10">
-              <input type="text" placeholder={I18n.t("subjects.headers.name")}
-                className="form-control" name="name" ref="nameField"
+            <div className='col-md-10'>
+              <input type='text' placeholder={I18n.t('subjects.headers.name')}
+                className='form-control' name='name' ref='nameField'
                 onChange={this.handleChange.bind(this)} />
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="control-label col-sm-2" for="email">
-              {I18n.t("assignments.content")}
+          <div className='form-group'>
+            <label className='control-label col-sm-2' htmlFor='email'>
+              {I18n.t('assignments.content')}
             </label>
-            <div className="col-md-10">
-              <input type="text" placeholder={I18n.t("subjects.headers.content")}
-                className="form-control" name="content" ref="contentField"
+            <div className='col-md-10'>
+              <input type='text' placeholder={I18n.t('subjects.headers.content')}
+                className='form-control' name='content' ref='contentField'
                 onChange={this.handleChange.bind(this)} />
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="control-label col-sm-2" for="email">
-              {I18n.t("assignments.meta_type")}
+          <div className='form-group'>
+            <label className='control-label col-sm-2' htmlFor='email'>
+              {I18n.t('assignments.meta_type')}
             </label>
-            <div className="col-md-10">
+            <div className='col-md-10'>
               <AssignmentMetaType
                 meta_types={this.state.meta_types}
                 meta_types_checked={this.state.meta_types_checked}
@@ -65,10 +65,12 @@ export default class Create extends React.Component {
             </div>
           </div>
 
-          <div className="form-group">
-            <div className="col-md-12 text-center">
-              <button type="submit" className="btn btn-primary"
-                disabled={!this.formValid()}>{I18n.t("buttons.create_task")}</button>
+          <div className='form-group'>
+            <div className='col-md-12 text-center'>
+              <button type='submit' className='btn btn-primary'
+                disabled={!this.formValid()}>
+                {I18n.t('buttons.create_task')}>
+              </button>
             </div>
           </div>
         </form>
