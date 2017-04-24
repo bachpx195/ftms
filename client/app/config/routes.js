@@ -4,7 +4,7 @@ const APP_URL = app_constants.APP_NAME;
 
 //assignment
 export function dynamic_tasks_url() {
-  return APP_URL + app_constants.DYNAMICTASKS_URL;
+  return APP_URL + app_constants.DYNAMICTASKS_PATH;
 }
 
 export function dynamic_task_url(id) {

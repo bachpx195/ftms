@@ -41,6 +41,8 @@ import UsersBox from '../components/users/box';
 import UserFormsBox from '../components/users/forms_box';
 import UserShowBox from '../components/users/show';
 import TimeLineBox from '../components/timelines/show';
+import SubjectManagerShowBox from '../components/subjects/managers/show';
+import SubjectTraineeShowBox from '../components/subjects/members/show';
 
 ReactOnRails.register({
   CategoriesBox,
@@ -84,4 +86,6 @@ ReactOnRails.register({
   UsersBox,
   UserShowBox,
   TimeLineBox,
+  SubjectManagerShowBox,
+  SubjectTraineeShowBox,
 });

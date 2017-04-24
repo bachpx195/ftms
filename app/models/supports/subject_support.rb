@@ -95,4 +95,15 @@ class Supports::SubjectSupport
   def meta_types
     @current_user.meta_types
   end
+
+  def is_manager_course?
+    @course.managers.include? @current_user if @course
+    @course_subject.course.managers.include? @current_user if @course_subject
+
+  end
+
+  def is_member_course?
+    @course.members.include? @current_user if @course
+    @course_subject.course.members.include? @current_user if @course_subject
+  end
 end
