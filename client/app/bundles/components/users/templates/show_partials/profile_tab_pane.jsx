@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
+import * as app_constants from 'constants/app_constants';
 
 export default class ProfileTabPane extends React.Component {
   constructor(props) {

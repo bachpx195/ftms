@@ -3,7 +3,13 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 
 export default class AboutBox extends React.Component {
-  render(){
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+
+  render() {
     return(
       <div className='box box-default box-solid'>
         <div className='box-header with-border'>

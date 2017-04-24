@@ -1,0 +1,12 @@
+en:
+  certificates:
+    title: "Certification of Completion"
+    main_content:
+      static_text: "SUCCESSFULLY COMPLETED"
+      with: "With "
+      result: "Result"
+      excellent: "Excellent "
+      great: "Great "
+      normal: "Normal "
+    button:
+      pdf_download: "Download as PDF"
