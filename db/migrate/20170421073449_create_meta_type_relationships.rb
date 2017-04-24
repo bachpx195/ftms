@@ -4,6 +4,7 @@ class CreateMetaTypeRelationships < ActiveRecord::Migration[5.0]
       t.integer :meta_type_id
       t.integer :objectable_id
       t.string :objectable_type
+      t.datetime :deleted_at
 
       t.timestamps
     end

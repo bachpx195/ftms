@@ -22,7 +22,8 @@ class Supports::TimelineSupport
     @dynamic_tasks.find_by targetable_id: static_task.id
   end
 
-  def count_assignment status
-    @dynamic_tasks.where(status: status).length
+  def count_assignment status, course_subject, user
+    user.dynamic_tasks.where(ownerable: course_subject, status: status,
+      targetable_id: StaticTask.where(targetable_type: Assignment.name)).length
   end
 end
