@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="content">
+        <div class="row">
+          <div class="col-md-12 certificate-form clearfix">
+            <div class="background-img-top-left background-img">
+              <%= wicked_pdf_image_tag "top-left-corner.png" %>
+            </div>
+            <div class="background-img-top-right background-img">
+              <%= wicked_pdf_image_tag "top-right-corner.png" %>
+            </div>
+            <div class="background-img-bottom-left background-img">
+              <%= wicked_pdf_image_tag "bottom-left-corner.png" %>
+            </div>
+            <div class="background-img-bottom-right background-img">
+              <%= wicked_pdf_image_tag "bottom-right-corner.png" %>
+            </div>
+            <div class="col-md-12 text-center">
+              <div class="certificate-header">
+                <%= wicked_pdf_image_tag "framgia-logo.png" %>
+              </div>
+              <div class="certificate-body">
+                <div class="certificate-title">
+                  <span><%= t "certificates.title" %></span>
+                </div>
+                <div class="main-content text-center">
+                  <span class="individual-name"><%= @user.name %></span>
+                  <hr />
+                  <div class="static-text ribbon">
+                    <span class="sub-ribbon">
+                      <%= t "certificates.main_content.static_text" %>
+                    </span>
+                    <div class="ribbon-after">
+                    </div>
+                    <div class="ribbon-before">
+                    </div>
+                  </div>
+                  <h3 class="certificate-program">
+                    RUBY ON RAILS TRAINING COURSE
+                  </h3>
+                  <div class="result-size">
+                    <h3><%= t "users.certificates.content" %></h3>
+                    <span><%= t "certificates.main_content.with" %> </span>
+                    <span class="certificate-result excellent">
+                      <%= t "certificates.main_content.excellent" %>
+                    </span>
+                    <span><%= t "certificates.main_content.result" %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="certicate-footer text-center">
+              <h2>06/09/2017</h2>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
