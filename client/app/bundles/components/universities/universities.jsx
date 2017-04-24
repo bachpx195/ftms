@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import { NewLayout } from '../shareds/griddles/new_layout';
+import {NewLayout} from '../shareds/griddles/new_layout';
 import Row from './griddle/row';
 import Destroy from "./actions/destroy";
 import Update from "./actions/update";
@@ -29,8 +29,6 @@ export default class Universities extends React.Component {
   }
 
   render() {
-    {NewLayout}
-
     const ButtonEdit = ({griddleKey}) => {
       let university = this.state.universities[griddleKey];
       return (

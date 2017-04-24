@@ -30,8 +30,10 @@ import SubOrganizationShowBox from '../components/sub_organizations/show_box';
 import SubjectBox from '../components/subjects/box';
 import SubjectsShowBox from  '../components/subjects/show';
 import ProgramsShowBox from '../components/programs/show';
+import TaskBox from '../components/tasks/show';
 import TeamsShowBox from '../components/teams/teams_show_box';
 import TestRulesBox from '../components/test_rules/box';
+import TimeLineBox from '../components/timelines/show';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
 import TrainingStandardBox from '../components/training_standards/box';
 import TrainingStandardShow from '../components/training_standards/show';
@@ -40,7 +42,6 @@ import UserCoursesBox from '../components/user_courses/user_courses_box';
 import UsersBox from '../components/users/box';
 import UserFormsBox from '../components/users/forms_box';
 import UserShowBox from '../components/users/show';
-import TimeLineBox from '../components/timelines/show';
 import SubjectManagerShowBox from '../components/subjects/managers/show';
 import SubjectTraineeShowBox from '../components/subjects/members/show';
 
@@ -75,8 +76,10 @@ ReactOnRails.register({
   SubOrganizationShowBox,
   SubjectBox,
   SubjectsShowBox,
+  TaskBox,
   TeamsShowBox,
   TestRulesBox,
+  TimeLineBox,
   TraineeTypeBox,
   TrainingStandardBox,
   TrainingStandardShow,
@@ -85,7 +88,6 @@ ReactOnRails.register({
   UserFormsBox,
   UsersBox,
   UserShowBox,
-  TimeLineBox,
   SubjectManagerShowBox,
   SubjectTraineeShowBox,
 });

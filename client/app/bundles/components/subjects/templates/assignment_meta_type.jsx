@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import * as app_constants from 'constants/app_constants';
-
-const META_TYPES_URL = app_constants.APP_NAME +
-  app_constants.META_TYPES_PATH
+import * as routes from 'config/routes';
 
 export default class AssignmentMetaType extends React.Component {
   constructor(props) {
@@ -101,11 +98,12 @@ export default class AssignmentMetaType extends React.Component {
 
   handleCreateMetaty(event) {
     event.preventDefault();
-    axios.post(META_TYPES_URL, {
+    axios.post(routes.meta_types_url() + '.json', {
       meta_type: {
         name: this.state.name
-      }, authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
+      },
+      authenticity_token: ReactOnRails.authenticityToken()
+    })
     .then(respone => {
       this.props.handleAfterCreated(respone.data.meta_type);
       $('.form-meta-type').addClass('hidden');

@@ -34,12 +34,12 @@ export function questions_url(category_id) {
 }
 
 //task
-export function tasks_url() {
-  return APP_URL + app_constants.TASKS_PATH;
+export function assign_tasks_url() {
+  return APP_URL + app_constants.ASSIGN_TASKS_PATH;
 }
 
-export function task_url(id) {
-  return tasks_url() + '/' + id;
+export function assign_task_url(id) {
+  return assign_tasks_url() + '/' + id;
 }
 
 //assign user
@@ -462,4 +462,18 @@ export function edit_user_url(id) {
 //user function
 export function user_function_url(id) {
   return APP_URL + app_constants.USER_FUNCTIONS_PATH + '/' + id;
+}
+
+//meta_type
+export function meta_types_url() {
+  return APP_URL + app_constants.META_TYPES_PATH;
+}
+
+// task
+export function tasks_url() {
+  return APP_URL + app_constants.TASKS_PATH;
+}
+
+export function task_url(id) {
+  return tasks_url() + '/' + id;
 }

@@ -48,6 +48,14 @@ export default class BlockTasks extends React.Component{
       )
     }
 
+    const linkTask = ({griddleKey, value}) => {
+      if (this.props.type == 'assignments') {
+        let task = this.state.tasks[griddleKey];
+        return <a href={routes.task_url(task.task_id)}>{value}</a>;
+      }
+      return <span>{value}</span>;
+    }
+
     return(
       <div className='block-task col-md-12'>
         <div className='box box-success'>
@@ -60,11 +68,13 @@ export default class BlockTasks extends React.Component{
                 <ColumnDefinition id='id'
                   title={I18n.t('subjects.headers.id')} />
                 <ColumnDefinition id='name'
-                  title={I18n.t('subjects.headers.name')} />
+                  title={I18n.t('subjects.headers.name')}
+                  customComponent={linkTask} />
                 <ColumnDefinition id='content'
                   title={I18n.t('subjects.headers.content')} />
                 <ColumnDefinition id='delete'
-                  title={I18n.t('subjects.headers.delete')} customComponent={buttonDelete} />
+                  title={I18n.t('subjects.headers.delete')}
+                  customComponent={buttonDelete} />
               </RowDefinition>
             </Griddle>
           </div>
@@ -74,7 +84,7 @@ export default class BlockTasks extends React.Component{
   }
   onClickDeleteTask(task){
     if (confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(routes.task_url(task.task_id), {
+      axios.delete(routes.assign_task_url(task.task_id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

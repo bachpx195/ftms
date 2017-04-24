@@ -1,8 +1,6 @@
 import React from 'react';
-import * as app_constants from 'constants/app_constants';
 import FormCreateAssignment from '../../assignments/actions/create';
-
-const SUBJECT_TASKS_URL = app_constants.APP_NAME + app_constants.SUBJECT_TASKS_PATH;
+import * as routes from 'config/routes';
 
 export default class ModalCreateAssignment extends React.Component {
   constructor(props) {
@@ -29,7 +27,7 @@ export default class ModalCreateAssignment extends React.Component {
             <div className='modal-task'>
               <div className='modal-body'>
                 <FormCreateAssignment
-                  url={SUBJECT_TASKS_URL}
+                  url={routes.subject_tasks_url()}
                   meta_types={this.state.meta_types}
                   meta_types_checked={this.state.meta_types_checked}
                   ownerable_id={this.props.ownerable_id}

@@ -8,10 +8,11 @@ json.timeline do
         date + user_subject.subject.during_time
       json.endDate l(user_subject.user_end_date || user_subject.end_date || date,
         format: :timeline_js)
+      course_subject = user_subject.course_subject
       json.headline "#{link_to user_subject.subject.name,
         [user_subject.subject]}<span class='hidden'
         data-status='#{user_subject.status}'
-        data-course-name='#{user_subject.course_subject.course.name}'></span>"
+        data-course-name='#{course_subject.course.name}'></span>"
       json.text "<div class='description'>#{user_subject.subject.description}</div>"
       json.tag " "
       json.asset do
@@ -20,21 +21,21 @@ json.timeline do
         if user_subject.assignments.any?
           list = ""
           user_subject.assignments.each do |task|
-            dynamic_task = @timeline_supports.dynamic_tasks(task,
-              user_subject.course_subject, current_user)
+            dynamic_task = @timeline_supports.dynamic_tasks task,
+              user_subject.course_subject, current_user
             list <<
               "<div class='task-container'>
                 <div class='pull-left'>-&nbsp;#{task.name}</div>
-                <div class='pull-right task'
-                  data-finish='#{dynamic_task ? dynamic_task.status == "finish" : false}'></div>
+                <div class='pull-right task' data-finish='#{dynamic_task ?
+                  dynamic_task.status == "finish" : false}'></div>
               </div>"
           end
-        json.credit "<span class='text-danger'>" +
-          "#{pluralize @timeline_supports.count_assignment('finish'), t('tasks.task')}"\
-            + "&nbsp;" + t("tasks.statuses.finished").downcase +
-          "</span><span class='text-primary'><br>" +
-            "#{pluralize @timeline_supports.count_assignment('init'), t('tasks.task')}"\
-              + "&nbsp;" + t("tasks.statuses.init").downcase + "</span>"
+          json.credit "<span class='text-danger'>#{pluralize @timeline_supports
+            .count_assignment('finish', course_subject, current_user),
+            t('tasks.task')} #{t("tasks.statuses.finished").downcase}</span>
+            <br><span class='text-primary'>#{pluralize @timeline_supports
+              .count_assignment('init', course_subject, current_user),
+              t('tasks.task')} #{t("tasks.statuses.init").downcase}</span>"
         else
           list = t "have_no_task"
         end

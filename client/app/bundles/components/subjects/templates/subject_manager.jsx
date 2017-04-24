@@ -1,4 +1,3 @@
-import axios from 'axios';
 import CreateProject from '../../projects/actions/create';
 import Documents from '../../shareds/documents/documents';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';

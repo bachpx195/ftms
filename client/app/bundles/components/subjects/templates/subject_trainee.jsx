@@ -1,4 +1,3 @@
-import axios from 'axios';
 import css from '../assets/subject.scss';
 import ModalCreateAssignment from '../../assignments/templates/modal';
 import ModalSendPull from './send_pull';
