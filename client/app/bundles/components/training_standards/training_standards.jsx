@@ -53,16 +53,20 @@ export default class TrainingStandards extends React.Component {
     };
 
     const LinkToStandardShow = ({value, griddleKey}) => (
-      <a data-index={griddleKey} 
+      <a data-index={griddleKey}
         href={routes.organization_training_standard_url(
-        this.state.training_standards[griddleKey].id)} title={value}>{value}</a>
+          this.state.organization.id,
+          this.state.training_standards[griddleKey].id)}
+        title={value}>{value}</a>
     );
 
     let modalEdit = null;
     if(this.state.training_standard && this.state.training_standard.id) {
       modalEdit = (
-        <Modal url={routes.organization_training_standard_url(
-          this.state.training_standard.id)}
+        <Modal
+          url={routes.organization_training_standard_url(
+            this.state.organization.id,
+            this.state.training_standard.id)}
           training_standard={this.state.training_standard}
           handleAfterUpdated={this.props.handleAfterUpdated} />
       );

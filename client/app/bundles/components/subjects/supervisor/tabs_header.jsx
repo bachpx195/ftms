@@ -45,14 +45,6 @@ export default class TabsHeader extends React.Component {
               </div>
             </a>
           </li>
-          <li>
-            <a data-toggle='tab' href='#tab-documents'>
-              <div className='custom-subjects-titles'>
-                <i className='fa fa-file-pdf-o'></i>
-                {I18n.t('subjects.titles.documents')}
-              </div>
-            </a>
-          </li>
         </ul>
       );
     } else {
@@ -79,14 +71,6 @@ export default class TabsHeader extends React.Component {
               <div className='custom-subjects-titles'>
                 <i className='fa fa-check-square-o'></i>
                 {I18n.t('subjects.titles.tests')}
-              </div>
-            </a>
-          </li>
-          <li>
-            <a data-toggle='tab' href='#tab-documents'>
-              <div className='custom-subjects-titles'>
-                <i className='fa fa-file-text-o'></i>
-                {I18n.t('subjects.titles.documents')}
               </div>
             </a>
           </li>

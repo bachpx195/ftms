@@ -2,7 +2,7 @@ import axios from 'axios';
 import Document from './document';
 import Dropzone from 'react-dropzone';
 import React from 'react';
-
+import * as routes from 'config/routes';
 import * as app_constants from 'constants/app_constants';
 
 export default class Documents extends React.Component{
