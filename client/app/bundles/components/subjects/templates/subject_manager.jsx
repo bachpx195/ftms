@@ -129,6 +129,7 @@ export default class SubjectManager extends React.Component {
           subject_detail={this.state.subject_detail}
           ownerable_id={ownerable_id}
           ownerable_type={ownerable_type}
+          handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
         />
       </div>
     );
@@ -225,4 +226,10 @@ export default class SubjectManager extends React.Component {
     });
   }
 
+  handleAfterCreatedAssignment(target) {
+    this.state.subject_detail.course_subject_task.assignments.push(target);
+    this.setState({
+      subject_detail: this.state.subject_detail
+    })
+  }
 }

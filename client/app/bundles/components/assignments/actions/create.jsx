@@ -115,7 +115,8 @@ export default class Create extends React.Component {
       .then(response => {
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
-        this.props.handleAfterCreatedAssignment(this.state.meta_types);
+        this.props.handleAfterCreatedAssignment(this.state.meta_types,
+          response.data.target);
       })
       .catch(error => console.log(error));
   }
