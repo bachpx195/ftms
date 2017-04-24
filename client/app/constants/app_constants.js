@@ -31,7 +31,7 @@ export const COURSES_PATH = 'courses';
 export const MOVE_COURSES_PATH = 'move/courses';
 export const ASSIGN_USER_COURSES_PATH = 'assign_user/courses';
 export const USER_COURSES_PATH = 'user_courses';
-export const TASKS_PATH = 'assign_task/tasks';
+export const ASSIGN_TASKS_PATH = 'assign_task/tasks';
 export const MEMBER_EVALUATIONS_PATH = 'member_evaluations';
 export const LIMIT_COURSE_MEMBERS = 3;
 export const LIMIT_DESCRIPTION_COURSE = 120;
@@ -90,9 +90,13 @@ export const POLICIES = [{id: 'privated', name: 'Privated'},
   {id: 'publiced', name: 'Publiced'}]
 export const SHARE_WITH_PATH = 'share_withs'
 export const CLONE_PATH = 'clone/training_standards';
+
 //user_course
 export const LIMIT_DESCRIPTION_USER_COURSE = 120;
 export const SUBJECT_ = 120;
+
+// task
+export const TASKS_PATH = 'tasks';
 
 export function isOverMaxDocumentSize(file) {
   let is_over = (file.size/1048576) >= MAX_DOCUMENT_SIZE;

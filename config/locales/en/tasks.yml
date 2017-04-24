@@ -5,3 +5,9 @@ en:
       init: "Init"
       in_progress: "In progress"
       finished: "Finished"
+    headers:
+      name: "Name"
+      title: "Title"
+      value: "Value"
+      sent_at: "Sent at"
+    course: "Course: "

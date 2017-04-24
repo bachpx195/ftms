@@ -1,0 +1,24 @@
+$c-white: #FFF;
+
+.meta-tasks {
+  .subject-name {
+    margin-bottom: 10px;
+  }
+
+  .content-box {
+    background: $c-white;
+    padding: 15px;
+  }
+
+  .box {
+    padding: 0;
+  }
+
+  .description {
+    font-style: italic;
+  }
+
+  .course-name {
+    font-weight: bold;
+  }
+}

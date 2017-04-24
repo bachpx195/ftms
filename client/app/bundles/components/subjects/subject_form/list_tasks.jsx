@@ -52,7 +52,7 @@ export default class ListTasks extends React.Component {
           afterClickCheckbox={this.afterClickCheckbox.bind(this)}
           checked={this.state.targetable_ids.indexOf(id) >= 0} />
       }
-      
+
       return(
         <div className='panel-task'>
           {this.state.task[type].length > 0 ? (
@@ -99,7 +99,7 @@ export default class ListTasks extends React.Component {
   }
 
   handleSubmitCreateTask() {
-    axios.post(routes.tasks_url(), {
+    axios.post(routes.assign_tasks_url(), {
       task: {
         targetable_ids: this.state.targetable_ids,
         targetable_type: this.props.targetable_type,

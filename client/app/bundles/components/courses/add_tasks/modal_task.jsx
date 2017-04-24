@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as routes from 'config/routes';
 import Item from './item';
 
-const TASKS_URL = routes.tasks_url();
+const TASKS_URL = routes.assign_tasks_url();
 
 const arr_option = ["choose","survey", "testing"];
 export default class ModalTask extends React.Component {
@@ -121,7 +121,7 @@ export default class ModalTask extends React.Component {
       this.state.remain_items.push(item);
     }
 
-    axios.delete(routes.task_url(item.id), {
+    axios.delete(routes.assign_task_url(item.id), {
       params: {
         targetable_type: this.state.targetable_type,
         authenticity_token: ReactOnRails.authenticityToken()

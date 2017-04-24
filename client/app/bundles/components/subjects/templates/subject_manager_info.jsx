@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import Modal from '../../projects/templates/modal';
 

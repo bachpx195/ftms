@@ -79,7 +79,7 @@ export default class UserTasks extends React.Component{
   }
   onClickDeleteTask(task) {
     if (confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(routes.task_url(task.task_id), {
+      axios.delete(routes.assign_task_url(task.task_id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

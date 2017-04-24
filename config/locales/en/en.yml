@@ -4,6 +4,9 @@ en:
       default: "%d/%m/%Y"
       timeline_js: "%Y,%m,%d"
       year_month: "%Y/%m"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
   layouts:
     framgia: In Side Out
     courses: "COURSES"

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import React from 'react';
 
