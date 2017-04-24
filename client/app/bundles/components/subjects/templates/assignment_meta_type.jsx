@@ -10,9 +10,9 @@ export default class AssignmentMetaType extends React.Component {
     super(props);
 
     this.state = {
-      meta_types: props.meta_types,
+      meta_types: props.meta_types || [],
       name: '',
-      meta_types_checked: props.meta_types_checked
+      meta_types_checked: props.meta_types_checked || []
     };
   }
 
