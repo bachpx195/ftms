@@ -22,8 +22,7 @@ export default class Projects extends React.Component {
       let project = this.state.projects[griddleKey];
       let project_url = '#';
       if (project) {
-        project_url = routes.subject_project_url(project.course_subject.subject_id,
-          project.id);
+        project_url = routes.project_url(project.id);
       }
       return <a href={project_url}>{value}</a>;
     };

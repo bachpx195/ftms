@@ -9,15 +9,17 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new project_params.merge creator_id: current_user.id
+    @project = Project.new project_params
     respond_to do |format|
       format.json do
         if @project.save
-          render json: {message: flash_message("created"),
-            project: @project}
+          task = create_static_task_project
+          render json: {
+            project: @project.attributes.merge(task_id: task.id), 
+            message: flash_message("created")
+          }
         else
-          render json: {message: flash_message("not_created"),
-            errors: @project.errors}, status: :unprocessable_entity
+          render json: {message: flash_message("not_created")}
         end
       end
     end
@@ -96,5 +98,13 @@ class ProjectsController < ApplicationController
   def authorize_request
     authorize_with_multiple page_params.merge(project: @project),
       ProjectPolicy
+  end
+
+  def create_static_task_project
+    params_project = params[:project]
+    static_task = ProjectServices::CreateStaticTaskProject
+      .new ownerable_id: params_project[:ownerable_id], project: @project,
+      ownerable_type: params_project[:ownerable_type]
+    static_task.perform
   end
 end

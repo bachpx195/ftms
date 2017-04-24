@@ -36,10 +36,6 @@ export default class Subjects extends React.Component {
               {this.state.subject_detail.training_standard.name}
             </div>
           </div>
-          <div className='col-md-3 text-right'>
-            <Modal organizations={this.props.organizations}
-              subject_detail={this.state.subject_detail} />
-          </div>
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
   acts_as_paranoid
 
-  ATTRIBUTE_PARAMS = [:name, :description, :organization_id]
+  ATTRIBUTE_PARAMS = [:name, :description, :organization_id, :course_subject_id]
 
   has_many :requirements, dependent: :destroy
   has_many :static_tasks, as: :targetable,

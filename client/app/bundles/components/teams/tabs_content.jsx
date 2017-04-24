@@ -61,7 +61,7 @@ export default class TabsContent extends React.Component {
               tasks={this.props.subject_detail.team_task.projects}
               title={I18n.t('subjects.titles.tests')}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-              type='test_rules'/>
+              type='projects'/>
           </div>
         </div>
         <div id='tab-documents' className='tab-pane fade'>

@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   end
   resources :subjects do
     resources :surveys
-    resources :projects
   end
   resources :sub_organizations
   resources :languages

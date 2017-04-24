@@ -12,7 +12,7 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    let projects_url = routes.subject_projects_url(this.props.subject_detail.id);
+    let projects_url = routes.projects_url();
     return (
       <div className='modal-create modal fade in' role='dialog'>
         <div className='modal-dialog'>
@@ -27,7 +27,9 @@ export default class Modal extends React.Component {
             </div>
             <div className='modal-body clearfix'>
               <Form organizations={this.props.organizations}
-                url={projects_url} project={this.state.project} />
+                url={projects_url} project={this.state.project}
+                team={this.props.team}
+                handleAfterUpdate={this.props.handleAfterUpdate}/>
             </div>
           </div>
         </div>

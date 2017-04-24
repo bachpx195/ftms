@@ -74,12 +74,12 @@ export default class Form extends React.Component {
     event.preventDefault();
     let project = _.omit(this.state.project, 'errors');
     let formData = new FormData();
-    for (let key of Object.keys(project)) {
-      formData.append('project[' + key + ']', project[key]);
-    }
-    if (Object.keys(project).length == 0) {
-      formData.append('project[key]', null);
-    }
+    formData.append('project[name]', this.state.project.name);
+    formData.append('project[description]', this.state.project.description);
+    formData.append('project[organization_id]', this.state.project.organization_id);
+    formData.append('project[ownerable_id]', this.props.team.id);
+    formData.append('project[ownerable_type]', 'Team');
+    formData.append('project[course_subject_id]', this.props.team.course_subject_id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let method = this.state.project.id ? 'PUT' : 'POST';
     axios({
@@ -88,12 +88,12 @@ export default class Form extends React.Component {
       data: formData,
     })
     .then(response => {
+      $('.modal-create').modal('hide');
+      this.props.handleAfterUpdate(response.data.project, 'projects');
       this.setState({
         project: {},
         errors: null,
       });
-      $('.modal-create').modal('hide');
-      this.props.handleAfterUpdate(response.data.project);
     })
     .catch(error => {
       console.log(error);

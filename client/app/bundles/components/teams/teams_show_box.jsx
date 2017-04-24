@@ -1,7 +1,8 @@
-import React from 'react';
 import axios from 'axios';
+import ButtonCreateProject from '../projects/actions/create';
 import ListTabs from './list_tabs';
-
+import Modal from '../projects/templates/modal';
+import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 
@@ -23,6 +24,7 @@ export default class TeamsShowBox extends React.Component {
   }
 
   render() {
+    let projects_url = routes.subject_projects_url(this.state.subject_detail.id);
     return (
       <div className='admin-subject-show'>
         <div className='row'>
@@ -54,6 +56,12 @@ export default class TeamsShowBox extends React.Component {
                 {I18n.t('subjects.headers.add_task')}
               </button>
             </div>
+            <div className='col-md-3 text-right'>
+              <ButtonCreateProject />
+            </div>
+            <Modal organizations={this.props.organizations}
+              team={this.state.team}
+              handleAfterUpdate={this.handleAfterUpdate.bind(this)} />
           </div>
         </div>
         <ListTabs team={this.props.team} course={this.props.course}
@@ -178,4 +186,12 @@ export default class TeamsShowBox extends React.Component {
       subject_detail: this.state.subject_detail
     });
   }
+
+  handleAfterUpdate(target, type) {
+    this.state.subject_detail.team_task[type].push(target);
+    this.setState({
+      subject_detail: this.state.subject_detail
+    });
+  }
+
 }
