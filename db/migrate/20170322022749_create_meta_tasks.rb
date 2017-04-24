@@ -5,6 +5,7 @@ class CreateMetaTasks < ActiveRecord::Migration[5.0]
       t.text :value
       t.string :input_type
       t.integer :dynamic_task_id
+      t.datetime :deleted_at
 
       t.timestamps
     end

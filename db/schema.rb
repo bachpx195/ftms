@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 20170421073449) do
     t.text     "value",           limit: 65535
     t.string   "input_type"
     t.integer  "dynamic_task_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
@@ -189,6 +190,7 @@ ActiveRecord::Schema.define(version: 20170421073449) do
     t.integer  "meta_type_id"
     t.integer  "objectable_id"
     t.string   "objectable_type"
+    t.datetime "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -196,6 +198,7 @@ ActiveRecord::Schema.define(version: 20170421073449) do
   create_table "meta_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "user_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

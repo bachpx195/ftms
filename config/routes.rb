@@ -120,4 +120,5 @@ Rails.application.routes.draw do
   resources :meta_types, only: :create
   resources :profiles, only: :show
   resources :certificates, only: :index
+  resources :tasks, only: :show
 end
