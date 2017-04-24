@@ -16,9 +16,6 @@ class LanguagesController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def create
     @language = Language.new language_params.merge(creator: current_user)
     respond_to do |format|
@@ -30,7 +27,7 @@ class LanguagesController < ApplicationController
             language: @language}
         end
       else
-        format.html{render :new}
+        format.html
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @language.errors}, status: :unprocessable_entity
