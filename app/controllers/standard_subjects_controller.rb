@@ -21,7 +21,7 @@ class StandardSubjectsController < ApplicationController
             standard_subject: @standard_subject}
         end
       else
-        format.html{render :new}
+        format.html
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @standard_subject.errors}, status: :unprocessable_entity

@@ -7,6 +7,6 @@ class Serializers::Projects::ProjectsSerializer < Serializers::SupportSerializer
   end
 
   def course_subject
-    supports.course_subject
+    object.course_subject
   end
 end

@@ -57,7 +57,7 @@ class CoursesController < ApplicationController
           CourseServices::UpdateUserCourse.new @course
         update_user_course_service.perform
       else
-        format.html{render :edit}
+        format.html
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @course.errors}, status: :unprocessable_entity

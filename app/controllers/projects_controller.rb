@@ -5,12 +5,12 @@ class ProjectsController < ApplicationController
   before_action :authorize_request
 
   def index
-    
   end
 
   def create
     @project = Project.new project_params
     respond_to do |format|
+      format.html
       format.json do
         if @project.save
           task = create_static_task_project
@@ -58,6 +58,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
+      format.html
       format.json do
         if @project.deleted?
           render json: {message: flash_message("deleted")}

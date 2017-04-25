@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   def create
     user = UserServices::CreateUser.new(user_params: user_params).perform
     respond_to do |format|
+      format.html
       format.json do
         if user.save
           UserServices::AddRoleUser.new(user: user).perform
@@ -54,6 +55,7 @@ class UsersController < ApplicationController
   def update
     user = @user_supports.user
     respond_to do |format|
+      format.html
       format.json do
         if user.update_attributes user_params
           if user_params[:password] && (user.id == current_user.id)
@@ -71,6 +73,7 @@ class UsersController < ApplicationController
 
   def destroy
     respond_to do |format|
+      format.html
       format.json do
         if @user_supports.user.destroy
           render json: {message: flash_message("deleted")}

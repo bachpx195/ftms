@@ -17,9 +17,6 @@ class TrainingStandardsController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def create
     @training_standard = current_user.training_standards
       .build training_standard_params
@@ -31,7 +28,7 @@ class TrainingStandardsController < ApplicationController
             training_standard: @training_standard}
         end
       else
-        format.html{render :new}
+        format.html
         format.json do
           render json: {message: flash_message("not_created"),
             errors: @training_standard.errors}, status: :unprocessable_entity
@@ -64,7 +61,7 @@ class TrainingStandardsController < ApplicationController
   def destroy
     @training_standard.destroy
     respond_to do |format|
-      format.html{redirect_to admin_training_standards_path}
+      format.html
       format.json do
         if @training_standard.deleted?
           render json: {message: flash_message("deleted")}

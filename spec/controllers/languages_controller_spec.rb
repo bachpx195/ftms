@@ -1,10 +1,10 @@
 require "rails_helper"
 
-RSpec.describe UniversitiesController, type: :controller do
+RSpec.describe LanguagesController, type: :controller do
   describe "callback" do
     it {should use_before_action(:authenticate_user!)}
     it {should_not use_before_action(:prevent_ssl)}
-    it {should use_before_action(:find_university)}
+    it {should use_before_action(:find_language)}
     it {should use_before_action(:authorize_request)}
   end
 
@@ -20,16 +20,17 @@ RSpec.describe UniversitiesController, type: :controller do
   describe "GET #index" do
     before :each do
       DatabaseCleaner.start
-      @university = Fabricate :university
+      @language = Fabricate :language
+      @languages = Language.select :id, :name, :image,
+        :description, :creator_id
 
       sign_in Fabricate(:user)
       allow(controller).to receive(:authorize_request).and_return(true)
     end
 
-    it "assigns @universities" do
+    it "assigns @languages" do
       get :index
-      expect(assigns :universities).to eq Serializers::UniversitiesSerializer
-        .new(object: University.all).serializer
+      expect(assigns :languages).to eq @languages
     end
 
     it "renders the :index template" do
@@ -46,8 +47,11 @@ RSpec.describe UniversitiesController, type: :controller do
   describe "POST #create" do
     before :each do
       DatabaseCleaner.start
+      @file = fixture_file_upload("files/test.png", "text/png")
       @params = {
-        name: "Test"
+        name: "Test",
+        image: @file,
+        description: "this is a description"
       }
 
       sign_in Fabricate(:user)
@@ -56,25 +60,25 @@ RSpec.describe UniversitiesController, type: :controller do
 
     it "params permit" do
       should permit(:name).
-        for(:create, params: {params: {university: @params}})
-        .on(:university)
+        for(:create, params: {params: {language: @params}})
+        .on(:language)
     end
 
-    it "creates a new university" do
+    it "creates a new language" do
       expect{
-        post :create, params: {university: @params}
-      }.to change(University,:count).by(1)
+        post :create, params: {language: @params}
+      }.to change(Language,:count).by(1)
     end
 
     it "responds with JSON" do
-      post :create, params: {university: @params}, format: :json
+      post :create, params: {language: @params}, format: :json
       response.header["Content-Type"].should include "application/json"
     end
 
     it "flash message" do
-      post :create, params: {university: @params}, format: :json
+      post :create, params: {language: @params}, format: :json
       JSON.parse(response.body)["message"]
-        .should eq "University was created successfully!"
+        .should eq "Language was created successfully!"
     end
   end
 
@@ -82,16 +86,19 @@ RSpec.describe UniversitiesController, type: :controller do
     before :each do
       DatabaseCleaner.start
       @user = Fabricate(:user)
-      @university = Fabricate :university
+      @language = Fabricate :language
 
       sign_in @user
       allow(controller).to receive(:authorize_request).and_return(true)
-      get :show, params: {id: @university.id}, format: :json
+      get :show, params: {id: @language.id}, format: :json
     end
 
-    it "find university by id" do
-      expect(assigns :university).to eq Serializers::UniversitiesSerializer
-        .new(object: @university).serializer
+    it "find language by id" do
+      expect(assigns :language).to eq @language
+    end
+
+    it "responds with JSON" do
+      response.header["Content-Type"].should include "application/json"
     end
   end
 
@@ -99,29 +106,31 @@ RSpec.describe UniversitiesController, type: :controller do
     before :each do
       DatabaseCleaner.start
       @user = Fabricate(:user)
-      @university = Fabricate :university
+      @language = Fabricate :language
 
+      @file = fixture_file_upload("files/test.png", "text/png")
       @params = {
-        name: "Update"
+        name: "Update",
+        image: @file,
+        description: "this is a update description"
       }
 
       sign_in @user
       allow(controller).to receive(:authorize_request).and_return(true)
-      put :update, params: {id: @university.id, university: @params},
+      put :update, params: {id: @language.id, language: @params},
         format: :json
-      @university.reload
+      @language.reload
     end
 
-    it "find university by id" do
-      expect(assigns :university).to eq Serializers::UniversitiesSerializer
-        .new(object: @university).serializer
+    it "find language by id" do
+      expect(assigns :language).to eq @language
     end
 
-    it {expect(@university.name).to eq "Update"}
+    it {expect(@language.name).to eq "Update"}
 
     it "flash message" do
       JSON.parse(response.body)["message"]
-        .should eq "University was updated successfully!"
+        .should eq "Language was updated successfully!"
     end
   end
 
@@ -129,27 +138,32 @@ RSpec.describe UniversitiesController, type: :controller do
     before :each do
       DatabaseCleaner.start
       @user = Fabricate(:user)
-      @university = Fabricate :university
+      @language = Fabricate :language
 
       sign_in @user
       allow(controller).to receive(:authorize_request).and_return(true)
     end
 
-    it "find university by id" do
-      delete :destroy, params: {id: @university.id}
-      expect(assigns :university).to eq @university
+    it "find language by id" do
+      delete :destroy, params: {id: @language.id}
+      expect(assigns :language).to eq @language
     end
 
-    it "deletes the university" do
+    it "deletes the language" do
       expect{
-        delete :destroy, params: {id: @university.id}
-      }.to change(University,:count).by(-1)
+        delete :destroy, params: {id: @language.id}
+      }.to change(Language,:count).by(-1)
+    end
+
+    it "redirect to languages_path when destroy" do
+      delete :destroy, params: {id: @language.id}
+      should redirect_to languages_path
     end
 
     it "flash message" do
-      delete :destroy, params: {id: @university.id}, format: :json
+      delete :destroy, params: {id: @language.id}, format: :json
       JSON.parse(response.body)["message"]
-        .should eq "University was deleted successfully!"
+        .should eq "Language was deleted successfully!"
     end
   end
 end

@@ -9,13 +9,6 @@ class OrganizationsController < ApplicationController
       .new(object: organizations, scope: {show_program: true}).serializer
   end
 
-  def show
-    @role_support = Supports::FilterRoleSupport.new role_id: params[:role_id]
-    @organization_supports = Supports::OrganizationSupport
-      .new organization: @organization, role_support: @role_support,
-      user: current_user
-  end
-
   def new
   end
 
@@ -28,7 +21,7 @@ class OrganizationsController < ApplicationController
         format.html{redirect_to @organization}
         format.json do
           render json: {
-            messages: @message,
+            message: @message,
             organization: Serializers::Organizations::OrganizationsSerializer
               .new(object: @organization, scope: {show_program: false})
               .serializer
@@ -44,6 +37,13 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def show
+    @role_support = Supports::FilterRoleSupport.new role_id: params[:role_id]
+    @organization_supports = Supports::OrganizationSupport
+      .new organization: @organization, role_support: @role_support,
+      user: current_user
+  end
+
   def update
     respond_to do |format|
       if @organization.update_attributes organization_params
@@ -51,7 +51,7 @@ class OrganizationsController < ApplicationController
         format.html{redirect_to @organization}
         format.json do
           render json: {
-            messages: @message,
+            message: @message,
             organization: Serializers::Organizations::OrganizationsSerializer
               .new(object: @organization, scope: {show_program: false})
               .serializer,
@@ -60,7 +60,7 @@ class OrganizationsController < ApplicationController
           }
         end
       else
-        format.html{render :edit}
+        format.html
         format.json do
           render json: {message: flash_message("not_updated"),
             errors: @organization.errors}, status: :unprocessable_entity

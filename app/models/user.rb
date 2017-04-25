@@ -35,8 +35,6 @@ class User < ApplicationRecord
   has_many :universities, foreign_key: :creator_id, dependent: :destroy
   has_many :languages, foreign_key: :creator_id, dependent: :destroy
   has_many :stages, foreign_key: :creator_id, dependent: :destroy
-  has_many :created_organizations, foreign_key: :creator_id,
-    dependent: :destroy
   has_many :programs, foreign_key: :creator_id, dependent: :destroy
   has_many :teams, foreign_key: :creator_id, dependent: :destroy
   has_many :evaluation_templates, foreign_key: :creator_id, dependent: :destroy
@@ -59,7 +57,6 @@ class User < ApplicationRecord
     foreign_key: :manager_id, dependent: :destroy
   has_many :static_tasks, through: :dynamic_tasks, class_name: StaticTask.name,
      as: :targetable
-  has_many :test_rules, through: :static_tasks, source: :targetable
   has_many :exams, dependent: :destroy
   has_many :meta_types, dependent: :destroy, foreign_key: :user_id
 
