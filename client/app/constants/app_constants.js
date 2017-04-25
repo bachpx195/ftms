@@ -87,8 +87,8 @@ export const CHANGE_PROFILE = 'change_profile';
 
 //training standard
 export const STANDARD_SUBECTS_PATH = 'standard_subjects';
-export const POLICIES = [{id: 'privated', name: 'Privated'},
-  {id: 'publiced', name: 'Publiced'}]
+export const POLICIES = [{id: 'publiced', name: 'Publiced'},
+  {id: 'privated', name: 'Privated'}]
 export const SHARE_WITH_PATH = 'share_withs'
 export const CLONE_PATH = 'clone/training_standards';
 

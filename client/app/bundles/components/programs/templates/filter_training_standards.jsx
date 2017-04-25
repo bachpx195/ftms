@@ -49,13 +49,13 @@ export default class FilterTrainingStandards extends React.Component {
   }
 
   handleCreateCourse(event) {
-    $('.modalEdit').find('select, input').val('');
-    $('.modalEdit').modal();
+    $('.modal-edit').find('select, input').val('');
+    $('.modal-edit').modal();
     this.props.handleAfterClickCreateCourse();
   }
 
   handleCreateStandard() {
-    $('.modalCreateStandards').find('input').val('');
-    $('.modalCreateStandards').modal();
+    $('.modal-create-standards').find('input').val('');
+    $('.modal-create-standards').modal();
   }
 }
