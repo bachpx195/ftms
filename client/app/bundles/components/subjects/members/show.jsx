@@ -1,10 +1,11 @@
+import * as routes from 'config/routes';
 import axios from 'axios';
 import css from '../assets/subject.scss';
 import ModalCreateAssignment from '../../assignments/templates/modal';
 import ModalSubmitTask from './templates/submit_task';
 import React from 'react';
+import ShowBreadCrumb from './templates/bread_crumb/show';
 import SubjectDetail from './templates/subject_detail';
-import * as routes from 'config/routes';
 
 export default class SubjectTraineeShowBox extends React.Component {
   constructor(props) {
@@ -25,6 +26,13 @@ export default class SubjectTraineeShowBox extends React.Component {
   render() {
     return (
       <div className='row subjects admin-subjects'>
+        <ShowBreadCrumb
+          course={this.props.course}
+          program={this.state.subject_detail.program}
+          organization={this.state.subject_detail.organization}
+          subject={this.props.subject_detail}
+        />
+
         <SubjectDetail
           subject_detail={this.state.subject_detail}
           assigments_of_user_subjects={this.state.assigments_of_user_subjects}
@@ -34,6 +42,7 @@ export default class SubjectTraineeShowBox extends React.Component {
           afterClickSendPullRequest={this.afterClickSendPullRequest.bind(this)}
           static_test_rules={this.props.static_test_rules}
         />
+
         <ModalCreateAssignment
           subject_detail={this.props.subject_detail}
           afterCreateTask={this.afterCreateTask.bind(this)}
