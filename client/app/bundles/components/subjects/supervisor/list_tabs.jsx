@@ -1,7 +1,7 @@
 import ModalBody from '../subject_form/modalBody';
 import ModalTask from '../subject_form/modalTask';
 import TabsMember from './tabs_member';
-import TabsTeam from './tabs_team';
+import TabsTask from './tabs_task';
 import React from 'react';
 
 export default class ListTabs extends React.Component {
@@ -33,7 +33,12 @@ export default class ListTabs extends React.Component {
     if (this.props.course) {
       return (
         <div className="flex-container">
-          <TabsTeam
+          <TabsTask
+            subject_detail={this.state.subject_detail}
+            handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+            tabs_group_focus={this.state.tabs_group_focus}
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+          <TabsMember
             course_subject_teams={this.state.course_subject_teams}
             course={this.props.course}
             subject={this.props.subject}
@@ -44,11 +49,6 @@ export default class ListTabs extends React.Component {
             member_evaluations={this.state.member_evaluations}
             handleAfterCreatedTeam={this.props.handleAfterCreatedTeam}
             afterAddTaskForUser={this.props.afterAddTaskForUser}
-            tabs_group_focus={this.state.tabs_group_focus}
-            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
-          <TabsMember
-            subject_detail={this.state.subject_detail}
-            handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             tabs_group_focus={this.state.tabs_group_focus}
             changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
           {this.renderUserTaskModal()}
