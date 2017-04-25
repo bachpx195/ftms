@@ -34,6 +34,7 @@ export default class ListTabs extends React.Component {
       return (
         <div className="flex-container">
           <TabsTask
+            course={this.props.course}
             subject_detail={this.state.subject_detail}
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             tabs_group_focus={this.state.tabs_group_focus}
@@ -58,11 +59,11 @@ export default class ListTabs extends React.Component {
     } else {
       return (
         <div>
-          <TabsMember
+          <TabsTask
             subject_detail={this.state.subject_detail}
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-            tabs_group_focus={2} />
-          {this.renderUserTaskModal()}
+            tabs_group_focus={this.state.tabs_group_focus}
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
           {this.renderTaskModal()}
         </div>
       )

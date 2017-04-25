@@ -51,12 +51,19 @@ export default class TabsTask extends React.Component {
   }
 
   renderContents() {
+    let tasks = null;
+    if (this.props.course) {
+      tasks = this.state.subject_detail.course_subject_task;
+    } else {
+      tasks = this.state.subject_detail.subject_task;
+    }
+
     return (
       <div className='tab-content'>
         <div id='tab-surveys' className='tab-pane fade in active'>
           <div className='clearfix'>
             <BlockTasks
-              tasks={this.state.subject_detail.subject_task.surveys}
+              tasks={tasks.surveys}
               title={I18n.t('subjects.titles.surveys')}
               handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
               type='surveys'/>
@@ -65,7 +72,8 @@ export default class TabsTask extends React.Component {
         <div id='tab-assignments' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
-              tasks={this.state.subject_detail.subject_task.assignments}
+              course={this.props.course}
+              tasks={tasks.assignments}
               title={I18n.t('subjects.titles.assignments')}
               handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
               type='assignments'/>
@@ -74,7 +82,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-test-rules' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
-              tasks={this.state.subject_detail.subject_task.test_rules}
+              tasks={tasks.test_rules}
               title={I18n.t('subjects.titles.tests')}
               handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
               type='test_rules'/>
@@ -87,9 +95,12 @@ export default class TabsTask extends React.Component {
   }
 
   renderSidebar() {
-    let surveys_count = this.state.subject_detail.subject_task.surveys.length;
-    let assignments_count = this.state.subject_detail.subject_task.assignments.length;
-    let tests_count = this.state.subject_detail.subject_task.test_rules.length;
+    let surveys_count = this.state.subject_detail.course_subject_task.surveys
+      .length;
+    let assignments_count = this.state.subject_detail.course_subject_task
+      .assignments.length;
+    let tests_count = this.state.subject_detail.course_subject_task.test_rules
+      .length;
     return (
       <a className='btn btn-success button-change-group-focus'>
         <h4 className='side-bar-title'>
