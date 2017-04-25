@@ -31,7 +31,10 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def find_task
-    @task = Task.find_by id: params[:id]
+    @task = Task.find_by ownerable_id: params[:ownerable_id], 
+      ownerable_type: params[:ownerable_type], 
+      targetable_id: params[:targetable_id],
+      targetable_type: params[:targetable_type]
     unless @task
       render json: {message: flash_message("not_found")},
         status: :not_found

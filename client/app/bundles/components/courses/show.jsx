@@ -65,16 +65,16 @@ export default class CourseShow extends React.Component {
           />
 
           <CoursePolicy permit={courseListPermit} >
-            <button className="btn add-task"
-              title={I18n.t("courses.title_add_task")}
+            <button className='btn add-task'
+              title={I18n.t('courses.title_add_task')}
               onClick={this.addTask.bind(this)}>
-              <i className="fa fa-plus" aria-hidden="true"></i>
-              {I18n.t("courses.add_task_for_course")}
+              <i className='fa fa-plus' aria-hidden='true'></i>
+              {I18n.t('courses.add_task_for_course')}
             </button>
           </CoursePolicy>
 
           <button className='btn add-task btn-preview'
-            title={I18n.t("courses.title_preview")}
+            title={I18n.t('courses.title_preview')}
             onClick={this.preview.bind(this)}>
             <i className='fa fa-eye'></i>
             {I18n.t('courses.preview')}
@@ -87,7 +87,7 @@ export default class CourseShow extends React.Component {
           />
         </div>
 
-        <div className="col-md-3">
+        <div className='col-md-3'>
           <CoursePanelRight
             state={this.state}
             courseListPermit={courseListPermit}
@@ -106,15 +106,23 @@ export default class CourseShow extends React.Component {
 
         <ModalTask
           targetable={this.state.course}
-          ownerable_type="Course"
+          ownerable_type='Course'
+          ownerable_id={this.state.course.id}
           selected_items={this.state.selected_items}
           remain_items={this.state.remain_items}
           targetable_type={this.state.targetable_type}
           afterSubmitCreateTask={this.afterSubmitCreateTask.bind(this)}
           afterChangeSelectBox={this.afterChangeSelectBox.bind(this)}
+          handleAfterSave={this.handleAfterSave.bind(this)}
         />
       </div>
     );
+  }
+
+  handleAfterSave(selected_items) {
+    this.setState({
+      selected_items: selected_items
+    })
   }
 
   handleEvaluateModal(user) {
@@ -138,7 +146,7 @@ export default class CourseShow extends React.Component {
   }
 
   addTask() {
-    $('.modal-task-survey').modal();
+    $('.modal-task-course').modal();
   }
 
   afterSubmitCreateTask(selected_items, remain_items) {
@@ -149,17 +157,17 @@ export default class CourseShow extends React.Component {
   }
 
   afterChangeSelectBox(type_option) {
-    if (type_option == "survey") {
+    if (type_option == 'survey') {
       this.setState({
         remain_items: this.state.remain_surveys,
         selected_items: this.state.selected_surveys,
-        targetable_type: "Survey"
+        targetable_type: 'Survey'
       });
     } else {
       this.setState({
         remain_items: this.state.remain_testings,
         selected_items: this.state.selected_testings,
-        targetable_type: "TestRule"
+        targetable_type: 'TestRule'
       });
     }
   }
