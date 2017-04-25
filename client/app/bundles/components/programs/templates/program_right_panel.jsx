@@ -4,13 +4,13 @@ import * as routes from 'config/routes';
 export default class ProgramRightPanel extends React.Component {
   render() {
     return (
-      <div className='col-md-3 info-panel'>
+      <div>
         <div className='box box-primary'>
           <div className='box-header with-border box-header-gray'>
             <h3 className='box-title'>
               <strong>{I18n.t('programs.user_panel.title')} </strong>
             </h3>
-            <a className='btn btn-default pull-right' 
+            <a className='btn btn-default pull-right'
               href={routes.new_program_user_url(this.props.program_detail.id)}>
               <i className='fa fa-user-plus'></i>
             </a>
