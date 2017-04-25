@@ -59,6 +59,14 @@ class Serializers::SupportSerializer < Serializers::BaseSerializer
     @user_dynamic_tasks ||= nil
   end
 
+  def current_user
+    @current_user ||= nil
+  end
+
+  def user_subjects
+    @user_subjects ||= nil
+  end
+
   def task_id
     task =
       if user_id
