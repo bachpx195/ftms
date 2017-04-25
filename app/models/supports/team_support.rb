@@ -72,8 +72,8 @@ class Supports::TeamSupport
   end
 
   def projects_not_in_static_task
-    @test_rules ||= team.course_subject.subject.organization.projects.where
-      .not id: team.test_rules
+    @projects ||= team.course_subject.subject.organization.projects.where
+      .not id: team.projects
   end
 
   def documents

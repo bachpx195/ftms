@@ -76,26 +76,6 @@ export default class ListTabs extends React.Component {
     })
   }
 
-  renderOld() {
-    return (
-      <div className='blocks'>
-        <div className='col-md-12'>
-          <TabsHeader course={this.props.course} />
-        </div>
-        <TabsContent course_subject_teams={this.state.course_subject_teams}
-          subject_detail={this.state.subject_detail} course={this.props.course}
-          handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-          handleAfterCreatedTeam={this.props.handleAfterCreatedTeam}
-          afterAddTaskForUser={this.props.afterAddTaskForUser}
-          training_standard={this.props.training_standard}
-          evaluation_template={this.props.evaluation_template}
-          evaluation_standards={this.props.evaluation_standards}
-          member_evaluations={this.state.member_evaluations}
-          subject={this.props.subject} />
-      </div>
-    );
-  }
-
   renderUserTaskModal() {
     let modalUserTask = null;
 
