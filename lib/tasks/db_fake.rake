@@ -196,15 +196,15 @@ namespace :db do
     TrainingStandard.create!([
       {name: "OpenEducation Da Nang", creator_id: 5, organization_id: 3, policy: 1,
         description: "Training Standard for opend education in Da Nang"},
-      {name: "Internal Training Da Nang", creator_id: 5, organization_id: 3, policy: 2,
+      {name: "Internal Training Da Nang", creator_id: 5, organization_id: 3, policy: 0,
         description: "Training Standard for internal training in Da Nang"},
 
       {name: "OpenEducation Labo", creator_id: 4, organization_id: 2, policy: 1,
         description: "Training Standard for open education in Labo"},
-      {name: "Internal Training Labo", creator_id: 4, organization_id: 2, policy: 2,
+      {name: "Internal Training Labo", creator_id: 4, organization_id: 2, policy: 0,
         description: "Training Standard for internal training in Labo"},
 
-      {name: "Internal Training Toong", creator_id: 3, organization_id: 2, policy: 2,
+      {name: "Internal Training Toong", creator_id: 3, organization_id: 2, policy: 0,
         description: "Training Standard for internal training in Toong"}
     ])
 
