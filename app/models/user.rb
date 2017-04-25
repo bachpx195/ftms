@@ -105,7 +105,7 @@ class User < ApplicationRecord
   end
 
   def find_base_component
-    function = self.functions.order_by_parent_id.first
+    function = self.functions.first
     box = function.controller_name.split("/").first.capitalize
     if box == "Users"
       "TimeLineBox"

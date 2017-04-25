@@ -39,7 +39,7 @@ export default class SubjectManagerShowBox extends React.Component {
             data: {members_ids: this.state.member_ids}}]}>
           <button type='button' className='btn btn-primary'
             onClick={this.afterClickAddTask.bind(this)}>
-            {I18n.t('subjects.add_task')}
+            {I18n.t('subjects.add_task_for_subject')}
           </button>
         </SubjectPolicy>
       );
@@ -47,7 +47,7 @@ export default class SubjectManagerShowBox extends React.Component {
       add_task_button = (
         <button type='button' className='btn btn-primary'
           onClick={this.afterClickAddTask.bind(this)}>
-          {I18n.t('subjects.add_task')}
+          {I18n.t('subjects.add_task_for_subject')}
         </button>
       );
     }

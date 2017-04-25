@@ -7,7 +7,7 @@ export default class ModalCourse extends React.Component {
   render() {
     return (
       <div className='modalEdit modal fade in' role='dialog'>
-        <div className='modal-dialog'>
+        <div className='modal-dialog dialog-size'>
           <div className='modal-content'>
             <div className='modal-header'>
               <button type='button' className='close'

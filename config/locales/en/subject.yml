@@ -64,6 +64,8 @@ en:
     save_changes: "Save changes"
     select_task: "Select Task"
     add_task: "Add Task"
+    add_task_for_subject: "Add Task For Subject"
+    add_task_for_course_subject: "Add Task For Course Subject"
     project: "Project"
     trainee:
       start_date: "Start date: "

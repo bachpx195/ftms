@@ -104,10 +104,10 @@ export default class FormCourse extends React.Component {
         </div>
 
         <div className='nht-assign-owner'>
-          <label>{I18n.t('courses.roles')}</label>
+          <label>{I18n.t('courses.select_owner_role')}</label>
           <select className='nht-list-roles form-control'
             onChange={this.handleChangeRole.bind(this)} id='list-roles'>
-            <option value=''>{I18n.t('courses.select_role')}</option>
+            <option value=''>{I18n.t('courses.select_owner_role')}</option>
             {this.renderOptions(this.state.all_roles)}
           </select>
 

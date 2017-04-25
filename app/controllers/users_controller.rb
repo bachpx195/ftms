@@ -25,6 +25,8 @@ class UsersController < ApplicationController
       format.json do
         if user.save
           UserServices::AddRoleUser.new(user: user).perform
+          UserServices::CreateUserProgram.new(user: user,
+            user_params: user_params[:profile_attributes]).perform
           render json: {message: flash_message("created"),
             user: user}
         else
