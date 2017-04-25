@@ -18,7 +18,11 @@ class Supports::TrainingStandardSupport
   end
 
   def organization
-    @organization ||= Organization.find_by id: @params[:organization_id]
+    @organization ||= if @params[:training_standard].present?
+      Organization.find_by id: @params[:training_standard][:organization_id]
+    else
+      @training_standard.organization
+    end
   end
 
   def training_standards_serializer
