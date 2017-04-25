@@ -14,6 +14,8 @@ en:
       list_members: "List members"
       list_tasks: "List tasks"
       documents: "Documents"
+      members: "Members"
+      tasks: "Tasks"
     headers:
       id: "ID"
       name: "Name"
