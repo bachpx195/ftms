@@ -6,7 +6,7 @@ import Item from './item';
 
 const TASKS_URL = routes.assign_tasks_url();
 
-const arr_option = ["choose","survey", "testing"];
+const arr_option = ['choose','survey', 'testing'];
 export default class ModalTask extends React.Component {
   constructor(props) {
     super(props);
@@ -31,65 +31,68 @@ export default class ModalTask extends React.Component {
 
   render() {
     let title,selected,remain_item = null;
-    if (this.state.targetable_type == "Survey") {
-      title = I18n.t("courses.create_task_title_survey");
-      selected = I18n.t("courses.survey_in_course");
-      remain_item = I18n.t("courses.survey_remain_course");
-    }else if(this.state.targetable_type == "TestRule"){
-      title = I18n.t("courses.create_task_title_test_rule");
-      selected = I18n.t("courses.testing_in_course");
-      remain_item = I18n.t("courses.testing_remain_course");
+    if (this.state.targetable_type == 'Survey') {
+      title = I18n.t('courses.create_task_title_survey');
+      selected = I18n.t('courses.survey_in_course');
+      remain_item = I18n.t('courses.survey_remain_course');
+    } else if (this.state.targetable_type == 'TestRule'){
+      title = I18n.t('courses.create_task_title_test_rule');
+      selected = I18n.t('courses.testing_in_course');
+      remain_item = I18n.t('courses.testing_remain_course');
     } else {
       title = '';
       selected = '';
       remain_item = '';
     }
 
-    return (<div id="modalTaskSurvey" className="modal fade" role="dialog">
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <button type="button" className="close" data-dismiss="modal">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 className="modal-title text-center" id="assign-member-label">
-              {title}
-            </h4>
-            <select onChange={this.onChangeSelect.bind(this)} className="form-control">
-              {this.renderOption()}
-            </select>
-          </div>
-
-          <div className="modal-body">
-            <div className="row">
-              <h5 className="text-center">
-                <strong>{selected}</strong>
-              </h5>
-              <ul className="list-group">
-                {this.renderSelectedItems()}
-              </ul>
-              <h5 className="text-center"><strong>{remain_item}</strong></h5>
-              <ul className="list-group">
-                {this.renderItemsRemain()}
-              </ul>
+    return (
+      <div className='modal-task-survey modal fade' role='dialog'>
+        <div className='modal-dialog' role='document'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <button type='button' className='close' data-dismiss='modal'>
+                <span aria-hidden='true'>&times;</span>
+              </button>
+              <h4 className='modal-title text-center assign-member-label'>
+                {title}
+              </h4>
+              <select onChange={this.onChangeSelect.bind(this)} className='form-control'>
+                {this.renderOption()}
+              </select>
             </div>
-          </div>
-          <div className="modal-footer">
-            <button onClick={this.onClickAddItem.bind(this)}
-              className="btn btn-success center-block">
-              {I18n.t('courses.buttons.save')}
-            </button>
+
+            <div className='modal-body'>
+              <div className='row'>
+                <h5 className='text-center'>
+                  <strong>{selected}</strong>
+                </h5>
+                <ul className='list-group'>
+                  {this.renderSelectedItems()}
+                </ul>
+                <h5 className='text-center'><strong>{remain_item}</strong></h5>
+                <ul className='list-group'>
+                  {this.renderItemsRemain()}
+                </ul>
+              </div>
+            </div>
+            <div className='modal-footer'>
+              <button onClick={this.onClickAddItem.bind(this)}
+                className='btn btn-success center-block'>
+                <i className='fa fa-floppy-o'></i>
+                &nbsp;{I18n.t('courses.buttons.save')}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>);
+    );
   }
 
   renderOption() {
     return _.map(arr_option, (item, index) => {
       return(
         <option value={item} key={index}>
-          {I18n.t("courses.options." + item)}
+          {I18n.t('courses.options.' + item)}
         </option>
       );
     });
@@ -103,7 +106,7 @@ export default class ModalTask extends React.Component {
   renderSelectedItems() {
     return _.map(this.state.selected_items, item => {
       return(
-        <li className="list-group-item" key={item.id}>
+        <li className='list-group-item' key={item.id}>
           {item.name}
           <i className='glyphicon glyphicon-remove pull-right poiter'
             onClick={this.removeItem.bind(this, item)}></i>
@@ -166,35 +169,37 @@ export default class ModalTask extends React.Component {
   }
 
   onClickAddItem() {
-    let arr_targetable_id = [];
-    _.map(this.state.select_items, select_item => {
-      arr_targetable_id.push(select_item.id);
-    });
-
-    axios.post(TASKS_URL , {
-      task: {
-        targetable_ids: arr_targetable_id,
-        targetable_type: this.state.targetable_type,
-        ownerable_id: this.state.targetable.id,
-        ownerable_type: this.state.ownerable_type,
-        user_id: null
-      },
-      authenticity_token: ReactOnRails.authenticityToken()
-    })
-    .then(response => {
+    if (confirm(I18n.t('data.confirm_all'))) {
+      let arr_targetable_id = [];
       _.map(this.state.select_items, select_item => {
-        this.state.selected_items.push(select_item);
-        let index = _.findIndex(this.state.remain_items, remain_item =>
-          remain_item.id == select_item.id);
-        this.state.remain_items.splice(index, 1);
+        arr_targetable_id.push(select_item.id);
       });
-      this.props.afterSubmitCreateTask(this.state.selected_items, this.state.remain_items);
-      this.setState({
-        select_items: []
-      });
-    })
-    .catch(error => {
-      console.log(error);
-    })
+
+      axios.post(TASKS_URL , {
+        task: {
+          targetable_ids: arr_targetable_id,
+          targetable_type: this.state.targetable_type,
+          ownerable_id: this.state.targetable.id,
+          ownerable_type: this.state.ownerable_type,
+          user_id: null
+        },
+        authenticity_token: ReactOnRails.authenticityToken()
+      })
+      .then(response => {
+        _.map(this.state.select_items, select_item => {
+          this.state.selected_items.push(select_item);
+          let index = _.findIndex(this.state.remain_items, remain_item =>
+            remain_item.id == select_item.id);
+          this.state.remain_items.splice(index, 1);
+        });
+        this.props.afterSubmitCreateTask(this.state.selected_items, this.state.remain_items);
+        this.setState({
+          select_items: []
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
   }
 }

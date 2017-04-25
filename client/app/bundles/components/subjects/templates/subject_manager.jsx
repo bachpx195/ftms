@@ -162,7 +162,7 @@ export default class SubjectManager extends React.Component {
     this.setState({
       user: {}
     })
-    $('#modalAddTask').modal();
+    $('.modalAddTask').modal();
   }
 
   afterAddTaskForUser(user, user_index) {
@@ -170,7 +170,7 @@ export default class SubjectManager extends React.Component {
       user: user,
       user_index: user_index
     })
-    $('#modalUserTask').modal()
+    $('.modalUserTask').modal()
   }
 
   handleAfterDeleteTask(index, task, type, user_index, user) {

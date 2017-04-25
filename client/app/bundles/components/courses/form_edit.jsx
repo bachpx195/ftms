@@ -108,7 +108,8 @@ export default class FormEdit extends React.Component {
                 <div className='form-group'>
                   <div className='text-right'>
                     <button type='submit' className='btn btn-primary'>
-                      {I18n.t('buttons.save')}</button>
+                      {I18n.t('buttons.save')}
+                    </button>
                   </div>
                 </div>
               </form>

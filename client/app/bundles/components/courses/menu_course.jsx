@@ -20,20 +20,20 @@ export default class MenuCourse extends React.Component {
   }
   render() {
     return(
-      <div className="td-course-edit-delete pull-right hidden">
+      <div className='td-course-edit-delete pull-right hidden'>
         {this.renderButtonFinish()}
         <CoursePolicy permit={this.props.courseListPermit}>
-          <div className="td-course-edit-delete pull-right hidden">
-            <a onClick={this.handleEdit.bind(this)} 
-              title={I18n.t("courses.edit")}>
-              <span className="btn glyphicon glyphicon-edit"
-                aria-hidden="true">
+          <div className='td-course-edit-delete pull-right hidden'>
+            <a onClick={this.handleEdit.bind(this)}
+              title={I18n.t('courses.edit')}>
+              <span className='btn glyphicon glyphicon-edit'
+                aria-hidden='true'>
               </span>
             </a>
-            <a onClick={this.handleDelete.bind(this)} 
-              title={I18n.t("courses.delete")}>
-              <span className="btn glyphicon glyphicon-trash"
-                aria-hidden="true">
+            <a onClick={this.handleDelete.bind(this)}
+              title={I18n.t('courses.delete')}>
+              <span className='btn glyphicon glyphicon-trash'
+                aria-hidden='true'>
               </span>
             </a>
             <FormEdit course={this.state.course}
@@ -79,7 +79,7 @@ export default class MenuCourse extends React.Component {
           window.location.href = routes.organization_program_url(
             response.data.program.organization_id, response.data.program.id);
         } else {
-          window.location.href = app_constants.APP_NAME + 
+          window.location.href = app_constants.APP_NAME +
             path.substr(1, path.length - 1);
         }
       })
@@ -101,7 +101,7 @@ export default class MenuCourse extends React.Component {
   renderButtonFinish() {
     if (this.state.course.status != 'finished') {
       return(
-       <button className='btn btn-danger finish-course'
+        <button className='btn btn-danger finish-course'
           onClick={this.changeStatus.bind(this)} >
           {I18n.t('courses.buttons.finish')}
         </button>
@@ -110,19 +110,20 @@ export default class MenuCourse extends React.Component {
   }
 
   changeStatus() {
-    axios.patch(routes.program_course_url(this.props.program.id, 
+    axios.patch(routes.program_course_url(this.props.program.id,
       this.state.course.id), {
         status: 'finished',
         authenticity_token: ReactOnRails.authenticityToken(),
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
+      if(confirm(I18n.t('data.confirm_all'))) {
       this.state.course.status = 'finished'
       this.setState({
         course: this.state.course
       })
       this.props.handleAfterChangeStatus(this.state.course);
       $('.finish-course').hide();
-
+      }
     })
     .catch(error => {
       console.log(error)

@@ -53,7 +53,8 @@ export default class TeamsShowBox extends React.Component {
             <div className='col-md-3 text-right'>
               <button type='button' className='btn btn-primary'
                 onClick={this.afterClickAddTask.bind(this)}>
-                {I18n.t('subjects.headers.add_task')}
+                <i className='fa fa-plus'></i>
+                &nbsp;{I18n.t('subjects.headers.add_task')}
               </button>
             </div>
             <div className='col-md-3 text-right'>
@@ -91,7 +92,7 @@ export default class TeamsShowBox extends React.Component {
     this.setState({
       user: null
     })
-    $('#modalAddTask').modal();
+    $('.modalAddTask').modal();
   }
 
   onDocumentsDrop(acceptedFiles, rejectedFiles) {
@@ -139,7 +140,7 @@ export default class TeamsShowBox extends React.Component {
       user: user,
       user_index: user_index
     })
-    $('#modalUserTask').modal()
+    $('.modalUserTask').modal()
   }
 
   handleAfterDeleteTask(index, task, type, user_index, user) {

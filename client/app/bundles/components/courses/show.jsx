@@ -142,7 +142,7 @@ export default class CourseShow extends React.Component {
   }
 
   addTask() {
-    $('#modalTaskSurvey').modal();
+    $('.modal-task-survey').modal();
   }
 
   afterSubmitCreateTask(selected_items, remain_items) {

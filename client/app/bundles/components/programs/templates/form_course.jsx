@@ -45,7 +45,7 @@ export default class FormCourse extends React.Component {
               <button type='button' className='btn btn-danger btn-select-file'
                 onClick={this.onOpenClick.bind(this)}>
                 <i className='fa fa-upload'></i>
-                {I18n.t('courses.select_image')}
+                &nbsp;{I18n.t('courses.select_image')}
               </button>
             </div>
           </div>
@@ -122,7 +122,9 @@ export default class FormCourse extends React.Component {
         <div className='form-group'>
           <div className='text-right'>
             <button type='submit' className='btn btn-primary'>
-              {I18n.t('buttons.save')}</button>
+              <i className="fa fa-floppy-o"></i>
+              &nbsp;{I18n.t('buttons.save')}
+            </button>
           </div>
         </div>
       </form>

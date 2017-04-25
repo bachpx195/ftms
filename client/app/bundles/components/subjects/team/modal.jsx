@@ -18,7 +18,7 @@ export default class Modal extends React.Component {
 
   render() {
     return (
-      <div id='modalTeam' className='modal fade in' role='dialog'>
+      <div className='modalTeam modal fade in' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>

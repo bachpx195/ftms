@@ -119,7 +119,7 @@ export default class ListTabs extends React.Component {
       }
 
       modalUserTask = (
-        <div id='modalUserTask' className='modal fade in' role='dialog'>
+        <div className='modalUserTask modal fade in' role='dialog'>
           <div className='modal-dialog'>
             <div className='modal-content'>
               <div className='modal-header'>
@@ -160,7 +160,7 @@ export default class ListTabs extends React.Component {
 
     return(
       <div className='modal-task'>
-        <div id='modalAddTask' className='modal fade in' role='dialog'>
+        <div className='modalAddTask modal fade in' role='dialog'>
           <div className='modal-dialog'>
             <div className='modal-content'>
               <div className='modal-header'>
