@@ -14,10 +14,9 @@ class TrainingStandard < ApplicationRecord
   has_many :programs, through: :courses
 
   validates :name, presence: true
-  validates :policy, presence: true
 
   ATTRIBUTE_PARAMS = [:name, :description, :program_id, :creator_id,
     :organization_id, :policy]
 
-  enum policy: {privated: 1, publiced: 2}
+  enum policy: [:publiced, :privated]
 end
