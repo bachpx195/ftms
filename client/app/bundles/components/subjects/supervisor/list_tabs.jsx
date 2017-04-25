@@ -1,8 +1,8 @@
-import React from 'react';
-import ModalTask from '../subject_form/modalTask';
 import ModalBody from '../subject_form/modalBody';
-import TabsHeader from './tabs_header';
-import TabsContent from './tabs_content';
+import ModalTask from '../subject_form/modalTask';
+import TabsMember from './tabs_member';
+import TabsTeam from './tabs_team';
+import React from 'react';
 
 export default class ListTabs extends React.Component {
   constructor(props) {
@@ -13,7 +13,8 @@ export default class ListTabs extends React.Component {
       user: props.user,
       user_index: props.user_index,
       member_evaluations: props.member_evaluations,
-      meta_types: props.meta_types
+      meta_types: props.meta_types,
+      tabs_group_focus: 1
     }
   }
 
@@ -29,6 +30,52 @@ export default class ListTabs extends React.Component {
   }
 
   render() {
+    if (this.props.course) {
+      return (
+        <div className="flex-container">
+          <TabsTeam
+            course_subject_teams={this.state.course_subject_teams}
+            course={this.props.course}
+            subject={this.props.subject}
+            subject_detail={this.state.subject_detail}
+            training_standard={this.props.training_standard}
+            evaluation_template={this.props.evaluation_template}
+            evaluation_standards={this.props.evaluation_standards}
+            member_evaluations={this.state.member_evaluations}
+            handleAfterCreatedTeam={this.props.handleAfterCreatedTeam}
+            afterAddTaskForUser={this.props.afterAddTaskForUser}
+            tabs_group_focus={this.state.tabs_group_focus}
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+          <TabsMember
+            subject_detail={this.state.subject_detail}
+            handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+            tabs_group_focus={this.state.tabs_group_focus}
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+          {this.renderUserTaskModal()}
+          {this.renderTaskModal()}
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <TabsMember
+            subject_detail={this.state.subject_detail}
+            handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+            tabs_group_focus={2} />
+          {this.renderUserTaskModal()}
+          {this.renderTaskModal()}
+        </div>
+      )
+    }
+  }
+
+  changeTabsGroupFocus(new_index_focus) {
+    this.setState({
+      tabs_group_focus: new_index_focus
+    })
+  }
+
+  renderOld() {
     return (
       <div className='blocks'>
         <div className='col-md-12'>
@@ -44,8 +91,6 @@ export default class ListTabs extends React.Component {
           evaluation_standards={this.props.evaluation_standards}
           member_evaluations={this.state.member_evaluations}
           subject={this.props.subject} />
-        {this.renderUserTaskModal()}
-        {this.renderTaskModal()}
       </div>
     );
   }
