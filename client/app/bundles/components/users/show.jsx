@@ -8,6 +8,7 @@ import React from 'react';
 import TimelineTabPane from './templates/show_partials/timeline_tab_pane';
 import RolesBox from './templates/show_partials/roles_box';
 import * as routes from 'config/routes';
+import ShowBreadCrumb from '../profiles/templates/bread_crumbs/show';
 
 require('../../assets/sass/user.scss');
 
@@ -51,6 +52,10 @@ export default class UserShowBox extends React.Component {
 
     return(
       <div className='user-profile row clearfix'>
+        <ShowBreadCrumb
+          user={this.state.user_detail}
+        />
+
         <div className='col-md-12'>
           <div className='col-md-3'>
             <BasicInfoBox user_detail={this.state.user_detail}
@@ -66,7 +71,9 @@ export default class UserShowBox extends React.Component {
                 <li><a href='#profile' data-toggle='tab'>Profile</a></li>
               </ul>
               <div className='tab-content'>
-                <TimelineTabPane />
+                <TimelineTabPane
+                  user_id={this.state.user_detail.id}
+                />
                 <ProfileTabPane user_profile={this.state.user_profile}
                   user_detail={this.state.user_detail} />
               </div>

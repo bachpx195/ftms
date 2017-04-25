@@ -6,3 +6,4 @@ en:
     modals:
       edit_evaluation_standard: "Edit evaluation standard"
       new_evaluation_standard: "New evaluation standard"
+  evaluation_test: "Evaluation Test"

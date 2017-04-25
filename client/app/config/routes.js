@@ -486,3 +486,8 @@ export function tasks_url() {
 export function task_url(id) {
   return tasks_url() + '/' + id;
 }
+
+//user profile
+export function user_profile_url(id) {
+  return APP_URL + app_constants.USER_PROFILES_PATH + '/' + id;
+}
