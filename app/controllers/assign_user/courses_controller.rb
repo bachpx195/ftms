@@ -1,5 +1,6 @@
 class AssignUser::CoursesController < ApplicationController
   before_action :find_course
+  before_action :authorize_request
 
   def update
     respond_to do |format|
@@ -24,6 +25,11 @@ class AssignUser::CoursesController < ApplicationController
   private
   def user_courses_params
     params.require(:course).permit Course::USER_COURSE_ATTRIBUTES_PARAMS
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params
+      .merge(course: @course), AssignUser::CoursePolicy
   end
 
   def find_course
