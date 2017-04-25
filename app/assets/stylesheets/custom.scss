@@ -273,15 +273,15 @@
 
 .Breadcrumb-container a:after {
   border-radius: 0 5px 0 50px;
-  box-shadow: 2px -2px 0 2px $c-breadcrumb-after-shadow-1,
+  box-shadow: 3px -3px 0 1px $c-breadcrumb-after-shadow-1,
     3px -3px 0 2px $c-breadcrumb-after-shadow-2;
   content: '';
-  height: 34px;
+  height: 36px;
   position: absolute;
-  right: -17px;
+  right: -18px;
   transform: scale(0.707) rotate(45deg);
-  top: 1px;
-  width: 34px;
+  top: 0;
+  width: 36px;
   z-index: 1;
 }
 

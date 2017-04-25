@@ -6,6 +6,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
     :course_subject_teams, :statistics, if: :check_course_subject
   attrs :course_member, :course_managers, :program,
     :organization, if: :check_course
+  attrs :statistics, :user_task, if: :current_user?
 
   def image
     Hash[:url, object.image.url]
@@ -83,6 +84,10 @@ class Serializers::Subjects::SubjectDetailsSerializer <
       .new(object: object, scope: {user_subjects: user_subjects}).serializer
   end
 
+  def user_task
+    current_user.dynamic_tasks
+  end
+
   private
   def check_course_subject
     course_subjects.present?
@@ -90,5 +95,9 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def check_course
     courses.present?
+  end
+
+  def current_user?
+    current_user.present?
   end
 end

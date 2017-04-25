@@ -16,6 +16,8 @@ en:
       documents: "Documents"
       members: "Members"
       tasks: "Tasks"
+      content: "Content"
+      nothing_to_show: "Nothing to show"
     headers:
       id: "ID"
       name: "Name"
@@ -87,3 +89,6 @@ en:
         in_progress: "In Progress"
         finish: "Finish"
         init: "Init"
+    contents:
+      show_more: "Show more"
+      close: "Close"

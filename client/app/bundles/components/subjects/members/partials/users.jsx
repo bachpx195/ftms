@@ -2,21 +2,22 @@ import CoursePolicy from 'policy/course_policy';
 import Managers from './managers';
 import Members from './members';
 import React from 'react';
+import ModalPreviewDocument from '../../../shareds/modal_preview_document';
 
 export default class Users extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      members: this.props.members,
-      managers: this.props.managers
+      members: props.subject_detail.course_member,
+      managers: props.subject_detail.course_managers,
+      subject_detail: props.subject_detail
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      members: nextProps.members,
-      managers: nextProps.managers
+      subject_detail: nextProps.subject_detail
     });
   }
 
@@ -24,7 +25,7 @@ export default class Users extends React.Component {
     let user_count = this.state.managers.length + this.state.members.length;
     return (
       <div className='info-panel clearfix'>
-        <div className='box box-primary'>
+        <div className='box box-primary box-border'>
           <div className='box-header with-border box-header-gray'>
             <h3 className='label box-title'>
               {I18n.t('courses.member.title')}
@@ -47,6 +48,7 @@ export default class Users extends React.Component {
               </div>
               <Members members={this.state.members} />
             </div>
+            
           </div>
         </div>
       </div>

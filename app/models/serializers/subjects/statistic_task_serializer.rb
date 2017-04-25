@@ -7,7 +7,7 @@ class Serializers::Subjects::StatisticTaskSerializer <
   end
 
   def inprogress
-    user_subjects.where(status: "inprogress").count
+    user_subjects.where(status: "in_progress").count
   end
 
   def finished
