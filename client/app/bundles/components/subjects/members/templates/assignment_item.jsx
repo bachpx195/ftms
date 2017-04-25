@@ -2,7 +2,7 @@ import axios from 'axios';
 import css from '../../assets/subject.scss';
 import PublicPolicy from 'policy/public_policy';
 import React from 'react';
-import Update from '../actions/update_assignment';
+import Update from '../actions/update_assignment'
 import * as routes from 'config/routes';
 
 export default class AssignmentItem extends React.Component {
@@ -106,23 +106,8 @@ export default class AssignmentItem extends React.Component {
 
   sendPullRequest(event) {
     event.preventDefault();
-    this.fetchListMetaTask(this.state.dynamic_task);
+    this.props.afterClickSendPullRequest(this.state.dynamic_task,
+      this.state.assignment)
     $('.modal-send-pull').modal();
-  }
-
-  fetchListMetaTask(dynamic_task) {
-    let url = routes.dynamic_task_meta_tasks_url(dynamic_task.id);
-    axios.get(url + '.json')
-      .then(response => {
-        this.setState({
-          meta_tasks: response.data.meta_tasks
-        })
-      this.props.afterClickSendPullRequest(this.state.assignment,
-        this.state.dynamic_task, response.data.meta_tasks);
-      })
-      .catch(error => {
-        console.log(error);
-      }
-    );
   }
 }

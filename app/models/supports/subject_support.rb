@@ -39,14 +39,20 @@ class Supports::SubjectSupport
   def user_static_task
     user_static_course_subjects = user_dynamic_course_subjects
       .user_static_tasks
-
     user_static_course_subjects
       .where targetable_type: Assignment.name
   end
 
   def user_assigmnent
-    @user_assignment = user_static_task
-      .includes(:targetable).map(&:targetable).uniq
+    assignments = @current_user.user_assigmnent
+    Serializers::Subjects::AssignmentsSerializer
+      .new(object: assignments).serializer
+  end
+
+  def user_dynamic_tasks
+    @user_dynamic_tasks = @current_user.user_dynamic_tasks
+    Serializers::Tasks::DynamicTasksSerializer
+      .new(object: @user_dynamic_tasks).serializer
   end
 
   def training_standard

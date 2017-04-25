@@ -50,10 +50,11 @@ export const COURSE_SUBJECTS_PATH = 'course_subjects';
 export const TEAMS_PATH = 'teams';
 export const ASSIGNMENTS_PATH = 'assignments';
 export const DYNAMICTASKS_PATH = 'dynamic_tasks';
-export const META_TASKS_PATH = 'meta_tasks';
 export const OWNERABLE_COURSE_SUBJECT = 'CourseSubject';
 export const EXAMS_PATH = 'exams';
+export const META_TASKS_PATH = 'meta_tasks';
 export const META_TYPES_PATH = 'meta_types';
+export const UPDATE_META_TASK_PATH = 'update_meta_task';
 
 //dashboard
 export const LOGOUT_PATH = 'auth/logout';

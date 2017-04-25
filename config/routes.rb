@@ -95,6 +95,7 @@ Rails.application.routes.draw do
 
   resources :dynamic_tasks do
     resources :meta_tasks, except: [:new, :edit, :destroy]
+    resource :update_meta_task, only: :update
   end
 
   resources :projects, except: [:new, :edit] do

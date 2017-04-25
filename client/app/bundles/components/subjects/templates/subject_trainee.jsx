@@ -15,6 +15,7 @@ export default class SubjectTrainee extends React.Component {
       static_task_assignment: props.static_task_assignment,
       dynamic_task: '',
       assignment: '',
+      user_dynamic_tasks: props.user_dynamic_tasks,
       meta_tasks: []
     };
   }
@@ -69,18 +70,24 @@ export default class SubjectTrainee extends React.Component {
     });
   }
 
-  afterSendPull(metaTask) {
-    this.state.meta_tasks.push(metaTask);
+  afterSendPull(meta_tasks) {
+    let index = _.findIndex(this.state.user_dynamic_tasks, value => {
+      return value.id == dynamic_task.id
+    })
+    this.state.user_dynamic_tasks[index].meta_tasks = meta_tasks
     this.setState({
-      meta_tasks: this.state.meta_tasks
+      user_dynamic_tasks: this.state.user_dynamic_tasks
     })
   }
 
-  afterClickSendPullRequest(assignment, dynamic_task, meta_tasks) {
+  afterClickSendPullRequest(dynamic_task, assignment) {
+    let index = _.findIndex(this.state.user_dynamic_tasks, value => {
+      return value.id == dynamic_task.id
+    })
     this.setState({
       assignment: assignment,
       dynamic_task: dynamic_task,
-      meta_tasks: meta_tasks
+      meta_tasks: this.state.user_dynamic_tasks[index].meta_tasks
     });
   }
 }

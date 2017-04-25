@@ -1,6 +1,6 @@
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
-import FormCreateAssignment from '../../../assignments/templates/modal';
+import FormCreateAssignment from '../../../assignments/actions/create';
 
 const SUBJECT_TASKS_URL = app_constants.APP_NAME + app_constants.SUBJECT_TASKS_PATH;
 
@@ -30,6 +30,7 @@ export default class ModalCreateAssignment extends React.Component {
               <div className='modal-body'>
                 <FormCreateAssignment
                   url={SUBJECT_TASKS_URL}
+                  subject_detail={this.props.subject_detail}
                   meta_types={this.state.meta_types}
                   meta_types_checked={this.state.meta_types_checked}
                   ownerable_id={this.props.ownerable_id}
@@ -44,11 +45,12 @@ export default class ModalCreateAssignment extends React.Component {
       </div>
     );
   }
-  handleAfterCreatedAssignment(meta_types) {
+  handleAfterCreatedAssignment(meta_types, target) {
     this.setState({
       meta_types_checked: [],
       meta_types: meta_types
     });
     $('.modal-create-assignment').modal('hide');
+    this.props.handleAfterCreatedAssignment(target);
   }
 }

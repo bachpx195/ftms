@@ -1,5 +1,4 @@
-class Serializers::Tasks::DynamicTaskSerializer <
-  Serializers::SupportSerializer
+class Serializers::Tasks::DynamicTaskSerializer < Serializers::SupportSerializer
   attrs :id, :user
 
   def user

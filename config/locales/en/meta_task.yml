@@ -4,10 +4,11 @@ en:
       title: "Title"
       value: "Value"
       meta_type: "Meta type"
-    title: "Send pull request for trainer check!"
-    send_pull: "Send pull"
+    title: "Submit task for trainer check!"
+    submit_task: "Submit Task"
     placeholder_title: "Title for pull..."
     placeholder_value: "Link github for pull..."
+    placeholder_link: "http:// ..."
     statuses:
       in_progress: "Finish Assignment"
       init: "Receive Assignment"

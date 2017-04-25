@@ -1,7 +1,7 @@
 import axios from 'axios';
 import css from '../assets/subject.scss';
 import ModalCreateAssignment from '../../assignments/templates/modal';
-import ModalSendPull from './templates/send_pull';
+import ModalSubmitTask from './templates/submit_task';
 import React from 'react';
 import SubjectDetail from './templates/subject_detail';
 import * as routes from 'config/routes';
@@ -17,6 +17,7 @@ export default class SubjectTraineeShowBox extends React.Component {
       static_test_rules: props.static_test_rules,
       dynamic_task: '',
       assignment: '',
+      user_dynamic_tasks: props.user_dynamic_tasks,
       meta_tasks: []
     };
   }
@@ -38,7 +39,7 @@ export default class SubjectTraineeShowBox extends React.Component {
           afterCreateTask={this.afterCreateTask.bind(this)}
           url={routes.assignments_url()}
         />
-        <ModalSendPull
+        <ModalSubmitTask
           dynamic_task={this.state.dynamic_task}
           assignment={this.state.assignment}
           meta_tasks={this.state.meta_tasks}
@@ -71,18 +72,24 @@ export default class SubjectTraineeShowBox extends React.Component {
     });
   }
 
-  afterSendPull(metaTask) {
-    this.state.meta_tasks.push(metaTask);
+  afterSendPull(meta_tasks) {
+    let index = _.findIndex(this.state.user_dynamic_tasks, value => {
+      return value.id == dynamic_task.id
+    })
+    this.state.user_dynamic_tasks[index].meta_tasks = meta_tasks
     this.setState({
-      meta_tasks: this.state.meta_tasks
+      user_dynamic_tasks: this.state.user_dynamic_tasks
     })
   }
 
-  afterClickSendPullRequest(assignment, dynamic_task, meta_tasks) {
+  afterClickSendPullRequest(dynamic_task, assignment) {
+    let index = _.findIndex(this.state.user_dynamic_tasks, value => {
+      return value.id == dynamic_task.id
+    })
     this.setState({
       assignment: assignment,
       dynamic_task: dynamic_task,
-      meta_tasks: meta_tasks
+      meta_tasks: this.state.user_dynamic_tasks[index].meta_tasks
     });
   }
 }

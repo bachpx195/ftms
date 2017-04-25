@@ -69,7 +69,7 @@ export default class Create extends React.Component {
             <div className='col-md-12 text-center'>
               <button type='submit' className='btn btn-primary'
                 disabled={!this.formValid()}>
-                {I18n.t('buttons.create_task')}>
+                {I18n.t('buttons.create_task')}
               </button>
             </div>
           </div>

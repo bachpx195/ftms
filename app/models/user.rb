@@ -69,7 +69,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :user_functions, allow_destroy: true
   accepts_nested_attributes_for :profile
 
-  scope :course_members_not_rejected, -> {CourseMember.where.not status: "rejected"}
+  scope :course_members_not_rejected, -> do
+    CourseMember.where.not status: "rejected"
+  end
 
   def user_tasks task_name, ownerable
     tasks = self.dynamic_tasks.map do |dynamic_task|
@@ -78,6 +80,24 @@ class User < ApplicationRecord
         dynamic_task_targetable.targetable_type == task_name &&
         dynamic_task.ownerable == ownerable
         dynamic_task_targetable.targetable
+      end
+    end
+    tasks.reject! &:nil?
+    tasks
+  end
+
+  def user_dynamic_tasks
+    tasks = self.dynamic_tasks.map do |dynamic_task|
+      dynamic_task if dynamic_task.targetable.targetable_type = "Assignment"
+    end
+    tasks.reject! &:nil?
+    tasks
+  end
+
+  def user_assigmnent
+    tasks = self.dynamic_tasks.map do |dynamic_task|
+      if dynamic_task.targetable.targetable_type = "Assignment"
+        dynamic_task.targetable.targetable
       end
     end
     tasks.reject! &:nil?
