@@ -92,7 +92,7 @@ export default class Form extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      $('#modalTeam').modal('hide');
+      $('.modalTeam').modal('hide');
       this.props.handleAfterSaved(response.data.team);
     })
     .catch(error => {

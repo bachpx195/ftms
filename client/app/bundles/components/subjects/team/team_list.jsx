@@ -55,7 +55,8 @@ export default class TeamList extends React.Component {
             <div className='col-md-12 text-right margin-bottom-10px'>
               <button type='button' className='btn btn-primary'
                 onClick={this.onCreateTeam.bind(this)}>
-                {I18n.t('subjects.create_team')}
+                <i className='fa fa-plus'></i>
+                &nbsp;{I18n.t('subjects.create_team')}
               </button>
             </div>
             {this.renderTeamList()}
@@ -76,7 +77,7 @@ export default class TeamList extends React.Component {
   }
 
   onCreateTeam() {
-    $('#modalTeam').modal();
+    $('.modalTeam').modal();
   }
 
   handleAfterCreated(team) {

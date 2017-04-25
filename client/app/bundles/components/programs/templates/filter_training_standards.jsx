@@ -55,7 +55,7 @@ export default class FilterTrainingStandards extends React.Component {
   }
 
   handleCreateStandard() {
-    $('#modalCreateStandards').find('input').val('');
-    $('#modalCreateStandards').modal();
+    $('.modalCreateStandards').find('input').val('');
+    $('.modalCreateStandards').modal();
   }
 }

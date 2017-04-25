@@ -38,6 +38,7 @@ $user-subject-border-status-reject: #757575;
   margin: 0;
   margin-top: 15px;
   padding: 14px 0;
+  position: relative;
 }
 
 .course-subject .modal-content {
@@ -145,7 +146,9 @@ $user-subject-border-status-reject: #757575;
 
 .course-header {
   display: block;
+  font-size: 13px;
   margin-left: 20px;
+  margin: 10px;
 }
 
 .course-header .header-title {
@@ -169,11 +172,17 @@ $user-subject-border-status-reject: #757575;
 
   .status-in_progress {
     background-color: $user-subject-border-status-in-progress;
+    bottom: 60px;
+    position: absolute;
   }
 
   .status-finished {
     background-color: $user-subject-border-status-finished;
   }
+}
+
+.finish-course {
+  margin: 10px;
 }
 
 .info-panel .user-list {

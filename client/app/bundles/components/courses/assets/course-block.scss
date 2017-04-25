@@ -277,3 +277,13 @@ $many-member-background-color: rgba(65, 65, 66, .46);
   font-size: 84%;
   font-weight: bold;
 }
+
+.trainee-container {
+  height: 100%;
+  max-height: 30vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 10px;
+  width: 100%;
+}

@@ -112,8 +112,8 @@ export default class ListTasks extends React.Component {
       if(this.state.user_id) {
         this.props.changePanel()
       } else {
-        $('#modalAddTask').modal('hide');
-        $('#modalUserTask').modal('hide');
+        $('.modalAddTask').modal('hide');
+        $('.modalUserTask').modal('hide');
       }
       this.props.handleAfterAddTask(this.state.type, this.state.targetable_ids,
         response.data.list_targets, this.props.subject_detail,

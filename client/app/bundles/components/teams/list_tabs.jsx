@@ -35,7 +35,7 @@ export default class ListTabs extends React.Component {
             >
               <li className='active'>
                 <a data-toggle='tab' href='#user-subject' className='tab-header'>
-                  <i className='fa fa-file-text-o'></i>
+                  <i className='fa fa-list-alt'></i>
                     {this.props.team.name}
                 </a>
               </li>
@@ -43,7 +43,7 @@ export default class ListTabs extends React.Component {
             <li>
               <a data-toggle='tab' href='#surveys'>
                 <div className='custom-subjects-titles'>
-                  <i className='fa fa-file-text-o'></i>
+                  <i className='fa fa-file-excel-o'></i>
                   {I18n.t('subjects.titles.surveys')}
                 </div>
               </a>
@@ -51,7 +51,7 @@ export default class ListTabs extends React.Component {
             <li>
               <a data-toggle='tab' href='#assignments'>
                 <div className='custom-subjects-titles'>
-                  <i className='fa fa-pencil-square-o'></i>
+                  <i className='fa fa-file-word-o'></i>
                   {I18n.t('subjects.titles.assignments')}
                 </div>
               </a>
@@ -67,14 +67,14 @@ export default class ListTabs extends React.Component {
             <li>
               <a data-toggle='tab' href='#projects'>
                 <div className='custom-subjects-titles'>
-                  <i className='fa fa-check-square-o'></i>
+                  <i className="fa fa-folder-open"></i>
                   {I18n.t('subjects.titles.projects')}
                 </div>
               </a>
             </li>
             <li>
               <a data-toggle='tab' href='#tab-documents' className='tab-header'>
-                <i className='fa fa-file-pdf-o'></i>
+                <i className="fa fa-file-pdf-o"></i>
                 {I18n.t('subjects.titles.documents')}
               </a>
             </li>
@@ -123,7 +123,7 @@ export default class ListTabs extends React.Component {
 
     return (
       <div className='modalUser'>
-        <div id='modalUserTask' className='modal fade in' role='dialog'>
+        <div className='modalUserTask modal fade in' role='dialog'>
           <div className='modal-dialog'>
             <div className='modal-content'>
               <div className='modal-header'>
@@ -144,7 +144,7 @@ export default class ListTabs extends React.Component {
   renderTaskModal() {
     return(
       <div className='modal-task'>
-        <div id='modalAddTask' className='modal fade in' role='dialog'>
+        <div className='modalAddTask modal fade in' role='dialog'>
           <div className='modal-dialog'>
             <div className='modal-content'>
               <div className='modal-header'>
