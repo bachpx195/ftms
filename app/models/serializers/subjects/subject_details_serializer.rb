@@ -4,7 +4,8 @@ class Serializers::Subjects::SubjectDetailsSerializer <
     :training_standard, :statuses, :task, :subject_task, :documents
   attrs :course_subject_task, :course_subject, :user_subjects,
     :course_subject_teams, if: :check_course_subject
-  attrs :course_member, if: :check_course
+  attrs :course_member, :course_managers, :program,
+    :organization, if: :check_course
 
   def image
     Hash[:url, object.image.url]
@@ -35,6 +36,11 @@ class Serializers::Subjects::SubjectDetailsSerializer <
       courses.course_members.map(&:user)).serializer
   end
 
+  def course_managers
+    Serializers::Subjects::CourseManagersSerializer.new(object:
+      courses.course_managers.map(&:user)).serializer
+  end
+
   def course_subject_task
     Serializers::Subjects::CourseSubjectTasksSerializer
       .new(object: course_subjects).serializer
@@ -59,6 +65,16 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   def documents
     Serializers::Documents::DocumentsSerializer
       .new(object: object.documents).serializer
+  end
+
+  def program
+    Serializers::Programs::ProgramSubjectsSerializer
+      .new(object: courses.program).serializer
+  end
+
+  def organization
+    Serializers::Organizations::SimpleOrganizationSerializer
+      .new(object: courses.program.organization).serializer
   end
 
   private

@@ -3,6 +3,7 @@ import css from '../../assets/subject.scss';
 import React from 'react';
 import PublicPolicy from 'policy/public_policy';
 import StartExamButton from './start_exam_button';
+import Users from '../partials/users';
 
 export default class SubjectDetail extends React.Component {
   constructor(props) {
@@ -61,6 +62,10 @@ export default class SubjectDetail extends React.Component {
               </div>
               <div className='col-md-4'>
                 <div className='member_user_course'>
+                  <Users
+                    members={this.state.subject_detail.course_member}
+                    managers={this.state.subject_detail.course_managers}
+                  />
                 </div>
               </div>
             </div>
