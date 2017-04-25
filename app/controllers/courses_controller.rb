@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @course.update_attributes course_params
+      if @course.update_attributes update_course_params
         format.html
         format.json do
           @course[:image] = {url: @course.image.url}
@@ -85,6 +85,10 @@ class CoursesController < ApplicationController
   private
   def course_params
     params.require(:course).permit Course::ATTRIBUTE_PARAMS
+  end
+
+  def update_course_params
+    params.require(:course).permit Course::UPDATE_PARAMS
   end
 
   def find_program

@@ -42,14 +42,10 @@ export default class CourseShow extends React.Component {
   }
 
   render() {
-    let members_ids = this.props.members_ids;
+    let member_ids = this.props.member_ids;
     const courseListPermit =[
-      {controller: 'programs', action: ['show'], target: 'children'},
-      {controller: 'courses', action: ['ownerController'], target: 'children',
-        data: {controller: 'courses'}},
-      {controller: 'my_space/courses', action: ['ownerController',
-        'course_manager'], target: 'children', data: {
-        controller: 'my_space/courses', members_ids: members_ids}}
+      {action: ['course_manager'], target: 'children',
+        data: {controller: 'courses', member_ids: member_ids}}
     ];
     return (
       <div className='row course-show'>

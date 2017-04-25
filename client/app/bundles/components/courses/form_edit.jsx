@@ -64,21 +64,19 @@ export default class FormEdit extends React.Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <select className="form-control" name="language_id"
-                    value={this.state.course.language_id || ''}
+                  <select disabled className="form-control" name="language_id"
+                    value={this.state.course.language_id}
                     onChange={this.handleChange.bind(this)}>
-                    <option value="">{I18n.t('courses.select_languages')}</option>
-                    {this.renderOptions(this.state.course.languages)}
+                    {this.renderOptions(this.state.course.languages,
+                      this.state.course.language_id)}
                   </select>
                 </div>
                 <div className="form-group">
                   <select className="form-control" name="training_standard_id"
-                    value={this.state.course.training_standard_id || ''}
-                    onChange={this.handleChange.bind(this)}>
-                    <option value="">
-                      {I18n.t('courses.select_training_standard')}
-                    </option>
-                    {this.renderOptions(this.state.course.training_standards)}
+                    value={this.state.course.training_standard_id}
+                    onChange={this.handleChange.bind(this)} disabled>
+                    {this.renderOptions(this.state.course.training_standards,
+                      this.state.course.training_standard_id)}
                   </select>
                 </div>
                 <div className='form-group'>
@@ -119,12 +117,14 @@ export default class FormEdit extends React.Component {
     );
   }
 
-  renderOptions(objects) {
-    if (objects) {
-      return objects.map(object => {
-        return <option key={object.id}
-          value={object.id}>{object.name}</option>;
-      });
+  renderOptions(_objects, id) {
+    let objs = _objects.filter(object => {
+      return object.id.toString().toLowerCase().includes(
+        id.toString().toLowerCase());
+    });
+    if (objs.length == 1) {
+      return <option key={objs[0].id}
+        value={objs[0].id}>{objs[0].name}</option>;
     }
     return null;
   }
