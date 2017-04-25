@@ -49,7 +49,7 @@ export default class BlockTasks extends React.Component{
     }
 
     const linkTask = ({griddleKey, value}) => {
-      if (this.props.type == 'assignments') {
+      if (this.props.course && this.props.type == 'assignments') {
         let task = this.state.tasks[griddleKey];
         return <a href={routes.task_url(task.task_id)}>{value}</a>;
       }
