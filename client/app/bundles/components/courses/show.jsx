@@ -73,7 +73,7 @@ export default class CourseShow extends React.Component {
               title={I18n.t("courses.title_add_task")}
               onClick={this.addTask.bind(this)}>
               <i className="fa fa-plus" aria-hidden="true"></i>
-              {I18n.t("courses.add_task")}
+              {I18n.t("courses.add_task_for_course")}
             </button>
           </CoursePolicy>
 
