@@ -5,7 +5,7 @@ class CreateTrainingStandards < ActiveRecord::Migration[5.0]
       t.integer :creator_id, index: true
       t.text :description
       t.datetime :deleted_at
-      t.integer :policy, default: 2
+      t.integer :policy, default: 0
       t.integer :organization_id, index: true
 
       t.timestamps

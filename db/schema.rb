@@ -464,7 +464,7 @@ ActiveRecord::Schema.define(version: 20170421073449) do
     t.integer  "creator_id"
     t.text     "description",     limit: 65535
     t.datetime "deleted_at"
-    t.integer  "policy",                        default: 2
+    t.integer  "policy",                        default: 0
     t.integer  "organization_id"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false

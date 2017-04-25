@@ -6,6 +6,7 @@ import * as routes from 'config/routes';
 
 export default class StartExamButton extends React.Component {
   render() {
+    let current_user = JSON.parse(localStorage.current_user);
     let buttons =  this.props.test_rules.map(test_rule => {
       return (
         <button key={test_rule.id} className='btn btn-info'
@@ -14,10 +15,39 @@ export default class StartExamButton extends React.Component {
         </button>
       );
     });
-
     return (
-      <div>
-        {buttons}
+      <div className="assignment-item clearfix">
+        <div className="col-md-2 avatar-user">
+          <a>
+            <img className="img-circle" src={current_user.avatar.url}
+              title={current_user.name}
+              alt={I18n.t('subjects.trainee.avatar')} />
+          </a>
+        </div>
+
+        <div className="col-md-10 info-detail">
+          <div className="row title-assignment">
+            <div className="div-status"
+              title={I18n.t('subjects.assignments.statuses.init')}>
+              <em className={'status status-init cursor'}></em>
+            </div>
+            <p className="name"><br/>
+              {I18n.t('assignments.exam')}&nbsp;&nbsp; {buttons}
+            </p>
+          </div>
+
+          <div className="detail row">
+            <div className="col-md-6">
+              <i className="fa fa-calendar" aria-hidden="true"></i>
+              {I18n.t("subjects.trainee.start_date")}
+            </div>
+
+            <div className="col-md-6">
+              <i className="fa fa-clock-o" aria-hidden="true"></i>
+              {I18n.t("subjects.trainee.spend_time")}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

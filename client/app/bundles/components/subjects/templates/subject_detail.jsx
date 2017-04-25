@@ -38,8 +38,6 @@ export default class SubjectDetail extends React.Component {
           <div className='box-body no-padding'>
             <div className='row'>
               <div className='col-md-8'>
-                <StartExamButton test_rules={this.props.static_test_rules}
-                  course_subject={this.state.subject_detail.course_subject} />
                 <div className='clearfix'></div>
                 <div className='assignment-box'>
                   <h1 className='header-task'>
@@ -57,6 +55,8 @@ export default class SubjectDetail extends React.Component {
                     </PublicPolicy>
                   </h1>
                   {this.renderAssignment()}
+                  <StartExamButton test_rules={this.props.static_test_rules}
+                    course_subject={this.state.subject_detail.course_subject} />
                 </div>
               </div>
               <div className='col-md-4'>
