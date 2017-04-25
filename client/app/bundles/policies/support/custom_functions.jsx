@@ -13,8 +13,8 @@ export const CustomFunction = {
     var result = true;
     if(data.length == 0) return result;
     var current_user = $.parseJSON(localStorage.current_user);
-    for(var members_id of data.members_ids) {
-      if(members_id == current_user.id) {
+    for(var member_id of data.member_ids) {
+      if(member_id == current_user.id) {
         result = false;
         break;
       }

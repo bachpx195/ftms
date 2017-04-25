@@ -9,6 +9,9 @@ class Course < ApplicationRecord
     :language_id, :program_id, :end_date, :training_standard_id, :owner_id,
     :documents]
 
+  UPDATE_PARAMS = [:name, :image, :description, :status, :start_date,
+    :end_date, :documents]
+
   enum status: [:init, :in_progress, :finished]
 
   belongs_to :language

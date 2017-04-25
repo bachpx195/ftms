@@ -20,31 +20,27 @@ export default class CourseBox extends React.Component {
   }
 
   renderCourses(title, courses) {
-    let html = null;
-    if (courses.length > 0) {
-      html = (
-        <div className="box box-success">
-          <div className="box-header with-border">
-            <h3 className="box-title">{title}</h3>
-            <div className="box-tools pull-right">
-              <button type="button" className="btn btn-box-tool"
-                data-widget="collapse">
-                <i className="fa fa-minus"></i>
-              </button>
-              <button type="button" className="btn btn-box-tool"
-                data-widget="remove">
-                <i className="fa fa-times"></i>
-              </button>
-            </div>
+    return (
+      <div className="box box-success">
+        <div className="box-header with-border">
+          <h3 className="box-title">{title}</h3>
+          <div className="box-tools pull-right">
+            <button type="button" className="btn btn-box-tool"
+              data-widget="collapse">
+              <i className="fa fa-minus"></i>
+            </button>
+            <button type="button" className="btn btn-box-tool"
+              data-widget="remove">
+              <i className="fa fa-times"></i>
+            </button>
           </div>
-          <div className="box-body no-padding">
-            <div className="row">
-              <Courses courses={courses} url={COURSES_URL} />
-            </div>
+        </div>
+        <div className="box-body no-padding">
+          <div className="row">
+            <Courses courses={courses} url={COURSES_URL} />
           </div>
-        </div>);
-    }
-    return html;
+        </div>
+      </div>);
   }
 
   render() {
