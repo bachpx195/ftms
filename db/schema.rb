@@ -464,10 +464,10 @@ ActiveRecord::Schema.define(version: 20170421073449) do
     t.integer  "creator_id"
     t.text     "description",     limit: 65535
     t.datetime "deleted_at"
-    t.integer  "policy"
+    t.integer  "policy",                        default: 2
     t.integer  "organization_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.index ["creator_id"], name: "index_training_standards_on_creator_id", using: :btree
     t.index ["organization_id"], name: "index_training_standards_on_organization_id", using: :btree
   end

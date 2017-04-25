@@ -39,6 +39,7 @@ export default class ModalCreateStandard extends React.Component {
     event.preventDefault();
     axios.post(this.props.standard_url, {
       training_standard: {
+        organization_id: this.props.organization ? this.props.organization.id : '',
         name: this.refs.nameField.value
       }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
