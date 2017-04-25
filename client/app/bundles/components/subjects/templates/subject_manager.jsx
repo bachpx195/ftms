@@ -99,9 +99,6 @@ export default class SubjectManager extends React.Component {
                 {I18n.t("assignments.title_action")}
               </div>
               {add_task_button}
-              <CreateProject />
-              <a className='btn btn-primary' href={projects_url}>
-                {I18n.t('buttons.list_projects')}</a>
               <button type='button' className='btn btn-primary'
                 onClick={this.onCreateAssignments.bind(this)}>
                 {I18n.t("assignments.create_assignment")}

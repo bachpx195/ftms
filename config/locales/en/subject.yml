@@ -36,6 +36,7 @@ en:
       content: "Content"
       evaluate: "Evaluate"
       list_task: "List task"
+      add_project: "Add Project"
     modals:
       header_create: "Create subject"
       header_edit: "Edit subject"

@@ -1,14 +1,11 @@
 import axios from 'axios';
-import CreateProject from '../../projects/actions/create';
 import Documents from '../../shareds/documents/documents';
+import ListTabs from '../supervisor/list_tabs';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';
 import ModalCreateAssignment from './templates/modal_create_assignment';
-import ListTabs from '../supervisor/list_tabs';
 import React from 'react';
 import SubjectManagerInfo from  './templates/subject_manager_info';
 import SubjectPolicy from 'policy/subject_policy';
-
-import * as routes from 'config/routes';
 
 export default class SubjectManagerShowBox extends React.Component {
   constructor(props) {
@@ -31,7 +28,6 @@ export default class SubjectManagerShowBox extends React.Component {
   }
 
   render() {
-    let projects_url = routes.subject_projects_url(this.state.subject_detail.id);
     let add_task_button = null;
     if (this.props.course) {
       add_task_button = (
@@ -95,9 +91,6 @@ export default class SubjectManagerShowBox extends React.Component {
                 {I18n.t("assignments.title_action")}
               </div>
               {add_task_button}
-              <CreateProject />
-              <a className='btn btn-primary' href={projects_url}>
-                {I18n.t('buttons.list_projects')}</a>
               <button type='button' className='btn btn-primary'
                 onClick={this.onCreateAssignments.bind(this)}>
                 {I18n.t("assignments.create_assignment")}

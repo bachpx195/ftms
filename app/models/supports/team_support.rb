@@ -79,4 +79,8 @@ class Supports::TeamSupport
   def documents
     @documents ||= team.documents
   end
+
+  def organizations
+    @organizations ||= Organization.all
+  end
 end
