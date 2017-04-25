@@ -3,6 +3,7 @@ import css from '../../assets/subject.scss';
 import React from 'react';
 import PublicPolicy from 'policy/public_policy';
 import StartExamButton from './start_exam_button';
+import StatisticTask from './statistic_task';
 import Users from '../partials/users';
 
 export default class SubjectDetail extends React.Component {
@@ -65,6 +66,12 @@ export default class SubjectDetail extends React.Component {
                   <Users
                     members={this.state.subject_detail.course_member}
                     managers={this.state.subject_detail.course_managers}
+                  />
+                </div>
+                <div className='statistic-task'>
+                  <StatisticTask statistic={this.state.subject_detail.statistics}
+                    subject={this.state.subject_detail}
+                    length={this.state.static_task_assignment.length}
                   />
                 </div>
               </div>

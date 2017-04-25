@@ -3,7 +3,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   attrs :id, :name, :content, :description, :during_time, :image,
     :training_standard, :statuses, :task, :subject_task, :documents
   attrs :course_subject_task, :course_subject, :user_subjects,
-    :course_subject_teams, if: :check_course_subject
+    :course_subject_teams, :statistics, if: :check_course_subject
   attrs :course_member, :course_managers, :program,
     :organization, if: :check_course
 
@@ -75,6 +75,12 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   def organization
     Serializers::Organizations::SimpleOrganizationSerializer
       .new(object: courses.program.organization).serializer
+  end
+
+  def statistics
+    user_subjects = course_subjects.dynamic_tasks.where user_id: current_user
+    Serializers::Subjects::StatisticTaskSerializer
+      .new(object: object, scope: {user_subjects: user_subjects}).serializer
   end
 
   private

@@ -79,7 +79,8 @@ class Supports::SubjectSupport
   def subject_detail
     Serializers::Subjects::SubjectDetailsSerializer
       .new(object: @subject, scope: {subject_supports: self,
-        course_subjects: @course_subject, courses: @course}).serializer
+        course_subjects: @course_subject, courses: @course, current_user:
+        @current_user}).serializer
   end
 
   def member_evaluations
