@@ -140,3 +140,27 @@ $c-black: #000;
     }
   }
 }
+
+.modal-task-course .modal-dialog {
+  width: 70%;
+}
+
+.modal-task-course .modal-footer {
+  clear: both;
+}
+
+.task-preview {
+  max-height: 70vh;
+}
+
+.modal-task-course .list-group-item {
+  cursor: pointer;
+}
+
+.modal-task-course .fa-chevron-right {
+  display: none;
+}
+
+.modal-task-course input {
+  margin-right: 5px;
+}

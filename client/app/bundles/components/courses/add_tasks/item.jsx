@@ -10,7 +10,7 @@ export default class Item extends React.Component {
     this.state = {
       remain_item: props.remain_item,
       checked: props.checked,
-      select_items: props.select_items
+      select_items: props.select_items,
     }
   }
 
@@ -33,6 +33,7 @@ export default class Item extends React.Component {
           name={this.state.remain_item.name}>
         </input>
         {name}
+        <i className='fa fa-chevron-right pull-right'></i>
       </li>
     );
   }
@@ -43,9 +44,12 @@ export default class Item extends React.Component {
         select_subject => select_subject.id == this.state.remain_item.id)
       this.state.select_items.splice(index, 1);
       this.props.chooseItem(this.state.select_items);
-    }else {
+    } else {
       this.state.select_items.push(this.state.remain_item);
       this.props.chooseItem(this.state.select_items);
     }
+    this.props.current_item(this.state.remain_item);
+    let distance_top = $(event.target).position().top;
+    $('.task-preview').css('margin-top', distance_top);
   }
 }

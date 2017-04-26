@@ -3,6 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import * as routes from 'config/routes';
 import Item from './item';
+import TaskPreview from '../templates/task_preview';
 
 const TASKS_URL = routes.assign_tasks_url();
 
@@ -17,6 +18,7 @@ export default class ModalTask extends React.Component {
       targetable: props.targetable,
       select_items: [],
       ownerable_type: props.ownerable_type,
+      current_item: {},
     };
   }
 
@@ -30,23 +32,31 @@ export default class ModalTask extends React.Component {
   }
 
   render() {
-    let title,selected,remain_item = null;
+    let title, selected, remain_item, tasks = null;
+    let task_preview = (
+      <TaskPreview current_item={this.state.current_item}
+        targetable_type={this.state.targetable_type} />
+    );
     if (this.state.targetable_type == 'Survey') {
       title = I18n.t('courses.create_task_title_survey');
       selected = I18n.t('courses.survey_in_course');
       remain_item = I18n.t('courses.survey_remain_course');
-    } else if (this.state.targetable_type == 'TestRule'){
-      title = I18n.t('courses.create_task_title_test_rule');
+      tasks = this.renderTask(selected, remain_item);
+    } else if(this.state.targetable_type == 'TestRule'){
+      title = I18n.t('courses.create_task_title_exam');
       selected = I18n.t('courses.testing_in_course');
       remain_item = I18n.t('courses.testing_remain_course');
+      tasks = this.renderTask(selected, remain_item);
     } else {
       title = '';
       selected = '';
       remain_item = '';
+      task_preview = null;
+      tasks = null;
     }
 
     return (
-      <div className='modal-task-survey modal fade' role='dialog'>
+      <div className='modal-task-course modal fade' role='dialog'>
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             <div className='modal-header'>
@@ -62,27 +72,41 @@ export default class ModalTask extends React.Component {
             </div>
 
             <div className='modal-body'>
-              <div className='row'>
-                <h5 className='text-center'>
-                  <strong>{selected}</strong>
-                </h5>
-                <ul className='list-group'>
-                  {this.renderSelectedItems()}
-                </ul>
-                <h5 className='text-center'><strong>{remain_item}</strong></h5>
-                <ul className='list-group'>
-                  {this.renderItemsRemain()}
-                </ul>
+              <div className='row list-tasks col-md-6'>
+                {tasks}
               </div>
+              {task_preview}
             </div>
             <div className='modal-footer'>
               <button onClick={this.onClickAddItem.bind(this)}
                 className='btn btn-success center-block'>
-                <i className='fa fa-floppy-o'></i>
-                &nbsp;{I18n.t('courses.buttons.save')}
+                {I18n.t('courses.buttons.save')}
               </button>
             </div>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderTask(title_selected_items, title_remain_items) {
+    return(
+      <div>
+        <div className='panel panel-default'>
+          <div className='panel-heading'>
+            <strong>{title_selected_items}</strong>
+          </div>
+          <ul className='list-group'>
+            {this.renderSelectedItems()}
+          </ul>
+        </div>
+        <div className='panel panel-default'>
+          <div className='panel-heading'>
+            <strong>{title_remain_items}</strong>
+          </div>
+          <ul className='list-group'>
+            {this.renderItemsRemain()}
+          </ul>
         </div>
       </div>
     );
@@ -100,18 +124,33 @@ export default class ModalTask extends React.Component {
 
   onChangeSelect(event) {
     let target = event.target;
+    this.setState({
+      select_items: [],
+      current_item: '',
+    })
     this.props.afterChangeSelectBox($(target).val());
+    $('.task-preview').css('margin-top', '0');
   }
 
   renderSelectedItems() {
     return _.map(this.state.selected_items, item => {
       return(
-        <li className='list-group-item' key={item.id}>
+        <li className='list-group-item' key={item.id} 
+          onClick={this.onClickItem.bind(this, item)}>
           {item.name}
           <i className='glyphicon glyphicon-remove pull-right poiter'
             onClick={this.removeItem.bind(this, item)}></i>
         </li>
       );
+    });
+  }
+
+  onClickItem(item, event) {
+    let target = event.target;  
+    let distance_top = $(target).position().top;
+    $('.task-preview').css('margin-top', distance_top);
+    this.setState({
+      current_item: item,
     });
   }
 
@@ -124,18 +163,21 @@ export default class ModalTask extends React.Component {
       this.state.remain_items.push(item);
     }
 
-    axios.delete(routes.assign_task_url(item.id), {
+    axios.delete(routes.assign_task_url(item.id) + '.json', {
       params: {
         targetable_type: this.state.targetable_type,
+        targetable_id: item.id,
+        ownerable_id: this.props.ownerable_id,
+        ownerable_type: 'Course',
         authenticity_token: ReactOnRails.authenticityToken()
       },
-      headers: {'Accept': 'application/json'}
     })
     .then(response => {
       this.setState({
         selected_items: this.state.selected_items,
         remain_items: this.state.remain_items
-      })
+      });
+
     })
     .catch(error => {
       console.log(error)
@@ -157,9 +199,16 @@ export default class ModalTask extends React.Component {
           checked={checked}
           select_items={this.state.select_items}
           chooseItem={this.chooseItem.bind(this)}
+          current_item={this.current_item.bind(this)}
         />
       );
     });
+  }
+
+  current_item(item) {
+    this.setState({
+      current_item: item,
+    })
   }
 
   chooseItem(select_items) {
@@ -174,7 +223,6 @@ export default class ModalTask extends React.Component {
       _.map(this.state.select_items, select_item => {
         arr_targetable_id.push(select_item.id);
       });
-
       axios.post(TASKS_URL , {
         task: {
           targetable_ids: arr_targetable_id,
@@ -192,10 +240,12 @@ export default class ModalTask extends React.Component {
             remain_item.id == select_item.id);
           this.state.remain_items.splice(index, 1);
         });
-        this.props.afterSubmitCreateTask(this.state.selected_items, this.state.remain_items);
+        this.props.afterSubmitCreateTask(this.state.selected_items, 
+          this.state.remain_items);
         this.setState({
-          select_items: []
+          select_items: [],
         });
+        $('.modal-task-course').modal('hide');
       })
       .catch(error => {
         console.log(error);
