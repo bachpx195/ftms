@@ -14,29 +14,27 @@ export default class Update extends React.Component {
 
   onSubmitUpdate(event) {
     event.preventDefault();
-    if (confirm(I18n.t('data.confirm_all'))) {
-      let formData = new FormData();
+    let formData = new FormData();
 
-      let attributes = this.props.attributes;
+    let attributes = this.props.attributes;
 
-      for(let key of Object.keys(attributes)) {
-        formData.append(this.props.params + '[' + key + ']', attributes[key]);
-      }
-
-      formData.append('authenticity_token', ReactOnRails.authenticityToken());
-      axios({
-        url: this.props.url,
-        method: 'PUT',
-        data: formData,
-        headers: {'Accept': 'application/json'}
-      })
-      .then(response => {
-        $('.modalEdit').modal('hide');
-        this.props.handleAfterUpdated(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    for(let key of Object.keys(attributes)) {
+      formData.append(this.props.params + '[' + key + ']', attributes[key]);
     }
+
+    formData.append('authenticity_token', ReactOnRails.authenticityToken());
+    axios({
+      url: this.props.url,
+      method: 'PUT',
+      data: formData,
+      headers: {'Accept': 'application/json'}
+    })
+    .then(response => {
+      $('.modalEdit').modal('hide');
+      this.props.handleAfterUpdated(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 }
