@@ -4,7 +4,6 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Errors from '../shareds/errors';
 import _ from 'lodash';
-import ModalConfirm from 'shared/modal-confirm';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -32,10 +31,6 @@ export default class Form extends React.Component {
               &nbsp;{I18n.t('buttons.save')}
             </button>
           </div>
-
-        <ModalConfirm onConfirmed={this.createTraineeType.bind(this)}
-          title={I18n.t('data.confirm_all')} body={I18n.t('data.confirm')}
-          button={I18n.t('data.confirm_yes')} btnClass='btn btn-danger'/>
         </div>
       </form>
     );
@@ -61,10 +56,6 @@ export default class Form extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    $('.modal-confirm').modal();
-  }
-
-  createTraineeType() {
     let formData = new FormData();
 
     let trainee_type = _.omit(this.state, 'errors');
