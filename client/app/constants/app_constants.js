@@ -106,3 +106,6 @@ export function isOverMaxDocumentSize(file) {
   }
   return is_over;
 }
+
+//profile
+export const USER_PROFILES_PATH = 'profiles';
