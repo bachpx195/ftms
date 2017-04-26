@@ -181,7 +181,7 @@ export default class SubjectManager extends React.Component {
       _.remove(this.state.subject_detail.course_subject_task[type],
         ({task_id}) => task_id == index);
     } else {
-      _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
+      _.remove(this.state.subject_detail.subject_tasks[type], ({task_id}) => {
         return task_id == index
       });
     }
@@ -203,7 +203,7 @@ export default class SubjectManager extends React.Component {
       }
     } else {
       _.mapValues(targets, function(target) {
-        subject_detail.subject_task[type].push(target)
+        subject_detail.subject_tasks[type].push(target)
       })
     }
     this.setState({
@@ -215,7 +215,7 @@ export default class SubjectManager extends React.Component {
     if (owner == 'CourseSubject') {
       this.state.subject_detail.course_subject_task[type].push(target);
     } else {
-      this.state.subject_detail.subject_task[type].push(target);
+      this.state.subject_detail.subject_tasks[type].push(target);
     }
     this.setState({
       subject_detail: this.state.subject_detail

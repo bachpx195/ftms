@@ -28,7 +28,7 @@ export default class Create extends React.Component {
   render() {
     return(
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)} className='form-horizontal'>
+        <form className='form-horizontal'>
           <div className='form-group'>
             <label className='control-label col-sm-2' htmlFor='email'>
               {I18n.t('assignments.name')}
@@ -50,30 +50,34 @@ export default class Create extends React.Component {
                 onChange={this.handleChange.bind(this)} />
             </div>
           </div>
-
-          <div className='form-group'>
-            <label className='control-label col-sm-2' htmlFor='email'>
-              {I18n.t('assignments.meta_type')}
-            </label>
-            <div className='col-md-10'>
-              <AssignmentMetaType
-                meta_types={this.state.meta_types}
-                meta_types_checked={this.state.meta_types_checked}
-                handleAfterCreated={this.handleAfterCreated.bind(this)}
-                handleAfterChecked={this.handleAfterChecked.bind(this)}
-              />
-            </div>
-          </div>
-
-          <div className='form-group'>
-            <div className='col-md-12 text-center'>
-              <button type='submit' className='btn btn-primary'
-                disabled={!this.formValid()}>
-                {I18n.t('buttons.create_task')}
-              </button>
-            </div>
-          </div>
         </form>
+
+        <div className='form-group'>
+          <label className='control-label col-sm-2' htmlFor='email'>
+            {I18n.t('assignments.meta_type')}
+          </label>
+          <div className='col-md-10'>
+            <AssignmentMetaType
+              permit_create_meta_type={this.props.permit_create_meta_type}
+              subject={this.props.subject}
+              meta_types={this.state.meta_types}
+              subject={this.props.subject}
+              meta_types_checked={this.state.meta_types_checked}
+              handleAfterCreated={this.handleAfterCreated.bind(this)}
+              handleAfterChecked={this.handleAfterChecked.bind(this)}
+            />
+          </div>
+        </div>
+
+        <div className='form-group'>
+          <div className='col-md-12 text-center'>
+            <button type='submit' className='btn btn-primary'
+              disabled={!this.formValid()}
+              onClick={this.handleSubmit.bind(this)}>
+              {I18n.t('buttons.create_task')}
+            </button>
+          </div>
+        </div>
       </div>
     )
   }

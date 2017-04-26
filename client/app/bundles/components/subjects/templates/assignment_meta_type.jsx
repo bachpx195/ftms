@@ -22,22 +22,24 @@ export default class AssignmentMetaType extends React.Component {
   render () {
     return (
       <div className="meta-types-assignment pull-left">
+        {this.props.permit_create_meta_type ? (
           <button className="btn btn-info"
             title={I18n.t("assignments.create_other_meta_type")}
             onClick={this.handleOpenFormMetaType.bind(this)}>
             <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
+        ) : ('')}
 
-          <form className="form-inline form-meta-type hidden">
-            <input className="form-control input-meta-type"
-              placeholder={I18n.t("assignments.create_meta_type")}
-              name="name" ref="nameField"
-              onChange={this.handleChange.bind(this)}
-            />
-            <button className="btn btn-info"
-            onClick={this.handleCreateMetaty.bind(this)}
-            >{I18n.t("assignments.create_meta_type")}</button>
-          </form>
+        <form className="form-inline form-meta-type hidden">
+          <input className="form-control input-meta-type"
+            placeholder={I18n.t("assignments.create_meta_type")}
+            name="name" ref="nameField"
+            onChange={this.handleChange.bind(this)}/>
+          <button className="btn btn-info"
+            onClick={this.handleCreateMetaty.bind(this)}>
+            {I18n.t("assignments.create_meta_type")}
+          </button>
+        </form>
         <div>
           {this._renderCheckboxMetaType(this.state.meta_types)}
         </div>
@@ -98,7 +100,9 @@ export default class AssignmentMetaType extends React.Component {
 
   handleCreateMetaty(event) {
     event.preventDefault();
+    let subject_id = this.props.subject ? this.props.subject.id : '';
     axios.post(routes.meta_types_url() + '.json', {
+      subject_id: subject_id,
       meta_type: {
         name: this.state.name
       },

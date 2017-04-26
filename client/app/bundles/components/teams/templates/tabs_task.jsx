@@ -68,8 +68,9 @@ export default class TabsTask extends React.Component {
         <div id='tab-assignments' className='tab-pane fade in active'>
           <div className='clearfix'>
             <BlockTasks
-              tasks={this.props.subject_detail.team_task.assignments}
+              tasks={this.props.subject_detail.tasks.assignments}
               title={I18n.t('subjects.titles.assignments')}
+              handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
               type='assignments'/>
           </div>
@@ -77,8 +78,9 @@ export default class TabsTask extends React.Component {
         <div id='tab-surveys' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
-              tasks={this.props.subject_detail.team_task.surveys}
+              tasks={this.props.subject_detail.tasks.surveys}
               title={I18n.t('subjects.titles.surveys')}
+              handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
               type='surveys'/>
           </div>
@@ -86,8 +88,9 @@ export default class TabsTask extends React.Component {
         <div id='tab-test-rules' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
-              tasks={this.props.subject_detail.team_task.test_rules}
+              tasks={this.props.subject_detail.tasks.test_rules}
               title={I18n.t('subjects.titles.tests')}
+              handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
               type='test_rules'/>
           </div>
@@ -95,8 +98,9 @@ export default class TabsTask extends React.Component {
         <div id='tab-projects' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
-              tasks={this.props.subject_detail.team_task.projects}
+              tasks={this.props.subject_detail.tasks.projects}
               title={I18n.t('subjects.titles.tests')}
+              handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
               type='projects'/>
           </div>
@@ -119,10 +123,10 @@ export default class TabsTask extends React.Component {
   }
 
   renderSidebar() {
-    let surveys_count = this.props.subject_detail.team_task.surveys.length;
-    let assignments_count = this.props.subject_detail.team_task.assignments.length;
-    let tests_count = this.props.subject_detail.team_task.test_rules.length;
-    let projects_count = this.props.subject_detail.team_task.projects.length;
+    let surveys_count = this.props.subject_detail.tasks.surveys.length;
+    let assignments_count = this.props.subject_detail.tasks.assignments.length;
+    let tests_count = this.props.subject_detail.tasks.test_rules.length;
+    let projects_count = this.props.subject_detail.tasks.projects.length;
 
     return (
       <a className='btn btn-success button-change-group-focus'>

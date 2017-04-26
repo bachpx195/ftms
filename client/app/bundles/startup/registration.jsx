@@ -30,7 +30,7 @@ import SubjectBox from '../components/subjects/box';
 import SubjectsShowBox from  '../components/subjects/show';
 import ProgramsShowBox from '../components/programs/show';
 import TaskBox from '../components/tasks/show';
-import TeamsShowBox from '../components/teams/teams_show_box';
+import TeamsShowBox from '../components/teams/show';
 import TestRulesBox from '../components/test_rules/box';
 import TimeLineBox from '../components/timelines/show';
 import TraineeTypeBox from '../components/trainee_types/trainee_types_box';

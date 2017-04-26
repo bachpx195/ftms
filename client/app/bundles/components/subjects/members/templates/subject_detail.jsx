@@ -59,8 +59,7 @@ export default class SubjectDetail extends React.Component {
                   </div>
                   <div className='pull-right'>
                     <a href='#show-content' className='text'
-                      data-toggle='collapse'
-                      onClick={this.afterClickShowDescription.bind(this)}>
+                      data-toggle='collapse'>
                       {action}</a>
                   </div>
                   <div className='clearfix'></div>
@@ -81,7 +80,7 @@ export default class SubjectDetail extends React.Component {
                     <PublicPolicy permit={[{action: ['setUserTeam'], target: 'children',
                       data: {course_subject_teams: course_subject_teams}}]}>
                       <button type='button' className='pull-right btn btn-info'
-                        onClick={this.handleClickButton.bind(this)}>
+                        onClick={this.handleButtonCreateAssignment.bind(this)}>
                         {I18n.t('subjects.trainee.create_assignments')}
                       </button>
                     </PublicPolicy>
@@ -101,7 +100,7 @@ export default class SubjectDetail extends React.Component {
               <div className='statistic-task'>
                 <StatisticTask statistic={this.state.subject_detail.statistics}
                   subject={this.state.subject_detail}
-                  length={this.state.subject_detail.user_task.length}
+                  length={this.state.subject_detail.tasks.length}
                 />
               </div>
               <div className='document'>
@@ -115,14 +114,8 @@ export default class SubjectDetail extends React.Component {
     );
   }
 
-  afterClickShowDescription() {
-    this.setState({
-      is_show: !this.state.is_show
-    })
-  }
-
-  handleClickButton(event) {
-    $('.modal-create-assignment').modal();
+  handleButtonCreateAssignment(event) {
+    $('.modal-create-assignments').modal();
   }
 
   renderAssignment() {
