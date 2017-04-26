@@ -15,10 +15,12 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       format.json do
         if @assignment.save
+          create_meta_types @assignment
           static_task, dynamic_task = create_tasks_for_team
           render json: {target:
             {
-              assignment: @assignment,
+              assignment: Serializers::Subjects::AssignmentsSerializer
+                .new(object: @assignment).serializer,
               static_task: static_task,
               dynamic_task: dynamic_task
             }, message: flash_message("created")}
@@ -97,6 +99,13 @@ class AssignmentsController < ApplicationController
             status: :not_found
         end
       end
+    end
+  end
+
+  def create_meta_types assignment
+    params[:meta_types_checked].pluck(:id).each do |meta_type_id|
+      meta_type = MetaType.find_by id: meta_type_id
+      assignment.meta_types << meta_type
     end
   end
 

@@ -6,7 +6,7 @@ import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
 
-export default class ListTasks extends React.Component {
+export default class ListTasksRemain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

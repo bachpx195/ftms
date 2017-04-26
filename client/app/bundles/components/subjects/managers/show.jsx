@@ -61,6 +61,7 @@ export default class SubjectManagerShowBox extends React.Component {
             </div>
 
             <ListTabs
+              type={this.state.type}
               subject_detail={this.state.subject_detail}
               course={this.props.course} user={user}
               user_index={this.state.user_index}

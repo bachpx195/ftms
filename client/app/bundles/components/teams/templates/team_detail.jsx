@@ -1,5 +1,5 @@
 import ButtonCreateProject from '../../projects/actions/create';
-import Modal from '../../projects/templates/modal';
+import ModalCreateProject from '../../projects/templates/modal';
 import React from 'react';
 
 export default class TeamDetail extends React.Component {
@@ -29,19 +29,14 @@ export default class TeamDetail extends React.Component {
               {this.props.training_standard.name}
             </div>
           </div>
-          <div className='col-md-2 text-right'>
-            <button type='button' className='btn btn-primary'
-              onClick={this.props.afterClickAddTask}>
-              <i className='fa fa-plus'></i>
-              &nbsp;{I18n.t('subjects.headers.add_task')}
-            </button>
+          <div className='col-md-2 pull-right'>
+            <ButtonCreateProject
+            />
           </div>
-          <div className='col-md-2 text-right'>
-            <ButtonCreateProject />
-          </div>
-          <Modal organizations={this.props.organizations}
+          <ModalCreateProject
+            organizations={this.props.organizations}
             team={this.props.team}
-            handleAfterUpdate={this.props.handleAfterUpdate} />
+            handleAfterActionProject={this.props.handleAfterActionProject} />
         </div>
       </div>
     )

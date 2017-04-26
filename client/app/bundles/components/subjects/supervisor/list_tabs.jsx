@@ -14,7 +14,8 @@ export default class ListTabs extends React.Component {
       user_index: props.user_index,
       member_evaluations: props.member_evaluations,
       meta_types: props.meta_types,
-      tabs_group_focus: 1
+      tabs_group_focus: 1,
+      type: props.type
     }
   }
 
@@ -25,7 +26,8 @@ export default class ListTabs extends React.Component {
       user: nextProps.user,
       user_index: nextProps.user_index,
       member_evaluations: nextProps.member_evaluations,
-      meta_types: nextProps.meta_types
+      meta_types: nextProps.meta_types,
+      type: nextProps.type
     });
   }
 
@@ -37,8 +39,8 @@ export default class ListTabs extends React.Component {
             course={this.props.course}
             subject_detail={this.state.subject_detail}
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-            tabs_group_focus={this.state.tabs_group_focus}
             handleChooseType={this.props.handleChooseType}
+            tabs_group_focus={this.state.tabs_group_focus}
             changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
           <TabsMember
             course_subject_teams={this.state.course_subject_teams}
@@ -64,8 +66,9 @@ export default class ListTabs extends React.Component {
             subject_detail={this.state.subject_detail}
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             tabs_group_focus={this.state.tabs_group_focus}
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)}
             handleChooseType={this.props.handleChooseType}
-            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+          />
           {this.renderTaskModal()}
         </div>
       )
@@ -86,7 +89,8 @@ export default class ListTabs extends React.Component {
       if(this.state.subject_detail.user_subjects &&
         this.state.subject_detail.user_subjects[this.state.user_index]) {
         panelUserTask = (
-          <ModalTask task={this.state.subject_detail.course_subject_task}
+          <ModalTask
+            task={this.state.subject_detail.course_subject_task}
             user_tasks={this.state.subject_detail
               .user_subjects[this.state.user_index].user_course_task}
             user_index={this.state.user_index}
@@ -138,6 +142,7 @@ export default class ListTabs extends React.Component {
       ownerable_id = this.state.subject_detail.id;
       ownerable_type = 'Subject';
     }
+
     tasks = this.state.subject_detail.tasks;
 
     return(
@@ -150,11 +155,17 @@ export default class ListTabs extends React.Component {
                   data-dismiss='modal'>&times;</button>
                 <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
               </div>
-              <ModalBody task={tasks} ownerable_id={ownerable_id}
-                ownerable_type={ownerable_type} course={this.props.course}
+              <ModalBody
+                task={tasks}
+                type={this.state.type}
+                ownerable_id={ownerable_id}
+                ownerable_type={ownerable_type}
+                course={this.props.course}
+                handleChooseType={this.props.handleChooseType}
                 subject_detail={this.state.subject_detail}
                 handleAfterAddTask={this.props.handleAfterAddTask}
                 afterCreateTask={this.props.afterCreateTask}
+                course_subject_task={this.state.subject_detail.course_subject_task}
                 meta_types={this.state.meta_types}
               />
             </div>

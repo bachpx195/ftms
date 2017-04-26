@@ -29,7 +29,8 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def tasks
     Serializers::Subjects::SubjectTasksSerializer
-      .new(object: object).serializer
+      .new(object: object, scope: {course_subject: course_subjects,
+      course: course}).serializer
   end
 
   def course_member

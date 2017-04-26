@@ -39,7 +39,7 @@ export default class TeamsShowBox extends React.Component {
           training_standard={this.state.training_standard}
           organizations={this.state.organizations}
           team={this.state.team}
-          handleAfterUpdate={this.handleAfterUpdate.bind(this)}
+          handleAfterActionProject={this.handleAfterActionProject.bind(this)}
         />
         <ListTabs
           team={this.props.team}
@@ -175,8 +175,8 @@ export default class TeamsShowBox extends React.Component {
     });
   }
 
-  handleAfterUpdate(target, type) {
-    this.state.subject_detail.team_task[type].push(target);
+  handleAfterActionProject(target, type) {
+    this.state.subject_detail.tasks[type].push(target);
     this.setState({
       subject_detail: this.state.subject_detail
     });

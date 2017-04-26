@@ -89,7 +89,7 @@ export default class Form extends React.Component {
     })
     .then(response => {
       $('.modal-create').modal('hide');
-      this.props.handleAfterUpdate(response.data.project, 'projects');
+      this.props.handleAfterActionProject(response.data.project, 'projects');
       this.setState({
         project: {},
         errors: null,
