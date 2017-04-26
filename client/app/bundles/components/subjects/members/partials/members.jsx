@@ -23,7 +23,6 @@ export default class Users extends React.Component {
         <a href={user_path} title={user.name}>
           <img className='img-circle'
             src={user.avatar.url} width='30' height='30'/>
-          {user.name}
         </a>
       </li>
     );

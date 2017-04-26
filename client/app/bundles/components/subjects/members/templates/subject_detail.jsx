@@ -1,5 +1,7 @@
 import AssignmentItem from './assignment_item';
 import css from '../../assets/subject.scss';
+import Documents from '../partials/documents';
+import ModalPreviewDocument from '../../../shareds/modal_preview_document';
 import React from 'react';
 import PublicPolicy from 'policy/public_policy';
 import StartExamButton from './start_exam_button';
@@ -14,34 +16,62 @@ export default class SubjectDetail extends React.Component {
       assigments_of_user_subjects: props.assigments_of_user_subjects,
       user_dynamic_course_subjects: props.user_dynamic_course_subjects,
       static_task_assignment: props.static_task_assignment,
+      is_show: true
     };
   }
 
   render() {
     let course_subject_teams = this.state.subject_detail.course_subject_teams;
+    let action;
+    if (this.state.is_show) {
+      action = I18n.t('subjects.contents.show_more');
+    } else {
+      action = I18n.t('subjects.contents.close');
+    }
+    let show_content;
+    if (this.state.subject_detail.description) {
+      show_content = this.state.subject_detail.description;
+    } else {
+      show_content = I18n.t('subjects.titles.nothing_to_show');
+    }
+
     return (
       <div className='col-md-12'>
-        <div className='box box-success'>
-          <div className='box-header with-border'>
-          <h3 className="box-title">
-            {this.state.subject_detail.name}
-          </h3>
-            <div className='box-tools pull-right'>
-              <button type='button' className='btn btn-box-tool'
-                data-widget='collapse'>
-                <i className='fa fa-minus'></i>
-              </button>
-              <button type='button' className='btn btn-box-tool'
-                data-widget='remove'>
-                <i className='fa fa-times'></i>
-              </button>
+        <div className='subject-detail'>
+          <div className='title'>
+            <h3 className='box-title'>
+                {this.state.subject_detail.name}
+            </h3>
+            <div className='subject-status clearfix'>
+              <span className={`status ` +
+                this.state.subject_detail.course_subject.status}>
+                {this.state.subject_detail.course_subject.status}
+              </span>
             </div>
           </div>
-          <div className='box-body no-padding'>
-            <div className='row'>
-              <div className='col-md-8'>
-                <div className='clearfix'></div>
-                <div className='assignment-box'>
+
+          <div className='row'>
+            <div className='col-md-9'>
+              <div className='description'>
+                <div className='box-content'>
+                  <div className='pull-left title'>
+                    {I18n.t('subjects.titles.content')}
+                  </div>
+                  <div className='pull-right'>
+                    <a href='#show-content' className='text'
+                      data-toggle='collapse'
+                      onClick={this.afterClickShowDescription.bind(this)}>
+                      {action}</a>
+                  </div>
+                  <div className='clearfix'></div>
+                </div>
+                <div id='show-content' className='collapse show-panel'>
+                  {show_content}
+                </div>
+              </div>
+              <div className='clearfix'></div>
+              <div className='assignment-box'>
+                <div className='list-assignment'>
                   <h1 className='header-task'>
                     {I18n.t('subjects.trainee.title_assignment')}
                     <span className='label label-danger label-header'>
@@ -61,27 +91,34 @@ export default class SubjectDetail extends React.Component {
                     course_subject={this.state.subject_detail.course_subject} />
                 </div>
               </div>
-              <div className='col-md-4'>
-                <div className='member_user_course'>
-                  <Users
-                    members={this.state.subject_detail.course_member}
-                    managers={this.state.subject_detail.course_managers}
-                  />
-                </div>
-                <div className='statistic-task'>
-                  <StatisticTask statistic={this.state.subject_detail.statistics}
-                    subject={this.state.subject_detail}
-                    length={this.state.static_task_assignment.length}
-                  />
-                </div>
+            </div>
+            <div className='col-md-3'>
+              <div className='member_user_course'>
+                <Users
+                  subject_detail={this.state.subject_detail}
+                />
+              </div>
+              <div className='statistic-task'>
+                <StatisticTask statistic={this.state.subject_detail.statistics}
+                  subject={this.state.subject_detail}
+                  length={this.state.subject_detail.user_task.length}
+                />
+              </div>
+              <div className='document'>
+                <Documents clickPreviewDocument={this.clickPreviewDocument.bind(this)}
+                  documents={this.state.subject_detail.documents}/>
               </div>
             </div>
-          </div>
-          <div className='box-footer'>
           </div>
         </div>
       </div>
     );
+  }
+
+  afterClickShowDescription() {
+    this.setState({
+      is_show: !this.state.is_show
+    })
   }
 
   handleClickButton(event) {
@@ -113,5 +150,10 @@ export default class SubjectDetail extends React.Component {
         afterClickSendPullRequest={this.props.afterClickSendPullRequest}
       />
     })
+  }
+
+  clickPreviewDocument(document) {
+    this.setState({document_preview: document});
+    $('.modal-preview-document').modal();
   }
 }

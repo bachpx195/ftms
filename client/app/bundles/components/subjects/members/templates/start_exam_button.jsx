@@ -37,12 +37,12 @@ export default class StartExamButton extends React.Component {
           </div>
 
           <div className="detail row">
-            <div className="col-md-6">
+            <div className="col-md-6 border-right info">
               <i className="fa fa-calendar" aria-hidden="true"></i>
               {I18n.t("subjects.trainee.start_date")}
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-6 info">
               <i className="fa fa-clock-o" aria-hidden="true"></i>
               {I18n.t("subjects.trainee.spend_time")}
             </div>
