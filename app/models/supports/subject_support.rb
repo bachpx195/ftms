@@ -8,18 +8,22 @@ class Supports::SubjectSupport
     @current_user = args[:current_user]
   end
 
-  def surveys_not_in_static_task
-    @surveys ||= @subject.organization.surveys.where.not id: @subject.surveys
+  def organization
+    if @course
+      @course.program.organization
+    else
+      @subject.organization
+    end
   end
 
-  def assignments_not_in_static_task
-    @assignments ||= @subject.organization.assignments.where
-      .not id: @subject.assignments
-  end
-
-  def test_rules_not_in_static_task
-    @test_rules ||= @subject.organization.test_rules.where
-      .not id: @subject.test_rules
+  %w(surveys assignments test_rules).each do |task|
+    define_method "#{task}_not_in_static_task" do
+      if @course.present?
+        organization.send(task).where.not id: @course_subject.send("static_#{task}")
+      else
+        organization.send(task).where.not id: @subject.send(task)
+      end
+    end
   end
 
   def user_subjects
@@ -79,8 +83,7 @@ class Supports::SubjectSupport
   def subject_detail
     Serializers::Subjects::SubjectDetailsSerializer
       .new(object: @subject, scope: {subject_supports: self,
-        course_subjects: @course_subject, courses: @course, current_user:
-        @current_user}).serializer
+        course_subjects: @course_subject, course: @course}).serializer
   end
 
   def member_evaluations
@@ -100,7 +103,7 @@ class Supports::SubjectSupport
   end
 
   def meta_types
-    @current_user.meta_types
+    organization.meta_types
   end
 
   def is_manager_course?

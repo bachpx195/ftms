@@ -58,7 +58,6 @@ class User < ApplicationRecord
   has_many :static_tasks, through: :dynamic_tasks, class_name: StaticTask.name,
      as: :targetable
   has_many :exams, dependent: :destroy
-  has_many :meta_types, dependent: :destroy, foreign_key: :user_id
 
   validates :name, presence: true
   validates :email, presence: true

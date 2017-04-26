@@ -24,6 +24,7 @@ class Organization < ApplicationRecord
   has_many :moving_histories, dependent: :destroy
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :exams, through: :users
+  has_many :meta_types, dependent: :destroy, foreign_key: :organization_id
 
   validates :name, presence: true
 

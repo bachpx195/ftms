@@ -18,7 +18,8 @@
       course: @subject_supports.course,
       organizations: @subject_supports.organizations,
       meta_types: @subject_supports.meta_types,
-      user_dynamic_tasks: @subject_supports.user_dynamic_tasks
+      user_dynamic_tasks: @subject_supports.user_dynamic_tasks,
+      permit_create_meta_type: false
       }, prerender: false
   %>
 <% else %>
@@ -40,7 +41,8 @@
       subject_detail: @subject_supports.subject_detail,
       course: @subject_supports.course,
       organizations: @subject_supports.organizations,
-      meta_types: @subject_supports.meta_types
-      }, prerender: false
+      meta_types: @subject_supports.meta_types,
+      permit_create_meta_type: true
+    }, prerender: false
     %>
 <% end %>
