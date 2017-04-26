@@ -309,7 +309,7 @@ namespace :db do
       UserProgram.create! program_id: 2,  user_id: n+10
     end
 
-    puts "12. Creat StandardSubject"
+    puts "12. Create StandardSubject"
     TrainingStandard.all.each do |training_standard|
       training_standard.subjects << Subject.limit(5)
     end
@@ -375,7 +375,7 @@ namespace :db do
       end
     end
 
-    puts "15. create User Course"
+    puts "15. Create User Course"
     CourseManager.create!([
       {user_id: 4, course_id: 1, status: "in_progress"},
       {user_id: 1, course_id: 1, status: "in_progress"},
@@ -409,7 +409,7 @@ namespace :db do
         user_course_id: user_course.id, subject_id: course_subject.subject.id
     end
 
-    puts "18. create Profile"
+    puts "18. Create Profile"
     User.all.each do |user|
       Profile.create!([
         {user: user, language_id: 1, organization_id: 2, program_id: 1,
@@ -433,14 +433,14 @@ namespace :db do
       {name: "Standard 4", min_point: 3, max_point: 10, average_point: 4, evaluation_template_id: 1, creator_id: 1},
     ])
 
-    puts "21. create RoleFunction"
+    puts "21. Create RoleFunction"
     Role.all.limit(3).each do |role|
       Function.all.each do |function|
         RoleFunction.create! role_id: role.id, function_id: function.id
       end
     end
 
-    puts "22. create UserRole"
+    puts "22. Create UserRole"
     role = Role.find_by id: 1
     User.all.limit(9).each do |user|
       UserRole.create! user_id: user.id, role_id: 1
@@ -448,18 +448,18 @@ namespace :db do
       user.functions = role.functions
     end
 
-    puts "23. create Survey"
+    puts "23. Create Survey"
     10.times do |n|
       Survey.create name: "Survey #{n}", content: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
         organization_id: 2, creator_id: 1
     end
 
-    puts "24. create Assignment"
+    puts "24. Create Assignment"
     10.times do |n|
       Assignment.create name: "Assignment #{n}", organization_id: 2, creator_id: 1
     end
 
-    puts "25. create TestRule"
+    puts "25. Create TestRule"
     5.times do |n|
       TestRule.create name: "Test rule #{n}", total_question: 30,
         time_of_test: 20, min_score_for_pass: 25, creator_id: 4,
@@ -547,6 +547,15 @@ namespace :db do
     Category.take(3).each do |category|
       test_rule.test_rule_categories.create! category_id: category.id,
         number_question: 10, easy: 50, normal: 30, hard: 20
+    end
+
+    puts "36. Create Training Results"
+    EvaluationTemplate.all.each do |evaluation_template|
+      evaluation_template.training_results.create! [
+        {name: "Failed", min_point: 0, max_point: 10},
+        {name: "Good", min_point: 11, max_point: 20},
+        {name: "Excellent", min_point: 21, max_point: 30}
+      ]
     end
   end
 end
