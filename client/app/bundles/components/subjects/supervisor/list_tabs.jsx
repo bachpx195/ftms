@@ -38,6 +38,7 @@ export default class ListTabs extends React.Component {
             subject_detail={this.state.subject_detail}
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             tabs_group_focus={this.state.tabs_group_focus}
+            handleChooseType={this.props.handleChooseType}
             changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
           <TabsMember
             course_subject_teams={this.state.course_subject_teams}
@@ -63,6 +64,7 @@ export default class ListTabs extends React.Component {
             subject_detail={this.state.subject_detail}
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             tabs_group_focus={this.state.tabs_group_focus}
+            handleChooseType={this.props.handleChooseType}
             changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
           {this.renderTaskModal()}
         </div>
@@ -125,19 +127,18 @@ export default class ListTabs extends React.Component {
   }
 
   renderTaskModal() {
-    let task = null;
+    let tasks = null;
     let ownerable_id = null;
     let ownerable_type = '';
 
     if (this.props.course) {
-      task = this.state.subject_detail.subject_task;
       ownerable_id = this.state.subject_detail.course_subject.id;
       ownerable_type = 'CourseSubject';
     } else {
-      task = this.state.subject_detail.task;
       ownerable_id = this.state.subject_detail.id;
       ownerable_type = 'Subject';
     }
+    tasks = this.state.subject_detail.tasks;
 
     return(
       <div className='modal-task'>
@@ -149,13 +150,11 @@ export default class ListTabs extends React.Component {
                   data-dismiss='modal'>&times;</button>
                 <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
               </div>
-              <ModalBody task={task} ownerable_id={ownerable_id}
+              <ModalBody task={tasks} ownerable_id={ownerable_id}
                 ownerable_type={ownerable_type} course={this.props.course}
                 subject_detail={this.state.subject_detail}
                 handleAfterAddTask={this.props.handleAfterAddTask}
                 afterCreateTask={this.props.afterCreateTask}
-                course_subject_task={this.state.subject_detail
-                  .course_subject_task}
                 meta_types={this.state.meta_types}
               />
             </div>

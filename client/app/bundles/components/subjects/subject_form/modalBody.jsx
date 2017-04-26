@@ -12,7 +12,6 @@ export default class ModalBody extends React.Component{
       type: '',
       survey_id: '',
       course: props.course,
-      course_subject_task: props.course_subject_task,
       meta_types: props.meta_types
     }
   }
@@ -21,7 +20,6 @@ export default class ModalBody extends React.Component{
     this.setState({
       task: nextProps.task,
       course: nextProps.course,
-      course_subject_task: nextProps.course_subject_task,
       meta_types: nextProps.meta_types
     });
   }
@@ -32,7 +30,7 @@ export default class ModalBody extends React.Component{
       let available_tasks = [];
       if(this.state.type != '') {
         available_tasks = this.state.task[this.state.type].filter(task => {
-          return this.state.course_subject_task[this.state.type]
+          return this.state.tasks[this.state.type]
             .findIndex(_task => _task.id == task.id) < 0;
         });
       }

@@ -18,6 +18,7 @@ en:
       tasks: "Tasks"
       content: "Content"
       nothing_to_show: "Nothing to show"
+      projects: "Projects"
     headers:
       id: "ID"
       name: "Name"
@@ -93,3 +94,6 @@ en:
     contents:
       show_more: "Show more"
       close: "Close"
+    assign: "Assign %{type}"
+    add: "Add %{type}"
+    permit_create_meta_types_fails: "Permission create meta type fail"

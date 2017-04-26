@@ -13,16 +13,17 @@ export default class ListTabs extends React.Component {
     }
   }
 
+
   renderUserTaskModal() {
     let panelUserTask = null;
     if(this.props.subject_detail.user_subjects &&
       this.props.subject_detail.user_subjects[this.props.user_index]) {
       panelUserTask = (
-        <ModalTask task={this.props.subject_detail.team_task}
-          user_tasks={this.props.subject_detail
-            .user_subjects[this.props.user_index].user_course_task}
-          user_index={this.props.user_index}
-          ownerable_id={this.props.subject_detail.course_subject.id}
+        <ModalTask task={this.state.subject_detail.tasks}
+          user_tasks={this.state.subject_detail
+            .user_subjects[this.state.user_index].user_course_task}
+          user_index={this.state.user_index}
+          ownerable_id={this.state.subject_detail.course_subject.id}
           ownerable_type='CourseSubject'
           subject_detail={this.props.subject_detail}
           handleAfterAddTask={this.props.handleAfterAddTask}
@@ -92,6 +93,7 @@ export default class ListTabs extends React.Component {
           handleDocumentDeleted={this.props.handleDocumentDeleted}
           clickPreviewDocument={this.props.clickPreviewDocument}
           handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+          handleChooseType={this.props.handleChooseType}
           changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
         <TabsMember
           tabs_group_focus={this.state.tabs_group_focus}

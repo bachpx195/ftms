@@ -1,11 +1,15 @@
 import axios from 'axios';
 import Documents from '../../shareds/documents/documents';
 import ListTabs from '../supervisor/list_tabs';
+import ModalAssignTask from './templates/modal_assign_task';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';
 import ModalCreateAssignment from './templates/modal_create_assignment';
 import React from 'react';
 import SubjectManagerInfo from  './templates/subject_manager_info';
 import SubjectPolicy from 'policy/subject_policy';
+import * as routes from 'config/routes';
+
+const SUBJECT_TASKS_URL = routes.subject_tasks_url();
 
 export default class SubjectManagerShowBox extends React.Component {
   constructor(props) {
@@ -23,49 +27,28 @@ export default class SubjectManagerShowBox extends React.Component {
       user_index: 0,
       meta_types: props.meta_types,
       documents: props.subject_detail.documents,
-      document_preview: {}
+      document_preview: {},
+      type: ''
     }
   }
 
   render() {
-    let add_task_button = null;
-    if (this.props.course) {
-      add_task_button = (
-        <SubjectPolicy
-          permit={
-            [{action: ['owner'], target: 'children',
-            data: {owner_id: this.props.course.owner_id}},
-            {action: ['course_manager'], target: 'children',
-            data: {members_ids: this.state.member_ids}}]}>
-          <button type='button' className='btn btn-primary'
-            onClick={this.afterClickAddTask.bind(this)}>
-            {I18n.t('subjects.add_task_for_subject')}
-          </button>
-        </SubjectPolicy>
-      );
-    } else {
-      add_task_button = (
-        <button type='button' className='btn btn-primary'
-          onClick={this.afterClickAddTask.bind(this)}>
-          {I18n.t('subjects.add_task_for_subject')}
-        </button>
-      );
-    }
-
     let user = null;
     if (this.props.course) {
       user = this.state.subject_detail.user_subjects[this.state.user_index];
     }
 
-    let ownerable_id, ownerable_type = '';
+    let ownerable_id, ownerable_type, tasks, remain_tasks = '';
     if (this.props.course) {
       ownerable_type = 'CourseSubject';
       ownerable_id = this.state.subject_detail.course_subject.id
+
     } else {
       ownerable_type = 'Subject';
       ownerable_id = this.props.subject.id
     }
-
+    tasks = this.state.subject_detail.tasks;
+    remain_tasks = this.state.subject_detail.remain_tasks;
     return (
       <div className='admin-subject-show clearfix'>
         <div className='row'>
@@ -82,30 +65,21 @@ export default class SubjectManagerShowBox extends React.Component {
               course={this.props.course} user={user}
               user_index={this.state.user_index}
               course_subject_teams={this.state.course_subject_teams}
-              afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
-              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-              handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-              afterCreateTask={this.afterCreateTask.bind(this)}
-              handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
               subject={this.props.subject}
               training_standard={this.props.training_standard}
               evaluation_template={this.props.evaluation_template}
               evaluation_standards={this.props.evaluation_standards}
-              member_evaluations={this.state.member_evaluations} />
+              member_evaluations={this.state.member_evaluations}
+              handleChooseType={this.handleChooseType.bind(this)}
+              afterCreateTask={this.afterCreateTask.bind(this)}
+              handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+              afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+              handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
+            />
 
           </div>
           <div className="col-md-3">
-            <div className='box box-primary'>
-              <div className='box-header with-border box-header-gray'>
-                {I18n.t("assignments.title_action")}
-              </div>
-              {add_task_button}
-              <button type='button' className='btn btn-primary'
-                onClick={this.onCreateAssignments.bind(this)}>
-                {I18n.t("assignments.create_assignment")}
-              </button>
-            </div>
-
             <Documents
               document_type={'Subject'}
               documents={this.state.documents}
@@ -126,7 +100,18 @@ export default class SubjectManagerShowBox extends React.Component {
           subject_detail={this.state.subject_detail}
           ownerable_id={ownerable_id}
           ownerable_type={ownerable_type}
+          url={SUBJECT_TASKS_URL}
+          subject={this.props.subject}
+          permit_create_meta_type={this.props.permit_create_meta_type}
           handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
+        />
+
+        <ModalAssignTask
+          remain_tasks={remain_tasks}
+          type={this.state.type}
+          ownerable_id={ownerable_id}
+          ownerable_type={ownerable_type}
+          handleAfterAssignTask={this.handleAfterAssignTask.bind(this)}
         />
       </div>
     );
@@ -155,17 +140,6 @@ export default class SubjectManagerShowBox extends React.Component {
     });
   }
 
-  onCreateAssignments(event) {
-    $('.modal-create-assignment').modal();
-  }
-
-  afterClickAddTask() {
-    this.setState({
-      user: {}
-    })
-    $('.modalAddTask').modal();
-  }
-
   afterAddTaskForUser(user, user_index) {
     this.setState({
       user: user,
@@ -174,37 +148,28 @@ export default class SubjectManagerShowBox extends React.Component {
     $('.modalUserTask').modal()
   }
 
-  handleAfterDeleteTask(index, task, type, user_index, user) {
-    if (user) {
-      _.remove(this.state.subject_detail.user_subjects[user_index]
-        .user_course_task[type], ({task_id}) => task_id == index);
-    } else if (this.props.course) {
-      _.remove(this.state.subject_detail.course_subject_task[type],
-        ({task_id}) => task_id == index);
-    } else {
-      _.remove(this.state.subject_detail.subject_task[type], ({task_id}) => {
-        return task_id == index
-      });
-    }
+  handleAfterDeleteTask(index, task, type) {
+    _.remove(this.state.subject_detail.tasks[type], ({task_id}) => task_id == index)
+    this.state.subject_detail.remain_tasks[type].push(task);
     this.setState({
       subject_detail: this.state.subject_detail
-    });
+    })
   }
 
   handleAfterAddTask(type, targetable_ids, targets, subject_detail, user_id, user_index) {
     if (this.props.course) {
       if (user_id) {
         _.mapValues(targets, function(target) {
-          subject_detail.user_subjects[user_index].user_course_task[type].push(target)
+          subject_detail.user_subjects[user_index].tasks[type].push(target)
         })
       } else {
         _.mapValues(targets, function(target){
-          subject_detail.course_subject_task[type].push(target)
+          subject_detail.tasks[type].push(target)
         })
       }
     } else {
       _.mapValues(targets, function(target) {
-        subject_detail.subject_task[type].push(target)
+        subject_detail.tasks[type].push(target)
       })
     }
     this.setState({
@@ -212,8 +177,17 @@ export default class SubjectManagerShowBox extends React.Component {
     })
   }
 
+  handleAfterAssignTask(list_targets) {
+    list_targets.map(list_target => {
+      this.state.subject_detail.tasks[this.state.type].push(list_target);
+    })
+    this.setState({
+      subject_detail: this.state.subject_detail
+    })
+  }
+
   handleAfterCreatedAssignment(target) {
-    this.state.subject_detail.course_subject_task.assignments.push(target);
+    this.state.subject_detail.tasks.assignments.push(target);
     this.setState({
       subject_detail: this.state.subject_detail
     })
@@ -223,11 +197,16 @@ export default class SubjectManagerShowBox extends React.Component {
     if (owner == 'CourseSubject') {
       this.state.subject_detail.course_subject_task[type].push(target);
     } else {
-      this.state.subject_detail.subject_task[type].push(target);
+      this.state.subject_detail.tasks[type].push(target);
     }
     this.setState({
       subject_detail: this.state.subject_detail
     });
   }
 
+  handleChooseType(type) {
+    this.setState({
+      type: type
+    })
+  }
 }

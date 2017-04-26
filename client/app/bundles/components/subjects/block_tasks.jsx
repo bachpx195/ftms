@@ -8,19 +8,20 @@ export default class BlockTasks extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      tasks: this.props.tasks
+      tasks: this.props.tasks || []
     }
   }
 
   componentWillReceiveProps(nextProps){
     this.setState({
-      tasks: nextProps.tasks
+      tasks: nextProps.tasks || []
     });
   }
 
   render(){
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className='col-md-12'>
+        {this._renderActionCreate(this.props.type)}
         <div className='row'>
           <div className='griddle-head clearfix'>
             <div className='col-md-6'>
@@ -55,7 +56,6 @@ export default class BlockTasks extends React.Component{
       }
       return <span>{value}</span>;
     }
-
     return(
       <div className='block-task col-md-12'>
         <div className='box box-success'>
@@ -82,6 +82,7 @@ export default class BlockTasks extends React.Component{
       </div>
     )
   }
+
   onClickDeleteTask(task){
     if (confirm(I18n.t('data.confirm_delete'))) {
       axios.delete(routes.assign_task_url(task.task_id), {
@@ -95,5 +96,36 @@ export default class BlockTasks extends React.Component{
       })
       .catch(error => console.log(error));
     }
+  }
+
+  _renderActionCreate(type) {
+    let button_create = '';
+    if (type == 'assignments') {
+      button_create =
+        <button className="btn btn-primary pull-right"
+          onClick={this.handleClickCreateTask.bind(this)}>Create assignment</button>
+    }
+
+    if (type != 'projects') {
+      return (
+        <div className="action-create-task clearfix">
+          {button_create}
+          <button className="btn btn-primary pull-right"
+            onClick={this.handleClickAssignTask.bind(this)}>
+            {I18n.t("subjects.add", {type: this.props.type})}</button>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  handleClickCreateTask(event) {
+    $('.modal-create-' + this.props.type).modal();
+  }
+
+  handleClickAssignTask(event) {
+    this.props.handleChooseType(this.props.type)
+    $('.modal-assign-task').modal();
   }
 }

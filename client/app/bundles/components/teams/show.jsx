@@ -1,11 +1,15 @@
 import axios from 'axios';
 import ListTabs from './list_tabs';
+import ModalAssignTask from '../subjects/managers/templates/modal_assign_task';
+import ModalCreateAssignment from '../subjects/managers/templates/modal_create_assignment';
 import React from 'react';
 import TeamDetail from './templates/team_detail';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 
 require('../../assets/sass/team.scss');
+
+const CREATE_TASKS_URL = routes.subject_tasks_url();
 
 export default class TeamsShowBox extends React.Component {
   constructor(props) {
@@ -21,7 +25,9 @@ export default class TeamsShowBox extends React.Component {
       course_subjects: props.course_subjects,
       documents: props.documents,
       document_preview: {},
-      subject_detail: props.team_detail
+      subject_detail: props.team_detail,
+      type: '',
+      meta_types: []
     }
   }
 
@@ -34,7 +40,6 @@ export default class TeamsShowBox extends React.Component {
           organizations={this.state.organizations}
           team={this.state.team}
           handleAfterUpdate={this.handleAfterUpdate.bind(this)}
-          afterClickAddTask={this.afterClickAddTask.bind(this)}
         />
         <ListTabs
           team={this.props.team}
@@ -58,16 +63,31 @@ export default class TeamsShowBox extends React.Component {
           handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
           handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
           clickPreviewDocument={this.clickPreviewDocument.bind(this)}
+          documents={this.state.documents}
+          document_preview={this.state.document_preview}
+          handleChooseType={this.handleChooseType.bind(this)}
+        />
+
+        <ModalAssignTask
+          remain_tasks={this.state.subject_detail.remain_tasks}
+          type={this.state.type}
+          ownerable_id={this.props.team ? this.props.team.id : ''}
+          ownerable_type={"Team"}
+          handleAfterAssignTask={this.handleAfterAssignTask.bind(this)}
+        />
+
+        <ModalCreateAssignment
+          meta_types={this.state.meta_types}
+          subject_detail={this.state.subject_detail}
+          ownerable_id={this.props.team ? this.props.team.id : ''}
+          ownerable_type={"Team"}
+          url={CREATE_TASKS_URL}
+          subject={this.state.subject}
+          permit_create_meta_type={true}
+          handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
         />
       </div>
     );
-  }
-
-  afterClickAddTask(){
-    this.setState({
-      user: null
-    })
-    $('.modalAddTask').modal();
   }
 
   onDocumentsDrop(acceptedFiles, rejectedFiles) {
@@ -118,21 +138,13 @@ export default class TeamsShowBox extends React.Component {
     $('.modalUserTask').modal()
   }
 
-  handleAfterDeleteTask(index, task, type, user_index, user) {
-    if (user) {
-      _.remove(this.state.subject_detail.user_subjects[user_index]
-        .user_course_task[type], ({task_id}) => task_id == index);
-      this.state.subject_detail.team_task[type].push(task)
-      this.state.subject_detail.team_task[type]
-        .sort((obj1, obj2) => obj1.id - obj2.id);
-    } else if (this.props.course) {
-      _.remove(this.state.subject_detail.team_task[type],
-        ({task_id}) => task_id == index);
-    }
 
+  handleAfterDeleteTask(index, task, type) {
+    _.remove(this.state.subject_detail.tasks[type], ({task_id}) => task_id == index)
+    this.state.subject_detail.remain_tasks[type].push(task);
     this.setState({
       subject_detail: this.state.subject_detail
-    });
+    })
   }
 
   handleAfterAddTask(type, targetable_ids, targets, subject_detail, user_id, user_index) {
@@ -170,4 +182,25 @@ export default class TeamsShowBox extends React.Component {
     });
   }
 
+  handleChooseType(type) {
+    this.setState({
+      type: type
+    })
+  }
+
+  handleAfterAssignTask(list_targets) {
+    list_targets.map(list_target => {
+      this.state.subject_detail.tasks[this.state.type].push(list_target);
+    })
+    this.setState({
+      subject_detail: this.state.subject_detail
+    })
+  }
+
+  handleAfterCreatedAssignment(target) {
+    this.state.subject_detail.tasks.assignments.push(target);
+    this.setState({
+      subject_detail: this.state.subject_detail
+    })
+  }
 }

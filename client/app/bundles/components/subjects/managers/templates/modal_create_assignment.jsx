@@ -2,7 +2,6 @@ import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import FormCreateAssignment from '../../../assignments/actions/create';
 
-const SUBJECT_TASKS_URL = app_constants.APP_NAME + app_constants.SUBJECT_TASKS_PATH;
 
 export default class ModalCreateAssignment extends React.Component {
   constructor(props) {
@@ -15,9 +14,9 @@ export default class ModalCreateAssignment extends React.Component {
 
   render() {
     return (
-      <div className='modal fade in modal-create-assignment' role='dialog'>
+      <div className='modal fade in modal-create-assignments' role='dialog'>
         <div className='modal-dialog'>
-          <div className='modal-content'>
+          <div className='modal-content clearfix'>
             <div className='modal-header'>
               <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
@@ -29,13 +28,15 @@ export default class ModalCreateAssignment extends React.Component {
             <div className='modal-task'>
               <div className='modal-body'>
                 <FormCreateAssignment
-                  url={SUBJECT_TASKS_URL}
+                  url={this.props.url}
                   subject_detail={this.props.subject_detail}
                   meta_types={this.state.meta_types}
                   meta_types_checked={this.state.meta_types_checked}
                   ownerable_id={this.props.ownerable_id}
                   ownerable_type={this.props.ownerable_type}
                   type='Assignment'
+                  subject={this.props.subject}
+                  permit_create_meta_type={this.props.permit_create_meta_type}
                   handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
                 />
               </div>
@@ -50,7 +51,7 @@ export default class ModalCreateAssignment extends React.Component {
       meta_types_checked: [],
       meta_types: meta_types
     });
-    $('.modal-create-assignment').modal('hide');
+    $('.modal-create-assignments').modal('hide');
     this.props.handleAfterCreatedAssignment(target);
   }
 }

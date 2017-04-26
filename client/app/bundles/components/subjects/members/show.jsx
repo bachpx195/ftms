@@ -1,7 +1,7 @@
 import * as routes from 'config/routes';
 import axios from 'axios';
 import css from '../assets/subject.scss';
-import ModalCreateAssignment from '../../assignments/templates/modal';
+import ModalCreateAssignment from '../managers/templates/modal_create_assignment';
 import ModalSubmitTask from './templates/submit_task';
 import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumb/show';
@@ -19,7 +19,8 @@ export default class SubjectTraineeShowBox extends React.Component {
       dynamic_task: '',
       assignment: '',
       user_dynamic_tasks: props.user_dynamic_tasks,
-      meta_tasks: []
+      meta_tasks: [],
+      meta_types: props.meta_types || []
     };
   }
 
@@ -44,10 +45,16 @@ export default class SubjectTraineeShowBox extends React.Component {
         />
 
         <ModalCreateAssignment
+          ownerable_id={this.state.subject_detail.course_subject.id}
+          ownerable_type={"CourseSubject"}
           subject_detail={this.props.subject_detail}
-          afterCreateTask={this.afterCreateTask.bind(this)}
           url={routes.assignments_url()}
+          handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
+          meta_types={this.state.meta_types}
+          subject={this.props.subject}
+          permit_create_meta_type={this.props.permit_create_meta_type}
         />
+
         <ModalSubmitTask
           dynamic_task={this.state.dynamic_task}
           assignment={this.state.assignment}
@@ -68,8 +75,7 @@ export default class SubjectTraineeShowBox extends React.Component {
     })
   }
 
-  afterCreateTask(target, type) {
-    $('.modal-create-assignment').modal('hide');
+  handleAfterCreatedAssignment(target) {
     this.state.assigments_of_user_subjects.push(target.assignment)
     this.state.static_task_assignment.push(target.static_task)
     this.state.user_dynamic_course_subjects.push(target.dynamic_task)
