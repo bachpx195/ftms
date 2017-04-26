@@ -1,6 +1,7 @@
 import * as routes from 'config/routes';
 import axios from 'axios';
 import ModalAssign from './templates/modal_assign';
+import ModalEdit from './templates/modal';
 import ModalEvaluation from './templates/modal_evaluation';
 import Subjects from './subjects';
 import React from 'react';
@@ -23,6 +24,7 @@ export default class TrainingStandardShow extends React.Component {
     }
 
     this.state = {
+      training_standard: props.training_standard,
       evaluation_template: props.evaluation_template,
       old_evaluation_standards: evaluation_standards,
       old_training_results: training_results,
@@ -37,7 +39,7 @@ export default class TrainingStandardShow extends React.Component {
     return(
       <div>
         <Subjects selected_subjects={this.state.selected_subjects}
-          training_standard={this.props.training_standard}
+          training_standard={this.state.training_standard}
           afterRejectSubject={this.afterRejectSubject.bind(this)}
           subject_url={routes.subjects_url()}
           standard_subject_url={routes.standard_subjects_url()}
@@ -47,7 +49,7 @@ export default class TrainingStandardShow extends React.Component {
           standard_organizations={this.state.standard_organizations} />
 
         <ModalEvaluation
-          training_standard={this.props.training_standard}
+          training_standard={this.state.training_standard}
           evaluation_template={this.state.evaluation_template}
           old_evaluation_standards={this.state.old_evaluation_standards}
           old_training_results={this.state.old_training_results}
@@ -58,8 +60,14 @@ export default class TrainingStandardShow extends React.Component {
         <ModalAssign
           remain_subjects={this.state.remain_subjects}
           selected_subjects={this.state.selected_subjects}
-          training_standard={this.props.training_standard}
+          training_standard={this.state.training_standard}
           handleAfterAssignSubject={this.handleAfterAssignSubject.bind(this)}
+        />
+
+        <ModalEdit
+          training_standard={this.state.training_standard}
+          organization={this.props.organization}
+          handleAfterUpdate={this.handleAfterUpdate.bind(this)}
         />
       </div>
     );
@@ -85,7 +93,7 @@ export default class TrainingStandardShow extends React.Component {
   sendRequestAssign(subject) { //create standard_subject
     axios.post(routes.standard_subjects_url() + '.json', {
       standard_subject: {
-        training_standard_id: this.props.training_standard.id,
+        training_standard_id: this.state.training_standard.id,
         subject_id: subject.id
       },
       authenticity_token: ReactOnRails.authenticityToken(),
@@ -121,5 +129,11 @@ export default class TrainingStandardShow extends React.Component {
       old_evaluation_standards: evaluation_standards,
       old_training_results: training_results,
     });
+  }
+
+  handleAfterUpdate(new_training_standard) {
+    this.setState({
+      training_standard: new_training_standard
+    })
   }
 }

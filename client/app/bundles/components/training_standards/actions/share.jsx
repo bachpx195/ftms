@@ -14,6 +14,12 @@ export default class Share extends React.Component {
     this.current_user = JSON.parse(localStorage.current_user);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      training_standard: nextProps.training_standard
+    })
+  }
+
   is_privated() {
     return this.state.training_standard.policy == 'privated';
   }

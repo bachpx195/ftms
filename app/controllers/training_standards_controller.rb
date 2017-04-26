@@ -38,13 +38,13 @@ class TrainingStandardsController < ApplicationController
   def update
     respond_to do |format|
       format.json do
-        if @training_standard_supports.training_standard
-          .update_attributes training_standard_params
+        training_standard = @training_standard_supports.training_standard
+        if training_standard.update_attributes training_standard_params
           render json: {message: flash_message("updated"),
-            training_standard: @training_standard}
+            training_standard: training_standard}
         else
           render json: {message: flash_message("not_updated"),
-            errors: @training_standard.errors}, status: :unprocessable_entity
+            errors: training_standard.errors}, status: :unprocessable_entity
         end
       end
     end

@@ -20,13 +20,13 @@ export default class UserCoursesBox extends React.Component {
 
   render() {
     let description = this.state.course.description;
-    if(description.length > LIMIT_DESCRIPTION){
+    if(description && description.length > LIMIT_DESCRIPTION){
       description = this.state.course.description.substring(0, LIMIT_DESCRIPTION) + '...';
     }
 
     const Subject = (subject, key) => {
       let description = subject.description;
-      if(description.length > LIMIT_DESCRIPTION){
+      if(description && description.length > LIMIT_DESCRIPTION){
         description = subject.description.substring(0, LIMIT_DESCRIPTION) + '...';
       }
       let user_subject = subject.subject_detail[0];
@@ -34,7 +34,7 @@ export default class UserCoursesBox extends React.Component {
       return (
         <div key={key} className='col-md-12'>
           <a className='user-course-subject'
-            href={routes.user_course_subject_url(this.state.user_course.id, 
+            href={routes.user_course_subject_url(this.state.user_course.id,
               subject.id)}>
             <div className='subject row'>
               <div className='col-md-11 image-course-header'>

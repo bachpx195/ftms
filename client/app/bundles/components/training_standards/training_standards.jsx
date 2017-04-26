@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import Modal from './templates/modal';
+import ModalEdit from './templates/modal';
 import Form from './templates/form';
 import Destroy from "./actions/destroy";
 import * as table_constants from 'constants/griddle_table_constants';
@@ -60,18 +60,6 @@ export default class TrainingStandards extends React.Component {
         title={value}>{value}</a>
     );
 
-    let modalEdit = null;
-    if(this.state.training_standard && this.state.training_standard.id) {
-      modalEdit = (
-        <Modal
-          url={routes.organization_training_standard_url(
-            this.state.organization.id,
-            this.state.training_standard.id)}
-          training_standard={this.state.training_standard}
-          handleAfterUpdated={this.props.handleAfterUpdated} />
-      );
-    }
-
     return (
       <div>
         <Griddle data={this.state.training_standards} plugins={[plugins.LocalPlugin]}
@@ -82,13 +70,8 @@ export default class TrainingStandards extends React.Component {
               customComponent={LinkToStandardShow}/>
             <ColumnDefinition id="description"
               title={I18n.t('training_standards.description')} />
-            <ColumnDefinition id="edit" customComponent={ButtonEdit}
-              title=" "/>
-            <ColumnDefinition id="delete" customComponent={ButtonDelete}
-              title="  " />
           </RowDefinition>
         </Griddle>
-        {modalEdit}
       </div>
     );
   }

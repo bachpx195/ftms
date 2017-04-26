@@ -1,7 +1,8 @@
 import React from 'react';
 import Form from './form';
 
-export default class Modal extends React.Component {
+export default class ModalEdit extends React.Component {
+
   render() {
     return (
       <div className='modal modal-edit fade in' role='dialog'>
@@ -14,16 +15,12 @@ export default class Modal extends React.Component {
             <div className='modal-body'>
               <Form
                 training_standard={this.props.training_standard}
-                url={this.props.url}
-                handleAfterSaved={this.handleAfterUpdated.bind(this)} />
+                organization={this.props.organization}
+                handleAfterUpdate={this.props.handleAfterUpdate} />
             </div>
           </div>
         </div>
       </div>
     );
-  }
-
-  handleAfterUpdated(training_standard) {
-    this.props.handleAfterUpdated(training_standard);
   }
 }

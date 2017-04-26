@@ -36,6 +36,14 @@ export default class Header extends React.Component {
             organization={this.props.organization}
             standard_organizations={this.props.standard_organizations}
           />
+          <div className='col-md-2'>
+            <button className='btn btn-success'
+              title={I18n.t('training_standards.modals.header_edit')}
+              onClick={this.onClickButtonEdit.bind(this)}>
+              <i className='fa fa-plus'></i>
+              {I18n.t('training_standards.modals.header_edit')}
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -47,5 +55,9 @@ export default class Header extends React.Component {
 
   onClickButtonAssignSubject() {
     $('#modalAssignSubject').modal();
+  }
+
+  onClickButtonEdit() {
+    $('.modal-edit').modal();
   }
 }
