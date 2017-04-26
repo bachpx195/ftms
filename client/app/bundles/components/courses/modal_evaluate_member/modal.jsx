@@ -58,9 +58,7 @@ export default class ModalEvaluateMember extends React.Component {
               <label>{index + 1}. {evaluation_standard.name}</label>
             </div>
             <div className="col-md-6 text-right point-input">
-              <input className="text-right" type="number" step="1"
-                min={parseInt(evaluation_standard.min_point)}
-                max={parseInt(evaluation_standard.max_point)}
+              <input className="text-right" type="number" step="1" min='0'
                 value={this.state.standard_points[evaluation_standard.id] || 0}
                 onChange={this.handlePointChange.bind(this, evaluation_standard.id)} />
             </div>

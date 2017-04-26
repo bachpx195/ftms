@@ -109,3 +109,6 @@ export function isOverMaxDocumentSize(file) {
 
 //profile
 export const USER_PROFILES_PATH = 'profiles';
+
+//certificate
+export const CERTIFICATES_PATH = 'certificates';

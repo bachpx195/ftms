@@ -53,7 +53,9 @@ Rails.application.routes.draw do
   resources :universities
   resources :trainee_types
   resources :functions
-  resources :users, only: [:show, :edit]
+  resources :users, only: [:show, :edit] do
+    resources :certificates, only: :show
+  end
   resources :roles
   resources :role_functions
   resources :documents, only: [:create, :destroy]

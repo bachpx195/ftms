@@ -1,5 +1,7 @@
 import React from 'react';
 
+import * as routes from 'config/routes';
+
 require('./assets/certificate.scss');
 
 export default class CertificateForm extends React.Component {
@@ -10,10 +12,23 @@ export default class CertificateForm extends React.Component {
     }
   }
 
+
   render() {
     return (
-      <div className='row'>
-        <div className='col-md-8 col-md-offset-2 certificate-form clearfix'>
+      <div>
+        <div className='col-md-12 certificate-form clearfix'>
+          <div className="background-img-top-left background-img">
+            <img src={`/assets/top-left-corner.png`} />
+          </div>
+          <div className="background-img-top-right background-img">
+            <img src={`/assets/top-right-corner.png`} />
+          </div>
+          <div className="background-img-bottom-left background-img">
+            <img src={`/assets/bottom-left-corner.png`} />
+          </div>
+          <div className="background-img-bottom-right background-img">
+            <img src={`/assets/bottom-right-corner.png`} />
+          </div>
           <div className='col-md-12 text-center'>
             <div className='certificate-header'>
               <img src='/assets/framgia-logo.png'/>
@@ -35,7 +50,7 @@ export default class CertificateForm extends React.Component {
                   </div>
                 </div>
                 <h3 className='certificate-program'>
-                  {this.props.user.user_program.name}
+                  RUBY ON RAILS TRAINING COURSE
                 </h3>
                 <div className='result-size'>
                   <h3>{I18n.t('users.certificates.content')}</h3>
@@ -55,10 +70,11 @@ export default class CertificateForm extends React.Component {
           </div>
         </div>
         <div className='col-md-8 col-md-offset-2 clearfix text-center'>
-          <div className='btn btn-primary button-download-pdf'>
+          <a className='btn btn-primary button-download-pdf'
+            href={routes.certificate_url(this.props.user.id) + '.pdf'}>
             <i className='fa fa-download'></i>&nbsp;
             <span>{I18n.t('certificates.button.pdf_download')}</span>
-          </div>
+          </a>
         </div>
       </div>
     );

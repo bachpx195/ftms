@@ -491,3 +491,8 @@ export function task_url(id) {
 export function user_profile_url(id) {
   return APP_URL + app_constants.USER_PROFILES_PATH + '/' + id;
 }
+
+export function certificate_url(user_id) {
+  return APP_URL + app_constants.USERS_PATH + '/' + user_id + '/'
+    + app_constants.CERTIFICATES_PATH + '/' + user_id;
+}
