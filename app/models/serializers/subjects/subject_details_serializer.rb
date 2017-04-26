@@ -1,7 +1,7 @@
 class Serializers::Subjects::SubjectDetailsSerializer <
   Serializers::SupportSerializer
   attrs :id, :name, :content, :description, :during_time, :image,
-    :training_standard, :statuses, :task, :subject_task, :documents
+    :training_standard, :statuses, :tasks, :remain_tasks, :documents, :projects
   attrs :course_subject_task, :course_subject, :user_subjects,
     :course_subject_teams, :statistics, if: :check_course_subject
   attrs :course_member, :course_managers, :program,
@@ -21,25 +21,25 @@ class Serializers::Subjects::SubjectDetailsSerializer <
     object.user_subjects.statuses
   end
 
-  def task
+  def remain_tasks
     Serializers::Subjects::TasksSerializer
       .new(object: object, scope: {subject_supports: subject_supports})
       .serializer
   end
 
-  def subject_task
+  def tasks
     Serializers::Subjects::SubjectTasksSerializer
       .new(object: object).serializer
   end
 
   def course_member
     Serializers::Subjects::CourseMembersSerializer.new(object:
-      courses.course_members.map(&:user)).serializer
+      course.course_members.map(&:user)).serializer
   end
 
   def course_managers
     Serializers::Subjects::CourseManagersSerializer.new(object:
-      courses.course_managers.map(&:user)).serializer
+      course.course_managers.map(&:user)).serializer
   end
 
   def course_subject_task
@@ -70,12 +70,12 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def program
     Serializers::Programs::ProgramSubjectsSerializer
-      .new(object: courses.program).serializer
+      .new(object: course.program).serializer
   end
 
   def organization
     Serializers::Organizations::SimpleOrganizationSerializer
-      .new(object: courses.program.organization).serializer
+      .new(object: course.program.organization).serializer
   end
 
   def statistics
@@ -88,13 +88,17 @@ class Serializers::Subjects::SubjectDetailsSerializer <
     current_user.dynamic_tasks
   end
 
+  def projects
+    course_subjects.team_projects if course_subjects
+  end
+
   private
   def check_course_subject
     course_subjects.present?
   end
 
   def check_course
-    courses.present?
+    course.present?
   end
 
   def current_user?

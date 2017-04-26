@@ -7,5 +7,5 @@ class MetaType < ApplicationRecord
   has_many :assignments, through: :meta_type_relationships,
     source: :objectable, source_type: Assignment.name
 
-  belongs_to :user
+  belongs_to :organization
 end

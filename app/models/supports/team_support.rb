@@ -56,24 +56,10 @@ class Supports::TeamSupport
         team_supports: self}).serializer
   end
 
-  def surveys_not_in_static_task
-    @surveys ||= team.course_subject.subject.organization.surveys
-      .where.not id: team.surveys
-  end
-
-  def assignments_not_in_static_task
-    @assignments ||= team.course_subject.subject.organization.assignments.where
-      .not id: team.assignments
-  end
-
-  def test_rules_not_in_static_task
-    @test_rules ||= team.course_subject.subject.organization.test_rules.where
-      .not id: team.test_rules
-  end
-
-  def projects_not_in_static_task
-    @projects ||= team.course_subject.subject.organization.projects.where
-      .not id: team.projects
+  %w(surveys assignments test_rules projects).each do |task|
+    define_method "#{task}_not_in_static_task" do
+      team.course_subject.send("static_#{task}").where.not id: team.send(task)
+    end
   end
 
   def documents

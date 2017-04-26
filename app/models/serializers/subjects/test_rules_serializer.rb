@@ -1,7 +1,12 @@
 class Serializers::Subjects::TestRulesSerializer <
   Serializers::SupportSerializer
   attrs :id, :name
-  support_attrs :task_id, if: :owner?
+  attrs :task_id, if: :owner?
+
+  def task_id
+    task = Task.find_by targetable: object, ownerable: owner
+    task.id if task
+  end
 
   private
   def owner?

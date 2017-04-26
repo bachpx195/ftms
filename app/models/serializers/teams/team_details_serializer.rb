@@ -1,7 +1,7 @@
 class Serializers::Teams::TeamDetailsSerializer <
   Serializers::SupportSerializer
-  attrs :subject_detail, :statuses, :task, :course_subject_task,
-    :course_subject, :user_subjects, :team_task
+  attrs :subject_detail, :statuses, :remain_tasks, :course_subject_task,
+    :course_subject, :user_subjects, :tasks
 
   def subject_detail
     Serializers::Teams::SubjectDetailsSerializer
@@ -12,13 +12,13 @@ class Serializers::Teams::TeamDetailsSerializer <
     UserSubject.statuses
   end
 
-  def task
+  def remain_tasks
     Serializers::Teams::TasksSerializer
       .new(object: object, scope: {team_supports: @team_supports})
       .serializer
   end
 
-  def team_task
+  def tasks
     Serializers::Teams::TeamTasksSerializer
       .new(object: object).serializer
   end
