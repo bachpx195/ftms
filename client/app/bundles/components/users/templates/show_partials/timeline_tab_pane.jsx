@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react';
 import ProgramLists from '../../../profiles/templates/program';
-import * as app_constants from 'constants/app_constants';
 
 import * as routes from 'config/routes';
 

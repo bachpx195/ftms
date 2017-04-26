@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   draw :assign_program
   root "static_pages#show"
   resources :static_pages
-  resources :organizations do
+  resources :organizations, except: [:new, :edit] do
     resources :programs
     resources :subjects
     resources :exams, only: [:index, :show]
@@ -119,6 +119,5 @@ Rails.application.routes.draw do
   resources :share_withs, only: :create
   resources :meta_types, only: :create
   resources :profiles, only: :show
-  resources :certificates, only: :index
   resources :tasks, only: :show
 end

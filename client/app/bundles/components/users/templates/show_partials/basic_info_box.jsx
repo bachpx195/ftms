@@ -1,7 +1,4 @@
-import axios from 'axios';
-import Errors from '../../../shareds/errors';
 import React from 'react';
-import ReactOnRails from 'react-on-rails';
 import RolesBox from './roles_box';
 import UploadImageModal from './upload_image_modal';
 import * as app_constants from 'constants/app_constants';
@@ -16,7 +13,7 @@ export default class BasicInfoBox extends React.Component {
   }
 
   renderUploadImageModal() {
-    return(
+    return (
       <UploadImageModal avatar={this.state.avatar}
         organization={this.props.user_detail.user_profile.organization.id}
         user_detail={this.props.user_detail}
@@ -25,7 +22,7 @@ export default class BasicInfoBox extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div className='box box-primary'>
         <div className='box-body box-profile'>
           <div className='avatar-container clearfix'>

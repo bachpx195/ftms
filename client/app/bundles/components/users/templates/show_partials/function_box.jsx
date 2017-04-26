@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Checkbox from '../../../shareds/checkbox';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
@@ -49,14 +48,14 @@ export default class FunctionBox extends React.Component {
       }
 
       return (
-        <Checkbox handleClick={this.handleCheckbox.bind(this)} 
+        <Checkbox handleClick={this.handleCheckbox.bind(this)}
           griddleKey={griddleKey} is_checked={checked}/>
       );
     };
 
     const SelectSellBox = () => {
       return (
-        <SelectSell checked={this.state.check_all} 
+        <SelectSell checked={this.state.check_all}
           handleSelectCell={this.handleSelectCell.bind(this)}/>
       );
     };

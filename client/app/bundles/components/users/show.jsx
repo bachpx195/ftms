@@ -1,14 +1,13 @@
-import axios from 'axios';
+import * as routes from 'config/routes';
 import AboutBox from './templates/show_partials/about_box';
+import ActivitiesTabPane from './templates/show_partials/activities_tab_pane';
 import BasicInfoBox from './templates/show_partials/basic_info_box';
-import CustomPolicy from 'policy/course_policy';
+import CertificatesTabPane from './templates/show_partials/certificates_tab_pane';
 import ModalChangeProgram from './change_program/modal';
 import ProfileTabPane from './templates/show_partials/profile_tab_pane';
 import React from 'react';
-import TimelineTabPane from './templates/show_partials/timeline_tab_pane';
-import RolesBox from './templates/show_partials/roles_box';
-import * as routes from 'config/routes';
 import ShowBreadCrumb from '../profiles/templates/bread_crumbs/show';
+import TimelineTabPane from './templates/show_partials/timeline_tab_pane';
 
 require('../../assets/sass/user.scss');
 
@@ -50,32 +49,46 @@ export default class UserShowBox extends React.Component {
       </div>;
     }
 
-    return(
+    return (
       <div className='user-profile row clearfix'>
-        <ShowBreadCrumb
-          user={this.state.user_detail}
-        />
+        <ShowBreadCrumb user={this.state.user_detail} />
 
         <div className='col-md-12'>
           <div className='col-md-3'>
             <BasicInfoBox user_detail={this.state.user_detail}
-              user={this.props.user}
-            />
+              user={this.props.user} />
            <AboutBox user_profile={this.state.user_profile} />
           </div>
           <div className='col-md-9'>
             <div className='nav-tabs-custom'>
               <ul className='nav nav-tabs nav-user'>
-                <li className='active'><a href='#timeline' data-toggle='tab'>Timeline</a></li>
-                <li><a href='#activites' data-toggle='tab'>Activities</a></li>
-                <li><a href='#profile' data-toggle='tab'>Profile</a></li>
+                <li className='active'>
+                  <a href='#timeline' data-toggle='tab'>
+                    {I18n.t('users.nav_tabs.timeline')}
+                  </a>
+                </li>
+                <li>
+                  <a href='#activites' data-toggle='tab'>
+                    {I18n.t('users.nav_tabs.activities')}
+                  </a>
+                </li>
+                <li>
+                  <a href='#profile' data-toggle='tab'>
+                    {I18n.t('users.nav_tabs.profile')}
+                  </a>
+                </li>
+                <li>
+                  <a href='#certificates' data-toggle='tab'>
+                    {I18n.t('users.nav_tabs.certificates')}
+                  </a>
+                </li>
               </ul>
               <div className='tab-content'>
-                <TimelineTabPane
-                  user_id={this.state.user_detail.id}
-                />
+                <TimelineTabPane user_id={this.state.user_detail.id} />
+                <ActivitiesTabPane user_id={this.state.user_detail.id} />
                 <ProfileTabPane user_profile={this.state.user_profile}
                   user_detail={this.state.user_detail} />
+                <CertificatesTabPane user={this.state.user_detail} />
               </div>
             </div>
           </div>

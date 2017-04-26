@@ -1,16 +1,7 @@
-import axios from 'axios';
 import React from 'react';
-import ReactOnRails from 'react-on-rails';
-import * as app_constants from 'constants/app_constants';
 
 export default class ProfileTabPane extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
-  render(){
+  render() {
     let division, join_div_date, naitei_company,
       finish_training_date, leave_date = <tr></tr>;
     if (this.props.user_profile.division) {
@@ -47,7 +38,8 @@ export default class ProfileTabPane extends React.Component {
         <td>{this.props.user_profile.leave_date}</td>
       </tr>;
     }
-    return(
+
+    return (
       <div className='tab-pane profile-container clearfix' id='profile'>
         <div className='col-md-6'>
           <div className='box'>
