@@ -1,0 +1,6 @@
+en:
+  training_results:
+    headers:
+      name: "Name"
+      min_point: "Min point"
+      max_point: "Max point"

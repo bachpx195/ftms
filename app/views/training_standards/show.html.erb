@@ -1,12 +1,14 @@
 <div id="training_standard_show">
   <%= react_component "TrainingStandardShow",
     props: {
-      selected_subjects: @supports.standard_subjects,
-      training_standard: @training_standard,
-      evaluation_template: @training_standard.evaluation_template,
-      organization: @supports.organization,
-      standard_organizations: @supports.standard_organizations,
-      share_with_organization: @supports.share_with_organization,
-      remain_subjects: @supports.remain_subjects},
+      selected_subjects: @training_standard_supports.standard_subjects,
+      training_standard: @training_standard_supports.training_standard,
+      evaluation_template: @training_standard_supports.evaluation_template,
+      organization: @training_standard_supports.organization,
+      standard_organizations: @training_standard_supports
+        .standard_organizations,
+      share_with_organization: @training_standard_supports
+        .share_with_organization,
+      remain_subjects: @training_standard_supports.remain_subjects},
     prerender: false %>
 </div>

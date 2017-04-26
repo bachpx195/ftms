@@ -8,11 +8,24 @@ import React from 'react';
 export default class TrainingStandardShow extends React.Component {
   constructor(props) {
     super(props);
+    let evaluation_standards = [];
+    if (props.evaluation_template.id) {
+      for (let standard of props.evaluation_template.evaluation_standards) {
+        evaluation_standards.push(standard);
+      }
+    }
+
+    let training_results = [];
+    if (props.evaluation_template.id) {
+      for (let result of props.evaluation_template.training_results) {
+        training_results.push(result);
+      }
+    }
+
     this.state = {
-      evaluation_standards: [],
-      evaluation_template: {},
-      showForm: '',
-      training_standard: props.training_standard,
+      evaluation_template: props.evaluation_template,
+      old_evaluation_standards: evaluation_standards,
+      old_training_results: training_results,
       selected_subjects: props.selected_subjects,
       remain_subjects: props.remain_subjects,
       standard_organizations: props.standard_organizations,
@@ -21,33 +34,31 @@ export default class TrainingStandardShow extends React.Component {
   }
 
   render() {
-    let evaluation_template_url = routes.training_standard_evaluation_template_url(
-      this.state.training_standard.id);
     return(
       <div>
         <Subjects selected_subjects={this.state.selected_subjects}
-          training_standard={this.state.training_standard}
+          training_standard={this.props.training_standard}
           afterRejectSubject={this.afterRejectSubject.bind(this)}
-          subject_url={routes.subjects_url()} 
+          subject_url={routes.subjects_url()}
           standard_subject_url={routes.standard_subjects_url()}
-          evaluation_template={this.props.evaluation_template}
-          onClickCreateEvaluationTemplate={this.onClickCreateEvaluationTemplate.bind(this)}
-          onClickButtonAssignSubject={this.onClickButtonAssignSubject.bind(this)}
+          evaluation_template={this.state.evaluation_template}
           organization={this.props.organization}
           share_with_organization={this.props.share_with_organization}
-          standard_organizations={this.state.standard_organizations}
-          url={routes.training_standards_url()}
-        />
+          standard_organizations={this.state.standard_organizations} />
 
         <ModalEvaluation
-          url={evaluation_template_url} showForm={this.state.showForm}
+          training_standard={this.props.training_standard}
           evaluation_template={this.state.evaluation_template}
-          evaluation_standards={this.state.evaluation_standards}/>
+          old_evaluation_standards={this.state.old_evaluation_standards}
+          old_training_results={this.state.old_training_results}
+          setEvaluationTemplate={this.setEvaluationTemplate.bind(this)}
+          afterSaveEvaluationTemplate={this.afterSaveEvaluationTemplate.bind(this)}
+        />
 
         <ModalAssign
           remain_subjects={this.state.remain_subjects}
           selected_subjects={this.state.selected_subjects}
-          training_standard={this.state.training_standard}
+          training_standard={this.props.training_standard}
           handleAfterAssignSubject={this.handleAfterAssignSubject.bind(this)}
         />
       </div>
@@ -72,12 +83,12 @@ export default class TrainingStandardShow extends React.Component {
   }
 
   sendRequestAssign(subject) { //create standard_subject
-    axios.post(routes.standard_subjects_url() + ".json", {
+    axios.post(routes.standard_subjects_url() + '.json', {
       standard_subject: {
-        training_standard_id: this.state.training_standard.id,
+        training_standard_id: this.props.training_standard.id,
         subject_id: subject.id
-      }, authenticity_token: ReactOnRails.authenticityToken(),
-        headers: {'Accept': 'application/json'}
+      },
+      authenticity_token: ReactOnRails.authenticityToken(),
     }).then(response => {
       this.state.selected_subjects.push(subject);
       _.remove(this.state.remain_subjects, _subject => {
@@ -87,24 +98,28 @@ export default class TrainingStandardShow extends React.Component {
         selected_subjects: this.state.selected_subjects,
         remain_subjects: this.state.remain_subjects,
       });
-    }).catch(error => {
-      console.log(error);
-    });
+    }).catch(error => console.log(error));
   }
 
-  onClickButtonAssignSubject() {
-    $('#modalAssignSubject').modal();
+  setEvaluationTemplate(evaluation_template) {
+    this.setState({evaluation_template: evaluation_template});
   }
 
-  onClickCreateEvaluationTemplate(){
-    let evaluation_template = this.state.evaluation_template;
+  afterSaveEvaluationTemplate(evaluation_template) {
+    let evaluation_standards = [];
+    for (let evaluation_standard of evaluation_template.evaluation_standards) {
+      evaluation_standards.push(evaluation_standard);
+    }
+
+    let training_results = [];
+    for (let training_result of evaluation_template.training_results) {
+      training_results.push(training_result);
+    }
+
     this.setState({
-      evaluation_standards: [],
-      evaluation_template: {
-        name: ''
-      },
-      showForm: '',
+      evaluation_template: evaluation_template,
+      old_evaluation_standards: evaluation_standards,
+      old_training_results: training_results,
     });
-    $('#modalEvaluation').modal();
   }
 }
