@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Errors from '../shareds/errors';
 import _ from 'lodash';
+import ModalConfirm from 'shared/modal-confirm';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -31,6 +32,10 @@ export default class Form extends React.Component {
               &nbsp;{I18n.t('buttons.save')}
             </button>
           </div>
+
+        <ModalConfirm onConfirmed={this.createTraineeType.bind(this)}
+          title={I18n.t('data.confirm_all')} body={I18n.t('data.confirm')}
+          button={I18n.t('data.confirm_yes')} btnClass='btn btn-danger'/>
         </div>
       </form>
     );
@@ -56,6 +61,10 @@ export default class Form extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    $('.modal-confirm').modal();
+  }
+
+  createTraineeType() {
     let formData = new FormData();
 
     let trainee_type = _.omit(this.state, 'errors');
@@ -65,12 +74,8 @@ export default class Form extends React.Component {
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let method = this.props.trainee_type.id ? 'PUT' : 'POST';
-    axios({
-      url: this.props.url,
-      method: method,
-      data: formData,
-      headers: {'Accept': 'application/json'}
-    })
+
+    axios.post(this.props.url + '.json', formData)
     .then(response => {
       if(this.props.trainee_type.id) {
         $('#modalEdit').modal('hide');

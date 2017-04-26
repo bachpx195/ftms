@@ -54,15 +54,13 @@ export default class Users extends React.Component {
 
   render() {
     return (
-      <div className="trainee-container">
-        <ul className='member-list clearfix'>
-          {
-            this.state.course.members.map((user, index) => {
-              return this.renderMember(user);
-            })
-          }
-        </ul>
-      </div>
+      <ul className='member-list clearfix'>
+        {
+          this.state.course.members.map((user, index) => {
+            return this.renderMember(user);
+          })
+        }
+      </ul>
     )
   }
 

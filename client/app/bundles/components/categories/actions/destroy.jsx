@@ -24,19 +24,17 @@ export default class Destroy extends React.Component {
   handleDelete(event) {
     let $target = $(event.target);
     $target.blur();
-    if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(routes.category_url(this.props.category.id), {
-        params: {
-          authenticity_token: ReactOnRails.authenticityToken()
-        },
-        headers: {'Accept': 'application/json'}
-      })
-      .then(response => {
-        this.props.handleAfterDeleted(this.props.category);
-      })
-      .catch(error => {
-        console.log(error)}
-      );
-    }
+    axios.delete(routes.category_url(this.props.category.id), {
+      params: {
+        authenticity_token: ReactOnRails.authenticityToken()
+      },
+      headers: {'Accept': 'application/json'}
+    })
+    .then(response => {
+      this.props.handleAfterDeleted(this.props.category);
+    })
+    .catch(error => {
+      console.log(error)}
+    );
   }
 }
