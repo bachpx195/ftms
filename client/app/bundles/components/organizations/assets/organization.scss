@@ -34,3 +34,16 @@
     margin-left: 20px;
   }
 }
+
+.tms-assign-owner .panel-body {
+  padding: 0;
+}
+
+.tms-assign-owner .list-user {
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.tms-assign-owner .list-user .cursor input {
+  margin-right: 8px;
+}

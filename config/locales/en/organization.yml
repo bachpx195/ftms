@@ -32,3 +32,5 @@ en:
     exams: "Exams"
     other_managers: "Other managers"
     update: "Update: %{name}"
+    search_user: "Search for users..."
+    list_users: "List Users"

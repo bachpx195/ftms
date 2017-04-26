@@ -12,7 +12,8 @@ export default class ModalAssignOwner extends React.Component {
       url_programs: this.props.url_programs,
       organization: this.props.organization,
       all_roles: this.props.all_roles,
-      owners: []
+      owners: this.props.organization.users,
+      user_checked: {},
     };
   }
 
@@ -52,22 +53,20 @@ export default class ModalAssignOwner extends React.Component {
             </div>
             <div className="modal-body">
               {this.renderCurrentOwner()}
-              <div className='nht-assign-owner'>
-                <label>{I18n.t('courses.roles')}</label>
-                <select className='nht-list-roles form-control'
-                  onChange={this.handleChangeRole.bind(this)}
-                  id='list-roles'>
-                  <option value=''>{I18n.t('courses.select_role')}</option>
-                  {this.renderOptions(this.state.all_roles)}
-                </select>
-
-                <label>{I18n.t('courses.owners')}</label>
-                <select className='nht-list-owners form-control'
-                  id='list-owners'
-                  name='owner_id' onChange={this.handleChange.bind(this)}>
-                  <option value=''>{I18n.t('courses.select_owner')}</option>
-                  {this.renderOptions(this.state.owners)}
-                </select>
+              <div className='tms-assign-owner'>
+                <div className='panel panel-info'>
+                  <div className='panel-heading text-center'>
+                    {I18n.t('organizations.list_users')}
+                  </div>
+                  <div className='panel-body'>
+                    <input className="form-control search_form"
+                      placeholder={I18n.t('organizations.search_user')}
+                      onChange={this.filterUsers.bind(this)} />
+                    <div className='list-group list-user clearfix'>
+                      {this.renderUsers()}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="modal-footer">
@@ -86,6 +85,27 @@ export default class ModalAssignOwner extends React.Component {
     );
   }
 
+  filterUsers(event) {
+    let value = event.target.value;
+    let owners = '';
+    owners = this.state.organization.users.filter(user => {
+      return this.isIncludeUser(user, value);
+    });
+    if (this.state.owners == []) {
+      this.setState({
+        owners: this.state.organization.users
+      });
+    } else {
+      this.setState({
+        owners: owners
+      });
+    }
+  }
+
+  isIncludeUser(user, value) {
+    return user.name.toLowerCase().includes(value.toLowerCase());
+  }
+
   renderOptions(objects) {
     if (objects) {
       return objects.map(object => {
@@ -96,38 +116,32 @@ export default class ModalAssignOwner extends React.Component {
     return null;
   }
 
-  handleChangeRole(event) {
-    let role_url = routes.filter_role_url($('#list-roles').val());
-    axios.get(role_url)
-      .then(response => {
-        this.setState({
-          owners: response.data.owners
-        });
-      })
-      .catch(error => {
-          console.log(error);
-        }
-      );
+  renderUsers() {
+    return this.state.owners.map(user => {
+      return (
+        <label key={user.id} className='list-group-item cursor'
+          onClick={this.handleAfterClick.bind(this, user)} value={user.id}>
+          <input type='radio' name='radio' checked={this.state.checked} />
+          {user.name}
+        </label>
+      )
+    })
   }
 
-  handleChange(event) {
-    let attribute = event.target.name;
-    Object.assign(this.state.organization, {[attribute]: event.target.value});
+  handleAfterClick(user) {
     this.setState({
-      organization: this.state.organization
+      user_checked: user,
     });
   }
 
-
-
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.organization.owner_id == null) {
+    if (this.state.organization.owner.id == null) {
       return;
     }
     let course = _.omit(this.state.organization, 'errors');
     let formData = new FormData();
-    formData.append('organization[user_id]', this.state.organization.owner_id);
+    formData.append('organization[user_id]', this.state.user_checked.id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
     let organization_url = routes.organization_url(this.state.organization.id) +
