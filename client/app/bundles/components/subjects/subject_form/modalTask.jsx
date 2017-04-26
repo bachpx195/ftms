@@ -1,4 +1,3 @@
-import axios from 'axios';
 import ListTasks from './list_tasks';
 import React from 'react';
 import UserTasks from './user_tasks'
@@ -34,30 +33,21 @@ export default class ModalTask extends React.Component{
     }
     let list_available_tasks = Object.assign({}, this.state.task,
       {[this.state.type]: available_tasks});
-    if(this.state.list_user) {
-      button_name = I18n.t('buttons.add_task')
-      user_task = (
-        <UserTasks user_tasks={this.state.user_tasks} type={this.state.type}
-          handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-          user_index={this.props.user_index} user={this.props.user} />
-      )
-    } else {
-      button_name = I18n.t('buttons.list_task')
-      user_task = (
-        <div className='panel-project panel-body'>
-          <ListTasks task={list_available_tasks} type={this.state.type}
-            afterChoose={this.afterChoose.bind(this)}
-            ownerable_id={this.props.ownerable_id}
-            ownerable_type={this.props.ownerable_type}
-            subject_detail={this.props.subject_detail}
-            handleAfterAddTask={this.props.handleAfterAddTask}
-            afterCreateTask={this.props.afterCreateTask}
-            user={this.props.user} targetable_type="StaticTask"
-            user_index={this.props.user_index}
-            changePanel={this.changePanel.bind(this)}/>
-        </div>
-      )
-    }
+    button_name = I18n.t('buttons.list_task')
+    user_task = (
+      <div className='panel-project panel-body'>
+        <ListTasks task={list_available_tasks} type={this.state.type}
+          afterChoose={this.afterChoose.bind(this)}
+          ownerable_id={this.props.ownerable_id}
+          ownerable_type={this.props.ownerable_type}
+          subject_detail={this.props.subject_detail}
+          handleAfterAddTask={this.props.handleAfterAddTask}
+          afterCreateTask={this.props.afterCreateTask}
+          user={this.props.user} targetable_type="StaticTask"
+          user_index={this.props.user_index}
+          changePanel={this.changePanel.bind(this)}/>
+      </div>
+    )
 
     return(
       <div className='modal-task'>
@@ -87,10 +77,10 @@ export default class ModalTask extends React.Component{
       </div>
     )
   }
+
   changePanel() {
-    this.setState({
-      list_user: !this.state.list_user
-    })
+    $('.modal-assign').modal('hide');
+    $('.modal-list-task').modal();
   }
 
   afterSelectTask(event) {

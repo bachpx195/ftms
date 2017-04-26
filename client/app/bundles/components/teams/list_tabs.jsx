@@ -1,25 +1,35 @@
-import ModalBody from '../subjects/subject_form/modalBody';
 import ModalTask from '../subjects/subject_form/modalTask';
+import ModalUserTask from '../subjects/subject_form/modal_user_task';
+import React from 'react';
 import TabsMember from './templates/tabs_member';
 import TabsTask from './templates/tabs_task';
 import TeamPolicy from 'policy/team_policy';
-import React from 'react';
 
 export default class ListTabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabs_group_focus: 1
+      tabs_group_focus: 1,
+      subject_detail: props.subject_detail,
+      user_index: props.user_index,
+      user: props.user
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      subject_detail: nextProps.subject_detail,
+      user_index: nextProps.user_index,
+      user: nextProps.user
+    })
+  }
 
   renderUserTaskModal() {
     let panelUserTask = null;
     if(this.props.subject_detail.user_subjects &&
       this.props.subject_detail.user_subjects[this.props.user_index]) {
       panelUserTask = (
-        <ModalTask task={this.state.subject_detail.tasks}
+        <ModalTask task={this.props.subject_detail.tasks}
           user_tasks={this.state.subject_detail
             .user_subjects[this.state.user_index].user_course_task}
           user_index={this.state.user_index}
@@ -55,27 +65,72 @@ export default class ListTabs extends React.Component {
   }
 
   renderTaskModal() {
-    return(
-      <div className='modal-task'>
-        <div className='modalAddTask modal fade in' role='dialog'>
-          <div className='modal-dialog'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <button type='button' className='close'
-                  data-dismiss='modal'>&times;</button>
-                <h4 className='modal-title'>{I18n.t('buttons.add_task')}</h4>
+    let modal_assign_task = null;
+    let modal_list_task = null;
+    if (this.props.course) {
+      if(this.state.subject_detail.user_subjects &&
+        this.state.subject_detail.user_subjects[this.state.user_index]) {
+        modal_assign_task = (
+          <div className='modal-assign modal fade in' role='dialog'>
+            <div className='modal-dialog'>
+              <div className='modal-content'>
+                <div className='modal-header'>
+                  <button type='button' className='close'
+                    data-dismiss='modal'>&times;</button>
+                  <h4 className='modal-title'>
+                    {I18n.t('subjects.headers.assign_task')}
+                  </h4>
+                </div>
+                <ModalTask task={this.state.subject_detail.course_subject_task}
+                  user_tasks={this.state.subject_detail
+                    .user_subjects[this.state.user_index].user_course_task}
+                  user_index={this.state.user_index}
+                  ownerable_id={this.state.subject_detail.course_subject.id}
+                  ownerable_type='CourseSubject'
+                  subject_detail={this.state.subject_detail}
+                  handleAfterAddTask={this.props.handleAfterAddTask}
+                  afterCreateTask={this.props.afterCreateTask}
+                  user={this.state.user}
+                  handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+                />
               </div>
-              <ModalBody task={this.props.subject_detail.course_subject_task}
-                ownerable_id={this.props.team.id}
-                ownerable_type='Team' course={this.props.course}
-                subject_detail={this.props.subject_detail}
-                handleAfterAddTask={this.props.handleAfterAddTask}
-                afterCreateTask={this.props.afterCreateTask}
-                course_subject_task={this.props.subject_detail.team_task}
-              />
             </div>
           </div>
-        </div>
+        );
+
+        modal_list_task = (
+          <div className='modal-list-task modal fade in' role='dialog'>
+            <div className='modal-dialog'>
+              <div className='modal-content'>
+                <div className='modal-header'>
+                  <button type='button' className='close'
+                    data-dismiss='modal'>&times;</button>
+                  <h4 className='modal-title'>
+                    {I18n.t('subjects.headers.list_task')}
+                  </h4>
+                </div>
+                  <ModalUserTask task={this.state.subject_detail.course_subject_task}
+                    user_tasks={this.state.subject_detail
+                      .user_subjects[this.state.user_index].user_course_task}
+                    user_index={this.state.user_index}
+                    ownerable_id={this.state.subject_detail.course_subject.id}
+                    ownerable_type='CourseSubject'
+                    subject_detail={this.state.subject_detail}
+                    handleAfterAddTask={this.props.handleAfterAddTask}
+                    afterCreateTask={this.props.afterCreateTask}
+                    user={this.state.user}
+                    handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+                  />
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+    return(
+      <div className='modalUser'>
+        {modal_assign_task}
+        {modal_list_task}
       </div>
     )
   }

@@ -135,12 +135,13 @@ export default class TeamsShowBox extends React.Component {
       user: user,
       user_index: user_index
     })
-    $('.modalUserTask').modal()
+    $('.modal-assign').modal();
   }
 
 
-  handleAfterDeleteTask(index, task, type) {
-    _.remove(this.state.subject_detail.tasks[type], ({task_id}) => task_id == index)
+  handleAfterDeleteTask(index, task, type, user_index) {
+    _.remove(this.state.subject_detail.user_subjects[user_index]
+      .user_course_task[type], ({task_id}) => task_id == index);
     this.state.subject_detail.remain_tasks[type].push(task);
     this.setState({
       subject_detail: this.state.subject_detail
