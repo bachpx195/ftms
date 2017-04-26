@@ -23,7 +23,7 @@ export default class CertificateForm extends React.Component {
                 <span>{I18n.t('certificates.title')}</span>
               </div>
               <div className='main-content text-center'>
-                <span className='individual-name'>Lương Văn Tối</span>
+                <span className='individual-name'>{this.props.user.name}</span>
                 <hr />
                 <div className='static-text ribbon'>
                   <span className='sub-ribbon'>
@@ -34,10 +34,14 @@ export default class CertificateForm extends React.Component {
                   <div className='ribbon-before'>
                   </div>
                 </div>
-                <h3 className='certificate-program'>RUBY ON RAILS TRAINING COURSE</h3>
+                <h3 className='certificate-program'>
+                  {this.props.user.user_program.name}
+                </h3>
                 <div className='result-size'>
-                  <h3>A COURSE OF STUDY OFFERED BY EDUCATION DIVISION, FRAMGIAVN</h3>
-                  <span>{I18n.t('certificates.main_content.with')} </span>
+                  <h3>{I18n.t('users.certificates.content')}</h3>
+                  <span>
+                    {I18n.t('certificates.main_content.with')}
+                  </span>
                   <span className={`certificate-result ${this.state.result}`}>
                     {I18n.t('certificates.main_content.excellent')}
                   </span>
@@ -47,7 +51,7 @@ export default class CertificateForm extends React.Component {
             </div>
           </div>
           <div className='certicate-footer text-center'>
-            <h2>06/09/2017</h2>
+            <h2>{new Date().toJSON().slice(0,10).replace(/-/g,'/')}</h2>
           </div>
         </div>
         <div className='col-md-8 col-md-offset-2 clearfix text-center'>

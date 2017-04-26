@@ -73,12 +73,15 @@ en:
     view_type:
       grid: "Grid view"
       list: "List view"
-    nav-tab:
+    nav_tabs:
       timeline: "Timeline"
-      activites: "Activities"
+      activities: "Activities"
       profile: "Profile"
+      certificates: "Certificates"
     about_tab:
       title: "About"
       university: "University"
       graduation: "Graduation"
       note: "Note"
+    certificates:
+      content: "A COURSE OF STUDY OFFERED BY EDUCATION DIVISION, FRAMGIAVN"

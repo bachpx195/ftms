@@ -9,9 +9,6 @@ class OrganizationsController < ApplicationController
       .new(object: organizations, scope: {show_program: true}).serializer
   end
 
-  def new
-  end
-
   def create
     @organization = current_user.organizations.build organization_params
       .merge(creator_id: current_user.id)
