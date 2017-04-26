@@ -19,11 +19,11 @@ export default class Subjects extends React.Component {
             alt={I18n.t('subjects.alt_image')} className='image-subject' />
         </div>
         <div className='col-md-10'>
-          <div className='subject-info col-md-9'>
+          <div className='subject-info col-md-9 col-md-offset-1'>
             <h2 className='subject-name'>
               {this.state.subject_detail.name}
             </h2>
-            <div className='description'>
+            <div>
               {this.state.subject_detail.description}
             </div>
             <div className='workings-day'>

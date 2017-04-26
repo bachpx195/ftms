@@ -199,6 +199,7 @@ $user-subject-border-status-reject: #757575;
   list-style: none;
   margin-top: 10px;
   padding: 0 0 0 5px;
+  position: relative;
 }
 
 .info-panel .member-list .member-item {
@@ -442,4 +443,9 @@ $btn-danger-xs: #dd4b39;
 
 .menu-right-user-course {
   margin: 4px 9px;
+}
+
+.dropdown.action-user-course {
+  position: absolute;
+  right: 0;
 }

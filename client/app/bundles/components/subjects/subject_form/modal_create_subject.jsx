@@ -6,7 +6,7 @@ export default class ModalCreateSubject extends React.Component {
 
   render() {
     return (
-      <div id='ModalCreateSubject' className='modal fade in' role='dialog'>
+      <div className='modal-create-subject modal fade in' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
@@ -25,6 +25,6 @@ export default class ModalCreateSubject extends React.Component {
 
   handleAfterCreated(subject) {
     this.props.handleAfterCreated(subject);
-    $('#ModalCreateSubject').modal('hide');
+    $('.modal-create-subject').modal('hide');
   }
 }

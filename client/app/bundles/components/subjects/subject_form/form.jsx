@@ -81,6 +81,7 @@ export default class Form extends React.Component {
       name: nextProps.subject.name || '',
       description: nextProps.subject.description || '',
       image: nextProps.subject.image || null,
+      during_time: nextProps.subject.during_time || '',
       errors: null,
       changeImage: false
     });
@@ -126,8 +127,8 @@ export default class Form extends React.Component {
     })
     .then(response => {
       if(this.props.subject.id) {
-        $('#modalCreateSubject').modal('hide');
-        $('#modalEdit').modal('hide');
+        $('.modal-create-subject').modal('hide');
+        $('.modal-edit').modal('hide');
       } else {
         this.setState({
           name: '',

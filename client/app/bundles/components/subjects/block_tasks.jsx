@@ -100,11 +100,15 @@ export default class BlockTasks extends React.Component{
 
   _renderActionCreate(type) {
     let button_create = '';
-    button_create =
-    <button className="btn btn-primary pull-right"
-      onClick={this.handleClickCreateTask.bind(this)}>
-      {I18n.t("subjects.create." + type)}
-      </button>
+    if (this.props.location == 'course_subject' && type == 'projects') {
+      button_create = '';
+    else
+      button_create =
+      <button className="btn btn-primary pull-right"
+        onClick={this.handleClickCreateTask.bind(this)}>
+        {I18n.t("subjects.create." + type)}
+        </button>
+    }
 
     return (
       <div className="action-create-task clearfix">
