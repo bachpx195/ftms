@@ -135,7 +135,7 @@ export default class ModalTask extends React.Component {
   renderSelectedItems() {
     return _.map(this.state.selected_items, item => {
       return(
-        <li className='list-group-item' key={item.id} 
+        <li className='list-group-item' key={item.id}
           onClick={this.onClickItem.bind(this, item)}>
           {item.name}
           <i className='glyphicon glyphicon-remove pull-right poiter'
@@ -146,7 +146,7 @@ export default class ModalTask extends React.Component {
   }
 
   onClickItem(item, event) {
-    let target = event.target;  
+    let target = event.target;
     this.setState({
       current_item: item,
     });
@@ -216,38 +216,36 @@ export default class ModalTask extends React.Component {
   }
 
   onClickAddItem() {
-    if (confirm(I18n.t('data.confirm_all'))) {
-      let arr_targetable_id = [];
+    let arr_targetable_id = [];
+    _.map(this.state.select_items, select_item => {
+      arr_targetable_id.push(select_item.id);
+    });
+    axios.post(TASKS_URL , {
+      task: {
+        targetable_ids: arr_targetable_id,
+        targetable_type: this.state.targetable_type,
+        ownerable_id: this.state.targetable.id,
+        ownerable_type: this.state.ownerable_type,
+        user_id: null
+      },
+      authenticity_token: ReactOnRails.authenticityToken()
+    })
+    .then(response => {
       _.map(this.state.select_items, select_item => {
-        arr_targetable_id.push(select_item.id);
+        this.state.selected_items.push(select_item);
+        let index = _.findIndex(this.state.remain_items, remain_item =>
+          remain_item.id == select_item.id);
+        this.state.remain_items.splice(index, 1);
       });
-      axios.post(TASKS_URL , {
-        task: {
-          targetable_ids: arr_targetable_id,
-          targetable_type: this.state.targetable_type,
-          ownerable_id: this.state.targetable.id,
-          ownerable_type: this.state.ownerable_type,
-          user_id: null
-        },
-        authenticity_token: ReactOnRails.authenticityToken()
-      })
-      .then(response => {
-        _.map(this.state.select_items, select_item => {
-          this.state.selected_items.push(select_item);
-          let index = _.findIndex(this.state.remain_items, remain_item =>
-            remain_item.id == select_item.id);
-          this.state.remain_items.splice(index, 1);
-        });
-        this.props.afterSubmitCreateTask(this.state.selected_items, 
-          this.state.remain_items);
-        this.setState({
-          select_items: [],
-        });
-        $('.modal-task-course').modal('hide');
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    }
+      this.props.afterSubmitCreateTask(this.state.selected_items,
+        this.state.remain_items);
+      this.setState({
+        select_items: [],
+      });
+      $('.modal-task-course').modal('hide');
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 }

@@ -67,25 +67,23 @@ export default class ModalCreateStandard extends React.Component {
 
   handleSubmitCreateStandard(event) {
     event.preventDefault();
-    if (confirm(I18n.t('data.confirm_all'))) {
-      axios.post(this.props.standard_url, {
-        training_standard: {
-          organization_id: this.props.organization ? this.props.organization.id : '',
-          policy: this.refs.policyField.value,
-          name: this.refs.nameField.value
-        }, authenticity_token: ReactOnRails.authenticityToken()
-      }, app_constants.AXIOS_CONFIG)
-        .then(response => {
-          let {training_standard} = response.data;
-          this.props.handleAfterCreatedStandard(training_standard)
-          $('.modal-create-standards').modal('hide');
-          this.refs.nameField.value = ''
-          window.location.href = this.props.standard_url + '/' + training_standard.id;
-        })
-        .catch(error => {
-          console.log(error);
-      });
-    }
+    axios.post(this.props.standard_url, {
+      training_standard: {
+        organization_id: this.props.organization ? this.props.organization.id : '',
+        policy: this.refs.policyField.value,
+        name: this.refs.nameField.value
+      }, authenticity_token: ReactOnRails.authenticityToken()
+    }, app_constants.AXIOS_CONFIG)
+      .then(response => {
+        let {training_standard} = response.data;
+        this.props.handleAfterCreatedStandard(training_standard)
+        $('.modal-create-standards').modal('hide');
+        this.refs.nameField.value = ''
+        window.location.href = this.props.standard_url + '/' + training_standard.id;
+      })
+      .catch(error => {
+        console.log(error);
+    });
   }
 
   handleChange(event) {
