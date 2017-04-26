@@ -11,6 +11,9 @@ en:
     framgia: In Side Out
     courses: "COURSES"
   data:
+    confirm_yes: "Yes"
+    confirm_no: "No"
+    confirm: "Confirm"
     confirm_all: "Are you sure?"
     confirm_delete: "Are you sure?"
     confirm_unassign: "Confirm unassign?"

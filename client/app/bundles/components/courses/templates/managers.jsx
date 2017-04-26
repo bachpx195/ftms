@@ -32,13 +32,15 @@ export default class Managers extends React.Component {
       }
     }
     return (
-      <ul className='user-list clearfix'>
-        {
-          managers.map((user, index) => {
-            return this.renderManager(user)
-          })
-        }
-      </ul>
+      <div className='trainee-course'>
+        <ul className='user-list clearfix'>
+          {
+            managers.map((user, index) => {
+              return this.renderManager(user)
+            })
+          }
+        </ul>
+      </div>
     );
   }
 }
