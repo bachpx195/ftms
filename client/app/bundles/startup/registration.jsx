@@ -44,7 +44,6 @@ import UserFormsBox from '../components/users/forms_box';
 import UserShowBox from '../components/users/show';
 import SubjectManagerShowBox from '../components/subjects/managers/show';
 import SubjectTraineeShowBox from '../components/subjects/members/show';
-import ProfilesShowBox from '../components/profiles/show';
 
 ReactOnRails.register({
   CategoriesBox,
@@ -91,5 +90,4 @@ ReactOnRails.register({
   UserShowBox,
   SubjectManagerShowBox,
   SubjectTraineeShowBox,
-  ProfilesShowBox,
 });
