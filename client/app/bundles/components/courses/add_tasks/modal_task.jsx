@@ -147,8 +147,6 @@ export default class ModalTask extends React.Component {
 
   onClickItem(item, event) {
     let target = event.target;  
-    let distance_top = $(target).position().top;
-    $('.task-preview').css('margin-top', distance_top);
     this.setState({
       current_item: item,
     });

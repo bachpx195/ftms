@@ -49,7 +49,5 @@ export default class Item extends React.Component {
       this.props.chooseItem(this.state.select_items);
     }
     this.props.current_item(this.state.remain_item);
-    let distance_top = $(event.target).position().top;
-    $('.task-preview').css('margin-top', distance_top);
   }
 }

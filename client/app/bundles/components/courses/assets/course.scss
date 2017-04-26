@@ -149,10 +149,6 @@ $c-black: #000;
   clear: both;
 }
 
-.task-preview {
-  max-height: 70vh;
-}
-
 .modal-task-course .list-group-item {
   cursor: pointer;
 }
@@ -163,4 +159,8 @@ $c-black: #000;
 
 .modal-task-course input {
   margin-right: 5px;
+}
+
+.task-preview .panel-default{
+  height: 77vh;
 }

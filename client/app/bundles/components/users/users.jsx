@@ -54,16 +54,4 @@ export default class Users extends React.Component {
       </div>
     );
   }
-
-  handlePermission(key){
-    $('#user_function_modal').modal();
-    axios.get(routes.user_function_url(key) + '.json')
-      .then(response => {
-        console.log(response.data);
-        this.setState({user_functions: response.data.functions, user_id: key});
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 }
