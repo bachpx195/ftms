@@ -1,11 +1,15 @@
 class Serializers::Subjects::UserSubjectsSerializer <
   Serializers::SupportSerializer
   attrs :id, :user_id, :user_course_id, :current_progress, :user_end_date,
-    :start_date, :end_date, :status, :user_name, :subject_id
+    :start_date, :end_date, :status, :user_name, :user_avatar, :subject_id
   attrs :user_course_task, if: :course_subject?
 
   def user_name
     object.user.name
+  end
+
+  def user_avatar
+    Hash[:url, object.user.avatar.url]
   end
 
   def user_course_task

@@ -30,6 +30,7 @@ en:
       user_end_date: "User End Date"
       status: "Status"
       current_progress: "Progress"
+      subject: "Subject: "
       workings_day: "Working day: "
       during_time: "Working day "
       training_standard: "Training Standard: "

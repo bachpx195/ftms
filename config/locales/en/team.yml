@@ -5,3 +5,8 @@ en:
     headers:
       name: "Name"
     filter_user: "Filter user"
+    titles:
+      surveys: "Surveys"
+      assignments: "Assignments"
+      tests: "Tests"
+      projects: "Projects"

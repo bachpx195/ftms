@@ -415,7 +415,8 @@ body {
   .flex-small {
     -webkit-flex: 1;
     flex: 1;
-    height: 95vh;
+    max-height: 95vh;
+    min-height: 40vh;
     opacity: .5;
     overflow: hidden;
     vertical-align: center;
