@@ -19,6 +19,7 @@ class TrainingStandard < ApplicationRecord
     source: :organization
   has_many :programs, through: :courses
   has_many :training_results, through: :evaluation_template
+  has_many :certificates, dependent: :destroy
 
   validates :name, presence: true
 end

@@ -1,5 +1,5 @@
 class CertificatesController < ApplicationController
-  before_action :find_user, only: :show
+  before_action :find_user,:find_certificate, only: :show
 
   def show
     respond_to do |format|
@@ -21,6 +21,19 @@ class CertificatesController < ApplicationController
     unless @user
       respond_to do |format|
         format.html{redirect_to root_path}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
+  end
+
+  def find_certificate
+    @certificate = @user.certificates.find_by id: params[:id]
+    unless @certificate
+      respond_to do |format|
+        format.html{redirect_to user_path @user}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found

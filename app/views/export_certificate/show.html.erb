@@ -41,13 +41,13 @@
                     </div>
                   </div>
                   <h3 class="certificate-program">
-                    RUBY ON RAILS TRAINING COURSE
+                    <%= @certificate.program.name %>
                   </h3>
                   <div class="result-size">
                     <h3><%= t "users.certificates.content" %></h3>
                     <span><%= t "certificates.main_content.with" %> </span>
                     <span class="certificate-result excellent">
-                      <%= t "certificates.main_content.excellent" %>
+                      <%= @certificate.training_result.name %>
                     </span>
                     <span><%= t "certificates.main_content.result" %></span>
                   </div>
@@ -55,7 +55,10 @@
               </div>
             </div>
             <div class="certicate-footer text-center">
-              <h2>06/09/2017</h2>
+              <h2>
+                <%= @certificate.created_at
+                  .strftime t("date.formats.default") %>
+              </h2>
             </div>
           </div>
         </div>

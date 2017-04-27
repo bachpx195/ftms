@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import ResultBox from './result_box';
 import * as routes from 'config/routes';
+import Header from './header';
 
 require('../../../assets/sass/modal_evaluate_member.scss');
 
@@ -61,13 +62,31 @@ export default class ModalEvaluateMember extends React.Component {
   renderEvaluationStandards() {
     return this.state.evaluation_standards.map((evaluation_standard, index) => {
       return(
-        <li className="list-group-item" key={evaluation_standard.id}>
-          <div className="row">
-            <div className="col-md-6">
+        <li className='list-group-item' key={evaluation_standard.id}>
+          <div className='row'>
+            <div className='col-md-3'>
               <label>{index + 1}. {evaluation_standard.name}</label>
             </div>
-            <div className="col-md-6 text-right point-input">
-              <input className="text-right" type="number" step="1" min='0'
+            <div className='col-md-2'>
+              <label className='min-point'
+                data-point={evaluation_standard.min_point}>
+                {evaluation_standard.min_point}
+              </label>
+            </div>
+            <div className='col-md-2'>
+              <label className='average-point'
+                data-point={evaluation_standard.average_point}>
+                {evaluation_standard.average_point}
+              </label>
+            </div>
+            <div className='col-md-2'>
+              <label className='max-point'
+                data-point={evaluation_standard.max_point}>
+                {evaluation_standard.max_point}
+              </label>
+            </div>
+            <div className='col-md-3 text-right point-input'>
+              <input className='text-right' type='number' step='1' min='0'
                 value={this.state.standard_points[evaluation_standard.id] || 0}
                 onChange={this.handlePointChange.bind(this, evaluation_standard.id)} />
             </div>
@@ -79,38 +98,46 @@ export default class ModalEvaluateMember extends React.Component {
 
   render() {
     return (
-      <div className="modal fade modal-evaluate-member" role="dialog">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
+      <div className='modal fade modal-evaluate-member' role='dialog'>
+        <div className='modal-dialog' role='document'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <button type='button' className='close' data-dismiss='modal'>
+                <span aria-hidden='true'>&times;</span>
               </button>
-              <h4 className="modal-title">{this.state.user.name}</h4>
+              <h4 className='modal-title'>{this.state.user.name}</h4>
             </div>
-            <div className="modal-body">
-              <div className="row">
-                <div className="col-md-12 course-info">
-                  <strong>{I18n.t('courses.evaluation.modal_course')}: </strong>
-                  {this.state.course.name}[{this.state.course.start_date}]
+            <div className='modal-body'>
+              <div className='row'>
+                <div className='col-md-12 course-info'>
+                  {I18n.t('courses.evaluation.modal_course')}:&nbsp;&nbsp;
+                  <strong>{this.state.course.name}</strong>
                 </div>
 
-                <div className="col-md-12 action-assign">
-                  <ul className="list-group">{this.renderEvaluationStandards()}</ul>
+                <div className='col-md-12 action-assign'>
+                  <ul className='list-group'>
+                    <Header />
+                    {this.renderEvaluationStandards()}
+                    <ResultBox total_point={this.state.total_point}
+                      training_result={this.state.training_result}
+                      evaluation_template={this.state.evaluation_template}/>
+                  </ul>
                 </div>
-
-                <ResultBox total_point={this.state.total_point}
-                  training_result={this.state.training_result}
-                  evaluation_template={this.state.evaluation_template}/>
               </div>
             </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">
+            <div className='modal-footer'>
+              <button type='button' className='btn btn-secondary' data-dismiss='modal'>
                 {I18n.t('buttons.cancel')}
               </button>
-              <button type="button" className="btn btn-primary"
-                onClick={this.handleSubmit.bind(this)} disabled={!this.formValid()}>
+              <button type='button' className='btn btn-primary'
+                onClick={this.handleSubmit.bind(this)}
+                disabled={!this.formValid()}>
                 {I18n.t('buttons.save')}
+              </button>
+              <button type='button' className='btn btn-primary'
+                onClick={this.handleSubmit.bind(this, 'create_certificate')}
+                disabled={!this.formValid()}>
+                {I18n.t('buttons.create_certificate')}
               </button>
             </div>
           </div>
@@ -120,7 +147,7 @@ export default class ModalEvaluateMember extends React.Component {
   }
 
   formValid() {
-    for(let evaluation_standard of this.state.evaluation_standards) {
+    for (let evaluation_standard of this.state.evaluation_standards) {
       let point = this.state.standard_points[evaluation_standard.id];
       if(!point) {
         return false;
@@ -154,7 +181,7 @@ export default class ModalEvaluateMember extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit(submit_type, event) {
     event.preventDefault();
     let method = '';
     let evaluation_id = '';
@@ -166,6 +193,7 @@ export default class ModalEvaluateMember extends React.Component {
     }
     let formData = new FormData();
     let standard_points = this.state.standard_points;
+    formData.append('submit_type', submit_type);
     if (this.props.subject) {
       formData.append('subject_id', this.props.subject.id);
     }

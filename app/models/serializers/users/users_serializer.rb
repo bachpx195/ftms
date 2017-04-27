@@ -1,7 +1,7 @@
 class Serializers::Users::UsersSerializer <
   Serializers::SupportSerializer
   attrs :id, :email, :name, :avatar, :trainer_id, :created_at, :updated_at,
-    :type
+    :type, :certificates
   attrs :user_program, :remaining_organization_programs, :user_profile,
     :user_organization, if: :check_profile
 
@@ -30,6 +30,11 @@ class Serializers::Users::UsersSerializer <
 
   def avatar
     Hash[:url, object.avatar.url]
+  end
+
+  def certificates
+    Serializers::Users::CertificatesSerializer
+      .new(object: object.certificates).serializer
   end
 
   private

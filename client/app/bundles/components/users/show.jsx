@@ -49,6 +49,32 @@ export default class UserShowBox extends React.Component {
       </div>;
     }
 
+    const DisplayCertificateLink = () => {
+      if (this.state.user_detail.certificates && this.state.user_detail.certificates.length != 0) {
+        return (
+          <li>
+            <a href='#certificates' data-toggle='tab'>
+              {I18n.t('users.nav_tabs.certificates')}
+            </a>
+          </li>
+        );
+      }
+
+      return null;
+    }
+
+    const DisplayCertificateTab = () => {
+      if (this.state.user_detail.certificates && this.state.user_detail.certificates.length != 0) {
+        return (
+          <CertificatesTabPane user_id={this.state.user_detail.id}
+            username={this.state.user_detail.name}
+            certificates={this.state.user_detail.certificates} />
+        );
+      }
+
+      return null;
+    }
+
     return (
       <div className='user-profile row clearfix'>
         <ShowBreadCrumb user={this.state.user_detail} />
@@ -77,18 +103,14 @@ export default class UserShowBox extends React.Component {
                     {I18n.t('users.nav_tabs.profile')}
                   </a>
                 </li>
-                <li>
-                  <a href='#certificates' data-toggle='tab'>
-                    {I18n.t('users.nav_tabs.certificates')}
-                  </a>
-                </li>
+                <DisplayCertificateLink />
               </ul>
               <div className='tab-content'>
                 <TimelineTabPane user_id={this.state.user_detail.id} />
                 <ActivitiesTabPane user_id={this.state.user_detail.id} />
                 <ProfileTabPane user_profile={this.state.user_profile}
                   user_detail={this.state.user_detail} />
-                <CertificatesTabPane user={this.state.user_detail} />
+                <DisplayCertificateTab />
               </div>
             </div>
           </div>

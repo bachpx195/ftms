@@ -1,18 +1,11 @@
 import React from 'react';
 
 import * as routes from 'config/routes';
+import Time from 'react-time-format';
 
 require('./assets/certificate.scss');
 
 export default class CertificateForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      result: 'excellent',
-    }
-  }
-
-
   render() {
     return (
       <div>
@@ -38,7 +31,7 @@ export default class CertificateForm extends React.Component {
                 <span>{I18n.t('certificates.title')}</span>
               </div>
               <div className='main-content text-center'>
-                <span className='individual-name'>{this.props.user.name}</span>
+                <span className='individual-name'>{this.props.username}</span>
                 <hr />
                 <div className='static-text ribbon'>
                   <span className='sub-ribbon'>
@@ -50,15 +43,15 @@ export default class CertificateForm extends React.Component {
                   </div>
                 </div>
                 <h3 className='certificate-program'>
-                  RUBY ON RAILS TRAINING COURSE
+                  {this.props.certificate.program.name}
                 </h3>
                 <div className='result-size'>
                   <h3>{I18n.t('users.certificates.content')}</h3>
                   <span>
                     {I18n.t('certificates.main_content.with')}
                   </span>
-                  <span className={`certificate-result ${this.state.result}`}>
-                    {I18n.t('certificates.main_content.excellent')}
+                  <span className={`certificate-result excellent`}>
+                    {`${this.props.certificate.training_result.name} `}
                   </span>
                   <span>{I18n.t('certificates.main_content.result')}</span>
                 </div>
@@ -66,12 +59,14 @@ export default class CertificateForm extends React.Component {
             </div>
           </div>
           <div className='certicate-footer text-center'>
-            <h2>{new Date().toJSON().slice(0,10).replace(/-/g,'/')}</h2>
+            <h2>
+              <Time value={this.props.certificate.created_at} format="DD/MM/YYYY" />
+            </h2>
           </div>
         </div>
         <div className='col-md-8 col-md-offset-2 clearfix text-center'>
           <a className='btn btn-primary button-download-pdf'
-            href={routes.certificate_url(this.props.user.id) + '.pdf'}>
+            href={routes.certificate_url(this.props.user_id, this.props.certificate.id) + '.pdf'}>
             <i className='fa fa-download'></i>&nbsp;
             <span>{I18n.t('certificates.button.pdf_download')}</span>
           </a>

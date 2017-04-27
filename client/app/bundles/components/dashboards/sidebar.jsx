@@ -19,7 +19,6 @@ const MY_SPACE_COURSES_URL = routes.my_space_course_url();
 const MY_SPACE_EXAMS_URL = routes.my_space_exams_url();
 const PROJECTS_URL = routes.projects_url();
 const CATEGORIES_URL = routes.categories_url();
-const TEST_RULES_URL = routes.test_rules_url();
 const STATISTIC_LANGUAGE_PATH = routes.statistics_languages_url();
 const STATISTIC_TRAINEE_TYPE_PATH = routes.statistics_trainee_types_url();
 const STATISTIC_IN_OUT_PATH = routes.statistics_in_out_url();
@@ -172,15 +171,6 @@ export default class Sidebar extends React.Component {
                     <a href={CATEGORIES_URL} onClick={this.onClick.bind(this)}>
                       <i className='fa fa-circle-o'></i>
                       <span>{I18n.t('sidebar.categories')}</span>
-                    </a>
-                  </li>
-                </Permit>
-
-                <Permit action='test_rules'>
-                  <li data-page='test_rules'>
-                    <a href={TEST_RULES_URL} onClick={this.onClick.bind(this)}>
-                      <i className='fa fa-circle-o'></i>
-                      <span>{I18n.t('sidebar.test_rule')}</span>
                     </a>
                   </li>
                 </Permit>
