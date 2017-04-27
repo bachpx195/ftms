@@ -209,8 +209,7 @@ export default class FormCourse extends React.Component {
         course: {},
         changeImage: false,
       });
-      window.location.href = app_constants.APP_NAME +
-        app_constants.COURSES_PATH + '/' + response.data.course.id;
+      window.location.href = routes.course_url(response.data.course.id);
     })
     .catch(error => this.setState({errors: error.response.data.errors}));
   }
