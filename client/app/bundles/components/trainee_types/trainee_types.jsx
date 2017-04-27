@@ -1,10 +1,10 @@
-import React from 'react';
 import axios from 'axios';
+import Form from './templates/form';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import Modal from './modal';
-import Form from './form';
-import * as table_constants from 'constants/griddle_table_constants';
+import Modal from './templates/modal';
+import React from 'react';
 import * as routes from 'config/routes';
+import * as table_constants from 'constants/griddle_table_constants';
 
 export default class TraineeTypeLists extends React.Component {
   constructor(props) {
@@ -52,9 +52,10 @@ export default class TraineeTypeLists extends React.Component {
     );
 
     let modalEdit = null;
-    if(this.state.trainee_type.id){
+    if (this.state.trainee_type.id) {
       modalEdit = (
-        <Modal url={routes.trainee_type_url(this.state.trainee_type.id)}
+        <Modal
+          url={routes.trainee_type_url(this.state.trainee_type.id)}
           trainee_type={this.state.trainee_type}
           handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );
@@ -85,8 +86,8 @@ export default class TraineeTypeLists extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.trainee_type.id){
-      $('#modalEdit').modal();
+    if (this.state.trainee_type.id) {
+      $('.modalEdit').modal();
     }
   }
 
@@ -102,7 +103,7 @@ export default class TraineeTypeLists extends React.Component {
     let $target = $(event.target);
     $target.blur();
     let trainee_type = this.props.trainee_types[$target.data('index')];
-    if(confirm(I18n.t('data.confirm_delete'))) {
+    if (confirm(I18n.t('data.confirm_delete'))) {
       axios.delete(routes.trainee_type_url(trainee_type.id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
@@ -119,10 +120,10 @@ export default class TraineeTypeLists extends React.Component {
     }
   }
 
-  handleAfterUpdated(new_trainee_type) {
+  handleAfterUpdated(response) {
     this.setState({
       trainee_type: {}
     });
-    this.props.handleAfterUpdated(new_trainee_type);
+    this.props.handleAfterUpdated(response);
   }
 }

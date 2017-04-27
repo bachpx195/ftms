@@ -1,10 +1,10 @@
-import React from 'react';
 import Form from './form';
+import React from 'react';
 
 export default class Modal extends React.Component {
   render() {
     return (
-      <div id='modalEdit' className='modal fade in' role='dialog'>
+      <div className='modal fade in modalEdit' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
@@ -12,16 +12,14 @@ export default class Modal extends React.Component {
               <h4 className='modal-title'>{I18n.t('trainee_types.modals.header_edit')}</h4>
             </div>
             <div className='modal-body'>
-              <Form trainee_type={this.props.trainee_type} url={this.props.url}
-                handleAfterSaved={this.handleAfterUpdated.bind(this)} />
+              <Form
+                trainee_type={this.props.trainee_type}
+                url={this.props.url}
+                handleAfterUpdated={this.props.handleAfterUpdated} />
             </div>
           </div>
         </div>
       </div>
     );
-  }
-
-  handleAfterUpdated(trainee_type) {
-    this.props.handleAfterUpdated(trainee_type);
   }
 }
