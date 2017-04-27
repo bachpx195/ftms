@@ -1,3 +1,4 @@
+import * as routes from 'config/routes';
 import axios from 'axios';
 import Documents from '../../shareds/documents/documents';
 import ListTabs from '../supervisor/list_tabs';
@@ -5,9 +6,9 @@ import ModalAssignTask from './templates/modal_assign_task';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';
 import ModalCreateAssignment from './templates/modal_create_assignment';
 import React from 'react';
+import ShowBreadCrumb from './templates/bread_crumb/show';
 import SubjectManagerInfo from  './templates/subject_manager_info';
 import SubjectPolicy from 'policy/subject_policy';
-import * as routes from 'config/routes';
 
 const SUBJECT_TASKS_URL = routes.subject_tasks_url();
 
@@ -51,6 +52,12 @@ export default class SubjectManagerShowBox extends React.Component {
     remain_tasks = this.state.subject_detail.remain_tasks;
     return (
       <div className='admin-subject-show clearfix'>
+        <ShowBreadCrumb
+          course={this.props.course}
+          program={this.state.subject_detail.program}
+          organization={this.state.subject_detail.organization}
+          subject={this.props.subject_detail}
+        />
         <div className='row'>
           <div className='col-md-9 content-list'>
             <div className='box box-primary'>

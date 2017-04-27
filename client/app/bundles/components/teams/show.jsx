@@ -3,6 +3,7 @@ import ListTabs from './list_tabs';
 import ModalAssignTask from '../subjects/managers/templates/modal_assign_task';
 import ModalCreateAssignment from '../subjects/managers/templates/modal_create_assignment';
 import React from 'react';
+import ShowBreadCrumb from './templates/bread_crumb/show';
 import TeamDetail from './templates/team_detail';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
@@ -34,6 +35,12 @@ export default class TeamsShowBox extends React.Component {
   render() {
     return (
       <div className='admin-subject-show'>
+        <ShowBreadCrumb
+          course={this.props.course}
+          organization={this.props.organization}
+          subject={this.props.subject}
+          team={this.props.team}
+        />
         <TeamDetail
           subject={this.state.subject}
           training_standard={this.state.training_standard}

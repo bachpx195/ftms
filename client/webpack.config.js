@@ -30,6 +30,8 @@ const config = {
       'react-dom': path.resolve('./node_modules/react-dom'),
       shared: path.join(process.cwd(), 'app', 'bundles', 'components', 'shareds'),
       config: path.join(process.cwd(), 'app', 'config'),
+      breadcrumb: path.join(process.cwd(),
+        'app', 'bundles', 'components', 'shareds', 'bread_crumb'),
     },
   },
   plugins: [

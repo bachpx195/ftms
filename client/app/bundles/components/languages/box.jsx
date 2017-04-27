@@ -4,7 +4,7 @@ import axios from 'axios';
 import LanguageLists from './languages';
 import Form from './templates/form';
 import LanguagePolicy from 'policy/language_policy';
-import Breadcrumb from '../shareds/bread_crumb/bread_crumb';
+import Breadcrumb from 'breadcrumb/bread_crumb';
 
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
@@ -57,7 +57,7 @@ export default class LanguageBox extends React.Component {
                   <LanguagePolicy permit={[
                     {action: ['create'], target: 'children'}
                     ]}>
-                    <Form language={this.state.language} 
+                    <Form language={this.state.language}
                       url={routes.languages_url()}
                       handleAfterCreated={this.handleAfterCreated.bind(this)} />
                   </LanguagePolicy>
