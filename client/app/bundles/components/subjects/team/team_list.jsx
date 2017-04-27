@@ -14,6 +14,7 @@ export default class TeamList extends React.Component {
       course_subject: props.course_subject,
       unassigned_user_subjects: props.unassigned_user_subjects,
       owner_id: props.owner_id,
+      team: {},
     }
   }
 
@@ -77,6 +78,9 @@ export default class TeamList extends React.Component {
   }
 
   onCreateTeam() {
+    this.setState({
+      team: {},
+    });
     $('.modalTeam').modal();
   }
 

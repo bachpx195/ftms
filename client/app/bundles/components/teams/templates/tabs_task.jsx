@@ -92,6 +92,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-projects' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              location="team"
               tasks={this.props.subject_detail.tasks.projects}
               title={I18n.t('subjects.titles.tests')}
               handleChooseType={this.props.handleChooseType}

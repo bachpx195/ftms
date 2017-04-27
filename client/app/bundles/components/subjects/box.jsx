@@ -91,6 +91,9 @@ export default class SubjectBox extends React.Component {
   }
 
   handleCreateSubject() {
-    $('#ModalCreateSubject').modal();
+    this.setState({
+      subject: {},
+    });
+    $('.modal-create-subject').modal();
   }
 }
