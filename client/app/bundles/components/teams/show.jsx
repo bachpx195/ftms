@@ -1,10 +1,13 @@
 import axios from 'axios';
+import Documents from '../shareds/documents/documents';
 import ListTabs from './list_tabs';
 import ModalAssignTask from '../subjects/managers/templates/modal_assign_task';
 import ModalCreateAssignment from '../subjects/managers/templates/modal_create_assignment';
 import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumb/show';
+import ModalPreviewDocument from '../shareds/modal_preview_document';
 import TeamDetail from './templates/team_detail';
+import ModalCreateProject from '../projects/templates/modal';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 
@@ -34,46 +37,58 @@ export default class TeamsShowBox extends React.Component {
 
   render() {
     return (
-      <div className='admin-subject-show'>
+      <div className='admin-subject-show clearfix'>
         <ShowBreadCrumb
           course={this.props.course}
           organization={this.props.organization}
           subject={this.props.subject}
           team={this.props.team}
         />
-        <TeamDetail
-          subject={this.state.subject}
-          training_standard={this.state.training_standard}
-          organizations={this.state.organizations}
-          team={this.state.team}
-          handleAfterActionProject={this.handleAfterActionProject.bind(this)}
-        />
-        <ListTabs
-          team={this.props.team}
-          course={this.props.course}
-          subject_detail={this.state.subject_detail}
-          statuses={this.props.statuses}
-          subject={this.props.subject}
-          training_standard={this.props.training_standard}
-          evaluation_template={this.props.evaluation_template}
-          evaluation_standards={this.props.evaluation_standards}
-          member_evaluations={this.props.member_evaluations}
-          user={this.state.user}
-          documents={this.state.documents}
-          document_preview={this.state.document_preview}
-          user_index={this.state.user_index}
-          afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
-          handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-          handleAfterAddTask={this.handleAfterAddTask.bind(this)}
-          afterCreateTask={this.afterCreateTask.bind(this)}
-          onDocumentsDrop={this.onDocumentsDrop.bind(this)}
-          handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
-          handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
-          clickPreviewDocument={this.clickPreviewDocument.bind(this)}
-          documents={this.state.documents}
-          document_preview={this.state.document_preview}
-          handleChooseType={this.handleChooseType.bind(this)}
-        />
+
+        <div className='col-md-9 content-list'>
+          <div className='box box-primary'>
+            <TeamDetail
+              subject={this.state.subject}
+              training_standard={this.state.training_standard}
+              organizations={this.state.organizations}
+              team={this.state.team}
+              handleAfterActionProject={this.handleAfterActionProject.bind(this)}
+            />
+            <ListTabs
+              team={this.props.team}
+              course={this.props.course}
+              subject_detail={this.state.subject_detail}
+              statuses={this.props.statuses}
+              subject={this.props.subject}
+              training_standard={this.props.training_standard}
+              evaluation_template={this.props.evaluation_template}
+              evaluation_standards={this.props.evaluation_standards}
+              member_evaluations={this.props.member_evaluations}
+              user={this.state.user}
+              user_index={this.state.user_index}
+              afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
+              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+              handleAfterAddTask={this.handleAfterAddTask.bind(this)}
+              afterCreateTask={this.afterCreateTask.bind(this)}
+              handleChooseType={this.handleChooseType.bind(this)}
+            />
+          </div>
+        </div>
+
+        <div className="col-md-3">
+          <Documents
+            document_type={'Team'}
+            documents={this.state.documents}
+            documentable={this.props.team}
+            handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
+            handlerAfterClickPreviewDocument={this.handlerAfterClickPreviewDocument.bind(this)}
+          />
+
+          <ModalPreviewDocument
+            document_preview={this.state.document_preview}
+            handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
+          />
+        </div>
 
         <ModalAssignTask
           remain_tasks={this.state.subject_detail.remain_tasks}
@@ -93,32 +108,13 @@ export default class TeamsShowBox extends React.Component {
           permit_create_meta_type={true}
           handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
         />
+
+        <ModalCreateProject
+          organizations={this.state.organizations}
+          team={this.state.team}
+          handleAfterActionProject={this.props.handleAfterActionProject} />
       </div>
     );
-  }
-
-  onDocumentsDrop(acceptedFiles, rejectedFiles) {
-    if (app_constants.isOverMaxDocumentSize(acceptedFiles[0])) {
-      return;
-    }
-    let formData = new FormData();
-    formData.append('document[documentable_id]', this.state.team.id);
-    formData.append('document[documentable_type]', 'Team');
-    formData.append('document[file]', acceptedFiles[0]);
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-
-    let documents_url = routes.documents_url();
-
-    axios({
-      url: documents_url,
-      method: 'POST',
-      data: formData,
-      headers: {'Accept': 'application/json'}
-    })
-    .then(response => {
-      this.handleDocumentUploaded(response.data.document);
-    })
-    .catch(error => this.setState({errors: error.response.data.errors}));
   }
 
   handleDocumentUploaded(document) {
@@ -126,15 +122,15 @@ export default class TeamsShowBox extends React.Component {
     this.setState({documents: this.state.documents});
   }
 
+  handlerAfterClickPreviewDocument(document) {
+    this.setState({document_preview: document});
+    $('.modal-preview-document').modal();
+  }
+
   handleDocumentDeleted(document) {
     this.setState({
       documents: this.state.documents.filter(item => item.id != document.id)
     });
-  }
-
-  clickPreviewDocument(document) {
-    this.setState({document_preview: document});
-    $('.modal-preview-document').modal();
   }
 
   afterAddTaskForUser(user, user_index) {

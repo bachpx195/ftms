@@ -97,6 +97,16 @@ en:
     contents:
       show_more: "Show more"
       close: "Close"
-    assign: "Assign %{type}"
+    assigns:
+      assignments: "Assign assignments"
+      surveys: "Assign surveys"
+      test_rules: "Assign exams"
+      projects: "Assign projects"
+    create:
+      assignments: "Create assignments"
+      surveys: "Create surveys"
+      test_rules: "Create exams"
+      projects: "Create projects"
     add: "Add %{type}"
+    assign: "Assign %{type}"
     permit_create_meta_types_fails: "Permission create meta type fail"

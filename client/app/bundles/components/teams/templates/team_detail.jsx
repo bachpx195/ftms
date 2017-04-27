@@ -1,5 +1,3 @@
-import ButtonCreateProject from '../../projects/actions/create';
-import ModalCreateProject from '../../projects/templates/modal';
 import React from 'react';
 
 export default class TeamDetail extends React.Component {
@@ -29,14 +27,6 @@ export default class TeamDetail extends React.Component {
               {this.props.training_standard.name}
             </div>
           </div>
-          <div className='col-md-2 pull-right'>
-            <ButtonCreateProject
-            />
-          </div>
-          <ModalCreateProject
-            organizations={this.props.organizations}
-            team={this.props.team}
-            handleAfterActionProject={this.props.handleAfterActionProject} />
         </div>
       </div>
     )

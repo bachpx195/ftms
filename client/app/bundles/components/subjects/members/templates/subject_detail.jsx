@@ -51,7 +51,7 @@ export default class SubjectDetail extends React.Component {
           </div>
 
           <div className='row'>
-            <div className='col-md-9'>
+            <div className='col-md-9 block-user-task'>
               <div className='description'>
                 <div className='box-content'>
                   <div className='pull-left title'>
