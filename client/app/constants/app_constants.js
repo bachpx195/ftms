@@ -45,6 +45,8 @@ export const CHANGE_ROLE_PATH = 'change_role'
 //Subject
 export const SUBJECTS_PATH = 'subjects';
 export const USER_SUBJECTS_PATH = 'user_subjects';
+export const USER_SUBJECT_PATH = 'user_subject';
+export const CHANGE_STATUS_USER_SUBJECT_PATH = 'change_status/user_subjects'
 export const SUBJECT_TASKS_PATH = 'create_task/tasks';
 export const COURSE_SUBJECTS_PATH = 'course_subjects';
 export const TEAMS_PATH = 'teams';

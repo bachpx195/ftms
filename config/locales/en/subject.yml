@@ -87,6 +87,9 @@ en:
       name: "Name"
       start_date: "Start Date"
       end_date: "End Date"
+      status: "Status"
+      start_subject: "Start Subject"
+      finish_subject: "Finish Subject"
     assignments:
       total_task: "%{total} tasks"
       statuses:
@@ -110,3 +113,5 @@ en:
     add: "Add %{type}"
     assign: "Assign %{type}"
     permit_create_meta_types_fails: "Permission create meta type fail"
+  data:
+    start_course_subject: "Do you want start course"

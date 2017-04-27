@@ -77,6 +77,11 @@ Rails.application.routes.draw do
   end
   resources :user_functions
   resources :user_subjects, only: :update
+
+  namespace :change_status do
+    resource :user_subjects, only: :update
+  end
+
   namespace :assign_task do
     resources :tasks
   end

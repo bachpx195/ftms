@@ -12,7 +12,7 @@ class DynamicTask < Task
   scope :owner_tasks, ->owner{where targetable_type: Task.name, ownerable: owner}
   scope :target_tasks, ->targetable{where targetable: targetable}
   scope :team_tasks, ->user_ids{where user_id: user_ids}
-  enum status: [:init, :in_progress, :finish, :reject]
+  enum status: [:init, :in_progress, :finished, :reject]
 
   def targetable_type= type
     super type.to_s.classify.constantize.base_class.to_s

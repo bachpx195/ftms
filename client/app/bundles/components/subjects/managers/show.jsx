@@ -29,7 +29,7 @@ export default class SubjectManagerShowBox extends React.Component {
       meta_types: props.meta_types,
       documents: props.subject_detail.documents,
       document_preview: {},
-      type: ''
+      type: '',
     }
   }
 
@@ -77,7 +77,7 @@ export default class SubjectManagerShowBox extends React.Component {
             <div className='box box-primary'>
 
               <div className='box-header with-border'>
-                <SubjectManagerInfo subject_detail={this.state.subject_detail} />
+                <SubjectManagerInfo subject_detail={this.state.subject_detail}/>
               </div>
             </div>
 
