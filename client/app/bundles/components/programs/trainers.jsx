@@ -17,7 +17,7 @@ export default class Trainers extends React.Component {
       trainers = course.users.slice(0,2).map((trainer, index) => {
         return (<div key={index} className="block-trainer">
           <a className="image" onError={this.checkImage.bind(this)}
-            title={trainer.name} href={this.props.user_url + trainer.id} >
+            title={trainer.name} href={this.props.user_url + '/' + trainer.id} >
             <img src={trainer.avatar.url} className='img-circle' />
           </a>
         </div>);
