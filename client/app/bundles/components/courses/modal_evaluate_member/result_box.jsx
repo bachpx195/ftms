@@ -23,27 +23,66 @@ export default class ResultBox extends React.Component {
     let rank = this.state.training_result.name || '';
 
     return (
-      <div className="col-md-12 result-box">
-        <div className='result-table'>
-          <table>
-            <tbody>
-              <tr>
-                <td><label>{I18n.t('courses.evaluation.total_point')}</label></td>
-                <td>
-                  <input className="text-right" type="text"
-                    disabled="true" value={this.state.total_point} />
-                </td>
-              </tr>
-              <tr>
-                <td><label>Result</label></td>
-                <td>
-                  <span className={'training-result ' + rank.toLowerCase()}>{rank}</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <li className='list-group-item result-box'>
+        <div className='row'>
+          <div className='col-md-3'>
+            <label>{I18n.t('courses.evaluation.total_point')}</label>
+          </div>
+          <div className='col-md-2'>
+            <label className='total-min-point text-warning'>
+              <strong>{this.totalMinPoint()}</strong>
+            </label>
+          </div>
+          <div className='col-md-2'>
+            <label className='total-average-point text-warning'>
+              <strong>{this.totalAveragePoint()}</strong>
+            </label>
+          </div>
+          <div className='col-md-2'>
+            <label className='total-max-point text-warning'>
+              <strong>{this.totalMaxPoint()}</strong>
+            </label>
+          </div>
+          <div className='col-md-3 text-right point-input'>
+            <input className='text-danger text-right'
+              type='number' step='1' min='0'
+              disabled='true' value={this.state.total_point} />
+          </div>
         </div>
-      </div>
+        <div className='row'>
+          <div className='col-md-12'>
+            <strong className='pull-right'>
+              <span className={'training-result ' + rank.toLowerCase()}>
+                {rank}
+              </span>
+            </strong>
+          </div>
+        </div>
+      </li>
     );
+  }
+
+  totalMinPoint() {
+    let total = 0;
+    $('.min-point').map(function(key, value) {
+      total += $(value).data('point');
+    });
+    return total;
+  }
+
+  totalMaxPoint() {
+    let total = 0;
+    $('.max-point').map(function(key, value) {
+      total += $(value).data('point');
+    });
+    return total;
+  }
+
+  totalAveragePoint() {
+    let total = 0;
+    $('.average-point').map(function(key, value) {
+      total += $(value).data('point');
+    });
+    return total;
   }
 }

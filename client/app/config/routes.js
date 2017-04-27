@@ -497,7 +497,7 @@ export function user_profile_url(id) {
   return APP_URL + app_constants.USER_PROFILES_PATH + '/' + id;
 }
 
-export function certificate_url(user_id) {
+export function certificate_url(user_id, certificate_id) {
   return APP_URL + app_constants.USERS_PATH + '/' + user_id + '/'
-    + app_constants.CERTIFICATES_PATH + '/' + user_id;
+    + app_constants.CERTIFICATES_PATH + '/' + certificate_id;
 }

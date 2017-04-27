@@ -8,9 +8,8 @@ class MemberEvaluationsController < ApplicationController
     respond_to do |format|
       format.json do
         if @member_evaluation.save
-          if params[:certificate]
-            certificate = Certificate.create certificate_params
-              .merge(creator: current_user)
+          if params[:submit_type] && (params[:submit_type] == 'create_certificate')
+            certificate = build_certificate
           end
           render json: {message: flash_message("created"),
             member_evaluation: @member_evaluation,
@@ -28,6 +27,9 @@ class MemberEvaluationsController < ApplicationController
     respond_to do |format|
       format.json do
         if @member_evaluation.update_attributes member_evaluation_params
+          if params[:submit_type] && (params[:submit_type] == 'create_certificate')
+            certificate = build_certificate
+          end
           render json: {message: flash_message("updated"),
             member_evaluation: @member_evaluation,
             member_evaluation_items: @member_evaluation.member_evaluation_items}
@@ -77,5 +79,17 @@ class MemberEvaluationsController < ApplicationController
         end
       end
     end
+  end
+
+  def build_certificate
+    certificate = Certificate.find_by user_id: certificate_params[:user_id],
+      training_standard_id: certificate_params[:training_standard_id]
+    if certificate
+      certificate.update_attributes certificate_params
+    else
+      certificate = Certificate.create certificate_params
+        .merge(creator: current_user)
+    end
+    certificate
   end
 end
