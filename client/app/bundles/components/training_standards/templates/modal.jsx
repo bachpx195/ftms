@@ -16,7 +16,7 @@ export default class ModalEdit extends React.Component {
               <Form
                 training_standard={this.props.training_standard}
                 organization={this.props.organization}
-                handleAfterUpdate={this.props.handleAfterUpdate} />
+                handleAfterSaved={this.props.handleAfterUpdate} />
             </div>
           </div>
         </div>

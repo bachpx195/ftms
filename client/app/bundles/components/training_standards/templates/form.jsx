@@ -70,7 +70,7 @@ export default class Form extends React.Component {
         <div className='form-group'>
           <div className='text-right'>
             <button type='submit' className='btn btn-primary'
-              onClick={this.handleAfterUpdate.bind(this)}>
+              onClick={this.handleSubmit.bind(this)}>
               {I18n.t('buttons.save')}</button>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default class Form extends React.Component {
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let method = this.props.training_standard.id ? 'PUT' : 'POST';
     axios({
-      url: this.props.url,
+      url: window.location.href,
       method: method,
       data: formData,
       headers: {'Accept': 'application/json'}
@@ -135,38 +135,6 @@ export default class Form extends React.Component {
         });
       }
       this.props.handleAfterSaved(response.data.training_standard);
-    })
-    .catch(error => {
-      this.setState({errors: error.response.data.errors});
-    });
-  }
-
-  handleAfterUpdate(event) {
-    event.preventDefault();
-    let training_standard = _.omit(this.state, 'errors');
-    axios({
-      url: window.location.href,
-      method: 'PUT',
-      data: {
-        training_standard: training_standard,
-        organization: this.props.organization,
-        authenticity_token: ReactOnRails.authenticityToken()
-      },
-      headers: {'Accept': 'application/json'}
-    })
-    .then(response => {
-      if(this.props.training_standard.id) {
-        $('.modalCreateTrainingStandard').modal('hide');
-        $('.modal-edit').modal('hide');
-      } else {
-        this.setState({
-          name: '',
-          description: '',
-          policy: POLICIES[0].id,
-          errors: null,
-        });
-      }
-      this.props.handleAfterUpdate(response.data.training_standard);
     })
     .catch(error => {
       this.setState({errors: error.response.data.errors});
