@@ -29,7 +29,7 @@ export default class ModalAssignAssignment extends React.Component {
               <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
               <h4 className='modal-title'>
-                {I18n.t("subjects.assign", {type: this.props.type})}
+                {I18n.t("subjects.assigns." + this.state.type)}
               </h4>
             </div>
 

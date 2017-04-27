@@ -52,12 +52,6 @@ export default class TabsTask extends React.Component {
             </div>
           </a>
         </li>
-        <li>
-          <a data-toggle='tab' href='#tab-documents'>
-            <i className='fa fa-file-pdf-o'></i>
-            {I18n.t('subjects.titles.documents')}
-          </a>
-        </li>
       </ul>
     );
   }
@@ -105,18 +99,6 @@ export default class TabsTask extends React.Component {
               type='projects'/>
           </div>
         </div>
-        <div id='tab-documents' className='tab-pane fade'>
-          <Documents
-            documents={this.props.documents}
-            onDocumentsDrop={this.props.onDocumentsDrop}
-            handleDocumentDeleted={this.props.handleDocumentDeleted}
-            clickPreviewDocument={this.props.clickPreviewDocument}/>
-          <ModalPreviewDocument
-            document_preview={this.props.document_preview}
-            handleDocumentDeleted={this.props.handleDocumentDeleted}
-          />
-        </div>
-
         <div className='clearfix'></div>
       </div>
     );

@@ -38,6 +38,7 @@ $background-finish: #d9534f;
 $color-title: #575a5b;
 $body-background: #f6f8f8;
 $color-border: #ddd;
+$box-shadow-color: rgba(0,0,0,0.1);
 
 body {
   background: $body-background !important;
@@ -531,11 +532,15 @@ body {
   background: $body-background;
 }
 
-.description {
-  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-  padding: 10px;
-  background: $white;
+.block-user-task {
+  .description {
+    box-shadow: 0 1px 1px $box-shadow-color;
+    padding: 10px;
+    background: $white;
+  }
+}
 
+.block-user-task {
   .show-panel {
     padding-top: 10px;
   }

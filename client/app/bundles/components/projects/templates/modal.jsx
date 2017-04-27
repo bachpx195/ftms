@@ -14,7 +14,7 @@ export default class Modal extends React.Component {
   render() {
     let projects_url = routes.projects_url();
     return (
-      <div className='modal-create modal fade in' role='dialog'>
+      <div className='modal-create-projects modal fade in' role='dialog'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
