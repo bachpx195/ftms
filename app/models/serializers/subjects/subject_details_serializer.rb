@@ -80,9 +80,11 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   end
 
   def statistics
-    user_subjects = course_subjects.dynamic_tasks.where user_id: current_user
-    Serializers::Subjects::StatisticTaskSerializer
-      .new(object: object, scope: {user_subjects: user_subjects}).serializer
+    if course_subject
+      user_subjects = course_subjects.dynamic_tasks.where user_id: current_user
+      Serializers::Subjects::StatisticTaskSerializer
+        .new(object: object, scope: {user_subjects: user_subjects}).serializer
+    end
   end
 
   def user_task

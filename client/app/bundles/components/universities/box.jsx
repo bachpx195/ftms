@@ -8,7 +8,7 @@ import * as routes from 'config/routes';
 
 import Form from './templates/form';
 import Universities from './universities';
-import Breadcrumb from '../shareds/bread_crumb/bread_crumb';
+import Breadcrumb from 'breadcrumb/bread_crumb';
 
 export default class UniversityBox extends React.Component {
   constructor(props) {
