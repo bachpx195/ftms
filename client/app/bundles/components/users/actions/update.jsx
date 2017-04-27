@@ -23,7 +23,7 @@ export default class Create extends React.Component {
       formData.append('user[profile_attributes][' + key + ']', profile[key]);
     }
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let url = this.props.url + user.id;
+    let url = this.props.url + '/' + user.id;
     axios({
       url: url,
       method: 'PATCH',
@@ -31,7 +31,7 @@ export default class Create extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      window.location.href = user_url(response.data.user_detail.id);
+      window.location.href = routes.user_url(response.data.user_detail.id);
     })
     .catch(error => {this.props.handleErrors(error.response.data.errors);});
   }

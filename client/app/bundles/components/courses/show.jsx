@@ -37,7 +37,7 @@ export default class CourseShow extends React.Component {
       documents: props.course.documents,
       document_preview: {},
       managed_courses: props.managed_courses,
-      other_courses: props.other_courses,
+      other_courses: props.other_courses
     }
   }
 
