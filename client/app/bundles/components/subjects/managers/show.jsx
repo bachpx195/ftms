@@ -40,13 +40,27 @@ export default class SubjectManagerShowBox extends React.Component {
     }
 
     let ownerable_id, ownerable_type, tasks, remain_tasks = '';
+    let breadcumb;
     if (this.props.course) {
       ownerable_type = 'CourseSubject';
-      ownerable_id = this.state.subject_detail.course_subject.id
-
+      ownerable_id = this.state.subject_detail.course_subject.id;
+      breadcumb = (
+        <ShowBreadCrumb
+          course={this.props.course}
+          program={this.state.subject_detail.program}
+          organization={this.state.subject_detail.organization}
+          subject={this.props.subject_detail}
+        />
+      )
     } else {
       ownerable_type = 'Subject';
-      ownerable_id = this.props.subject.id
+      ownerable_id = this.props.subject.id;
+      breadcumb = (
+        <ShowBreadCrumb
+          organization={this.state.subject_detail.organization}
+          subject={this.props.subject_detail}
+        />
+      )
     }
     tasks = this.state.subject_detail.tasks;
     remain_tasks = this.state.subject_detail.remain_tasks;

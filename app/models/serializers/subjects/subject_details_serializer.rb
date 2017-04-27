@@ -6,7 +6,6 @@ class Serializers::Subjects::SubjectDetailsSerializer <
     :course_subject_teams, :statistics, if: :check_course_subject
   attrs :course_member, :course_managers, :program,
     :organization, if: :check_course
-  attrs :statistics, :user_task, if: :current_user?
 
   def image
     Hash[:url, object.image.url]
@@ -80,7 +79,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   end
 
   def statistics
-    if course_subject
+    if current_user && course_subjects
       user_subjects = course_subjects.dynamic_tasks.where user_id: current_user
       Serializers::Subjects::StatisticTaskSerializer
         .new(object: object, scope: {user_subjects: user_subjects}).serializer
