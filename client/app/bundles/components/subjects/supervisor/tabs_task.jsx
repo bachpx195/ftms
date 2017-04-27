@@ -23,18 +23,18 @@ export default class TabsTask extends React.Component {
     return (
       <ul className='nav nav-tabs pull-left'>
         <li className='active'>
-          <a data-toggle='tab' href='#tab-surveys'>
-            <div className='custom-subjects-titles'>
-              <i className='fa fa-file-text-o'></i>
-              {I18n.t('subjects.titles.surveys')}
-            </div>
-          </a>
-        </li>
-        <li>
           <a data-toggle='tab' href='#tab-assignments'>
             <div className='custom-subjects-titles'>
               <i className='fa fa-pencil-square-o'></i>
               {I18n.t('subjects.titles.assignments')}
+            </div>
+          </a>
+        </li>
+        <li>
+          <a data-toggle='tab' href='#tab-surveys'>
+            <div className='custom-subjects-titles'>
+              <i className='fa fa-file-text-o'></i>
+              {I18n.t('subjects.titles.surveys')}
             </div>
           </a>
         </li>
@@ -63,17 +63,7 @@ export default class TabsTask extends React.Component {
 
     return (
       <div className='tab-content'>
-        <div id='tab-surveys' className='tab-pane fade in active'>
-          <div className='clearfix'>
-            <BlockTasks
-              tasks={tasks.surveys}
-              title={I18n.t('subjects.titles.surveys')}
-              handleChooseType={this.props.handleChooseType}
-              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
-              type='surveys'/>
-          </div>
-        </div>
-        <div id='tab-assignments' className='tab-pane fade'>
+        <div id='tab-assignments' className='tab-pane fade in active'>
           <div className='clearfix'>
             <BlockTasks
               course={this.props.course}
@@ -82,6 +72,16 @@ export default class TabsTask extends React.Component {
               handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
               type='assignments'/>
+          </div>
+        </div>
+        <div id='tab-surveys' className='tab-pane fade'>
+          <div className='clearfix'>
+            <BlockTasks
+              tasks={tasks.surveys}
+              title={I18n.t('subjects.titles.surveys')}
+              handleChooseType={this.props.handleChooseType}
+              handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
+              type='surveys'/>
           </div>
         </div>
         <div id='tab-test-rules' className='tab-pane fade'>
