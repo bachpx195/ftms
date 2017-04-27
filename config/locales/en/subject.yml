@@ -35,6 +35,7 @@ en:
       workings_day: "Working day: "
       during_time: "Working day "
       training_standard: "Training Standard: "
+      language: "Language: "
       delete: "Delete"
       add_task: "Add Task"
       all_task: "All Task"
