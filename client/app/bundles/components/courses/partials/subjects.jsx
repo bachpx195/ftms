@@ -20,8 +20,8 @@ export default class CourseSubjects extends React.Component {
     if (user_subject != null) {
       let status = user_subject.status;
       return (
-        <div className="div-status"
-          title={`${I18n.t("user_subjects.statuses." + status)}`}>
+        <div className='div-status'
+          title={`${I18n.t('user_subjects.statuses.' + status)}`}>
           <em className={`status status-${status} cursor`}></em>
         </div>
       );
@@ -35,8 +35,8 @@ export default class CourseSubjects extends React.Component {
     if (user_subject != null) {
       let start_date = user_subject.start_date;
       return (
-        <span className="label label-info timeline-label start_date_label">
-          <Time value={start_date} format="DD-MM-YYYY" />
+        <span className='label label-info timeline-label start_date_label'>
+          <Time value={start_date} format='DD-MM-YYYY' />
         </span>
       );
     }
@@ -49,7 +49,7 @@ export default class CourseSubjects extends React.Component {
     if (user_subject != null) {
       let start_date = user_subject.start_date;
       return (
-        <span className="label label-info timeline-label start_date_label">
+        <span className='label label-info timeline-label start_date_label'>
           {this.renderFormatTime(start_date)}
         </span>
       );
@@ -63,31 +63,31 @@ export default class CourseSubjects extends React.Component {
     if (user_subject != null) {
       let end_date = user_subject.end_date;
       return (
-        <span className="label label-success timeline-label end_date_label">
+        <span className='label label-success timeline-label end_date_label'>
           {this.renderFormatTime(end_date)}
         </span>
       );
     }
-    else return null;
+    return null;
   }
 
   renderFormatTime(time) {
     if (time != null) {
       return (
-        <Time value={time} format="DD-MM-YYYY" />
+        <Time value={time} format='DD-MM-YYYY' />
       );
     }
-    else return null;
+    return null;
   }
 
   renderTimeline(current_user) {
     let user_subject = this.state.current_user_subjects
       .find(item => item.user_id == current_user.id);
-    let timeline_class = "timeline timeline-inverse timeline-subject"
-    let timeline_icon_class = "timeline-end-icon fa fa-clock-o bg-gray"
+    let timeline_class = 'timeline timeline-inverse timeline-subject';
+    let timeline_icon_class = 'timeline-end-icon fa fa-clock-o bg-gray';
     if (user_subject == null) {
-      timeline_class = "list-group"
-      timeline_icon_class = ""
+      timeline_class = 'list-group';
+      timeline_icon_class = '';
     };
     return (
       <ul className={`${timeline_class}`}>
@@ -105,20 +105,20 @@ export default class CourseSubjects extends React.Component {
         this.props.course.id, subject.id);
       let subject_image = subject.image.url;
       return (
-        <li>
+        <li key={subject.id}>
           {this.renderStartDate(subject)}
-          <div className="timeline-body">
-            <div className="subject-timeline subject">
+          <div className='timeline-body'>
+            <div className='subject-timeline subject'>
               {this.renderStatus(subject)}
-              <div className="subject-body row">
+              <div className='subject-body row'>
                 <a href={course_subject_path}>
-                  <div className="col-xs-2 subject-image">
-                    <img className="img-circle" src={subject_image}
-                      width="100" height="100" />
+                  <div className='col-xs-2 subject-image'>
+                    <img className='img-circle' src={subject_image}
+                      width='100' height='100' />
                   </div>
-                  <div className="col-xs-10 infor">
+                  <div className='col-xs-10 infor'>
                     <div>
-                      <span className="subject-name">{subject.name}
+                      <span className='subject-name'>{subject.name}
                       </span>&nbsp;
                       <span>
                         <i>
@@ -135,7 +135,7 @@ export default class CourseSubjects extends React.Component {
             </div>
           </div>
           {this.renderEndDate(subject)}
-          <div className="clearfix"></div>
+          <div className='clearfix'></div>
         </li>
       );
     });

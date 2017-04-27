@@ -153,28 +153,6 @@ export default class ModalEvaluation extends React.Component {
     let url = routes.training_standard_evaluation_template_url(
       this.props.training_standard.id);
 
-    let standards = this.state.evaluation_standards;
-    this.props.old_evaluation_standards.map(standard => {
-      let index = standards.findIndex(standard_ => {
-        return standard_.id == standard.id;
-      });
-      if (index < 0) {
-        Object.assign(standard, {_destroy: true});
-        standards.push(standard);
-      }
-    });
-
-    let results = this.state.training_results;
-    this.props.old_training_results.map(result => {
-      let index = results.findIndex(result_ => {
-        return result_.id == result.id;
-      });
-      if (index < 0) {
-        Object.assign(result, {_destroy: true});
-        results.push(result);
-      }
-    });
-
     let method = this.props.evaluation_template.id ? 'PUT' : 'POST';
     axios({
       url: url + '.json',
@@ -182,8 +160,8 @@ export default class ModalEvaluation extends React.Component {
       data: {
         evaluation_template: {
           name: this.refs.nameField.value,
-          evaluation_standards_attributes: standards,
-          training_results_attributes: results,
+          evaluation_standards_attributes: this.state.evaluation_standards,
+          training_results_attributes: this.state.training_results,
         },
         authenticity_token: ReactOnRails.authenticityToken()
       },
@@ -210,7 +188,11 @@ export default class ModalEvaluation extends React.Component {
   }
 
   removeEvaluationStandard(index) {
-    this.state.evaluation_standards.splice(index, 1);
+    if (this.state.evaluation_standards[index].id) {
+      this.state.evaluation_standards[index]._destroy = true;
+    } else {
+      this.state.evaluation_standards.splice(index, 1);
+    }
     this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
   }
 
@@ -225,7 +207,11 @@ export default class ModalEvaluation extends React.Component {
   }
 
   removeTrainingResult(index) {
-    this.state.training_results.splice(index, 1);
+    if (this.state.training_results[index].id) {
+      this.state.training_results[index]._destroy = true;
+    } else {
+      this.state.training_results.splice(index, 1);
+    }
     this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
   }
 }

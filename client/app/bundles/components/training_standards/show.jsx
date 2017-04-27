@@ -26,8 +26,6 @@ export default class TrainingStandardShow extends React.Component {
     this.state = {
       training_standard: props.training_standard,
       evaluation_template: props.evaluation_template,
-      old_evaluation_standards: evaluation_standards,
-      old_training_results: training_results,
       selected_subjects: props.selected_subjects,
       remain_subjects: props.remain_subjects,
       standard_organizations: props.standard_organizations,
@@ -51,8 +49,6 @@ export default class TrainingStandardShow extends React.Component {
         <ModalEvaluation
           training_standard={this.state.training_standard}
           evaluation_template={this.state.evaluation_template}
-          old_evaluation_standards={this.state.old_evaluation_standards}
-          old_training_results={this.state.old_training_results}
           setEvaluationTemplate={this.setEvaluationTemplate.bind(this)}
           afterSaveEvaluationTemplate={this.afterSaveEvaluationTemplate.bind(this)}
         />
@@ -125,9 +121,7 @@ export default class TrainingStandardShow extends React.Component {
     }
 
     this.setState({
-      evaluation_template: evaluation_template,
-      old_evaluation_standards: evaluation_standards,
-      old_training_results: training_results,
+      evaluation_template: evaluation_template
     });
   }
 

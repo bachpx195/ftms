@@ -64,6 +64,7 @@ export default class Share extends React.Component {
       select_organizations.map((select_organization) => {
         this.sendRequestShare(select_organization);
       });
+      this.props.handleAfterShareTrainingStandard(select_organizations);
     }
   }
 

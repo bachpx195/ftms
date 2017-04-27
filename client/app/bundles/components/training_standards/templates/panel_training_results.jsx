@@ -33,8 +33,8 @@ export default class PanelTrainingResults extends React.Component {
   }
 
   renderTrainingResults() {
-    return this.props.training_results
-      .map((training_result, index) => {
+    return this.props.training_results.map((training_result, index) => {
+      if (!training_result._destroy) {
         return (
           <TrainingResultItem training_result={training_result}
             key={index} index={index}
@@ -42,6 +42,8 @@ export default class PanelTrainingResults extends React.Component {
             removeTrainingResult={this.props.removeTrainingResult}
           />
         );
-      });
+      }
+      return null;
+    });
   }
 }
