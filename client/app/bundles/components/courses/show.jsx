@@ -23,7 +23,7 @@ export default class CourseShow extends React.Component {
       course: props.course,
       subjects: props.subjects,
       current_user_subjects: props.current_user_subjects,
-      evaluation_template: {},
+      evaluation_template: props.course.evaluation_template,
       remain_surveys: props.remain_surveys,
       selected_surveys: props.selected_surveys,
       evaluation_standards: props.course.evaluation_standards,
@@ -37,7 +37,7 @@ export default class CourseShow extends React.Component {
       documents: props.course.documents,
       document_preview: {},
       managed_courses: props.managed_courses,
-      other_courses: props.other_courses
+      other_courses: props.other_courses,
     }
   }
 
@@ -142,7 +142,10 @@ export default class CourseShow extends React.Component {
     } else {
       this.state.member_evaluations.push(member_evaluation);
     }
-    this.setState({member_evaluations: this.state.member_evaluations});
+
+    this.setState({
+      member_evaluations: this.state.member_evaluations,
+    });
   }
 
   addTask() {

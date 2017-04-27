@@ -8,9 +8,14 @@ class MemberEvaluationsController < ApplicationController
     respond_to do |format|
       format.json do
         if @member_evaluation.save
+          if params[:certificate]
+            certificate = Certificate.create certificate_params
+              .merge(creator: current_user)
+          end
           render json: {message: flash_message("created"),
             member_evaluation: @member_evaluation,
-            member_evaluation_items: @member_evaluation.member_evaluation_items}
+            member_evaluation_items: @member_evaluation.member_evaluation_items,
+            certificate: certificate}
         else
           render json: {message: flash_message("not_created"),
             errors: @member_evaluation.errors}, status: :unprocessable_entity
@@ -37,6 +42,10 @@ class MemberEvaluationsController < ApplicationController
   private
   def member_evaluation_params
     params.require(:member_evaluation).permit MemberEvaluation::ATTRIBUTE_PARAMS
+  end
+
+  def certificate_params
+    params.require(:certificate).permit Certificate::ATTRIBUTE_PARAMS
   end
 
   def find_target

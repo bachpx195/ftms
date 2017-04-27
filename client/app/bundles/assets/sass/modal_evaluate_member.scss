@@ -1,5 +1,8 @@
 $white: #fff;
 $teal: #008080;
+$excellent-orange: #ff7148;
+$great-yellow: #fff15e;
+$normal-green: #24cc51;
 
 .modal-evaluate-member {
   .modal-dialog {
@@ -41,5 +44,40 @@ $teal: #008080;
   .panel-heading {
     background-color: $teal;
     color: $white;
+  }
+
+  .result-box {
+    display: block;
+  }
+
+  .result-table {
+    float: right;
+    margin-top: 10px;
+
+    td {
+      padding-left: 25px;
+      padding-top: 10px;
+    }
+
+    .excellent {
+      color: $excellent-orange;
+      text-align: center;
+    }
+
+    .great {
+      color: $great-yellow;
+      text-align: center;
+
+    }
+
+    .good {
+      color: $normal-green;
+      text-align: center;
+    }
+
+    .training-result {
+      font-size: 20px;
+      font-weight: bold;
+    }
   }
 }
