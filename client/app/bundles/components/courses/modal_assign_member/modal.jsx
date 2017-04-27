@@ -221,15 +221,18 @@ export default class ModalAssignMember extends React.Component {
       index++;
     }
 
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-
-    let url = routes.assign_user_courses_url(this.props.course.id) + '.json';
-    axios.patch(url, formData)
-      .then(response => {
-        this.props.afterAssignUsers(response.data.course.unassigned_users,
-          response.data.course.managers, response.data.course.members);
-        $('.modal-assign-member').modal('hide');
-      })
-      .catch(error => console.log(error));
+    if (formData.get('course[user_courses_attributes][0][user_id]')) {
+      formData.append('authenticity_token', ReactOnRails.authenticityToken());
+      let url = routes.assign_user_courses_url(this.props.course.id) + '.json';
+      axios.patch(url, formData)
+        .then(response => {
+          this.props.afterAssignUsers(response.data.course.unassigned_users,
+            response.data.course.managers, response.data.course.members);
+          $('.modal-assign-member').modal('hide');
+        })
+        .catch(error => console.log(error));
+    } else {
+      $('.modal-assign-member').modal('hide');
+    }
   }
 }

@@ -2,14 +2,6 @@ import React from 'react';
 import * as routes from 'config/routes';
 
 export default class Managers extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      course: props.course
-    }
-  }
-
   renderManager(user) {
     let user_path = routes.user_url(user.id);
     return (
@@ -23,14 +15,19 @@ export default class Managers extends React.Component {
   }
 
   render() {
-    let managers = this.state.course.managers;
-    let course = this.state.course;
+    let course = this.props.course;
+    let managers = [];
+    for (let manager of course.managers) {
+      managers.push(manager);
+    }
+
     if (course.owner) {
       let index = managers.findIndex(user => user.id == course.owner.id);
       if (index < 0) {
         managers.unshift(course.owner);
       }
     }
+
     return (
       <div className='trainee-course'>
         <ul className='user-list clearfix'>

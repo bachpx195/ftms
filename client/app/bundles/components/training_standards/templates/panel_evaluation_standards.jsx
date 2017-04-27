@@ -57,13 +57,16 @@ export default class PanelEvaluationStandards extends React.Component {
   renderEvaluationStandards() {
     return this.props.evaluation_standards
       .map((evaluation_standard, index) => {
-        return (
-          <EvaluationStandardItem evaluation_standard={evaluation_standard}
-            key={index} index={index}
-            changeEvaluationStandard={this.props.changeEvaluationStandard}
-            removeEvaluationStandard={this.props.removeEvaluationStandard}
-          />
-        );
+        if (!evaluation_standard._destroy) {
+          return (
+            <EvaluationStandardItem evaluation_standard={evaluation_standard}
+              key={index} index={index}
+              changeEvaluationStandard={this.props.changeEvaluationStandard}
+              removeEvaluationStandard={this.props.removeEvaluationStandard}
+            />
+          );
+        }
+        return null;
       });
   }
 
