@@ -38,14 +38,14 @@ export default class EvaluationStandardItem extends React.Component {
             className='form-control' name='min_point' min='0'/>
         </td>
         <td>
-          <input type='number' value={this.state.max_point}
-            onChange={this.handleChange.bind(this)}
-            className='form-control' name='max_point' min='0' />
-        </td>
-        <td>
           <input type='number' value={this.state.average_point}
             onChange={this.handleChange.bind(this)}
             className='form-control' name='average_point' min='0' />
+        </td>
+        <td>
+          <input type='number' value={this.state.max_point}
+            onChange={this.handleChange.bind(this)}
+            className='form-control' name='max_point' min='0' />
         </td>
         <td>
           <button type='button' className='btn btn-danger'

@@ -8,10 +8,8 @@ class TrainingStandardsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: {
-          training_standards: @training_standard_supports
-            .training_standards_serializer
-        }
+        render json: {training_standards: @training_standard_supports
+            .training_standards_serializer}
       end
     end
   end
@@ -41,7 +39,11 @@ class TrainingStandardsController < ApplicationController
         training_standard = @training_standard_supports.training_standard
         if training_standard.update_attributes training_standard_params
           render json: {message: flash_message("updated"),
-            training_standard: training_standard}
+            training_standard:
+              Serializers::TrainingStandards::TrainingStandardsSerializer
+                .new(object: training_standard,
+                  scope: {count_organizations: true}).serializer
+          }
         else
           render json: {message: flash_message("not_updated"),
             errors: training_standard.errors}, status: :unprocessable_entity

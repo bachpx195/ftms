@@ -12,8 +12,8 @@ export default class PanelEvaluationStandards extends React.Component {
                 <th><span>#</span></th>
                 <th>{I18n.t('evaluation_standards.headers.name')}</th>
                 <th>{I18n.t('evaluation_standards.headers.min_point')}</th>
-                <th>{I18n.t('evaluation_standards.headers.max_point')}</th>
                 <th>{I18n.t('evaluation_standards.headers.average_point')}</th>
+                <th>{I18n.t('evaluation_standards.headers.max_point')}</th>
                 <th></th>
               </tr>
             </thead>
@@ -32,11 +32,11 @@ export default class PanelEvaluationStandards extends React.Component {
                 </td>
                 <td>
                   <input type='text' disabled className='form-control'
-                    value={this.sum_point('max_point')} />
+                    value={this.sum_point('average_point')} />
                 </td>
                 <td>
                   <input type='text' disabled className='form-control'
-                    value={this.sum_point('average_point')} />
+                    value={this.sum_point('max_point')} />
                 </td>
                 <td></td>
               </tr>

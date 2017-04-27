@@ -26,7 +26,7 @@ export default class Subjects extends React.Component {
     );
 
     return (
-      <div className='box box-success'>
+      <div className='box box-success box-standard-subjects'>
         <div className='row'>
           <Header evaluation_template={this.props.evaluation_template}
             training_standard={this.props.training_standard}
