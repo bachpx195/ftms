@@ -76,7 +76,7 @@ export default class CourseLists extends React.Component {
 
     const Description = ({griddleKey}) => {
       let description = this.state.courses[griddleKey].description;
-      if (description.length > 15){
+      if (description && description.length > 15){
         return (
           <p className='description' title={description}>
             {description.substring(0, 15)+ '...'}

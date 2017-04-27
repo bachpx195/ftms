@@ -21,7 +21,10 @@ class Supports::TrainingStandardSupport
   end
 
   def organization
-    @organization ||= if @params[:training_standard].present?
+    @organization ||= if @params[:training_standard].present? &&
+      @params[:training_standard][:organization_id].nil?
+      Organization.find_by id: @params[:organization_id]
+    elsif @params[:training_standard].present?
       Organization.find_by id: @params[:training_standard][:organization_id]
     elsif @params[:organization_id].present?
       Organization.find_by id: @params[:organization_id]

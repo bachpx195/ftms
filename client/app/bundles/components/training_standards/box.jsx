@@ -43,8 +43,6 @@ export default class TrainingStandardBox extends React.Component {
                 training_standard={this.state.training_standard}
                 training_standards={this.state.training_standards}
                 organization={this.state.organization}
-                handleAfterUpdated={this.handleAfterUpdated.bind(this)}
-                handleAfterDeleted={this.handleAfterDeleted.bind(this)}
               />
             </div>
           </div>
@@ -65,21 +63,5 @@ export default class TrainingStandardBox extends React.Component {
         training_standards: this.state.training_standards,
         training_standard: {}
       });
-    }
-
-    handleAfterUpdated(new_training_standard) {
-      let index = this.state.training_standards
-        .findIndex(training_standard => training_standard.id === new_training_standard.id);
-      this.state.training_standards[index] = new_training_standard;
-      this.setState({
-        training_standards: this.state.training_standards,
-        training_standard: {}
-      });
-    }
-
-    handleAfterDeleted(deleted_training_standard) {
-      _.remove(this.state.training_standards,
-        training_standard => training_standard.id === deleted_training_standard.id);
-      this.setState({training_standards: this.state.training_standards});
     }
 }
