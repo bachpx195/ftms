@@ -2,8 +2,9 @@ en:
   evaluation_templates:
     title: "Evaluation template"
     headers:
-      name: "Name"
+      name: "Evaluation template name"
     modals:
       edit_evaluation_standard: "Edit evaluation standard"
       new_evaluation_standard: "New evaluation standard"
+    sum_point: "Sum"
   evaluation_test: "Evaluation Test"

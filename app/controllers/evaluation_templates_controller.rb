@@ -11,15 +11,14 @@ class EvaluationTemplatesController < ApplicationController
       .merge(training_standard_id: @training_standard.id)
 
     respond_to do |format|
-      if @evaluation_template.save
-        format.html{redirect_to @training_standard, @evaluation_template}
-        format.json do
+      format.json do
+        if @evaluation_template.save
+          evaluation_template =
+            Serializers::TrainingStandards::EvaluationTemplateSerializer
+              .new(object: @evaluation_template).serializer
           render json: {message: flash_message("created"),
-            evaluation_template: @evaluation_template}
-        end
-      else
-        format.html{render :new}
-        format.json do
+            evaluation_template: evaluation_template}
+        else
           render json: {message: flash_message("not_created"),
             errors: @evaluation_template.errors}, status: :unprocessable_entity
         end
@@ -38,17 +37,14 @@ class EvaluationTemplatesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @evaluation_template.update_attributes evaluation_template_params
-        format.html do
-          redirect_to training_standard_evaluation_template_path(@training_standard)
-        end
-        format.json do
+      format.json do
+        if @evaluation_template.update_attributes evaluation_template_params
+          evaluation_template =
+            Serializers::TrainingStandards::EvaluationTemplateSerializer
+              .new(object: @evaluation_template).serializer
           render json: {message: flash_message("updated"),
-            evaluation_template: @evaluation_template}
-        end
-      else
-        format.html{render :edit}
-        format.json do
+            evaluation_template: evaluation_template}
+        else
           render json: {message: flash_message("not_updated"),
             errors: @evaluation_template.errors}, status: :unprocessable_entity
         end
@@ -57,13 +53,9 @@ class EvaluationTemplatesController < ApplicationController
   end
 
   def destroy
-    @evaluation_template.destroy
     respond_to do |format|
-      format.html do
-        redirect_to training_standard_evaluation_template_path(@training_standard)
-      end
       format.json do
-        if @evaluation_template.deleted?
+        if @evaluation_template.destroy
           render json: {message: flash_message("deleted")}
         else
           render json: {message: flash_message("not_deleted")},

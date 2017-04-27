@@ -1,177 +1,231 @@
+import * as routes from 'config/routes';
+import axios from 'axios';
+import css from '../assets/training_standard.scss';
+import PanelEvaluationStandards from './panel_evaluation_standards';
+import PanelTrainingResults from './panel_training_results';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import axios from 'axios';
-import _ from 'lodash';
-import FormStandard from './form_standard';
-import * as app_constants from 'constants/app_constants';
-import CSS from '../../../assets/sass/training_standard_show.scss';
 
 export default class ModalEvaluation extends React.Component {
   constructor(props) {
     super(props);
 
+    let evaluation_template = props.evaluation_template || {};
+
+    let evaluation_standards = [];
+    if (evaluation_template.evaluation_standards) {
+      for (let standard of evaluation_template.evaluation_standards) {
+        evaluation_standards.push(standard);
+      }
+    }
+
+    let training_results = [];
+    if (evaluation_template.training_results) {
+      for (let result of evaluation_template.training_results) {
+        training_results.push(result);
+      }
+    }
+
     this.state = {
-      name: props.evaluation_template.name || '',
-      evaluation_standards: props.evaluation_standards,
-      evaluation_standard: {},
-      showForm: props.showForm,
+      id: evaluation_template.id,
+      name: evaluation_template.name || '',
+      evaluation_standards: evaluation_standards,
+      training_results: training_results,
       errors: null,
     };
   }
 
-  renderEvaluationStandards(){
-    return this.state.evaluation_standards.map((evaluation_standard, index) =>
-     {
-      return (
-        <div key={index} className='one-item'>
-          <div className='index-nonselect col-md-1'>
-            {index+1}.
-          </div>
-          <div className='content-item col-md-11' data-name=''>
-            {evaluation_standard.name}
-          </div>
-        </div>
-      );
+  componentWillReceiveProps(nextProps) {
+    let evaluation_template = nextProps.evaluation_template || {};
+
+    let evaluation_standards = [];
+    if (evaluation_template.evaluation_standards) {
+      for (let standard of evaluation_template.evaluation_standards) {
+        evaluation_standards.push(standard);
+      }
+    }
+
+    let training_results = [];
+    if (evaluation_template.training_results) {
+      for (let result of evaluation_template.training_results) {
+        training_results.push(result);
+      }
+    }
+
+    this.setState({
+      id: evaluation_template.id,
+      name: evaluation_template.name || '',
+      evaluation_standards: evaluation_standards,
+      training_results: training_results,
+      errors: null,
     });
   }
-  renderCount(){
-    let array = this.state.evaluation_standards;
-    return array.length + ' ';
-  }
 
-  renderFormStandard(){
-    if(this.state.showForm){
-      return (
-        <FormStandard evaluation_standard={this.state.evaluation_standard}
-          handleAfterSaved={this.handleAfterSaved.bind(this)} />);
-    }else{
-      return null;
-    }
-  }
-  renderIcon(){
-    if(this.state.showForm){
-      return (
-        <i className='fa fa-minus pull-right'
-          aria-hidden='true'></i>)
-    }else{
-      return (
-        <i className='fa fa-plus pull-right'
-          aria-hidden='true'></i>)
-    }
-  }
-
-  render(){
+  render() {
     return(
-      <div>
-        <div id='modalEvaluation' className='modal fade in' role='dialog'>
-          <div className='modal-dialog'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <button type='button' className='close'
-                  data-dismiss='modal'>&times;</button>
-                <h4 className='modal-title'>
-                  {I18n.t('training_standards.create_evaluation')}
-                </h4>
-              </div>
-              <div className='modal-body'>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                  <div className='form-group'>
-                    <input type='text' name='name' ref="nameField"
-                      onChange={this.handleChange.bind(this)}
-                      className='form-control'
-                      value={this.state.name}
-                      placeholder={I18n.t('evaluation_templates.headers.name')} />
-                  </div>
-                  <div>
-                    <div className='panel panel-info noneselected-list-standards'>
-                      <div className='panel-heading text-center'>
-                        {I18n.t('training_standards.create_standard')}
-                        <a className='new-evaluation-standard'
-                          onClick={this.createEvaluationStandard.bind(this)}>
-                          {this.renderIcon()}
-                        </a>
-                      </div>
-                      <div className='panel-body list-group
-                        noneselected-evaluation-standards'>
-                        {this.renderFormStandard()}
-                        {this.renderEvaluationStandards()}
-                      </div>
-                      <div className='panel-footer text-right size-nonselect'>
-                        {this.renderCount()}
-                        {I18n.t('training_standards.records')}
-                      </div>
-                    </div>
-                  </div>
-                  <div className='form-group'>
-                    <div className='text-right'>
-                      <button type='submit' className='btn btn-primary'
-                        disabled={!this.formValid()}>
-                        {I18n.t('buttons.save')}</button>
-                    </div>
-                  </div>
-                </form>
-             </div>
+      <div className='modal-evaluation-template modal fade in' role='dialog'>
+        <div className='modal-dialog modal-lg'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <button type='button' className='close'
+                data-dismiss='modal'>&times;</button>
+              <h4 className='modal-title'>
+                {I18n.t('training_standards.evaluation_template')}
+              </h4>
             </div>
+            <div className='modal-body'>
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                <div className='form-group'>
+                  <label>
+                    {I18n.t('evaluation_templates.headers.name')}
+                  </label>
+                  <input type='text' name='name' ref='nameField'
+                    onChange={this.handleChangeName.bind(this)}
+                    className='form-control' value={this.state.name} />
+                </div>
+                <ul className='nav nav-tabs'>
+                  <li className='active'>
+                    <a data-toggle='tab' href='.panel_evaluation_standards'
+                      className='tab'>
+                      {I18n.t('training_standards.evaluation_standards')}
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle='tab' href='.panel_training_results'
+                      className='tab'>
+                      {I18n.t('training_standards.training_results')}
+                    </a>
+                  </li>
+                </ul>
+                <div className='tab-content'>
+                  <div className='panel_evaluation_standards
+                    tab-pane fade in active'>
+                    <PanelEvaluationStandards
+                      evaluation_standards={this.state.evaluation_standards}
+                      addEvaluationStandard={this.addEvaluationStandard
+                        .bind(this)}
+                      changeEvaluationStandard={this.changeEvaluationStandard
+                        .bind(this)}
+                      removeEvaluationStandard={this.removeEvaluationStandard
+                        .bind(this)} />
+                  </div>
+                  <div className='panel_training_results tab-pane fade'>
+                    <PanelTrainingResults
+                      training_results={this.state.training_results}
+                      addTrainingResult={this.addTrainingResult.bind(this)}
+                      changeTrainingResult={this.changeTrainingResult
+                        .bind(this)}
+                      removeTrainingResult={this.removeTrainingResult
+                        .bind(this)} />
+                  </div>
+                </div>
+                <div className='form-group'>
+                  <div className='text-right'>
+                    <button type='submit' className='btn btn-primary'
+                      disabled={!this.formValid()}>
+                      {I18n.t('buttons.save')}</button>
+                  </div>
+                </div>
+              </form>
+           </div>
           </div>
         </div>
       </div>
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      evaluation_standards: nextProps.evaluation_standards,
-      name: nextProps.evaluation_template.name || '',
-      showForm: nextProps.showForm,
-    })
-  }
-
-  handleChange(event) {
-    let attribute = event.target.name;
-    this.setState({
-      [attribute]: event.target.value
-    });
+  handleChangeName(event) {
+    this.state.name = event.target.value;
+    this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
   }
 
   formValid(){
-    return this.state.name != '';
-  }
-
-  createEvaluationStandard(){
-    let show = this.state.showForm ? '' : {};
-    this.setState({
-      evaluation_standard: {},
-      showForm: show,
-    });
-  }
-
-  handleAfterSaved(new_evaluation_standard){
-    this.state.evaluation_standards.push(new_evaluation_standard);
-    this.setState({
-      evaluation_standards: this.state.evaluation_standards,
-      showForm: '',
-    });
-    $('#modalStandard').modal('hide');
+    let check_evaluation_standard = this.state.evaluation_standards
+      .findIndex(standard => !standard.name || standard.name.length == 0) < 0;
+    let check_training_result = this.state.training_results
+      .findIndex(result => !result.name || result.name.length == 0) < 0;
+    return this.state.name != '' && check_evaluation_standard &&
+      check_training_result;
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    let evaluation_standards = this.state.evaluation_standards;
-    axios.post(this.props.url, {
-      evaluation_template: {name: this.refs.nameField.value,
-      evaluation_standards_attributes: evaluation_standards},
-      authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
+    let url = routes.training_standard_evaluation_template_url(
+      this.props.training_standard.id);
+
+    let standards = this.state.evaluation_standards;
+    this.props.old_evaluation_standards.map(standard => {
+      let index = standards.findIndex(standard_ => {
+        return standard_.id == standard.id;
+      });
+      if (index < 0) {
+        Object.assign(standard, {_destroy: true});
+        standards.push(standard);
+      }
+    });
+
+    let results = this.state.training_results;
+    this.props.old_training_results.map(result => {
+      let index = results.findIndex(result_ => {
+        return result_.id == result.id;
+      });
+      if (index < 0) {
+        Object.assign(result, {_destroy: true});
+        results.push(result);
+      }
+    });
+
+    let method = this.props.evaluation_template.id ? 'PUT' : 'POST';
+    axios({
+      url: url + '.json',
+      method: method,
+      data: {
+        evaluation_template: {
+          name: this.refs.nameField.value,
+          evaluation_standards_attributes: standards,
+          training_results_attributes: results,
+        },
+        authenticity_token: ReactOnRails.authenticityToken()
+      },
+    })
       .then(response => {
-        $('#modalEvaluation').modal('hide');
-        this.refs.nameField.value = '';
-        this.setState({
-          evaluation_standard: {},
-          evaluation_template: {},
-          errors: null
-        });
-        window.location.href = this.props.url;
+        this.props.afterSaveEvaluationTemplate(response.data
+          .evaluation_template);
+        $('.modal-evaluation-template').modal('hide');
       })
-      .catch(error => this.setState({errors: error.response.data.errors}));
+      .catch(error => {
+        console.log(error);
+        this.setState({errors: error.response.data.errors});
+      });
+  }
+
+  addEvaluationStandard(){
+    this.state.evaluation_standards.push({});
+    this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
+  }
+
+  changeEvaluationStandard(index, evaluation_standard) {
+    this.state.evaluation_standards[index] = evaluation_standard;
+    this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
+  }
+
+  removeEvaluationStandard(index) {
+    this.state.evaluation_standards.splice(index, 1);
+    this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
+  }
+
+  addTrainingResult(){
+    this.state.training_results.push({});
+    this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
+  }
+
+  changeTrainingResult(index, evaluation_standard) {
+    this.state.training_results[index] = evaluation_standard;
+    this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
+  }
+
+  removeTrainingResult(index) {
+    this.state.training_results.splice(index, 1);
+    this.props.setEvaluationTemplate(_.omit(this.state, 'errors'));
   }
 }

@@ -1,3 +1,7 @@
+$border-color: #bce8f1;
+$border-bottom: #ddd;
+$c-white: #FFF;
+
 .custom-subject-list {
   .list-group-item {
     input {
@@ -16,4 +20,56 @@
 
 .custom-padding-table {
   padding: 0 3%;
+}
+
+.panel-info {
+  border-color: $border-color;
+
+  .one-item {
+    height: 45px;
+    margin-bottom: 3px;
+
+    .index-nonselect {
+      border-bottom: 1px solid $border-bottom;
+      height: 100%;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .content-item {
+      border-bottom: 1px solid $border-bottom;
+      height: 100%;
+      padding-top: 8px;
+    }
+  }
+}
+
+.modal-evaluation-template {
+  .panel-info {
+    border-top: none;
+    border-radius: 0;
+  }
+
+  .list-evaluation-standards {
+    padding: 0;
+    max-height: 40vh;
+    overflow-y: auto;
+
+    .table {
+      margin-bottom: 0;
+    }
+  }
+
+  .new-item {
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.nav-tabs {
+  .active {
+    .tab {
+      background: $c-white !important;
+    }
+  }
 }
