@@ -1,4 +1,4 @@
-import Breadcrumb from 'breadcrumb/bread_crumb';
+import Breadcrumb from '../../../shareds/bread_crumb/bread_crumb';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
@@ -30,13 +30,11 @@ export default class ShowBreadCrumd extends React.Component {
                 label: I18n.t("breadcrumbs.programs"),
               },
               {
-                path: routes.organization_program_url(
-                  this.props.organization.id, this.props.program.id),
+                path: routes.program_url(this.props.program.id),
                 label: this.props.program.name,
               }
             ]
           }
-          separatorChar={' > '}
           others={this.props.others}
         />
       </div>

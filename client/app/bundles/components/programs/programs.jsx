@@ -79,7 +79,7 @@ export default class ProgramLists extends React.Component {
 
     const LinkToProgram = ({value, griddleKey}) => {
       let program = this.state.programs[griddleKey];
-      let link = '#';
+      let program_url = '#';
       if (program.organization) {
         program_url = routes.program_url(program.id);
       }
@@ -88,7 +88,7 @@ export default class ProgramLists extends React.Component {
 
     const LinkToOrganization = ({griddleKey}) => {
       let organization = this.state.programs[griddleKey].organization;
-      let link = '#';
+      let organization_url = '#';
       if (organization) {
         organization_url = routes.organization_programs_url(organization.id);
         return <a href={organization_url}>{organization.name}</a>;
@@ -99,12 +99,11 @@ export default class ProgramLists extends React.Component {
     const LinkToParentProgram = ({griddleKey}) => {
       let program = this.state.programs[griddleKey].parent;
       if (program) {
-        let link = '#';
+        let program_url = '#';
         if (program.organization) {
-          link = routes.organization_program_url(
-            program.organization.id, program.id);
+          program_url = routes.program_url(program.id);
         }
-        return <a href={link}>{program.name}</a>;
+        return <a href={program_url}>{program.name}</a>;
       } else {
         return null;
       }

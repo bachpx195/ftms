@@ -102,7 +102,7 @@ export default class BlockTasks extends React.Component{
     let button_create = '';
     if (this.props.location == 'course_subject' && type == 'projects') {
       button_create = '';
-    else
+    } else {
       button_create =
       <button className="btn btn-primary pull-right"
         onClick={this.handleClickCreateTask.bind(this)}>
