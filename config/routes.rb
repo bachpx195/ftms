@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   root "static_pages#show"
   resources :static_pages
   resources :organizations, except: [:new, :edit] do
+    resources :test_rules, only: [:index, :create]
     resources :programs
     resources :subjects
     resources :exams, only: [:index, :show]
@@ -115,7 +116,7 @@ Rails.application.routes.draw do
   resources :categories do
     resources :questions
   end
-  resources :test_rules
+  resources :test_rules, except: [:index, :show]
   resources :exams, except: [:new, :edit, :destroy]
   resources :timelines, only: :index
   get "/statistics/:type" => "statistics#show", as: :statistics_page

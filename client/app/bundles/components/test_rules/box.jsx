@@ -29,7 +29,8 @@ export default class TestRulesBox extends React.Component {
       )
     } else {
       modal = (
-        <Modal url={routes.test_rules_url()}
+        <Modal
+          url={routes.organization_test_rules_url(this.props.organization.id)}
           test_rule={this.state.test_rule}
           title={I18n.t('test_rules.titles.create')}
           categories={this.props.categories}

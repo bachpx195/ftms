@@ -3,6 +3,10 @@ class Supports::TestRuleSupport
     @params = args[:params]
   end
 
+  def organization
+    @organization ||= Organization.find_by id: @params[:organization_id]
+  end
+
   def test_rule
     @test_rule ||= TestRule.find_by id: @params[:id]
   end
@@ -22,7 +26,7 @@ class Supports::TestRuleSupport
       .new(object: Question.all).serializer
   end
 
-  def test_rule_serializer test_rule
+  def test_rule_serializer
     Serializers::TestRules::TestRulesSerializer
       .new(object: test_rule).serializer
   end

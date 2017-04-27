@@ -234,6 +234,11 @@ export function project_url(id) {
 }
 
 //test rule
+export function organization_test_rules_url(organization_id) {
+  return organization_url(organization_id) + '/' +
+    app_constants.TEST_RULES_PATH;
+}
+
 export function test_rules_url() {
   return APP_URL + app_constants.TEST_RULES_PATH;
 }

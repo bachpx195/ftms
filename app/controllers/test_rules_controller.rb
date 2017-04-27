@@ -6,11 +6,13 @@ class TestRulesController < ApplicationController
   end
 
   def create
-    test_rule = TestRule.new test_rule_params
+    test_rule = @test_rule_supports.organization.test_rules
+      .new test_rule_params
     respond_to do |format|
       format.json do
         if test_rule.save
-          render json: {test_rule: @test_rule_supports.test_rule_serializer(test_rule)}
+          render json: {test_rule: Serializers::TestRules::TestRulesSerializer
+            .new(object: test_rule).serializer}
         else
           render json: {message: flash_message("not_created"),
             errors: test_rule.errors}, status: :unprocessable_entity
@@ -25,7 +27,7 @@ class TestRulesController < ApplicationController
       format.json do
         if test_rule.update_attributes test_rule_params
           render json: {message: flash_message("updated"),
-            test_rule: @test_rule_supports.test_rule_serializer(test_rule)}
+            test_rule: @test_rule_supports.test_rule_serializer}
         else
           render json: {message: flash_message("not_updated"),
             errors: test_rule.errors}, status: :unprocessable_entity
