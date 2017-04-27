@@ -77,6 +77,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-surveys' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course={this.props.course}
               tasks={tasks.surveys}
               title={I18n.t('subjects.titles.surveys')}
               handleChooseType={this.props.handleChooseType}
@@ -87,6 +88,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-test-rules' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course={this.props.course}
               tasks={tasks.test_rules}
               title={I18n.t('subjects.titles.tests')}
               handleChooseType={this.props.handleChooseType}
@@ -98,9 +100,10 @@ export default class TabsTask extends React.Component {
         <div id='tab-projects' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
-              location="course_subject"
+              course={this.props.course}
+              location='course_subject'
               tasks={this.state.subject_detail.projects}
-              title="projects"
+              title='projects'
               handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
               type='projects'/>

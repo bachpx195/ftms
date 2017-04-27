@@ -30,6 +30,7 @@ export default class OrganizationShow extends React.Component {
   render() {
     let owner = this.state.organization.owner;
     let count_users = (this.state.organization.users || []).length;
+    let count_test_rules = (this.state.organization.test_rules || []).length;
     let count_training_standards = this.state.organization.training_standards.length;
     let count_courses = 0;
     for (let program of this.state.programs) {
@@ -131,6 +132,19 @@ export default class OrganizationShow extends React.Component {
                 </strong>
                 <span className='badge label-primary'>
                   {count_users}
+                </span>
+              </div>
+              <br />
+              <div className='member-title'>
+                <i className='fa fa-list-ul' aria-hidden='true'></i>
+                <strong>
+                  <a href={routes.organization_test_rules_url(
+                    this.state.organization.id)}>
+                    {I18n.t('organizations.test_rules')}
+                  </a>
+                </strong>
+                <span className='badge label-primary'>
+                  {count_test_rules}
                 </span>
               </div>
               <br />

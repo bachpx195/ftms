@@ -50,12 +50,13 @@ export default class BlockTasks extends React.Component{
     }
 
     const linkTask = ({griddleKey, value}) => {
-      if (this.props.course && this.props.type == 'assignments') {
+      if (this.props.course) {
         let task = this.state.tasks[griddleKey];
         return <a href={routes.task_url(task.task_id)}>{value}</a>;
       }
       return <span>{value}</span>;
     }
+
     return(
       <div className='block-task col-md-12'>
         <div className='box box-success'>
@@ -102,21 +103,21 @@ export default class BlockTasks extends React.Component{
     let button_create = '';
     if (this.props.location == 'course_subject' && type == 'projects') {
       button_create = '';
-    else
+    } else {
       button_create =
-      <button className="btn btn-primary pull-right"
+      <button className='btn btn-primary pull-right'
         onClick={this.handleClickCreateTask.bind(this)}>
-        {I18n.t("subjects.create." + type)}
+        {I18n.t('subjects.create.' + type)}
         </button>
     }
 
     return (
-      <div className="action-create-task clearfix">
+      <div className='action-create-task clearfix'>
         {button_create}
         {type != 'projects' ? (
-          <button className="btn btn-primary pull-right"
+          <button className='btn btn-primary pull-right'
             onClick={this.handleClickAssignTask.bind(this)}>
-            {I18n.t("subjects.assigns." + type)}</button>
+            {I18n.t('subjects.assigns.' + type)}</button>
         ) : ('')}
       </div>
     );

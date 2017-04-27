@@ -1,7 +1,7 @@
 class Serializers::Organizations::OrganizationDetailSerializer <
   Serializers::SupportSerializer
   attrs :id, :name, :parent_id, :sub_organizations, :owner, :users, :documents,
-    :training_standards
+    :training_standards, :test_rules
 
   def sub_organization
     Serializers::Organizations::SubOrganizationSerializer
@@ -24,5 +24,10 @@ class Serializers::Organizations::OrganizationDetailSerializer <
   def training_standards
     Serializers::TrainingStandards::TrainingStandardsSerializer
       .new(object: object.training_standards).serializer
+  end
+
+  def test_rules
+    Serializers::Organizations::TestRulesSerializer
+      .new(object: object.test_rules).serializer
   end
 end
