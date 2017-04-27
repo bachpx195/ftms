@@ -273,9 +273,11 @@ ActiveRecord::Schema.define(version: 20170426104907) do
     t.integer  "organization_id"
     t.datetime "deleted_at"
     t.integer  "creator_id"
+    t.integer  "owner_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["creator_id"], name: "index_programs_on_creator_id", using: :btree
+    t.index ["owner_id"], name: "index_programs_on_owner_id", using: :btree
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

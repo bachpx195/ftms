@@ -3,7 +3,8 @@ class OrganizationsController < ApplicationController
   before_action :authorize_request
 
   def index
-    organizations = current_user.organizations
+    organizations = (current_user.organizations +
+      Organization.belongs_to_creator(current_user.id)).uniq
     organizations = current_user.profile.organization if organizations.empty?
     @organizations = Serializers::Organizations::OrganizationsSerializer
       .new(object: organizations, scope: {show_program: true}).serializer

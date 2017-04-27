@@ -1,9 +1,9 @@
+import axios from 'axios';
+import CoursePolicy from 'policy/course_policy';
+import Dropzone from 'react-dropzone';
+import FormEdit from './form_edit';
 import React from 'react'
 import ReactOnRails from 'react-on-rails';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
-import FormEdit from './form_edit';
-import CoursePolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 
@@ -22,25 +22,24 @@ export default class MenuCourse extends React.Component {
     return(
       <div className='td-course-edit-delete pull-right hidden'>
         {this.renderButtonFinish()}
-        <CoursePolicy permit={this.props.courseListPermit}>
-          <div className='td-course-edit-delete pull-right hidden'>
-            <a onClick={this.handleEdit.bind(this)}
-              title={I18n.t('courses.edit')}>
-              <span className='btn glyphicon glyphicon-edit'
-                aria-hidden='true'>
-              </span>
-            </a>
-            <a onClick={this.handleDelete.bind(this)}
-              title={I18n.t('courses.delete')}>
-              <span className='btn glyphicon glyphicon-trash'
-                aria-hidden='true'>
-              </span>
-            </a>
-            <FormEdit course={this.state.course}
-              url={this.state.url}
-              handleAfterUpdate={this.handleAfterEdit.bind(this)} />
-          </div>
-        </CoursePolicy>
+        {this.renderButtonStart()}
+        <div className='td-course-edit-delete pull-right hidden'>
+          <a onClick={this.handleEdit.bind(this)}
+            title={I18n.t('courses.edit')}>
+            <span className='btn glyphicon glyphicon-edit'
+              aria-hidden='true'>
+            </span>
+          </a>
+          <a onClick={this.handleDelete.bind(this)}
+            title={I18n.t('courses.delete')}>
+            <span className='btn glyphicon glyphicon-trash'
+              aria-hidden='true'>
+            </span>
+          </a>
+          <FormEdit course={this.state.course}
+            url={this.state.url}
+            handleAfterUpdate={this.handleAfterEdit.bind(this)} />
+        </div>
       </div>
     );
   }
@@ -99,35 +98,45 @@ export default class MenuCourse extends React.Component {
   }
 
   renderButtonFinish() {
-    if (this.state.course.status != 'finished') {
-      return(
+    if (this.state.course.status == 'in_progress') {
+      return (
         <button className='btn btn-danger finish-course'
-          onClick={this.changeStatus.bind(this)} >
+          onClick={this.changeStatus.bind(this, 'finished')} >
           {I18n.t('courses.buttons.finish')}
         </button>
       )
     }
   }
 
-  changeStatus() {
-    axios.patch(routes.program_course_url(this.props.program.id,
-      this.state.course.id), {
-        status: 'finished',
-        authenticity_token: ReactOnRails.authenticityToken(),
-    }, app_constants.AXIOS_CONFIG)
-    .then(response => {
-      if(confirm(I18n.t('data.confirm_all'))) {
-      this.state.course.status = 'finished'
-      this.setState({
-        course: this.state.course
+  renderButtonStart() {
+    if (this.state.course.status == 'init') {
+      return (
+        <button className='btn btn-success start-course'
+          onClick={this.changeStatus.bind(this, 'in_progress')} >
+          {I18n.t('courses.buttons.start')}
+        </button>
+      )
+    }
+  }
+
+  changeStatus(new_status) {
+    if (confirm(I18n.t('data.confirm_all'))) {
+      axios.patch(routes.program_course_url(this.props.program.id,
+        this.state.course.id), {
+          status: new_status,
+          authenticity_token: ReactOnRails.authenticityToken(),
+      }, app_constants.AXIOS_CONFIG)
+      .then(response => {
+        this.state.course.status = response.data.course.status;
+        this.setState({
+          course: this.state.course
+        })
+        this.props.handleAfterChangeStatus(this.state.course);
       })
-      this.props.handleAfterChangeStatus(this.state.course);
-      $('.finish-course').hide();
-      }
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      .catch(error => {
+        console.log(error)
+      })
+    }
   }
 
 }

@@ -26,6 +26,8 @@ class Organization < ApplicationRecord
   has_many :exams, through: :users
   has_many :meta_types, dependent: :destroy, foreign_key: :organization_id
 
+  scope :belongs_to_creator, ->user_id{where creator_id: user_id}
+
   validates :name, presence: true
 
   def assign_programs program_ids

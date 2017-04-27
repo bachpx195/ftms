@@ -8,7 +8,6 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.integer :language_id
       t.date :start_date
       t.date :end_date
-      t.integer :creator_id
       t.integer :program_id
       t.integer :training_standard_id
       t.datetime :deleted_at
