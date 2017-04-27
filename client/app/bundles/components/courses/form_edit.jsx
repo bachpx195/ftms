@@ -63,22 +63,10 @@ export default class FormEdit extends React.Component {
                     {image}
                   </div>
                 </div>
-                <div className="form-group">
-                  <select disabled className="form-control" name="language_id"
-                    value={this.state.course.language_id}
-                    onChange={this.handleChange.bind(this)}>
-                    {this.renderOptions(this.state.course.languages,
-                      this.state.course.language_id)}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <select className="form-control" name="training_standard_id"
-                    value={this.state.course.training_standard_id}
-                    onChange={this.handleChange.bind(this)} disabled>
-                    {this.renderOptions(this.state.course.training_standards,
-                      this.state.course.training_standard_id)}
-                  </select>
-                </div>
+                {this.renderOptions(this.state.course.languages,
+                  this.state.course.language_id, 'language')}
+                {this.renderOptions(this.state.course.training_standards,
+                  this.state.course.training_standard_id, 'training_standard')}
                 <div className='form-group'>
                   <input type='text' placeholder={I18n.t('courses.headers.name')}
                     value={this.state.course.name || ''}
@@ -118,14 +106,18 @@ export default class FormEdit extends React.Component {
     );
   }
 
-  renderOptions(_objects, id) {
+  renderOptions(_objects, id, text) {
     let objs = _objects.filter(object => {
       return object.id.toString().toLowerCase().includes(
         id.toString().toLowerCase());
     });
     if (objs.length == 1) {
-      return <option key={objs[0].id}
-        value={objs[0].id}>{objs[0].name}</option>;
+      return (
+        <div key={text} className="form-group">
+          <label>{I18n.t('subjects.headers.' + text)}</label>&nbsp;&nbsp;
+          <span>{objs[0].name}</span>
+        </div>
+      );
     }
     return null;
   }
