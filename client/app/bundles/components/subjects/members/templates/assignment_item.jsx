@@ -12,15 +12,8 @@ export default class AssignmentItem extends React.Component {
     this.state = {
       assignment: props.assignment,
       subject_detail: props.subject_detail,
-      dynamic_task: props.dynamic_task,
-      meta_tasks: []
+      dynamic_task: props.dynamic_task
     };
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.setState({
-      meta_tasks: nextProps.meta_tasks
-    });
   }
 
   render() {

@@ -42,14 +42,18 @@ export default class PullRequestList extends React.Component {
         })
         if(id >= 0) {
           form_task.push(
-            <FormMetaTask meta_type={meta_type} key={index}
+            <FormMetaTask
+              meta_type={meta_type}
+              key={index}
               meta_task={this.state.meta_tasks[id]}
               afterOnChangeInput={this.afterOnChangeInput.bind(this)}
             />
           )
         } else {
           form_task.push(
-            <FormMetaTask meta_type={meta_type} key={index}
+            <FormMetaTask
+              meta_type={meta_type}
+              key={index}
               meta_task
               afterOnChangeInput={this.afterOnChangeInput.bind(this)}
             />

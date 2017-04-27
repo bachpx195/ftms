@@ -79,11 +79,13 @@ export default class SubjectTraineeShowBox extends React.Component {
     this.state.assigments_of_user_subjects.push(target.assignment)
     this.state.static_task_assignment.push(target.static_task)
     this.state.user_dynamic_course_subjects.push(target.dynamic_task)
+    this.state.user_dynamic_tasks.push(target.dynamic_task)
 
     this.setState({
       assigments_of_user_subjects: this.state.assigments_of_user_subjects,
       static_task_assignment: this.state.static_task_assignment,
-      user_dynamic_course_subjects: this.state.user_dynamic_course_subjects
+      user_dynamic_course_subjects: this.state.user_dynamic_course_subjects,
+      user_dynamic_tasks: this.state.user_dynamic_tasks
     });
   }
 
@@ -101,6 +103,7 @@ export default class SubjectTraineeShowBox extends React.Component {
     let index = _.findIndex(this.state.user_dynamic_tasks, value => {
       return value.id == dynamic_task.id
     })
+
     this.setState({
       assignment: assignment,
       dynamic_task: dynamic_task,

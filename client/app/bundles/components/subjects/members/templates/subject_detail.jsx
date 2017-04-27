@@ -134,9 +134,12 @@ export default class SubjectDetail extends React.Component {
         }
       })
 
-      return <AssignmentItem key={index} status={status}
+      return <AssignmentItem
+        key={index}
+        status={status}
         subject_detail={this.state.subject_detail}
-        assignment={assignment} dynamic_task={tmp_dynamic_task}
+        assignment={assignment}
+        dynamic_task={tmp_dynamic_task}
         user_dynamic_course_subjects={this.state.user_dynamic_course_subjects}
         static_task_assignment={this.state.static_task_assignment}
         afterUpdateStatus={this.props.afterUpdateStatus}
