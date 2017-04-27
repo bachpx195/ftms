@@ -2,7 +2,6 @@ import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import ModalEvaluateMember from '../courses/modal_evaluate_member/modal';
 import React from 'react';
-import TeamPolicy from 'policy/team_policy';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
@@ -82,48 +81,43 @@ export default class UserSubjectList extends React.Component {
     }
 
     return (
-      <TeamPolicy permit={
-        [{action: ['owner'], target: 'children',
-            data: {owner_id: this.props.course.owner_id}}]}
-      >
-        <div>
-          <Griddle data={this.state.user_subjects}
-            plugins={[plugins.LocalPlugin]}
-            components={{Layout: NewLayout}}
-            styleConfig={table_constants.styleConfig}>
-            <RowDefinition>
-              <ColumnDefinition id='user_name'
-                title={I18n.t('subjects.headers.user_name')} />
-              <ColumnDefinition id='start_date'
-                title={I18n.t('subjects.headers.start_date')} />
-              <ColumnDefinition id='end_date'
-                title={I18n.t('subjects.headers.end_date')} />
-              <ColumnDefinition id='user_end_date'
-                title={I18n.t('subjects.headers.user_end_date')} />
-              <ColumnDefinition id='status'
-                title={I18n.t('subjects.headers.status')}
-                customComponent={SelectBoxStatus} />
-              <ColumnDefinition id='current_progress'
-                title={I18n.t('subjects.headers.current_progress')} />
-              <ColumnDefinition id='evaluate'
-                title={I18n.t('subjects.headers.evaluate')}
-                customComponent={evaluate} />
-              <ColumnDefinition id='add_task_for_user'
-                title={I18n.t('subjects.headers.all_task')}
-                customComponent={addTask} />
-            </RowDefinition>
-          </Griddle>
+      <div>
+        <Griddle data={this.state.user_subjects}
+          plugins={[plugins.LocalPlugin]}
+          components={{Layout: NewLayout}}
+          styleConfig={table_constants.styleConfig}>
+          <RowDefinition>
+            <ColumnDefinition id='user_name'
+              title={I18n.t('subjects.headers.user_name')} />
+            <ColumnDefinition id='start_date'
+              title={I18n.t('subjects.headers.start_date')} />
+            <ColumnDefinition id='end_date'
+              title={I18n.t('subjects.headers.end_date')} />
+            <ColumnDefinition id='user_end_date'
+              title={I18n.t('subjects.headers.user_end_date')} />
+            <ColumnDefinition id='status'
+              title={I18n.t('subjects.headers.status')}
+              customComponent={SelectBoxStatus} />
+            <ColumnDefinition id='current_progress'
+              title={I18n.t('subjects.headers.current_progress')} />
+            <ColumnDefinition id='evaluate'
+              title={I18n.t('subjects.headers.evaluate')}
+              customComponent={evaluate} />
+            <ColumnDefinition id='add_task_for_user'
+              title={I18n.t('subjects.headers.all_task')}
+              customComponent={addTask} />
+          </RowDefinition>
+        </Griddle>
 
-          <ModalEvaluateMember
-            subject={this.props.subject}
-            evaluation_standards={this.props.evaluation_standards}
-            member_evaluations={this.state.member_evaluations}
-            user={this.state.user} course={this.props.course}
-            evaluation_template={this.props.evaluation_template}
-            afterEvaluateMember={this.afterEvaluateMember.bind(this)}
-          />
-        </div>
-      </TeamPolicy>
+        <ModalEvaluateMember
+          subject={this.props.subject}
+          evaluation_standards={this.props.evaluation_standards}
+          member_evaluations={this.state.member_evaluations}
+          user={this.state.user} course={this.props.course}
+          evaluation_template={this.props.evaluation_template}
+          afterEvaluateMember={this.afterEvaluateMember.bind(this)}
+        />
+      </div>
     );
   }
 
