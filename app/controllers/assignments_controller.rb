@@ -22,7 +22,8 @@ class AssignmentsController < ApplicationController
               assignment: Serializers::Subjects::AssignmentsSerializer
                 .new(object: @assignment).serializer,
               static_task: static_task,
-              dynamic_task: dynamic_task
+              dynamic_task: Serializers::Tasks::DynamicTasksSerializer
+                .new(object: dynamic_task).serializer
             }, message: flash_message("created")}
         else
           render json: {message: flash_message("not_created")}
