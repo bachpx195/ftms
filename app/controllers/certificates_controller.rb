@@ -1,5 +1,5 @@
 class CertificatesController < ApplicationController
-  before_action :find_user,:find_certificate, only: :show
+  before_action :find_user, :find_certificate, only: :show
 
   def show
     respond_to do |format|

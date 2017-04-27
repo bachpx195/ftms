@@ -8,7 +8,7 @@ class MemberEvaluationsController < ApplicationController
     respond_to do |format|
       format.json do
         if @member_evaluation.save
-          if params[:submit_type] && (params[:submit_type] == 'create_certificate')
+          if params[:submit_type] && (params[:submit_type] == "create_certificate")
             certificate = build_certificate
           end
           render json: {message: flash_message("created"),
@@ -27,12 +27,13 @@ class MemberEvaluationsController < ApplicationController
     respond_to do |format|
       format.json do
         if @member_evaluation.update_attributes member_evaluation_params
-          if params[:submit_type] && (params[:submit_type] == 'create_certificate')
+          if params[:submit_type] && (params[:submit_type] == "create_certificate")
             certificate = build_certificate
           end
           render json: {message: flash_message("updated"),
             member_evaluation: @member_evaluation,
-            member_evaluation_items: @member_evaluation.member_evaluation_items}
+            member_evaluation_items: @member_evaluation.member_evaluation_items,
+            certificate: certificate}
         else
           render json: {message: flash_message("not_updated"),
             errors: @member_evaluation.errors}, status: :unprocessable_entity

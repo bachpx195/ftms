@@ -41,12 +41,11 @@ export default class ModalEvaluateMember extends React.Component {
       }
     }
     let training_result = '';
-    this.props.evaluation_template.training_results.map(result => {
-      if (total_point >= result.min_point && total_point <= result.max_point) {
-        training_result = result;
-      }
-    });
-
+    if (!this.props.subject) {
+      training_result = this.props.evaluation_template.training_results
+        .map(result => total_point >= result.min_point &&
+            total_point <= result.max_point);
+    }
     this.setState({
       evaluation_standards: nextProps.evaluation_standards,
       evaluation_template: nextProps.evaluation_template,
@@ -97,6 +96,14 @@ export default class ModalEvaluateMember extends React.Component {
   }
 
   render() {
+    let certificate_btn = '';
+    if (!this.props.subject) {
+      certificate_btn =  <button type='button' className='btn btn-primary'
+        onClick={this.handleSubmit.bind(this, 'create_certificate')}
+        disabled={!this.formValid()}>
+        {I18n.t('buttons.create_certificate')}
+      </button>;
+    }
     return (
       <div className='modal fade modal-evaluate-member' role='dialog'>
         <div className='modal-dialog' role='document'>
@@ -134,11 +141,7 @@ export default class ModalEvaluateMember extends React.Component {
                 disabled={!this.formValid()}>
                 {I18n.t('buttons.save')}
               </button>
-              <button type='button' className='btn btn-primary'
-                onClick={this.handleSubmit.bind(this, 'create_certificate')}
-                disabled={!this.formValid()}>
-                {I18n.t('buttons.create_certificate')}
-              </button>
+              {certificate_btn}
             </div>
           </div>
         </div>
@@ -152,8 +155,7 @@ export default class ModalEvaluateMember extends React.Component {
       if(!point) {
         return false;
       }
-      if(point < parseInt(evaluation_standard.min_point) ||
-        point > parseInt(evaluation_standard.max_point)) {
+      if (point > parseInt(evaluation_standard.max_point)) {
         return false
       }
     }
@@ -169,11 +171,11 @@ export default class ModalEvaluateMember extends React.Component {
       total_point += standard_points[key];
     }
 
-    this.props.evaluation_template.training_results.map(result => {
-      if (total_point >= result.min_point && total_point <= result.max_point) {
-        training_result = result;
-      }
-    });
+    if (!this.props.subject) {
+      training_result = this.props.evaluation_template.training_results
+        .map(result => total_point >= result.min_point &&
+            total_point <= result.max_point);
+    }
     this.setState({
       training_result: training_result,
       total_point: total_point,
@@ -220,14 +222,16 @@ export default class ModalEvaluateMember extends React.Component {
         '[' + index + '][evaluation_point]', standard_points[key]);
       index++;
     }
-    formData.append('certificate[total_point]', this.state.total_point);
-    formData.append('certificate[course_id]', this.state.course.id);
-    formData.append('certificate[program_id]', this.state.course.program.id);
-    formData.append('certificate[user_id]', this.state.user.id);
-    formData.append('certificate[training_result_id]',
-      this.state.training_result.id);
-    formData.append('certificate[training_standard_id]',
-      this.state.course.training_standard.id);
+    if (submit_type == 'create_certificate') {
+      formData.append('certificate[total_point]', this.state.total_point);
+      formData.append('certificate[course_id]', this.state.course.id);
+      formData.append('certificate[program_id]', this.state.course.program.id);
+      formData.append('certificate[user_id]', this.state.user.id);
+      formData.append('certificate[training_result_id]',
+        this.state.training_result.id);
+      formData.append('certificate[training_standard_id]',
+        this.state.course.training_standard.id);
+    }
 
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
