@@ -44,8 +44,8 @@ export default class SubjectDetail extends React.Component {
             </h3>
             <div className='subject-status clearfix'>
               <span className={`status ` +
-                this.state.subject_detail.course_subject.status}>
-                {this.state.subject_detail.course_subject.status}
+                this.state.subject_detail.user_subjects.status}>
+                {I18n.t(`courses.${this.state.subject_detail.user_subjects.status}`)}
               </span>
             </div>
           </div>

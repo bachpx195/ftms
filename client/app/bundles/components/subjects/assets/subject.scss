@@ -35,6 +35,7 @@ $color-title: #257c94;
 $background-init: #00a65a;
 $background-inprogress: #21abc7;
 $background-finish: #d9534f;
+$background-reject: #757575;
 $color-title: #575a5b;
 $body-background: #f6f8f8;
 $color-border: #ddd;
@@ -595,12 +596,16 @@ body {
     background: $background-init;
   }
 
-  .inprogress {
+  .in_progress {
     background: $background-inprogress;
   }
 
-  .finish {
+  .finished {
     background: $background-finish;
+  }
+
+  .reject {
+    background: $background-reject;
   }
 }
 

@@ -54,8 +54,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def user_subjects
     Serializers::Subjects::UserSubjectsSerializer
-      .new(object: course_subjects.unassigned_user_subjects,
-      scope: {course_subject: course_subjects}).serializer
+      .new(object: current_user_subjects).serializer
   end
 
   def course_subject_teams
@@ -105,5 +104,11 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def current_user?
     current_user.present?
+  end
+
+  def current_user_subjects
+    user_course = UserCourse.find_by user: current_user, course: course
+    current_user.user_subjects.where(user_course: user_course,
+      subject_id: object.id).first
   end
 end
