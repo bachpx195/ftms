@@ -1,3 +1,4 @@
+import CoursePolicy from 'policy/course_policy';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import MenuCourse from '../menu_course';
@@ -66,14 +67,19 @@ export default class CourseDetail extends React.Component {
         </div>
 
         <div className='col-md-5'>
-          <span className="btn glyphicon glyphicon-list pull-right"
-            onClick={this.clickButtonList.bind(this)}></span>
-          <MenuCourse url={routes.course_url(this.state.course.id)}
-            course={this.state.course}
-            courseListPermit={this.props.courseListPermit}
-            handleAfterEdit={this.handleAfterUpdate.bind(this)}
-            program={this.props.program}
-            handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)} />
+          <CoursePolicy permit={this.props.courseListPermit}>
+            <div>
+              <span className="btn glyphicon glyphicon-list pull-right"
+                onClick={this.clickButtonList.bind(this)}></span>
+              <MenuCourse url={routes.course_url(this.state.course.id)}
+                course={this.state.course}
+                courseListPermit={this.props.courseListPermit}
+                handleAfterEdit={this.handleAfterUpdate.bind(this)}
+                program={this.props.program}
+                handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)}
+              />
+            </div>
+          </CoursePolicy>
         </div>
       </div>
     )

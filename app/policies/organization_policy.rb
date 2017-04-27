@@ -16,7 +16,6 @@ class OrganizationPolicy < ApplicationPolicy
 
   private
   def has_function?
-    record[:organization].creator == @user ||
-      record[:organization].users.include?(@user)
+    record[:organization].users.include? @user
   end
 end

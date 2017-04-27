@@ -104,6 +104,7 @@ en:
     start_date: "Start date: "
     buttons:
       save: "Save"
+      start: "Start"
       finish: "Finish"
       preview: "Preview"
     list_managers: "Manager"

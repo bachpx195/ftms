@@ -6,6 +6,7 @@ class Program < ApplicationRecord
 
   belongs_to :organization
   belongs_to :creator, foreign_key: :creator_id, class_name: User.name
+  belongs_to :owner, foreign_key: :owner_id, class_name: User.name
 
   has_many :courses, dependent: :destroy
   has_many :profiles, dependent: :destroy
