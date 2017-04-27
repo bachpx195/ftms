@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426104907) do
+ActiveRecord::Schema.define(version: 20170427020648) do
 
   create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "question_id"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(version: 20170426104907) do
     t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "certificates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "course_id"
+    t.integer  "program_id"
+    t.integer  "training_standard_id"
+    t.integer  "user_id"
+    t.integer  "total_point"
+    t.integer  "training_result_id"
+    t.integer  "creator_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

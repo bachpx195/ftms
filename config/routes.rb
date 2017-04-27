@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   resources :courses do
     resources :subjects
     resources :member_evaluations, only: [:create, :update]
+    resources :certificates
   end
 
   resources :standard_subjects, only: [:index, :create, :destroy]

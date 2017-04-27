@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+import ResultBox from './result_box';
 import * as routes from 'config/routes';
 
 require('../../../assets/sass/modal_evaluate_member.scss');
@@ -18,6 +19,7 @@ export default class ModalEvaluateMember extends React.Component {
       user: props.user,
       standard_points: {},
       total_point: 0,
+      training_result: {},
     };
   }
 
@@ -30,13 +32,19 @@ export default class ModalEvaluateMember extends React.Component {
 
     let total_point = 0;
     let standard_points = {};
-    if(member_evaluation.id) {
-      for(let standard of member_evaluation.member_evaluation_items){
+    if (member_evaluation.id) {
+      for (let standard of member_evaluation.member_evaluation_items) {
         Object.assign(standard_points,
           {[standard.evaluation_standard_id]: standard.evaluation_point});
         total_point += parseInt(standard.evaluation_point);
       }
     }
+    let training_result = '';
+    this.props.evaluation_template.training_results.map(result => {
+      if (total_point >= result.min_point && total_point <= result.max_point) {
+        training_result = result;
+      }
+    });
 
     this.setState({
       evaluation_standards: nextProps.evaluation_standards,
@@ -44,8 +52,9 @@ export default class ModalEvaluateMember extends React.Component {
       member_evaluation: member_evaluation,
       user: nextProps.user,
       course: nextProps.course,
+      training_result: training_result,
       standard_points: standard_points,
-      total_point: total_point
+      total_point: total_point,
     });
   }
 
@@ -77,9 +86,7 @@ export default class ModalEvaluateMember extends React.Component {
               <button type="button" className="close" data-dismiss="modal">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 className="modal-title">
-                {this.state.user.name}
-              </h4>
+              <h4 className="modal-title">{this.state.user.name}</h4>
             </div>
             <div className="modal-body">
               <div className="row">
@@ -89,17 +96,12 @@ export default class ModalEvaluateMember extends React.Component {
                 </div>
 
                 <div className="col-md-12 action-assign">
-                  <ul className="list-group">
-                    {this.renderEvaluationStandards()}
-                  </ul>
+                  <ul className="list-group">{this.renderEvaluationStandards()}</ul>
                 </div>
 
-                <div className="col-md-12 text-center total-point">
-                  <label>{I18n.t('courses.evaluation.total_point')}</label>&nbsp;&nbsp;
-                  <input className="text-right"
-                    type="text" disabled="true" value={this.state.total_point} />
-                </div>
-
+                <ResultBox total_point={this.state.total_point}
+                  training_result={this.state.training_result}
+                  evaluation_template={this.state.evaluation_template}/>
               </div>
             </div>
             <div className="modal-footer">
@@ -135,10 +137,18 @@ export default class ModalEvaluateMember extends React.Component {
     let standard_points = this.state.standard_points
     standard_points[evaluation_standard_id] = parseInt(event.target.value || 0);
     let total_point = 0;
-    for(let key of Object.keys(standard_points)){
+    let training_result = '';
+    for (let key of Object.keys(standard_points)) {
       total_point += standard_points[key];
     }
+
+    this.props.evaluation_template.training_results.map(result => {
+      if (total_point >= result.min_point && total_point <= result.max_point) {
+        training_result = result;
+      }
+    });
     this.setState({
+      training_result: training_result,
       total_point: total_point,
       standard_points: standard_points,
     });
@@ -148,15 +158,14 @@ export default class ModalEvaluateMember extends React.Component {
     event.preventDefault();
     let method = '';
     let evaluation_id = '';
-    if(this.state.member_evaluation.id){
+    if (this.state.member_evaluation.id) {
       method = 'PATCH';
       evaluation_id = this.state.member_evaluation.id
-    }else{
+    } else {
       method = 'POST';
     }
     let formData = new FormData();
     let standard_points = this.state.standard_points;
-
     if (this.props.subject) {
       formData.append('subject_id', this.props.subject.id);
     }
@@ -167,12 +176,12 @@ export default class ModalEvaluateMember extends React.Component {
       this.state.evaluation_template.id);
 
     let index = 0;
-    for(let key of Object.keys(standard_points)){
+    for (let key of Object.keys(standard_points)) {
       if (this.state.member_evaluation.id) {
         let item = this.state.member_evaluation.member_evaluation_items.find(_item => {
           return _item.evaluation_standard_id == key;
         });
-        if(item) {
+        if (item) {
           formData.append('member_evaluation[member_evaluation_items_attributes]'+
             '[' + index + '][id]', item.id);
         }
@@ -183,6 +192,14 @@ export default class ModalEvaluateMember extends React.Component {
         '[' + index + '][evaluation_point]', standard_points[key]);
       index++;
     }
+    formData.append('certificate[total_point]', this.state.total_point);
+    formData.append('certificate[course_id]', this.state.course.id);
+    formData.append('certificate[program_id]', this.state.course.program.id);
+    formData.append('certificate[user_id]', this.state.user.id);
+    formData.append('certificate[training_result_id]',
+      this.state.training_result.id);
+    formData.append('certificate[training_standard_id]',
+      this.state.course.training_standard.id);
 
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
 
@@ -195,10 +212,9 @@ export default class ModalEvaluateMember extends React.Component {
     })
     .then(response => {
       this.props.afterEvaluateMember(response.data.member_evaluation,
-        response.data.member_evaluation_items);
+        response.data.member_evaluation_items, response.data.certificate);
       $('.modal-evaluate-member').modal('hide');
     })
     .catch(error => console.log(error));
-
   }
 }
