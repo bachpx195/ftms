@@ -43,6 +43,7 @@ en:
       evaluate: "Evaluate"
       list_task: "List task"
       add_project: "Add Project"
+      assign_task: "Assign Task"
     modals:
       header_create: "Create subject"
       header_edit: "Edit subject"
@@ -50,6 +51,7 @@ en:
       create: "Create subject"
       edit: "Edit"
       delete: "Delete"
+      close: "Close"
     status:
       init: "Init"
       in_progress: "In progress"
