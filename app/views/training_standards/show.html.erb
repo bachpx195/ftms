@@ -2,7 +2,8 @@
   <%= react_component "TrainingStandardShow",
     props: {
       selected_subjects: @training_standard_supports.standard_subjects,
-      training_standard: @training_standard_supports.training_standard,
+      training_standard: @training_standard_supports
+        .training_standard_serializer,
       evaluation_template: @training_standard_supports.evaluation_template,
       organization: @training_standard_supports.organization,
       standard_organizations: @training_standard_supports

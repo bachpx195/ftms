@@ -43,7 +43,8 @@ class Supports::TrainingStandardSupport
   def training_standard_serializer
     @training_standards_serializer =
       Serializers::TrainingStandards::TrainingStandardsSerializer
-        .new(object: training_standard).serializer
+        .new(object: training_standard, scope: {count_organizations: true})
+        .serializer
   end
 
   def standard_organizations

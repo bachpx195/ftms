@@ -14,7 +14,7 @@ export default class Clone extends React.Component {
   }
 
   onClone() {
-    if (confirm(I18n.t("data.confirm_clone"))) {
+    if (confirm(I18n.t('data.confirm_clone'))) {
       let clone_url = routes.clone_url();
       axios({
         url: clone_path,
@@ -40,7 +40,7 @@ export default class Clone extends React.Component {
 
 
   check_publiced() {
-    return this.state.training_standard.policy == "publiced";
+    return this.state.training_standard.policy == 'publiced';
   }
 
   check_shared() {
@@ -61,12 +61,11 @@ export default class Clone extends React.Component {
     if ((this.check_publiced() || this.check_shared()) &&
       this.check_not_belong_organization() && this.check_creator_or_owner()) {
       return (
-        <div className="col-md-1">
-          <a className="btn btn-success" onClick={this.onClone.bind(this)}>
-            <i className="fa fa-clone"></i> {I18n.t("training_standards.clone")}
-          </a>
-        </div>
-      )
+        <button type='button' className='btn btn-success header-button'
+          onClick={this.onClone.bind(this)}>
+          <i className='fa fa-clone'></i> {I18n.t('training_standards.clone')}
+        </button>
+      );
     } else {
       return null;
     }

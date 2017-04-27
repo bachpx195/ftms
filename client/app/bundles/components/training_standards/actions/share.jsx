@@ -30,24 +30,27 @@ export default class Share extends React.Component {
   }
 
   check_organization() {
-    return this.state.training_standard.organization_id == this.state.organization.id;
+    return this.state.training_standard.organization_id ==
+      this.state.organization.id;
   }
 
   render() {
-    if (this.is_privated() && this.check_creator_or_owner() && this.check_organization()) {
+    if (this.is_privated() && this.check_creator_or_owner() &&
+      this.check_organization()) {
       return (
-        <div className='col-md-2'>
+        <div className='pull-left'>
           <ModalShareTrainingStandard
             url={routes.training_standards_url()}
             training_standard={this.state.training_standard}
             standard_organizations={this.state.standard_organizations}
-            handleAfterShareTrainingStandard={this.handleAfterShareTrainingStandard.bind(this)}
+            handleAfterShareTrainingStandard={this
+              .handleAfterShareTrainingStandard.bind(this)}
           />
-          <button className='btn btn-success'
+          <button className='btn btn-success header-button'
             title={I18n.t('training_standards.share_training_standard')}
             onClick={this.onClickShareTrainingStandard.bind(this)}>
-            <i className='fa fa-eye'></i>
-            {I18n.t('training_standards.share_training_standard')}
+            <i className='fa fa-eye'></i> &nbsp;
+            {I18n.t('training_standards.share')}
           </button>
         </div>
       );
@@ -70,8 +73,8 @@ export default class Share extends React.Component {
       share_with: {
         training_standard_id: this.state.training_standard.id,
         organization_id: organization.id
-      }, authenticity_token: ReactOnRails.authenticityToken(),
-        headers: {'Accept': 'application/json'}
+      },
+      authenticity_token: ReactOnRails.authenticityToken(),
     }).then(response => {
       _.remove(this.state.standard_organizations,
         shared => shared.id === response.data.share_with.organization_id);

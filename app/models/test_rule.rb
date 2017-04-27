@@ -7,11 +7,13 @@ class TestRule < ApplicationRecord
       :number_question, :easy, :normal, :hard, :_destroy],
     test_rule_questions_attributes: [:id, :question_id, :_destroy]]
 
+  belongs_to :organization
+  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
+
   has_many :test_rule_questions, dependent: :destroy
   has_many :test_rule_categories, dependent: :destroy
   has_many :categories, through: :test_rule_categories
   has_many :exams, dependent: :destroy
-
   has_many :tasks, as: :targetable,
     class_name: StaticTask.name, dependent: :destroy
   has_many :subjects, through: :tasks, source: :targetable,
@@ -19,9 +21,6 @@ class TestRule < ApplicationRecord
   has_many :courses, through: :tasks, source: :targetable,
     source_type: Course.name
   has_many :dynamic_tasks, through: :tasks, class_name: DynamicTask.name
-
-  belongs_to :organization
-  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
 
   accepts_nested_attributes_for :test_rule_categories, allow_destroy: true,
     reject_if: lambda{|attributes| attributes[:number_question].blank?}

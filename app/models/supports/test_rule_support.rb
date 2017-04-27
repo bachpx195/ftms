@@ -13,7 +13,7 @@ class Supports::TestRuleSupport
 
   def test_rules_serializer
     Serializers::TestRules::TestRulesSerializer
-      .new(object: TestRule.all).serializer
+      .new(object: organization.test_rules).serializer
   end
 
   def categories
