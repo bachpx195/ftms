@@ -1,8 +1,10 @@
 class Serializers::Programs::ProgramsSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name
+  attrs :id, :name, :creator
   attrs :parent, if: :check_parent
-  attrs :organization, if: :check_organiztion
+  attrs :organization, if: :check_organization
+
+  delegate :creator, to: :object
 
   def parent
     Serializers::Programs::ProgramParentSerializer
@@ -11,7 +13,7 @@ class Serializers::Programs::ProgramsSerializer <
 
   def organization
     Serializers::Programs::OrganizationsSerializer
-      .new(object.organization).serializer
+      .new(object: object.organization).serializer
   end
 
   private
@@ -19,7 +21,7 @@ class Serializers::Programs::ProgramsSerializer <
     object.parent.present?
   end
 
-  def check_organiztion
+  def check_organization
     object.organization.present?
   end
 end

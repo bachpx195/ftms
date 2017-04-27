@@ -136,36 +136,46 @@ export default class ListTabs extends React.Component {
   }
 
   render() {
+    let creator_id_program = this.props.course.program.creator.id;
+    let owner_id_organization = this.props.course.program.organization.owner.id;
+    let owner_id_course = this.props.course.owner.id;
     return (
-      <div className='flex-container'>
-        <TabsTask
-          tabs_group_focus={this.state.tabs_group_focus}
-          subject_detail={this.props.subject_detail}
-          documents={this.props.documents}
-          document_preview={this.props.document_preview}
-          onDocumentsDrop={this.props.onDocumentsDrop}
-          handleDocumentUploaded={this.props.handleDocumentUploaded}
-          handleDocumentDeleted={this.props.handleDocumentDeleted}
-          clickPreviewDocument={this.props.clickPreviewDocument}
-          handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-          handleChooseType={this.props.handleChooseType}
-          changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
-        <TabsMember
-          tabs_group_focus={this.state.tabs_group_focus}
-          subject_detail={this.props.subject_detail}
-          statuses={this.props.statuses}
-          team={this.props.team}
-          course={this.props.course}
-          subject={this.props.subject}
-          member_evaluations={this.props.member_evaluations}
-          training_standard={this.props.training_standard}
-          evaluation_template={this.props.evaluation_template}
-          evaluation_standards={this.props.evaluation_standards}
-          afterAddTaskForUser={this.props.afterAddTaskForUser}
-          changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
-        {this.renderUserTaskModal()}
-        {this.renderTaskModal()}
-      </div>
+      <TeamPolicy permit={
+        [{action: ['owner'], target: 'children',
+          data: {owner_id_course: owner_id_course, 
+            creator_id_program: creator_id_program,
+            owner_id_organization: owner_id_organization}}]}
+      >
+        <div className='flex-container'>
+          <TabsTask
+            tabs_group_focus={this.state.tabs_group_focus}
+            subject_detail={this.props.subject_detail}
+            documents={this.props.documents}
+            document_preview={this.props.document_preview}
+            onDocumentsDrop={this.props.onDocumentsDrop}
+            handleDocumentUploaded={this.props.handleDocumentUploaded}
+            handleDocumentDeleted={this.props.handleDocumentDeleted}
+            clickPreviewDocument={this.props.clickPreviewDocument}
+            handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+            handleChooseType={this.props.handleChooseType}
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+          <TabsMember
+            tabs_group_focus={this.state.tabs_group_focus}
+            subject_detail={this.props.subject_detail}
+            statuses={this.props.statuses}
+            team={this.props.team}
+            course={this.props.course}
+            subject={this.props.subject}
+            member_evaluations={this.props.member_evaluations}
+            training_standard={this.props.training_standard}
+            evaluation_template={this.props.evaluation_template}
+            evaluation_standards={this.props.evaluation_standards}
+            afterAddTaskForUser={this.props.afterAddTaskForUser}
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+          {this.renderUserTaskModal()}
+          {this.renderTaskModal()}
+        </div>
+      </TeamPolicy>
     );
   }
 

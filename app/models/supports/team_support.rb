@@ -19,6 +19,11 @@ class Supports::TeamSupport
     @course ||= course_subject.course
   end
 
+  def course_serialize
+    Serializers::Courses::CoursesSerializer
+      .new(object: course_subject.course).serializer
+  end
+
   def training_standard
     @training_standard ||= course.training_standard
   end

@@ -23,7 +23,9 @@ export const CustomFunction = {
   },
   owner: (data) => {
     var current_user = $.parseJSON(localStorage.current_user);
-    if (current_user.id == data.owner_id) {
+    if (current_user.id == data.owner_id_course || 
+      current_user.id == data.creator_id_program || 
+      current_user.id == data.owner_id_organization) {
       return true;
     }
     return false;
