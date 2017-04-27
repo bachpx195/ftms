@@ -1,5 +1,4 @@
 import axios from 'axios';
-import BlockTasks from '../block_tasks'
 import ListTasks from './list_tasks';
 import React from 'react';
 import UserTasks from './user_tasks'

@@ -26,10 +26,11 @@ export default class Modal extends React.Component {
               </h4>
             </div>
             <div className='modal-body clearfix'>
-              <Form organizations={this.props.organizations}
+              <Form
+                organizations={this.props.organizations}
                 url={projects_url} project={this.state.project}
                 team={this.props.team}
-                handleAfterUpdate={this.props.handleAfterUpdate}/>
+                handleAfterActionProject={this.props.handleAfterActionProject}/>
             </div>
           </div>
         </div>

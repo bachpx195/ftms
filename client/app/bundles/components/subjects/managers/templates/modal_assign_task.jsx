@@ -1,5 +1,5 @@
 import React from 'react';
-import ListTasks from './list_tasks';
+import ListTasksRemain from './list_tasks_remain';
 import * as app_constants from 'constants/app_constants';
 
 export default class ModalAssignAssignment extends React.Component {
@@ -35,7 +35,7 @@ export default class ModalAssignAssignment extends React.Component {
 
             <div className='modal-task'>
               <div className='modal-body'>
-                <ListTasks
+                <ListTasksRemain
                   remain_tasks={this.state.remain_tasks}
                   type={this.state.type}
                   targetable_type={this.state.type}
