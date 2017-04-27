@@ -41,14 +41,6 @@ export default class TabsMember extends React.Component {
             </div>
           </a>
         </li>
-        <li>
-          <a data-toggle='tab' href='#tab-projects'>
-            <div className='custom-subjects-titles'>
-              <i className='fa fa-folder-open'></i>
-                {I18n.t("subjects.titles.projects")}
-            </div>
-          </a>
-        </li>
       </ul>
     );
   }
