@@ -13,7 +13,7 @@ export default class Destroy extends React.Component {
               data: {creator_id: this.props.category.creator_id}}]}>
           <button className='btn btn-danger'
             onClick={this.handleDelete.bind(this)}>
-            <i className="fa fa-trash"></i>
+            <i className='fa fa-trash'></i>
             &nbsp;{I18n.t('buttons.delete')}
           </button>
         </CategoryPolicy>
@@ -22,9 +22,9 @@ export default class Destroy extends React.Component {
   }
 
   handleDelete(event) {
+    let $target = $(event.target);
+    $target.blur();
     if (confirm(I18n.t('data.confirm_delete'))) {
-      let $target = $(event.target);
-      $target.blur();
       axios.delete(routes.category_url(this.props.category.id), {
         params: {
           authenticity_token: ReactOnRails.authenticityToken()

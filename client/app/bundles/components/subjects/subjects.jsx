@@ -42,14 +42,16 @@ export default class Subjects extends React.Component {
     const ButtonEdit = ({griddleKey}) => (
       <button className='btn btn-info' data-index={griddleKey}
         onClick={this.handleEdit.bind(this)}>
-        {I18n.t('buttons.edit')}
+        <i className='fa fa-pencil-square-o'></i>
+        &nbsp;{I18n.t('buttons.edit')}
       </button>
     );
 
     const ButtonDelete = ({griddleKey}) => (
       <button className='btn btn-danger' data-index={griddleKey}
         onClick={this.handleDelete.bind(this)}>
-        {I18n.t('buttons.delete')}
+        <i className='fa fa-trash'></i>
+        &nbsp;{I18n.t('buttons.delete')}
       </button>
     );
 
@@ -82,14 +84,18 @@ export default class Subjects extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("subjects.headers.name")}
+            <ColumnDefinition id='name' title={I18n.t('subjects.headers.name')}
               customComponent={LinkShowSubject} />
-            <ColumnDefinition id="image" title={I18n.t("subjects.headers.image")}
+            <ColumnDefinition id='image' title={I18n.t('subjects.headers.image')}
               customComponent={Image} />
-            <ColumnDefinition id="description"
-              title={I18n.t("subjects.headers.description")} />
-            <ColumnDefinition id="during_time"
-              title={I18n.t("subjects.headers.during_time")} />
+            <ColumnDefinition id='description'
+              title={I18n.t('subjects.headers.description')} />
+            <ColumnDefinition id='during_time'
+              title={I18n.t('subjects.headers.during_time')} />
+            <ColumnDefinition id='edit' customComponent={ButtonEdit}
+              customHeadingComponent={valueNull} />
+            <ColumnDefinition id='delete' customComponent={ButtonDelete}
+              customHeadingComponent={valueNull} />
           </RowDefinition>
         </Griddle>
         {modalEdit}
@@ -105,7 +111,7 @@ export default class Subjects extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(this.state.subject.id){
-      $('#modalEdit').modal();
+      $('.modal-edit').modal();
     }
   }
 
