@@ -21,10 +21,10 @@ class Supports::StaticPage
   end
 
   def organizations
-    @organizations = user.organizations
-    if @organizations.empty?
-      @organizations = user.profile.organization
-    end
-    @organizations
+    organizations = (@current_user.organizations +
+      Organization.belongs_to_creator(@current_user.id)).uniq
+    organizations = @current_user.profile.organization if organizations.empty?
+    @organizations = Serializers::Organizations::OrganizationsSerializer
+      .new(object: organizations, scope: {show_program: true}).serializer
   end
 end

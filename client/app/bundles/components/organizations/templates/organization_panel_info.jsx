@@ -12,22 +12,26 @@ export default class OrganizationPanelInfo extends React.Component {
   render() {
     let count_organizations = this.state.organizations.length;
     let count_programs = 0;
-    let count_training_standards = 0;
+    let list_training_standards = [];
     let count_courses = 0;
 
     for(let organization of this.state.organizations) {
-      if(organization.programs){
+      if (organization.programs) {
         count_programs += organization.programs.length;
         for(let program of organization.programs){
           if(program.courses){
             count_courses += program.courses.length;
           }
-          if(program.training_standards){
-            count_training_standards += program.training_standards.length;
-          }
+        }
+      }
+      if (organization.training_standards) {
+        for(let training_standards of organization.training_standards){
+          list_training_standards.push(training_standards.id)
         }
       }
     }
+    let count_training_standards = list_training_standards.length;
+
     return (
       <div>
         <div className='box box-primary'>
