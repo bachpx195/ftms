@@ -52,7 +52,6 @@ export default class TeamsShowBox extends React.Component {
               training_standard={this.state.training_standard}
               organizations={this.state.organizations}
               team={this.state.team}
-              handleAfterActionProject={this.handleAfterActionProject.bind(this)}
             />
             <ListTabs
               team={this.props.team}
@@ -112,7 +111,7 @@ export default class TeamsShowBox extends React.Component {
         <ModalCreateProject
           organizations={this.state.organizations}
           team={this.state.team}
-          handleAfterActionProject={this.props.handleAfterActionProject} />
+          handleAfterActionProject={this.handleAfterActionProject.bind(this)} />
       </div>
     );
   }
@@ -143,8 +142,8 @@ export default class TeamsShowBox extends React.Component {
 
 
   handleAfterDeleteTask(index, task, type, user_index) {
-    _.remove(this.state.subject_detail.user_subjects[user_index]
-      .user_course_task[type], ({task_id}) => task_id == index);
+    _.remove(this.state.subject_detail.tasks[type],
+      ({task_id}) => task_id == index);
     this.state.subject_detail.remain_tasks[type].push(task);
     this.setState({
       subject_detail: this.state.subject_detail

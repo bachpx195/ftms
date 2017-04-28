@@ -16,6 +16,8 @@ export default class BlockTasks extends React.Component{
     this.setState({
       tasks: nextProps.tasks || []
     });
+    
+    $('.modal-create-' + this.props.type).modal('hide');
   }
 
   render(){
