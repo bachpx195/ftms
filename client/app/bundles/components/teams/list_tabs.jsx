@@ -11,7 +11,7 @@ export default class ListTabs extends React.Component {
     this.state = {
       tabs_group_focus: 1,
       subject_detail: props.subject_detail,
-      user_index: props.user_index,
+      user_index: props.user_index || 0,
       user: props.user
     }
   }
@@ -19,7 +19,7 @@ export default class ListTabs extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       subject_detail: nextProps.subject_detail,
-      user_index: nextProps.user_index,
+      user_index: nextProps.user_index || 0,
       user: nextProps.user
     })
   }
@@ -27,13 +27,13 @@ export default class ListTabs extends React.Component {
   renderUserTaskModal() {
     let panelUserTask = null;
     if(this.props.subject_detail.user_subjects &&
-      this.props.subject_detail.user_subjects[this.props.user_index]) {
+      this.props.subject_detail.user_subjects[this.state.user_index]) {
       panelUserTask = (
         <ModalTask task={this.props.subject_detail.tasks}
-          user_tasks={this.state.subject_detail
+          user_tasks={this.props.subject_detail
             .user_subjects[this.state.user_index].user_course_task}
           user_index={this.state.user_index}
-          ownerable_id={this.state.subject_detail.course_subject.id}
+          ownerable_id={this.props.subject_detail.course_subject.id}
           ownerable_type='CourseSubject'
           subject_detail={this.props.subject_detail}
           handleAfterAddTask={this.props.handleAfterAddTask}
@@ -67,9 +67,10 @@ export default class ListTabs extends React.Component {
   renderTaskModal() {
     let modal_assign_task = null;
     let modal_list_task = null;
+    debugger
     if (this.props.course) {
-      if(this.state.subject_detail.user_subjects &&
-        this.state.subject_detail.user_subjects[this.state.user_index]) {
+      if(this.props.subject_detail.user_subjects &&
+        this.props.subject_detail.user_subjects[this.state.user_index]) {
         modal_assign_task = (
           <div className='modal-assign modal fade in' role='dialog'>
             <div className='modal-dialog'>
@@ -81,16 +82,16 @@ export default class ListTabs extends React.Component {
                     {I18n.t('subjects.headers.assign_task')}
                   </h4>
                 </div>
-                <ModalTask task={this.state.subject_detail.course_subject_task}
-                  user_tasks={this.state.subject_detail
+                <ModalTask task={this.props.subject_detail.course_subject_task}
+                  user_tasks={this.props.subject_detail
                     .user_subjects[this.state.user_index].user_course_task}
                   user_index={this.state.user_index}
-                  ownerable_id={this.state.subject_detail.course_subject.id}
+                  ownerable_id={this.props.subject_detail.course_subject.id}
                   ownerable_type='CourseSubject'
-                  subject_detail={this.state.subject_detail}
+                  subject_detail={this.props.subject_detail}
                   handleAfterAddTask={this.props.handleAfterAddTask}
                   afterCreateTask={this.props.afterCreateTask}
-                  user={this.state.user}
+                  user={this.props.user}
                   handleAfterDeleteTask={this.props.handleAfterDeleteTask}
                 />
               </div>
@@ -109,16 +110,16 @@ export default class ListTabs extends React.Component {
                     {I18n.t('subjects.headers.list_task')}
                   </h4>
                 </div>
-                  <ModalUserTask task={this.state.subject_detail.course_subject_task}
-                    user_tasks={this.state.subject_detail
+                  <ModalUserTask task={this.props.subject_detail.course_subject_task}
+                    user_tasks={this.props.subject_detail
                       .user_subjects[this.state.user_index].user_course_task}
                     user_index={this.state.user_index}
-                    ownerable_id={this.state.subject_detail.course_subject.id}
+                    ownerable_id={this.props.subject_detail.course_subject.id}
                     ownerable_type='CourseSubject'
-                    subject_detail={this.state.subject_detail}
+                    subject_detail={this.props.subject_detail}
                     handleAfterAddTask={this.props.handleAfterAddTask}
                     afterCreateTask={this.props.afterCreateTask}
-                    user={this.state.user}
+                    user={this.props.user}
                     handleAfterDeleteTask={this.props.handleAfterDeleteTask}
                   />
               </div>

@@ -35,7 +35,7 @@ class TeamsController < ApplicationController
   def find_team
     unless @team_supports.team
       respond_to do |format|
-        format.html{redirect_to :back}
+        format.html{redirect_to root_path}
         format.json do
           render json: {message: flash_message("not_found")},
             status: :not_found
