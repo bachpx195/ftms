@@ -90,16 +90,18 @@ export default class UploadImageModal extends React.Component {
       formData.append('authenticity_token', ReactOnRails.authenticityToken());
       axios({
         url: routes.organization_user_url(
-          this.props.user_detail.user_profile.organization.id, 
-          this.props.user_detail.id), 
+          this.props.user_detail.user_profile.organization.id,
+          this.props.user_detail.id),
         method: 'PATCH', data: formData,
         headers: {'Accept': 'application/json'}
       })
       .then(response => {
-        $('.modal-upload-image').modal('hide');
-        Object.assign(current_user, {avatar: response.data.user_detail.avatar});
-        localStorage.setItem('current_user', JSON.stringify(current_user));
+        if (this.props.user_detail.id == current_user.id) {
+          Object.assign(current_user, {avatar: response.data.user_detail.avatar});
+          localStorage.setItem('current_user', JSON.stringify(current_user));
+        }
         this.props.handleAfterUploaded(response.data.user_detail.avatar);
+        $('.modal-upload-image').modal('hide');
         window.location.reload();
       })
       .catch(error => {console.log(error);});
