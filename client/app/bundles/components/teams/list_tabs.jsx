@@ -67,7 +67,6 @@ export default class ListTabs extends React.Component {
   renderTaskModal() {
     let modal_assign_task = null;
     let modal_list_task = null;
-    debugger
     if (this.props.course) {
       if(this.props.subject_detail.user_subjects &&
         this.props.subject_detail.user_subjects[this.state.user_index]) {
@@ -143,7 +142,7 @@ export default class ListTabs extends React.Component {
     return (
       <TeamPolicy permit={
         [{action: ['owner'], target: 'children',
-          data: {owner_id_course: owner_id_course, 
+          data: {owner_id_course: owner_id_course,
             creator_id_program: creator_id_program,
             owner_id_organization: owner_id_organization}}]}
       >

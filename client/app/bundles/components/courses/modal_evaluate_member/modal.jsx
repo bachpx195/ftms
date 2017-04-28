@@ -43,7 +43,7 @@ export default class ModalEvaluateMember extends React.Component {
     let training_result = '';
     if (!this.props.subject) {
       training_result = this.props.evaluation_template.training_results
-        .map(result => total_point >= result.min_point &&
+        .find(result => total_point >= result.min_point &&
             total_point <= result.max_point);
     }
     this.setState({
@@ -173,7 +173,7 @@ export default class ModalEvaluateMember extends React.Component {
 
     if (!this.props.subject) {
       training_result = this.props.evaluation_template.training_results
-        .map(result => total_point >= result.min_point &&
+        .find(result => total_point >= result.min_point &&
             total_point <= result.max_point);
     }
     this.setState({
