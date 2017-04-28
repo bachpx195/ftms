@@ -2,7 +2,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
   Serializers::SupportSerializer
   attrs :id, :name, :content, :description, :during_time, :image,
     :training_standard, :statuses, :tasks, :remain_tasks, :documents, :projects
-  attrs :course_subject_task, :course_subject, :user_subjects,
+  attrs :course_subject_task, :course_subject, :user_subjects, :user_subject,
     :course_subject_teams, :statistics, if: :check_course_subject
   attrs :course_member, :course_managers, :program,
     :organization, if: :check_course
@@ -54,7 +54,13 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def user_subjects
     Serializers::Subjects::UserSubjectsSerializer
-      .new(object: current_user_subjects).serializer
+      .new(object: course_subjects.unassigned_user_subjects,
+      scope: {course_subject: course_subjects}).serializer
+  end
+
+  def user_subject
+    Serializers::Subjects::UserSubjectsSerializer
+      .new(object: current_user_subject).serializer
   end
 
   def course_subject_teams
@@ -106,7 +112,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
     current_user.present?
   end
 
-  def current_user_subjects
+  def current_user_subject
     user_course = UserCourse.find_by user: current_user, course: course
     current_user.user_subjects.where(user_course: user_course,
       subject_id: object.id).first
