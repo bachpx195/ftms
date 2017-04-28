@@ -1,7 +1,8 @@
 class OrganizationPolicy < ApplicationPolicy
   def show?
     (super && has_function?) ||
-      record[:organization].owner == @user
+      record[:organization].owner == @user ||
+      record[:organization].creator == @user
   end
 
   def update?

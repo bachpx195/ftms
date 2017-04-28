@@ -26,7 +26,7 @@ export default class TestRules extends React.Component {
     const ButtonEdit = ({griddleKey}) => (
       <button className='btn btn-info' data-index={griddleKey}
         onClick={this.handleClickEdit.bind(this)}>
-        <i className="fa fa-pencil-square-o"></i>
+        <i className='fa fa-pencil-square-o'></i>
         &nbsp;{I18n.t('buttons.edit')}
       </button>
     );
@@ -34,7 +34,7 @@ export default class TestRules extends React.Component {
     const ButtonDelete = ({griddleKey}) => (
       <button className='btn btn-danger' data-index={griddleKey}
         data-type='delete' onClick={this.handleClickDelete.bind(this)}>
-        <i className="fa fa-trash"></i>
+        <i className='fa fa-trash'></i>
         &nbsp;{I18n.t('buttons.delete')}
       </button>
     );
@@ -75,25 +75,27 @@ export default class TestRules extends React.Component {
   }
 
   handleClickDelete(event) {
-    let $target = $(event.target);
-    $target.blur();
-    let test_rule = this.state.test_rules[$target.data('index')];
     if (confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(routes.test_rule_url(test_rule.id) + '.json', {
-        params: {
-          authenticity_token: ReactOnRails.authenticityToken()
-        }
-      })
-      .then(response => {
-        _.remove(this.state.test_rules, _test_rule => {
-          return _test_rule.id == response.data.test_rule.id;
-        });
-        this.setState({
-          test_rules: this.state.test_rules,
-          test_rule: {}
-        });
-      })
-      .catch(error => console.log(error));
+      let $target = $(event.target);
+      $target.blur();
+      let test_rule = this.state.test_rules[$target.data('index')];
+      if (confirm(I18n.t('data.confirm_delete'))) {
+        axios.delete(routes.test_rule_url(test_rule.id) + '.json', {
+          params: {
+            authenticity_token: ReactOnRails.authenticityToken()
+          }
+        })
+        .then(response => {
+          _.remove(this.state.test_rules, _test_rule => {
+            return _test_rule.id == response.data.test_rule.id;
+          });
+          this.setState({
+            test_rules: this.state.test_rules,
+            test_rule: {}
+          });
+        })
+        .catch(error => console.log(error));
+      }
     }
   }
 }
