@@ -33,7 +33,7 @@ import TaskBox from '../components/tasks/show';
 import TeamsShowBox from '../components/teams/show';
 import TestRulesBox from '../components/test_rules/box';
 import TimeLineBox from '../components/timelines/show';
-import TraineeTypeBox from '../components/trainee_types/trainee_types_box';
+import TraineeTypeBox from '../components/trainee_types/box';
 import TrainingStandardBox from '../components/training_standards/box';
 import TrainingStandardShow from '../components/training_standards/show';
 import UniversityBox from '../components/universities/box';
