@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Form from './form';
 import Organizations from '../partials/organizations';
 import React from 'react';
 

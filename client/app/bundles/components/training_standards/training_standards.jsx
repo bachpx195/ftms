@@ -1,11 +1,9 @@
-import React from 'react';
 import axios from 'axios';
+import Destroy from './actions/destroy';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import ModalEdit from './templates/modal';
-import Form from './templates/form';
-import Destroy from "./actions/destroy";
-import * as table_constants from 'constants/griddle_table_constants';
+import React from 'react';
 import * as routes from 'config/routes';
+import * as table_constants from 'constants/griddle_table_constants';
 
 export default class TrainingStandards extends React.Component {
   constructor(props) {
@@ -66,9 +64,9 @@ export default class TrainingStandards extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t('training_standards.name')}
-              customComponent={LinkToStandardShow}/>
-            <ColumnDefinition id="description"
+            <ColumnDefinition id='name' title={I18n.t('training_standards.name')}
+              customComponent={LinkToStandardShow} />
+            <ColumnDefinition id='description'
               title={I18n.t('training_standards.description')} />
           </RowDefinition>
         </Griddle>

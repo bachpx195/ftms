@@ -1,10 +1,10 @@
-import * as routes from 'config/routes';
 import axios from 'axios';
 import ModalAssign from './templates/modal_assign';
-import ModalEdit from './templates/modal';
+import ModalEdit from './templates/modal_edit';
 import ModalEvaluation from './templates/modal_evaluation';
-import Subjects from './subjects';
 import React from 'react';
+import Subjects from './subjects';
+import * as routes from 'config/routes';
 
 export default class TrainingStandardShow extends React.Component {
   constructor(props) {

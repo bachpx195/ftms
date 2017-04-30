@@ -1,9 +1,8 @@
 import axios from 'axios';
 import Create from './actions/create';
 import FilterShared from './templates/filter_shared';
-import Form from './templates/form';
-import TrainingStandards from './training_standards';
 import React from 'react';
+import TrainingStandards from './training_standards';
 
 export default class TrainingStandardBox extends React.Component {
   constructor(props) {
@@ -38,6 +37,7 @@ export default class TrainingStandardBox extends React.Component {
               <Create
                 training_standard={this.state.training_standard}
                 organization={this.state.organization}
+                subjects={this.props.subjects}
                 handleAfterCreated={this.handleAfterCreated.bind(this)} />
               <TrainingStandards
                 training_standard={this.state.training_standard}

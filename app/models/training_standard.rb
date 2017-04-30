@@ -22,4 +22,8 @@ class TrainingStandard < ApplicationRecord
   has_many :certificates, dependent: :destroy
 
   validates :name, presence: true
+
+  accepts_nested_attributes_for :evaluation_template, allow_destroy: true,
+    reject_if: proc{|attributes| attributes[:name].blank?}
+  accepts_nested_attributes_for :standard_subjects, allow_destroy: true
 end
