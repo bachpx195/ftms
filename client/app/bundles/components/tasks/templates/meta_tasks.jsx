@@ -1,16 +1,11 @@
 import React from 'react';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import {NewLayout} from '../shareds/griddles/new_layout';
+import {NewLayout} from 'shared/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as routes from 'config/routes';
 
 export default class MetaTasks extends React.Component {
   render() {
-    const userLink = ({griddleKey}) => {
-      let user = this.props.meta_tasks[griddleKey].dynamic_task.user;
-      return <a href={routes.user_url(user.id)}>{user.name}</a>;
-    };
-
     const metaTaskLink = ({value}) => {
       return <a href={value}>{value}</a>;
     };
@@ -25,8 +20,6 @@ export default class MetaTasks extends React.Component {
           components={{Layout: NewLayout}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
-            <ColumnDefinition id='user' title={I18n.t('tasks.headers.name')}
-              customComponent={userLink} />
             <ColumnDefinition id='title'
               title={I18n.t('tasks.headers.title')} />
             <ColumnDefinition id='value'

@@ -1,15 +1,18 @@
 en:
   tasks:
     task: "task"
+    meta_tasks: "Meta tasks"
     statuses:
       init: "Init"
       in_progress: "In progress"
       finished: "Finished"
+      reject: "Rejected"
     headers:
       name: "Name"
       title: "Title"
       value: "Value"
       sent_at: "Sent at"
+      status: "Status"
     course: "Course: "
     statistics:
       init: "Init Tasks"

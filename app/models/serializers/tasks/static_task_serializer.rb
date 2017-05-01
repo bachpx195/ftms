@@ -1,13 +1,17 @@
 class Serializers::Tasks::StaticTaskSerializer < Serializers::SupportSerializer
-  attrs :id, :course_subject, :meta_tasks
+  attrs :id, :name, :course_subject, :dynamic_tasks
+
+  def name
+    object.targetable.name
+  end
 
   def course_subject
     Serializers::Tasks::CourseSubjectSerializer.new(object: object.ownerable)
       .serializer
   end
 
-  def meta_tasks
-    Serializers::Tasks::MetaTaskSerializer
-      .new(object: object.meta_tasks.order_desc).serializer
+  def dynamic_tasks
+    Serializers::Tasks::DynamicTasksSerializer
+      .new(object: object.dynamic_tasks).serializer
   end
 end

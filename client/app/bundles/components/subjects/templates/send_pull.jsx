@@ -60,25 +60,25 @@ export default class PullRequestList extends React.Component {
       })
     }
     return(
-      <div className="modal-send-pull modal fade" role="dialog">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
+      <div className='modal-send-pull modal fade' role='dialog'>
+        <div className='modal-dialog' role='document'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <button type='button' className='close' data-dismiss='modal'>
+                <span aria-hidden='true'>&times;</span>
               </button>
-              <h4 className="modal-title" id="assign-member-label">
-                {I18n.t("meta_tasks.title")}
+              <h4 className='modal-title' id='assign-member-label'>
+                {I18n.t('meta_tasks.title')}
               </h4>
             </div>
-            <div className="modal-body">
-              <div className="row">
-                <div className="col-md-12">
-                  <form className="form-horizontal">
+            <div className='modal-body'>
+              <div className='row'>
+                <div className='col-md-12'>
+                  <form className='form-horizontal'>
                     {form_task}
-                    <button type="submit" className="btn btn-primary"
+                    <button type='submit' className='btn btn-primary'
                       onClick={this.sendPull.bind(this)}>
-                      {I18n.t("meta_tasks.send_pull")}</button>
+                      {I18n.t('meta_tasks.submit_task')}</button>
                   </form>
                 </div>
               </div>

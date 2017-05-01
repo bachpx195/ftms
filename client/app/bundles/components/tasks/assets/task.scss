@@ -1,6 +1,6 @@
 $c-white: #FFF;
 
-.meta-tasks {
+.show-static-task {
   .subject-name {
     margin-bottom: 10px;
   }
@@ -8,6 +8,12 @@ $c-white: #FFF;
   .content-box {
     background: $c-white;
     padding: 15px;
+
+    .static-task-name {
+      font-size: 24px;
+      margin: 0 0 15px;
+      padding: 0;
+    }
   }
 
   .box {
@@ -20,5 +26,12 @@ $c-white: #FFF;
 
   .course-name {
     font-weight: bold;
+  }
+
+  .modal-meta-tasks {
+    .griddle-table {
+      height: 50vh;
+      overflow-y: auto;
+    }
   }
 }
