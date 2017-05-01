@@ -89,10 +89,10 @@ ActiveRecord::Schema.define(version: 20170427020648) do
     t.integer  "language_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "creator_id"
     t.integer  "program_id"
     t.integer  "training_standard_id"
     t.datetime "deleted_at"
+    t.integer  "creator_id"
     t.integer  "owner_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 20170427020648) do
   create_table "meta_tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
     t.text     "value",           limit: 65535
-    t.string   "input_type"
+    t.integer  "input_type"
     t.integer  "dynamic_task_id"
     t.datetime "deleted_at"
     t.datetime "created_at",                    null: false

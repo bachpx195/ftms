@@ -19,7 +19,7 @@ export default class AssignmentItem extends React.Component {
   render() {
     let current_user = JSON.parse(localStorage.current_user);
     let status = this.props.status;
-    let menu_action, update_assignment, send_pull = '';
+    let menu_action, update_assignment, submit_task = '';
     if (this.props.status == 'in_progress' || this.props.status == 'init') {
       menu_action =
         <span className='menu-assignment pull-right dropdown-toggle'
@@ -27,9 +27,9 @@ export default class AssignmentItem extends React.Component {
           <i className='glyphicon glyphicon-align-justify cursor'></i>
         </span>;
       if (this.props.status == 'in_progress') {
-        send_pull = <li><a
-          onClick={this.sendPullRequest.bind(this)}>{I18n.t('meta_tasks.send_pull')}
-          </a></li>
+        submit_task = <li><a onClick={this.sendPullRequest.bind(this)}>
+          {I18n.t('meta_tasks.submit_task')}
+        </a></li>;
         status = 'progress';
       }
       update_assignment =
@@ -82,7 +82,7 @@ export default class AssignmentItem extends React.Component {
               <div>
                 {menu_action}
                 <ul className='dropdown-menu pull-right list-menu cursor' >
-                  {send_pull}
+                  {submit_task}
                   {update_assignment}
                 </ul>
               </div>

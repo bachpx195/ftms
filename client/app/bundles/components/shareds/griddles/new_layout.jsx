@@ -13,7 +13,7 @@ export const NewLayout =
             <Pagination />
           </div>
         </div>
-        <div className='col-md-12'>
+        <div className='col-md-12 griddle-table'>
           <Table />
         </div>
       </div>

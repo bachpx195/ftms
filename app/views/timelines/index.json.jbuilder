@@ -10,9 +10,9 @@ json.timeline do
         format: :timeline_js)
       course_subject = user_subject.course_subject
       json.headline "#{link_to user_subject.subject.name,
-        [user_subject.subject]}<span class='hidden'
-        data-status='#{user_subject.status}'
-        data-course-name='#{course_subject.course.name}'></span>"
+        [user_subject.user_course.course, user_subject.subject]}
+        <span class='hidden' data-status='#{user_subject.status}'
+          data-course-name='#{course_subject.course.name}'></span>"
       json.text "<div class='description'>#{user_subject.subject.description}</div>"
       json.tag " "
       json.asset do
