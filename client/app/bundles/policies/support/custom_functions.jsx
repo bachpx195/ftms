@@ -53,5 +53,16 @@ export const CustomFunction = {
       }
     }
     return result;
+  },
+  ownerById: (data) => {
+    var current_user = $.parseJSON(localStorage.current_user);
+    if (current_user.id == data.id) {
+      return true;
+    }
+    return false;
+  },
+  belongById: (data) => {
+    var profile = $.parseJSON(localStorage.profile);
+    return profile[data.key] == data.id
   }
 }

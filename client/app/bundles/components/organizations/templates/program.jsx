@@ -2,9 +2,10 @@ import axios from 'axios';
 import CourseLists from '../../programs/courses';
 import Destroy from '../actions/destroy';
 import React from 'react';
+import ProgramPolicy from 'policy/program_policy';
 
 export default class Program extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       organization: props.organization,
@@ -12,14 +13,14 @@ export default class Program extends React.Component{
     }
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.setState({
       organization: nextProps.organization,
       program: nextProps.program
     })
   }
 
-  render(){
+  render() {
     return(
       <div className="panel panel-default">
         <div className="panel-heading" role="tab"
@@ -42,20 +43,35 @@ export default class Program extends React.Component{
           </div>
           <div className="function col-xs-6">
             <div className="list-function hidden">
-              <i className="fa fa-pencil"
-                data-index={this.state.program.id}
-                data-name={this.state.program.name}
-                onClick={this.afterClickEdit.bind(this)}></i>
-
-              <Destroy
-                url={this.props.url}
-                program={this.state.program}
-                handleAfterDeleted={this.props.handleAfterDeleted}
-              />
+              <ProgramPolicy permit={[
+                {action: ['ownerById'], data: {id: this.state.program.id}},
+                {action: ['update', 'creator'], data: this.state.organization},
+                {action: ['update', 'creator'], data: this.state.program},
+                {action: ['update', 'belongById'],
+                  data: {key: 'program_id', id: this.state.program.id}},
+              ]}>
+                <i className="fa fa-pencil"
+                  data-index={this.state.program.id}
+                  data-name={this.state.program.name}
+                  onClick={this.afterClickEdit.bind(this)}></i>
+              </ProgramPolicy>
+              <ProgramPolicy permit={[
+                {action: ['ownerById'], data: {id: this.state.program.id}},
+                {action: ['destroy', 'creator'],  data: this.state.organization},
+                {action: ['destroy', 'creator'],  data: this.state.program},
+                {action: ['destroy', 'belongById'],
+                  data: {key: 'program_id', id: this.state.program.id}},
+              ]}>
+                <Destroy
+                  url={this.props.url}
+                  program={this.state.program}
+                  handleAfterDeleted={this.props.handleAfterDeleted}
+                />
+              </ProgramPolicy>
 
             </div>
-            <i className="fa fa-list list"
-              onClick={this.showListFunction.bind(this)}></i>
+              <i className="fa fa-list list"
+                onClick={this.showListFunction.bind(this)}></i>
           </div>
           <div className="clearfix"></div>
         </div>
@@ -75,7 +91,7 @@ export default class Program extends React.Component{
   showListFunction(event) {
     let target = event.target
     $(target).blur();
-    if($(target).siblings().hasClass('hidden')){
+    if($(target).siblings().hasClass('hidden')) {
       $(target).siblings().removeClass('hidden');
     }else{
       $(target).siblings().addClass('hidden');
@@ -86,7 +102,7 @@ export default class Program extends React.Component{
     let target = event.target
     $(target).blur();
     let parent = $(target).closest('span')
-    if($(parent).hasClass('collapsed')){
+    if($(parent).hasClass('collapsed')) {
       $(target).removeClass('fa-minus')
       $(target).addClass('fa-plus')
     }else{

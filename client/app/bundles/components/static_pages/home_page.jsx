@@ -416,6 +416,7 @@ export default class HomePage extends React.Component {
         errors: response.data.message
       });
       this.setLocalStorage(response.data.current_user);
+      localStorage.setItem('profile', JSON.stringify(response.data.profile));
       window.location.reload();
     })
     .catch(error => this.setState({errors: error.response.data.message}));

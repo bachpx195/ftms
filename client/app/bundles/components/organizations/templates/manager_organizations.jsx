@@ -9,12 +9,13 @@ import * as table_constants from 'constants/griddle_table_constants';
 export default class ManagerOrganizations extends React.Component {
   constructor(props) {
     super(props);
+    var organizations = this.convertDataOrganizations(props.organizations);
     this.state = {
       parent: null,
-      organizations: props.organizations,
-       organization: {
-         name: ''
-       }
+      organizations: organizations,
+      organization: {
+        name: ''
+      }
 
     };
     Row.prototype.organizations = this.state.organizations;
@@ -26,8 +27,20 @@ export default class ManagerOrganizations extends React.Component {
     });
   }
 
+  convertDataOrganizations(organizations) {
+    var result = [];
+    if ($.isArray(organizations))
+      result = organizations
+    else {
+      var temp = [];
+      temp.push(organizations);
+      result = temp;
+    }
+    return result;
+  }
+
   render() {
-    Row.prototype.organizations = this.props.organizations;
+    Row.prototype.organizations = this.state.organizations;
     const NewLayout = ({Table, Pagination, Filter}) => (
       <div className='row'>
         <div className='griddle-head clearfix'>

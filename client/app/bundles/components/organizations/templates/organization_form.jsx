@@ -19,7 +19,7 @@ export default class FormOrganization extends React.Component {
     });
   }
 
-  render(){
+  render() {
     let action = '';
     let attributes = _.omit(this.state, 'organization');
     if (this.state.organization) {

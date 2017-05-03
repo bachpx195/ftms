@@ -58,7 +58,9 @@ export default class BasePolicy extends React.Component {
     this.helperPolicy = new HelperPolicy(this.ALLOW_FUNCTIONS);
     var result = this.checkAllowFunction(this.props.permit);
     if(result.is_allow) {
-      return this.props[result.target];
+      if(!result.target) return this.props['children'];
+      else
+        return this.props[result.target];
     } else
       return null
   }
