@@ -1,11 +1,12 @@
-import React from 'react';
-import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import Modal from './templates/modal';
-import * as table_constants from 'constants/griddle_table_constants';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import Row from './griddle/row';
+import axios from 'axios';
+import css from 'react-table/react-table.css';
 import LanguagePolicy from 'policy/language_policy';
+import Modal from './templates/modal';
+import React from 'react';
+import ReactTable from 'react-table';
+import Row from './griddle/row';
 
 export default class LanguageLists extends React.Component {
   constructor(props) {
@@ -18,83 +19,77 @@ export default class LanguageLists extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
-          </div>
-          <div className='col-md-12'>
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
-
-    const ButtonEdit = ({griddleKey}) => {
-      var creator_id = this.state.languages[griddleKey].creator_id;
-        return(
-          <LanguagePolicy
-            permit={[{action: ['update', 'creator'], target: 'children', data: {creator_id: creator_id}}]}
-          >
-            <button className='btn btn-info' data-index={griddleKey}
-              onClick={this.handleEdit.bind(this)}>
-              <i className="fa fa-pencil-square-o"></i>
-              &nbsp;{I18n.t('buttons.edit')}
-            </button>
-          </LanguagePolicy>
-        );
-    };
-
-    const ButtonDelete = ({griddleKey}) => {
-      var creator_id = this.state.languages[griddleKey].creator_id;
-      return(
-        <LanguagePolicy
-          permit={[{action: ['destroy', 'creator'], target: 'children', data: {creator_id: creator_id}}]}
-        >
-          <button className='btn btn-danger' data-index={griddleKey}
-            onClick={this.handleDelete.bind(this)}>
-            <i className="fa fa-trash"></i>
-            &nbsp;{I18n.t('buttons.delete')}
-          </button>
-        </LanguagePolicy>
-      );
-    };
-
-    const Image = ({griddleKey}) => (
-      <img src={this.props.languages[griddleKey].image.url}
-        className='thumbnail-image'/>
-    );
-
     let modalEdit = (
       <Modal url={routes.language_url(this.state.language.id)}
         language={this.state.language}
         handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
     );
 
+    const columns = [
+      {
+        header: I18n.t('languages.headers.name'),
+        accessor: 'name',
+        filterMethod: (filter, row) => {
+          return row.name.toLowerCase()
+            .includes(filter.value.toLowerCase());
+        }
+      },
+      {
+        header: I18n.t('languages.headers.image'),
+        id: 'url',
+        accessor: d => d.image.url,
+        render: row => <img src={row.value} className='thumbnail-image'/>,
+        sortable: false,
+        filterRender: () => null,
+      },
+      {
+        header: I18n.t('languages.headers.description'),
+        accessor: 'description',
+        filterMethod: (filter, row) => {
+          return row.description.toLowerCase()
+            .includes(filter.value.toLowerCase());}
+      },
+      {
+        header: '',
+        accessor: 'creator_id',
+        render: row => (
+          <LanguagePolicy permit={[{action: ['update', 'creator'],
+            target: 'children', data: {creator_id: row.value}}]}>
+            <button className='btn btn-info' data-index={row.index}
+              onClick={this.handleEdit.bind(this)}>
+              <i className='fa fa-pencil-square-o'></i>
+              &nbsp;{I18n.t('buttons.edit')}
+            </button>
+          </LanguagePolicy>
+        ),
+        sortable: false,
+        filterRender: () => null,
+      },
+      {
+        header: '',
+        accessor: 'creator_id',
+        render: row => (
+          <LanguagePolicy
+            permit={[{action: ['destroy', 'creator'], target: 'children',
+              data: {creator_id: row.value}}]}>
+            <button className='btn btn-danger' data-index={row.index}
+              onClick={this.handleDelete.bind(this)}>
+              <i className='fa fa-trash'></i>
+              &nbsp;{I18n.t('buttons.delete')}
+            </button>
+          </LanguagePolicy>
+        ),
+        sortable: false,
+        filterRender: () => null,
+      }
+    ];
     return (
       <div>
-        <Griddle data={this.state.languages} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout, Row: Row}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='name'
-              title={I18n.t('languages.headers.name')} />
-            <ColumnDefinition id='image' customComponent={Image}
-              title={I18n.t('languages.headers.image')} />
-            <ColumnDefinition id='description'
-              title={I18n.t('languages.headers.description')}  />
-            <ColumnDefinition id='edit' title=' '
-              customComponent={ButtonEdit} />
-            <ColumnDefinition id='delete' title='  '
-              customComponent={ButtonDelete} />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable className='-striped -highlight' data={this.state.languages}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         {modalEdit}
       </div>
     );
@@ -104,7 +99,7 @@ export default class LanguageLists extends React.Component {
     let $target = $(event.target);
     $target.blur();
     this.setState({
-      language: this.props.languages[$target.data('index')]
+      language: this.state.languages[$target.data('index')]
     });
     $('.modal-edit').modal();
   }
