@@ -2,7 +2,7 @@ class EvaluationTemplate < ApplicationRecord
   acts_as_paranoid
 
   ATTRIBUTE_PARAMS = [:name, evaluation_standards_attributes: [:id, :name,
-    :max_point, :min_point, :average_point, :_destroy],
+    :max_point, :min_point, :_destroy],
     training_results_attributes: [:id, :name, :max_point, :min_point,
       :_destroy]]
 

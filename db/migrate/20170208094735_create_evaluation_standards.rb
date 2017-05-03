@@ -4,7 +4,6 @@ class CreateEvaluationStandards < ActiveRecord::Migration[5.0]
       t.string :name
       t.integer :max_point, default: 0
       t.integer :min_point, default: 0
-      t.integer :average_point, default: 0
       t.integer :evaluation_template_id
       t.datetime :deleted_at
       t.integer :creator_id, index: true
