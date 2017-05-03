@@ -1,6 +1,6 @@
 class Serializers::Organizations::OrganizationsSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name, :creator_id, :programs, :parent
+  attrs :id, :name, :creator_id, :user_id, :programs, :parent
   attrs :programs, if: :show_program?
   attrs :training_standards, if: :show_program?
 

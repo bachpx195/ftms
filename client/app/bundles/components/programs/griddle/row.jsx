@@ -1,5 +1,5 @@
 import React from 'react';
-import OrganizationPolicy from 'policy/organization_policy';
+import ProgramPolicy from 'policy/program_policy';
 
 export default  class Row extends React.Component {
   _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj}; }
@@ -34,20 +34,19 @@ export default  class Row extends React.Component {
         });
       })
     );
-    var record = this.organizations[this.props.griddleKey];
-    var current_user = $.parseJSON(localStorage.current_user);
-
+    var record = this.programs[this.props.griddleKey];
+    var organization = this.organization;
     return(
-      <OrganizationPolicy
+      <ProgramPolicy
         permit={[
           {action: ['index']},
           {action: ['create', 'creator'], data: record},
-          {action: ['ownerById'], data: {id: record.user_id}},
-          {action: ['show', 'creator'], data: record},
-          {action: ['show', 'belongById'], data: {key: 'organization_id', id: record.id}},
+          {action: ['ownerById'], data: {id: organization.user_id}},
+          {action: ['show', 'ownerByIds'], data: {ids: [record.creator_id, organization.creator_id]}},
+          {action: ['show', 'belongById'], data: {key: 'program_id', id: record.id}},
       ]}>
         {defaultRow}
-      </OrganizationPolicy>
+      </ProgramPolicy>
     )
   }
 }

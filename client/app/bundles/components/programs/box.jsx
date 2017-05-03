@@ -3,6 +3,7 @@ import Form from './templates/form';
 import React from 'react';
 import ProgramLists from './programs';
 import IndexBreadCrumb from './templates/bread_crumbs/index';
+import ProgramPolicy from 'policy/program_policy';
 
 import * as routes from 'config/routes';
 
@@ -67,11 +68,15 @@ export default class Box extends React.Component {
             <div className="box-body no-padding">
               <div className="row">
                 <div className="col-md-8 col-md-offset-2">
-                  <Form
-                    url={programs_url}
-                    program={this.state.program}
-                    parent_id={this.state.parent ? this.state.parent.id : ''}
-                    handleAfterCreated={this.handleAfterCreated.bind(this)} />
+                  <ProgramPolicy permit={[
+                    {action: ['create']}
+                  ]}>
+                    <Form
+                      url={programs_url}
+                      program={this.state.program}
+                      parent_id={this.state.parent ? this.state.parent.id : ''}
+                      handleAfterCreated={this.handleAfterCreated.bind(this)} />
+                  </ProgramPolicy>
                 </div>
               </div>
             </div>
