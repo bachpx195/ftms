@@ -2,13 +2,14 @@ import axios from 'axios';
 import FormProgram from './templates/program_form';
 import Program from './templates/program';
 import React from 'react';
+import ProgramPolicy from 'policy/program_policy';
 
 import * as routes from 'config/routes';
 
 require('../../assets/sass/list_programs.scss');
 
 export default class Programs extends React.Component {
-   constructor(props){
+   constructor(props) {
     super(props)
     this.state = {
       organization: props.organization,
@@ -29,10 +30,14 @@ export default class Programs extends React.Component {
     return (
       <div className="box-programs">
         <div className="form-create">
-          <FormProgram
-            url={routes.organization_programs_url(this.state.organization.id)}
-            organization={this.state.organization}
-          />
+          <ProgramPolicy permit={[
+            {action: ['create']}
+          ]}>
+            <FormProgram
+              url={routes.organization_programs_url(this.state.organization.id)}
+              organization={this.state.organization}
+            />
+          </ProgramPolicy>
         </div>
         <div id="list-programs">
           <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -44,7 +49,7 @@ export default class Programs extends React.Component {
     )
   }
 
-  renderModal(program, edit_url){
+  renderModal(program, edit_url) {
     return(
       <div className='modal fade in modalEdit' role='dialog'>
         <div className='modal-dialog'>
@@ -82,14 +87,14 @@ export default class Programs extends React.Component {
     });
   }
 
-  afterClickEdit(program){
+  afterClickEdit(program) {
     this.setState({
       program: program
     })
     $('.modalEdit').modal();
   }
 
-  handleAfterDeleted(response){
+  handleAfterDeleted(response) {
     let program = response.data.program;
     let index = this.state.programs.findIndex(item => item.id == program.id);
     this.state.programs.splice(index, 1);
@@ -98,7 +103,7 @@ export default class Programs extends React.Component {
     })
   }
 
-  handleAfterUpdated(response){
+  handleAfterUpdated(response) {
     let program = response.data.program;
     let index = this.state.programs.findIndex(item => item.id == program.id);
     this.state.programs[index].name = program.name;

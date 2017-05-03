@@ -208,7 +208,7 @@ export default class OrganizationShow extends React.Component {
     });
   }
 
-  checkImage(event){
+  checkImage(event) {
     let target = event.target;
     $(target).attr('src', '/assets/image_found.png')
   }

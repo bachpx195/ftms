@@ -4,9 +4,22 @@ import React from 'react';
 export default class OrganizationPanelInfo extends React.Component {
   constructor(props) {
     super(props);
+    var organizations = this.convertDataOrganizations(props.organizations);
     this.state = {
-      organizations: props.organizations
+      organizations: organizations
     };
+  }
+
+  convertDataOrganizations(organizations) {
+    var result = [];
+    if ($.isArray(organizations))
+      result = organizations
+    else {
+      var temp = [];
+      temp.push(organizations);
+      result = temp;
+    }
+    return result;
   }
 
   render() {
@@ -14,18 +27,17 @@ export default class OrganizationPanelInfo extends React.Component {
     let count_programs = 0;
     let list_training_standards = [];
     let count_courses = 0;
-
     for(let organization of this.state.organizations) {
       if (organization.programs) {
         count_programs += organization.programs.length;
-        for(let program of organization.programs){
-          if(program.courses){
+        for(let program of organization.programs) {
+          if(program.courses) {
             count_courses += program.courses.length;
           }
         }
       }
       if (organization.training_standards) {
-        for(let training_standards of organization.training_standards){
+        for(let training_standards of organization.training_standards) {
           list_training_standards.push(training_standards.id)
         }
       }

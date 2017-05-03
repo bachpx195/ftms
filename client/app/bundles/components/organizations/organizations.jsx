@@ -7,7 +7,7 @@ import React from 'react';
 import * as routes from 'config/routes';
 
 export default class Organizations extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       status: false,
@@ -15,7 +15,7 @@ export default class Organizations extends React.Component{
     }
   }
 
-  render(){
+  render() {
     let formList = <ManagerOrganizations
       organizations={this.state.organizations}/>
 
@@ -61,8 +61,7 @@ export default class Organizations extends React.Component{
             <div className='col-md-10 col-md-offset-1'>
               <OrganizationPolicy
                 permit={[
-                  {action: ['create'], target: 'children'},
-                  {action: ['index'], target: 'children'},
+                  {action: ['create']}
               ]}>
                 {this.state.status ?
                   <FormOrganization

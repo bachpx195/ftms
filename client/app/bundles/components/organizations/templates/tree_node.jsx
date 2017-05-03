@@ -4,7 +4,7 @@ import React from 'react';
 import * as routes from 'config/routes';
 
 export default class TreeNode extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       organization: this.props.organization,
@@ -32,7 +32,7 @@ export default class TreeNode extends React.Component{
     let parent = this.props.parent ? 'parent list-group-item': 'parent list-group-item info'
     let number_sub;
     let suborganization_number;
-    if(this.state.organization.sub_organizations != null){
+    if(this.state.organization.sub_organizations != null) {
       sub_organization = this.state.organization.sub_organizations.map((organization) => {
         let child = organization.sub_organizations.length > 0 ? 'parent-children':'children';
         number_sub = this.state.organization.sub_organizations.length;
@@ -49,7 +49,7 @@ export default class TreeNode extends React.Component{
     }else{
       show = "fa fa-minus";
     }
-    if(number_sub > 0){
+    if(number_sub > 0) {
       suborganization_number = (
         <div className="number-suborganization">
           <small>{number_sub} {I18n.t('organizations.sub_organization')}</small>
@@ -104,39 +104,39 @@ export default class TreeNode extends React.Component{
     )
   }
 
-  afterClickEditChildren(index, name){
+  afterClickEditChildren(index, name) {
     this.props.handleafterClickEdit(index, name)
   }
 
-  afterClickCreateChildren(index){
+  afterClickCreateChildren(index) {
     this.props.handleafterClickCreate(index)
   }
 
-  slideListFunction(event){
+  slideListFunction(event) {
     let target = event.target;
     $(target).blur();
     let listchildren = $(target).parent().siblings('.list-function');
 
-    if(listchildren.hasClass('hidden')){
+    if(listchildren.hasClass('hidden')) {
       listchildren.removeClass('hidden');
     }else{
       listchildren.addClass('hidden');
     }
   }
 
-  slideToggle(event){
+  slideToggle(event) {
     let target = event.target;
     $(target).blur();
 
     let childPanel = $(target).closest('.parent').siblings();
-    if($(childPanel).hasClass('hidden')){
+    if($(childPanel).hasClass('hidden')) {
       $(childPanel).removeClass('hidden');
     }else{
       $(childPanel).addClass('hidden');
     }
 
     let number_sub = $(target).parent().siblings('.number-suborganization');
-    if(number_sub.hasClass('hidden')){
+    if(number_sub.hasClass('hidden')) {
       $(number_sub).removeClass('hidden');
     }else{
       $(number_sub).addClass('hidden');
@@ -144,7 +144,7 @@ export default class TreeNode extends React.Component{
     this.toggle();
   }
 
-  handleEdit(event){
+  handleEdit(event) {
     let target = event.target;
     $(target).blur();
     let index = $(target).data('index');
@@ -152,7 +152,7 @@ export default class TreeNode extends React.Component{
     this.props.handleafterClickEdit(index, name);
   }
 
-  handleCreate(event){
+  handleCreate(event) {
     let target = event.target;
     $(target).blur();
     let index = $(target).data('index');

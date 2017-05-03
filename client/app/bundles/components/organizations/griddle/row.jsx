@@ -40,16 +40,17 @@ export default  class Row extends React.Component {
     );
     var record = this.organizations[this.props.griddleKey];
     var current_user = $.parseJSON(localStorage.current_user);
-    var owner = record.creator_id == current_user.id;
+
     return(
       <OrganizationPolicy
         permit={[
-          {action: ['index'], target: 'allChild'},
-          {action: ['!index'], target: 'children'},
-        ]}
-        allChild={defaultRow}
-      >
-        {owner ? defaultRow : null}
+          {action: ['index']},
+          {action: ['create']},
+          {action: ['ownerById'], data: {id: record.id}},
+          {action: ['show', 'creator'], data: record},
+          {action: ['show', 'belongById'], data: {key: 'organization_id', id: record.id}},
+      ]}>
+        {defaultRow}
       </OrganizationPolicy>
     )
   }

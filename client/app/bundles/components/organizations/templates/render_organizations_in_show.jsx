@@ -6,7 +6,7 @@ import React from 'react';
 import * as routes from 'config/routes';
 
 export default class OrganizationLists extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       organization: props.organization,
@@ -24,7 +24,7 @@ export default class OrganizationLists extends React.Component{
     });
   }
 
-  render(){
+  render() {
     return(
       <div>
         <ListPrograms

@@ -2,11 +2,12 @@ import axios from 'axios';
 import FormOrganization from './organization_form';
 import React from 'react';
 import * as routes from 'config/routes';
+import OrganizationPolicy from 'policy/organization_policy';
 
 require('../assets/organization.scss');
 
 export default class TitleOrganization extends React.Component{
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       organization: this.props.organization
@@ -19,15 +20,23 @@ export default class TitleOrganization extends React.Component{
     });
   }
 
-  render(){
+  render() {
     return(
       <div className="organization">
         <div className="name-organization">
           <p>{this.state.organization.name}</p>
         </div>
         <div className="function">
-          <i className="fa fa-pencil"
-            onClick={this.handleClickEdit.bind(this)}/>
+          <OrganizationPolicy
+            permit={[
+              {action: ['ownerById'], data: {id: this.state.organization.id}},
+              {action: ['update', 'creator'], data: this.state.organization},
+              {action: ['update', 'belongById'],
+                data: {key: 'organization_id', id: this.state.organization.id}},
+          ]}>
+            <i className="fa fa-pencil"
+              onClick={this.handleClickEdit.bind(this)}/>
+          </OrganizationPolicy>
         </div>
         <div className='box-tools pull-right'>
           <button type='button' className='btn btn-box-tool'
@@ -44,7 +53,7 @@ export default class TitleOrganization extends React.Component{
     )
   }
 
-  renderModalEditOrganization(organization){
+  renderModalEditOrganization(organization) {
     return(
       <div id='modal' className='modalEditOrganization modal fade in' 
         role='dialog'>
@@ -71,11 +80,11 @@ export default class TitleOrganization extends React.Component{
     )
   }
 
-  handleClickEdit(){
+  handleClickEdit() {
     $('.modalEditOrganization').modal();
   }
 
-  afterSave(organization){
+  afterSave(organization) {
     this.setState({
       organization: organization
     })

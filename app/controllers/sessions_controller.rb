@@ -9,8 +9,7 @@ class SessionsController < Devise::SessionsController
     yield resource if block_given?
     message = t "devise.sessions.signed_in"
     cookies["current_user_id"] = current_user.id
-
-    render json: {message: message, current_user: current_user}
+    render json: {message: message, current_user: current_user, profile: current_user.profile}
   end
 
   def failure

@@ -3,6 +3,7 @@ import axios from 'axios';
 import go from 'gojs';
 import RoleDetail from './role_detail';
 import * as app_constants from 'constants/app_constants';
+import * as routes from 'config/routes';
 
 const goObj = go.GraphObject.make;
 

@@ -15,6 +15,10 @@ class Supports::StaticPage
     @user ||= @current_user
   end
 
+  def profile
+    @profile ||= @current_user.profile
+  end
+
   def user_serializer
     @users_serializer = Serializers::Users::UsersSerializer
       .new(object: user).serializer
