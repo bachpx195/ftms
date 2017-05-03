@@ -1,6 +1,6 @@
-/* eslint comma-dangle: ["error",
-  {"functions": "never", "arrays": "only-multiline", "objects":
-"only-multiline"} ] */
+/* eslint comma-dangle: ['error',
+  {'functions': 'never', 'arrays': 'only-multiline', 'objects':
+'only-multiline'} ] */
 
 const webpack = require('webpack');
 const path = require('path');
@@ -56,8 +56,10 @@ const config = {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass']
       },
-      { test: /\.css$/, loader: "style!css" },
-      { test: /\.css$/, loaders: ["style", "css"] },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css']
+      },
     ],
   },
 };
