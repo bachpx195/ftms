@@ -1,15 +1,15 @@
-import React from 'react';
+import * as routes from 'config/routes';
+import * as react_table_ultis from 'shared/react-table/ultis';
+import * as table_constants from 'constants/griddle_table_constants';
 import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import {NewLayout} from '../shareds/griddles/new_layout';
-import Row from './griddle/row';
+import css from 'react-table/react-table.css';
 import Destroy from "./actions/destroy";
+import ModalEdit from './templates/modal';
+import React from 'react';
+import Row from './griddle/row';
+import ReactTable from 'react-table';
 import Update from "./actions/update";
 import UniversityPolicy from 'policy/university_policy';
-import ModalEdit from './templates/modal';
-
-import * as table_constants from 'constants/griddle_table_constants';
-import * as routes from 'config/routes';
 
 export default class Universities extends React.Component {
   constructor(props) {
@@ -29,28 +29,44 @@ export default class Universities extends React.Component {
   }
 
   render() {
-    const ButtonEdit = ({griddleKey}) => {
-      let university = this.state.universities[griddleKey];
-      return (
-        <UniversityPolicy
-          permit={[
-            {action: ['update', 'creator'], target: 'children',
-            data: {creator_id: university.creator_id}}]}>
-          <button className='btn btn-info' data-index={griddleKey}
-            onClick={this.handleEdit.bind(this)}>
-            <i className="fa fa-pencil-square-o"></i>
-            &nbsp;{I18n.t('buttons.edit')}
-          </button>
-        </UniversityPolicy>
-      );
-    };
-
-    const ButtonDelete = ({griddleKey}) => {
-      return (
-        <Destroy university={this.state.universities[griddleKey]}
-          handleAfterDeleted={this.props.handleAfterDeleted} />
-      );
-    };
+    const columns = [
+      {
+        header: I18n.t("universities.name"),
+        accessor: 'name',
+        filterMethod: (filter, row) => {
+          return row.name.toLowerCase()
+            .includes(filter.value.toLowerCase());
+        }
+      },
+      {
+        header: '',
+        id: 'edit',
+        accessor: 'creator_id',
+        render: row => (
+          <UniversityPolicy
+            permit={[{action: ['update', 'creator'],
+              target: 'children', data: {creator_id: row.value}}]}>
+            <button className='btn btn-info' data-index={row.index}
+              onClick={this.handleEdit.bind(this)}>
+              <i className="fa fa-pencil-square-o"></i>
+              &nbsp;{I18n.t('buttons.edit')}
+            </button>
+          </UniversityPolicy>
+        ),
+        sortable: false,
+        filterRender: () => null,
+      },
+      {
+        header: '',
+        id: 'delete',
+        accessor: d => {
+          return <Destroy university={d}
+            handleAfterDeleted={this.props.handleAfterDeleted} />
+        },
+        sortable: false,
+        filterRender: () => null,
+      }
+    ]
 
     let modalEdit = null;
     if(this.state.university.id){
@@ -64,17 +80,12 @@ export default class Universities extends React.Component {
 
     return (
       <div>
-        <Griddle data={this.state.universities} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout, Row: Row}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("universities.name")} />
-            <ColumnDefinition id="edit" customComponent={ButtonEdit}
-              title=" "/>
-            <ColumnDefinition id="delete" customComponent={ButtonDelete}
-              title="  " />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable
+          className='-striped -highlight' data={this.state.universities}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         {modalEdit}
       </div>
     );
