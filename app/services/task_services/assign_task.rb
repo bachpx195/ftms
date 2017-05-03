@@ -11,7 +11,7 @@ class TaskServices::AssignTask
 
     @params[:task][:targetable_ids].each do |targetable_id|
       task = @ownerable
-        .send(@params[:task][:user_id].present? ? "dynamic_tasks" : "static_tasks")
+        .send(@params[:task][:objectable_id].present? ? "dynamic_tasks" : "static_tasks")
         .new @task_params
       task.targetable_id = targetable_id
       if task.class == DynamicTask && task.targetable.targetable

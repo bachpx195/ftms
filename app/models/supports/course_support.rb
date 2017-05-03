@@ -76,6 +76,10 @@ class Supports::CourseSupport
     @user.courses.where.not id: @course.id
   end
 
+  def meta_types
+    @course.program.organization.meta_types
+  end
+
   private
   def subjects
     @subjects ||= @course.subjects
