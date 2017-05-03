@@ -1,72 +1,75 @@
-import React from 'react';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from
-  'griddle-react';
-import {NewLayout} from '../shareds/griddles/new_layout';
-import * as table_constants from 'constants/griddle_table_constants';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import ExamPolicy from 'policy/exam_policy';
+import css from 'react-table/react-table.css';
+import React from 'react';
+import ReactTable from 'react-table';
 import Show from './actions/show';
 
 export default class Exams extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      exams: props.exams
-    };
-  }
-
   render() {
-    const UserLink = ({griddleKey}) => {
-      let user = this.state.exams[griddleKey].user;
-      let user_url = routes.user_url(user.id);
-      return <a href={user_url}>{user.name}</a>;
-    };
-
-    const SubjectLink = ({griddleKey}) => {
-      return <span>{this.state.exams[griddleKey].subject.name}</span>;
-    };
-
-    const CourseLink = ({griddleKey}) => {
-      let course = this.state.exams[griddleKey].course;
-      let course_url = routes.course_url(course.id);
-      return <a href={course_url}>{course.name}</a>;
-    };
-
-    const CreatedDate = ({value}) => {
-      return <span>{I18n.l('date.formats.default', value)}</span>;
-    };
-
-    const ButtonView = ({griddleKey}) => {
-      let exam = this.state.exams[griddleKey];
-      return <Show exam={exam} organization={this.props.organization} />;
-    };
+    const columns = [
+      {
+        header: I18n.t('exams.headers.user'),
+        id: 'user',
+        accessor: d => d.user,
+        render: ({row}) => {
+          let user_url = routes.user_url(row.user.id);
+          return <a href={user_url}>{row.user.name}</a>
+        },
+        filterMethod: (filter, row) => {
+          return row.user.name.toLowerCase()
+            .includes(filter.value.toLowerCase());
+        }
+      },
+      {
+        header: I18n.t('exams.headers.subject'),
+        id: 'subject_name',
+        accessor: d => d.subject.name
+      },
+      {
+        header: I18n.t('exams.headers.course'),
+        id: 'course',
+        accessor: d => d.course,
+        render: ({row}) => {
+          let course_url = routes.course_url(row.course.id);
+          return <a href={course_url}>{row.course.name}</a>;
+        },
+        filterMethod: (filter, row) => {
+          return row.course.name.toLowerCase()
+            .includes(filter.value.toLowerCase());
+        }
+      },
+      {
+        header: I18n.t('exams.headers.created_at'),
+        id: 'created_at',
+        accessor: d => I18n.l('date.formats.default', d.created_at)
+      },
+      {
+        header: I18n.t('exams.headers.spent_time'),
+        accessor: 'spent_time'
+      },
+      {
+        header: I18n.t('exams.headers.score'),
+        accessor: 'score'
+      },
+      {
+        header: '',
+        id: 'view_button',
+        accessor: d => {
+          return <Show exam={d} organization={this.props.organization} />;
+        },
+        filterRender: () => null,
+        sortable: false
+      }
+    ];
 
     return (
-      <div>
-        <Griddle data={this.state.exams} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='user'
-              title={I18n.t('exams.headers.user')}
-              customComponent={UserLink} />
-            <ColumnDefinition id='subject'
-              title={I18n.t('exams.headers.subject')}
-              customComponent={SubjectLink} />
-            <ColumnDefinition id='course'
-              title={I18n.t('exams.headers.course')}
-              customComponent={CourseLink} />
-            <ColumnDefinition id='created_at'
-              title={I18n.t('exams.headers.created_at')}
-              customComponent={CreatedDate} />
-            <ColumnDefinition id='spent_time'
-              title={I18n.t('exams.headers.spent_time')} />
-            <ColumnDefinition id='score'
-              title={I18n.t('exams.headers.score')} />
-            <ColumnDefinition id='view' title=' '
-              customComponent={ButtonView} />
-          </RowDefinition>
-        </Griddle>
+      <div className='exams-table'>
+        <ReactTable className='-striped -highlight' data={this.props.exams}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
       </div>
     );
   }
