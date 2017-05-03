@@ -25,7 +25,7 @@ class UserSubject < ApplicationRecord
   %w(assignments projects surveys test_rules).each do |task|
     define_method task do
       tasks = DynamicTask.where ownerable: course_subject,
-        user_id: self.user_id,
+        objectable_id: self.user_id,
         targetable: StaticTask.where(targetable_type: task.classify)
       tasks.map{|task| task.targetable.targetable}
     end

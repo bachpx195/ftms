@@ -85,7 +85,7 @@ class Serializers::Subjects::SubjectDetailsSerializer <
 
   def statistics
     if current_user && course_subjects
-      user_subjects = course_subjects.dynamic_tasks.where user_id: current_user
+      user_subjects = course_subjects.dynamic_tasks.where objectable: current_user
       Serializers::Subjects::StatisticTaskSerializer
         .new(object: object, scope: {user_subjects: user_subjects}).serializer
     end

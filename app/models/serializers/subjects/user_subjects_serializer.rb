@@ -15,7 +15,7 @@ class Serializers::Subjects::UserSubjectsSerializer <
   def user_course_task
     Serializers::Subjects::UserCourseTasksSerializer.new(object: object,
       scope: {course_subject: course_subject,
-        user_id: object.user.id}).serializer
+        objectable: object.user}).serializer
   end
 
   private

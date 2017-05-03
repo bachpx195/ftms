@@ -21,8 +21,10 @@ class CoursesController < ApplicationController
       end
     @course = @program.courses.build course_params
       .merge creator_id: current_user.id, subject_ids: subject_ids
+
     respond_to do |format|
       if @course.save
+        static_task = TaskServices::AutoCreateTask.new(course: @course).perform
         format.html{redirect_to :back}
         format.json do
           @course[:image] = {url: @course.image.url}
