@@ -486,11 +486,11 @@ namespace :db do
     course_subject = CourseSubject.first
     course_subject.static_tasks.each do |static_tasks|
       DynamicTask.create targetable: static_tasks, ownerable: course_subject,
-        user_id: 11, status: "init"
+        objectable_type: "User", objectable_id: 11, status: "init"
       DynamicTask.create targetable: static_tasks, ownerable: course_subject,
-          user_id: 12, status: "init"
+        objectable_type: "User", objectable_id: 12, status: "init"
       DynamicTask.create targetable: static_tasks, ownerable: course_subject,
-        user_id: 13, status: "init"
+        objectable_type: "User", objectable_id: 13, status: "init"
     end
 
     puts "29. Create Team"

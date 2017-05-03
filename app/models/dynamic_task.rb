@@ -1,13 +1,13 @@
 class DynamicTask < Task
   include StiRouting
 
-  belongs_to :user
-  has_many :meta_tasks, dependent: :destroy
-
+  belongs_to :objectable, polymorphic: true
   belongs_to :static_task, foreign_key: :targetable_id,
     class_name: StaticTask.name
 
-  validates :user, presence: true
+  has_many :meta_tasks, dependent: :destroy
+
+  validates :objectable, presence: true
 
   scope :owner_tasks, ->owner{where targetable_type: Task.name, ownerable: owner}
   scope :target_tasks, ->targetable{where targetable: targetable}
