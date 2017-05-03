@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import axios from 'axios';
 
 export default class SubjectItem extends React.Component {
   constructor(props) {

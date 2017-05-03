@@ -1,7 +1,6 @@
-import React from 'react';
-import Form from './form';
 import axios from 'axios';
-import SubjectLists from './subject_lists';
+import React from 'react';
+import SubjectLists from './multi_step_form_partials/subject_lists';
 
 export default class ModalAssign extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ export default class ModalAssign extends React.Component {
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
-              <button type='button' className='close' 
+              <button type='button' className='close'
                 data-dismiss='modal'>&times;</button>
               <h4 className='modal-title' title={this.state.training_standard.name || ''}>
                 {this.state.training_standard.name || ''}

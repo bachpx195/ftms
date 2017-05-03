@@ -18,7 +18,7 @@ export default class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <div className='form-group row'>
-          <lable className='col-md-2'>{I18n.t('training_standards.headers.name')}</lable>
+          <label className='col-md-2'>{I18n.t('training_standards.headers.name')}</label>
           <div className='col-md-10'>
             <input type='text'
               value={this.state.name} ref='nameField'
@@ -28,7 +28,7 @@ export default class Form extends React.Component {
         </div>
 
         <div className='form-group row'>
-          <lable className='col-md-2'>{I18n.t('training_standards.headers.description')}</lable>
+          <label className='col-md-2'>{I18n.t('training_standards.headers.description')}</label>
           <div className='col-md-10'>
             <input type='text'
               value={this.state.description} ref='nameField'

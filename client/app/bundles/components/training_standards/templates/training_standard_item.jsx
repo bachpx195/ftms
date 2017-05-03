@@ -6,10 +6,12 @@ export default class TrainingStandardItem extends React.Component {
     super(props);
     selected_subjects: []
   }
+
   render() {
     let {name} = this.props.training_standard
-    return(
-      <li className={`list-group-item ${this.props.select}`} onClick={this.onClickStandardItem.bind(this)}>
+    return (
+      <li className={`list-group-item ${this.props.select}`}
+        onClick={this.onClickStandardItem.bind(this)}>
         {name}
       </li>
     );

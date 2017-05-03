@@ -1,7 +1,8 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
 import SubjectItem from './subject_item';
-import css from '../assets/training_standard.scss';
+
+require ('../../assets/training_standard.scss');
 
 export default class SubjectLists extends React.Component {
   constructor(props) {
@@ -14,25 +15,29 @@ export default class SubjectLists extends React.Component {
   }
 
   render() {
-    return(
-      <div className='panel-group'>
-        <div className='panel panel-primary'>
-          <div className='panel-body'>
-            <ul className='list-group custom-subject-list'>
-              {this.renderItem()}
-            </ul>
-          </div>
-        </div>
+    return (
+      <div className='subject-container'>
+          <ul className='list-group custom-subject-list'>
+            {this.renderItem()}
+          </ul>
       </div>
     );
   }
 
   renderItem() {
-    return this.state.remain_subjects.map((subject) => {
+    let list_subject = '';
+
+    if (this.state.remain_subjects) {
+      list_subject = this.state.remain_subjects;
+    } else {
+      list_subject = this.state.subjects;
+    }
+    
+    return list_subject.map(subject => {
       let index = this.state.select_subjects.findIndex(
         select_subject => select_subject.id == subject.id);
       let checked = (index > -1) ? true : false;
-      return(
+      return (
         <SubjectItem
           key={subject.id}
           subject={subject}

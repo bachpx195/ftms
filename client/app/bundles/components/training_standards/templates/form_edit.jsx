@@ -7,7 +7,7 @@ import * as app_constants from 'constants/app_constants';
 
 const POLICIES = app_constants.POLICIES;
 
-export default class Form extends React.Component {
+export default class FormEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

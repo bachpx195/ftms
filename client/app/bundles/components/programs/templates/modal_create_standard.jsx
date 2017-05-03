@@ -28,9 +28,9 @@ export default class ModalCreateStandard extends React.Component {
             <div className='modal-body'>
               <form onSubmit={this.handleSubmitCreateStandard.bind(this)}>
                 <div className='form-group row'>
-                  <lable className='col-md-2'>
+                  <label className='col-md-2'>
                     {I18n.t('training_standards.headers.name')}
-                  </lable>
+                  </label>
                   <div className='col-md-10'>
                     <input type='text' placeholder={I18n.t('training_standards.headers.name')}
                       className='form-control' name='name' ref='nameField' />
@@ -38,9 +38,9 @@ export default class ModalCreateStandard extends React.Component {
                 </div>
 
                 <div className='form-group row'>
-                  <lable className='col-md-2'>
+                  <label className='col-md-2'>
                     {I18n.t('training_standards.headers.policy')}
-                  </lable>
+                  </label>
                   <div className='col-md-10'>
                     <select className='form-control' ref='policyField'
                       value={this.state.policy} name='policy'
