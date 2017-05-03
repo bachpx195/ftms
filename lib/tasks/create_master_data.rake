@@ -426,10 +426,10 @@ namespace :db do
 
     puts "20. Create Evaluation Standard"
     EvaluationStandard.create!([
-      {name: "Standard 1", min_point: 0, max_point: 10, average_point: 4, evaluation_template_id: 1, creator_id: 1},
-      {name: "Standard 2", min_point: 1, max_point: 9, average_point: 4, evaluation_template_id: 1, creator_id: 1},
-      {name: "Standard 3", min_point: 4, max_point: 10, average_point: 5, evaluation_template_id: 1, creator_id: 1},
-      {name: "Standard 4", min_point: 3, max_point: 10, average_point: 4, evaluation_template_id: 1, creator_id: 1},
+      {name: "Standard 1", min_point: 0, max_point: 10, evaluation_template_id: 1, creator_id: 1},
+      {name: "Standard 2", min_point: 1, max_point: 9, evaluation_template_id: 1, creator_id: 1},
+      {name: "Standard 3", min_point: 4, max_point: 10, evaluation_template_id: 1, creator_id: 1},
+      {name: "Standard 4", min_point: 3, max_point: 10, evaluation_template_id: 1, creator_id: 1},
     ])
 
     puts "21. Create RoleFunction"

@@ -73,12 +73,6 @@ export default class ModalEvaluateMember extends React.Component {
               </label>
             </div>
             <div className='col-md-2'>
-              <label className='average-point'
-                data-point={evaluation_standard.average_point}>
-                {evaluation_standard.average_point}
-              </label>
-            </div>
-            <div className='col-md-2'>
               <label className='max-point'
                 data-point={evaluation_standard.max_point}>
                 {evaluation_standard.max_point}

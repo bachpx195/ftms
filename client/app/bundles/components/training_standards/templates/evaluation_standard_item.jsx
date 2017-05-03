@@ -9,7 +9,6 @@ export default class EvaluationStandardItem extends React.Component {
       name: props.evaluation_standard.name || '',
       min_point: props.evaluation_standard.min_point || 0,
       max_point: props.evaluation_standard.max_point || 0,
-      average_point: props.evaluation_standard.average_point || 0,
     };
   }
 
@@ -19,7 +18,6 @@ export default class EvaluationStandardItem extends React.Component {
       name: nextProps.evaluation_standard.name || '',
       min_point: nextProps.evaluation_standard.min_point || 0,
       max_point: nextProps.evaluation_standard.max_point || 0,
-      average_point: nextProps.evaluation_standard.average_point || 0,
     });
   }
 
@@ -36,11 +34,6 @@ export default class EvaluationStandardItem extends React.Component {
           <input type='number' value={this.state.min_point}
             onChange={this.handleChange.bind(this)}
             className='form-control' name='min_point' min='0'/>
-        </td>
-        <td>
-          <input type='number' value={this.state.average_point}
-            onChange={this.handleChange.bind(this)}
-            className='form-control' name='average_point' min='0' />
         </td>
         <td>
           <input type='number' value={this.state.max_point}

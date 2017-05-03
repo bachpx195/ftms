@@ -34,11 +34,6 @@ export default class ResultBox extends React.Component {
             </label>
           </div>
           <div className='col-md-2'>
-            <label className='total-average-point text-warning'>
-              <strong>{this.totalAveragePoint()}</strong>
-            </label>
-          </div>
-          <div className='col-md-2'>
             <label className='total-max-point text-warning'>
               <strong>{this.totalMaxPoint()}</strong>
             </label>

@@ -17,11 +17,6 @@ export default class Header extends React.Component {
           </div>
           <div className="col-md-2">
             <label>
-              {I18n.t('evaluation_standards.headers.average_point')}
-            </label>
-          </div>
-          <div className="col-md-2">
-            <label>
               {I18n.t('evaluation_standards.headers.max_point')}
             </label>
           </div>
