@@ -13,7 +13,7 @@ export default class PanelEvaluationStandards extends React.Component {
                 <th>{I18n.t('evaluation_standards.headers.name')}</th>
                 <th>{I18n.t('evaluation_standards.headers.min_point')}</th>
                 <th>{I18n.t('evaluation_standards.headers.max_point')}</th>
-                <th></th>
+                <th>{I18n.t('evaluation_standards.headers.obligatory')}</th>
               </tr>
             </thead>
             <tbody className='body-evaluation-standards'>

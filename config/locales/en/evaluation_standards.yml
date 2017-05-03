@@ -2,6 +2,9 @@ en:
   evaluation_standards:
     headers:
       name: "Name"
-      min_point: "Min point"
+      min_point: "Min point to pass"
       max_point: "Max point"
       average_point: "Average point"
+      obligatory: "Obligatory"
+    errors:
+      check_min_point: "min point to pass must less than max point"

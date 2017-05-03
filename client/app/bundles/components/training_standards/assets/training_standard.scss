@@ -98,3 +98,12 @@ $c-white: #FFF;
   vertical-align: middle;
   font-size: 14px;
 }
+
+.require {
+  text-align: center;
+  margin-top: 5px;
+  input {
+    height: 15px;
+    width: 15px;
+  }
+}

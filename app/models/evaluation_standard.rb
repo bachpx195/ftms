@@ -11,4 +11,13 @@ class EvaluationStandard < ApplicationRecord
   validates :name, presence: true
   validates :min_point, numericality: true
   validates :max_point, numericality: true
+  validate :check_min_point
+
+  private
+  def check_min_point
+    if min_point > max_point
+      self.errors
+        .add :min_point, I18n.t("evaluation_standards.errors.check_min_point")
+    end
+  end
 end
