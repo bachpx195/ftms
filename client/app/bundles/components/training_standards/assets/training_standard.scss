@@ -209,3 +209,12 @@ $dark-brown: #333;
   overflow-y: auto;
   width: 100%;
 }
+
+.require {
+  text-align: center;
+  margin-top: 5px;
+  input {
+    height: 15px;
+    width: 15px;
+  }
+}

@@ -9,6 +9,7 @@ export default class EvaluationStandardItem extends React.Component {
       name: props.evaluation_standard.name || '',
       min_point: props.evaluation_standard.min_point || 0,
       max_point: props.evaluation_standard.max_point || 0,
+      obligatory: props.evaluation_standard.obligatory || false,
     };
   }
 
@@ -18,6 +19,7 @@ export default class EvaluationStandardItem extends React.Component {
       name: nextProps.evaluation_standard.name || '',
       min_point: nextProps.evaluation_standard.min_point || 0,
       max_point: nextProps.evaluation_standard.max_point || 0,
+      obligatory: nextProps.evaluation_standard.obligatory || false,
     });
   }
 
@@ -41,6 +43,13 @@ export default class EvaluationStandardItem extends React.Component {
             className='form-control' name='max_point' min='0' />
         </td>
         <td>
+          <div className='checkbox require'>
+            <input type='checkbox' name='obligatory' value={!this.state.obligatory}
+              checked={this.state.obligatory}
+              onChange={this.handleChangeObligatory.bind(this)}/>
+          </div>
+        </td>
+        <td>
           <button type='button' className='btn btn-danger'
             onClick={this.removeEvaluationStandard.bind(this)}>
             <i className='fa fa-remove'></i>
@@ -53,6 +62,15 @@ export default class EvaluationStandardItem extends React.Component {
   handleChange(event) {
     let attribute = event.target.name;
     Object.assign(this.state, {[attribute]: event.target.value});
+    this.setState({...this.state});
+    this.props.changeEvaluationStandard(this.props.index, this.state);
+  }
+
+  handleChangeObligatory(event) {
+    let obligatory = event.target.name;
+    let is_obligatory = event.target.value == 'true'
+    Object.assign(this.state, {obligatory: is_obligatory});
+    this.setState({...this.state});
     this.props.changeEvaluationStandard(this.props.index, this.state);
   }
 
