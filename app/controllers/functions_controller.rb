@@ -3,17 +3,10 @@ class FunctionsController < ApplicationController
   before_action :authorize_class, only: [:index, :new, :create]
 
   def index
-    @functions = Function.select :id, :controller_name, :action, :parent_id,
+    @function_all = Function.select :id, :controller_name, :action, :parent_id,
       :humanize_name
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          functions: Serializers::Roles::FunctionsSerializer
-            .new(object: @functions).serializer
-        }
-      end
-    end
+    @functions = Serializers::Roles::FunctionsSerializer
+      .new(object: @function_all).serializer
   end
 
   def create

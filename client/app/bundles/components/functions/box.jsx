@@ -1,31 +1,14 @@
-import React from 'react';
-import axios from 'axios'
-
-import FunctionLists from './function_lists';
-
 import * as routes from 'config/routes';
+import React from 'react';
+import Functions from './functions';
 
 export default class FunctionsBox extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      functions: []
+      functions: props.functions
     };
-  }
-
-  componentDidMount() {
-    this.fetchFunctions();
-  }
-
-  fetchFunctions() {
-    axios.get(routes.functions_url() + '.json')
-    .then(response =>{
-      this.setState({functions: response.data.functions});
-    })
-    .catch(error => {
-      console.log(error);
-    })
   }
 
   render() {
@@ -49,7 +32,7 @@ export default class FunctionsBox extends React.Component {
             </div>
 
             <div className='box-footer'>
-              <FunctionLists functions={this.state.functions} />
+              <Functions functions={this.state.functions} />
             </div>
 
           </div>
