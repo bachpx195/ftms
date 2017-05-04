@@ -3,7 +3,7 @@ class Subject < ApplicationRecord
   acts_as_paranoid
 
   ATTRIBUTE_PARAMS = [:name, :image, :description, :content, :during_time,
-    :training_standard_id]
+    :training_standard_id, :organization_id]
 
   mount_uploader :image, ImageUploader
 

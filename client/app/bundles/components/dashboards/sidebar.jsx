@@ -7,7 +7,6 @@ import * as routes from 'config/routes';
 const LANGUAGES_URL = routes.languages_url();
 const ORGANIZATIONS_URL = routes.organizations_url();
 const STAGES_URL = routes.stages_url();
-const SUBJECTS_URL = routes.subjects_url();
 const COURSES_URL = routes.courses_url();
 const TRAINEE_TYPES_URL = routes.trainee_types_url();
 const TRAINING_STANDARDS_URL = routes.training_standards_url();
@@ -139,16 +138,6 @@ export default class Sidebar extends React.Component {
                     </a>
                   </li>
                 </Permit>
-
-                <Permit action='subjects'>
-                  <li data-page='subjects'>
-                    <a href={SUBJECTS_URL} onClick={this.onClick.bind(this)}>
-                      <i className='fa fa-circle-o'></i>
-                      <span>{I18n.t('sidebar.subjects')}</span>
-                    </a>
-                  </li>
-                </Permit>
-
                 <Permit action='trainee_types'>
                   <li data-page='trainee_types'>
                     <a href={TRAINEE_TYPES_URL} onClick={this.onClick.bind(this)}>

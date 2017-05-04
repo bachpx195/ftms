@@ -316,6 +316,16 @@ export function organization_members_url(organization_id) {
   return organization_url(organization_id) + '/' + app_constants.USERS_PATH;
 }
 
+//organization subjects
+export function organization_subjects_url(organization_id) {
+  return organization_url(organization_id) + '/' + app_constants.SUBJECTS_PATH;
+}
+
+export function organization_subject_url(organization_id, subject_id) {
+  return organization_url(organization_id) + '/' +
+    app_constants.SUBJECTS_PATH + '/' + subject_id;
+}
+
 //ogranization training standards
 export function organization_training_standards_url(organization_id) {
   return organization_url(organization_id) + '/' +

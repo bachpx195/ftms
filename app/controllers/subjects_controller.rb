@@ -1,10 +1,12 @@
 class SubjectsController < ApplicationController
+  before_action :find_organization, except: :show
   before_action :find_subject, except: [:index, :new, :create]
   before_action :find_course_subject, only: :show
   before_action :authorize_request
 
   def index
-    @subjects = Subject.select :id, :name, :image, :description, :during_time
+    @subjects = @organization.subjects.select :id, :name, :image, :description,
+      :during_time
     @subjects.map{|subject| subject[:image] = {url: subject.image.url}}
     respond_to do |format|
       format.html
@@ -18,7 +20,8 @@ class SubjectsController < ApplicationController
   end
 
   def create
-    @subject = Subject.new subject_params
+    @subject = @organization.subjects.build subject_params.merge(creator_id:
+      current_user.id)
     if @subject.save
       @subject[:image] = {url: @subject.image.url}
       render json: {message: flash_message("created"),
@@ -61,6 +64,19 @@ class SubjectsController < ApplicationController
   private
   def subject_params
     params.require(:subject).permit Subject::ATTRIBUTE_PARAMS
+  end
+
+  def find_organization
+    @organization = Organization.find_by id: params[:organization_id]
+    unless @organization
+      respond_to do |format|
+        format.html{redirect_to organizations_path}
+        format.json do
+          render json: {message: flash_message("not_found")},
+            status: :not_found
+        end
+      end
+    end
   end
 
   def find_subject

@@ -14,7 +14,8 @@ export default class ModalCreateSubject extends React.Component {
               <h4 className='modal-title'>{I18n.t('subjects.modals.header_create')}</h4>
             </div>
             <div className='modal-body'>
-              <Form subject={this.props.subject} url={routes.subjects_url()}
+              <Form subject={this.props.subject}
+                url={routes.organization_subjects_url(this.props.organization.id)}
                 handleAfterSaved={this.handleAfterCreated.bind(this)} />
             </div>
           </div>

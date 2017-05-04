@@ -1,11 +1,11 @@
 import axios from 'axios';
-import Form from './subject_form/form';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import css from 'react-table/react-table.css';
 import Modal from './subject_form/modal';
 import React from 'react';
+import ReactTable from 'react-table';
 import SubjectPolicy from 'policy/subject_policy';
-import * as table_constants from 'constants/griddle_table_constants';
 import * as app_constants from 'constants/app_constants';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
 
 const DEFAULT_IMAGE_SUBJECT = app_constants.DEFAULT_IMAGE_SUBJECT_URL;
@@ -21,83 +21,80 @@ export default class Subjects extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
-          </div>
-          <div className='col-md-12'>
-            <Table />
-          </div>
-        </div>
-      </div>
+    let modalEdit = (
+      <Modal subject={this.state.subject}
+        url={routes.organization_subject_url(this.props.organization.id,
+          this.state.subject.id)}
+        handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
     );
 
-    const ButtonEdit = ({griddleKey}) => (
-      <button className='btn btn-info' data-index={griddleKey}
-        onClick={this.handleEdit.bind(this)}>
-        <i className='fa fa-pencil-square-o'></i>
-        &nbsp;{I18n.t('buttons.edit')}
-      </button>
-    );
-
-    const ButtonDelete = ({griddleKey}) => (
-      <button className='btn btn-danger' data-index={griddleKey}
-        onClick={this.handleDelete.bind(this)}>
-        <i className='fa fa-trash'></i>
-        &nbsp;{I18n.t('buttons.delete')}
-      </button>
-    );
-
-    const Image = ({griddleKey}) => (
-      <img src={this.props.subjects[griddleKey].image.url ?
-        this.props.subjects[griddleKey].image.url : DEFAULT_IMAGE_SUBJECT}
-        className='thumbnail-image'/>
-    );
-
-    const valueNull = ({value}) => (
-      <span></span>
-    );
-
-    const LinkShowSubject = ({value, griddleKey}) => (
-      <a href={routes.subject_url(this.props.subjects[griddleKey].id)}>{value}</a>
-    );
-
-    let modalEdit = null;
-    if(this.state.subject.id){
-      modalEdit = (
-        <Modal url={routes.subject_url(this.state.subject.id)}
-          subject={this.state.subject}
-          handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
-      );
-    }
-
+    const columns = [
+      {
+        header: I18n.t('subjects.headers.name'),
+        accessor: 'name',
+        render: row => {
+          return <a title={row.value}
+            href={routes.subject_url(row.row.id)}>{row.value}</a>
+        },
+      },
+      {
+        header: I18n.t('subjects.headers.image'),
+        id: 'url',
+        accessor: d => d.image.url,
+        render: row => <img src={row.value ? row.value : DEFAULT_IMAGE_SUBJECT}
+          className='thumbnail-image'/>,
+        sortable: false,
+        filterRender: () => null,
+        width: 105,
+      },
+      {
+        header: I18n.t('subjects.headers.description'),
+        accessor: 'description',
+        render: row => {
+          return <span title={row.value}>{row.value}</span>;
+        },
+        width: 600,
+      },
+      {
+        header: I18n.t('subjects.headers.during_time'),
+        accessor: 'during_time',
+        filterMethod: (filter, row) => {
+          return row.during_time.toString().toLowerCase()
+            .includes(filter.value.toString().toLowerCase());},
+      },
+      {
+        header: '',
+        accessor: 'during_time',
+        render: row => (
+          <button className='btn btn-info' data-index={row.index}
+            onClick={this.handleEdit.bind(this)}>
+            <i className='fa fa-pencil-square-o' data-index={row.index}></i>
+            &nbsp;{I18n.t('buttons.edit')}
+          </button>),
+        sortable: false,
+        filterRender: () => null,
+      },
+      {
+        header: '',
+        accessor: 'during_time',
+        render: row => (
+          <button className='btn btn-danger' data-index={row.index}
+            onClick={this.handleDelete.bind(this)}>
+            <i className='fa fa-trash' data-index={row.index}></i>
+            &nbsp;{I18n.t('buttons.delete')}
+          </button>
+        ),
+        sortable: false,
+        filterRender: () => null,
+      }
+    ];
     return (
       <div>
-        <Griddle data={this.state.subjects} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='name' title={I18n.t('subjects.headers.name')}
-              customComponent={LinkShowSubject} />
-            <ColumnDefinition id='image' title={I18n.t('subjects.headers.image')}
-              customComponent={Image} />
-            <ColumnDefinition id='description'
-              title={I18n.t('subjects.headers.description')} />
-            <ColumnDefinition id='during_time'
-              title={I18n.t('subjects.headers.during_time')} />
-            <ColumnDefinition id='edit' customComponent={ButtonEdit}
-              customHeadingComponent={valueNull} />
-            <ColumnDefinition id='delete' customComponent={ButtonDelete}
-              customHeadingComponent={valueNull} />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable className='-striped -highlight' data={this.state.subjects}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         {modalEdit}
       </div>
     );
@@ -128,7 +125,8 @@ export default class Subjects extends React.Component {
     $target.blur();
     let subject = this.props.subjects[$target.data('index')];
     if(confirm(I18n.t('data.confirm_delete'))) {
-      axios.delete(routes.subject_url(subject.id), {
+      axios.delete(routes.organization_subject_url(this.props.organization.id,
+        subject.id),{
         params: {
           authenticity_token: ReactOnRails.authenticityToken()
         },

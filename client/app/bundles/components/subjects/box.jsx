@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Form from './subject_form/form';
 import ModalCreateSubject from './subject_form/modal_create_subject';
 import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
@@ -45,6 +44,7 @@ export default class SubjectBox extends React.Component {
                   </SubjectPolicy>
                 </div>
                 <ModalCreateSubject subject={this.state.subject}
+                  organization={this.props.organization}
                   handleAfterCreated={this.handleAfterCreated.bind(this)} />
               </div>
             </div>
@@ -56,6 +56,7 @@ export default class SubjectBox extends React.Component {
                     {action: ['index'], target: 'children'},
                   ]}>
                 <Subjects subjects={this.state.subjects}
+                  organization={this.props.organization}
                   handleAfterUpdated={this.handleAfterUpdated.bind(this)}
                   handleAfterDeleted={this.handleAfterDeleted.bind(this)} />
               </SubjectPolicy>
