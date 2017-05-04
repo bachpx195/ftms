@@ -15,10 +15,9 @@ export default class MultiStepForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...props,
-      name: props.training_standard.name || '',
-      description: props.training_standard.description || '',
-      policy: props.training_standard.policy || POLICIES[0].id,
+      training_standard: {},
       select_subjects: [],
+      evaluation_template: {},
       errors: null
     };
   }
@@ -34,28 +33,39 @@ export default class MultiStepForm extends React.Component {
 
   render() {
     return (
-      <form className='multi-step-form row' onSubmit={this.handleSubmit.bind(this)}>
-        <ul className='multi-step-progress-bar'>
-          <li className='active'>Create Training Standard</li>
-          <li>Assign Subject</li>
-          <li>Create Evaluation Template</li>
-        </ul>
-        <TrainingStandardStep handleChange={this.handleChange.bind(this)}
+      <div>
+        <TrainingStandardStep
+          handleInfoChanged={this.handleInfoChanged.bind(this)}
           onClickNext={step_animations.onNextStep}
-          onClickPrevious={step_animations.onPreviousStep} />
+          onCancelForm={step_animations.onCancelForm} />
         <AssignSubjectStep subjects={this.props.subjects}
+          handleSelectedSubjects={this.handleSelectedSubjects.bind(this)}
+          onCancelForm={step_animations.onCancelForm}
           onClickNext={step_animations.onNextStep}
           onClickPrevious={step_animations.onPreviousStep} />
         <EvaluationTemplateStep handleSubmit={this.handleSubmit.bind(this)}
+          handleEvaluationTemplate={this.handleEvaluationTemplate.bind(this)}
+          onCancelForm={step_animations.onCancelForm}
           onClickPrevious={step_animations.onPreviousStep} />
-      </form>
+      </div>
     );
   }
 
-  handleChange(event) {
-    let attribute = event.target.name;
+  handleInfoChanged(training_standard) {
     this.setState({
-      [attribute]: event.target.value
+      training_standard: training_standard,
+    });
+  }
+
+  handleSelectedSubjects(select_subjects) {
+    this.setState({
+      select_subjects: select_subjects,
+    });
+  }
+
+  handleEvaluationTemplate(evaluation_template) {
+    this.setState({
+      evaluation_template: evaluation_template,
     });
   }
 
@@ -67,35 +77,64 @@ export default class MultiStepForm extends React.Component {
     event.preventDefault();
     let formData = new FormData();
 
-    let training_standard = _.omit(this.state, 'errors');
-
+    let training_standard = this.state.training_standard;
     for(let key of Object.keys(training_standard)) {
       formData.append('training_standard[' + key + ']', training_standard[key]);
     }
-    if (this.props.training_standard.id == null) {
-      formData.append('training_standard[organization_id]',
-        this.props.organization.id);
-    }
+
+    this.state.select_subjects.map((subject, index) => {
+      formData.append(
+        'training_standard[standard_subjects_attributes][' + index + '][subject_id]',
+        subject.id
+      );
+    })
+
+    formData.append('training_standard[evaluation_template_attributes][name]',
+      this.state.evaluation_template.name);
+    let evaluation_standards = this.state.evaluation_template.evaluation_standards;
+
+    evaluation_standards.map((evaluation_standard, index) => {
+      for(let key of Object.keys(evaluation_standard)) {
+        if (key != 'id') {
+          formData.append(
+            'training_standard[evaluation_template_attributes]' +
+            '[evaluation_standards_attributes][' + index + '][' + key +']',
+            evaluation_standard[key]
+          );
+        }
+      }
+    });
+    let training_results = this.state.evaluation_template.training_results;
+    training_results.map((training_result, index) => {
+      for(let key of Object.keys(training_result)) {
+        if (key != 'id') {
+          formData.append(
+            'training_standard[evaluation_template_attributes]' +
+            '[training_results_attributes][' + index + '][' + key +']',
+            training_result[key]
+          );
+        }
+      }
+    });
+    formData.append('training_standard[organization_id]',
+      this.props.organization.id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let method = this.props.training_standard.id ? 'PUT' : 'POST';
+
     axios({
       url: window.location.href,
-      method: method,
+      method: 'POST',
       data: formData,
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      if(this.props.training_standard.id) {
-        $('.modalCreateTrainingStandard').modal('hide');
-        $('.modal-edit').modal('hide');
-      } else {
-        this.setState({
-          name: '',
-          description: '',
-          policy: POLICIES[0].id,
-          errors: null,
-        });
-      }
+      this.setState({
+        name: '',
+        description: '',
+        policy: POLICIES[0].id,
+        select_subjects: [],
+        evaluation_template: {},
+        errors: null,
+      });
       this.props.handleAfterSaved(response.data.training_standard);
     })
     .catch(error => {

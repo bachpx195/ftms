@@ -37,5 +37,9 @@ en:
     subject_preview:
       day: ' day'
       days: ' days'
+    multi_step_form:
+      standard_info: "Training Standard Info"
+      assign_subject: "Assign Subject"
+      create_evaluation_template: "Create Evaluation Template"
     preview: "Training standards preview"
     list_training_standards: "List training standards"

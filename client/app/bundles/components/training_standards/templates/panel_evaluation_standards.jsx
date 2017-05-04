@@ -6,36 +6,38 @@ export default class PanelEvaluationStandards extends React.Component {
     return (
       <div className='panel panel-info'>
         <div className='panel-body list-evaluation-standards'>
-          <table className='table table-hover table-striped table-responsive'>
-            <thead>
-              <tr>
-                <th><span>#</span></th>
-                <th>{I18n.t('evaluation_standards.headers.name')}</th>
-                <th>{I18n.t('evaluation_standards.headers.min_point')}</th>
-                <th>{I18n.t('evaluation_standards.headers.max_point')}</th>
-                <th>{I18n.t('evaluation_standards.headers.obligatory')}</th>
-              </tr>
-            </thead>
-            <tbody className='body-evaluation-standards'>
-              {this.renderEvaluationStandards()}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td></td>
-                <td className='text-right'>
-                  {I18n.t('evaluation_templates.sum_point')}
-                </td>
-                <td>
-                  <input type='text' disabled className='form-control'
-                    value={this.sum_point('min_point')} />
-                </td>
-                <td>
-                  <input type='text' disabled className='form-control'
-                    value={this.sum_point('max_point')} />
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+          <div className='evaluation-item-container'>
+            <table className='table table-hover table-striped table-responsive'>
+              <thead>
+                <tr>
+                  <th><span>#</span></th>
+                  <th>{I18n.t('evaluation_standards.headers.name')}</th>
+                  <th>{I18n.t('evaluation_standards.headers.min_point')}</th>
+                  <th>{I18n.t('evaluation_standards.headers.max_point')}</th>
+                  <th>{I18n.t('evaluation_standards.headers.obligatory')}</th>
+                </tr>
+              </thead>
+              <tbody className='body-evaluation-standards'>
+                {this.renderEvaluationStandards()}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td className='text-right'>
+                    {I18n.t('evaluation_templates.sum_point')}
+                  </td>
+                  <td>
+                    <input type='text' disabled className='form-control'
+                      value={this.sum_point('min_point')} />
+                  </td>
+                  <td>
+                    <input type='text' disabled className='form-control'
+                      value={this.sum_point('max_point')} />
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
         <div className='panel-footer'>
           <a className='new-item' onClick={this.props.addEvaluationStandard}
@@ -49,19 +51,18 @@ export default class PanelEvaluationStandards extends React.Component {
   }
 
   renderEvaluationStandards() {
-    return this.props.evaluation_standards
-      .map((evaluation_standard, index) => {
-        if (!evaluation_standard._destroy) {
-          return (
-            <EvaluationStandardItem evaluation_standard={evaluation_standard}
-              key={index} index={index}
-              changeEvaluationStandard={this.props.changeEvaluationStandard}
-              removeEvaluationStandard={this.props.removeEvaluationStandard}
-            />
-          );
-        }
-        return null;
-      });
+    return this.props.evaluation_standards.map((evaluation_standard, index) => {
+      if (!evaluation_standard._destroy) {
+        return (
+          <EvaluationStandardItem evaluation_standard={evaluation_standard}
+            key={index} index={index}
+            changeEvaluationStandard={this.props.changeEvaluationStandard}
+            removeEvaluationStandard={this.props.removeEvaluationStandard}
+          />
+        );
+      }
+      return null;
+    });
   }
 
   sum_point(point) {

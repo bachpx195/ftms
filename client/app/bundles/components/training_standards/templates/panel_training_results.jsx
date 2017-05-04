@@ -6,20 +6,22 @@ export default class PanelTrainingResults extends React.Component {
     return (
       <div className='panel panel-info'>
         <div className='panel-body list-evaluation-standards'>
-          <table className='table table-hover table-striped table-responsive'>
-            <thead>
-              <tr>
-                <th><span>#</span></th>
-                <th>{I18n.t('training_results.headers.name')}</th>
-                <th>{I18n.t('training_results.headers.min_point')}</th>
-                <th>{I18n.t('training_results.headers.max_point')}</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody className='body-evaluation-standards'>
-              {this.renderTrainingResults()}
-            </tbody>
-          </table>
+          <div className='evaluation-item-container evaluation-item-container'>
+            <table className='table table-hover table-striped table-responsive'>
+              <thead>
+                <tr>
+                  <th><span>#</span></th>
+                  <th>{I18n.t('training_results.headers.name')}</th>
+                  <th>{I18n.t('training_results.headers.min_point')}</th>
+                  <th>{I18n.t('training_results.headers.max_point')}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody className='body-evaluation-standards'>
+                {this.renderTrainingResults()}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className='panel-footer'>
           <a className='new-item' onClick={this.props.addTrainingResult}

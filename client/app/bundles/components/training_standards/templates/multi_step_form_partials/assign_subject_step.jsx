@@ -7,6 +7,7 @@ export default class AssignSubjectStep extends React.Component {
     super(props);
     this.state = {...props,
       select_subjects: [],
+      subject_search: props.subjects,
     }
   }
 
@@ -39,11 +40,11 @@ export default class AssignSubjectStep extends React.Component {
       <fieldset>
         <input className='form-control search_form' id='filter-list-courses'
           autoComplete='off' placeholder={I18n.t('courses.search')}
-          onChange={this.filterCourses.bind(this)}/>
+          onChange={this.filterSubjects.bind(this)}/>
         <div className='panel panel-primary'>
           <div className='panel-body'>
             <SubjectLists
-              subjects={this.props.subjects}
+              subjects={this.state.subjects}
               selected_subjects={this.state.selected_subjects}
               standard_subjects={this.state.standard_subjects}
               training_standard={this.state.training_standard}
@@ -51,10 +52,12 @@ export default class AssignSubjectStep extends React.Component {
               chooseSubjectItem={this.chooseSubjectItem.bind(this)} />
           </div>
         </div>
-        <section className='subject-timeline'>
+        <section className='subject-timeline-preview'>
           {this.renderTimeLineItems()}
         </section>
         <div className='text-center col-md-12'>
+          <input type='button' name='cancel' className='cancel action-button'
+            value='Cancel' onClick={this.props.onCancelForm}/>
           <input type='button' name='previous' className='previous action-button'
             value='Previous' onClick={this.props.onClickPrevious}/>
           <input type='button' name='next' className='next action-button'
@@ -64,19 +67,18 @@ export default class AssignSubjectStep extends React.Component {
     );
   }
 
-  filterCourses(event) {
+  filterSubjects(event) {
     let value = event.target.value;
-    this.state.courses = this.state.courses_search.filter(course => {
-      return course.name.toLowerCase().includes(value.toLowerCase()) ||
-        course.training_standard.name.toLowerCase().includes(value.toLowerCase()) ||
-        course.description.toLowerCase().includes(value.toLowerCase());
+    this.state.subjects = this.state.subject_search.filter(subject => {
+      return subject.name.toLowerCase().includes(value.toLowerCase())
     });
-    this.setState({courses: this.state.courses});
+    this.setState({subjects: this.state.subjects});
   }
 
   chooseSubjectItem(select_subjects) {
     this.setState ({
       select_subjects: select_subjects
     });
+    this.props.handleSelectedSubjects(select_subjects);
   }
 }

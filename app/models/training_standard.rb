@@ -2,7 +2,9 @@ class TrainingStandard < ApplicationRecord
   acts_as_paranoid
 
   ATTRIBUTE_PARAMS = [:name, :description, :program_id, :creator_id,
-    :organization_id, :policy]
+    :organization_id, :policy,
+    evaluation_template_attributes: EvaluationTemplate::ATTRIBUTE_PARAMS,
+    standard_subjects_attributes: StandardSubject::ATTRIBUTE_PARAMS]
 
   enum policy: [:publiced, :privated]
 
