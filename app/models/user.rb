@@ -51,7 +51,7 @@ class User < ApplicationRecord
   has_many :courses, through: :user_courses, dependent: :destroy
   has_many :owned_courses, class_name: Course.name, foreign_key: :owner_id,
     dependent: :destroy
-  has_many :dynamic_tasks, dependent: :destroy
+  has_many :dynamic_tasks, as: :objectable, dependent: :destroy
   has_many :member_evaluations, foreign_key: :member_id,
     dependent: :destroy
   has_many :manager_evaluations, class_name: MemberEvaluation.name,
