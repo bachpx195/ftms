@@ -7,6 +7,10 @@ class Supports::TestRuleSupport
     @organization ||= Organization.find_by id: @params[:organization_id]
   end
 
+  def course
+    @course ||= Course.find_by id: @params[:course_id]
+  end
+
   def test_rule
     @test_rule ||= TestRule.find_by id: @params[:id]
   end

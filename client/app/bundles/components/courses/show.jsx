@@ -116,6 +116,9 @@ export default class CourseShow extends React.Component {
           afterChangeSelectBox={this.afterChangeSelectBox.bind(this)}
           handleAfterSave={this.handleAfterSave.bind(this)}
           meta_types={this.state.meta_types}
+          categories={this.props.categories}
+          questions={this.props.questions}
+          course={this.state.course}
         />
       </div>
     );

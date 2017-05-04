@@ -24,9 +24,8 @@ export default class Form extends React.Component {
       time_of_test: nextProps.test_rule.time_of_test || '',
       min_score_for_pass: nextProps.test_rule.min_score_for_pass || '',
       opportunity: nextProps.test_rule.opportunity || '',
-      number_of_test: nextProps.number_of_test || ''
+      number_of_test: nextProps.test_rule.number_of_test || ''
     });
-
   }
 
   render() {
@@ -140,9 +139,7 @@ export default class Form extends React.Component {
   handleChange(event) {
     let attribute = event.target.name;
     Object.assign(this.state.test_rule, {[attribute]: event.target.value});
-    this.setState({
-      [attribute]: event.target.value
-    });
+    this.props.handleUpdateCondition(this.state.test_rule);
   }
 
   handleNext() {
