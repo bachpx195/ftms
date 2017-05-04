@@ -52,10 +52,10 @@ export default class LanguageLists extends React.Component {
         render: row => (
           <LanguagePolicy permit={[{action: ['update', 'creator'],
             target: 'children', data: {creator_id: row.value}}]}>
-            <button className='btn btn-info' data-index={row.index}
-              onClick={this.handleEdit.bind(this)}>
+            <button title={I18n.t('buttons.edit')}
+              className='btn btn-info' data-index={row.index}
+                onClick={this.handleEdit.bind(this)}>
               <i className='fa fa-pencil-square-o' data-index={row.index}></i>
-              &nbsp;{I18n.t('buttons.edit')}
             </button>
           </LanguagePolicy>
         ),
@@ -69,10 +69,10 @@ export default class LanguageLists extends React.Component {
           <LanguagePolicy
             permit={[{action: ['destroy', 'creator'], target: 'children',
               data: {creator_id: row.value}}]}>
-            <button className='btn btn-danger' data-index={row.index}
-              onClick={this.handleDelete.bind(this)}>
+            <button title={I18n.t('buttons.delete')}
+              className='btn btn-danger' data-index={row.index}
+                onClick={this.handleDelete.bind(this)}>
               <i className='fa fa-trash' data-index={row.index}></i>
-              &nbsp;{I18n.t('buttons.delete')}
             </button>
           </LanguagePolicy>
         ),
