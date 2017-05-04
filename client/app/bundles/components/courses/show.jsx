@@ -37,7 +37,8 @@ export default class CourseShow extends React.Component {
       documents: props.course.documents,
       document_preview: {},
       managed_courses: props.managed_courses,
-      other_courses: props.other_courses
+      other_courses: props.other_courses,
+      meta_types: props.meta_types,
     }
   }
 
@@ -114,6 +115,7 @@ export default class CourseShow extends React.Component {
           afterSubmitCreateTask={this.afterSubmitCreateTask.bind(this)}
           afterChangeSelectBox={this.afterChangeSelectBox.bind(this)}
           handleAfterSave={this.handleAfterSave.bind(this)}
+          meta_types={this.state.meta_types}
         />
       </div>
     );

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as routes from 'config/routes';
 import Item from './item';
 import TaskPreview from '../templates/task_preview';
-
+import ModalCreateSurvey from '../../surveys/templates/modal_create_survey';
 const TASKS_URL = routes.assign_tasks_url();
 
 const arr_option = ['choose','survey', 'testing'];
@@ -32,7 +32,7 @@ export default class ModalTask extends React.Component {
   }
 
   render() {
-    let title, selected, remain_item, tasks = null;
+    let title, selected, remain_item, tasks, form, button_create_task = null;
     let task_preview = (
       <TaskPreview current_item={this.state.current_item}
         targetable_type={this.state.targetable_type} />
@@ -42,7 +42,21 @@ export default class ModalTask extends React.Component {
       selected = I18n.t('courses.survey_in_course');
       remain_item = I18n.t('courses.survey_remain_course');
       tasks = this.renderTask(selected, remain_item);
-    } else if(this.state.targetable_type == 'TestRule'){
+      button_create_task = (
+        <button className='btn btn-primary'
+          onClick={this.handleCreateTask.bind(this)}>
+          {I18n.t('courses.add_task')}</button>
+      )
+      form = (
+        <ModalCreateSurvey 
+          ownerable_type={this.props.ownerable_type}
+          ownerable_id={this.props.ownerable_id}
+          meta_types={this.props.meta_types}
+          url={routes.subject_tasks_url()}
+          handleAfterCreatedSurvey={
+            this.handleAfterCreatedSurvey.bind(this)} />
+      )
+    } else if(this.state.targetable_type == 'TestRule') {
       title = I18n.t('courses.create_task_title_exam');
       selected = I18n.t('courses.testing_in_course');
       remain_item = I18n.t('courses.testing_remain_course');
@@ -74,6 +88,8 @@ export default class ModalTask extends React.Component {
             <div className='modal-body'>
               <div className='row list-tasks col-md-6'>
                 {tasks}
+                {button_create_task}
+                {form}
               </div>
               {task_preview}
             </div>
@@ -87,6 +103,17 @@ export default class ModalTask extends React.Component {
         </div>
       </div>
     );
+  }
+
+  handleCreateTask() {
+    $('.modal-create-survey').modal();
+  }
+
+  handleAfterCreatedSurvey(target) {
+    this.state.selected_items.push(target);
+    this.setState({
+      selected_items: this.state.selected_items,
+    })
   }
 
   renderTask(title_selected_items, title_remain_items) {

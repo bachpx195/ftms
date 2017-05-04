@@ -1,0 +1,5 @@
+en:
+  surveys:
+    name: "Name"
+    content: "Content"
+    create_survey: "Create Survey"
