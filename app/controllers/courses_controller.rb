@@ -49,6 +49,9 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update_attributes update_course_params
+        if @course.in_progress?
+          dynamic_task = TaskServices::AutoCreateDynamicTask.new(ownerable: @course).perform
+        end
         format.html
         format.json do
           @course[:image] = {url: @course.image.url}

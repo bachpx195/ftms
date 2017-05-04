@@ -4,7 +4,7 @@ class AssignTask::TasksController < ApplicationController
   before_action :authorize_request, only: [:create, :destroy]
 
   def create
-    list_targets = TaskServices::AssignTask.new(params: params,
+    list_targets = TaskServices::AutoCreateDynamicTask.new(params: params,
       task_params: task_params, ownerable: @ownerable).perform
     if list_targets
       render json: {message: flash_message("created"),
@@ -31,8 +31,8 @@ class AssignTask::TasksController < ApplicationController
   end
 
   def find_task
-    @task = Task.find_by targetable_type: params[:targetable_type], 
-      targetable_id: params[:targetable_id], 
+    @task = Task.find_by targetable_type: params[:targetable_type],
+      targetable_id: params[:targetable_id],
       ownerable_type: params[:ownerable_type],
       ownerable_id: params[:ownerable_id]
     unless @task
