@@ -5,7 +5,7 @@ class Supports::TrainingStandardSupport
   end
 
   def subjects
-    @subjects ||= Subject.select :id, :name
+    @subjects ||= Subject.select :id, :name, :image, :description, :during_time
   end
 
   def training_standard
