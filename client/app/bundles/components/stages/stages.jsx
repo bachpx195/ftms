@@ -1,12 +1,13 @@
-import React from 'react';
-import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import ModalEdit from './templates/modal_edit';
-import Form from './templates/form';
-import Destroy from './actions/destroy';
-import { NewLayout } from '../shareds/griddles/new_layout';
-import * as table_constants from 'constants/griddle_table_constants';
 import * as routes from 'config/routes';
+import * as react_table_ultis from 'shared/react-table/ultis';
+import * as table_constants from 'constants/griddle_table_constants';
+import axios from 'axios';
+import css from 'react-table/react-table.css';
+import Destroy from './actions/destroy';
+import Form from './templates/form';
+import ModalEdit from './templates/modal_edit';
+import React from 'react';
+import ReactTable from 'react-table';
 import StagePolicy from 'policy/stage_policy';
 
 export default class StageLists extends React.Component {
@@ -26,39 +27,47 @@ export default class StageLists extends React.Component {
   }
 
   render() {
-    {NewLayout}
-
-    const ButtonEdit = ({griddleKey}) => {
-      let stage = this.state.stages[griddleKey];
-      return(
-        <StagePolicy
-          permit={[
-            {action: ['update', 'creator'], target: 'children',
-            data: {creator_id: stage.creator_id}}]}>
-          <button className='btn btn-info' data-index={griddleKey}
-            onClick={this.handleEdit.bind(this)}>
-            <i className="fa fa-pencil-square-o"></i>
-            &nbsp;{I18n.t('buttons.edit')}
-          </button>
-        </StagePolicy>
-      );
-    };
-
-    const ButtonDelete = ({griddleKey}) => {
-      let stage = this.state.stages[griddleKey];
-      return(
-        <StagePolicy
-          permit={[
-            {action: ['destroy', 'creator'], target: 'children',
-            data: {creator_id: stage.creator_id}}]}>
-          <Destroy
-            url={routes.stages_url()}
-            stage={this.state.stages[griddleKey]}
-            handleAfterDeleted={this.props.handleAfterDeleted}
-          />
-        </StagePolicy>
-      );
-    };
+    const columns = [
+      {
+        header: I18n.t('stages.name'),
+        accessor: 'name',
+        filterMethod: (filter, row) => {
+          return row.name.toLowerCase()
+            .includes(filter.value.toLowerCase());
+        }
+      },
+      {
+        header: '',
+        id: 'edit',
+        accessor: 'creator_id',
+        render: row => (
+          <span className='pull-right'>
+            <StagePolicy
+              permit={[
+                {action: ['update', 'creator'], target: 'children',
+                data: {creator_id: row.value}}]}>
+              <button title={I18n.t('buttons.edit')}
+                className='btn btn-info' data-index={row.index}
+                  onClick={this.handleEdit.bind(this)}>
+                <i className="fa fa-pencil-square-o"></i>
+              </button>
+            </StagePolicy>
+            <StagePolicy
+              permit={[
+                {action: ['destroy', 'creator'], target: 'children',
+                data: {creator_id: row.value}}]}>
+              <Destroy
+                url={routes.stages_url()}
+                stage={row.row}
+                handleAfterDeleted={this.props.handleAfterDeleted}
+              />
+            </StagePolicy>
+          </span>
+        ),
+        sortable: false,
+        filterRender: () => null,
+      },
+    ]
 
     let modalEdit = null;
     if(this.state.stage.id){
@@ -71,17 +80,12 @@ export default class StageLists extends React.Component {
 
     return (
       <div>
-        <Griddle data={this.state.stages} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("stages.name")} />
-            <ColumnDefinition id="edit" customComponent={ButtonEdit}
-              title=" "/>
-            <ColumnDefinition id="delete" customComponent={ButtonDelete}
-              title="  " />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable
+          className='-striped -highlight' data={this.state.stages}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         {modalEdit}
       </div>
     );
@@ -93,7 +97,7 @@ export default class StageLists extends React.Component {
     this.setState({
       stage: this.props.stages[$target.data('index')]
     }, () => {
-      $('#modalEdit').modal();
+      $('.modal-edit').modal();
     });
   }
 
