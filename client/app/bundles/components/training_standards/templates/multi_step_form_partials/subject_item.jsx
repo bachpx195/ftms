@@ -14,7 +14,7 @@ export default class SubjectItem extends React.Component {
 
   render() {
     let {name} = this.props.subject
-    return(
+    return (
       <li className="list-group-item"
         onClick={this.onClickSubjectItem.bind(this)}
         title={this.props.subject.name}>
@@ -28,12 +28,12 @@ export default class SubjectItem extends React.Component {
   }
 
   onClickSubjectItem(event) {
-    if(this.state.checked) {
+    if (this.state.checked) {
       let index = this.state.select_subjects.findIndex(
         select_subject => select_subject.id == this.props.subject.id)
       this.state.select_subjects.splice(index, 1);
       this.props.chooseSubjectItem(this.state.select_subjects);
-    }else {
+    } else {
       this.state.select_subjects.push(this.props.subject);
       this.props.chooseSubjectItem(this.state.select_subjects);
     }
