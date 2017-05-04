@@ -37,3 +37,5 @@ en:
     subject_preview:
       day: ' day'
       days: ' days'
+    preview: "Training standards preview"
+    list_training_standards: "List training standards"

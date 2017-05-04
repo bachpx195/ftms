@@ -126,7 +126,8 @@ export default class ProgramsShowBox extends React.Component {
           all_roles={this.state.all_roles}
           owners={this.state.owners}
           course={this.state.course}
-          url_programs={program_url} />
+          url_programs={program_url}
+          training_standards={this.state.training_standards} />
       </div>
     );
   }

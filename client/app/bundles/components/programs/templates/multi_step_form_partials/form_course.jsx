@@ -1,29 +1,22 @@
 import _ from 'lodash';
 import axios from 'axios';
-import CourseLists from '../courses';
 import Dropzone from 'react-dropzone';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import SubjectLists from '../subjects';
-import UserLists from '../user_lists';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 
-require('../../../assets/sass/program_show.scss');
+require('../../../../assets/sass/program_show.scss');
 
 export default class FormCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: props.url,
-      url_programs: props.url_programs,
       program_detail: {},
       course: {},
       image: {},
       changeImage: false,
-      errors: null,
-      all_roles: props.all_roles,
-      owners: props.owners
+      errors: null
     };
   }
 
@@ -37,8 +30,7 @@ export default class FormCourse extends React.Component {
       }
     }
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}
-        encType="multipart/form-data">
+      <div>
         <div className='form-group'>
           <div className='dropzone'>
             <div className='form-group'>
@@ -66,15 +58,6 @@ export default class FormCourse extends React.Component {
           </select>
         </div>
         <div className='form-group'>
-          <select className='form-control' name='training_standard_id'
-            onChange={this.handleChange.bind(this)}>
-            <option value=''>
-              {I18n.t('courses.select_training_standard')}
-            </option>
-            {this.renderOptions(this.state.program_detail.training_standards)}
-          </select>
-        </div>
-        <div className='form-group'>
           <input type='text' placeholder={I18n.t('courses.headers.name')}
             onChange={this.handleChange.bind(this)}
             className='form-control' name='name' />
@@ -88,7 +71,6 @@ export default class FormCourse extends React.Component {
           <input type='hidden' onChange={this.handleChange.bind(this)}
             value={this.props.program.id} name='program_id' />
         </div>
-
         <div className='nht-course-date'>
           <div className='col-sm-6 course-start-date'>
             <label>{I18n.t('courses.start_date')}</label>
@@ -102,32 +84,8 @@ export default class FormCourse extends React.Component {
               name='end_date' className='form-control' />
           </div>
         </div>
-
-        <div className='nht-assign-owner'>
-          <label>{I18n.t('courses.select_owner_role')}</label>
-          <select className='nht-list-roles form-control'
-            onChange={this.handleChangeRole.bind(this)} id='list-roles'>
-            <option value=''>{I18n.t('courses.select_owner_role')}</option>
-            {this.renderOptions(this.state.all_roles)}
-          </select>
-
-          <label>{I18n.t('courses.owners')}</label>
-          <select className='nht-list-owners form-control' id='list-owners'
-            name='owner_id' onChange={this.handleChange.bind(this)}>
-            <option value=''>{I18n.t('courses.select_owner')}</option>
-            {this.renderOptions(this.state.owners)}
-          </select>
-        </div>
-
-        <div className='form-group'>
-          <div className='text-right'>
-            <button type='submit' className='btn btn-primary'>
-              <i className="fa fa-floppy-o"></i>
-              &nbsp;{I18n.t('buttons.save')}
-            </button>
-          </div>
-        </div>
-      </form>
+        <br/>
+      </div>
     );
   }
 
@@ -159,20 +117,6 @@ export default class FormCourse extends React.Component {
     });
   }
 
-  handleChangeRole(event) {
-    let role_url = routes.filter_role_url($('#list-roles').val());
-    axios.get(role_url)
-      .then(response => {
-        this.setState({
-          owners: response.data.owners
-        });
-      })
-      .catch(error => {
-          console.log(error);
-        }
-      );
-  }
-
   onDrop(acceptedFiles, rejectedFiles) {
     this.setState({
       image: acceptedFiles[0],
@@ -182,35 +126,5 @@ export default class FormCourse extends React.Component {
 
   onOpenClick() {
     this.refs.dropzoneField.open();
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    let course = _.omit(this.state.course, 'errors');
-    let formData = new FormData();
-    for (let key of Object.keys(course)) {
-      formData.append('course[' + key + ']', course[key]);
-    }
-    if (this.state.changeImage) {
-      formData.append('course[image]', this.state.image);
-    }
-    if (Object.keys(course).length == 0) {
-      formData.append('course[key]', null);
-    }
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    axios.post(this.props.url,
-      formData
-    , app_constants.AXIOS_CONFIG)
-    .then(response => {
-      $('.modalEdit').modal('hide');
-      this.setState({
-        program_detail: {},
-        image: '',
-        course: {},
-        changeImage: false,
-      });
-      window.location.href = routes.course_url(response.data.course.id);
-    })
-    .catch(error => this.setState({errors: error.response.data.errors}));
   }
 }

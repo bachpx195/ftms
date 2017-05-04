@@ -1,0 +1,85 @@
+$bottom-color: #33C3F0;
+$color-white: white;
+$color-blue: #0FA0CE;
+$color-silver: silver;
+
+ol.progtrckr {
+  margin: 0;
+  list-style-type: none;
+  padding-bottom: 2.2rem;
+  padding-left: 0px;
+  li {
+    cursor: pointer;
+    display: inline-block;
+    line-height: 4.5rem;
+    padding: 0 0.7rem;
+    text-align: center;
+    span {
+      padding: 0 1.5rem;
+    }
+  }
+}
+
+.progtrckr em {
+  display: none;
+  font-weight: 700;
+  padding-left: 1rem;
+}
+
+ol.progtrckr li {
+  &:after {
+    content: "\00a0\00a0";
+  }
+  &:before {
+    bottom: -3.7rem;
+    float: left;
+    left: 50%;
+    position: relative;
+  }
+  &.progtrckr-doing {
+    &:before {
+      background-color: $bottom-color;
+      border-radius: 1.2em;
+      color: $color-white;
+      content: "\2022";
+      line-height: 1.2em;
+      width: 1.2em;
+    }
+    &:hover:before {
+      color: $color-blue;
+    }
+  }
+  &.progtrckr-doing, &.progtrckr-done {
+    border-bottom: 4px solid $bottom-color;
+    color: black;
+  }
+  &.progtrckr-done {
+    &:before {
+      background-color: $bottom-color;
+      border-radius: 1.2em;
+      content: "\2713";
+      color: $color-white;
+      line-height: 1.2em;
+      width: 1.2em;
+    }
+    &:hover:before {
+      color: $color-blue;
+    }
+  }
+  &.progtrckr-todo {
+    border-bottom: 4px solid $color-silver;
+    color: $color-silver;
+  }
+  &.progtrckr-todo {
+    &:before {
+      background-color: $color-white;
+      content: "\039F";
+      color: $color-silver;
+      line-height: 1.4em;
+      width: 1.2em;
+    }
+    &:hover:before {
+      color: $color-blue;
+    }
+  }
+}
