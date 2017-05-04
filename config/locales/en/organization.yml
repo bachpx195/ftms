@@ -20,6 +20,7 @@ en:
     create: "New organization"
     all_managers: "All managers"
     num_organizations: " Organizations: "
+    num_subjects: "Subjects"
     num_programs: "Programs"
     num_training_standards: "Training Standards"
     num_courses: "Courses"

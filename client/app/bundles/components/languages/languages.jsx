@@ -29,10 +29,6 @@ export default class LanguageLists extends React.Component {
       {
         header: I18n.t('languages.headers.name'),
         accessor: 'name',
-        filterMethod: (filter, row) => {
-          return row.name.toLowerCase()
-            .includes(filter.value.toLowerCase());
-        }
       },
       {
         header: I18n.t('languages.headers.image'),
@@ -45,9 +41,10 @@ export default class LanguageLists extends React.Component {
       {
         header: I18n.t('languages.headers.description'),
         accessor: 'description',
-        filterMethod: (filter, row) => {
-          return row.description.toLowerCase()
-            .includes(filter.value.toLowerCase());}
+        render: row => {
+          return <span title={row.value}>{row.value}</span>;
+        },
+        width: 700,
       },
       {
         header: '',
@@ -57,7 +54,7 @@ export default class LanguageLists extends React.Component {
             target: 'children', data: {creator_id: row.value}}]}>
             <button className='btn btn-info' data-index={row.index}
               onClick={this.handleEdit.bind(this)}>
-              <i className='fa fa-pencil-square-o'></i>
+              <i className='fa fa-pencil-square-o' data-index={row.index}></i>
               &nbsp;{I18n.t('buttons.edit')}
             </button>
           </LanguagePolicy>
@@ -74,7 +71,7 @@ export default class LanguageLists extends React.Component {
               data: {creator_id: row.value}}]}>
             <button className='btn btn-danger' data-index={row.index}
               onClick={this.handleDelete.bind(this)}>
-              <i className='fa fa-trash'></i>
+              <i className='fa fa-trash' data-index={row.index}></i>
               &nbsp;{I18n.t('buttons.delete')}
             </button>
           </LanguagePolicy>

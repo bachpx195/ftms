@@ -123,6 +123,18 @@ export default class OrganizationShow extends React.Component {
               </div>
               <br/>
               <div className='member-title'>
+                <i className='fa fa-list-ul' aria-hidden='true'></i>
+                <strong>
+                  <a href={routes.organization_subjects_url(
+                    this.state.organization.id)}>
+                    {I18n.t('organizations.num_subjects')}
+                  </a>
+                </strong>
+                <span className='badge label-primary'>
+                </span>
+              </div>
+              <br/>
+              <div className='member-title'>
                 <i className='fa fa-users' aria-hidden='true'></i>
                 <strong>
                   <a href={routes.organization_members_url(
