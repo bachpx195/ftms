@@ -1,6 +1,6 @@
 import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import css from 'react-table/react-table.css';
+import css from 'assets/sass/react-table.scss';
 import React from 'react';
 import ReactTable from 'react-table';
 import Show from './actions/show';
@@ -9,56 +9,61 @@ export default class Exams extends React.Component {
   render() {
     const columns = [
       {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
         header: I18n.t('exams.headers.user'),
-        id: 'user',
-        accessor: d => d.user,
+        accessor: 'user.name',
         render: ({row}) => {
           let user_url = routes.user_url(row.user.id);
           return <a href={user_url}>{row.user.name}</a>
-        },
-        filterMethod: (filter, row) => {
-          return row.user.name.toLowerCase()
-            .includes(filter.value.toLowerCase());
         }
       },
       {
         header: I18n.t('exams.headers.subject'),
-        id: 'subject_name',
-        accessor: d => d.subject.name
+        accessor: 'subject.name'
       },
       {
         header: I18n.t('exams.headers.course'),
-        id: 'course',
-        accessor: d => d.course,
+        accessor: 'course.name',
         render: ({row}) => {
           let course_url = routes.course_url(row.course.id);
           return <a href={course_url}>{row.course.name}</a>;
-        },
-        filterMethod: (filter, row) => {
-          return row.course.name.toLowerCase()
-            .includes(filter.value.toLowerCase());
         }
       },
       {
         header: I18n.t('exams.headers.created_at'),
         id: 'created_at',
-        accessor: d => I18n.l('date.formats.default', d.created_at)
+        accessor: d => I18n.l('time.formats.default', d.created_at),
+        render: row => <div className='text-right'>{row.value}</div>
       },
       {
         header: I18n.t('exams.headers.spent_time'),
-        accessor: 'spent_time'
+        accessor: 'spent_time',
+        render: row => <div className='text-right'>{row.value}</div>,
+        filterMethod: react_table_ultis.defaultNumberFilter
       },
       {
         header: I18n.t('exams.headers.score'),
-        accessor: 'score'
+        accessor: 'score',
+        render: row => <div className='text-right'>{row.value}</div>,
+        filterMethod: react_table_ultis.defaultNumberFilter
       },
       {
         header: '',
-        id: 'view_button',
+        id: 'view',
         accessor: d => {
-          return <Show exam={d} organization={this.props.organization} />;
+          return (
+            <div className='text-center'>
+              <Show exam={d} organization={this.props.organization} />
+            </div>
+          );
         },
-        filterRender: () => null,
+        hideFilter: true,
         sortable: false
       }
     ];

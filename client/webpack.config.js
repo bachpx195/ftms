@@ -32,6 +32,7 @@ const config = {
       config: path.join(process.cwd(), 'app', 'config'),
       breadcrumb: path.join(process.cwd(),
         'app', 'bundles', 'components', 'shareds', 'bread_crumb'),
+      assets: path.join(process.cwd(), 'app', 'bundles', 'assets'),
     },
   },
   plugins: [

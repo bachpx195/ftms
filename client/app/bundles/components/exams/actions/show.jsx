@@ -15,8 +15,9 @@ export default class Show extends React.Component {
     return(
       <ExamPolicy
         permit={[{controller: 'exams', action: ['show'], target: 'children'}]}>
-        <a href={url} className='btn btn-success'>
-          {I18n.t('buttons.view')}
+        <a href={url} className='btn btn-success'
+          title={I18n.t('buttons.view')}>
+          <i className='fa fa-eye'></i>
         </a>
       </ExamPolicy>
     );

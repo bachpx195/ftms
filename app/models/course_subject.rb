@@ -35,6 +35,7 @@ class CourseSubject < ApplicationRecord
   has_many :team_projects, through: :teams, source: :projects
   has_many :member_evaluations, as: :targetable, dependent: :destroy
   has_many :team_users, through: :teams, source: :users
+  has_many :exams, dependent: :destroy
 
   enum status: [:init, :in_progress, :finished]
 

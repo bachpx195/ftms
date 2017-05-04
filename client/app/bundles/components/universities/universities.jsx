@@ -2,13 +2,13 @@ import * as routes from 'config/routes';
 import * as react_table_ultis from 'shared/react-table/ultis';
 import * as table_constants from 'constants/griddle_table_constants';
 import axios from 'axios';
-import css from 'react-table/react-table.css';
-import Destroy from "./actions/destroy";
+import css from 'assets/sass/react-table.scss';
+import Destroy from './actions/destroy';
 import ModalEdit from './templates/modal';
 import React from 'react';
 import Row from './griddle/row';
 import ReactTable from 'react-table';
-import Update from "./actions/update";
+import Update from './actions/update';
 import UniversityPolicy from 'policy/university_policy';
 
 export default class Universities extends React.Component {
@@ -31,11 +31,17 @@ export default class Universities extends React.Component {
   render() {
     const columns = [
       {
-        header: I18n.t("universities.name"),
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('universities.name'),
         accessor: 'name',
         filterMethod: (filter, row) => {
-          return row.name.toLowerCase()
-            .includes(filter.value.toLowerCase());
+          return row.name.toLowerCase().includes(filter.value.toLowerCase());
         }
       },
       {
@@ -43,22 +49,23 @@ export default class Universities extends React.Component {
         id: 'edit',
         accessor: 'creator_id',
         render: row => (
-          <span className='pull-right'>
+          <div className='text-center'>
             <UniversityPolicy
               permit={[{action: ['update', 'creator'],
                 target: 'children', data: {creator_id: row.value}}]}>
               <button title={I18n.t('buttons.edit')}
                 className='btn btn-info' data-index={row.index}
-                  onClick={this.handleEdit.bind(this)}>
-                <i className="fa fa-pencil-square-o"></i>
+                onClick={this.handleEdit.bind(this)}>
+                <i className='fa fa-pencil-square-o'></i>
               </button>
             </UniversityPolicy>
             <Destroy university={row.row}
               handleAfterDeleted={this.props.handleAfterDeleted} />
-          </span>
+          </div>
         ),
         sortable: false,
-        filterRender: () => null,
+        hideFilter: true,
+        width: 150
       }
     ]
 
