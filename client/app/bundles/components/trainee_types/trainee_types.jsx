@@ -1,10 +1,10 @@
+import * as react_table_ultis from 'shared/react-table/ultis';
+import * as routes from 'config/routes';
 import axios from 'axios';
-import Form from './templates/form';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import css from 'react-table/react-table.css';
 import Modal from './templates/modal';
 import React from 'react';
-import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
+import ReactTable from 'react-table';
 
 export default class TraineeTypeLists extends React.Component {
   constructor(props) {
@@ -17,40 +17,6 @@ export default class TraineeTypeLists extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
-          </div>
-          <div className='col-md-12'>
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
-
-    const ButtonEdit = ({griddleKey}) => (
-      <button className='btn btn-info' data-index={griddleKey}
-        onClick={this.handleEdit.bind(this)}>
-        <i className="fa fa-pencil-square-o"></i>
-        &nbsp;{I18n.t('buttons.edit')}
-      </button>
-    );
-
-    const ButtonDelete = ({griddleKey}) => (
-      <button className='btn btn-danger' data-index={griddleKey}
-        onClick={this.handleDelete.bind(this)}>
-        <i className="fa fa-trash"></i>
-        &nbsp;{I18n.t('buttons.delete')}
-      </button>
-    );
-
     let modalEdit = null;
     if (this.state.trainee_type.id) {
       modalEdit = (
@@ -61,19 +27,49 @@ export default class TraineeTypeLists extends React.Component {
       );
     }
 
+    const columns = [
+      {
+        header: I18n.t("trainee_types.name"),
+        accessor: 'name',
+        width: 800,
+      },
+      {
+        header: '',
+        accessor: 'creator_id',
+        render: row => (
+          <button className='btn btn-info' data-index={row.index}
+            onClick={this.handleEdit.bind(this)}>
+            <i className='fa fa-pencil-square-o' data-index={row.index}></i>
+            &nbsp;{I18n.t('buttons.edit')}
+          </button>
+        ),
+        sortable: false,
+        filterRender: () => null,
+        style: {textAlign: 'center'},
+      },
+      {
+        header: '',
+        accessor: 'creator_id',
+        render: row => (
+          <button className='btn btn-danger' data-index={row.index}
+            onClick={this.handleDelete.bind(this)}>
+            <i className="fa fa-trash" data-index={row.index}></i>
+            &nbsp;{I18n.t('buttons.delete')}
+          </button>
+        ),
+        sortable: false,
+        filterRender: () => null,
+        style: {textAlign: 'center'},
+      }
+    ];
+
     return (
       <div>
-        <Griddle data={this.state.trainee_types} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id="name" title={I18n.t("trainee_types.name")} />
-            <ColumnDefinition id="edit" customComponent={ButtonEdit}
-              title=" "/>
-            <ColumnDefinition id="delete" customComponent={ButtonDelete}
-              title="  " />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable className='-striped -highlight' data={this.state.trainee_types}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         {modalEdit}
       </div>
     );
