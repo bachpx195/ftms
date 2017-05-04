@@ -7,6 +7,10 @@ class AssignUser::CoursesController < ApplicationController
       format.json do
         assign_user_form = AssignUserCourseForm.new course: @course,
           user_courses: user_courses_params[:user_courses_attributes]
+        if @course.in_progress?
+          dynamic_task = TaskServices::AutoCreateDynamicTask.new(ownerable: @course).perform
+        end
+
         if assign_user_form.save
           @course_supports = Supports::CourseSupport.new course: @course
           render json: {
