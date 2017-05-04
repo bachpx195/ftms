@@ -43,26 +43,20 @@ export default class Universities extends React.Component {
         id: 'edit',
         accessor: 'creator_id',
         render: row => (
-          <UniversityPolicy
-            permit={[{action: ['update', 'creator'],
-              target: 'children', data: {creator_id: row.value}}]}>
-            <button className='btn btn-info' data-index={row.index}
-              onClick={this.handleEdit.bind(this)}>
-              <i className="fa fa-pencil-square-o"></i>
-              &nbsp;{I18n.t('buttons.edit')}
-            </button>
-          </UniversityPolicy>
+          <span className='pull-right'>
+            <UniversityPolicy
+              permit={[{action: ['update', 'creator'],
+                target: 'children', data: {creator_id: row.value}}]}>
+              <button title={I18n.t('buttons.edit')}
+                className='btn btn-info' data-index={row.index}
+                  onClick={this.handleEdit.bind(this)}>
+                <i className="fa fa-pencil-square-o"></i>
+              </button>
+            </UniversityPolicy>
+            <Destroy university={row.row}
+              handleAfterDeleted={this.props.handleAfterDeleted} />
+          </span>
         ),
-        sortable: false,
-        filterRender: () => null,
-      },
-      {
-        header: '',
-        id: 'delete',
-        accessor: d => {
-          return <Destroy university={d}
-            handleAfterDeleted={this.props.handleAfterDeleted} />
-        },
         sortable: false,
         filterRender: () => null,
       }

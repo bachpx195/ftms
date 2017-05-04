@@ -30,7 +30,7 @@ export default class Create extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      $('#modalEdit').modal('hide');
+      $('.modal-edit').modal('hide');
       this.props.handleAfterUpdated(response.data.stage);
     })
     .catch(error => {

@@ -4,10 +4,9 @@ import axios from 'axios';
 export default class Destroy extends React.Component {
   render() {
     return (
-      <button className='btn btn-danger'
+      <button title={I18n.t('buttons.delete')} className='btn btn-danger'
         onClick={this.handleDelete.bind(this)}>
         <i className="fa fa-trash"></i>
-        &nbsp;{I18n.t('buttons.delete')}
       </button>
      );
    }
