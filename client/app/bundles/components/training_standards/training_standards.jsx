@@ -1,9 +1,11 @@
+import * as routes from 'config/routes';
+import * as react_table_ultis from 'shared/react-table/ultis';
+import * as table_constants from 'constants/griddle_table_constants';
 import axios from 'axios';
-import Destroy from './actions/destroy';
+import css from 'react-table/react-table.css';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
-import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
+import ReactTable from 'react-table';
 
 export default class TrainingStandards extends React.Component {
   constructor(props) {
@@ -16,60 +18,37 @@ export default class TrainingStandards extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
-            </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
-          </div>
-          <div className='col-md-12'>
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
-
-    const ButtonEdit = ({griddleKey}) => (
-      <button className='btn btn-info' data-index={griddleKey}
-        title={I18n.t('buttons.edit')}
-        onClick={this.handleEdit.bind(this)}>
-        <i className='fa fa-pencil-square-o'></i> {I18n.t('buttons.edit')}
-      </button>
-    );
-
-    const ButtonDelete = ({griddleKey}) => {
-      return (
-        <Destroy training_standard={this.state.training_standards[griddleKey]}
-          organization={this.state.organization}
-          handleAfterDeleted={this.props.handleAfterDeleted} />
-      );
-    };
-
-    const LinkToStandardShow = ({value, griddleKey}) => (
-      <a data-index={griddleKey}
-        href={routes.organization_training_standard_url(
-          this.state.organization.id,
-          this.state.training_standards[griddleKey].id)}
-        title={value}>{value}</a>
-    );
+    const columns = [
+      {
+        header: I18n.t('training_standards.name'),
+        accessor: 'name',
+        filterMethod: (filter, row) => {
+          return row.name.toLowerCase()
+            .includes(filter.value.toLowerCase());
+        },
+        render: row => {
+          return <a title={row.value}
+            href={routes.training_standard_url(row.row.id)}>{row.value}</a>
+        }
+      },
+      {
+        header: I18n.t('training_standards.description'),
+        accessor: 'description',
+        filterMethod: (filter, row) => {
+          return row.description.toLowerCase()
+            .includes(filter.value.toLowerCase());
+        }
+      }
+    ]
 
     return (
       <div>
-        <Griddle data={this.state.training_standards} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='name' title={I18n.t('training_standards.name')}
-              customComponent={LinkToStandardShow} />
-            <ColumnDefinition id='description'
-              title={I18n.t('training_standards.description')} />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable
+          className='-striped -highlight' data={this.state.training_standards}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
       </div>
     );
   }
