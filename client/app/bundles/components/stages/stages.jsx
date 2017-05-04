@@ -2,7 +2,7 @@ import * as routes from 'config/routes';
 import * as react_table_ultis from 'shared/react-table/ultis';
 import * as table_constants from 'constants/griddle_table_constants';
 import axios from 'axios';
-import css from 'react-table/react-table.css';
+import css from 'assets/sass/react-table.scss';
 import Destroy from './actions/destroy';
 import Form from './templates/form';
 import ModalEdit from './templates/modal_edit';
@@ -29,11 +29,17 @@ export default class StageLists extends React.Component {
   render() {
     const columns = [
       {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
         header: I18n.t('stages.name'),
         accessor: 'name',
         filterMethod: (filter, row) => {
-          return row.name.toLowerCase()
-            .includes(filter.value.toLowerCase());
+          return row.name.toLowerCase().includes(filter.value.toLowerCase());
         }
       },
       {
@@ -41,31 +47,28 @@ export default class StageLists extends React.Component {
         id: 'edit',
         accessor: 'creator_id',
         render: row => (
-          <span className='pull-right'>
+          <div className='text-center'>
             <StagePolicy
-              permit={[
-                {action: ['update', 'creator'], target: 'children',
+              permit={[{action: ['update', 'creator'], target: 'children',
                 data: {creator_id: row.value}}]}>
               <button title={I18n.t('buttons.edit')}
                 className='btn btn-info' data-index={row.index}
-                  onClick={this.handleEdit.bind(this)}>
-                <i className="fa fa-pencil-square-o"></i>
+                onClick={this.handleEdit.bind(this)}>
+                <i className='fa fa-pencil-square-o'></i>
               </button>
             </StagePolicy>
             <StagePolicy
-              permit={[
-                {action: ['destroy', 'creator'], target: 'children',
+              permit={[{action: ['destroy', 'creator'], target: 'children',
                 data: {creator_id: row.value}}]}>
-              <Destroy
-                url={routes.stages_url()}
-                stage={row.row}
+              <Destroy url={routes.stages_url()} stage={row.row}
                 handleAfterDeleted={this.props.handleAfterDeleted}
               />
             </StagePolicy>
-          </span>
+          </div>
         ),
         sortable: false,
-        filterRender: () => null,
+        hideFilter: true,
+        width: 150
       },
     ]
 

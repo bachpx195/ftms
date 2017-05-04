@@ -1,25 +1,17 @@
 import * as react_table_ultis from 'shared/react-table/ultis';
-import css from 'react-table/react-table.css';
+import css from 'assets/sass/react-table.scss';
 import React from 'react';
 import ReactTable from 'react-table';
 
 export default class FunctionLists extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      functions: props.functions
-    };
-  }
-
   render() {
     const columns = [
       {
-        header: I18n.t('functions.table_position'),
-        accessor: 'id',
-        filterMethod: (filter, row) => {
-          return row.id.toString().toLowerCase()
-            .includes(filter.value.toString().toLowerCase());},
-        width: 70,
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
       },
       {
         header: I18n.t('functions.controller_name'),
@@ -34,7 +26,7 @@ export default class FunctionLists extends React.Component {
 
     return (
       <div>
-        <ReactTable className='-striped -highlight' data={this.state.functions}
+        <ReactTable className='-striped -highlight' data={this.props.functions}
           columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
           showFilters={true}
           defaultFilterMethod={react_table_ultis.defaultFilter}

@@ -1,7 +1,7 @@
 import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
 import axios from 'axios';
-import css from 'react-table/react-table.css';
+import css from 'assets/sass/react-table.scss';
 import LanguagePolicy from 'policy/language_policy';
 import Modal from './templates/modal';
 import React from 'react';
@@ -27,6 +27,13 @@ export default class LanguageLists extends React.Component {
 
     const columns = [
       {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
         header: I18n.t('languages.headers.name'),
         accessor: 'name',
       },
@@ -36,48 +43,41 @@ export default class LanguageLists extends React.Component {
         accessor: d => d.image.url,
         render: row => <img src={row.value} className='thumbnail-image'/>,
         sortable: false,
-        filterRender: () => null,
+        hideFilter: true,
       },
       {
         header: I18n.t('languages.headers.description'),
         accessor: 'description',
-        render: row => {
-          return <span title={row.value}>{row.value}</span>;
-        },
-        width: 700,
+        render: row => <span title={row.value}>{row.value}</span>,
+        minWidth: 450
       },
       {
         header: '',
         accessor: 'creator_id',
         render: row => (
-          <LanguagePolicy permit={[{action: ['update', 'creator'],
-            target: 'children', data: {creator_id: row.value}}]}>
-            <button title={I18n.t('buttons.edit')}
-              className='btn btn-info' data-index={row.index}
-                onClick={this.handleEdit.bind(this)}>
-              <i className='fa fa-pencil-square-o' data-index={row.index}></i>
-            </button>
-          </LanguagePolicy>
-        ),
-        sortable: false,
-        filterRender: () => null,
-      },
-      {
-        header: '',
-        accessor: 'creator_id',
-        render: row => (
-          <LanguagePolicy
-            permit={[{action: ['destroy', 'creator'], target: 'children',
-              data: {creator_id: row.value}}]}>
-            <button title={I18n.t('buttons.delete')}
-              className='btn btn-danger' data-index={row.index}
+          <div className='text-center'>
+            <LanguagePolicy permit={[{action: ['update', 'creator'],
+              target: 'children', data: {creator_id: row.value}}]}>
+              <button title={I18n.t('buttons.edit')}
+                className='btn btn-info' data-index={row.index}
+                  onClick={this.handleEdit.bind(this)}>
+                <i className='fa fa-pencil-square-o'></i>
+              </button>
+            </LanguagePolicy>
+            <LanguagePolicy
+              permit={[{action: ['destroy', 'creator'], target: 'children',
+                data: {creator_id: row.value}}]}>
+              <button title={I18n.t('buttons.delete')}
+                className='btn btn-danger' data-index={row.index}
                 onClick={this.handleDelete.bind(this)}>
-              <i className='fa fa-trash' data-index={row.index}></i>
-            </button>
-          </LanguagePolicy>
+                <i className='fa fa-trash'></i>
+              </button>
+            </LanguagePolicy>
+          </div>
         ),
         sortable: false,
-        filterRender: () => null,
+        hideFilter: true,
+        width: 150
       }
     ];
     return (

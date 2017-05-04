@@ -56,6 +56,7 @@ class Course < ApplicationRecord
   has_many :dynamic_test_rules, through: :dynamic_tasks, source: :targetable,
     source_type: TestRule.name
   has_many :documents, as: :documentable, dependent: :destroy
+  has_many :exams, dependent: :destroy
 
   accepts_nested_attributes_for :user_courses, allow_destroy: true
 

@@ -1,7 +1,7 @@
 import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
 import axios from 'axios';
-import css from 'react-table/react-table.css';
+import css from 'assets/sass/react-table.scss';
 import Modal from './templates/modal';
 import React from 'react';
 import ReactTable from 'react-table';
@@ -29,37 +29,36 @@ export default class TraineeTypeLists extends React.Component {
 
     const columns = [
       {
-        header: I18n.t("trainee_types.name"),
-        accessor: 'name',
-        width: 800,
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('trainee_types.name'),
+        accessor: 'name'
       },
       {
         header: '',
         accessor: 'creator_id',
         render: row => (
-          <button className='btn btn-info' data-index={row.index}
-            onClick={this.handleEdit.bind(this)}>
-            <i className='fa fa-pencil-square-o' data-index={row.index}></i>
-            &nbsp;{I18n.t('buttons.edit')}
-          </button>
+          <div className='text-center'>
+            <button className='btn btn-info' data-index={row.index}
+              onClick={this.handleEdit.bind(this)}
+              title={I18n.t('buttons.edit')}>
+              <i className='fa fa-pencil-square-o'></i>
+            </button>
+            <button className='btn btn-danger' data-index={row.index}
+              onClick={this.handleDelete.bind(this)}
+              title={I18n.t('buttons.delete')}>
+              <i className='fa fa-trash'></i>
+            </button>
+          </div>
         ),
         sortable: false,
-        filterRender: () => null,
-        style: {textAlign: 'center'},
-      },
-      {
-        header: '',
-        accessor: 'creator_id',
-        render: row => (
-          <button className='btn btn-danger' data-index={row.index}
-            onClick={this.handleDelete.bind(this)}>
-            <i className="fa fa-trash" data-index={row.index}></i>
-            &nbsp;{I18n.t('buttons.delete')}
-          </button>
-        ),
-        sortable: false,
-        filterRender: () => null,
-        style: {textAlign: 'center'},
+        hideFilter: true,
+        width: 150
       }
     ];
 

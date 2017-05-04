@@ -1,5 +1,5 @@
 import axios from 'axios';
-import css from 'react-table/react-table.css';
+import css from 'assets/sass/react-table.scss';
 import Modal from './subject_form/modal';
 import React from 'react';
 import ReactTable from 'react-table';
@@ -30,6 +30,13 @@ export default class Subjects extends React.Component {
 
     const columns = [
       {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
         header: I18n.t('subjects.headers.name'),
         accessor: 'name',
         render: row => {
@@ -44,7 +51,7 @@ export default class Subjects extends React.Component {
         render: row => <img src={row.value ? row.value : DEFAULT_IMAGE_SUBJECT}
           className='thumbnail-image'/>,
         sortable: false,
-        filterRender: () => null,
+        hideFilter: true,
         width: 105,
       },
       {
@@ -53,39 +60,34 @@ export default class Subjects extends React.Component {
         render: row => {
           return <span title={row.value}>{row.value}</span>;
         },
-        width: 600,
       },
       {
         header: I18n.t('subjects.headers.during_time'),
         accessor: 'during_time',
-        filterMethod: (filter, row) => {
-          return row.during_time.toString().toLowerCase()
-            .includes(filter.value.toString().toLowerCase());},
+        render: row => <div className='text-right'>{row.value}</div>,
+        filterMethod: react_table_ultis.defaultNumberFilter,
+        width: 150
       },
       {
         header: '',
-        accessor: 'during_time',
+        accessor: 'actions',
         render: row => (
-          <button className='btn btn-info' data-index={row.index}
-            onClick={this.handleEdit.bind(this)}>
-            <i className='fa fa-pencil-square-o' data-index={row.index}></i>
-            &nbsp;{I18n.t('buttons.edit')}
-          </button>),
-        sortable: false,
-        filterRender: () => null,
-      },
-      {
-        header: '',
-        accessor: 'during_time',
-        render: row => (
-          <button className='btn btn-danger' data-index={row.index}
-            onClick={this.handleDelete.bind(this)}>
-            <i className='fa fa-trash' data-index={row.index}></i>
-            &nbsp;{I18n.t('buttons.delete')}
-          </button>
+          <div className='text-center'>
+            <button className='btn btn-info' data-index={row.index}
+              onClick={this.handleEdit.bind(this)}
+              title={I18n.t('buttons.edit')}>
+              <i className='fa fa-pencil-square-o'></i>
+            </button>
+            <button className='btn btn-danger' data-index={row.index}
+              onClick={this.handleDelete.bind(this)}
+              title={I18n.t('buttons.delete')}>
+              <i className='fa fa-trash'></i>
+            </button>
+          </div>
         ),
         sortable: false,
-        filterRender: () => null,
+        hideFilter: true,
+        width: 150
       }
     ];
     return (
