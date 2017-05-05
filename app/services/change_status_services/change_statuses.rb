@@ -13,9 +13,10 @@ class ChangeStatusServices::ChangeStatuses
           create_dynamic_tasks = UserSubjectServices::CreateDynamicTasks
             .new status: status, user_subject: user_subject
           result = create_dynamic_tasks.perform
-          if result &&
-            ((user_subject.in_progress? && status != "init") ||
-              user_subject.init?)
+          statuses = UserSubject.statuses
+          if result && statuses[user_subject.status] < statuses[status] &&
+            statuses[user_subject.status] < statuses["finished"]
+
             user_subject.update_attributes! params_with_date(user_subject)
           end
         end
@@ -40,7 +41,10 @@ class ChangeStatusServices::ChangeStatuses
   def update_course_subject_status
     if @params[:object_type] == "CourseSubject"
       @course_subject.update_attributes! user_subject_params
-    else
+    elsif @params[:object_type] == "Team"
+      if @course_subject.init?
+        @course_subject.in_progress!
+      end
       ChangeStatusServices::FinishCourseSubject
         .new(course_subject: @course_subject).perform
     end

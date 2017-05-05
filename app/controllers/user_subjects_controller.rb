@@ -27,12 +27,13 @@ class UserSubjectsController < ApplicationController
   end
 
   def verify_object
+    status = user_subject_params[:status]
     unless @user_subject.course_subject.in_progress?
       return render json: {message: I18n.t("user_subjects.not_update")},
         status: :unprocessable_entity
     end
-
-    unless (@user_subject.in_progress? && status != "init") || @user_subject.init?
+    statuses = UserSubject.statuses
+    if statuses[@user_subject.status] > statuses[status]
       render json: {message: I18n.t("user_subjects.status_fail")},
         status: :unprocessable_entity
     end

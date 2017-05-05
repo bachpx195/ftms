@@ -2,6 +2,7 @@ import axios from 'axios';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import ModalEvaluateMember from '../courses/modal_evaluate_member/modal';
 import React from 'react';
+import subject_css from './assets/subject.scss';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
@@ -49,11 +50,19 @@ export default class UserSubjectList extends React.Component {
       </div>
     );
     const SelectBoxStatus = ({griddleKey}) => {
-      return <select className='select-status'
-        onChange={this.handleChange.bind(this, griddleKey)}
-        name='status' value={this.state.user_subjects[griddleKey].status}>
-        {this.renderOptions()}
-      </select>;
+      let user_subject = this.state.user_subjects[griddleKey]
+      let button = '';
+      if (user_subject.status == "in_progress") {
+        button = <button className='btn btn-danger select-status'
+          onClick={this.handleFinishUserSubject.bind(this, user_subject)}>
+          {I18n.t('subjects.finish')}
+        </button>
+      } else {
+        button = <span className={`status ${user_subject.status}`}>
+          {I18n.t('subjects.status.'+ user_subject.status)}
+        </span>
+      }
+      return <div className="user_subject">{button}</div>
     }
 
     const addTask = ({griddleKey}) => (
@@ -129,10 +138,9 @@ export default class UserSubjectList extends React.Component {
     this.props.afterAddTaskForUser(user, index)
   }
 
-  handleChange(griddleKey, event) {
-    let user_subject = this.state.user_subjects[griddleKey];
+  handleFinishUserSubject(user_subject, event) {
     axios.patch(routes.user_subject_url(user_subject.id), {
-      status: event.target.value,
+      status: "finished",
       authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
     .then(response => {
@@ -169,17 +177,5 @@ export default class UserSubjectList extends React.Component {
       this.state.member_evaluations.push(member_evaluation);
     }
     this.setState({member_evaluations: this.state.member_evaluations});
-  }
-
-  renderOptions() {
-    let statuses=[];
-    for(var key in this.state.statuses){
-      statuses.push(
-        <option key={this.state.statuses[key]} value={key}>
-          {I18n.t('subjects.status.'+ key)}
-        </option>
-      )
-    }
-    return statuses;
   }
 }
