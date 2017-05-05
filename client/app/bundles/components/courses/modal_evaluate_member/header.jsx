@@ -22,6 +22,11 @@ export default class Header extends React.Component {
           </div>
           <div className="col-md-3">
           </div>
+          <div className="col-md-2">
+            <label>
+              {I18n.t('courses.obligatory')}
+            </label>
+          </div>
         </div>
       </li>
     );
