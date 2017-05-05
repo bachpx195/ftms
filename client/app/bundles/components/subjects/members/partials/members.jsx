@@ -1,7 +1,7 @@
 import * as routes from 'config/routes';
 import React from 'react';
 
-export default class Users extends React.Component {
+export default class Members extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,6 +23,7 @@ export default class Users extends React.Component {
         <a href={user_path} title={user.name}>
           <img className='img-circle'
             src={user.avatar.url} width='30' height='30'/>
+          <span>{user.name}</span>
         </a>
       </li>
     );

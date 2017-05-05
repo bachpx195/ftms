@@ -11,7 +11,7 @@ class DynamicTask < Task
 
   scope :owner_tasks, ->owner{where targetable_type: Task.name, ownerable: owner}
   scope :target_tasks, ->targetable{where targetable: targetable}
-  scope :team_tasks, ->user_ids{where user_id: user_ids}
+  scope :team_tasks, ->object{where objectable: object}
   enum status: [:init, :in_progress, :finished, :reject]
 
   def targetable_type= type
