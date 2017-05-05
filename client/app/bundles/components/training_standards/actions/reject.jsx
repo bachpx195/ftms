@@ -8,7 +8,7 @@ export default class Reject extends React.Component {
         onClick={this.onRejectSubject.bind(this)}
         title={I18n.t('training_standards.reject')}
         data-index={this.props.index} >
-        <i className='fa fa-times' aria-hidden='true' data-index={this.props.index}></i>
+        <i className='fa fa-trash' aria-hidden='true' data-index={this.props.index}></i>
       </button>
     )
   }

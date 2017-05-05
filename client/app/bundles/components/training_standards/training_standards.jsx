@@ -1,9 +1,6 @@
 import * as routes from 'config/routes';
 import * as react_table_ultis from 'shared/react-table/ultis';
-import * as table_constants from 'constants/griddle_table_constants';
-import axios from 'axios';
 import css from 'assets/sass/react-table.scss';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
 import ReactTable from 'react-table';
 import TrainingStandardPolicy from 'policy/training_standard_policy';
@@ -30,10 +27,6 @@ export default class TrainingStandards extends React.Component {
       {
         header: I18n.t('training_standards.name'),
         accessor: 'name',
-        filterMethod: (filter, row) => {
-          return row.name.toLowerCase()
-            .includes(filter.value.toLowerCase());
-        },
         render: row => {
           return <a title={row.value}
             href={routes.training_standard_url(row.row.id)}>{row.value}</a>
@@ -42,11 +35,7 @@ export default class TrainingStandards extends React.Component {
       {
         header: I18n.t('training_standards.description'),
         accessor: 'description',
-        render: row => <span title={row.value}>{row.value}</span>,
-        filterMethod: (filter, row) => {
-          return row.description.toLowerCase()
-            .includes(filter.value.toLowerCase());
-        }
+        render: row => <span title={row.value}>{row.value}</span>
       }
     ]
 
