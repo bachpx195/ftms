@@ -6,27 +6,27 @@ en:
       edit: "Edit Test Rule"
     form:
       id: ID
-      name: "Name :"
-      total_question: "Total question :"
+      name: "Name"
+      total_question: "Total question"
       placeholder_name: "Input name"
-      time_of_test: "Time of test :"
-      min_score_for_pass: "Min score for pass :"
-      opportunity: "Opportunity :"
-      number_of_test: "Number of test :"
+      time_of_test: "Time of test"
+      min_score_for_pass: "Min score for pass"
+      opportunity: "Opportunity"
+      number_of_test: "Number of test"
       number_question: Number questions
-      easy: Percent Easy
-      normal: Percent Normal
-      hard: Percent Hard
-      description: Description
-      content: Content
-      level: Level
-      category: Category
-      type: Type
+      easy: "Percent Easy"
+      normal: "Percent Normal"
+      hard: "Percent Hard"
+      description: "Description"
+      content: "Content"
+      level: "Level"
+      category: "Category"
+      type: "Type"
     buttons:
       create: "Create Test Rule"
     tabs:
-      information: Information
-      condition: Condition
+      information: "Information"
+      condition: "Condition"
     errors:
-      invalid_number_question: Invalid number question
-      invalid_value: Invalid value
+      invalid_number_question: "Invalid number question"
+      invalid_value: "Invalid value"

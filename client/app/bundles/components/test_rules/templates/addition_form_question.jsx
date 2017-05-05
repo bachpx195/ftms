@@ -1,11 +1,11 @@
-import Checkbox from '../../shareds/checkbox';
-import {FunctionsHelper} from '../helper/functions';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import { NewLayout } from 'shared/griddles/new_layout';
-import React from 'react';
-import SelectSell from '../../shareds/select_cell';
 import _ from 'lodash';
-import * as table_constants from 'constants/griddle_table_constants';
+import * as react_table_ultis from 'shared/react-table/ultis';
+import Checkbox from '../../shareds/checkbox';
+import css from 'assets/sass/react-table.scss';
+import {FunctionsHelper} from '../helper/functions';
+import React from 'react';
+import ReactTable from 'react-table';
+import SelectSell from '../../shareds/select_cell';
 
 export default class AdditionFormQuestion extends React.Component {
   constructor(props) {
@@ -14,58 +14,66 @@ export default class AdditionFormQuestion extends React.Component {
       questions: props.questions,
       current_questions: props.current_questions,
       temp_questions: [],
-      check_all: 'none'
+      check_all: 'none',
+      page_index: 0
     };
     this.props.handleRegisterRefresh('addition_question', this);
   }
 
   render() {
-    const CheckboxFunction = ({griddleKey}) => {
-      var checked = false;
-      if (this.state.check_all == 'yes') {
-        checked = true;
-        this.state.temp_questions[griddleKey].checked = checked;
-      } else if (this.state.check_all == 'no') {
-        checked = false;
-        this.state.temp_questions[griddleKey].checked = checked;
-      } else if (this.state.check_all == 'none') {
-        var cate = this.state.temp_questions[griddleKey];
-        checked = cate.checked
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('test_rules.form.content'),
+        accessor: 'content',
+        render: row => <span title={row.value}>{row.value}</span>
+      },
+      {
+        header: I18n.t('test_rules.form.level'),
+        accessot: 'level'
+      },
+      {
+        header: props => {
+          return <SelectSell checked={this.state.check_all}
+            handleSelectCell={this.handleSelectCell.bind(this)} />;
+        },
+        accessor: 'checkbox',
+        render: row => {
+          var checked = false;
+          if (this.state.check_all == 'yes') {
+            checked = true;
+            row.row.checked = checked;
+          } else if (this.state.check_all == 'no') {
+            checked = false;
+            row.row.checked = checked;
+          } else if (this.state.check_all == 'none') {
+            checked = row.row.checked
+          }
+          return (
+            <Checkbox handleClick={this.handleCheckbox.bind(this)}
+              index={row.index} is_checked={checked} />
+          );
+        },
+        hideFilter: true,
+        sortable: false,
+        width: 50
       }
-
-      return (
-        <Checkbox handleClick={this.handleCheckbox.bind(this)} griddleKey={griddleKey}
-          is_checked={checked}/>
-      );
-    };
-
-    const SelectSellBox = () => {
-      return (
-        <SelectSell checked={this.state.check_all} handleSelectCell={this.handleSelectCell.bind(this)}/>
-      );
-    };
+    ];
 
     return(
       <div>
-        <Griddle data={this.state.temp_questions} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}
-          events={{
-            onNext: this.handlePage.bind(this),
-            onPrevious: this.handlePage.bind(this),
-            onGetPage: this.handlePage.bind(this),
-          }}>
-          <RowDefinition>
-            <ColumnDefinition id="id"
-              title={I18n.t("test_rules.form.id")}/>
-            <ColumnDefinition id="content"
-              title={I18n.t("test_rules.form.content")}/>
-            <ColumnDefinition id="level"
-              title={I18n.t("test_rules.form.level")} />
-            <ColumnDefinition customComponent={CheckboxFunction.bind(this)}
-              customHeadingComponent={SelectSellBox} />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable className='-striped -highlight'
+          data={this.state.temp_questions} page={this.state.page_index}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true} onPageChange={this.onPageChange.bind(this)}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         <div className='col-xs-offset-9'>
           <button className='btn btn-primary' onClick={this.handleBack.bind(this)}>
             {I18n.t('buttons.back')}
@@ -102,8 +110,8 @@ export default class AdditionFormQuestion extends React.Component {
       {questions: this.state.current_questions})
   }
 
-  handleCheckbox(griddleKey, checked) {
-    this.state.temp_questions[griddleKey].checked = checked;
+  handleCheckbox(index, checked) {
+    this.state.temp_questions[index].checked = checked;
     this.setState({
       check_all: 'none',
       temp_questions: this.state.temp_questions
@@ -127,9 +135,10 @@ export default class AdditionFormQuestion extends React.Component {
     });
   }
 
-  handlePage(){
+  onPageChange(page_index) {
     this.setState({
       check_all: 'none',
+      page_index: page_index
     });
   }
 

@@ -48,7 +48,8 @@ export default class RoleFunctions extends React.Component {
       }
 
       return (
-        <Checkbox handleClick={this.handleCheckbox.bind(this)} griddleKey={griddleKey} is_checked={checked}/>
+        <Checkbox handleClick={this.handleCheckbox.bind(this)}
+          index={griddleKey} is_checked={checked} />
       );
     };
 

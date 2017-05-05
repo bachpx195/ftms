@@ -1,13 +1,13 @@
+import _ from 'lodash';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import CategoryPreview from './category_preview';
 import Checkbox from '../../shareds/checkbox';
+import css from 'assets/sass/react-table.scss';
 import {FunctionsHelper} from '../helper/functions';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import { NewLayout } from 'shared/griddles/new_layout';
-import SelectSell from '../../shareds/select_cell';
-import React from 'react';
 import QuestionPreview from './question_preview';
-import _ from 'lodash';
-import * as table_constants from 'constants/griddle_table_constants';
+import React from 'react';
+import ReactTable from 'react-table';
+import SelectSell from '../../shareds/select_cell';
 
 export default class AdditionFormCategory extends React.Component {
   constructor(props) {
@@ -16,57 +16,67 @@ export default class AdditionFormCategory extends React.Component {
       categories: props.categories,
       current_categories: props.current_categories,
       temp_categories: [],
-      check_all: 'none'
+      check_all: 'none',
+      page_index: 0
     };
     this.props.handleRegisterRefresh('addition_category', this);
   }
 
   render() {
-    const CheckboxFunction = ({griddleKey}) => {
-      var checked = false;
-      if (this.state.check_all == 'yes') {
-        checked = true;
-        this.state.temp_categories[griddleKey].checked = checked;
-      } else if (this.state.check_all == 'no') {
-        checked = false;
-        this.state.temp_categories[griddleKey].checked = checked;
-      } else if (this.state.check_all == 'none') {
-        var cate = this.state.temp_categories[griddleKey];
-        checked = cate.checked
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('test_rules.form.name'),
+        accessor: 'name'
+      },
+      {
+        header: I18n.t('test_rules.form.description'),
+        accessor: 'description',
+        render: row => <span title={row.value}>{row.value}</span>,
+        minWidth: 400
+      },
+      {
+        header: props => {
+          return <SelectSell checked={this.state.check_all}
+            handleSelectCell={this.handleSelectCell.bind(this)} />;
+        },
+        accessor: 'checkbox',
+        render: row => {
+          var checked = false;
+          if (this.state.check_all == 'yes') {
+            checked = true;
+            row.row.checked = checked;
+          } else if (this.state.check_all == 'no') {
+            checked = false;
+            row.row.checked = checked;
+          } else if (this.state.check_all == 'none') {
+            checked = row.row.checked
+          }
+          return (
+            <Checkbox handleClick={this.handleCheckbox.bind(this)}
+              index={row.index} is_checked={checked} />
+          );
+        },
+        hideFilter: true,
+        sortable: false,
+        width: 50
       }
-      return (
-        <Checkbox handleClick={this.handleCheckbox.bind(this)} griddleKey={griddleKey}
-          is_checked={checked}/>
-      );
-    };
-
-    const SelectSellBox = () => {
-      return (
-        <SelectSell checked={this.state.check_all} handleSelectCell={this.handleSelectCell.bind(this)}/>
-      );
-    };
+    ];
 
     return(
       <div>
-        <Griddle data={this.state.temp_categories} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}
-          events={{
-            onNext: this.handlePage.bind(this),
-            onPrevious: this.handlePage.bind(this),
-            onGetPage: this.handlePage.bind(this),
-          }}>
-          <RowDefinition>
-            <ColumnDefinition id="id"
-              title={I18n.t("test_rules.form.id")}/>
-            <ColumnDefinition id="name"
-             title={I18n.t("test_rules.form.name")}/>
-            <ColumnDefinition id="description"
-             title={I18n.t("test_rules.form.description")} />
-            <ColumnDefinition customComponent={CheckboxFunction.bind(this)}
-              customHeadingComponent={SelectSellBox} />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable className='-striped -highlight'
+          data={this.state.temp_categories} page={this.state.page_index}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true} onPageChange={this.onPageChange.bind(this)}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         <div className='col-xs-offset-9'>
           <button className='btn btn-primary' onClick={this.handleBack.bind(this)}>
             {I18n.t('buttons.back')}
@@ -103,12 +113,12 @@ export default class AdditionFormCategory extends React.Component {
     });
     for(var category of rule_categories)
       this.state.current_categories.push(category);
-    this.props.handleRefresh(['condition_form', 'categories_object'], 
+    this.props.handleRefresh(['condition_form', 'categories_object'],
       {categories: this.state.current_categories})
   }
 
-  handleCheckbox(griddleKey, checked) {
-    this.state.temp_categories[griddleKey].checked = checked;
+  handleCheckbox(index, checked) {
+    this.state.temp_categories[index].checked = checked;
     this.setState({
       check_all: 'none',
       temp_categories: this.state.temp_categories
@@ -132,9 +142,10 @@ export default class AdditionFormCategory extends React.Component {
     });
   }
 
-  handlePage(){
+  onPageChange(page_index) {
     this.setState({
       check_all: 'none',
+      page: page_index
     });
   }
 
