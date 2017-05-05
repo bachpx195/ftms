@@ -49,7 +49,7 @@ export default class FunctionBox extends React.Component {
 
       return (
         <Checkbox handleClick={this.handleCheckbox.bind(this)}
-          griddleKey={griddleKey} is_checked={checked}/>
+          index={griddleKey} is_checked={checked} />
       );
     };
 

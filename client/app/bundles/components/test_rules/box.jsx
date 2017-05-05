@@ -1,11 +1,9 @@
-import axios from 'axios';
-import Modal from './templates/modal_testrule'
-import React from 'react';
-import TestRules from './test_rules';
-import * as table_constants from 'constants/griddle_table_constants';
 import * as routes from 'config/routes';
 import css from './css/test_rule.scss';
 import css_slider from 'react-input-range/src/scss/index.scss';
+import Modal from './templates/modal_testrule'
+import React from 'react';
+import TestRules from './test_rules';
 
 export default class TestRulesBox extends React.Component {
   constructor(props) {
@@ -17,27 +15,20 @@ export default class TestRulesBox extends React.Component {
   }
 
   render() {
-    let modal;
+    let url = routes.organization_test_rules_url(this.props.organization.id);
     if (this.state.test_rule.id) {
-      modal = (
-        <Modal url={routes.test_rule_url(this.state.test_rule.id)}
-          test_rule={this.state.test_rule}
-          title={I18n.t('test_rules.titles.edit')}
-          categories={this.props.categories}
-          questions={this.props.questions}
-          handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
-      )
-    } else {
-      modal = (
+      url = routes.test_rule_url(this.state.test_rule.id);
+    }
+    let modal = (
         <Modal
-          url={routes.organization_test_rules_url(this.props.organization.id)}
+          url={url}
           test_rule={this.state.test_rule}
           title={I18n.t('test_rules.titles.create')}
           categories={this.props.categories}
           questions={this.props.questions}
+          handleAfterUpdated={this.handleAfterUpdated.bind(this)}
           afterCreateTestRule={this.afterCreateTestRule.bind(this)}/>
-      )
-    }
+      );
 
     return (
       <div className='row test-rules'>
@@ -59,7 +50,7 @@ export default class TestRulesBox extends React.Component {
             </div>
 
             <div className='box-body no-padding'>
-              <div className='form-create pull-right'>
+              <div className='form-create'>
                 <button className='btn btn-primary'
                   onClick={this.handleClickCreate.bind(this)}>
                   <i className='fa fa-plus'></i>
