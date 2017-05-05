@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MultiStepForm from '../templates/multi_step_form';
 import React from 'react';
+import TrainingStandardPolicy from 'policy/training_standard_policy';
 
 import * as routes from 'config/routes';
 
@@ -37,10 +38,15 @@ export default class Create extends React.Component {
   render() {
     return (
       <div className='row'>
-        <button type='button' className='btn btn-info create-subject'
-          onClick={this.handleCreateTrainingStandard.bind(this)}>
-          <i className='fa fa-plus'></i> {I18n.t('training_standards.create')}
-        </button>
+        <TrainingStandardPolicy permit={[
+          {action: ['ownerById'], data: {id: this.props.organization.user_id}},
+          {action: ['create', 'belongById'], data: {id: this.props.organization.id}}
+        ]}>
+          <button type='button' className='btn btn-info create-subject'
+            onClick={this.handleCreateTrainingStandard.bind(this)}>
+            <i className='fa fa-plus'></i> {I18n.t('training_standards.create')}
+          </button>
+        </TrainingStandardPolicy>
         {this.renderModalCreate()}
       </div>
     );
