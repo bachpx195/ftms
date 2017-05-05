@@ -30,4 +30,8 @@ class UserSubject < ApplicationRecord
       tasks.map{|task| task.targetable.targetable}
     end
   end
+
+  def dynamic_tasks
+    course_subject.dynamic_tasks.where objectable_id: self.user_id
+  end
 end

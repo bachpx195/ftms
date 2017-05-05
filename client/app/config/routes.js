@@ -423,6 +423,10 @@ export function user_subject_url(id) {
   return APP_URL + app_constants.USER_SUBJECTS_PATH + '/' + id;
 }
 
+export function change_status_user_subject_url() {
+  return APP_URL + app_constants.CHANGE_STATUS_USER_SUBJECT_PATH;
+}
+
 //clone
 export function clone_url() {
   return APP_URL + app_constants.CLONE_PATH;

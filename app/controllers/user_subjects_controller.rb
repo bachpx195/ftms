@@ -1,14 +1,15 @@
 class UserSubjectsController < ApplicationController
-  before_action :find_user_subject
+  before_action :find_user_subject, :authorize_request, :verify_object
 
   def update
-    @user_subject.attributes = params_with_date
-    if @user_subject.save
+    user_subject = ChangeStatusServices::UserSubject
+      .new(params: user_subject_params, user_subject: @user_subject).perform
+    if user_subject
       render json: {message: flash_message("updated"),
-        user_subject: @user_subject}
+        user_subject: user_subject}
     else
-      render json: {message: flash_message("not_updated"),
-        errors: @user.errors}, status: :unprocessable_entity
+      render json: {message: flash_message("not_updated")},
+        status: :unprocessable_entity
     end
   end
 
@@ -25,18 +26,20 @@ class UserSubjectsController < ApplicationController
     end
   end
 
-  def params_with_date
-    status_param = user_subject_params[:status]
-    if !@user_subject.in_progress? && status_param == "in_progress"
-      user_subject_params.merge start_date: Date.today,
-        end_date: Date.today + @user_subject.subject.during_time.days
-    elsif !@user_subject.finished? && status_param == "finished"
-      user_subject_params.merge user_end_date: Date.today
-    elsif status_param == "init"
-      user_subject_params.merge start_date: nil, end_date: nil,
-        user_end_date: nil
-    else
-      user_subject_params
+  def verify_object
+    unless @user_subject.course_subject.in_progress?
+      return render json: {message: I18n.t("user_subjects.not_update")},
+        status: :unprocessable_entity
     end
+
+    unless (@user_subject.in_progress? && status != "init") || @user_subject.init?
+      render json: {message: I18n.t("user_subjects.status_fail")},
+        status: :unprocessable_entity
+    end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(user_subject: @user_subject),
+      UserSubjectPolicy
   end
 end

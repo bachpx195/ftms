@@ -35,6 +35,11 @@ export default class SubjectDetail extends React.Component {
       show_content = I18n.t('subjects.titles.nothing_to_show');
     }
 
+    let length = 0;
+    _.map(this.state.subject_detail.tasks, task => {
+      length += task.length
+    });
+
     return (
       <div className='col-md-12'>
         <div className='subject-detail'>
@@ -100,7 +105,7 @@ export default class SubjectDetail extends React.Component {
               <div className='statistic-task'>
                 <StatisticTask statistic={this.state.subject_detail.statistics}
                   subject={this.state.subject_detail}
-                  length={this.state.subject_detail.tasks.length}
+                  length={length}
                 />
               </div>
               <div className='document'>

@@ -1,4 +1,5 @@
-import axios from 'axios';
+import * as routes from 'config/routes';
+import ButtonChangeStatuses from '../../actions/user_subjects/change_statuses';
 import React from 'react';
 import Modal from '../../../projects/templates/modal';
 
@@ -7,11 +8,29 @@ export default class Subjects extends React.Component {
     super(props);
 
     this.state = {
-      subject_detail: props.subject_detail
+      subject_detail: props.subject_detail,
+      status: props.subject_detail.course_subject.status
     }
   }
 
   render() {
+    const DisplayButton = () => {
+      if (this.state.status != 'finished') {
+        return (
+          <div className='start-subject col-md-2'>
+            <ButtonChangeStatuses
+              object_type="CourseSubject"
+              object_id={this.state.subject_detail.course_subject.id}
+              course_subject_id={this.state.subject_detail.course_subject.id}
+              status={this.state.status}
+            />
+          </div>
+        );
+      } else {
+        return null;
+      }
+    }
+
     return (
       <div>
         <div className='col-md-2'>
@@ -36,6 +55,7 @@ export default class Subjects extends React.Component {
               {this.state.subject_detail.training_standard.name}
             </div>
           </div>
+          <DisplayButton />
         </div>
       </div>
     );

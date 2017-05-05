@@ -343,6 +343,10 @@ body {
   right: 0;
   top: 0;
 
+  .start-subject {
+    float: right;
+  }
+
   .team-user-subject-item {
     td {
       padding: 10px 0;
@@ -531,9 +535,9 @@ body {
 
 .block-user-task {
   .description {
+    background: $white;
     box-shadow: 0 1px 1px $box-shadow-color;
     padding: 10px;
-    background: $white;
   }
 }
 

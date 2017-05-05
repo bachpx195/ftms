@@ -5,3 +5,6 @@ en:
       in_progress: "In Progress"
       finished: "Finish"
       reject: "Reject"
+    status_fail: "Error status. Please check the change status"
+    create_dynamic_task_fail: "Error during Dynamic Task creation"
+    not_update: "Course Subject status fail! Don't progressing"

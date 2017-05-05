@@ -29,13 +29,12 @@ export default class TeamList extends React.Component {
 
   renderTeamList(){
     return this.state.course_subject_teams.map(team => {
-      let team_url = routes.team_url(team.id);
       return (
-        <div key={team.id} className='col-lg-6 col-md-6 col-sm-6'>
-          <a href={team_url}>
-            <Team
-              team={team} user_subjects={team.user_subjects}/>
-          </a>
+        <div key={team.id} className='col-md-12'>
+          <Team
+            team={team} user_subjects={team.user_subjects}
+            course_subject={this.state.course_subject}
+          />
         </div>
       );
     });
