@@ -1,4 +1,4 @@
 class Serializers::TrainingStandards::OrganizationsSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name
+  attrs :id, :name, :creator_id, :user_id
 end
