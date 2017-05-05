@@ -27,7 +27,6 @@ import StatisticsInOutBox from "../components/statistics/in_outs/in_outs";
 import StatisticsTraineeTypeBox from "../components/statistics/trainee_types/trainee_types";
 import SubOrganizationShowBox from '../components/sub_organizations/show_box';
 import SubjectBox from '../components/subjects/box';
-import SubjectsShowBox from  '../components/subjects/show';
 import ProgramsShowBox from '../components/programs/show';
 import TaskBox from '../components/tasks/show';
 import TeamsShowBox from '../components/teams/show';
@@ -73,7 +72,6 @@ ReactOnRails.register({
   StatisticsTraineeTypeBox,
   SubOrganizationShowBox,
   SubjectBox,
-  SubjectsShowBox,
   TaskBox,
   TeamsShowBox,
   TestRulesBox,

@@ -1,13 +1,12 @@
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
-import axios from 'react';
 import CategoryPolicy from 'policy/category_policy';
+import css from 'assets/sass/react-table.scss';
 import Destroy from './actions/destroy';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import Header from './templates/header';
 import Modal from './templates/modal'
-import Row from './griddle/row';
 import React from 'react';
+import ReactTable from 'react-table';
 import Update from './actions/update';
 
 export default class Categories extends React.Component {
@@ -27,37 +26,51 @@ export default class Categories extends React.Component {
   }
 
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <Header Table={Table} Pagination={Pagination} Filter={Filter} />
-    );
-    const ButtonEdit = ({griddleKey}) => (
-      <div>
-        <CategoryPolicy permit={[
-          {action: ['update', 'creator'], target: 'children',
-            data: {creator_id: this.state.categories[griddleKey].creator_id}}]}>
-          <div>
-            <button className='btn btn-info' onClick={this.handleEdit.bind(this)}
-              data-index={griddleKey}>
-              <i className="fa fa-pencil-square-o"></i>
-              &nbsp;{I18n.t('buttons.edit')}
-            </button>
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('categories.headers.name'),
+        accessor: 'name',
+        render: ({row}) => <a href={routes.category_url(row.id)}>{row.name}</a>
+      },
+      {
+        header: I18n.t('categories.headers.description'),
+        accessor: 'description',
+        render: (row) => <span title={row.value}>{row.value}</span>,
+        minWidth: 450
+      },
+      {
+        header: '',
+        accessor: 'actions',
+        render: row => (
+          <div className='text-center'>
+            <CategoryPolicy
+              permit={[{
+                action: ['update', 'creator'], target: 'children',
+                data: {creator_id: row.row.creator_id}
+              }]}>
+              <button className='btn btn-info' data-index={row.index}
+                onClick={this.handleEdit.bind(this)}
+                title={I18n.t('buttons.edit')}>
+                <i className='fa fa-pencil-square-o'></i>
+              </button>
+            </CategoryPolicy>
+            <Destroy category={row.row}
+              handleAfterDeleted={this.props.handleAfterDeleted} />
           </div>
-        </CategoryPolicy>
-      </div>
-    );
+        ),
+        sortable: false,
+        hideFilter: true,
+        width: 150
+      }
+    ];
 
-    const ButtonDelete = ({griddleKey}) => (
-      <Destroy category={this.state.categories[griddleKey]}
-        categories={this.state.categories}
-        handleAfterDeleted={this.props.handleAfterDeleted} />
-    )
-
-    const LinkToCategory = ({griddleKey}) => {
-      let {id, name} = this.state.categories[griddleKey] ;
-      return(
-        <a href={routes.category_url(id)}>{name}</a>
-      )
-    }
     let modal_edit = null;
     if(this.state.category.id){
       modal_edit = (
@@ -66,26 +79,32 @@ export default class Categories extends React.Component {
           handleAfterUpdated={this.props.handleAfterUpdated.bind(this)} />
       );
     }
+
     return(
       <div className='list-categories'>
-        <Griddle data={this.state.categories} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout, Row: Row}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='name' title={I18n.t('programs.name')}
-              customComponent={LinkToCategory}/>
-            <ColumnDefinition id='description'
-              title={I18n.t('courses.description')} />
-            <ColumnDefinition id='edit' title=' '
-              customComponent={ButtonEdit}/>
-            <ColumnDefinition id='delete'
-              title='  '
-              customComponent={ButtonDelete}/>
-          </RowDefinition>
-        </Griddle>
+        <ReactTable className='-striped -highlight'
+          data={this.policyFilterData()}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
         {modal_edit}
       </div>
     )
+  }
+
+  policyFilterData() {
+    let categories = [];
+    let policy = new CategoryPolicy({refresh: false});
+    for (let category of this.state.categories) {
+      var permit = [
+        {action: ['show', 'creator'], data: {creator_id: category.creator_id}}
+      ];
+      if (policy.checkAllowFunction(permit)) {
+        categories.push(category);
+      }
+    }
+    return categories;
   }
 
   componentDidUpdate(prevProps, prevState) {

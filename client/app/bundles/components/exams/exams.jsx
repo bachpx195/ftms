@@ -39,19 +39,22 @@ export default class Exams extends React.Component {
         header: I18n.t('exams.headers.created_at'),
         id: 'created_at',
         accessor: d => I18n.l('time.formats.default', d.created_at),
-        render: row => <div className='text-right'>{row.value}</div>
+        render: row => <div className='text-right'>{row.value}</div>,
+        width: 150
       },
       {
         header: I18n.t('exams.headers.spent_time'),
         accessor: 'spent_time',
         render: row => <div className='text-right'>{row.value}</div>,
-        filterMethod: react_table_ultis.defaultNumberFilter
+        filterMethod: react_table_ultis.defaultNumberFilter,
+        width: 125
       },
       {
         header: I18n.t('exams.headers.score'),
         accessor: 'score',
         render: row => <div className='text-right'>{row.value}</div>,
-        filterMethod: react_table_ultis.defaultNumberFilter
+        filterMethod: react_table_ultis.defaultNumberFilter,
+        width: 75
       },
       {
         header: '',
@@ -64,7 +67,8 @@ export default class Exams extends React.Component {
           );
         },
         hideFilter: true,
-        sortable: false
+        sortable: false,
+        width: 75
       }
     ];
 

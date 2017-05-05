@@ -6,18 +6,15 @@ import React from 'react';
 export default class Destroy extends React.Component {
   render() {
     return (
-      <div>
-        <CategoryPolicy
-          permit={[
-            {action: ['destroy', 'creator'], target: 'children',
-              data: {creator_id: this.props.category.creator_id}}]}>
-          <button className='btn btn-danger'
-            onClick={this.handleDelete.bind(this)}>
-            <i className='fa fa-trash'></i>
-            &nbsp;{I18n.t('buttons.delete')}
-          </button>
-        </CategoryPolicy>
-      </div>
+      <CategoryPolicy
+        permit={[{action: ['destroy', 'creator'], target: 'children',
+          data: {creator_id: this.props.category.creator_id}}]}>
+        <button className='btn btn-danger'
+          onClick={this.handleDelete.bind(this)}
+          title={I18n.t('buttons.delete')}>
+          <i className='fa fa-trash'></i>
+        </button>
+      </CategoryPolicy>
     );
   }
 
