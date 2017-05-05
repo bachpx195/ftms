@@ -18,9 +18,11 @@ class TaskServices::CreateTask
   private
 
   def add_meta_type
-    @meta_types_checked.map do |meta_type_checked|
-      meta_type = MetaType.find_by id: meta_type_checked[:id]
-      @targetable.meta_types << meta_type
+    if @meta_types_checked
+      @meta_types_checked.map do |meta_type_checked|
+        meta_type = MetaType.find_by id: meta_type_checked[:id]
+        @targetable.meta_types << meta_type
+      end
     end
   end
 end

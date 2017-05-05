@@ -4,6 +4,7 @@ class CreateTask::TasksController < ApplicationController
 
   def create
     @target = class_eval(params[:task][:type].classify).new task_params
+    @target.creator_id = current_user.id
     if @target.save
       static_task = TaskServices::CreateTask.new(targetable: @target,
         ownerable: @ownerable, meta_types_checked: params[:meta_types_checked]).perform
