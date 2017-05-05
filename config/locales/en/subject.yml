@@ -113,5 +113,6 @@ en:
     add: "Add %{type}"
     assign: "Assign %{type}"
     permit_create_meta_types_fails: "Permission create meta type fail"
+    finish: "Finish"
   data:
     start_course_subject: "Do you want start course"

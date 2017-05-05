@@ -54,20 +54,12 @@ export default class Team extends React.Component {
       let not_started = this.state.user_subjects.
         findIndex(user_subject => user_subject.status != 'init');
 
-      let status = 'init';
-      if (not_started > -1) {
-        status = 'in_progress';
-      } else {
-        status = 'init' ;
-      }
-
-      if (not_finished > -1) {
+      if ((not_finished > -1) && (not_started > -1)) {
         return (
           <ButtonChangeStatuses
             object_type="Team"
             object_id={this.state.team.id}
-            course_subject_id={this.props.course_subject.id}
-            status={status} />
+            course_subject_id={this.props.course_subject.id} />
         );
       } else {
         return null;

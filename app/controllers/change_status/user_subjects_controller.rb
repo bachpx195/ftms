@@ -34,14 +34,15 @@ class ChangeStatus::UserSubjectsController < ApplicationController
   def verify_object
     status = user_subject_params[:status]
     object_type = params[:object_type]
+    statuses = CourseSubject.statuses
 
     if object_type == "CourseSubject"
-      unless (@course_subject.in_progress? && status != "init") || @course_subject.init?
+      if statuses[@course_subject.status] > statuses[status]
         render json: {message: I18n.t("user_subjects.status_fail")},
           status: :unprocessable_entity
       end
     elsif object_type == "Team"
-      unless @object.course_subject.in_progress?
+      if statuses[@course_subject.status] >= statuses["finished"]
         render json: {message: I18n.t("user_subjects.not_update")},
           status: :unprocessable_entity
       end

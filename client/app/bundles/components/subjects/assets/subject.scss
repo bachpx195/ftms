@@ -639,3 +639,23 @@ body {
     background: none;
   }
 }
+
+.user_subject {
+  .status {
+    background: $white;
+    margin-bottom: 2px;
+    padding: 5px 12px;
+  }
+
+  .init {
+    color: $background-init;
+  }
+
+  .in_progress {
+    color: $background-inprogress;
+  }
+
+  .finished {
+    color: $background-finish;
+  }
+}
