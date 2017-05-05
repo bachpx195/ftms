@@ -1,56 +1,40 @@
-import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import React from 'react';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
+import css from 'assets/sass/react-table.scss';
+import React from 'react';
+import ReactTable from 'react-table';
 
 export default class Users extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: props.users,
-      user_id: null,
-      user_functions: []
-    };
-  }
-
   render(){
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className="col-md-12">
-        <div className="row">
-          <div className="griddle-head clearfix">
-            <div className="col-md-6">
-              <Filter />
-            </div>
-            <div className="col-md-6 text-right">
-              <Pagination />
-            </div>
-          </div>
-          <div className="col-md-12">
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
-
-    const LinkShowUser = ({value, griddleKey}) => (
-      <a href={routes.user_url(this.props.users[griddleKey].id)}>{value}</a>
-    );
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('users.name'),
+        accessor: 'name',
+        render: ({row}) => {
+          let user_url = routes.user_url(row.id);
+          return <a href={user_url}>{row.name}</a>
+        }
+      },
+      {
+        header: I18n.t('users.email'),
+        accessor: 'email'
+      }
+    ];
 
     return(
       <div>
-        <Griddle data={this.state.users} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id="id"
-              title={I18n.t("users.id")}/>
-            <ColumnDefinition id="name" customComponent={LinkShowUser}
-              title={I18n.t("users.name")}/>
-            <ColumnDefinition id="email"
-              title={I18n.t("users.email")} />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable className='-striped -highlight' data={this.props.users}
+          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+          showFilters={true}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
       </div>
     );
   }

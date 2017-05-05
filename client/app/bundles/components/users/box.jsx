@@ -41,11 +41,13 @@ export default class UsersBox extends React.Component {
     const View = () => {
       if (this.state.view_type == 'list') {
         return (
-          <div className='box-body'>
-            <a className='btn btn-primary button-new'
-              href={routes.new_organization_user_url(this.props.organization.id)}>
-              {I18n.t('users.buttons.new')}
-            </a>
+          <div>
+            <div className='text-right'>
+              <a className='btn btn-primary'
+                href={routes.new_organization_user_url(this.props.organization.id)}>
+                {I18n.t('users.buttons.new')}
+              </a>
+            </div>
             <Users users={this.state.users} />
           </div>
         );
