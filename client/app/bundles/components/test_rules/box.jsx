@@ -40,7 +40,7 @@ export default class TestRulesBox extends React.Component {
     }
 
     return (
-      <div className='row'>
+      <div className='row test-rules'>
         <div className='col-md-12'>
           <div className='box box-success'>
             <div className='box-header with-border'>
@@ -62,12 +62,13 @@ export default class TestRulesBox extends React.Component {
               <div className='form-create pull-right'>
                 <button className='btn btn-primary'
                   onClick={this.handleClickCreate.bind(this)}>
-                  <i className="fa fa-plus"></i>
+                  <i className='fa fa-plus'></i>
                   &nbsp;{I18n.t('test_rules.buttons.create')}
                 </button>
               </div>
               <div className='list-categories clearfix'>
-                <TestRules test_rules={this.state.test_rules} test_rule={this.state.test_rule}
+                <TestRules test_rules={this.state.test_rules}
+                  test_rule={this.state.test_rule}
                   handleRefresh={this.handleRefresh.bind(this)}/>
                 {modal}
               </div>

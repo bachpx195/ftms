@@ -1,7 +1,6 @@
 import * as routes from 'config/routes';
 import axios from 'axios';
 import Categories from './categories'
-import css from './assets/categories.scss';
 import CategoryPolicy from 'policy/category_policy';
 import Form from './templates/form'
 import React from 'react';

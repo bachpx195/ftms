@@ -3,81 +3,83 @@ $c-blue: #4caf50;
 $c-black: rgba(0, 0, 0, .3);
 $c-border: #808080;
 
-.form-group {
-  .submit {
-    padding: 7px 25px;
-  }
-}
-
-.form-create {
-  padding: 10px 25px;
-}
-
-.list-categories {
-  margin: 50px 40px 0 !important;
-}
-
-.modal-test-rule {
-  width: 70%;
-
-  .tab-content {
-    min-height: 300px;
-    padding: 20px;
+.test-rules {
+  .form-group {
+    .submit {
+      padding: 7px 25px;
+    }
   }
 
-  .form-preview {
-    border: 1px $c-border solid;
-    padding: 16px;
+  .form-create {
+    padding: 10px 25px;
   }
 
-  .list-node {
-    padding: 10px;
+  .list-categories {
+    margin: 50px 40px 0;
   }
 
-  .icon-remove {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
+  .modal-test-rule {
+    width: 70%;
 
-  .list-group-item.node-item {
-    cursor: pointer !important;
-    padding: 0 !important;
-  }
+    .tab-content {
+      min-height: 300px;
+      padding: 20px;
+    }
 
-  .show-value {
-    background-color: $c-blue !important;
-    border: 0;
-    color: $c-white !important;
-    padding: 5px 10px;
-  }
+    .form-preview {
+      border: 1px $c-border solid;
+      padding: 16px;
+    }
 
-  .list-category {
-    height: 25vh;
-    min-height: 20vh;
-    overflow-y: scroll;
-  }
+    .list-node {
+      padding: 10px;
+    }
 
-  .list-question {
-    height: 35vh;
-    min-height: 20vh;
-    overflow-y: scroll;
-  }
+    .icon-remove {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
 
-  .scroll-bar::-webkit-scrollbar-track {
-    background-color: $c-white;
-  }
+    .list-group-item.node-item {
+      cursor: pointer !important;
+      padding: 0 !important;
+    }
 
-  .scroll-bar::-webkit-scrollbar {
-    background-color: $c-white;
-    width: 8px;
-  }
+    .show-value {
+      background-color: $c-blue !important;
+      border: 0;
+      color: $c-white !important;
+      padding: 5px 10px;
+    }
 
-  .scroll-bar::-webkit-scrollbar-thumb {
-    border: 2px solid $c-black;
-  }
+    .list-category {
+      height: 25vh;
+      min-height: 20vh;
+      overflow-y: scroll;
+    }
 
-  .range-select {
-    padding-top: 20px;
+    .list-question {
+      height: 35vh;
+      min-height: 20vh;
+      overflow-y: scroll;
+    }
+
+    .scroll-bar::-webkit-scrollbar-track {
+      background-color: $c-white;
+    }
+
+    .scroll-bar::-webkit-scrollbar {
+      background-color: $c-white;
+      width: 8px;
+    }
+
+    .scroll-bar::-webkit-scrollbar-thumb {
+      border: 2px solid $c-black;
+    }
+
+    .range-select {
+      padding-top: 20px;
+    }
   }
 }

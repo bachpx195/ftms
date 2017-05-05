@@ -14,3 +14,6 @@ en:
       time_of_test: "Time of test"
       min_score_for_pass: "Min score for pass"
       number_of_test: "Number of test"
+    headers:
+      name: "Name"
+      description: "Description"
