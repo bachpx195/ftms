@@ -4,7 +4,6 @@ import Categories from './categories'
 import CategoryPolicy from 'policy/category_policy';
 import Form from './templates/form'
 import React from 'react';
-import Row from './griddle/row';
 
 const CATEGORIES_URL = routes.categories_url();
 
@@ -15,7 +14,6 @@ export default class CategoriesBox extends React.Component {
       categories: props.categories,
       category: {},
     }
-    Row.prototype.categories = this.state.categories;
   }
 
   render() {

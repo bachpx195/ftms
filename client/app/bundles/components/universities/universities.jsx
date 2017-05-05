@@ -6,7 +6,6 @@ import css from 'assets/sass/react-table.scss';
 import Destroy from './actions/destroy';
 import ModalEdit from './templates/modal';
 import React from 'react';
-import Row from './griddle/row';
 import ReactTable from 'react-table';
 import Update from './actions/update';
 import UniversityPolicy from 'policy/university_policy';
@@ -19,7 +18,6 @@ export default class Universities extends React.Component {
       universities: props.universities,
       university: {}
     };
-    Row.prototype.universities = this.state.universities;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,7 +80,7 @@ export default class Universities extends React.Component {
     return (
       <div>
         <ReactTable
-          className='-striped -highlight' data={this.state.universities}
+          className='-striped -highlight' data={this.policyFilterData()}
           columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
           showFilters={true}
           defaultFilterMethod={react_table_ultis.defaultFilter}
@@ -90,6 +88,20 @@ export default class Universities extends React.Component {
         {modalEdit}
       </div>
     );
+  }
+
+  policyFilterData() {
+    let universities = [];
+    let policy = new UniversityPolicy({refresh: false});
+    for (let university of this.state.universities) {
+      var permit = [
+        {action: ['show', 'creator'], data: {creator_id: university.creator_id}}
+      ];
+      if (policy.checkAllowFunction(permit)) {
+        universities.push(university);
+      }
+    }
+    return universities;
   }
 
   setUniversity(selected_university) {

@@ -6,7 +6,6 @@ import LanguagePolicy from 'policy/language_policy';
 import Modal from './templates/modal';
 import React from 'react';
 import ReactTable from 'react-table';
-import Row from './griddle/row';
 
 export default class LanguageLists extends React.Component {
   constructor(props) {
@@ -15,7 +14,6 @@ export default class LanguageLists extends React.Component {
       languages: props.languages,
       language: {}
     };
-    Row.prototype.languages = this.state.languages;
   }
 
   render() {
@@ -82,14 +80,28 @@ export default class LanguageLists extends React.Component {
     ];
     return (
       <div>
-        <ReactTable className='-striped -highlight' data={this.state.languages}
-          columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
-          showFilters={true}
+        <ReactTable className='-striped -highlight'
+          data={this.policyFilterData()} columns={columns} showFilters={true}
+          defaultPageSize={react_table_ultis.defaultPageSize}
           defaultFilterMethod={react_table_ultis.defaultFilter}
         />
         {modalEdit}
       </div>
     );
+  }
+
+  policyFilterData() {
+    let languages = [];
+    let policy = new LanguagePolicy({refresh: false});
+    for (let language of this.state.languages) {
+      var permit = [
+        {action: ['show', 'creator'], data: {creator_id: language.creator_id}}
+      ];
+      if (policy.checkAllowFunction(permit)) {
+        languages.push(language);
+      }
+    }
+    return languages;
   }
 
   handleEdit(event) {
