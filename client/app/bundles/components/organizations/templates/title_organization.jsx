@@ -29,7 +29,7 @@ export default class TitleOrganization extends React.Component{
         <div className="function">
           <OrganizationPolicy
             permit={[
-              {action: ['ownerById'], data: {id: this.state.organization.id}},
+              {action: ['ownerById'], data: {id: this.state.organization.user_id}},
               {action: ['update', 'creator'], data: this.state.organization},
               {action: ['update', 'belongById'],
                 data: {key: 'organization_id', id: this.state.organization.id}},

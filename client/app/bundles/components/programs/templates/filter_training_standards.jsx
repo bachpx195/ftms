@@ -1,4 +1,6 @@
+import CoursePolicy from 'policy/course_policy'
 import React from  'react';
+import TrainingStandardPolicy from 'policy/training_standard_policy'
 
 export default class FilterTrainingStandards extends React.Component {
   render() {
@@ -20,14 +22,18 @@ export default class FilterTrainingStandards extends React.Component {
                 {this.renderOptionTrainingStandard()}
               </select>
             </fieldset>
-            <button className='btn btn-info' onClick={this.handleCreateCourse.bind(this)}>
-              <i className="fa fa-plus"></i>
-              &nbsp;{I18n.t('courses.create_course')}
-            </button>
-            <button className='btn btn-info' onClick={this.handleCreateStandard.bind(this)}>
-              <i className="fa fa-plus"></i>
-              &nbsp;{I18n.t("training_standards.create")}
-            </button>
+            <CoursePolicy permit={[{action: ['create']}]}>
+              <button className='btn btn-info' onClick={this.handleCreateCourse.bind(this)}>
+                <i className="fa fa-plus"></i>
+                &nbsp;{I18n.t('courses.create_course')}
+              </button>
+            </CoursePolicy>
+            <TrainingStandardPolicy permit={[{action: ['create']}]}>
+              <button className='btn btn-info' onClick={this.handleCreateStandard.bind(this)}>
+                <i className="fa fa-plus"></i>
+                &nbsp;{I18n.t("training_standards.create")}
+              </button>
+            </TrainingStandardPolicy>
           </div>
         </div>
       </div>

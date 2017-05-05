@@ -63,6 +63,15 @@ export const CustomFunction = {
   },
   belongById: (data) => {
     var profile = $.parseJSON(localStorage.profile);
+    if(!profile) return false;
     return profile[data.key] == data.id
+  },
+  creatorByIds: (data) => {
+    var current_user = $.parseJSON(localStorage.current_user);
+    return $.inArray(current_user.id, data.ids) >= 0;
+  },
+  ownerByIds: (data) => {
+    var current_user = $.parseJSON(localStorage.current_user);
+    return $.inArray(current_user.id, data.ids) >= 0;
   }
 }

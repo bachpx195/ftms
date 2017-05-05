@@ -7,6 +7,8 @@ import UnAssign from './actions/unassign';
 import { NewLayout } from '../shareds/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as routes from 'config/routes';
+import ProgramPolicy from 'policy/program_policy';
+import Row from './griddle/row';
 
 export default class ProgramLists extends React.Component {
   constructor(props) {
@@ -18,6 +20,8 @@ export default class ProgramLists extends React.Component {
       organization: props.organization,
       not_assigned_programs: props.not_assigned_programs
     }
+    Row.prototype.programs = props.programs;
+    Row.prototype.organization = props.organization;
   }
 
   componentDidMount() {
@@ -34,6 +38,8 @@ export default class ProgramLists extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    Row.prototype.programs = nextProps.programs;
+    Row.prototype.organization = nextProps.organization;
     this.setState({
       programs: nextProps.programs,
       organization: nextProps.organization,
@@ -43,39 +49,68 @@ export default class ProgramLists extends React.Component {
 
   render() {
     {NewLayout}
-    const ButtonEdit = ({griddleKey}) => (
-      <button className="btn btn-info" data-index={griddleKey}
-        onClick={this.handleEdit.bind(this)}>
-        {I18n.t('buttons.edit')}
-      </button>
-    );
+    const ButtonEdit = ({griddleKey}) => {
+      let program = this.state.programs[griddleKey];
+      let organization = this.state.organization;
+      return (
+        <ProgramPolicy permit={[
+          {action: ['ownerById'], data: {id: program.owner_id}},
+          {action: ['update', 'creatorByIds'], data: [program.creator_id, organization.creator_id]},
+          {action: ['update', 'belongById'], data: {key: 'program_id', id: program.id}},
+        ]}>
+          <button className="btn btn-info" data-index={griddleKey}
+            onClick={this.handleEdit.bind(this)}>
+            {I18n.t('buttons.edit')}
+          </button>
+        </ProgramPolicy>
+    )};
 
     const ButtonDelete = ({griddleKey}) => {
-      let program = this.props.programs[griddleKey];
-      return <Destroy
-        url={routes.program_url(program.id)}
-        program={program}
-        handleAfterDeleted={this.props.handleAfterDeleted}
-      />
-    }
+      let program = this.state.programs[griddleKey];
+      let organization = this.state.organization;
+      return (
+        <ProgramPolicy permit={[
+          {action: ['ownerById'], data: {id: program.owner_id}},
+          {action: ['destroy', 'creatorByIds'], data: [program.creator_id, organization.creator_id]},
+          {action: ['destroy', 'belongById'], data: {key: 'program_id', id: program.id}},
+        ]}>
+          <Destroy
+            url={routes.program_url(program.id)}
+            program={program}
+            handleAfterDeleted={this.props.handleAfterDeleted}
+          />
+        </ProgramPolicy>
+    )}
 
     const ButtonSubProgram = ({griddleKey}) => (
-      <button className="btn btn-info" data-index={griddleKey}
-        onClick={this.handleCreateSubProgram.bind(this)}>
-        {I18n.t('buttons.create_sub_program')}
-      </button>
+      <ProgramPolicy permit={[
+        {action: ['create']}
+      ]}>
+        <button className="btn btn-info" data-index={griddleKey}
+          onClick={this.handleCreateSubProgram.bind(this)}>
+          {I18n.t('buttons.create_sub_program')}
+        </button>
+      </ProgramPolicy>
     );
 
     const ButtonUnassign = ({griddleKey}) => {
       let program = this.state.programs[griddleKey];
+      let organization = this.state.organization;
       let url = routes.assign_program_url(this.state.organization.id) + '.json';
-      return <UnAssign
-        url={url}
-        program={program}
-        organization={this.state.organization}
-        handleAfterUnassignProgram={this.props.handleAfterUnassignProgram}
-      />
-    };
+      return (
+        <ProgramPolicy permit={[
+          {action: ['ownerById'], data: {id: program.owner_id}},
+          {action: ['update', 'creatorByIds'], data: [program.creator_id, organization.creator_id]},
+          {action: ['update', 'belongById'], data: {key: 'program_id', id: program.id}},
+        ]}>
+          <UnAssign
+            url={url}
+            program={program}
+            organization={this.state.organization}
+            handleAfterUnassignProgram={this.props.handleAfterUnassignProgram}
+          />
+        </ProgramPolicy>
+    )};
 
     const LinkToProgram = ({value, griddleKey}) => {
       let program = this.state.programs[griddleKey];
@@ -120,7 +155,7 @@ export default class ProgramLists extends React.Component {
           </button>
         </div>
         <Griddle data={this.state.programs} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
+          components={{Layout: NewLayout, Row: Row}}
           styleConfig={table_constants.styleConfig}>
           <RowDefinition>
             <ColumnDefinition id="name" title={I18n.t("programs.name")}
