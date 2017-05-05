@@ -38,7 +38,7 @@ export default class ResultBox extends React.Component {
               <strong>{this.totalMaxPoint()}</strong>
             </label>
           </div>
-          <div className='col-md-3 text-right point-input'>
+          <div className='col-md-3 text-right'>
             <input className='text-danger text-right'
               type='number' step='1' min='0'
               disabled='true' value={this.state.total_point} />
