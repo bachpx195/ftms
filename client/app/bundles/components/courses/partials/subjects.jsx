@@ -1,8 +1,7 @@
-import Time from 'react-time-format';
-import React from 'react';
 import * as routes from 'config/routes';
+import css from '../assets/course-subject.scss';
+import React from 'react';
 
-import CSS from '../assets/course-subject.scss';
 
 export default class CourseSubjects extends React.Component {
   constructor(props) {
@@ -26,21 +25,7 @@ export default class CourseSubjects extends React.Component {
         </div>
       );
     }
-    else return null;
-  }
-
-  renderStartDate(subject) {
-    let user_subject = this.state.current_user_subjects
-      .find(item => item.subject_id == subject.id);
-    if (user_subject != null) {
-      let start_date = user_subject.start_date;
-      return (
-        <span className='label label-info timeline-label start_date_label'>
-          <Time value={start_date} format='DD-MM-YYYY' />
-        </span>
-      );
-    }
-    else return null;
+    return null;
   }
 
   renderStartDate(subject) {
@@ -73,9 +58,7 @@ export default class CourseSubjects extends React.Component {
 
   renderFormatTime(time) {
     if (time != null) {
-      return (
-        <Time value={time} format='DD-MM-YYYY' />
-      );
+      return I18n.l('date.formats.default', time);
     }
     return null;
   }

@@ -211,7 +211,7 @@ export function roles_url() {
 }
 
 export function role_url(id) {
-  return roles_url + '/' + id;
+  return roles_url() + '/' + id;
 }
 
 //myspace course
