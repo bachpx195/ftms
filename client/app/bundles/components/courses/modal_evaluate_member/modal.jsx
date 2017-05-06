@@ -40,12 +40,12 @@ export default class ModalEvaluateMember extends React.Component {
         total_point += parseInt(standard.evaluation_point);
       }
     }
-    let training_result = '';
-    if (!this.props.subject) {
-      training_result = this.props.evaluation_template.training_results
-        .find(result => total_point >= result.min_point &&
-            total_point <= result.max_point);
-    }
+
+    let failed = false;
+    let evaluation_standards = nextProps.evaluation_standards
+    let training_result = this.getStandard(standard_points, evaluation_standards,
+      total_point, failed);
+
     this.setState({
       evaluation_standards: nextProps.evaluation_standards,
       evaluation_template: nextProps.evaluation_template,
@@ -60,6 +60,10 @@ export default class ModalEvaluateMember extends React.Component {
 
   renderEvaluationStandards() {
     return this.state.evaluation_standards.map((evaluation_standard, index) => {
+      let obligatory = '';
+      if (evaluation_standard.obligatory) {
+        obligatory = I18n.t('courses.obligatory');
+      }
       return(
         <li className='list-group-item' key={evaluation_standard.id}>
           <div className='row'>
@@ -80,8 +84,13 @@ export default class ModalEvaluateMember extends React.Component {
             </div>
             <div className='col-md-3 text-right point-input'>
               <input className='text-right' type='number' step='1' min='0'
+                data-max={evaluation_standard.max_point}
+                data-index={index}
                 value={this.state.standard_points[evaluation_standard.id] || 0}
                 onChange={this.handlePointChange.bind(this, evaluation_standard.id)} />
+            </div>
+            <div className='col-md-2 obligatory'>
+              {obligatory}
             </div>
           </div>
         </li>
@@ -156,25 +165,54 @@ export default class ModalEvaluateMember extends React.Component {
     return true;
   }
 
-  handlePointChange(evaluation_standard_id, event){
+  handlePointChange(evaluation_standard_id, event) {
+    let failed = false;
+    let max = parseInt($(event.target).data('max')) ;
+    let value = parseInt(event.target.value);
+    if (value > max) {
+      event.target.value = max;
+    }
     let standard_points = this.state.standard_points
     standard_points[evaluation_standard_id] = parseInt(event.target.value || 0);
     let total_point = 0;
-    let training_result = '';
     for (let key of Object.keys(standard_points)) {
       total_point += standard_points[key];
     }
+    let evaluation_standards = this.state.evaluation_standards
+    let training_result = this.getStandard(standard_points, evaluation_standards,
+      total_point, failed);
 
-    if (!this.props.subject) {
-      training_result = this.props.evaluation_template.training_results
-        .find(result => total_point >= result.min_point &&
-            total_point <= result.max_point);
-    }
     this.setState({
       training_result: training_result,
       total_point: total_point,
       standard_points: standard_points,
     });
+  }
+
+  getStandard(standard_points, evaluation_standards,
+    total_point, failed) {
+    let training_result = {};
+    for (let i in evaluation_standards) {
+      if (!this.props.subject) {
+        if (evaluation_standards[i].obligatory) {
+          if (standard_points[evaluation_standards[i].id] 
+            < evaluation_standards[i].min_point) {
+            failed = true;
+            training_result = {id: 1, name: "Failed"};
+          }
+        }
+      }
+    }
+
+    if (!failed) {
+      training_result = this.props.evaluation_template.training_results
+        .find(result => {
+          return total_point >= result.min_point &&
+            total_point <= result.max_point
+        }
+      );
+    }
+    return training_result;
   }
 
   handleSubmit(submit_type, event) {
