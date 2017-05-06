@@ -20,15 +20,30 @@ export default class Create extends React.Component {
                 {I18n.t('training_standards.modals.create')}
               </h4>
             </div>
-            <div className='modal-body'>
-              <MultiStepForm
-                url={routes.organization_training_standards_url(
-                  this.props.organization.id)}
-                subjects={this.props.subjects}
-                training_standard={this.props.training_standard}
-                organization={this.props.organization}
-                handleAfterSaved={this.handleAfterCreated.bind(this)} />
-            </div>
+            <form className='multi-step-form row'>
+              <div className='modal-body'>
+                <ul className='multi-step-progress-bar'>
+                  <li className='active highlighted'>
+                    {I18n.t('training_standards.multi_step_form.standard_info')}
+                  </li>
+                  <li>
+                    {I18n.t('training_standards.multi_step_form.assign_subject')}
+                  </li>
+                  <li>
+                    {I18n.t('training_standards.multi_step_form.create_evaluation_template')}
+                  </li>
+                </ul>
+              </div>
+              <div className='modal-footer'>
+                <MultiStepForm
+                  url={routes.organization_training_standards_url(
+                    this.props.organization.id)}
+                  subjects={this.props.subjects}
+                  training_standard={this.props.training_standard}
+                  organization={this.props.organization}
+                  handleAfterSaved={this.handleAfterCreated.bind(this)} />
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -53,7 +68,11 @@ export default class Create extends React.Component {
   }
 
   handleCreateTrainingStandard() {
-    $('.modalCreateTrainingStandard').modal();
+    $('.modalCreateTrainingStandard').modal({
+        backdrop: 'static',
+        keyboard: false
+      }
+    );
   }
 
   handleAfterCreated(training_standard) {

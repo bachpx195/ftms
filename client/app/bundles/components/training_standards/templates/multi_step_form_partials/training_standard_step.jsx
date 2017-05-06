@@ -8,7 +8,9 @@ export default class TrainingStandardStep extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      name: '',
+      description: '',
+      policy: POLICIES[0].id,
     }
   }
 
@@ -34,7 +36,7 @@ export default class TrainingStandardStep extends React.Component {
           <div className='col-md-10'>
             <input type='text'
               value={this.state.name} ref='nameField'
-              onChange={this.handleChange.bind(this)}
+              onChange={this.handleTrainingStandardInfo.bind(this)}
               className='form-control' name='name' />
           </div>
         </div>
@@ -46,7 +48,7 @@ export default class TrainingStandardStep extends React.Component {
           <div className='col-md-10'>
             <input type='text'
               value={this.state.description} ref='nameField'
-              onChange={this.handleChange.bind(this)}
+              onChange={this.handleTrainingStandardInfo.bind(this)}
               className='form-control' name='description' />
           </div>
         </div>
@@ -58,20 +60,26 @@ export default class TrainingStandardStep extends React.Component {
           <div className='col-md-10'>
             <select className='form-control'
               value={this.state.policy} name='policy'
-              onChange={this.handleChange.bind(this)}>
+              onChange={this.handleTrainingStandardInfo.bind(this)}>
               {this.renderOptions(POLICIES)}
             </select>
           </div>
         </div>
         <div className='text-center col-md-12'>
+          <input type='button' name='cancel' className='cancel action-button' value='Cancel'
+            onClick={this.props.onCancelForm}/>
           <input type='button' name='next' className='next action-button' value='Next'
             onClick={this.props.onClickNext}/>
-          </div>
+        </div>
       </fieldset>
     );
   }
 
-  handleChange(event) {
-    this.props.handleChange(event);
+  handleTrainingStandardInfo(event) {
+    let attribute = event.target.name;
+    this.setState({
+      [attribute]: event.target.value
+    });
+    this.props.handleInfoChanged(_.omit(this.state, 'errors'));
   }
 }

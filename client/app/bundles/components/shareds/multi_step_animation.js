@@ -7,8 +7,10 @@ export function onNextStep(event) {
   current_fs = $(target).closest('fieldset');
   next_fs = $(target).closest('fieldset').next();
 
-  $('.multi-step-progress-bar li', $form)
-    .eq($('fieldset', $form).index(next_fs)).addClass('active');
+  $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(next_fs))
+    .addClass('active').addClass('highlighted');
+  $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(next_fs) - 1)
+    .removeClass('highlighted');
   next_fs.show();
 
   current_fs.animate({opacity: 0}, {
@@ -35,11 +37,13 @@ export function onPreviousStep(event) {
   animating = true;
   let target = event.target;
   let $form = $(target).closest('form');
-  current_fs = $(target).parent().parent();
-  previous_fs = $(target).parent().parent().prev();
+  current_fs = $(target).closest('fieldset');
+  previous_fs = $(target).closest('fieldset').prev();
 
-  $('.multi-step-progress-bar li', $form)
-    .eq($('fieldset', $form).index(current_fs)).removeClass('active');
+  $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(current_fs))
+    .removeClass('active').removeClass('highlighted');
+  $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(current_fs) - 1)
+    .addClass('highlighted');
 
   previous_fs.show();
   current_fs.animate({opacity: 0}, {
@@ -52,9 +56,33 @@ export function onPreviousStep(event) {
         'position': 'relative'});
   	},
   	duration: 800,
-  	complete: function(){
+  	complete: function() {
   		current_fs.hide();
   		animating = false;
   	}
   });
+}
+
+export function onCancelForm(event) {
+  let opacity, scale, left, current_fs, first_fs = '';
+  let target = event.target;
+  let $form = $(target).closest('form');
+  first_fs = $('fieldset').first();
+  current_fs = $(target).closest('fieldset');
+
+  $('fieldset').each(function() {
+    $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index($(this)))
+      .removeClass('active').removeClass('highlighted');
+    $(this).css({'left': left, 'position': 'absolute',
+      'transform': 'scale(' + '1' +  ')'});
+    $(this).hide();
+  });
+
+  $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(first_fs))
+    .addClass('active').addClass('highlighted');
+  first_fs.show();
+  first_fs.css({'transform': 'scale('+ '1' + ')', 'opacity': 1,
+    'position': 'relative'});
+
+  $('.modalCreateTrainingStandard').modal('hide');
 }

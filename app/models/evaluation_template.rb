@@ -1,10 +1,9 @@
 class EvaluationTemplate < ApplicationRecord
   acts_as_paranoid
 
-  ATTRIBUTE_PARAMS = [:name, evaluation_standards_attributes: [:id, :name,
-    :max_point, :min_point, :obligatory,:_destroy],
-    training_results_attributes: [:id, :name, :max_point, :min_point,
-      :_destroy]]
+  ATTRIBUTE_PARAMS = [:id, :name, :training_standard_id,
+    evaluation_standards_attributes: EvaluationStandard::ATTRIBUTE_PARAMS,
+    training_results_attributes: TrainingResult::ATTRIBUTE_PARAMS]
 
   belongs_to :creator, foreign_key: :creator_id, class_name: User.name
   belongs_to :training_standard

@@ -9,14 +9,14 @@ class TrainingStandardsController < ApplicationController
       format.html
       format.json do
         render json: {training_standards: @training_standard_supports
-            .training_standards_serializer}
+          .training_standards_serializer}
       end
     end
   end
 
   def create
-    training_standard = current_user.training_standards
-      .build training_standard_params
+    training_standard = TrainingStandard.new training_standard_params
+      .merge(creator_id: current_user.id)
     respond_to do |format|
       format.json do
         if training_standard.save
@@ -42,8 +42,7 @@ class TrainingStandardsController < ApplicationController
             training_standard:
               Serializers::TrainingStandards::TrainingStandardsSerializer
                 .new(object: training_standard,
-                  scope: {count_organizations: true}).serializer
-          }
+                  scope: {count_organizations: true}).serializer}
         else
           render json: {message: flash_message("not_updated"),
             errors: training_standard.errors}, status: :unprocessable_entity
@@ -67,13 +66,12 @@ class TrainingStandardsController < ApplicationController
 
   private
   def training_standard_params
-    params.require(:training_standard)
-      .permit TrainingStandard::ATTRIBUTE_PARAMS
+    params.require(:training_standard).permit TrainingStandard::ATTRIBUTE_PARAMS
   end
 
   def load_supports
-    @training_standard_supports = Supports::TrainingStandardSupport.
-      new params: params
+    @training_standard_supports = Supports::TrainingStandardSupport
+      .new params: params
   end
 
   def find_training_standard
