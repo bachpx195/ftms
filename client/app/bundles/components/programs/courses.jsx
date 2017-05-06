@@ -1,11 +1,11 @@
-import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import * as routes from 'config/routes';
+import * as react_table_ultis from 'shared/react-table/ultis';
+import * as table_constants from 'constants/griddle_table_constants';
+import css from 'assets/sass/react-table.scss';
 import React from 'react';
+import ReactTable from 'react-table';
 import Trainers from './trainers';
 import {IntlProvider, FormattedDate} from 'react-intl';
-import {NewLayout} from '../shareds/griddles/new_layout';
-import * as table_constants from 'constants/griddle_table_constants';
-import * as routes from 'config/routes';
 
 export default class CourseLists extends React.Component {
 
@@ -28,68 +28,97 @@ export default class CourseLists extends React.Component {
   }
 
   render() {
-    {NewLayout}
-
-    const Image = ({griddleKey}) => (
-      <div className='td-box'>
-        <img src={this.state.courses[griddleKey].image.url}
-          className='thumbnail-image td-course-image img-circle'
-          onError={this.checkImage.bind(this)} />
-      </div>
-    );
-
-    const LinkToCourse = ({value, griddleKey}) => {
-      let course = this.state.courses[griddleKey];
-      let course_url = '#';
-      if(course) {
-        course_url = routes.course_url(course.id);
-      }
-      return <a href={course_url} className="link-course">{value}</a>;
-    };
-
-    const ListTrainer = ({griddleKey}) => {
-      let course = this.state.courses[griddleKey];
-      return (
-        <Trainers
-          user_url={routes.users_url()}
-          course={course}
-        />);
-    }
-
-
-    const Status = ({griddleKey}) => {
-      let course = this.state.courses[griddleKey];
-      return (
-        <p className={I18n.t('courses.class_status.' + course.status)}
-          data-index={griddleKey}>
-          {I18n.t('courses.' + course.status)}
-        </p>
-      )
-    }
-
-    const customDate = ({value}) => (
-      <IntlProvider locale = "en">
-        <FormattedDate value={new Date(value)}
-          day="numeric" month="numeric" year="numeric" />
-      </IntlProvider>
-    );
-
-    const Description = ({griddleKey}) => {
-      let description = this.state.courses[griddleKey].description;
-      if (description && description.length > 15){
-        return (
-          <p className='description' title={description}>
-            {description.substring(0, 15)+ '...'}
-          </p>
-        )
-      } else {
-        return (
-          <p className='description' title={description}>
-            {description}
-          </p>
-        )
-      }
-    }
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('programs.image'),
+        accessor: 'image',
+        render: row => {
+          return (
+            <div className='td-box'>
+              <img src={row.row.image.url}
+                className='thumbnail-image td-course-image img-circle'
+                onError={this.checkImage.bind(this)} />
+            </div>
+          )
+        },
+        sortable: false,
+        hideFilter: true,
+      },
+      {
+        header: I18n.t('programs.name'),
+        accessor: 'name',
+        render: row => {
+          return <a href={routes.course_url(row.row.id)}
+            className='link-course'>{row.value}</a>;
+        }
+      },
+      {
+        header: I18n.t('programs.description'),
+        accessor: 'description',
+        render: row => {
+          return (
+            <p className='description' title={row.value}>
+              {row.value}
+            </p>
+          )
+        }
+      },
+      {
+        header: I18n.t('courses.member.trainers'),
+        accessor: 'trainer',
+        render: row => {
+          return (
+            <Trainers
+              user_url={routes.users_url()}
+              course={row.row}
+            />
+          );
+        }
+      },
+      {
+        header: I18n.t('courses.status'),
+        accessor: 'status',
+        render: row => {
+          return (
+            <p className={I18n.t('courses.class_status.' + row.value)}
+              data-index={row.index}>
+              {I18n.t('courses.' + row.value)}
+            </p>
+          )
+        }
+      },
+      {
+        header: I18n.t('programs.start_date'),
+        accessor: 'start_date',
+        render: row => {
+          return (
+            <IntlProvider locale='en'>
+              <FormattedDate value={new Date(row.value)}
+                day='numeric' month='numeric' year='numeric' />
+            </IntlProvider>
+          )
+        }
+      },
+      {
+        header: I18n.t('programs.end_date'),
+        accessor: 'end_date',
+        render: row => {
+          return (
+            <IntlProvider locale='en'>
+              <FormattedDate value={new Date(row.value)}
+                day='numeric' month='numeric' year='numeric' />
+            </IntlProvider>
+          )
+        }
+      },
+    ]
 
     return (
       <div className=''>
@@ -109,32 +138,12 @@ export default class CourseLists extends React.Component {
             </div>
           </div>
           <div className='box-body'>
-            <Griddle data={this.state.courses} plugins={[plugins.LocalPlugin]}
-              components={{Layout: NewLayout}}
-              styleConfig={table_constants.styleConfig}>
-              <RowDefinition>
-                <ColumnDefinition id='image'
-                  title={I18n.t('programs.image')}
-                  customComponent={Image} />
-                <ColumnDefinition id='name'
-                  title={I18n.t('programs.name')} customComponent={LinkToCourse} />
-                <ColumnDefinition id='description'
-                  title={I18n.t('programs.description')}
-                  customComponent={Description} />
-                <ColumnDefinition id='trainer'
-                  title={I18n.t('courses.member.trainers')}
-                  customComponent={ListTrainer} />
-                <ColumnDefinition id='status' data-i18n
-                  title={I18n.t('courses.status')}
-                  customComponent={Status} />
-                <ColumnDefinition id='start_date'
-                  title={I18n.t('programs.start_date')}
-                  customComponent={customDate} />
-                <ColumnDefinition id='end_date'
-                  title={I18n.t('programs.end_date')}
-                  customComponent={customDate} />
-              </RowDefinition>
-            </Griddle>
+            <ReactTable
+              className='-striped -highlight' data={this.state.courses}
+              columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+              showFilters={true}
+              defaultFilterMethod={react_table_ultis.defaultFilter}
+            />
           </div>
         </div>
       </div>
