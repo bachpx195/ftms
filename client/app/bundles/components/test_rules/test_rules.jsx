@@ -1,13 +1,10 @@
 import 'assets/sass/react-table.scss';
 import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
 import axios from 'axios';
 import css from './css/test_rule.scss';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import React from 'react';
 import ReactTable from 'react-table';
-import { NewLayout } from 'shared/griddles/new_layout';
 
 export default class TestRules extends React.Component {
   constructor(props) {
@@ -19,47 +16,6 @@ export default class TestRules extends React.Component {
   }
 
   render(){
-    const ButtonEdit = ({griddleKey}) => (
-      <button className='btn btn-info' data-index={griddleKey}
-        onClick={this.handleClickEdit.bind(this)}>
-        <i className='fa fa-pencil-square-o'></i>
-        &nbsp;{I18n.t('buttons.edit')}
-      </button>
-    );
-
-    const ButtonDelete = ({griddleKey}) => (
-      <button className='btn btn-danger' data-index={griddleKey}
-        data-type='delete' onClick={this.handleClickDelete.bind(this)}>
-        <i className='fa fa-trash'></i>
-        &nbsp;{I18n.t('buttons.delete')}
-      </button>
-    );
-
-    let a = (
-        <Griddle data={this.state.test_rules}
-          plugins={[plugins.LocalPlugin]}
-        components={{Layout: NewLayout}}
-        styleConfig={table_constants.styleConfig}>
-        <RowDefinition>
-          <ColumnDefinition id='name' title={I18n.t('programs.name')}/>
-          <ColumnDefinition id='total_question'
-            title={I18n.t('test_rules.form.total_question')} />
-          <ColumnDefinition id='time_of_test'
-            title={I18n.t('test_rules.form.time_of_test')} />
-          <ColumnDefinition id='min_score_for_pass'
-            title={I18n.t('test_rules.form.min_score_for_pass')} />
-          <ColumnDefinition id='opportunity'
-            title={I18n.t('test_rules.form.opportunity')} />
-          <ColumnDefinition id='number_of_test'
-            title={I18n.t('test_rules.form.number_of_test')} />
-          <ColumnDefinition id='edit' title={I18n.t('buttons.edit')}
-            customComponent={ButtonEdit}/>
-          <ColumnDefinition id='delete'
-            title={I18n.t('buttons.delete')}
-            customComponent={ButtonDelete}/>
-        </RowDefinition>
-      </Griddle>
-    )
     const columns = [
       {
         header: '#',
@@ -75,33 +31,33 @@ export default class TestRules extends React.Component {
       {
         header: I18n.t('test_rules.form.total_question'),
         accessor: 'total_question',
-        style: {'text-align': 'right'},
+        style: {textAlign: 'right'},
         filterMethod: react_table_ultis.defaultNumberFilter,
       },
       {
         header: I18n.t('test_rules.form.time_of_test'),
         accessor: 'time_of_test',
-        style: {'text-align': 'right'},
+        style: {textAlign: 'right'},
         filterMethod: react_table_ultis.defaultNumberFilter,
         width: 105,
       },
       {
         header: I18n.t('test_rules.form.min_score_for_pass'),
         accessor: 'min_score_for_pass',
-        style: {'text-align': 'right'},
+        style: {textAlign: 'right'},
         filterMethod: react_table_ultis.defaultNumberFilter,
       },
       {
         header: I18n.t('test_rules.form.opportunity'),
         accessor: 'opportunity',
-        style: {'text-align': 'right'},
+        style: {textAlign: 'right'},
         filterMethod: react_table_ultis.defaultNumberFilter,
         width: 150
       },
       {
         header: I18n.t('test_rules.form.number_of_test'),
         accessor: 'number_of_test',
-        style: {'text-align': 'right'},
+        style: {textAlign: 'right'},
         filterMethod: react_table_ultis.defaultNumberFilter,
         width: 150
       },

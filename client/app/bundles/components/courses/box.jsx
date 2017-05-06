@@ -37,7 +37,9 @@ export default class CourseBox extends React.Component {
         </div>
         <div className="box-body no-padding">
           <div className="row">
-            <Courses courses={courses} url={COURSES_URL} />
+            <Courses courses={courses} url={COURSES_URL}
+              manager_courses={this.state.courses.manager_courses}
+              member_courses={this.state.courses.member_courses} />
           </div>
         </div>
       </div>);
@@ -48,7 +50,7 @@ export default class CourseBox extends React.Component {
       {controller: 'courses', action: ['index', 'ownerController'],
         target: 'courses', data: {controller: 'courses'}},
       {controller: 'my_space/courses', action: ['index', 'ownerController'],
-        target: 'joinedCourse', data: {controller: 'my_space/courses'}}
+        target: 'myCourses', data: {controller: 'my_space/courses'}}
     ];
 
     const CoursesIndex = () => {
@@ -60,13 +62,12 @@ export default class CourseBox extends React.Component {
       );
     }
 
-    const JoinedCourse = () => {
+    const MyCourses = () => {
+      let courses = this.state.courses;
       return (
         <div>
-          {this.renderCourses(I18n.t("courses.courses_manager"),
-            this.state.courses.manager_courses)}
-          {this.renderCourses(I18n.t("courses.courses_trainee"),
-            this.state.courses.member_courses)}
+          {this.renderCourses(I18n.t("courses.my_courses.title"),
+            courses.manager_courses.concat(courses.member_courses))}
         </div>
       );
     }
@@ -77,7 +78,7 @@ export default class CourseBox extends React.Component {
         <div className="col-md-12">
           <CoursePolicy
             permit={coursesPermit} courses={<CoursesIndex />}
-            joinedCourse={<JoinedCourse />} />
+            myCourses={<MyCourses />} />
         </div>
       </div>
     );
