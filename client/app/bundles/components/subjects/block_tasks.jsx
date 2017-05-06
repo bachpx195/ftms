@@ -1,8 +1,10 @@
-import axios from 'axios'
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import React from 'react'
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
+import axios from 'axios'
+import css from 'assets/sass/react-table.scss';
+import React from 'react'
+import ReactTable from 'react-table';
 
 export default class BlockTasks extends React.Component{
   constructor(props){
@@ -16,70 +18,59 @@ export default class BlockTasks extends React.Component{
     this.setState({
       tasks: nextProps.tasks || []
     });
-    
+
     $('.modal-create-' + this.props.type).modal('hide');
   }
 
   render(){
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='col-md-12'>
-        {this._renderActionCreate(this.props.type)}
-        <div className='row'>
-          <div className='griddle-head clearfix'>
-            <div className='col-md-6'>
-              <Filter />
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('subjects.headers.name'),
+        accessor: 'name',
+        render: row => <a href={routes.task_url(row.row)}>{row.value}</a>
+      },
+      {
+        header: I18n.t('subjects.headers.content'),
+        accessor: 'content',
+        render: row => <span title={row.value}>{row.value}</span>
+      },
+      {
+        header: I18n.t('subjects.headers.delete'),
+        accessor: 'delete',
+        render: row => {
+          let task = this.state.tasks[row.index];
+          return (
+            <div title={I18n.t('buttons.delete')} className='buttonDelete'>
+              <button className='btn btn-danger'
+                onClick={this.onClickDeleteTask.bind(this, task)}>
+                  <i className='fa fa-trash'></i>
+              </button>
             </div>
-            <div className='col-md-6 text-right'>
-              <Pagination />
-            </div>
-          </div>
-          <div className='col-md-12'>
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
-
-    const buttonDelete = ({griddleKey}) => {
-      let task = this.state.tasks[griddleKey];
-      return(
-        <div className='buttonDelete'>
-          <button className='btn btn-danger'
-            onClick={this.onClickDeleteTask.bind(this, task)}>{I18n.t('buttons.delete')}
-          </button>
-        </div>
-      )
-    }
-
-    const linkTask = ({griddleKey, value}) => {
-      if (this.props.course) {
-        let task = this.state.tasks[griddleKey];
-        return <a href={routes.task_url(task.task_id)}>{value}</a>;
-      }
-      return <span>{value}</span>;
-    }
+          )
+        },
+        sortable: false,
+        hideFilter: true,
+      },
+    ]
 
     return(
       <div className='block-task col-md-12'>
         <div className='box box-success'>
           <div className='box-body'>
-            <Griddle data={this.state.tasks}
-              plugins={[plugins.LocalPlugin]}
-              components={{Layout: NewLayout}}
-              styleConfig={table_constants.styleConfig}>
-              <RowDefinition>
-                <ColumnDefinition id='id'
-                  title={I18n.t('subjects.headers.id')} />
-                <ColumnDefinition id='name'
-                  title={I18n.t('subjects.headers.name')}
-                  customComponent={linkTask} />
-                <ColumnDefinition id='content'
-                  title={I18n.t('subjects.headers.content')} />
-                <ColumnDefinition id='delete'
-                  title={I18n.t('subjects.headers.delete')}
-                  customComponent={buttonDelete} />
-              </RowDefinition>
-            </Griddle>
+            {this._renderActionCreate(this.props.type)}
+            <ReactTable
+              className='-striped -highlight' data={this.state.tasks}
+              columns={columns} showFilters={true}
+              defaultPageSize={react_table_ultis.defaultPageSize}
+              defaultFilterMethod={react_table_ultis.defaultFilter}
+            />
           </div>
         </div>
       </div>
