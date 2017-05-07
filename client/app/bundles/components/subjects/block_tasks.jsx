@@ -1,7 +1,6 @@
 import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
-import axios from 'axios'
+import axios from 'axios';
 import css from 'assets/sass/react-table.scss';
 import React from 'react'
 import ReactTable from 'react-table';
@@ -42,23 +41,23 @@ export default class BlockTasks extends React.Component{
         render: row => <span title={row.value}>{row.value}</span>
       },
       {
-        header: I18n.t('subjects.headers.delete'),
+        header: '',
         accessor: 'delete',
-        render: row => {
-          let task = this.state.tasks[row.index];
+        render: ({row}) => {
           return (
-            <div title={I18n.t('buttons.delete')} className='buttonDelete'>
-              <button className='btn btn-danger'
-                onClick={this.onClickDeleteTask.bind(this, task)}>
-                  <i className='fa fa-trash'></i>
-              </button>
-            </div>
-          )
+            <button className='btn btn-danger'
+              title={I18n.t('buttons.delete')}
+              onClick={this.onClickDeleteTask.bind(this, row)}>
+                <i className='fa fa-trash'></i>
+            </button>
+          );
         },
         sortable: false,
         hideFilter: true,
+        style: {textAlign: 'center'},
+        width: 75
       },
-    ]
+    ];
 
     return(
       <div className='block-task col-md-12'>
