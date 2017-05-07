@@ -45,7 +45,7 @@ export default class RolesBox extends React.Component {
     title = I18n.t('users.edit_user_role');
     return (
       <div id='modalRole' className='modal fade in' role='dialog'>
-        <div className='modal-dialog'>
+        <div className='modal-dialog modal-lg'>
           <div className='modal-content'>
             <div className='modal-header'>
               <button type='button' className='close'
@@ -53,7 +53,7 @@ export default class RolesBox extends React.Component {
               <h4 className='modal-title'>{title}</h4>
             </div>
             <div className='modal-body user-roles'>
-              <FormEditRole all_roles={this.state.all_roles} 
+              <FormEditRole all_roles={this.state.all_roles}
                 functions={this.state.functions}
                 current_roles={this.state.roles} user_id={this.state.user.id}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)}/>
@@ -83,13 +83,16 @@ export default class RolesBox extends React.Component {
       <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
         {action: ['setOwner'], target: 'children', data: {organization_ids:
         this.state.organization_ids}}]} >
-        <div className='text-center roles-box'>
-          <span>
-            <strong>{I18n.t('users.roles.name')}: </strong>
-            {this.renderRole()}
-          </span>
-          <div className='btn btn-primary' onClick={this.handleEdit.bind(this)}>
-            {I18n.t('users.buttons.edit_role')}
+        <div className='roles-box'>
+          <div className='text-center'>
+            <span>
+              <strong>{I18n.t('users.roles.name')}: </strong>
+              {this.renderRole()}
+            </span>
+            <button className='btn btn-primary'
+              onClick={this.handleEdit.bind(this)}>
+              {I18n.t('users.buttons.edit_role')}
+            </button>
           </div>
           {this.renderModal()}
         </div>
