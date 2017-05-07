@@ -19,3 +19,8 @@ en:
       inprogress: "Inprogress Tasks"
       finished: "Complete Tasks"
       reject: "Rejected Task"
+    class_statuses:
+      init: "btn-primary btn-xs"
+      in_progress: "btn-warning btn-xs"
+      finished: "btn-danger btn-xs"
+      reject: "btn-default btn-xs"

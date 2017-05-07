@@ -10,7 +10,8 @@ export default class TaskBox extends React.Component {
         <div className='col-md-9'>
           <div className='content-box'>
             <h1 className='static-task-name'>{this.props.task.name}</h1>
-            <DynamicTasks tasks={this.props.task.dynamic_tasks} />
+            <DynamicTasks tasks={this.props.task.dynamic_tasks}
+              type={this.props.task.type} />
           </div>
         </div>
         <div className='col-md-3'>

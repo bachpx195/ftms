@@ -1,11 +1,9 @@
 import * as routes from 'config/routes';
 import * as react_table_ultis from 'shared/react-table/ultis';
-import * as table_constants from 'constants/griddle_table_constants';
 import css from 'assets/sass/react-table.scss';
 import React from 'react';
 import ReactTable from 'react-table';
 import Trainers from './trainers';
-import {IntlProvider, FormattedDate} from 'react-intl';
 
 export default class CourseLists extends React.Component {
 
@@ -75,7 +73,8 @@ export default class CourseLists extends React.Component {
       },
       {
         header: I18n.t('courses.member.trainers'),
-        accessor: 'trainer',
+        id: 'trainer',
+        accessor: d => d.users.map(user => user.name).join(),
         render: row => {
           return <Trainers user_url={routes.users_url()} course={row.row} />;
         },
@@ -83,37 +82,27 @@ export default class CourseLists extends React.Component {
       },
       {
         header: I18n.t('courses.status'),
-        accessor: 'status',
-        render: row => {
+        id: 'status',
+        accessor: d => I18n.t('courses.' + d.status),
+        render: ({row}) => {
           return (
-            <p className={I18n.t('courses.class_status.' + row.value)}
-              data-index={row.index}>
-              {I18n.t('courses.' + row.value)}
-            </p>
-          )
+            <span className={I18n.t('courses.class_status.' + row.status)}>
+              {I18n.t('courses.' + row.status)}
+            </span>
+          );
         }
       },
       {
         header: I18n.t('programs.start_date'),
-        accessor: 'start_date',
-        render: row => {
-          return (
-            <div className='text-right'>
-              {I18n.l('date.formats.default', row.value)}
-            </div>
-          );
-        }
+        id: 'start_date',
+        accessor: d => I18n.l('date.formats.default', d.start_date),
+        style: {textAlign: 'right'}
       },
       {
         header: I18n.t('programs.end_date'),
-        accessor: 'end_date',
-        render: row => {
-          return (
-            <div className='text-right'>
-              {I18n.l('date.formats.default', row.value)}
-            </div>
-          );
-        }
+        id: 'end_date',
+        accessor: d => I18n.l('date.formats.default', d.end_date),
+        style: {textAlign: 'right'}
       },
     ];
 
@@ -126,10 +115,12 @@ export default class CourseLists extends React.Component {
             </h3>
 
             <div className='box-tools pull-right'>
-              <button type='button' className='btn btn-box-tool' data-widget='collapse'>
+              <button type='button' className='btn btn-box-tool'
+                data-widget='collapse'>
                 <i className='fa fa-minus'></i>
               </button>
-              <button type='button' className='btn btn-box-tool' data-widget='remove'>
+              <button type='button' className='btn btn-box-tool'
+                data-widget='remove'>
                 <i className='fa fa-times'></i>
               </button>
             </div>
