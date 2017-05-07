@@ -34,7 +34,7 @@ export default class BlockTasks extends React.Component{
       {
         header: I18n.t('subjects.headers.name'),
         accessor: 'name',
-        render: row => <a href={routes.task_url(row.row)}>{row.value}</a>
+        render: row => <a href={routes.task_url(row.row.id)}>{row.value}</a>
       },
       {
         header: I18n.t('subjects.headers.content'),

@@ -39,33 +39,30 @@ export default class Exams extends React.Component {
         header: I18n.t('exams.headers.created_at'),
         id: 'created_at',
         accessor: d => I18n.l('time.formats.default', d.created_at),
-        render: row => <div className='text-right'>{row.value}</div>,
+        style: {textAlign: 'right'},
         width: 150
       },
       {
         header: I18n.t('exams.headers.spent_time'),
         accessor: 'spent_time',
-        render: row => <div className='text-right'>{row.value}</div>,
         filterMethod: react_table_ultis.defaultNumberFilter,
+        style: {textAlign: 'right'},
         width: 125
       },
       {
         header: I18n.t('exams.headers.score'),
         accessor: 'score',
-        render: row => <div className='text-right'>{row.value}</div>,
         filterMethod: react_table_ultis.defaultNumberFilter,
+        style: {textAlign: 'right'},
         width: 75
       },
       {
         header: '',
         id: 'view',
         accessor: d => {
-          return (
-            <div className='text-center'>
-              <Show exam={d} organization={this.props.organization} />
-            </div>
-          );
+          return <Show exam={d} organization={this.props.organization} />
         },
+        style: {textAlign: 'center'},
         hideFilter: true,
         sortable: false,
         width: 75

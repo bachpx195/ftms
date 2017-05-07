@@ -1,5 +1,5 @@
 class Serializers::Tasks::StaticTaskSerializer < Serializers::SupportSerializer
-  attrs :id, :name, :course_subject, :dynamic_tasks
+  attrs :id, :name, :course_subject, :dynamic_tasks, :type
 
   def name
     object.targetable.name
@@ -13,5 +13,9 @@ class Serializers::Tasks::StaticTaskSerializer < Serializers::SupportSerializer
   def dynamic_tasks
     Serializers::Tasks::DynamicTasksSerializer
       .new(object: object.dynamic_tasks).serializer
+  end
+
+  def type
+    object.targetable.class.name
   end
 end
