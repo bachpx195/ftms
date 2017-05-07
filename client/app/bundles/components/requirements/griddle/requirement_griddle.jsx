@@ -1,7 +1,6 @@
 import React from 'react';
 import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 import { NewLayout } from '../../shareds/griddles/new_layout';
-import {IntlProvider, FormattedDate} from 'react-intl';
 import Update from '../actions/update';
 import ModalRequirement from '../templates/modal';
 import * as table_constants from 'constants/griddle_table_constants';

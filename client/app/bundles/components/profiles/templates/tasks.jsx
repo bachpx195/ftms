@@ -1,7 +1,6 @@
-import React from 'react';
-import Time from 'react-time-format';
-
 import * as routes from 'config/routes';
+import React from 'react';
+
 
 export default class TrainingStandards extends React.Component {
   constructor(props) {
@@ -14,28 +13,28 @@ export default class TrainingStandards extends React.Component {
   renderTask(task) {
     if (task.status == 'init') {
       return (
-        <span className="td-task-status td-init">
+        <span className='td-task-status td-init'>
           {task.status}
         </span>
       );
     }
     else if (task.status == 'in_progress') {
       return (
-        <span className="td-task-status td-in-progress">
+        <span className='td-task-status td-in-progress'>
           {task.status}
         </span>
       );
     }
     else if (task.status == 'finish') {
       return (
-        <span className="td-task-status td-finish">
+        <span className='td-task-status td-finish'>
           {task.status}
         </span>
       );
     }
     else if (task.status == 'reject') {
       return (
-        <span className="td-task-status td-reject">
+        <span className='td-task-status td-reject'>
           {task.status}
         </span>
       );
@@ -50,8 +49,8 @@ export default class TrainingStandards extends React.Component {
             {task.targetable.name}
           </h5>
           {this.renderTask(task)}
-          <i className="pull-right td-task-time">
-          <Time value={task.targetable.created_at} format="DD-MM-YYYY" />
+          <i className='pull-right td-task-time'>
+          {I18n.l('date.formats.default', task.targetable.created_at)}
           </i>
         </div>
       );

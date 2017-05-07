@@ -1,88 +1,78 @@
-import React from 'react';
-
-import SelectSell from '../shareds/select_cell';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import Checkbox from '../shareds/checkbox';
-import * as table_constants from 'constants/griddle_table_constants';
-
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
+import css from 'assets/sass/react-table.scss';
+import React from 'react';
+import ReactTable from 'react-table';
+import SelectSell from '../shareds/select_cell';
 
 export default class RoleFunctions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       check_all: 'none',
-      functions: props.functions,
+      functions: props.functions
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      check_all: 'none',
+      functions: nextProps.functions
+    });
+  }
+
   render() {
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className="col-md-12">
-        <div className="row">
-          <div className="griddle-head clearfix">
-            <div className="col-md-6">
-              <Filter />
-            </div>
-            <div className="col-md-6 text-right">
-              <Pagination />
-            </div>
-          </div>
-          <div className="col-md-12">
-            <Table />
-          </div>
-        </div>
-      </div>
-    );
-
-    const CheckboxFunction = ({griddleKey}) => {
-      var checked = false;
-      if (this.state.check_all == 'yes') {
-        checked = true;
-        this.updateStateFunctions(griddleKey, checked);
-      } else if (this.state.check_all == 'no') {
-        checked = false;
-        this.updateStateFunctions(griddleKey, checked);
-      } else if (this.state.check_all == 'none') {
-        var func = this.state.functions[griddleKey];
-        checked = func.checked
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('functions.controller_name'),
+        accessor: 'controller_name'
+      },
+      {
+        header: I18n.t('functions.action'),
+        accessor: 'action'
+      },
+      {
+        header: props => {
+          return <SelectSell checked={this.state.check_all}
+            handleSelectCell={this.handleSelectCell.bind(this)} />;
+        },
+        accessor: 'checkbox',
+        render: row => {
+          var checked = false;
+          if (this.state.check_all == 'yes') {
+            checked = true;
+            this.updateStateFunctions(row.index, checked);
+          } else if (this.state.check_all == 'no') {
+            checked = false;
+            this.updateStateFunctions(row.index, checked);
+          } else if (this.state.check_all == 'none') {
+            checked = row.row.checked
+          }
+          return (
+            <Checkbox handleClick={this.handleCheckbox.bind(this)}
+              index={row.index} is_checked={checked} />
+          );
+        },
+        hideFilter: true,
+        sortable: false,
+        width: 50
       }
-
-      return (
-        <Checkbox handleClick={this.handleCheckbox.bind(this)}
-          index={griddleKey} is_checked={checked} />
-      );
-    };
-
-    const SelectSellBox = () => {
-      return (
-        <SelectSell checked={this.state.check_all} handleSelectCell={this.handleSelectCell.bind(this)}/>
-      );
-    };
+    ];
 
     return (
-      <div>
-        <Griddle data={this.state.functions} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}
-          events={{
-           onNext: this.handlePage.bind(this),
-           onPrevious: this.handlePage.bind(this),
-           onGetPage: this.handlePage.bind(this),
-          }}>
-          <RowDefinition keyColumn="id">
-            <ColumnDefinition id="id"
-              title={I18n.t("functions.table_position")}/>
-            <ColumnDefinition id="controller_name"
-              title={I18n.t("functions.controller_name")}/>
-            <ColumnDefinition id="action"
-              title={I18n.t("functions.action")} />
-            <ColumnDefinition id="action"
-              title={I18n.t("functions.action")} />
-            <ColumnDefinition customComponent={CheckboxFunction.bind(this)}
-              customHeadingComponent={SelectSellBox}/>
-          </RowDefinition>
-        </Griddle>
-      </div>
+      <ReactTable className='-striped -highlight'
+        data={this.state.functions} page={this.props.page}
+        columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
+        showFilters={true} onPageChange={this.onPageChange.bind(this)}
+        defaultFilterMethod={react_table_ultis.defaultFilter}
+      />
     );
   }
 
@@ -100,27 +90,28 @@ export default class RoleFunctions extends React.Component {
     });
   }
 
-  updateStateFunctions(griddleKey, checked){
-    this.state.functions[griddleKey].checked = checked;
-    var default_checked = this.state.functions[griddleKey].default_checked;
-    if(checked != default_checked)
-      this.state.functions[griddleKey].is_changed = true;
-    else
-      this.state.functions[griddleKey].is_changed = false;
+  updateStateFunctions(index, checked){
+    this.state.functions[index].checked = checked;
+    var default_checked = this.state.functions[index].default_checked;
+    if (checked != default_checked) {
+      this.state.functions[index].is_changed = true;
+    } else {
+      this.state.functions[index].is_changed = false;
+    }
   }
 
-  handleCheckbox(griddleKey, checked){
-
-    this.updateStateFunctions(griddleKey, checked);
+  handleCheckbox(index, checked){
+    this.updateStateFunctions(index, checked);
     this.setState({
       functions: this.state.functions,
       check_all: 'none'
     });
   }
 
-  handlePage(){
+  onPageChange(page_index) {
     this.setState({
-      check_all: 'none',
+      check_all: 'none'
     });
+    this.props.updatePage(page_index);
   }
 }

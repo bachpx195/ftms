@@ -1,7 +1,6 @@
+import * as routes from 'config/routes';
 import React from 'react';
 
-import * as routes from 'config/routes';
-import Time from 'react-time-format';
 
 require('./assets/certificate.scss');
 
@@ -60,7 +59,8 @@ export default class CertificateForm extends React.Component {
           </div>
           <div className='certicate-footer text-center'>
             <h2>
-              <Time value={this.props.certificate.created_at} format="DD/MM/YYYY" />
+              {I18n.l('date.formats.default',
+                this.props.certificate.created_at)}
             </h2>
           </div>
         </div>

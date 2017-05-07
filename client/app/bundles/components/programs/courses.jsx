@@ -50,6 +50,7 @@ export default class CourseLists extends React.Component {
         },
         sortable: false,
         hideFilter: true,
+        width: 60
       },
       {
         header: I18n.t('programs.name'),
@@ -57,7 +58,8 @@ export default class CourseLists extends React.Component {
         render: row => {
           return <a href={routes.course_url(row.row.id)}
             className='link-course'>{row.value}</a>;
-        }
+        },
+        minWidth: 150
       },
       {
         header: I18n.t('programs.description'),
@@ -68,19 +70,16 @@ export default class CourseLists extends React.Component {
               {row.value}
             </p>
           )
-        }
+        },
+        minWidth: 150
       },
       {
         header: I18n.t('courses.member.trainers'),
         accessor: 'trainer',
         render: row => {
-          return (
-            <Trainers
-              user_url={routes.users_url()}
-              course={row.row}
-            />
-          );
-        }
+          return <Trainers user_url={routes.users_url()} course={row.row} />;
+        },
+        minWidth: 180
       },
       {
         header: I18n.t('courses.status'),
@@ -99,11 +98,10 @@ export default class CourseLists extends React.Component {
         accessor: 'start_date',
         render: row => {
           return (
-            <IntlProvider locale='en'>
-              <FormattedDate value={new Date(row.value)}
-                day='numeric' month='numeric' year='numeric' />
-            </IntlProvider>
-          )
+            <div className='text-right'>
+              {I18n.l('date.formats.default', row.value)}
+            </div>
+          );
         }
       },
       {
@@ -111,14 +109,13 @@ export default class CourseLists extends React.Component {
         accessor: 'end_date',
         render: row => {
           return (
-            <IntlProvider locale='en'>
-              <FormattedDate value={new Date(row.value)}
-                day='numeric' month='numeric' year='numeric' />
-            </IntlProvider>
-          )
+            <div className='text-right'>
+              {I18n.l('date.formats.default', row.value)}
+            </div>
+          );
         }
       },
-    ]
+    ];
 
     return (
       <div className=''>
@@ -140,8 +137,8 @@ export default class CourseLists extends React.Component {
           <div className='box-body'>
             <ReactTable
               className='-striped -highlight' data={this.state.courses}
-              columns={columns} defaultPageSize={react_table_ultis.defaultPageSize}
-              showFilters={true}
+              columns={columns} showFilters={true}
+              defaultPageSize={react_table_ultis.defaultPageSize}
               defaultFilterMethod={react_table_ultis.defaultFilter}
             />
           </div>
