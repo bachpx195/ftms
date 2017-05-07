@@ -1,5 +1,6 @@
 import Course from './course';
 import CoursesStatistic from "./templates/courses_statistic";
+import CoursePolicy from 'policy/course_policy';
 import React from 'react';
 
 export default class Courses extends React.Component {
@@ -31,6 +32,24 @@ export default class Courses extends React.Component {
           <div className='course-scoll'>
             <div className='row'>
               <div className='row margin-select'>
+                <CoursePolicy permit={[{controller: 'my_space/courses',
+                  action: ['index', 'ownerController'], target: 'children',
+                  data: {controller: 'my_space/courses'}}]}>
+                  <div className='col-xs-4'>
+                    <select className="form-control"
+                      onChange={this.handleSelectChange.bind(this)}>
+                      <option key='0' value='all'>
+                        {I18n.t('courses.my_courses.all')}
+                      </option>
+                      <option key='1' value='manager'>
+                        {I18n.t('courses.courses_manager')}
+                      </option>
+                      <option key='2' value='member'>
+                        {I18n.t('courses.courses_trainee')}
+                      </option>
+                    </select>
+                  </div>
+                </CoursePolicy>
                 <div className='col-xs-5'>
                   <input className='form-control search_form'
                     id='filter-list-courses' autoComplete='off'
@@ -46,9 +65,25 @@ export default class Courses extends React.Component {
             </div>
           </div>
         </div>
-        <CoursesStatistic number={this.state.courses.length} />
+        <CoursesStatistic number={this.props.courses.length}
+          manager_courses={this.props.manager_courses}
+          member_courses={this.props.member_courses} />
       </div>
     );
+  }
+
+  handleSelectChange(event) {
+    let text = event.target.value;
+    let courses = this.props.courses;
+    if (text == 'manager') {
+      courses = this.props.manager_courses;
+    } else if (text == 'member') {
+      courses = this.props.member_courses;
+    }
+    this.setState({
+      courses: courses,
+      courses_search: courses
+    });
   }
 
   filterCourses(event) {
