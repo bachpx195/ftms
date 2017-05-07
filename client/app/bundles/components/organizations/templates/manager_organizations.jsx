@@ -1,10 +1,8 @@
-import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import OrganizationPolicy from 'policy/organization_policy';
-import React from 'react';
-import Row from '../griddle/row';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
+import css from 'assets/sass/react-table.scss';
+import React from 'react';
+import ReactTable from 'react-table';
 
 export default class ManagerOrganizations extends React.Component {
   constructor(props) {
@@ -16,9 +14,7 @@ export default class ManagerOrganizations extends React.Component {
       organization: {
         name: ''
       }
-
     };
-    Row.prototype.organizations = this.state.organizations;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,36 +36,30 @@ export default class ManagerOrganizations extends React.Component {
   }
 
   render() {
-    Row.prototype.organizations = this.state.organizations;
-    const NewLayout = ({Table, Pagination, Filter}) => (
-      <div className='row'>
-        <div className='griddle-head clearfix'>
-          <div className='col-md-6'>
-            <Filter />
-          </div>
-          <div className='col-md-6 text-right'>
-            <Pagination />
-          </div>
-        </div>
-        <Table />
-      </div>
-    );
-    const LinkShowOrganization = ({value, griddleKey}) => {
-      return (<a href={routes.organization_url(
-        this.state.organizations[griddleKey].id)}>{value}</a>);
-    }
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('organizations.name'),
+        accessor: 'name',
+        render: row => {
+          return <a href={routes.organization_url(row.row.id)}>{row.value}</a>;
+        }
+      }
+    ];
+
     return (
-      <div className='col-md-12'>
-        <Griddle data={this.state.organizations}
-          plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout, Row: Row}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='name' title={I18n.t('organizations.name')}
-              customComponent={LinkShowOrganization} />
-          </RowDefinition>
-        </Griddle>
-      </div>
+      <ReactTable
+        className='-striped -highlight' data={this.state.organizations}
+        columns={columns} showFilters={true}
+        defaultPageSize={react_table_ultis.defaultPageSize}
+        defaultFilterMethod={react_table_ultis.defaultFilter}
+      />
     );
   }
 }
