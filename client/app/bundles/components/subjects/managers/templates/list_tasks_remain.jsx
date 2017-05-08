@@ -1,10 +1,12 @@
-import axios from 'axios';
-import CheckBox from './check_box'
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 import * as table_constants from 'constants/griddle_table_constants';
+import * as react_table_ultis from 'shared/react-table/ultis';
+import axios from 'axios';
+import CheckBox from './check_box'
+import React from 'react';
+import css from 'assets/sass/react-table.scss';
+import ReactTable from 'react-table';
 
 export default class ListTasksRemain extends React.Component {
   constructor(props) {
@@ -29,52 +31,55 @@ export default class ListTasksRemain extends React.Component {
   render() {
     let {type} = this.state;
     if(type != '') {
-      const NewLayout = ({Table, Pagination, Filter}) => (
-        <div className='col-md-12'>
-          <div className='row'>
-            <div className='griddle-head clearfix'>
-              <div className='col-md-6 text-right'>
-                <Pagination />
-              </div>
-            </div>
-            <div className='col-md-12'>
-              <Table />
-            </div>
-          </div>
-        </div>
-      );
-
-      const ChooseTargetable = ({griddleKey}) => {
-        let id;
-        if (this.props.targetable_type == 'StaticTask') {
-          id = this.state.remain_tasks[this.state.type][griddleKey].task_id
-        } else {
-          id = this.state.remain_tasks[this.state.type][griddleKey].id
-        }
-        return <CheckBox
-          id={id}
-          afterClickCheckbox={this.afterClickCheckbox.bind(this)}
-          checked={this.state.targetable_ids.indexOf(id) >= 0} />
-      }
+      const columns = [
+        {
+          header: '#',
+          accessor: 'position',
+          render: row => <div className='text-right'>{row.index + 1}</div>,
+          hideFilter: true,
+          width: 50
+        },
+        {
+          header: 'name',
+          accessor: 'name',
+        },
+        {
+          header: 'content',
+          accessor: 'content',
+        },
+        {
+          header: 'action',
+          accessor: 'action',
+          render: row => {
+            let id;
+            if (this.props.targetable_type == 'StaticTask') {
+              id = this.state.remain_tasks[this.state.type][row.index].task_id
+            } else {
+              id = this.state.remain_tasks[this.state.type][row.index].id
+            }
+            return <CheckBox
+              id={id}
+              afterClickCheckbox={this.afterClickCheckbox.bind(this)}
+              checked={this.state.targetable_ids.indexOf(id) >= 0} />
+          },
+          filterRender: () => null,
+          sortable: false
+        },
+      ]
 
       return (
         <div className='panel-task'>
           {this.state.remain_tasks[type].length > 0 ? (
             <div className='list-task'>
-              <Griddle data={this.state.remain_tasks[type]}
-                plugins={[plugins.LocalPlugin]}
-                components={{Layout: NewLayout}}
-                styleConfig={table_constants.styleConfig}>
-                <RowDefinition keyColumn='id'>
-                  <ColumnDefinition id='name'
-                    title='name'/>
-                  <ColumnDefinition id='content'
-                    title='content' />
-                  <ColumnDefinition id='action'
-                    title='action' customComponent={ChooseTargetable} />
-                  </RowDefinition>
-              </Griddle>
-
+              <div className='col-md-12'>
+                <ReactTable
+                  className='-striped -highlight'
+                  data={this.state.remain_tasks[type]}
+                  columns={columns} showFilters={true}
+                  defaultPageSize={react_table_ultis.defaultPageSize}
+                  defaultFilterMethod={react_table_ultis.defaultFilter}
+                />
+              </div>
             </div>
           ) : (<h3><i>{I18n.t('assignments.nothing_show', {list: type})}</i></h3>)}
           <div className='text-center'>

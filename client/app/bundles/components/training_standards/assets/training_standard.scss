@@ -10,6 +10,11 @@ $dark-blue: #031625;
 $blue: #1779cf;
 $alpha-light-gray: rgba(204, 204, 204, .75);
 $red-brown: #ad3937;
+$subject-timeline-background: #f5e9d4;
+$subject-timeline-before-background: #da853d;
+$subject-timeline-before-border: #f5e9d4;
+$subject-timeline-after-background: #5a7add;
+$subject-timeline-before-border: #f5e9d4;
 
 .custom-subject-list {
   .list-group-item {
@@ -250,10 +255,11 @@ $red-brown: #ad3937;
   .msform-relative {
     height: calc(100vh - 70vh);
     position: relative;
+    width: 100%;
   }
 
   .msform-subject-timeline {
-    background: #f5e9d4;
+    background: $subject-timeline-background;
     height: 10px;
     left: 0;
     position: absolute;
@@ -261,8 +267,8 @@ $red-brown: #ad3937;
     width: 100%;
 
     &::before {
-      background-color: #da853d;
-      border: 6px solid #f5e9d4;
+      background-color: $subject-timeline-before-background;
+      border: 6px solid $subject-timeline-before-border;
       border-radius: 50% 50% 0;
       bottom: -10px;
       content: '';
@@ -277,8 +283,8 @@ $red-brown: #ad3937;
     }
 
     .timeline-block::after {
-      background: #5A7ADD;
-      border: 6px solid #f5e9d4;
+      background: $subject-timeline-after-background;
+      border: 6px solid $subject-timeline-before-border;
       border-radius: 50%;
       content: '';
       display: block;
