@@ -4,7 +4,7 @@ class Serializers::Tasks::DynamicTasksSerializer <
     :targetable_type, :user_id, :meta_tasks, :user
 
   def user
-    Serializers::Users::UserProgramSerializer.new(object: object.user)
+    Serializers::Users::UserProgramSerializer.new(object: object.objectable)
       .serializer
   end
 

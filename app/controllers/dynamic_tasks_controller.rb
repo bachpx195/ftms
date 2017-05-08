@@ -12,7 +12,6 @@ class DynamicTasksController < ApplicationController
             team_dynamic_tasks: @team_dynamic_tasks,
             dynamic_params: dynamic_params,
             team_status: params[:dynamic_task][:team_status]
-
         if update_task_assignment_service.perform
           render json: {dynamic_task: @dynamic_task,
             team_dynamic_tasks: @team_dynamic_tasks}
@@ -66,7 +65,6 @@ class DynamicTasksController < ApplicationController
   def load_team_dynamic_tasks
     @team_dynamic_tasks = DynamicTask.owner_tasks(@course_subject)
       .target_tasks(@dynamic_task.targetable).team_tasks @team_user_ids
-
     unless @team_dynamic_tasks
       respond_to do |format|
         format.html
@@ -80,6 +78,7 @@ class DynamicTasksController < ApplicationController
 
   def authorize_request
     authorize_with_multiple page_params.merge(dynamic_task: @dynamic_task,
-      team_mem: @team_user_ids.push(current_user.id), course_subject: @course_subject), DynamicTaskPolicy
+      team_mem: @team_user_ids.push(current_user.id),
+      course_subject: @course_subject), DynamicTaskPolicy
   end
 end

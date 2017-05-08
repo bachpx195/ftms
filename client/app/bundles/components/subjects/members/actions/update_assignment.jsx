@@ -17,8 +17,8 @@ export default class UpdateAssignment extends React.Component {
     let text_status = 'in_progress';
     let team_status = 'reject';
     if (this.props.status == 'in_progress') {
-      text_status = 'finish';
-      team_status = 'finish';
+      text_status = 'finished';
+      team_status = 'finished';
     }
     let course_subject = this.props.course_subject;
     axios.put(routes.dynamic_task_url(this.props.dynamic_task.id) + '.json', {
