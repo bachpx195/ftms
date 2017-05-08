@@ -8,7 +8,8 @@ export default class Destroy extends React.Component {
     return(
       <button className="btn btn-danger"
         onClick={this.handleDelete.bind(this)}>
-        {I18n.t('buttons.delete')}
+        <i className='fa fa-trash'></i>
+        &nbsp;{I18n.t('buttons.delete')}
       </button>
     )
   }

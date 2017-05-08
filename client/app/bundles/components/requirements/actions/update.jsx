@@ -15,13 +15,15 @@ export default class Update extends React.Component {
   render() {
     return (
       <div className="box-tools pull-right">
-        <button type="button" className="btn btn-info"
-          onClick={this.handleClickButton.bind(this)}>
-          <i className="fa fa-pencil"></i>{I18n.t('buttons.edit')}
+        <button title={I18n.t('buttons.edit')} type="button"
+          className="btn btn-info"
+            onClick={this.handleClickButton.bind(this)}>
+          <i className="fa fa-pencil-square-o"></i>
         </button>&nbsp;
-        <button className="btn btn-danger"
+        <button title={I18n.t('buttons.delete')} className="btn btn-danger"
           onClick={this.handleDelete.bind(this)}>
-          {I18n.t('buttons.delete')}</button>
+          <i className="fa fa-trash"></i>
+        </button>
       </div>
     );
   }

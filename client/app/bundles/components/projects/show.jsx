@@ -1,12 +1,12 @@
-import React from 'react';
+import * as routes from 'config/routes';
 import axios from 'axios';
-import ReactOnRails from 'react-on-rails';
+import Destroy from './actions/destroy';
 import Form from './templates/form';
 import Modal from '../requirements/templates/modal';
-import Requirements from '../requirements/requirements';
+import React from 'react';
+import ReactOnRails from 'react-on-rails';
 import RenderTextButton from './templates/render_text_button';
-import Destroy from './actions/destroy';
-import * as routes from 'config/routes';
+import Requirements from '../requirements/requirements';
 
 export default class ProjectBox extends React.Component {
   constructor(props) {
@@ -47,8 +47,8 @@ export default class ProjectBox extends React.Component {
                 {I18n.t('evaluation_templates.title')} :
                 {this.state.project.name}
               </h3>
-              <div className="box-tools pull-right">
-                <button type="button" className="btn btn-info"
+              <div className='box-tools pull-right'>
+                <button type='button' className='btn btn-info'
                   onClick={this.handleClickButton.bind(this)}>
                   <RenderTextButton showForm={this.state.showForm} />
                 </button>&nbsp;
@@ -57,12 +57,13 @@ export default class ProjectBox extends React.Component {
             </div>
             <div className='box-body'>
               {form}
-              <div className="clearfix"></div>
+              <div className='clearfix'></div>
               <div className='add-requirement col-md-3'>
                 <button type='button' className='btn btn-primary'
                   onClick={this.handleAddRequirement.bind(this)}>
-                  {I18n.t('projects.add_requirement')}</button>
-                <div className="clearfix"></div>
+                  <i className='fa fa-plus'></i>
+                  &nbsp;{I18n.t('projects.add_requirement')}</button>
+                <div className='clearfix'></div>
               </div>
             </div>
               <Requirements requirements={this.state.requirements}
