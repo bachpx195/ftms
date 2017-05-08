@@ -45,7 +45,10 @@ export default class TabsMember extends React.Component {
     let members = this.props.subject_detail.user_subjects.slice(0, 5);
     return (
       <a className='btn btn-success button-change-group-focus'>
+      <h4 className='side-bar-title'>
         {I18n.t('subjects.titles.members')}
+      </h4>
+        {this.props.subject_detail.user_subjects.length}
         <ul>
           {
             members.map((user, index) => {

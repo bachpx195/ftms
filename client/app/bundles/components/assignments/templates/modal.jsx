@@ -29,7 +29,8 @@ export default class Modal extends React.Component {
                 <button type='button' className='close'
                   data-dismiss='modal'>&times;</button>
                 <h4 className='modal-title'>
-                  {I18n.t("subjects.trainee.create_assignments")}</h4>
+                  {I18n.t("subjects.trainee.create_assignments")}
+                </h4>
               </div>
               <div className="modal-body">
                 <Create url={this.props.url}

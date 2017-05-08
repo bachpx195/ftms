@@ -1,7 +1,9 @@
-import React from 'react';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import { NewLayout } from '../../shareds/griddles/new_layout';
+
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as table_constants from 'constants/griddle_table_constants';
+import css from 'assets/sass/react-table.scss';
+import ReactTable from 'react-table';
+import React from 'react';
 
 export default class StatisticsTraineeTypeBox extends React.Component {
   constructor(props) {
@@ -13,7 +15,27 @@ export default class StatisticsTraineeTypeBox extends React.Component {
   }
 
   render() {
-    {NewLayout}
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('statistics.trainee_types.headers.organization'),
+        accessor: 'organization_name',
+      },
+      {
+        header: I18n.t('statistics.trainee_types.headers.trainee_type'),
+        accessor: 'trainee_type_name',
+      },
+      {
+        header: I18n.t('statistics.trainee_types.headers.number'),
+        accessor: 'number',
+      },
+    ]
 
     return (
       <div className='box box-success'>
@@ -32,19 +54,13 @@ export default class StatisticsTraineeTypeBox extends React.Component {
 
         <div className='box-body no-padding'>
           <div>
-            <Griddle data={this.state.trainees_by_trainee_types_table}
-              plugins={[plugins.LocalPlugin]}
-              components={{Layout: NewLayout}}
-              styleConfig={table_constants.styleConfig}>
-              <RowDefinition>
-                <ColumnDefinition id='organization_name'
-                  title={I18n.t('statistics.trainee_types.headers.organization')} />
-                <ColumnDefinition id='trainee_type_name'
-                  title={I18n.t('statistics.trainee_types.headers.trainee_type')}/>
-                <ColumnDefinition id='number'
-                  title={I18n.t('statistics.trainee_types.headers.number')} />
-              </RowDefinition>
-            </Griddle>
+            <ReactTable
+              className='-striped -highlight'
+              data={this.state.trainees_by_trainee_types_table}
+              columns={columns} showFilters={true}
+              defaultPageSize={react_table_ultis.defaultPageSize}
+              defaultFilterMethod={react_table_ultis.defaultFilter}
+            />
           </div>
         </div>
       </div>

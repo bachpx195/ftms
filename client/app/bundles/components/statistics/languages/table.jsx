@@ -1,7 +1,8 @@
-import React from 'react';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import { NewLayout } from '../../shareds/griddles/new_layout';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as table_constants from 'constants/griddle_table_constants';
+import css from 'assets/sass/react-table.scss';
+import ReactTable from 'react-table';
+import React from 'react';
 
 export default class StatisticsLanguageBox extends React.Component {
   constructor(props) {
@@ -13,7 +14,27 @@ export default class StatisticsLanguageBox extends React.Component {
   }
 
   render() {
-    {NewLayout}
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('statistics.languages.headers.organization'),
+        accessor: 'organization_name',
+      },
+      {
+        header: I18n.t('statistics.languages.headers.language'),
+        accessor: 'language_name',
+      },
+      {
+        header: I18n.t('statistics.languages.headers.number'),
+        accessor: 'number',
+      },
+    ]
 
     return (
       <div className='box box-success'>
@@ -32,19 +53,13 @@ export default class StatisticsLanguageBox extends React.Component {
 
         <div className='box-body no-padding'>
           <div>
-            <Griddle data={this.state.trainees_by_languages_table}
-              plugins={[plugins.LocalPlugin]}
-              components={{Layout: NewLayout}}
-              styleConfig={table_constants.styleConfig}>
-              <RowDefinition>
-                <ColumnDefinition id='organization_name'
-                  title={I18n.t('statistics.languages.headers.organization')} />
-                <ColumnDefinition id='language_name'
-                  title={I18n.t('statistics.languages.headers.language')}/>
-                <ColumnDefinition id='number'
-                  title={I18n.t('statistics.languages.headers.number')} />
-              </RowDefinition>
-            </Griddle>
+            <ReactTable
+              className='-striped -highlight'
+              data={this.state.trainees_by_languages_table}
+              columns={columns} showFilters={true}
+              defaultPageSize={react_table_ultis.defaultPageSize}
+              defaultFilterMethod={react_table_ultis.defaultFilter}
+            />
           </div>
         </div>
       </div>
