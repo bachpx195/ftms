@@ -89,12 +89,14 @@ class TrainingStandardsController < ApplicationController
   def authorize_request
     authorize_with_multiple page_params
       .merge(training_standard: @training_standard_supports.training_standard,
-        organization: @training_standard_supports.organization),
+        organization: @training_standard_supports.organization ||
+        @training_standard_supports.training_standard.organization),
       TrainingStandardPolicy
   end
 
   def find_organization
-    unless @training_standard_supports.organization
+    unless @training_standard_supports.organization ||
+      @training_standard_supports.training_standard.organization
       respond_to do |format|
         format.html{redirect_to organizations_path}
         format.json do
