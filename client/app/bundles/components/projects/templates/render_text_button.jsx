@@ -28,7 +28,7 @@ export default class RenderTextButton extends React.Component {
       return (<div>{I18n.t('buttons.cancel')}</div>);
     } else {
       return (
-        <div><i className="fa fa-pencil"></i>{I18n.t('buttons.edit')}</div>);
+        <div><i className='fa fa-pencil-square-o'></i>&nbsp;{I18n.t('buttons.edit')}</div>);
     }
   }
 }

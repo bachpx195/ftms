@@ -1,9 +1,10 @@
 import React from 'react';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import { NewLayout } from '../../shareds/griddles/new_layout';
 import Update from '../actions/update';
 import ModalRequirement from '../templates/modal';
 import * as table_constants from 'constants/griddle_table_constants';
+import ReactTable from 'react-table';
+import css from 'assets/sass/react-table.scss';
+import * as react_table_ultis from 'shared/react-table/ultis';
 require('../../../assets/sass/projects.scss');
 
 export default class RequirementGriddle extends React.Component {
@@ -22,28 +23,45 @@ export default class RequirementGriddle extends React.Component {
   }
 
   render() {
-    const Buttons = ({value, griddleKey}) => (
-      <Update requirement={this.state.requirements[griddleKey]}
-        handleOnClickEdit={this.handleOnClickEdit.bind(this)}
-        handleAfterDelete={this.handleAfterDelete.bind(this)}  />
-      );
-
-    {NewLayout}
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => <div className='text-right'>{row.index + 1}</div>,
+        hideFilter: true,
+        width: 50
+      },
+      {
+        header: I18n.t('projects.headers.name'),
+        accessor: 'name',
+      },
+      {
+        header: I18n.t('projects.priority'),
+        accessor: 'priority',
+      },
+      {
+        header: '',
+        accessor: 'requirement',
+        render: row => {
+          return (
+            <Update
+              requirement={this.state.requirements[row.value]}
+              handleOnClickEdit={this.handleOnClickEdit.bind(this)}
+              handleAfterDelete={this.handleAfterDelete.bind(this)}
+            />
+          )
+        }
+      }
+    ]
 
     return (
       <div>
-        <Griddle data={this.state.requirements} plugins={[plugins.LocalPlugin]}
-          components={{Layout: NewLayout}}
-          styleConfig={table_constants.styleConfig}>
-          <RowDefinition>
-            <ColumnDefinition id='name'
-              title={I18n.t('projects.headers.name')} />
-            <ColumnDefinition id='priority'
-              title={I18n.t('projects.priority')} />
-            <ColumnDefinition id='requirement' title=' '
-              customComponent={Buttons} />
-          </RowDefinition>
-        </Griddle>
+        <ReactTable
+          className='-striped -highlight' data={this.state.requirements}
+          columns={columns} showFilters={true}
+          defaultPageSize={react_table_ultis.defaultPageSize}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
       </div>
     );
   }

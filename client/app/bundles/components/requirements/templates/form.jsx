@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
 import Errors from '../../shareds/errors';
+import React from 'react';
+import ReactOnRails from 'react-on-rails';
 import _ from 'lodash';
 
 export default class Form extends React.Component {
@@ -40,7 +40,10 @@ export default class Form extends React.Component {
         <div className='form-group'>
           <div className='text-right'>
             <button type='submit' className='btn btn-primary'
-              disabled={!this.formValid()}>{I18n.t('buttons.save')}</button>
+              disabled={!this.formValid()}>
+              <i className='fa fa-floppy-o'></i>
+              &nbsp;{I18n.t('buttons.save')}
+            </button>
           </div>
         </div>
       </form>
