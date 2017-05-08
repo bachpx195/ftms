@@ -1,10 +1,10 @@
-import axios from 'axios';
-import CheckBox from './check_box'
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import React from 'react';
-import * as app_constants from 'constants/app_constants';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
+import axios from 'axios';
+import css from 'assets/sass/react-table.scss';
+import CheckBox from './check_box'
+import React from 'react';
+import ReactTable from 'react-table';
 
 export default class ListTasks extends React.Component {
   constructor(props) {
@@ -25,66 +25,62 @@ export default class ListTasks extends React.Component {
 
   render() {
     let type = this.state.type;
-    if(type != '') {
-      const NewLayout = ({Table, Pagination, Filter}) => (
-        <div className='col-md-12'>
-          <div className='row'>
-            <div className='griddle-head clearfix'>
-              <div className='col-md-6 text-right'>
-                <Pagination />
-              </div>
-            </div>
-            <div className='col-md-12'>
-              <Table />
-            </div>
-          </div>
-        </div>
-      );
-      const ChooseTargetable = ({griddleKey}) => {
-        let id;
-        if (this.props.targetable_type == 'StaticTask') {
-          id = this.state.task[this.props.type][griddleKey].task_id
-        } else {
-          id = this.state.task[this.props.type][griddleKey].id
-        }
-        return <CheckBox
-          id={id}
-          afterClickCheckbox={this.afterClickCheckbox.bind(this)}
-          checked={this.state.targetable_ids.indexOf(id) >= 0} />
+    if (type == '') return null;
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => row.index + 1,
+        hideFilter: true,
+        style: {textAlign: 'right'},
+        width: 50
+      },
+      {
+        header: I18n.t('tasks.headers.name'),
+        accessor: 'name',
+      },
+      {
+        header: I18n.t('tasks.headers.content'),
+        accessor: 'content',
+      },
+      {
+        header: '',
+        accessor: 'action',
+        render: row => {
+          let id;
+          if (this.props.targetable_type == 'StaticTask') {
+            id = row.row.task_id
+          } else {
+            id = row.row.id
+          }
+          return <CheckBox id={id}
+            afterClickCheckbox={this.afterClickCheckbox.bind(this)}
+            checked={this.state.targetable_ids.indexOf(id) >= 0} />
+        },
+        hideFilter: true,
+        style: {textAlign: 'center'},
+        sortable: false,
+        width: 50
       }
+    ];
 
-      return(
-        <div className='panel-task'>
-          {this.state.task[type].length > 0 ? (
-            <div className='list-task'>
-              <Griddle data={this.state.task[type]}
-                plugins={[plugins.LocalPlugin]}
-                components={{Layout: NewLayout}}
-                styleConfig={table_constants.styleConfig}>
-                <RowDefinition keyColumn='id'>
-                  <ColumnDefinition id='name'
-                    title='name'/>
-                  <ColumnDefinition id='content'
-                    title='content' />
-                  <ColumnDefinition id='action'
-                    title='action' customComponent={ChooseTargetable} />
-                  </RowDefinition>
-              </Griddle>
-
-            </div>
-          ) : (<h3><i>{I18n.t('assignments.nothing_show', {list: type})}</i></h3>)}
-          <div className='text-center'>
-
-            <button type='button' className='btn btn-primary'
-              onClick={this.handleSubmitCreateTask.bind(this)}>
-              {I18n.t("assignments.create_static_task")}
-            </button>
-          </div>
+    return(
+      <div className='panel-task'>
+        <div className='list-task'>
+          <ReactTable className='-striped -highlight'
+            data={this.state.task[type]} columns={columns} showFilters={true}
+            defaultPageSize={react_table_ultis.defaultPageSize}
+            defaultFilterMethod={react_table_ultis.defaultFilter}
+          />
         </div>
-      )
-    } else {
-      return null
-    }
+        <div className='text-center'>
+          <button type='button' className='btn btn-primary'
+            onClick={this.handleSubmitCreateTask.bind(this)}>
+            {I18n.t("assignments.create_static_task")}
+          </button>
+        </div>
+      </div>
+    );
   }
 
   afterClickCheckbox(id, checked) {
@@ -99,7 +95,7 @@ export default class ListTasks extends React.Component {
   }
 
   handleSubmitCreateTask() {
-    axios.post(routes.assign_tasks_url(), {
+    axios.post(routes.assign_tasks_url() + '.json', {
       task: {
         targetable_ids: this.state.targetable_ids,
         targetable_type: this.props.targetable_type,
@@ -107,7 +103,7 @@ export default class ListTasks extends React.Component {
         ownerable_type: this.props.ownerable_type,
         user_id: this.state.user_id
       }, authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
+    })
     .then(response => {
       if(this.state.user_id) {
         this.props.changePanel()

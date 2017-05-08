@@ -23,7 +23,7 @@ export default class ModalAssignAssignment extends React.Component {
     return (
       <div className={`modal fade in modal-assign-task`}
         role='dialog'>
-        <div className='modal-dialog'>
+        <div className='modal-dialog modal-lg'>
           <div className='modal-content'>
             <div className='modal-header'>
               <button type='button' className='close'

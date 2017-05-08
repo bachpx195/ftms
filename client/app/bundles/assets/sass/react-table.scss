@@ -3,7 +3,7 @@ $c-white-1: #FFF;
 $c-black-1: rgba(0, 0, 0, 0.1);
 $c-black-2: rgba(0, 0, 0, 0.03);
 $c-black-3: rgba(0, 0, 0, 0.05);
-$c-black-4: rgba(0, 0, 0, 0.1);
+$c-black-4: rgba(0, 0, 0, 0.02);
 $c-black-5: rgba(0, 0, 0, 0.6);
 $c-black-6: rgba(0, 0, 0, 0.15);
 $c-black-7: rgba(0, 0, 0, 0.5);
@@ -55,7 +55,7 @@ $c-white-2: rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid $c-black-3;
 }
 .ReactTable .rt-thead.-filters .rt-th {
-  border-right: 1px solid $c-black-4;
+  border-right: 1px solid $c-black-1;
 }
 .ReactTable .rt-thead.-header {
   box-shadow: 0 2px 15px 0 $c-black-6;
@@ -118,13 +118,13 @@ $c-white-2: rgba(255, 255, 255, 0.8);
   flex-direction: column;
 }
 .ReactTable .rt-tbody .rt-tr-group {
-  border-bottom: solid 1px $c-black-3;
+  border-bottom: solid 1px $c-black-1;
 }
 .ReactTable .rt-tbody .rt-tr-group:last-child {
   border-bottom: 0;
 }
 .ReactTable .rt-tbody .rt-td {
-  border-right: 1px solid $c-black-4;
+  border-right: 1px solid $c-black-1;
 }
 .ReactTable .rt-tbody .rt-td:last-child {
   border-right: 0;

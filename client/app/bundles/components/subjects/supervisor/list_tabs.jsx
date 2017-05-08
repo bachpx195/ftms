@@ -107,7 +107,7 @@ export default class ListTabs extends React.Component {
 
       modalUserTask = (
         <div className='modalUserTask modal fade in' role='dialog'>
-          <div className='modal-dialog'>
+          <div className='modal-dialog modal-lg'>
             <div className='modal-content'>
               <div className='modal-header'>
                 <button type='button' className='close'

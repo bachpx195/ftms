@@ -72,7 +72,7 @@ export default class ListTabs extends React.Component {
         this.props.subject_detail.user_subjects[this.state.user_index]) {
         modal_assign_task = (
           <div className='modal-assign modal fade in' role='dialog'>
-            <div className='modal-dialog'>
+            <div className='modal-dialog modal-lg'>
               <div className='modal-content'>
                 <div className='modal-header'>
                   <button type='button' className='close'
@@ -100,7 +100,7 @@ export default class ListTabs extends React.Component {
 
         modal_list_task = (
           <div className='modal-list-task modal fade in' role='dialog'>
-            <div className='modal-dialog'>
+            <div className='modal-dialog modal-lg'>
               <div className='modal-content'>
                 <div className='modal-header'>
                   <button type='button' className='close'
