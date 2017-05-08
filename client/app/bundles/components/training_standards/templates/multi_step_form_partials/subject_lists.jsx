@@ -31,7 +31,6 @@ export default class SubjectLists extends React.Component {
     } else {
       list_subject = this.state.subjects;
     }
-
     return list_subject.map(subject => {
       let index = this.state.select_subjects.findIndex(
         select_subject => select_subject.id == subject.id);
@@ -39,9 +38,6 @@ export default class SubjectLists extends React.Component {
       return (
         <SubjectItem
           key={subject.id} subject={subject} checked={checked}
-          standard_subjects={this.state.standard_subjects}
-          selected_subjects={this.state.selected_subjects}
-          training_standard={this.state.training_standard}
           select_subjects={this.state.select_subjects}
           chooseSubjectItem={this.chooseSubjectItem.bind(this)}
         />
@@ -50,6 +46,9 @@ export default class SubjectLists extends React.Component {
   }
 
   chooseSubjectItem(select_subjects) {
-    this.props.chooseSubjectItem(this.state.select_subjects);
+    this.setState ({
+      select_subjects: select_subjects
+    });
+    this.props.handleSelectedSubjects(select_subjects);
   }
 }

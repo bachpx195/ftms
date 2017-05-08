@@ -26,17 +26,17 @@ export default class TrainingResultItem extends React.Component {
       <tr>
         <td><span>{this.props.index + 1}</span></td>
         <td>
-          <input type='text' value={this.state.name}
+          <input type='text' value={this.state.name || ''}
             onChange={this.handleChange.bind(this)}
             className='form-control' name='name' />
         </td>
         <td>
-          <input type='number' value={this.state.min_point}
+          <input type='number' value={this.state.min_point || 0}
             onChange={this.handleChange.bind(this)}
             className='form-control' name='min_point' min='0'/>
         </td>
         <td>
-          <input type='number' value={this.state.max_point}
+          <input type='number' value={this.state.max_point || 0}
             onChange={this.handleChange.bind(this)}
             className='form-control' name='max_point' min='0' />
         </td>

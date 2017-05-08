@@ -8,25 +8,29 @@ import TrainingStandardStep from './multi_step_form_partials/training_standard_s
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants';
 import * as step_animations from 'shared/multi_step_animation';
+import * as routes from 'config/routes';
 
 const POLICIES = app_constants.POLICIES;
 
 export default class MultiStepForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...props,
-      training_standard: {},
+    this.state = {
+      training_standard: props.training_standard || {
+        name: '', description: '', policy: POLICIES[0].id
+      },
       select_subjects: [],
-      evaluation_template: {},
+      evaluation_template: props.evaluation_template || {
+        name: '', training_results: [], evaluation_standards: [],
+      },
       errors: null
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      name: nextProps.training_standard.name || '',
-      description: nextProps.training_standard.description || '',
-      policy: nextProps.training_standard.policy || POLICIES[0].id,
+      training_standard: nextProps.training_standard,
+      evaluation_template: nextProps.evaluation_template,
       errors: null
     });
   }
@@ -35,17 +39,23 @@ export default class MultiStepForm extends React.Component {
     return (
       <div>
         <TrainingStandardStep
+          training_standard={this.state.training_standard}
           handleInfoChanged={this.handleInfoChanged.bind(this)}
           onClickNext={step_animations.onNextStep}
           onCancelForm={step_animations.onCancelForm} />
         <AssignSubjectStep subjects={this.props.subjects}
+          remain_subjects={this.props.remain_subjects}
+          select_subjects={this.state.select_subjects}
+          selected_subjects={this.props.selected_subjects}
           training_standard={this.state.training_standard}
+          standard_subjects={this.props.standard_subjects}
           afterRenderTimeline={step_animations.afterRenderTimeline}
           handleSelectedSubjects={this.handleSelectedSubjects.bind(this)}
           onCancelForm={step_animations.onCancelForm}
           onClickNext={step_animations.onNextStep}
           onClickPrevious={step_animations.onPreviousStep} />
         <EvaluationTemplateStep handleSubmit={this.handleSubmit.bind(this)}
+          evaluation_template={this.state.evaluation_template}
           handleEvaluationTemplate={this.handleEvaluationTemplate.bind(this)}
           onCancelForm={step_animations.onCancelForm}
           onClickPrevious={step_animations.onPreviousStep} />
@@ -71,33 +81,29 @@ export default class MultiStepForm extends React.Component {
     });
   }
 
-  formValid() {
-    return this.state.name != '' && this.state.description != ''
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     let formData = new FormData();
-
     let training_standard = this.state.training_standard;
     for(let key of Object.keys(training_standard)) {
       formData.append('training_standard[' + key + ']', training_standard[key]);
     }
-
     this.state.select_subjects.map((subject, index) => {
       formData.append(
         'training_standard[standard_subjects_attributes][' + index + '][subject_id]',
         subject.id
       );
-    })
+    });
+    let evaluation_template = this.state.evaluation_template;
+    for(let key of Object.keys(evaluation_template)) {
+      formData.append('training_standard[evaluation_template_attributes][' + key +']',
+        evaluation_template[key]);
+    }
 
-    formData.append('training_standard[evaluation_template_attributes][name]',
-      this.state.evaluation_template.name);
     let evaluation_standards = this.state.evaluation_template.evaluation_standards;
-
     evaluation_standards.map((evaluation_standard, index) => {
       for(let key of Object.keys(evaluation_standard)) {
-        if (key != 'id') {
+        if (evaluation_standard[key]) {
           formData.append(
             'training_standard[evaluation_template_attributes]' +
             '[evaluation_standards_attributes][' + index + '][' + key +']',
@@ -109,7 +115,7 @@ export default class MultiStepForm extends React.Component {
     let training_results = this.state.evaluation_template.training_results;
     training_results.map((training_result, index) => {
       for(let key of Object.keys(training_result)) {
-        if (key != 'id') {
+        if (training_result[key]) {
           formData.append(
             'training_standard[evaluation_template_attributes]' +
             '[training_results_attributes][' + index + '][' + key +']',
@@ -121,23 +127,34 @@ export default class MultiStepForm extends React.Component {
     formData.append('training_standard[organization_id]',
       this.props.organization.id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
-
+    let method = 'POST';
+    let url = window.location.href;
+    let current_standard_id = this.state.training_standard.id;
+    if (current_standard_id) {
+      method = 'PUT';
+      url = routes.organization_training_standard_url(this.props.organization.id,
+       this.state.training_standard.id);
+    }
     axios({
-      url: window.location.href,
-      method: 'POST',
+      url: url,
+      method: method,
       data: formData,
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
+      if (current_standard_id) {
+        this.props.handleAfterEdit(response.data.training_standard);
+      } else {
+        this.props.handleAfterSaved(response.data.training_standard);
+      }
       this.setState({
-        name: '',
-        description: '',
-        policy: POLICIES[0].id,
+        training_standard: {name: '', description: '', policy: POLICIES[0].id},
         select_subjects: [],
-        evaluation_template: {},
+        evaluation_template: {
+          name: '', training_results: [], evaluation_standards: [],
+        },
         errors: null,
       });
-      this.props.handleAfterSaved(response.data.training_standard);
     })
     .catch(error => {
       this.setState({errors: error.response.data.errors});

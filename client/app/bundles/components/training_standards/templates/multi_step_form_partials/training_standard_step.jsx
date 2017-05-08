@@ -9,11 +9,18 @@ export default class TrainingStandardStep extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      description: '',
-      policy: POLICIES[0].id,
+      training_standard: props.training_standard || {
+        name: '', description: '', policy: POLICIES[0].id
+      },
       errors: '',
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      training_standard: this.state.training_standard,
+      errors: '',
+    });
   }
 
   renderOptions(objects) {
@@ -38,7 +45,7 @@ export default class TrainingStandardStep extends React.Component {
           </label>
           <div className='col-md-10'>
             <input type='text'
-              value={this.state.name} ref='nameField'
+              value={this.state.training_standard.name || ''} ref='nameField'
               onChange={this.handleTrainingStandardInfo.bind(this)}
               className='form-control' name='name' />
           </div>
@@ -50,7 +57,7 @@ export default class TrainingStandardStep extends React.Component {
           </label>
           <div className='col-md-10'>
             <input type='text'
-              value={this.state.description} ref='nameField'
+              value={this.state.training_standard.description || ''} ref='nameField'
               onChange={this.handleTrainingStandardInfo.bind(this)}
               className='form-control' name='description' />
           </div>
@@ -62,8 +69,8 @@ export default class TrainingStandardStep extends React.Component {
           </label>
           <div className='col-md-10'>
             <select className='form-control'
-              value={this.state.policy} name='policy'
-              onChange={this.handleTrainingStandardInfo.bind(this)}>
+              value={this.state.training_standard.policy || POLICIES[0].id}
+              name='policy' onChange={this.handleTrainingStandardInfo.bind(this)}>
               {this.renderOptions(POLICIES)}
             </select>
           </div>
@@ -80,19 +87,20 @@ export default class TrainingStandardStep extends React.Component {
 
   handleTrainingStandardInfo(event) {
     let attribute = event.target.name;
+    Object.assign(this.state.training_standard, {[attribute]: event.target.value});
     this.setState({
-      [attribute]: event.target.value
+      training_standard: this.state.training_standard,
     });
-    this.props.handleInfoChanged(_.omit(this.state, 'errors'));
+    this.props.handleInfoChanged(this.state.training_standard);
   }
 
   handleNext(event) {
-    if (this.state.name == '') {
+    let name = this.state.training_standard.name;
+    if (name == undefined || name == '') {
       this.setState({
         errors: I18n.t('training_standards.errors.blank_name'),
       });
     } else {
-      this.props.handleInfoChanged(_.omit(this.state, 'errors'));
       this.props.onClickNext(event);
     }
   }
