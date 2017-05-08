@@ -1,5 +1,6 @@
 en:
   subjects:
+    search: "Search"
     alt_image: "Subject Image"
     titles:
       all: "All Subjects"

@@ -39,6 +39,8 @@ export default class MultiStepForm extends React.Component {
           onClickNext={step_animations.onNextStep}
           onCancelForm={step_animations.onCancelForm} />
         <AssignSubjectStep subjects={this.props.subjects}
+          training_standard={this.state.training_standard}
+          afterRenderTimeline={step_animations.afterRenderTimeline}
           handleSelectedSubjects={this.handleSelectedSubjects.bind(this)}
           onCancelForm={step_animations.onCancelForm}
           onClickNext={step_animations.onNextStep}

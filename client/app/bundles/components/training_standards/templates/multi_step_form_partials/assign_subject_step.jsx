@@ -11,35 +11,78 @@ export default class AssignSubjectStep extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      training_standard: nextProps.training_standards,
+    });
+  }
+
+  componentDidMount() {
+    this.props.afterRenderTimeline();
+  }
+
+  componentDidUpdate() {
+    this.props.afterRenderTimeline();
+  }
+
   renderTimeLineItems() {
+    let orientation = 'down';
     return this.state.select_subjects.map(subject => {
       let day = I18n.t('training_standards.subject_preview.day');
       let time = parseInt(subject.during_time);
       if (time > 1 || time == 0) {
         day = I18n.t('training_standards.subject_preview.days');
       }
+      orientation = orientation == 'down' ? 'up' : 'down';
       return (
-        <div className='tl-item' key={subject.id}>
-          <div className='tl-bg'>
-            <img className='img-circle' src={subject.image.url} />
-          </div>
-          <div className='tl-year'>
-            <p className='f2 heading--sanSerif'>{subject.during_time + day}</p>
-          </div>
-          <div className='tl-content'>
-            <h1>{subject.name}</h1>
-            <p className='content-container'>{subject.description}</p>
+        <div key={subject.id} className={`col-sm-3 timeline-block ${orientation}`}
+          data-col={subject.during_time}>
+          <div className='timeline-content'>
+            <div className='timeline-heading'>
+              <div className='img'>
+                <img src={subject.image.url} className='img-circle' />
+              </div>
+            </div>
+            <div className='timeline-body'>
+              <h3 className='title'>{subject.name}</h3>
+              <h4 className='subject-duration'>
+                {subject.during_time + day}
+              </h4>
+            </div>
           </div>
         </div>
       );
     });
   }
 
+  renderTimelineContent() {
+    let total_time = 0;
+    this.state.select_subjects.map(subject => {
+      total_time += parseInt(subject.during_time);
+    });
+    return (
+      <div className='col-sm-12 msform-subject-timeline'
+        data-total-col={total_time}>
+        {this.renderTimeLineItems()}
+      </div>
+    );
+  }
+
   render() {
+    let standard_name = '';
+    if (this.props.training_standard) {
+      standard_name = <div className='col-md-12'>
+        <h3>
+          {I18n.t('training_standards.multi_step_form.standard_name')}
+          {this.props.training_standard.name}
+        </h3>
+      </div>
+    }
     return (
       <fieldset>
-        <input className='form-control search_form' id='filter-list-courses'
-          autoComplete='off' placeholder={I18n.t('courses.search')}
+        {standard_name}
+        <input className='form-control search_form' autoComplete='off'
+          placeholder={I18n.t('subjects.search')}
           onChange={this.filterSubjects.bind(this)}/>
         <div className='panel panel-primary'>
           <div className='panel-body'>
@@ -52,8 +95,12 @@ export default class AssignSubjectStep extends React.Component {
               chooseSubjectItem={this.chooseSubjectItem.bind(this)} />
           </div>
         </div>
-        <section className='subject-timeline-preview'>
-          {this.renderTimeLineItems()}
+        <section className='msform-program-progress'>
+          <div id='program-intern' className='clearfix'>
+            <div className='container msform-relative'>
+              {this.renderTimelineContent()}
+            </div>
+          </div>
         </section>
         <div className='text-center col-md-12'>
           <input type='button' name='cancel' className='cancel action-button'

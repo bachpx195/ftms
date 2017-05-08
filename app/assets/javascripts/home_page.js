@@ -66,7 +66,9 @@ function afterRender() {
     $timeline_heading.css('z-index', 100);
     var $timeline_body = $(this).parent().parent().next();
     $timeline_body.css('z-index', 99);
-    $timeline_body.toggle('slide');
+    if (!$timeline_body.is(':visible')) {
+      $timeline_body.show('slow');
+    }
   });
 
   $('.timeline-heading img').mouseout(function(){
@@ -74,6 +76,6 @@ function afterRender() {
     $timeline_heading.css('z-index', 10);
     var $timeline_body = $(this).parent().parent().next();
     $timeline_body.css('z-index', 9);
-    $timeline_body.toggle('slide');
+    $timeline_body.hide('fast');
   });
 }
