@@ -41,5 +41,8 @@ en:
       standard_info: "Training Standard Info"
       assign_subject: "Assign Subject"
       create_evaluation_template: "Create Evaluation Template"
+      standard_name: "Standard Name: "
     preview: "Training standards preview"
     list_training_standards: "List training standards"
+    errors:
+      blank_name: "Name cannot be blank !"

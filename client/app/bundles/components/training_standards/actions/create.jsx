@@ -13,9 +13,6 @@ export default class Create extends React.Component {
         <div className='modal-dialog modal-lg clearfix'>
           <div className='modal-content'>
             <div className='modal-header'>
-              <button type='button' className='close' data-dismiss='modal'>
-                &times;
-              </button>
               <h4 className='modal-title'>
                 {I18n.t('training_standards.modals.create')}
               </h4>

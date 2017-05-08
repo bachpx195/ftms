@@ -86,3 +86,40 @@ export function onCancelForm(event) {
 
   $('.modalCreateTrainingStandard').modal('hide');
 }
+
+
+export function afterRenderTimeline() {
+  $('.msform-subject-timeline').each((index, timeline) => {
+    let total_col = parseInt($(timeline)[0].dataset.totalCol);
+    let left = 0;
+    $('.timeline-block', $(timeline)).each(function(){
+      let col = parseInt($(this).data('col'));
+      let width = Math.floor(col * 10000 / total_col) / 100;
+      $(this).width(width + '%');
+      $(this).css('left', left + '%');
+      left += width;
+    });
+  });
+
+  $('.timeline-body .tooltip').on('hover', function(e){
+    $(this).tooltip('bottom');
+  });
+
+  $('.timeline-heading img').mouseenter(function() {
+    let $timeline_heading = $(this).closest('.timeline-heading');
+    $timeline_heading.css('z-index', 100);
+    let $timeline_body = $(this).parent().parent().next();
+    $timeline_body.css('z-index', 99);
+    if (!$timeline_body.is(':visible')) {
+      $timeline_body.show('slow');
+    }
+  });
+
+  $('.timeline-heading img').mouseout(function() {
+    let $timeline_heading = $(this).closest('.timeline-heading');
+    $timeline_heading.css('z-index', 10);
+    let $timeline_body = $(this).parent().parent().next();
+    $timeline_body.css('z-index', 9);
+    $timeline_body.hide('fast');
+  });
+}

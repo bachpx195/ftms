@@ -1,3 +1,4 @@
+import Errors from '../../../shareds/errors';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import * as app_constants from 'constants/app_constants';
@@ -11,6 +12,7 @@ export default class TrainingStandardStep extends React.Component {
       name: '',
       description: '',
       policy: POLICIES[0].id,
+      errors: '',
     }
   }
 
@@ -29,6 +31,7 @@ export default class TrainingStandardStep extends React.Component {
   render() {
     return (
       <fieldset>
+        <Errors errors={this.state.errors} />
         <div className='form-group row'>
           <label className='col-md-2'>
             {I18n.t('training_standards.headers.name')}
@@ -69,7 +72,7 @@ export default class TrainingStandardStep extends React.Component {
           <input type='button' name='cancel' className='cancel action-button' value='Cancel'
             onClick={this.props.onCancelForm}/>
           <input type='button' name='next' className='next action-button' value='Next'
-            onClick={this.props.onClickNext}/>
+            onClick={this.handleNext.bind(this)}/>
         </div>
       </fieldset>
     );
@@ -81,5 +84,16 @@ export default class TrainingStandardStep extends React.Component {
       [attribute]: event.target.value
     });
     this.props.handleInfoChanged(_.omit(this.state, 'errors'));
+  }
+
+  handleNext(event) {
+    if (this.state.name == '') {
+      this.setState({
+        errors: I18n.t('training_standards.errors.blank_name'),
+      });
+    } else {
+      this.props.handleInfoChanged(_.omit(this.state, 'errors'));
+      this.props.onClickNext(event);
+    }
   }
 }
