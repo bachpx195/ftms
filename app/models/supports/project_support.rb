@@ -3,7 +3,7 @@ class Supports::ProjectSupport
     @params = args[:params]
   end
 
-  %w(projects organizations requirements).each do |method|
+  %w(projects requirements).each do |method|
     define_method method do
       unless instance_variable_get "@#{method}"
         instance_variable_set "@#{method}", method.classify.constantize.all
@@ -30,5 +30,9 @@ class Supports::ProjectSupport
 
   def course_subject
     @course_subject ||= CourseSubject.find_by id: @params[:subject_id]
+  end
+
+  def organization
+    @organization = Organization.find_by id: @params[:organization_id]
   end
 end

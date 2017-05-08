@@ -27,7 +27,7 @@ export default class Modal extends React.Component {
             </div>
             <div className='modal-body clearfix'>
               <Form
-                organizations={this.props.organizations}
+                organization={this.props.organization}
                 url={projects_url} project={this.state.project}
                 team={this.props.team}
                 handleAfterActionProject={this.props.handleAfterActionProject}/>

@@ -12,7 +12,7 @@ export default class Form extends React.Component {
 
     this.state = {
       project: props.project || {},
-      organizations: props.organizations,
+      organization: props.organization,
       errors: null,
     };
   }
@@ -22,10 +22,7 @@ export default class Form extends React.Component {
       <div className='col-md-8 col-md-offset-2'>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <Errors errors={this.state.errors} />
-          <RenderOptions organizations={this.state.organizations}
-            project={this.state.project}
-            handleChange={this.handleChange.bind(this)}
-            />
+
           <div className='form-group'>
             <input type='text' placeholder={I18n.t('projects.headers.name')}
               value={this.state.project.name || ''}
@@ -52,7 +49,7 @@ export default class Form extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       project: nextProps.project,
-      organizations: nextProps.organizations,
+      organization: nextProps.organization,
       errors: null,
     });
   }
@@ -66,8 +63,7 @@ export default class Form extends React.Component {
   }
 
   formValid() {
-    return this.state.project.organization_id != undefined &&
-      this.state.project.name != undefined;
+    return this.state.project.name != undefined;
   }
 
   handleSubmit(event) {
@@ -76,7 +72,7 @@ export default class Form extends React.Component {
     let formData = new FormData();
     formData.append('project[name]', this.state.project.name);
     formData.append('project[description]', this.state.project.description);
-    formData.append('project[organization_id]', this.state.project.organization_id);
+    formData.append('project[organization_id]', this.state.organization.id);
     formData.append('project[ownerable_id]', this.props.team.id);
     formData.append('project[ownerable_type]', 'Team');
     formData.append('project[course_subject_id]', this.props.team.course_subject_id);

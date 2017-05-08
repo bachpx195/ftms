@@ -33,7 +33,9 @@ export default class BlockTasks extends React.Component{
       {
         header: I18n.t('subjects.headers.name'),
         accessor: 'name',
-        render: row => <a href={routes.task_url(row.row.id)}>{row.value}</a>
+        render: row => {
+          return <a href={routes.task_url(row.row.task_id)}>{row.value}</a>;
+        }
       },
       {
         header: I18n.t('subjects.headers.content'),
@@ -100,7 +102,7 @@ export default class BlockTasks extends React.Component{
       <button className='btn btn-primary pull-right'
         onClick={this.handleClickCreateTask.bind(this)}>
         {I18n.t('subjects.create.' + type)}
-        </button>
+      </button>
     }
 
     return (
