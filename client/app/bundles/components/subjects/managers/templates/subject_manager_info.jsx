@@ -6,16 +6,24 @@ import Modal from '../../../projects/templates/modal';
 export default class Subjects extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      subject_detail: props.subject_detail,
-      status: props.subject_detail.course_subject.status
+    if (typeof props.subject_detail.course_subject == 'undefined') {
+      this.state = {
+        subject_detail: props.subject_detail
+      }
+    } else {
+      this.state = {
+        subject_detail: props.subject_detail,
+        status: props.subject_detail.course_subject.status
+      }
     }
+
   }
 
   render() {
     const DisplayButton = () => {
-      if (this.state.status != 'finished') {
+      if (typeof this.state.status == 'undefined') {
+        return null;
+      } else if (this.state.status != 'finished') {
         return (
           <div className='start-subject col-md-2'>
             <ButtonChangeStatuses
