@@ -2,11 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 export default class TrainingStandardItem extends React.Component {
-  constructor(props) {
-    super(props);
-    selected_subjects: []
-  }
-
   render() {
     let {name} = this.props.training_standard
     return (

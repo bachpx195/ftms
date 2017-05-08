@@ -85,6 +85,7 @@ export function onCancelForm(event) {
     'position': 'relative'});
 
   $('.modalCreateTrainingStandard').modal('hide');
+  $('.modal-edit').modal('hide');
 }
 
 

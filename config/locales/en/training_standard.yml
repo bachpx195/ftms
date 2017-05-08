@@ -42,6 +42,8 @@ en:
       assign_subject: "Assign Subject"
       create_evaluation_template: "Create Evaluation Template"
       standard_name: "Standard Name: "
+      policy: "Policy: "
+      total_day: "Total Working Day:"
     preview: "Training standards preview"
     list_training_standards: "List training standards"
     errors:

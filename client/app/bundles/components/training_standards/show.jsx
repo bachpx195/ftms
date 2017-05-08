@@ -46,23 +46,17 @@ export default class TrainingStandardShow extends React.Component {
           share_with_organization={this.props.share_with_organization}
           standard_organizations={this.state.standard_organizations} />
 
-        <ModalEvaluation
-          training_standard={this.state.training_standard}
-          evaluation_template={this.state.evaluation_template}
-          setEvaluationTemplate={this.setEvaluationTemplate.bind(this)}
-          afterSaveEvaluationTemplate={this.afterSaveEvaluationTemplate.bind(this)}
-        />
-
-        <ModalAssign
+        <ModalEdit
           remain_subjects={this.state.remain_subjects}
           selected_subjects={this.state.selected_subjects}
           training_standard={this.state.training_standard}
-          handleAfterAssignSubject={this.handleAfterAssignSubject.bind(this)}
-        />
-
-        <ModalEdit
+          evaluation_template={this.state.evaluation_template}
+          training_standard={this.state.training_standard}
           training_standard={this.state.training_standard}
           organization={this.props.organization}
+          handleAfterAssignSubject={this.handleAfterAssignSubject.bind(this)}
+          afterSaveEvaluationTemplate={this.afterSaveEvaluationTemplate.bind(this)}
+          setEvaluationTemplate={this.setEvaluationTemplate.bind(this)}
           handleAfterUpdate={this.handleAfterUpdate.bind(this)}
         />
       </div>

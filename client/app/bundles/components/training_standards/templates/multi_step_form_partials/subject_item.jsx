@@ -13,16 +13,21 @@ export default class SubjectItem extends React.Component {
   }
 
   render() {
-    let {name} = this.props.subject
+    let name = this.props.subject.name;
+    let time = parseInt(this.props.subject.during_time);
+    let day = I18n.t('training_standards.subject_preview.day');
+    if (time > 1 || time == 0) {
+      day = I18n.t('training_standards.subject_preview.days');
+    }
     return (
-      <li className="list-group-item"
+      <li className='list-group-item'
         onClick={this.onClickSubjectItem.bind(this)}
         title={this.props.subject.name}>
-        <input type="checkbox" value={this.props.subject.id}
+        <input type='checkbox' value={this.props.subject.id}
           checked={this.state.checked} readOnly
           name={this.props.subject.name}>
         </input>
-        {name}
+        {name} - {time + day}
       </li>
     );
   }

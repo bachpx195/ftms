@@ -1,18 +1,35 @@
 import axios from 'axios';
 import React from 'react';
 import SubjectLists from './subject_lists';
+import * as app_constants from 'constants/app_constants';
+
+const POLICIES = app_constants.POLICIES;
 
 export default class AssignSubjectStep extends React.Component {
   constructor(props) {
     super(props);
+    let total_time = 0;
+    let current_subject_list = props.select_subjects || []
+    current_subject_list.map(subject => {
+      total_time += parseInt(subject.during_time);
+    });
+
     this.state = {...props,
-      select_subjects: [],
+      select_subjects: props.select_subjects || [],
+      selected_subjects: props.selected_subjects || [],
       subject_search: props.subjects,
+      total_time: total_time,
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    let total_time = 0;
+    let current_subject_list = nextProps.select_subjects || []
+    current_subject_list.map(subject => {
+      total_time += parseInt(subject.during_time);
+    });
     this.setState({
+      total_time: total_time,
       training_standard: nextProps.training_standards,
     });
   }
@@ -27,7 +44,9 @@ export default class AssignSubjectStep extends React.Component {
 
   renderTimeLineItems() {
     let orientation = 'down';
-    return this.state.select_subjects.map(subject => {
+    let timeline_subjects = [...this.state.selected_subjects,
+      ...this.state.select_subjects];
+    return timeline_subjects.map(subject => {
       let day = I18n.t('training_standards.subject_preview.day');
       let time = parseInt(subject.during_time);
       if (time > 1 || time == 0) {
@@ -69,18 +88,26 @@ export default class AssignSubjectStep extends React.Component {
   }
 
   render() {
-    let standard_name = '';
+    let standard_info = '';
     if (this.props.training_standard) {
-      standard_name = <div className='col-md-12'>
-        <h3>
-          {I18n.t('training_standards.multi_step_form.standard_name')}
-          {this.props.training_standard.name}
-        </h3>
+      standard_info = <div className='col-md-12'>
+        <div className='col-md-6'>
+          <h4>
+            {I18n.t('training_standards.multi_step_form.standard_name')}
+            {this.props.training_standard.name}
+          </h4>
+        </div>
+        <div className='col-md-6'>
+          <h4>
+            {I18n.t('training_standards.multi_step_form.policy')}
+            {this.props.training_standard.policy || POLICIES[0].id}
+          </h4>
+        </div>
       </div>
     }
     return (
       <fieldset>
-        {standard_name}
+        {standard_info}
         <input className='form-control search_form' autoComplete='off'
           placeholder={I18n.t('subjects.search')}
           onChange={this.filterSubjects.bind(this)}/>
@@ -88,20 +115,27 @@ export default class AssignSubjectStep extends React.Component {
           <div className='panel-body'>
             <SubjectLists
               subjects={this.state.subjects}
+              remain_subjects={this.state.remain_subjects}
               selected_subjects={this.state.selected_subjects}
               standard_subjects={this.state.standard_subjects}
               training_standard={this.state.training_standard}
               select_subjects={this.state.select_subjects}
-              chooseSubjectItem={this.chooseSubjectItem.bind(this)} />
+              handleSelectedSubjects={this.props.handleSelectedSubjects} />
           </div>
         </div>
         <section className='msform-program-progress'>
-          <div id='program-intern' className='clearfix'>
+          <div className='clearfix'>
             <div className='container msform-relative'>
               {this.renderTimelineContent()}
             </div>
           </div>
         </section>
+        <div className='text-center col-md-12'>
+          <h4>
+            {I18n.t('training_standards.multi_step_form.total_day')}
+            {this.state.total_time}
+          </h4>
+        </div>
         <div className='text-center col-md-12'>
           <input type='button' name='cancel' className='cancel action-button'
             value='Cancel' onClick={this.props.onCancelForm}/>
@@ -124,7 +158,8 @@ export default class AssignSubjectStep extends React.Component {
 
   chooseSubjectItem(select_subjects) {
     this.setState ({
-      select_subjects: select_subjects
+      total_time: total_time,
+      select_subjects: select_subjects,
     });
     this.props.handleSelectedSubjects(select_subjects);
   }
