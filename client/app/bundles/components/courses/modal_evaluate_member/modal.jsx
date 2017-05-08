@@ -191,12 +191,13 @@ export default class ModalEvaluateMember extends React.Component {
 
   getStandard(standard_points, evaluation_standards,
     total_point, failed) {
+    if (this.props.subject) return '';
     let training_result = {};
     for (let i in evaluation_standards) {
       if (!this.props.subject) {
         if (evaluation_standards[i].obligatory) {
-          if (standard_points[evaluation_standards[i].id] 
-            < evaluation_standards[i].min_point) {
+          let id = evaluation_standards[i].id;
+          if (standard_points[id] < evaluation_standards[i].min_point) {
             failed = true;
             training_result = {id: 1, name: "Failed"};
           }

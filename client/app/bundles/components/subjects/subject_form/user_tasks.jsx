@@ -1,8 +1,9 @@
-import axios from 'axios';
-import Griddle, {plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
-import React from 'react';
+import * as react_table_ultis from 'shared/react-table/ultis';
 import * as routes from 'config/routes';
-import * as table_constants from 'constants/griddle_table_constants';
+import axios from 'axios';
+import css from 'assets/sass/react-table.scss';
+import React from 'react';
+import ReactTable from 'react-table';
 
 export default class UserTasks extends React.Component{
   constructor(props) {
@@ -19,64 +20,58 @@ export default class UserTasks extends React.Component{
     })
   }
   render() {
-    if(this.state.type != '') {
-      const NewLayout = ({Table, Pagination, Filter}) => (
-        <div className='col-md-12'>
-          <div className='row'>
-            <div className='griddle-head clearfix'>
-              <div className='col-md-6'>
-                <Filter />
-              </div>
-              <div className='col-md-6 text-right'>
-                <Pagination />
-              </div>
-            </div>
-            <div className='col-md-12'>
-              <Table />
-            </div>
-          </div>
-        </div>
-      );
-      const buttonDelete = ({griddleKey}) => {
-        let task = this.state.user_tasks[this.state.type][griddleKey];
-        return(
-          <div className='buttonDelete'>
-            <button className='btn btn-danger'
-              onClick={this.onClickDeleteTask.bind(this, task)}>{I18n.t('buttons.delete')}
-            </button>
-          </div>
-        )
-      }
-      return(
-        <div className='block-task col-md-12 clearfix'>
-          <div className='box box-success'>
-            <div className='box-body'>
-              <Griddle data={this.state.user_tasks[this.state.type]}
-                plugins={[plugins.LocalPlugin]}
-                components={{Layout: NewLayout}}
-                styleConfig={table_constants.styleConfig}>
-                <RowDefinition>
-                  <ColumnDefinition id='id'
-                    title={I18n.t('subjects.headers.id')} />
-                  <ColumnDefinition id='name'
-                    title={I18n.t('subjects.headers.name')} />
-                  <ColumnDefinition id='content'
-                    title={I18n.t('subjects.headers.content')} />
-                  <ColumnDefinition id='delete'
-                    title={I18n.t('subjects.headers.delete')} customComponent={buttonDelete} />
-                </RowDefinition>
-              </Griddle>
-            </div>
-            <div className='clearfix'></div>
-          </div>
-          <div className='clearfix'></div>
-        </div>
-      )
-    } else {
-      return null
-    }
+    if (this.state.type == '') return null;
 
+    const columns = [
+      {
+        header: '#',
+        accessor: 'position',
+        render: row => row.index + 1,
+        hideFilter: true,
+        style: {textAlign: 'right'},
+        width: 50
+      },
+      {
+        header: I18n.t('subjects.headers.name'),
+        accessor: 'name',
+      },
+      {
+        header: I18n.t('subjects.headers.content'),
+        accessor: 'content',
+      },
+      {
+        header: '',
+        accessor: 'action',
+        render: ({row}) => {
+          return (
+            <div className='buttonDelete'>
+              <button className='btn btn-danger'
+                title={I18n.t('buttons.delete')}
+                onClick={this.onClickDeleteTask.bind(this, row)}>
+                <i className='fa fa-trash'></i>
+              </button>
+            </div>
+          );
+        },
+        hideFilter: true,
+        style: {textAlign: 'center'},
+        sortable: false,
+        width: 75
+      }
+    ];
+
+    return(
+      <div className='block-task col-md-12 clearfix'>
+        <ReactTable className='-striped -highlight'
+          data={this.state.user_tasks[this.state.type]}
+          columns={columns} showFilters={true}
+          defaultPageSize={react_table_ultis.defaultPageSize}
+          defaultFilterMethod={react_table_ultis.defaultFilter}
+        />
+      </div>
+    );
   }
+
   onClickDeleteTask(task) {
     if (confirm(I18n.t('data.confirm_delete'))) {
       axios.delete(routes.assign_task_url(task.task_id), {

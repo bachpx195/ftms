@@ -25,8 +25,9 @@ export default class AdditionFormQuestion extends React.Component {
       {
         header: '#',
         accessor: 'position',
-        render: row => <div className='text-right'>{row.index + 1}</div>,
+        render: row => row.index + 1,
         hideFilter: true,
+        style: {textAlign: 'right'},
         width: 50
       },
       {
@@ -36,7 +37,7 @@ export default class AdditionFormQuestion extends React.Component {
       },
       {
         header: I18n.t('test_rules.form.level'),
-        accessot: 'level'
+        accessor: 'level'
       },
       {
         header: props => {

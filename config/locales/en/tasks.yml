@@ -13,6 +13,7 @@ en:
       value: "Value"
       sent_at: "Sent at"
       status: "Status"
+      content: "Content"
     course: "Course: "
     statistics:
       init: "Init Tasks"

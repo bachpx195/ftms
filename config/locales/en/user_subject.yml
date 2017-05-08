@@ -8,3 +8,8 @@ en:
     status_fail: "Error status. Please check the change status"
     create_dynamic_task_fail: "Error during Dynamic Task creation"
     not_update: "Course Subject status fail! Don't progressing"
+    class_statuses:
+      init: "btn-primary btn-xs"
+      in_progress: "btn-warning btn-xs"
+      finished: "btn-danger btn-xs"
+      reject: "btn-default btn-xs"
