@@ -43,7 +43,6 @@ export default class TrainingStandardShow extends React.Component {
           standard_subject_url={routes.standard_subjects_url()}
           evaluation_template={this.state.evaluation_template}
           organization={this.props.organization}
-          share_with_organization={this.props.share_with_organization}
           standard_organizations={this.state.standard_organizations} />
 
         <ModalEdit

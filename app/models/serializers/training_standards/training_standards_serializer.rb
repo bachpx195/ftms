@@ -1,11 +1,11 @@
 class Serializers::TrainingStandards::TrainingStandardsSerializer <
   Serializers::SupportSerializer
-  attrs :id, :name, :description, :organization_id, :policy, :subjects
+  attrs :id, :name, :description, :organization, :policy, :subjects, :creator_id
   attrs :share_with_organization
   attrs :organizations, if: :count_organizations?
 
   def organization
-    Hash[:id, object.organization.id]
+    Hash id: object.organization.id, user_id: object.organization.user_id
   end
 
   def subjects

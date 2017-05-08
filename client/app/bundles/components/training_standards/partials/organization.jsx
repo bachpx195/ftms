@@ -13,29 +13,31 @@ export default class Organization extends React.Component {
   }
 
   render() {
-    let {name} = this.props.organization
-    return(
+    let is_selected = this.state.select_organizations.findIndex(
+      organization => organization.id == this.props.organization.id) >= 0;
+
+    return (
       <li className="list-group-item"
         onClick={this.onClickOrganization.bind(this)}
         title={this.props.organization.name}>
         <input type="checkbox" value={this.props.organization.id}
-          checked={this.state.checked} readOnly
+          checked={is_selected} readOnly
           name={this.props.organization.name}>
         </input>
-        {name}
+        {this.props.organization.name}
       </li>
     );
   }
 
   onClickOrganization(event) {
-    if (this.state.checked) {
-      let index = this.state.standard_organizations.findIndex(
-        standard_organizations => standard_organizations.id == this.props.organization.id)
+    let index = this.state.select_organizations.findIndex(
+      organization => organization.id == this.props.organization.id);
+
+    if (index >= 0) {
       this.state.select_organizations.splice(index, 1);
-      this.props.chooseOrganization(this.state.standard_organizations);
     } else {
       this.state.select_organizations.push(this.props.organization);
-      this.props.chooseOrganization(this.state.select_organizations);
     }
+    this.props.chooseOrganization(this.state.select_organizations);
   }
 }

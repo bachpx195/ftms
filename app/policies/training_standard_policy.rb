@@ -18,7 +18,7 @@ class TrainingStandardPolicy < ApplicationPolicy
   private
   def has_function?
     belong_to_organization? || is_creator_organization? ||
-      is_creator_training_standard?
+      is_creator_training_standard? || is_shared_training_standard?
   end
 
   def belong_to_organization?
@@ -35,5 +35,9 @@ class TrainingStandardPolicy < ApplicationPolicy
 
   def is_creator_organization?
     record[:organization].creator == @user
+  end
+
+  def is_shared_training_standard?
+    record[:training_standard].shared_organizations.include? record[:organization]
   end
 end

@@ -28,11 +28,6 @@ export default class Projects extends React.Component {
         header: I18n.t('projects.headers.name'),
         accessor: 'name',
         render: row => {
-          let project = this.state.projects[row.value];
-          let project_url = '#';
-          if (project) {
-            project_url = routes.project_url(project.id);
-          }
           return <a href={routes.project_url(row.row.id)}>{row.value}</a>;
         }
       },
@@ -40,7 +35,7 @@ export default class Projects extends React.Component {
         header: I18n.t('projects.organization'),
         accessor: 'organization',
         render: row => {
-          let project = this.state.projects[row.index];
+          let project = row.row;
           let name = '';
           if (project.organization) {
             name = project.organization.name;
