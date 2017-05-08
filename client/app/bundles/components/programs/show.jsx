@@ -127,7 +127,7 @@ export default class ProgramsShowBox extends React.Component {
           owners={this.state.owners}
           course={this.state.course}
           url_programs={program_url}
-          training_standards={this.state.training_standards} />
+          handleAfterClickCreateCourse={this.handleAfterClickCreateCourse.bind(this)}/>
       </div>
     );
   }
@@ -139,9 +139,10 @@ export default class ProgramsShowBox extends React.Component {
     });
   }
 
-  handleAfterClickCreateCourse() {
+  handleAfterClickCreateCourse(course) {
+    this.state.program_detail.courses.push(course);
     this.setState({
-      course: {}
+      program_detail: this.state.program_detail
     })
   }
 

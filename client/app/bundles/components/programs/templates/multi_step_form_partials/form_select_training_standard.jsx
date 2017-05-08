@@ -10,34 +10,75 @@ export default class SelectTraningStandard extends React.Component {
     this.state = {
       program_detail: {},
       owners: props.owners,
-      training_standards: props.training_standards,
-      current_item: []
+      training_standards: props.program_detail.training_standards,
+      current_item: props.current_item,
+      start_date: null,
+      course: props.course
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      program_detail: nextProps.program_detail,
+      errors: null,
+      owners: nextProps.owners,
+      course: nextProps.course,
+      current_item: nextProps.current_item,
+      training_standards: nextProps.program_detail.training_standards
+    });
+  }
+  
   render() {
-    let training_standard_preview = (
-      <TrainingStandardPreview current_item={this.state.current_item} />
-    );
+    let training_standard_preview = '';
+    if (this.state.current_item) {
+      training_standard_preview = (
+        <TrainingStandardPreview current_item={this.state.current_item}
+          afterRenderTimeline={this.props.afterRenderTimeline}
+          start_date={this.state.start_date} />
+      );
+    }
+    
     return (
-        <div className='row'>
-          <div className='col-md-6'>
-            <div className='panel panel-default'>
-              <div className='panel-heading text-center'>
-                {I18n.t('training_standards.list_training_standards')}
-              </div>
-              <div className='panel-body'>
-                <input className="form-control search_form"
-                  placeholder={I18n.t('training_standards.search_standards')}
-                  onChange={this.filterTrainingStandard.bind(this)} />
-                <div className='list-group list-user clearfix'>
-                  {this.renderTrainingStandard()}
-                </div>
-              </div>
+      <fieldset>
+        <div className='nht-course-date'>
+          <div className='col-sm-6 course-start-date'>
+            <label>{I18n.t('courses.start_date')}</label>
+            <input type='date' onChange={this.handleChangeTime.bind(this)}
+              name='start_date' className='form-control'
+              value={this.state.course.start_date}/>
+          </div>
+          <div className='col-sm-6 course-start-date'>
+            <label>{I18n.t('courses.end_date')}</label>
+            <input type='date' onChange={this.handleChangeTime.bind(this)}
+              name='end_date' className='form-control'
+              value={this.state.course.end_date}/>
+          </div>
+        </div>
+        <input className='form-control search_form' autoComplete='off'
+          placeholder={I18n.t('subjects.search')}
+          onChange={this.filterTrainingStandard.bind(this)}/>
+        <div className='panel panel-primary'>
+          <div className='panel-body'>
+            <div className='subject-container'>
+              <ul className='list-group custom-subject-list'>
+                {this.renderTrainingStandard()}
+              </ul>
             </div>
           </div>
-          {training_standard_preview}
         </div>
+        {training_standard_preview}
+        <div className='text-center col-md-12'>
+          <input type='button' name='cancel' className='cancel action-button'
+            value={I18n.t('programs.button.cancel')}
+            onClick={this.props.onCancelForm}/>
+          <input type='button' name='next' className='next action-button'
+            value={I18n.t('programs.button.previous')}
+            onClick={this.props.onClickPrevious}/>
+          <input type='button' name='next' className='next action-button'
+            value={I18n.t('programs.button.next')}
+            onClick={this.props.onClickNext}/>
+        </div>
+      </fieldset>
     );
   }
 
@@ -52,9 +93,9 @@ export default class SelectTraningStandard extends React.Component {
       .filter(training_standard => {
       return this.isIncludeTrainingStandards(training_standard, value);
     });
-    if (value == "") {
+    if (value == '') {
       this.setState({
-        training_standards: this.props.training_standards
+        training_standards: this.props.program_detail.training_standards
       });
     } else {
       this.setState({
@@ -64,24 +105,34 @@ export default class SelectTraningStandard extends React.Component {
   }
 
   renderTrainingStandard() {
-    return this.state.training_standards.map(training_standard => {
+    return this.state.training_standards.map((training_standard, index) => {
       return (
-        <label key={training_standard.id} className='list-group-item cursor'
-          value={training_standard.id} >
-          <input type='radio' name='radio' key={training_standard.id}
-            onChange={this.handleOptionChange.bind(this)}
-            value={training_standard.id} />
-          {training_standard.name}
-        </label>
+        <li className='list-group-item' key={index}>
+          <label className='list-group-item cursor'
+            value={training_standard.id} >
+            <input type='radio' name='radio' key={training_standard.id}
+              onChange={this.handleOptionChange.bind(this)}
+              value={training_standard.id} />
+            {training_standard.name}
+          </label>
+        </li>
       )
     })
   }
 
   handleOptionChange(event) {
     let value = event.target.value
-    let training_standard = this.props.training_standards
+    let training_standard = this.state.training_standards
       .find(result => result.id == value);
-    this.setState({ current_item: training_standard });
+    Object.assign(this.state.course, {training_standard_id: training_standard.id});
+    this.props.afterInputFormTrainingStandard(this.state.course, training_standard);
+  }
+
+  handleChangeTime(event) {
+    let attribute = event.target.name;
+    Object.assign(this.state.course, {[attribute]: event.target.value});
+    this.setState({ course: this.state.course });
+    this.props.afterInputFormTrainingStandard(this.state.course);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,7 +140,9 @@ export default class SelectTraningStandard extends React.Component {
       program_detail: nextProps.program_detail,
       errors: null,
       all_roles: nextProps.all_roles,
-      owners: nextProps.owners
+      owners: nextProps.owners,
+      course: nextProps.course,
+      current_item: nextProps.current_item
     });
   }
 }
