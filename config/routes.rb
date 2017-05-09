@@ -35,9 +35,6 @@ Rails.application.routes.draw do
   namespace :change_profile do
     resources :users, only: [:show, :edit, :update]
   end
-  resources :evaluation_templates do
-    resources :evaluation_standards
-  end
 
   resources :programs do
     resources :courses, except: [:index, :show]
