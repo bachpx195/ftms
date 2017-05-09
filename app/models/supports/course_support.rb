@@ -102,6 +102,7 @@ class Supports::CourseSupport
 
   def managed_courses
     course_manager_ids = @user.course_managers.pluck(:course_id) - [@course.id]
-    @user.courses.where program: program, id: course_manager_ids
+    @user.courses.where(program: program, id: course_manager_ids)
+      .where.not status: "finished"
   end
 end

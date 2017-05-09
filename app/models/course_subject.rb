@@ -40,6 +40,6 @@ class CourseSubject < ApplicationRecord
   enum status: [:init, :in_progress, :finished]
 
   def unassigned_user_subjects
-    user_subjects.where team_id: nil
+    user_subjects.where(team_id: nil).where.not status: "rejected"
   end
 end
