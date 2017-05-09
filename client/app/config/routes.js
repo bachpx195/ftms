@@ -265,24 +265,6 @@ export function statistics_in_out_url() {
     app_constants.IN_OUTS_STATISTICS_PATH;
 }
 
-//evaluation template standard
-export function evaluation_template_standard_url(template_id, standard_id) {
-  return APP_URL + app_constants.EVALUATION_TEMPLATES_PATH + '/' + template_id +
-    '/' + app_constants.EVALUATION_STANDARDS_PATH + '/' + standard_id;
-}
-
-//evaluatioon template stantdards
-export function evaluation_template_standards_url(template_id) {
-  return APP_URL + app_constants.EVALUATION_TEMPLATES_PATH + '/' + template_id +
-    '/' + app_constants.EVALUATION_STANDARDS_PATH;
-}
-
-//evaluation standard template
-export function evaluation_standard_template_url(standard_id) {
-  return APP_URL + app_constants.EVALUATION_STANDARDS_PATH + '/' + standard_id +
-    '/' + app_constants.EVALUATION_TEMPLATE_PATH;
-}
-
 //organization exam
 export function organization_exams_url(organization_id) {
   return organization_url(organization_id) + '/' + app_constants.EXAMS_PATH;
