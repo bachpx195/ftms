@@ -25,7 +25,7 @@ sql_function_role: "select f.id, f.controller_name, f.action, rf.id as role_func
 course:
   number_member_show: 5
 users:
-  default_password: "1234578"
+  default_password: "12345678"
   default_avatar: "app/assets/images/profile.png"
 class_names:
   - "Session"

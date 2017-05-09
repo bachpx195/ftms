@@ -65,6 +65,7 @@ export default class TeamsShowBox extends React.Component {
               member_evaluations={this.props.member_evaluations}
               user={this.state.user}
               user_index={this.state.user_index}
+              meta_types={this.state.meta_types}
               afterAddTaskForUser={this.afterAddTaskForUser.bind(this)}
               handleAfterDeleteTask={this.handleAfterDeleteTask.bind(this)}
               handleAfterAddTask={this.handleAfterAddTask.bind(this)}

@@ -119,7 +119,7 @@ export default class BlockTasks extends React.Component{
   }
 
   handleClickCreateTask(event) {
-    this.props.handleChooseType(this.props.type)
+    this.props.handleChooseType(this.props.type);
     $('.modal-create-tasks').modal();
   }
 

@@ -16,7 +16,8 @@ class AssignmentServices::CreateTaskAssignment
     user_team_ids.map do |user_id|
       DynamicTask.create! targetable_id: assignment_static_task.id,
         targetable_type: "Task", ownerable_id: @ownerable_id,
-        ownerable_type: @ownerable_type, user_id: user_id, status: "init"
+        ownerable_type: @ownerable_type, objectable_id: user_id,
+        objectable_type: "User", status: "init"
     end
   end
 end
