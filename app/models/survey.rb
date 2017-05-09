@@ -1,4 +1,6 @@
 class Survey < ApplicationRecord
+  ATTRIBUTE_PARAMS = [:id, :name, :content]
+
   has_many :static_tasks, as: :targetable,
     class_name: StaticTask.name, dependent: :destroy
   has_many :subjects, through: :tasks, source: :targetable,

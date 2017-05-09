@@ -30,8 +30,6 @@ export default class ModalCreateSurvey extends React.Component {
                 <FormCreateSurvey
                   url={this.props.url}
                   subject_detail={this.props.subject_detail}
-                  meta_types={this.state.meta_types}
-                  meta_types_checked={this.state.meta_types_checked}
                   ownerable_id={this.props.ownerable_id}
                   ownerable_type={this.props.ownerable_type}
                   type='Survey'
