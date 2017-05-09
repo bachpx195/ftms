@@ -61,6 +61,7 @@ Rails.application.routes.draw do
 
   namespace :change_role do
     resources :users, only: [:show, :edit, :update]
+    post "update_all_roles/update", to: "update_all_roles#update"
   end
 
   namespace :filter_role do

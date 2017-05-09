@@ -73,5 +73,9 @@ export const CustomFunction = {
   ownerByIds: (data) => {
     var current_user = $.parseJSON(localStorage.current_user);
     return $.inArray(current_user.id, data.ids) >= 0;
+  },
+  correctUser: (data) => {
+    var current_user = $.parseJSON(localStorage.current_user);
+    return current_user.id == data.id
   }
 }

@@ -3,6 +3,7 @@ import * as routes from 'config/routes';
 import FormEditRole from './form_edit_role';
 import CustomPolicy from 'policy/course_policy';
 import React from 'react';
+import UserPolicy from 'policy/user_policy';
 
 export default class RolesBox extends React.Component {
   constructor(props) {
@@ -80,23 +81,21 @@ export default class RolesBox extends React.Component {
 
   render() {
     return(
-      <CustomPolicy permit={[{controller: 'users', action: ['index'], target: 'children'},
-        {action: ['setOwner'], target: 'children', data: {organization_ids:
-        this.state.organization_ids}}]} >
-        <div className='roles-box'>
-          <div className='text-center'>
-            <span>
-              <strong>{I18n.t('users.roles.name')}: </strong>
-              {this.renderRole()}
-            </span>
-            <button className='btn btn-primary'
-              onClick={this.handleEdit.bind(this)}>
-              {I18n.t('users.buttons.edit_role')}
-            </button>
+      <UserPolicy permit={[
+        {controller: 'update_all_roles', action: ['update']},
+        {controller: 'users', action: ['update', 'correctUser'], data: {id: this.props.user.id}}
+      ]}>
+        <div className='text-center roles-box'>
+          <span>
+            <strong>{I18n.t('users.roles.name')}: </strong>
+            {this.renderRole()}
+          </span>
+          <div className='btn btn-primary' onClick={this.handleEdit.bind(this)}>
+            {I18n.t('users.buttons.edit_role')}
           </div>
           {this.renderModal()}
         </div>
-      </CustomPolicy>
+      </UserPolicy>
     )
   }
 
