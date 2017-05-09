@@ -8,9 +8,11 @@ const POLICIES = app_constants.POLICIES;
 export default class AssignSubjectStep extends React.Component {
   constructor(props) {
     super(props);
+    let selected_subjects = props.selected_subjects || [];
+    let timeline_subjects = [...selected_subjects,
+      ...props.select_subjects];
     let total_time = 0;
-    let current_subject_list = props.select_subjects || []
-    current_subject_list.map(subject => {
+    timeline_subjects.map(subject => {
       total_time += parseInt(subject.during_time);
     });
 
@@ -19,18 +21,23 @@ export default class AssignSubjectStep extends React.Component {
       selected_subjects: props.selected_subjects || [],
       subject_search: props.subjects,
       total_time: total_time,
+      timeline_subjects: timeline_subjects,
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    let selected_subjects = nextProps.selected_subjects || [];
+    let timeline_subjects = [...selected_subjects,
+      ...nextProps.select_subjects];
     let total_time = 0;
-    let current_subject_list = nextProps.select_subjects || []
-    current_subject_list.map(subject => {
+    timeline_subjects.map(subject => {
       total_time += parseInt(subject.during_time);
     });
     this.setState({
       total_time: total_time,
-      training_standard: nextProps.training_standards,
+      select_subjects: nextProps.select_subjects,
+      training_standard: nextProps.training_standard,
+      timeline_subjects: timeline_subjects,
     });
   }
 
@@ -44,9 +51,7 @@ export default class AssignSubjectStep extends React.Component {
 
   renderTimeLineItems() {
     let orientation = 'down';
-    let timeline_subjects = [...this.state.selected_subjects,
-      ...this.state.select_subjects];
-    return timeline_subjects.map(subject => {
+    return this.state.timeline_subjects.map(subject => {
       let day = I18n.t('training_standards.subject_preview.day');
       let time = parseInt(subject.during_time);
       if (time > 1 || time == 0) {
@@ -75,10 +80,7 @@ export default class AssignSubjectStep extends React.Component {
   }
 
   renderTimelineContent() {
-    let total_time = 0;
-    this.state.select_subjects.map(subject => {
-      total_time += parseInt(subject.during_time);
-    });
+    let total_time = this.state.total_time;
     return (
       <div className='col-sm-12 msform-subject-timeline'
         data-total-col={total_time}>

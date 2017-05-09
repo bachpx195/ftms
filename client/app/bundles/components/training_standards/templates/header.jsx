@@ -119,9 +119,7 @@ export default class Header extends React.Component {
   onClickButtonEdit() {
     $('.modal-edit').modal({
         backdrop: 'static',
-        keyboard: false
-      }
-    );
+    });
   }
 
   handleAfterShareTrainingStandard(selected_organizations) {
