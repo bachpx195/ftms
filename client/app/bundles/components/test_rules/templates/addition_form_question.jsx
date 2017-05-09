@@ -63,6 +63,7 @@ export default class AdditionFormQuestion extends React.Component {
         },
         hideFilter: true,
         sortable: false,
+        style: {textAlign: 'center'},
         width: 50
       }
     ];

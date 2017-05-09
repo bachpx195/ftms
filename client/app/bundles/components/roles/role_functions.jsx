@@ -28,6 +28,7 @@ export default class RoleFunctions extends React.Component {
         accessor: 'position',
         render: row => <div className='text-right'>{row.index + 1}</div>,
         hideFilter: true,
+        style: {textAlign: 'right'},
         width: 50
       },
       {
@@ -62,6 +63,7 @@ export default class RoleFunctions extends React.Component {
         },
         hideFilter: true,
         sortable: false,
+        style: {textAlign: 'center'},
         width: 50
       }
     ];
