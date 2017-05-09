@@ -8,7 +8,6 @@ export default class Share extends React.Component {
     super(props);
     this.state = {
       training_standard: props.training_standard,
-      organization: props.organization,
       standard_organizations: props.standard_organizations
     };
     this.current_user = JSON.parse(localStorage.current_user);
@@ -26,17 +25,11 @@ export default class Share extends React.Component {
 
   check_creator_or_owner() {
     return this.state.training_standard.creator_id == this.current_user.id ||
-      this.state.organization.user_id == this.current_user.id;
-  }
-
-  check_organization() {
-    return this.state.training_standard.organization_id ==
-      this.state.organization.id;
+      this.state.training_standard.organization.user_id == this.current_user.id;
   }
 
   render() {
-    if (this.is_privated() && this.check_creator_or_owner() &&
-      this.check_organization()) {
+    if (this.is_privated() && this.check_creator_or_owner()) {
       return (
         <div className='pull-left'>
           <ModalShareTrainingStandard

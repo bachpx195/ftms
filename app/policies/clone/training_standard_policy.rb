@@ -10,7 +10,7 @@ class Clone::TrainingStandardPolicy < ApplicationPolicy
   end
 
   def shared?
-    record[:training_standard].shared_organizations.include? record[:organization].id
+    record[:training_standard].shared_organizations.include? record[:organization]
   end
 
   def not_owner_training_standard

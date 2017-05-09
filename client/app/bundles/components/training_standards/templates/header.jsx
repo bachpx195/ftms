@@ -102,7 +102,6 @@ export default class Header extends React.Component {
           </TrainingStandardPolicy>
           <Clone training_standard={this.props.training_standard}
             organization={this.props.organization}
-            share_with_organization={this.props.share_with_organization}
           />
         </div>
       </div>

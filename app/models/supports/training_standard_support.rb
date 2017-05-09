@@ -53,11 +53,6 @@ class Supports::TrainingStandardSupport
       [training_standard.organization])
   end
 
-  def share_with_organization
-    @share_with_organization ||= ShareWith.find_by organization: organization,
-      training_standard: training_standard
-  end
-
   def evaluation_template
     Serializers::TrainingStandards::EvaluationTemplateSerializer
       .new(object: training_standard.evaluation_template).serializer

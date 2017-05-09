@@ -53,7 +53,6 @@ export default class Subjects extends React.Component {
           <Header evaluation_template={this.props.evaluation_template}
             training_standard={this.props.training_standard}
             organization={this.props.organization}
-            share_with_organization={this.props.share_with_organization}
             standard_organizations={this.props.standard_organizations} />
           <ReactTable
             className='-striped -highlight' data={this.props.selected_subjects}
