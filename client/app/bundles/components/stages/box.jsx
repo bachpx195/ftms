@@ -55,7 +55,6 @@ export default class StageBox extends React.Component {
                 <div className='col-md-8 col-md-offset-2'>
                   <Form
                     stage={this.state.stage}
-                    url={routes.stages_url()}
                     handleAfterCreated={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>

@@ -1,3 +1,4 @@
+import * as routes from 'config/routes';
 import axios from 'axios';
 import Create from '../actions/create';
 import Dropzone from 'react-dropzone';
@@ -27,14 +28,14 @@ export default class Form extends React.Component {
     if (this.state.trainee_type) {
       action = <Update
         params={'trainee_type'}
-        url={this.props.url}
+        url={routes.trainee_type_url(this.props.trainee_type.id)}
         attributes={attributes}
         handleAfterUpdated={this.props.handleAfterUpdated}
       />
     } else {
       action = <Create
         params={'trainee_type'}
-        url={this.props.url}
+        url={routes.trainee_types_url()}
         attributes={attributes}
         handleAfterCreated={this.props.handleAfterCreated}
       />
