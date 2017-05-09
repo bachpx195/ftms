@@ -82,6 +82,8 @@ export default class RolesBox extends React.Component {
   render() {
     return(
       <UserPolicy permit={[
+        {action: ['ownerByIds'], data: {ids:
+          [this.props.organization.user_id, this.props.program.owner_id]}},
         {controller: 'update_all_roles', action: ['update']},
         {controller: 'users', action: ['update', 'correctUser'], data: {id: this.props.user.id}}
       ]}>

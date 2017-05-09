@@ -77,7 +77,7 @@ class AssignmentsController < ApplicationController
 
   def find_dynamic_task dynamic_tasks
     dynamic_tasks.find do |dynamic_task|
-      dynamic_task.user_id == current_user.id
+      dynamic_task.objectable_id == current_user.id
     end
   end
 

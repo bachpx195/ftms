@@ -4,6 +4,7 @@ import React from 'react';
 import TabsMember from './templates/tabs_member';
 import TabsTask from './templates/tabs_task';
 import TeamPolicy from 'policy/team_policy';
+import ModalCreateTasks from '../subjects/managers/templates/modal_create_tasks';
 
 export default class ListTabs extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class ListTabs extends React.Component {
       tabs_group_focus: 1,
       subject_detail: props.subject_detail,
       user_index: props.user_index || 0,
+      meta_types: props.meta_types,
       user: props.user
     }
   }
@@ -67,6 +69,7 @@ export default class ListTabs extends React.Component {
   renderTaskModal() {
     let modal_assign_task = null;
     let modal_list_task = null;
+    let modal_create_task = null;
     if (this.props.course) {
       if(this.props.subject_detail.user_subjects &&
         this.props.subject_detail.user_subjects[this.state.user_index]) {
@@ -97,7 +100,6 @@ export default class ListTabs extends React.Component {
             </div>
           </div>
         );
-
         modal_list_task = (
           <div className='modal-list-task modal fade in' role='dialog'>
             <div className='modal-dialog modal-lg'>
@@ -125,12 +127,25 @@ export default class ListTabs extends React.Component {
             </div>
           </div>
         );
+
+        modal_create_task = (
+          <ModalCreateTasks
+            meta_types={this.state.meta_types}
+            subject_detail={this.props.subject_detail}
+            ownerable_id={this.props.subject_detail.course_subject.id}
+            ownerable_type='CourseSubject'
+            subject={this.props.subject}
+            type='assignments'
+            handleAfterCreatedTasks={this.handleAfterCreatedTasks.bind(this)}
+          />
+        );
       }
     }
     return(
       <div className='modalUser'>
         {modal_assign_task}
         {modal_list_task}
+        {modal_create_task}
       </div>
     )
   }
@@ -159,6 +174,7 @@ export default class ListTabs extends React.Component {
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             handleChooseType={this.props.handleChooseType}
             changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+
           <TabsMember
             tabs_group_focus={this.state.tabs_group_focus}
             subject_detail={this.props.subject_detail}
@@ -182,6 +198,13 @@ export default class ListTabs extends React.Component {
   changeTabsGroupFocus(new_index_focus) {
     this.setState({
       tabs_group_focus: new_index_focus
+    })
+  }
+
+  handleAfterCreatedTasks(target, type) {
+    this.state.subject_detail.tasks[type].push(target);
+    this.setState({
+      subject_detail: this.state.subject_detail
     })
   }
 }

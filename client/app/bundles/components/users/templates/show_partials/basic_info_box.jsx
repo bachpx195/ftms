@@ -54,7 +54,8 @@ export default class BasicInfoBox extends React.Component {
                 <i className='fa fa-pencil'></i></a>
             </UserPolicy>
           </p>
-          <RolesBox user={this.props.user} />
+          <RolesBox user={this.props.user} organization={this.props.organization}
+            program={this.props.program} />
           <UserPolicy permit={[{action: ['show']}]}>
             <div className='btn btn-primary col-md-12'>
               {I18n.t('users.buttons.export_user_profile')}

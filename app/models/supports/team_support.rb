@@ -74,4 +74,8 @@ class Supports::TeamSupport
   def organization
     @organization ||= team.course_subject.course.program.organization
   end
+
+  def meta_types
+    organization.meta_types
+  end
 end
