@@ -62,7 +62,9 @@ export default class ModalEvaluateMember extends React.Component {
     return this.state.evaluation_standards.map((evaluation_standard, index) => {
       let obligatory = '';
       if (evaluation_standard.obligatory) {
-        obligatory = I18n.t('courses.obligatory');
+        obligatory = (
+          <i className='fa fa-check obligatory'></i>
+        )
       }
       return(
         <li className='list-group-item' key={evaluation_standard.id}>
