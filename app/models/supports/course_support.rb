@@ -80,6 +80,16 @@ class Supports::CourseSupport
     @course.program.organization.meta_types
   end
 
+  def categories
+    Serializers::Categories::CategoriesSerializer
+      .new(object: Category.all).serializer
+  end
+
+  def questions
+    Serializers::Categories::QuestionsSerializer
+      .new(object: Question.all).serializer
+  end
+
   private
   def subjects
     @subjects ||= @course.subjects

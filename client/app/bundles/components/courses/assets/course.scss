@@ -3,6 +3,7 @@
 $c-white: #fff;
 $c-darkgray: #a9a9a9;
 $c-black: #000;
+$c-blue: #4caf50;
 
 .cursor {
   cursor: pointer;
@@ -167,4 +168,11 @@ $c-black: #000;
 
 .obligatory {
   text-align: center;
+}
+
+.modal-test-rule .show-value {
+  background-color: $c-blue !important;
+  border: 0;
+  color: $c-white !important;
+  padding: 5px 10px;
 }

@@ -124,10 +124,6 @@ export default class ConditionForm extends React.Component {
     this.objectRefresh[key] = object
   }
 
-  handleRegisterRefresh(key, object){
-    this.objectRefresh[key] = object
-  }
-
   handleSubmit() {
     this.props.handleAfterUpdated({
       categories: this.state.categories,

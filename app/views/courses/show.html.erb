@@ -11,7 +11,9 @@
       current_user_subjects: @course_supports.current_user_subjects_serializer,
       other_courses: @course_supports.other_courses,
       member_ids: @course_supports.members.map(&:id),
-      meta_types: @course_supports.meta_types
+      meta_types: @course_supports.meta_types,
+      categories: @course_supports.categories,
+      questions: @course_supports.questions
     }, prerender: false %>
 <% else %>
   <div><%= I18n.t "courses.no_content" %></div>

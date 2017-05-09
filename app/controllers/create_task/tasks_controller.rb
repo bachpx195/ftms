@@ -3,29 +3,24 @@ class CreateTask::TasksController < ApplicationController
   before_action :authorize_request, only: :create
 
   def create
-    @target = class_eval(params[:task][:type].classify).new task_params
-    @target.creator_id = current_user.id
-    if @target.save
-      static_task = TaskServices::CreateTask.new(targetable: @target,
-        ownerable: @ownerable, meta_types_checked: params[:meta_types_checked]).perform
-      unless static_task.save
-        render json: {message: flash_message("not_created")},
-          status: :unprocessable_entity
-      end
+    @task = TaskServices::CreateTask.new(type: params[:type], 
+      targetable: params[:targetable], ownerable_id: params[:ownerable_id], 
+      ownerable_type: params[:ownerable_type],
+      meta_types_checked: params[:meta_types_checked],
+      current_user: current_user).perform
+    unless @task.save
+      render json: {message: flash_message("not_created")},
+        status: :unprocessable_entity
     end
-    target = @target.attributes.merge task_id: static_task.id
-    render json: {message: flash_message("created"), target: target}
+    target = @task.attributes.merge task_id: @task.id
+    render json: {message: flash_message("created"), target: @task.targetable}
   end
 
   private
-  def task_params
-    params.require(:task).permit :name, :content
-  end
-
   def find_ownerable
-    klass = params[:task][:ownerable_type].classify
+    klass = params[:ownerable_type].classify
     if CLASS_NAMES.include? klass
-      @ownerable = class_eval(klass).find_by id: params[:task][:ownerable_id]
+      @ownerable = class_eval(klass).find_by id: params[:ownerable_id]
       unless @ownerable
         render json: {message: flash_message("not_found")},
           status: :not_found

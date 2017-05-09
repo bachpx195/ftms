@@ -12,7 +12,7 @@ export default class Modal extends React.Component {
     this.objectRefresh = {};
     this.state = {
       test_rule: props.test_rule,
-      temp_test_rule: [],
+      temp_test_rule: {categories: [], questions: []},
     }
   }
 
@@ -25,22 +25,12 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    let form;
-    if (this.props.test_rule.id) {
-      form = (
-        <Form
-          test_rule={this.state.temp_test_rule}
-          url={this.props.url}
-        />
-      )
-    } else {
-      form = (
-        <Form
-          url={this.props.url}
-          test_rule={this.state.temp_test_rule}
-        />
-      )
-    }
+    let form = (
+      <Form handleUpdateCondition={this.handleUpdateCondition.bind(this)}
+        test_rule={this.state.temp_test_rule}
+        url={this.props.url}
+      />
+    );
 
     const conditionForm = (
       <ConditionForm
@@ -142,6 +132,7 @@ export default class Modal extends React.Component {
 
   handleUpdateCondition(data) {
     Object.assign(this.state.temp_test_rule, data);
+    this.setState({temp_test_rule: this.state.temp_test_rule});
   }
 
   handleAddForm(type) {
@@ -168,7 +159,7 @@ export default class Modal extends React.Component {
   handleSubmit() {
     var data = {};
     var test_rule = {};
-    test_rule['authenticity_token'] =  ReactOnRails.authenticityToken();
+    
     test_rule['name'] = this.state.temp_test_rule.name;
     test_rule['total_question'] = this.state.temp_test_rule.total_question;
     test_rule['time_of_test'] = this.state.temp_test_rule.time_of_test;
@@ -177,8 +168,15 @@ export default class Modal extends React.Component {
     test_rule['number_of_test'] = this.state.temp_test_rule.number_of_test;
     test_rule['test_rule_categories_attributes'] = this.state.temp_test_rule.categories;
     test_rule['test_rule_questions_attributes'] = this.state.temp_test_rule.questions;
+    if(this.props.course) {
+      data['course_id'] = this.props.course.id;
+    }
     data['authenticity_token'] = ReactOnRails.authenticityToken();
+    data['targetable'] = test_rule;
     data['test_rule'] = test_rule;
+    data['type'] = 'TestRule';
+    data['ownerable_type'] = this.props.ownerable_type;
+    data['ownerable_id'] = this.props.course.id;
 
     let method = this.state.test_rule.id ? 'PUT' : 'POST';
     axios({
@@ -188,10 +186,11 @@ export default class Modal extends React.Component {
       headers: {'Accept': 'application/json'}
     })
       .then(response => {
-        if (this.props.test_rule.id) {
+        console.log(this.props.test_rule['id']);
+        if (this.props.test_rule['id'] != undefined) {
           this.props.handleAfterUpdated(response.data.test_rule)
         } else {
-          this.props.afterCreateTestRule(response.data.test_rule)
+          this.props.afterCreateTestRule(response.data.target)
         }
         $('.modalForm').modal('hide');
       })

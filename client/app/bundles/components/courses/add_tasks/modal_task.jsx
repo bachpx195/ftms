@@ -5,9 +5,10 @@ import * as routes from 'config/routes';
 import Item from './item';
 import TaskPreview from '../templates/task_preview';
 import ModalCreateSurvey from '../../surveys/templates/modal_create_survey';
+import ModalTestRule from '../../test_rules/templates/modal_testrule';
 const TASKS_URL = routes.assign_tasks_url();
 
-const arr_option = ['choose','survey', 'testing'];
+const arr_option = ['choose', 'survey', 'testing'];
 export default class ModalTask extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ export default class ModalTask extends React.Component {
       select_items: [],
       ownerable_type: props.ownerable_type,
       current_item: {},
+      test_rule: {categories: [], questions: []},
     };
   }
 
@@ -32,21 +34,22 @@ export default class ModalTask extends React.Component {
   }
 
   render() {
-    let title, selected, remain_item, tasks, form, button_create_task = null;
+    let title, selected, remain_item, tasks, form = null;
     let task_preview = (
       <TaskPreview current_item={this.state.current_item}
         targetable_type={this.state.targetable_type} />
     );
+
+    let button = (
+      <button className='btn btn-primary'
+        onClick={this.handleCreateTask.bind(this)}>
+        {I18n.t('courses.add_task')}</button>
+    )
     if (this.state.targetable_type == 'Survey') {
       title = I18n.t('courses.create_task_title_survey');
       selected = I18n.t('courses.survey_in_course');
       remain_item = I18n.t('courses.survey_remain_course');
       tasks = this.renderTask(selected, remain_item);
-      button_create_task = (
-        <button className='btn btn-primary'
-          onClick={this.handleCreateTask.bind(this)}>
-          {I18n.t('courses.add_task')}</button>
-      )
       form = (
         <ModalCreateSurvey 
           ownerable_type={this.props.ownerable_type}
@@ -54,17 +57,29 @@ export default class ModalTask extends React.Component {
           meta_types={this.props.meta_types}
           url={routes.subject_tasks_url()}
           handleAfterCreatedSurvey={
-            this.handleAfterCreatedSurvey.bind(this)} />
+            this.handleAfterCreated.bind(this)} />
       )
     } else if(this.state.targetable_type == 'TestRule') {
       title = I18n.t('courses.create_task_title_exam');
       selected = I18n.t('courses.testing_in_course');
       remain_item = I18n.t('courses.testing_remain_course');
       tasks = this.renderTask(selected, remain_item);
+      form = (
+        <ModalTestRule
+          test_rule={this.state.test_rule}
+          title={I18n.t('test_rules.titles.create')}
+          afterCreateTestRule={this.handleAfterCreated.bind(this)}
+          categories={this.props.categories}
+          questions={this.props.questions}
+          url={routes.subject_tasks_url()}
+          course = {this.props.course}
+          ownerable_type={this.props.ownerable_type} />
+      )
     } else {
       title = '';
       selected = '';
       remain_item = '';
+      button = null;
       task_preview = null;
       tasks = null;
     }
@@ -88,7 +103,7 @@ export default class ModalTask extends React.Component {
             <div className='modal-body'>
               <div className='row list-tasks col-md-6'>
                 {tasks}
-                {button_create_task}
+                {button}
                 {form}
               </div>
               {task_preview}
@@ -106,10 +121,16 @@ export default class ModalTask extends React.Component {
   }
 
   handleCreateTask() {
-    $('.modal-create-survey').modal();
+    if (this.state.targetable_type == 'Survey') {
+      $('.modal-create-survey').modal();
+    } else if(this.state.targetable_type == 'TestRule') {
+      $('.modalForm').modal();
+    } else {
+      null
+    }
   }
 
-  handleAfterCreatedSurvey(target) {
+  handleAfterCreated(target) {
     this.state.selected_items.push(target);
     this.setState({
       selected_items: this.state.selected_items,
