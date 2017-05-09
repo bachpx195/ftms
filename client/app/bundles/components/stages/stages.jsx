@@ -75,7 +75,7 @@ export default class StageLists extends React.Component {
     let modalEdit = null;
     if(this.state.stage.id){
       modalEdit = (
-        <ModalEdit url={routes.stage_url(this.state.stage.id)}
+        <ModalEdit
           stage={this.state.stage}
           handleAfterUpdated={this.handleAfterUpdated.bind(this)} />
       );

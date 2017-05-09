@@ -1,3 +1,4 @@
+import * as routes from 'config/routes';
 import _ from 'lodash';
 import axios from 'axios';
 import React from 'react';
@@ -26,14 +27,14 @@ export default class Form extends React.Component {
       action =
         <Update
           state={this.state}
-          url={this.props.url}
+          url={routes.stage_url(this.props.stage.id)}
           stage={this.props.stage}
           handleAfterUpdated={this.props.handleAfterUpdated}/>
     } else {
       action =
         <Create
           state={this.state}
-          url={this.props.url}
+          url={routes.stages_url()}
           stage={this.props.stage}
           handleAfterCreated={this.props.handleAfterCreated}
         />
