@@ -82,7 +82,7 @@ export default class UserShowBox extends React.Component {
         <div className='col-md-12'>
           <div className='col-md-3'>
             <BasicInfoBox user_detail={this.state.user_detail}
-              user={this.props.user} />
+              user={this.props.user} organization={this.state.user_profile.organization} />
            <AboutBox user_profile={this.state.user_profile} />
           </div>
           <div className='col-md-9'>

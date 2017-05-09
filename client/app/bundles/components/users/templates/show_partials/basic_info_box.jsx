@@ -3,6 +3,7 @@ import RolesBox from './roles_box';
 import UploadImageModal from './upload_image_modal';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
+import UserPolicy from 'policy/user_policy';
 
 export default class BasicInfoBox extends React.Component {
   constructor(props) {
@@ -45,13 +46,20 @@ export default class BasicInfoBox extends React.Component {
           </h3>
           <p className='text-muted text-center'>
             <b>{I18n.t('users.email')} </b>{this.props.user_detail.email} &nbsp;
-            <a href={routes.edit_user_url(this.props.user_detail.id)}>
-              <i className='fa fa-pencil'></i></a>
+            <UserPolicy permit={[
+              {action: ['update']},
+              {action: ['correctUser'], data: {id: this.props.user.id}}
+            ]}>
+              <a href={routes.edit_user_url(this.props.user_detail.id)}>
+                <i className='fa fa-pencil'></i></a>
+            </UserPolicy>
           </p>
           <RolesBox user={this.props.user} />
-          <div className='btn btn-primary col-md-12'>
-            {I18n.t('users.buttons.export_user_profile')}
-          </div>
+          <UserPolicy permit={[{action: ['show']}]}>
+            <div className='btn btn-primary col-md-12'>
+              {I18n.t('users.buttons.export_user_profile')}
+            </div>
+          </UserPolicy>
           {this.renderUploadImageModal()}
         </div>
       </div>

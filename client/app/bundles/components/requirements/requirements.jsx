@@ -1,5 +1,6 @@
 import React from 'react';
 import RequirementGriddle from './griddle/requirement_griddle'
+import RequirementPolicy from 'policy/requirement_policy';
 import * as table_constants from 'constants/griddle_table_constants';
 require('../../assets/sass/projects.scss');
 
