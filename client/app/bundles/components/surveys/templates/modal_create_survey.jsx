@@ -36,9 +36,7 @@ export default class ModalCreateSurvey extends React.Component {
                   ownerable_type={this.props.ownerable_type}
                   type='Survey'
                   subject={this.props.subject}
-                  permit_create_meta_type={this.props.permit_create_meta_type}
-                  handleAfterCreatedSurvey={
-                    this.handleAfterCreatedSurvey.bind(this)}
+                  handleAfterCreatedSurvey={this.props.handleAfterCreatedSurvey}
                 />
               </div>
             </div>
@@ -46,13 +44,5 @@ export default class ModalCreateSurvey extends React.Component {
         </div>
       </div>
     );
-  }
-  handleAfterCreatedSurvey(meta_types, target) {
-    this.setState({
-      meta_types_checked: [],
-      meta_types: meta_types
-    });
-    $('.modal-create-survey').modal('hide');
-    this.props.handleAfterCreatedSurvey(target);
   }
 }

@@ -4,7 +4,7 @@ import Documents from '../../shareds/documents/documents';
 import ListTabs from '../supervisor/list_tabs';
 import ModalAssignTask from './templates/modal_assign_task';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';
-import ModalCreateAssignment from './templates/modal_create_assignment';
+import ModalCreateTasks from './templates/modal_create_tasks';
 import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumb/show';
 import SubjectManagerInfo from  './templates/subject_manager_info';
@@ -64,6 +64,7 @@ export default class SubjectManagerShowBox extends React.Component {
     }
     tasks = this.state.subject_detail.tasks;
     remain_tasks = this.state.subject_detail.remain_tasks;
+
     return (
       <div className='admin-subject-show clearfix'>
         <ShowBreadCrumb
@@ -117,15 +118,14 @@ export default class SubjectManagerShowBox extends React.Component {
           handleDocumentDeleted={this.handleDocumentDeleted.bind(this)}
         />
 
-        <ModalCreateAssignment
+        <ModalCreateTasks
           meta_types={this.state.meta_types}
           subject_detail={this.state.subject_detail}
           ownerable_id={ownerable_id}
           ownerable_type={ownerable_type}
-          url={SUBJECT_TASKS_URL}
           subject={this.props.subject}
-          permit_create_meta_type={this.props.permit_create_meta_type}
-          handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}
+          type={this.state.type}
+          handleAfterCreatedTasks={this.handleAfterCreatedTasks.bind(this)}
         />
 
         <ModalAssignTask
@@ -229,6 +229,20 @@ export default class SubjectManagerShowBox extends React.Component {
   handleChooseType(type) {
     this.setState({
       type: type
+    })
+  }
+
+  handleAfterCreatedSurvey(survey) {
+    this.state.subject_detail.tasks[this.state.type].push(survey);
+    this.setState({
+      subject_detail: this.state.subject_detail
+    })
+  }
+
+  handleAfterCreatedTasks(target, type) {
+    this.state.subject_detail.tasks[type].push(target);
+    this.setState({
+      subject_detail: this.state.subject_detail
     })
   }
 }

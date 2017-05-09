@@ -12,7 +12,7 @@ export default class Create extends React.Component {
         name: ''
       },
       type: props.type || '',
-      meta_types_checked: props.meta_types_checked,
+      meta_types_checked: props.meta_types_checked || [],
       meta_types: props.meta_types || []
     }
   }
@@ -21,7 +21,7 @@ export default class Create extends React.Component {
     this.setState({
       type: nextProps.type || '',
       meta_types: nextProps.meta_types || [],
-      meta_types_checked: nextProps.meta_types_checked
+      meta_types_checked: nextProps.meta_types_checked || []
     })
   }
 
