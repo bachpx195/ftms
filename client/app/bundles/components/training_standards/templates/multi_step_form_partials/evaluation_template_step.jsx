@@ -46,13 +46,13 @@ export default class EvaluationTemplateStep extends React.Component {
           changeTrainingResult={this.changeTrainingResult.bind(this)}
           removeTrainingResult={this.removeTrainingResult.bind(this)} />
 
-        <div className='text-center col-md-12'>
-          <input type='button' name='cancel' className='cancel action-button'
-            value='Cancel' onClick={this.props.onCancelForm}/>
-          <input type='button' name='previous' className='previous action-button'
-            value='Previous' onClick={this.props.onClickPrevious}/>
-          <input type='button' name='submit' className='submit action-button'
+        <div className='col-md-12'>
+          <input type='button' name='cancel' className='cancel cancel-button pull-left'
+            value='Cancel' onClick={this.handleCancelForm.bind(this)}/>
+          <input type='button' name='submit' className='submit action-button pull-right'
             value='Submit' onClick={this.onClickSubmit.bind(this)}/>
+          <input type='button' name='previous' className='previous action-button pull-right'
+            value='Previous' onClick={this.props.onClickPrevious}/>
         </div>
       </fieldset>
     );
@@ -118,4 +118,8 @@ export default class EvaluationTemplateStep extends React.Component {
     this.props.handleEvaluationTemplate(this.state.evaluation_template);
   }
 
+  handleCancelForm(event) {
+    this.props.handleResetForm();
+    this.props.onCancelForm(event);
+  }
 }

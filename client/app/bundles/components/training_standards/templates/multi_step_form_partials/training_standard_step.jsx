@@ -75,11 +75,11 @@ export default class TrainingStandardStep extends React.Component {
             </select>
           </div>
         </div>
-        <div className='text-center col-md-12'>
-          <input type='button' name='cancel' className='cancel action-button' value='Cancel'
-            onClick={this.props.onCancelForm}/>
-          <input type='button' name='next' className='next action-button' value='Next'
-            onClick={this.handleNext.bind(this)}/>
+        <div className='col-md-12'>
+          <input type='button' name='cancel' className='cancel cancel-button pull-left'
+            value='Cancel' onClick={this.handleCancelForm.bind(this)}/>
+          <input type='button' name='next' className='next action-button pull-right'
+            value='Next' onClick={this.handleNext.bind(this)}/>
         </div>
       </fieldset>
     );
@@ -92,6 +92,11 @@ export default class TrainingStandardStep extends React.Component {
       training_standard: this.state.training_standard,
     });
     this.props.handleInfoChanged(this.state.training_standard);
+  }
+
+  handleCancelForm(event) {
+    this.props.handleResetForm();
+    this.props.onCancelForm(event);
   }
 
   handleNext(event) {

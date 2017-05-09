@@ -113,7 +113,7 @@ export default class ProgramsShowBox extends React.Component {
         <ModalCreateStandard
           assign_standard_url={routes.assign_standards_url()}
           standard_url={routes.training_standards_url()}
-          program={this.props.program}
+          program={this.props.program} subjects={this.props.subjects}
           organization={this.state.organization}
           handleAfterCreatedStandard={this.handleAfterCreatedStandard.bind(this)}
         />

@@ -49,10 +49,10 @@ export function onPreviousStep(event) {
   current_fs.animate({opacity: 0}, {
   	step: function(now, mx) {
   		scale = 0.8 + (1 - now) * 0.2;
-  		left = ((1-now) * 50)+'%';
+  		left = ((1-now) * 50) + '%';
   		opacity = 1 - now;
   		current_fs.css({'left': left, 'position': 'absolute'});
-  		previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity,
+  		previous_fs.css({'transform': 'scale(' + scale +')', 'opacity': opacity,
         'position': 'relative'});
   	},
   	duration: 800,
@@ -67,21 +67,21 @@ export function onCancelForm(event) {
   let opacity, scale, left, current_fs, first_fs = '';
   let target = event.target;
   let $form = $(target).closest('form');
-  first_fs = $('fieldset').first();
+  first_fs = $('fieldset', $form).first();
   current_fs = $(target).closest('fieldset');
 
-  $('fieldset').each(function() {
+  $('fieldset', $form).each(function() {
     $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index($(this)))
       .removeClass('active').removeClass('highlighted');
     $(this).css({'left': left, 'position': 'absolute',
-      'transform': 'scale(' + '1' +  ')'});
+      'transform': 'scale(1)'});
     $(this).hide();
   });
 
   $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(first_fs))
     .addClass('active').addClass('highlighted');
   first_fs.show();
-  first_fs.css({'transform': 'scale('+ '1' + ')', 'opacity': 1,
+  first_fs.css({'transform': 'scale(1)', 'opacity': 1,
     'position': 'relative'});
 
   $('.modalCreateTrainingStandard').modal('hide');
@@ -131,7 +131,29 @@ export function afterSubmit(target) {
   first_fs = $('fieldset', $form).first();
   current_fs = $(target).closest('fieldset');
 
-  $('fieldset').each(function() {
+  $('fieldset', $form).each(function() {
+    $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index($(this)))
+      .removeClass('active').removeClass('highlighted');
+    $(this).css({'left': left, 'position': 'absolute',
+      'transform': 'scale(1)'});
+    $(this).hide();
+  });
+
+  $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(first_fs))
+    .addClass('active').addClass('highlighted');
+  first_fs.show();
+  first_fs.css({'transform': 'scale(1)', 'opacity': 1, 'position': 'relative'});
+}
+
+export function onDismissModal(target, modal_class_name) {
+  let left, current_fs, first_fs = '';
+  let $modal = $(target).closest(modal_class_name);
+  let $form = $('form', $modal);
+
+  first_fs = $('fieldset', $form).first();
+  current_fs = $(target).closest('fieldset');
+
+  $('fieldset', $form).each(function() {
     $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index($(this)))
       .removeClass('active').removeClass('highlighted');
     $(this).css({'left': left, 'position': 'absolute',

@@ -15,6 +15,12 @@ $subject-timeline-before-background: #da853d;
 $subject-timeline-before-border: #f5e9d4;
 $subject-timeline-after-background: #5a7add;
 $subject-timeline-before-border: #f5e9d4;
+$light-green: #69e09b;
+$img-background: #ff7148;
+$img-border: #eceff1;
+$timeline-heading-color: #dada3d;
+$timeline-body-background: #def8ff;
+$subject-duration-color: #888;
 
 .custom-subject-list {
   .list-group-item {
@@ -163,6 +169,24 @@ $subject-timeline-before-border: #f5e9d4;
     box-shadow: 0 0 0 2px $c-white, 0 0 0 3px $green;
   }
 
+  .cancel-button {
+    background: $light-green;
+    border: 0 none;
+    border-radius: 1px;
+    color: $c-white;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px 5px;
+    padding: 10px 5px;
+    width: 100px;
+  }
+
+  .cancel-button:hover,
+  .cancel-button:focus {
+    background: $green;
+    box-shadow: 0 0 0 2px $c-white, 0 0 0 3px $light-green;
+  }
+
   .multi-step-progress-bar {
     counter-reset: step;
     margin-bottom: 30px;
@@ -224,7 +248,7 @@ $subject-timeline-before-border: #f5e9d4;
 .subject-container {
   background-color: $c-white;
   height: 100%;
-  max-height: 25vh;
+  max-height: 20vh;
   max-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
@@ -255,7 +279,7 @@ $subject-timeline-before-border: #f5e9d4;
   .msform-relative {
     height: calc(100vh - 70vh);
     position: relative;
-    width: 100%;
+    width: 98%;
   }
 
   .msform-subject-timeline {
@@ -374,8 +398,8 @@ $subject-timeline-before-border: #f5e9d4;
     }
 
     .img {
-      background: #ff7148;
-      border: 1px solid #ECEFF1;
+      background: $img-background;
+      border: 1px solid $img-border;
       border-radius: 50% 50% 0;
       height: 10vh;
       margin: 0 auto;
@@ -394,17 +418,17 @@ $subject-timeline-before-border: #f5e9d4;
 
   .timeline-content:hover {
     .timeline-heading {
-      border-color: #dada3d;
+      border-color: $timeline-heading-color;
     }
 
     .timeline-heading::after {
-      background: #dada3d;
+      background: $timeline-heading-color;
     }
   }
 
   .timeline-body {
-    background: #DEF8FF;
-    border: 1px solid #ECEFF1;
+    background: $timeline-body-background;
+    border: 1px solid $img-border;
     border-radius: 5px;
     display: none;
     min-width: 200px;
@@ -414,7 +438,7 @@ $subject-timeline-before-border: #f5e9d4;
     z-index: 8;
 
     .title {
-      color: #dada3d;
+      color: $timeline-heading-color;
       font-size: 20px;
       font-weight: bold;
       margin: 0 0 10px;
@@ -422,7 +446,7 @@ $subject-timeline-before-border: #f5e9d4;
     }
 
     .subject-duration {
-      color: #888;
+      color: $subject-duration-color;
     }
   }
 }

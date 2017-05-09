@@ -29,21 +29,6 @@ export default class Subjects extends React.Component {
         accessor: 'description',
         render: row => <span title={row.value}>{row.value}</span>,
         minWidth: 400
-      },
-      {
-        header: '',
-        render: row => (
-          <div className='text-center'>
-            <Reject afterRejectSubject={this.props.afterRejectSubject}
-              selected_subjects={this.props.selected_subjects}
-              standard_subject_url={this.props.standard_subject_url}
-              training_standard={this.props.training_standard}
-              index={row.index}
-            />
-          </div>
-        ),
-        hideFilter: true,
-        width: 75
       }
     ]
 
