@@ -65,6 +65,7 @@ export default class AdditionFormCategory extends React.Component {
         },
         hideFilter: true,
         sortable: false,
+        style: {textAlign: 'center'},
         width: 50
       }
     ];

@@ -19,8 +19,9 @@ export default class StatisticsTraineeTypeBox extends React.Component {
       {
         header: '#',
         accessor: 'position',
-        render: row => <div className='text-right'>{row.index + 1}</div>,
+        render: row => row.index + 1,
         hideFilter: true,
+        style: {textAlign: 'right'},
         width: 50
       },
       {
@@ -34,6 +35,8 @@ export default class StatisticsTraineeTypeBox extends React.Component {
       {
         header: I18n.t('statistics.trainee_types.headers.number'),
         accessor: 'number',
+        style: {textAlign: 'right'},
+        width: 150
       },
     ]
 

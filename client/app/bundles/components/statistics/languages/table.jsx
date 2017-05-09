@@ -33,6 +33,8 @@ export default class StatisticsLanguageBox extends React.Component {
       {
         header: I18n.t('statistics.languages.headers.number'),
         accessor: 'number',
+        style: {textAlign: 'right'},
+        width: 150
       },
     ]
 

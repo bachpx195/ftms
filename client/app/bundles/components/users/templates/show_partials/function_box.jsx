@@ -67,6 +67,7 @@ export default class FunctionBox extends React.Component {
         },
         hideFilter: true,
         sortable: false,
+        style: {textAlign: 'center'},
         width: 50
       }
     ];
