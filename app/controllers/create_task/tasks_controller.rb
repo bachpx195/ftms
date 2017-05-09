@@ -3,8 +3,8 @@ class CreateTask::TasksController < ApplicationController
   before_action :authorize_request, only: :create
 
   def create
-    @task = TaskServices::CreateTask.new(type: params[:type], 
-      targetable: params[:targetable], ownerable_id: params[:ownerable_id], 
+    @task = TaskServices::CreateTask.new(type: params[:type],
+      targetable: params[:targetable], ownerable_id: params[:ownerable_id],
       ownerable_type: params[:ownerable_type],
       meta_types_checked: params[:meta_types_checked],
       current_user: current_user).perform

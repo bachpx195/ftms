@@ -4,7 +4,6 @@ import React from 'react';
 import TabsMember from './templates/tabs_member';
 import TabsTask from './templates/tabs_task';
 import TeamPolicy from 'policy/team_policy';
-import ModalCreateTasks from '../subjects/managers/templates/modal_create_tasks';
 
 export default class ListTabs extends React.Component {
   constructor(props) {
@@ -40,6 +39,7 @@ export default class ListTabs extends React.Component {
           subject_detail={this.props.subject_detail}
           handleAfterAddTask={this.props.handleAfterAddTask}
           afterCreateTask={this.props.afterCreateTask}
+          meta_types={this.state.meta_types}
           user={this.props.user}
           handleAfterDeleteTask={this.props.handleAfterDeleteTask}
         />
@@ -95,6 +95,7 @@ export default class ListTabs extends React.Component {
                   afterCreateTask={this.props.afterCreateTask}
                   user={this.props.user}
                   handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+                  meta_types={this.state.meta_types}
                 />
               </div>
             </div>
@@ -111,33 +112,21 @@ export default class ListTabs extends React.Component {
                     {I18n.t('subjects.headers.list_task')}
                   </h4>
                 </div>
-                  <ModalUserTask task={this.props.subject_detail.course_subject_task}
-                    user_tasks={this.props.subject_detail
-                      .user_subjects[this.state.user_index].user_course_task}
-                    user_index={this.state.user_index}
-                    ownerable_id={this.props.subject_detail.course_subject.id}
-                    ownerable_type='CourseSubject'
-                    subject_detail={this.props.subject_detail}
-                    handleAfterAddTask={this.props.handleAfterAddTask}
-                    afterCreateTask={this.props.afterCreateTask}
-                    user={this.props.user}
-                    handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-                  />
+                <ModalUserTask task={this.props.subject_detail.course_subject_task}
+                  user_tasks={this.props.subject_detail
+                    .user_subjects[this.state.user_index].user_course_task}
+                  user_index={this.state.user_index}
+                  ownerable_id={this.props.subject_detail.course_subject.id}
+                  ownerable_type='CourseSubject'
+                  subject_detail={this.props.subject_detail}
+                  handleAfterAddTask={this.props.handleAfterAddTask}
+                  afterCreateTask={this.props.afterCreateTask}
+                  user={this.props.user}
+                  handleAfterDeleteTask={this.props.handleAfterDeleteTask}
+                />
               </div>
             </div>
           </div>
-        );
-
-        modal_create_task = (
-          <ModalCreateTasks
-            meta_types={this.state.meta_types}
-            subject_detail={this.props.subject_detail}
-            ownerable_id={this.props.subject_detail.course_subject.id}
-            ownerable_type='CourseSubject'
-            subject={this.props.subject}
-            type='assignments'
-            handleAfterCreatedTasks={this.handleAfterCreatedTasks.bind(this)}
-          />
         );
       }
     }
@@ -165,15 +154,18 @@ export default class ListTabs extends React.Component {
           <TabsTask
             tabs_group_focus={this.state.tabs_group_focus}
             subject_detail={this.props.subject_detail}
+            subject={this.props.subject_detail.subject_detail}
             documents={this.props.documents}
             document_preview={this.props.document_preview}
+            meta_types={this.state.meta_types}
             onDocumentsDrop={this.props.onDocumentsDrop}
             handleDocumentUploaded={this.props.handleDocumentUploaded}
             handleDocumentDeleted={this.props.handleDocumentDeleted}
             clickPreviewDocument={this.props.clickPreviewDocument}
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             handleChooseType={this.props.handleChooseType}
-            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)} />
+            changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)}
+            handleAfterCreatedTasks={this.handleAfterCreatedTasks.bind(this)} />
 
           <TabsMember
             tabs_group_focus={this.state.tabs_group_focus}
