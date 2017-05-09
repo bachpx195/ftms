@@ -58,19 +58,6 @@ export default class Header extends React.Component {
                 standard_organizations={this.props.standard_organizations}
                 handleAfterShareTrainingStandard={this
                   .handleAfterShareTrainingStandard.bind(this)} />
-              <TrainingStandardPolicy permit={[
-                {action: ['ownerById'], data: {id: this.state.organization.user_id}},
-                {action: ['update', 'creator'], data: {creator_id: this.state.organization.creator_id}},
-                {action: ['update', 'creator'], data: {creator_id: this.state.training_standard.creator_id}},
-                {action: ['update', 'belongById'], data: {id: this.state.organization.id}},
-              ]}>
-                <button type='button' className='btn btn-success header-button'
-                  title={I18n.t('training_standards.modals.header_edit')}
-                  onClick={this.onClickButtonEdit.bind(this)}>
-                  <i className='fa fa-pencil'></i> &nbsp;
-                  {I18n.t('training_standards.edit')}
-                </button>
-              </TrainingStandardPolicy>
             </div>
           </div>
         </div>
@@ -82,22 +69,10 @@ export default class Header extends React.Component {
             {action: ['update', 'belongById'], data: {id: this.state.organization.id}},
           ]}>
             <button type='button' className='btn btn-success header-button'
-              title={I18n.t('training_standards.assign')}
-              onClick={this.onClickButtonAssignSubject.bind(this)}>
-              <i className='fa fa-plus'></i> &nbsp;
-              {I18n.t('training_standards.assign')}
-            </button>
-          </TrainingStandardPolicy>
-          <TrainingStandardPolicy permit={[
-            {action: ['ownerById'], data: {id: this.state.organization.user_id}},
-            {action: ['update', 'creator'], data: {creator_id: this.state.organization.creator_id}},
-            {action: ['update', 'creator'], data: {creator_id: this.state.training_standard.creator_id}},
-            {action: ['update', 'belongById'], data: {id: this.state.organization.id}},
-          ]}>
-            <button type='button' className='btn btn-success header-button'
-              title={I18n.t('training_standards.create_evaluation')}
-              onClick={this.showModalEvaluationTemplate.bind(this)}>
-              <i className='fa fa-eye'></i> {button_text}
+              title={I18n.t('training_standards.modals.header_edit')}
+              onClick={this.onClickButtonEdit.bind(this)}>
+              <i className='fa fa-pencil'></i> &nbsp;
+              {I18n.t('training_standards.edit')}
             </button>
           </TrainingStandardPolicy>
           <Clone training_standard={this.props.training_standard}

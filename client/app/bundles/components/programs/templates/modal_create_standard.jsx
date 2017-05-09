@@ -1,107 +1,92 @@
 import axios from 'axios';
 import Form from '../templates/form';
+import MultiStepForm from '../../training_standards/templates/multi_step_form';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
+import * as step_animations from 'shared/multi_step_animation';
+import * as routes from 'config/routes';
 
 const POLICIES = app_constants.POLICIES;
 
 export default class ModalCreateStandard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...props,
-      policy: POLICIES[0].id,
+    this.state = {
+      training_standard: props.training_standard || {
+        name: '', description: '', policy: ''
+      }
     }
   }
 
   render() {
+    let standard_name, class_policy = '';
+    if (this.state.training_standard) {
+      if (this.state.training_standard.policy != '') {
+        class_policy = <i className='fa fa-globe'></i>;
+        if (this.state.training_standard.policy == 'privated') {
+          class_policy = <i className='fa fa-lock'></i>;
+        }
+      }
+      standard_name = this.state.training_standard.name || '';
+    }
+
     return (
       <div className='modal-create-standards modal fade in' role='dialog'>
-        <div className='modal-dialog'>
+        <div className='modal-dialog modal-lg clearfix'>
           <div className='modal-content'>
             <div className='modal-header'>
-              <button type='button' className='close'
-                data-dismiss='modal'>&times;</button>
+              <button type='button' className='close' data-dismiss='modal'
+                onClick={this.handelDismissModal.bind(this)}>
+                <span aria-hidden='true'>&times;</span>
+              </button>
               <h4 className='modal-title'>
-                {I18n.t('training_standards.create')}
+                {class_policy}&nbsp;
+                {I18n.t('training_standards.modals.create')}:&nbsp;
+                {standard_name}
               </h4>
             </div>
-            <div className='modal-body'>
-              <form onSubmit={this.handleSubmitCreateStandard.bind(this)}>
-                <div className='form-group row'>
-                  <label className='col-md-2'>
-                    {I18n.t('training_standards.headers.name')}
-                  </label>
-                  <div className='col-md-10'>
-                    <input type='text' placeholder={I18n.t('training_standards.headers.name')}
-                      className='form-control' name='name' ref='nameField' />
-                  </div>
-                </div>
-
-                <div className='form-group row'>
-                  <label className='col-md-2'>
-                    {I18n.t('training_standards.headers.policy')}
-                  </label>
-                  <div className='col-md-10'>
-                    <select className='form-control' ref='policyField'
-                      value={this.state.policy} name='policy'
-                      onChange={this.handleChange.bind(this)}>
-                      {this.renderOptions(POLICIES)}
-                    </select>
-                  </div>
-                </div>
-                <div className='form-group'>
-                  <div className='text-center'>
-                    <button type='submit' className='btn btn-primary'>
-                      <i className='fa fa-floppy-o'></i>
-                      &nbsp;{I18n.t('buttons.save')}
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+            <form className='multi-step-form row'>
+              <div className='modal-body'>
+                <ul className='multi-step-progress-bar'>
+                  <li className='active highlighted'>
+                    {I18n.t('training_standards.multi_step_form.standard_info')}
+                  </li>
+                  <li>
+                    {I18n.t('training_standards.multi_step_form.assign_subject')}
+                  </li>
+                  <li>
+                    {I18n.t('training_standards.multi_step_form.create_evaluation_template')}
+                  </li>
+                </ul>
+              </div>
+              <div className='modal-footer'>
+                <MultiStepForm
+                  url={routes.organization_training_standards_url(
+                    this.props.organization.id)}
+                  subjects={this.props.subjects}
+                  organization={this.props.organization}
+                  handleStandardChanged={this.handleStandardChanged.bind(this)}
+                  handleAfterSaved={this.handleAfterCreated.bind(this)}/>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     )
   }
 
-  handleSubmitCreateStandard(event) {
-    event.preventDefault();
-    axios.post(this.props.standard_url, {
-      training_standard: {
-        organization_id: this.props.organization ? this.props.organization.id : '',
-        policy: this.refs.policyField.value,
-        name: this.refs.nameField.value
-      }, authenticity_token: ReactOnRails.authenticityToken()
-    }, app_constants.AXIOS_CONFIG)
-      .then(response => {
-        let {training_standard} = response.data;
-        this.props.handleAfterCreatedStandard(training_standard)
-        $('.modal-create-standards').modal('hide');
-        this.refs.nameField.value = ''
-        window.location.href = this.props.standard_url + '/' + training_standard.id;
-      })
-      .catch(error => {
-        console.log(error);
-    });
+  handleAfterCreated(training_standard) {
+    $('.modal-create-standards').modal('hide');
+    this.props.handleAfterCreatedStandard(training_standard)
   }
 
-  handleChange(event) {
-    let attribute = event.target.name;
+  handelDismissModal(event) {
+    step_animations.onDismissModal(event.target, '.modal-create-standards');
+  }
+
+  handleStandardChanged(training_standard) {
     this.setState({
-      [attribute]: event.target.value
-    });
-  }
-
-  renderOptions(objects) {
-    if (objects) {
-      return objects.map(object => {
-        return (
-          <option key={object.id} value={object.id}>
-            {object.name}
-          </option>);
-      });
-    }
-    return null;
+      training_standard: training_standard,
+    })
   }
 }

@@ -138,16 +138,21 @@ export default class AssignSubjectStep extends React.Component {
             {this.state.total_time}
           </h4>
         </div>
-        <div className='text-center col-md-12'>
-          <input type='button' name='cancel' className='cancel action-button'
-            value='Cancel' onClick={this.props.onCancelForm}/>
-          <input type='button' name='previous' className='previous action-button'
-            value='Previous' onClick={this.props.onClickPrevious}/>
-          <input type='button' name='next' className='next action-button'
+        <div className='col-md-12'>
+          <input type='button' name='cancel' className='cancel cancel-button pull-left'
+            value='Cancel' onClick={this.handleCancelForm.bind(this)}/>
+          <input type='button' name='next' className='next action-button pull-right'
             value='Next' onClick={this.props.onClickNext}/>
+          <input type='button' name='previous' className='previous action-button pull-right'
+            value='Previous' onClick={this.props.onClickPrevious}/>
         </div>
       </fieldset>
     );
+  }
+
+  handleCancelForm(event) {
+    this.props.handleResetForm();
+    this.props.onCancelForm(event);
   }
 
   filterSubjects(event) {

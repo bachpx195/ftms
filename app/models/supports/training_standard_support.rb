@@ -4,9 +4,6 @@ class Supports::TrainingStandardSupport
     @is_shared = args[:params][:is_shared]
   end
 
-  def subjects
-    @subjects ||= Subject.select :id, :name, :image, :description, :during_time
-  end
 
   def training_standard
     @training_standard ||= TrainingStandard.find_by id: @params[:id]
@@ -31,6 +28,11 @@ class Supports::TrainingStandardSupport
     else
       training_standard.organization
     end
+  end
+
+  def subjects
+    @subjects ||= @organization.subjects.select :id, :name, :image,
+      :description, :during_time
   end
 
   def training_standards_serializer

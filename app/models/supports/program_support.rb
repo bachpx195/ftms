@@ -20,6 +20,10 @@ class Supports::ProgramSupport
     @courses ||= @program.courses
   end
 
+  def organization
+    @organization ||= @program.organization
+  end
+
   def training_standards
     @training_standards ||= @program.organization.training_standards
   end
@@ -31,6 +35,11 @@ class Supports::ProgramSupport
   def program_detail
     Serializers::Programs::ProgramDetailSerializer
       .new(object: @program, scope: {supports: self}).serializer
+  end
+
+  def subjects
+    @subjects ||= organization.subjects.select :id, :name, :image,
+      :description, :during_time
   end
 
   def owners

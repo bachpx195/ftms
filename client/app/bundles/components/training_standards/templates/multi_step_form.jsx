@@ -34,7 +34,8 @@ export default class MultiStepForm extends React.Component {
           training_standard={this.state.training_standard}
           handleInfoChanged={this.handleInfoChanged.bind(this)}
           onClickNext={step_animations.onNextStep}
-          onCancelForm={step_animations.onCancelForm} />
+          onCancelForm={step_animations.onCancelForm}
+          handleResetForm={this.handleResetForm.bind(this)}/>
         <AssignSubjectStep subjects={this.props.subjects}
           remain_subjects={this.props.remain_subjects}
           select_subjects={this.state.select_subjects}
@@ -42,6 +43,7 @@ export default class MultiStepForm extends React.Component {
           training_standard={this.state.training_standard}
           standard_subjects={this.props.standard_subjects}
           afterRenderTimeline={step_animations.afterRenderTimeline}
+          handleResetForm={this.handleResetForm.bind(this)}
           handleSelectedSubjects={this.handleSelectedSubjects.bind(this)}
           onCancelForm={step_animations.onCancelForm}
           onClickNext={step_animations.onNextStep}
@@ -49,6 +51,7 @@ export default class MultiStepForm extends React.Component {
         <EvaluationTemplateStep handleSubmit={this.handleSubmit.bind(this)}
           evaluation_template={this.state.evaluation_template}
           handleEvaluationTemplate={this.handleEvaluationTemplate.bind(this)}
+          handleResetForm={this.handleResetForm.bind(this)}
           onCancelForm={step_animations.onCancelForm}
           onClickPrevious={step_animations.onPreviousStep} />
       </div>
@@ -59,6 +62,7 @@ export default class MultiStepForm extends React.Component {
     this.setState({
       training_standard: training_standard,
     });
+    this.props.handleStandardChanged(training_standard);
   }
 
   handleSelectedSubjects(select_subjects) {
@@ -71,6 +75,19 @@ export default class MultiStepForm extends React.Component {
     this.setState({
       evaluation_template: evaluation_template,
     });
+  }
+
+  handleResetForm() {
+    if (!this.state.training_standard.id) {
+      this.setState({
+        training_standard: {name: '', description: '', policy: POLICIES[0].id},
+        select_subjects: [],
+        evaluation_template: {
+          name: '', training_results: [], evaluation_standards: [],
+        },
+        errors: null,
+      });
+    }
   }
 
   handleSubmit(event) {
@@ -120,7 +137,7 @@ export default class MultiStepForm extends React.Component {
       this.props.organization.id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let method = 'POST';
-    let url = window.location.href;
+    let url = this.props.url;
     let current_standard_id = this.state.training_standard.id;
     if (current_standard_id) {
       method = 'PUT';
