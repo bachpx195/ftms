@@ -35,7 +35,6 @@ export default class TrainingStandardBox extends React.Component {
               <FilterShared organization={this.state.organization}
                 handleAfterFilterShared={this.handleAfterFilterShared.bind(this)} />
               <Create
-                training_standard={this.state.training_standard}
                 organization={this.state.organization}
                 subjects={this.props.subjects}
                 handleAfterCreated={this.handleAfterCreated.bind(this)} />

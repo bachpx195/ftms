@@ -18,7 +18,7 @@ export default class TrainingStandardStep extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      training_standard: this.state.training_standard,
+      training_standard: nextProps.training_standard,
       errors: '',
     });
   }

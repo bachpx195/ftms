@@ -124,3 +124,23 @@ export function afterRenderTimeline() {
     $timeline_body.hide('fast');
   });
 }
+
+export function afterSubmit(target) {
+  let left, current_fs, first_fs = '';
+  let $form = $(target).closest('form');
+  first_fs = $('fieldset', $form).first();
+  current_fs = $(target).closest('fieldset');
+
+  $('fieldset').each(function() {
+    $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index($(this)))
+      .removeClass('active').removeClass('highlighted');
+    $(this).css({'left': left, 'position': 'absolute',
+      'transform': 'scale(1)'});
+    $(this).hide();
+  });
+
+  $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(first_fs))
+    .addClass('active').addClass('highlighted');
+  first_fs.show();
+  first_fs.css({'transform': 'scale(1)', 'opacity': 1, 'position': 'relative'});
+}

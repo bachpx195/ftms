@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Errors from '../../../shareds/errors';
 import PanelEvaluationStandards from '../panel_evaluation_standards';
 import PanelTrainingResults from '../panel_training_results';
 import React from 'react';
@@ -16,7 +17,7 @@ export default class EvaluationTemplateStep extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      evaluation_template: this.state.evaluation_template,
+      evaluation_template: nextProps.evaluation_template,
       errors: null,
     });
   }
@@ -24,6 +25,7 @@ export default class EvaluationTemplateStep extends React.Component {
   render() {
     return (
       <fieldset>
+        <Errors errors={this.state.errors} />
         <div className='form-group'>
           <label>
             {I18n.t('evaluation_templates.headers.name')}
@@ -50,10 +52,21 @@ export default class EvaluationTemplateStep extends React.Component {
           <input type='button' name='previous' className='previous action-button'
             value='Previous' onClick={this.props.onClickPrevious}/>
           <input type='button' name='submit' className='submit action-button'
-            value='Submit' onClick={this.props.handleSubmit}/>
+            value='Submit' onClick={this.onClickSubmit.bind(this)}/>
         </div>
       </fieldset>
     );
+  }
+
+  onClickSubmit(event) {
+    let name = this.state.evaluation_template.name;
+    if (name == undefined || name == '') {
+      this.setState({
+        errors: I18n.t('training_standards.errors.blank_name'),
+      });
+    } else {
+      this.props.handleSubmit(event);
+    }
   }
 
   handleChangeName(event) {

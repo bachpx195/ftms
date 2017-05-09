@@ -36,7 +36,6 @@ export default class Create extends React.Component {
                   url={routes.organization_training_standards_url(
                     this.props.organization.id)}
                   subjects={this.props.subjects}
-                  training_standard={this.props.training_standard}
                   organization={this.props.organization}
                   handleAfterSaved={this.handleAfterCreated.bind(this)} />
               </div>
@@ -67,9 +66,7 @@ export default class Create extends React.Component {
   handleCreateTrainingStandard() {
     $('.modalCreateTrainingStandard').modal({
         backdrop: 'static',
-        keyboard: false
-      }
-    );
+    });
   }
 
   handleAfterCreated(training_standard) {

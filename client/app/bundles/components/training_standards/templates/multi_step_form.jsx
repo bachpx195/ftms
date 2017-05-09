@@ -27,14 +27,6 @@ export default class MultiStepForm extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      training_standard: nextProps.training_standard,
-      evaluation_template: nextProps.evaluation_template,
-      errors: null
-    });
-  }
-
   render() {
     return (
       <div>
@@ -135,6 +127,7 @@ export default class MultiStepForm extends React.Component {
       url = routes.organization_training_standard_url(this.props.organization.id,
        this.state.training_standard.id);
     }
+    let target = event.target;
     axios({
       url: url,
       method: method,
@@ -146,15 +139,16 @@ export default class MultiStepForm extends React.Component {
         this.props.handleAfterEdit(response.data.training_standard);
       } else {
         this.props.handleAfterSaved(response.data.training_standard);
+        this.setState({
+          training_standard: {name: '', description: '', policy: POLICIES[0].id},
+          select_subjects: [],
+          evaluation_template: {
+            name: '', training_results: [], evaluation_standards: [],
+          },
+          errors: null,
+        });
       }
-      this.setState({
-        training_standard: {name: '', description: '', policy: POLICIES[0].id},
-        select_subjects: [],
-        evaluation_template: {
-          name: '', training_results: [], evaluation_standards: [],
-        },
-        errors: null,
-      });
+      step_animations.afterSubmit(target);
     })
     .catch(error => {
       this.setState({errors: error.response.data.errors});
