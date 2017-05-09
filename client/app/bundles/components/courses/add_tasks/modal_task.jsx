@@ -131,9 +131,9 @@ export default class ModalTask extends React.Component {
   }
 
   handleAfterCreated(target) {
-    this.state.selected_items.push(target);
+    this.state.remain_items.push(target);
     this.setState({
-      selected_items: this.state.selected_items,
+      remain_items: this.state.remain_items,
     })
   }
 

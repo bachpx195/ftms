@@ -77,18 +77,19 @@ export default class CreateSurvey extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     axios.post(this.props.url, {
-      task: {
+      targetable: {
         name: this.refs.nameField.value,
         content: this.refs.contentField.value,
+      }, authenticity_token: ReactOnRails.authenticityToken(),
         ownerable_id: this.props.ownerable_id,
         ownerable_type: this.props.ownerable_type,
         type: this.props.type
-      }, authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
       .then(response => {
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
         this.props.handleAfterCreatedSurvey(response.data.target);
+        $('.modal-create-survey').modal('hide');
       })
       .catch(error => console.log(error));
   }
