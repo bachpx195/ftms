@@ -22,7 +22,7 @@ export default class TeamsShowBox extends React.Component {
       training_standard: props.training_standard,
       user_subjects: props.user_subjects,
       subject: props.subject,
-      organizations: props.organizations,
+      organization: props.organization,
       team: props.team,
       statuses: props.statuses,
       course: props.course,
@@ -50,7 +50,7 @@ export default class TeamsShowBox extends React.Component {
             <TeamDetail
               subject={this.state.subject}
               training_standard={this.state.training_standard}
-              organizations={this.state.organizations}
+              organization={this.state.organization}
               team={this.state.team}
             />
             <ListTabs
@@ -109,7 +109,7 @@ export default class TeamsShowBox extends React.Component {
         />
 
         <ModalCreateProject
-          organizations={this.state.organizations}
+          organization={this.state.organization}
           team={this.state.team}
           handleAfterActionProject={this.handleAfterActionProject.bind(this)} />
       </div>

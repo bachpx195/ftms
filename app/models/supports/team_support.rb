@@ -71,7 +71,7 @@ class Supports::TeamSupport
     @documents ||= team.documents
   end
 
-  def organizations
-    @organizations ||= Organization.all
+  def organization
+    @organization ||= team.course_subject.course.program.organization
   end
 end

@@ -80,15 +80,13 @@ export default class FormEditRole extends React.Component {
           data={this.state.functions}
           check_all='none'
           dataChange={this.dataChange.bind(this)}/>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group">
-            <div className="text-right">
-              <buttaxioson type="submit" className="btn btn-primary">
-                {I18n.t("users.buttons.save")}
-              </buttaxioson>
-            </div>
+        <div className="form-group">
+          <div className="text-right">
+            <button onClick={this.handleSubmit.bind(this)} className="btn btn-primary">
+              {I18n.t("users.buttons.save")}
+            </button>
           </div>
-        </form>
+        </div>
       </div>
     )
   }
@@ -98,7 +96,6 @@ export default class FormEditRole extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
     var data = {};
     var functions = [];
     for(var value of this.state.functions){

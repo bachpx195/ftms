@@ -6,19 +6,19 @@ export default class RenderOptions extends React.Component {
 
     this.state = {
       project: props.project,
-      organizations: props.organizations,
+      organization: props.organization,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       project: nextProps.project,
-      organizations: nextProps.organizations
+      organization: nextProps.organization
     });
   }
 
   render() {
-    let objects = this.state.organizations;
+    let objects = this.state.organization;
     return (
       <div className='form-group'>
         <select className='form-control' name='organization_id'
@@ -35,7 +35,7 @@ export default class RenderOptions extends React.Component {
   }
 
   renderOptions() {
-    let objects = this.state.organizations;
+    let objects = this.state.organization;
     if (objects) {
       return objects.map(object => {
         return <option key={object.id}

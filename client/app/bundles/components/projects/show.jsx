@@ -15,7 +15,7 @@ export default class ProjectBox extends React.Component {
       requirements: props.requirements,
       requirement: {},
       project: props.project,
-      organizations: props.organizations,
+      organization: props.organization,
       url: null,
       showForm: false
     }
@@ -27,7 +27,7 @@ export default class ProjectBox extends React.Component {
       this.state.project.course_subject.subject_id, this.state.project.id);
     if (this.state.showForm) {
       form = <Form project={this.state.project} url={project_url}
-        organizations={this.state.organizations}
+        organization={this.state.organization}
         handleAfterUpdate={this.handleAfterUpdate.bind(this)} />;
     }
     let requirements_url = routes.project_requirements_url(this.state.project.id);
