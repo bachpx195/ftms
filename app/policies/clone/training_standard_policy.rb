@@ -1,7 +1,7 @@
 class Clone::TrainingStandardPolicy < ApplicationPolicy
   def create?
     is_owner_organization? && not_owner_training_standard &&
-      (shared? || is_public_training_standard?)
+      (shared? || is_public_training_standard? || same_organization_owner?)
   end
 
   private
@@ -19,5 +19,9 @@ class Clone::TrainingStandardPolicy < ApplicationPolicy
 
   def is_public_training_standard?
     record[:training_standard].publiced?
+  end
+
+  def same_organization_owner?
+    record[:training_standard].organization.owner == record[:organization].owner
   end
 end

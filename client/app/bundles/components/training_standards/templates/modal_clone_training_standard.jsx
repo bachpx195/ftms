@@ -23,7 +23,10 @@ export default class ModalCloneTrainingStandard extends React.Component {
               </h4>
             </div>
             <div className='modal-body'>
-
+              <select className='form-control' ref='organizationField'
+                name='organization'>
+                {this.renderOrganizations()}
+              </select>
             </div>
             <div className="modal-footer">
               <div className="col-md-3 col-md-offset-4">
@@ -40,8 +43,19 @@ export default class ModalCloneTrainingStandard extends React.Component {
     );
   }
 
+  renderOrganizations() {
+    return this.props.cloneable_organizations.map(organization => {
+      return (
+        <option key={organization.id} value={organization.id} >
+          {organization.name}
+        </option>
+        );
+    });
+  }
+
   onSubmitClone() {
-    this.props.onSubmitClone(organization);
+    let selected_org_id = this.refs.organizationField.value;
+    this.props.onSubmitClone(selected_org_id);
     $('.modal-clone-training-standard').modal('hide');
   }
 }
