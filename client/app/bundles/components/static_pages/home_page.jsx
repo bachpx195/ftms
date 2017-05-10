@@ -416,11 +416,9 @@ export default class HomePage extends React.Component {
         errors: response.data.message
       });
       this.setLocalStorage(response.data.current_user);
-      localStorage.setItem('organizations', 
+      localStorage.setItem('organizations',
         JSON.stringify(response.data.organizations));
       localStorage.setItem('profile', JSON.stringify(response.data.profile));
-      localStorage.setItem('owner_organization', 
-        JSON.stringify(response.data.owner_organization));
       window.location.reload();
     })
     .catch(error => this.setState({errors: error.response.data.message}));
