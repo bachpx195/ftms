@@ -29,7 +29,6 @@ export default class Update extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      $('.modalEdit').modal('hide');
       this.props.handleAfterUpdated(response);
     })
     .catch(error => {

@@ -116,6 +116,7 @@ export default class TraineeTypeLists extends React.Component {
   }
 
   handleAfterUpdated(response) {
+    $('.modalEdit').modal('hide');
     this.setState({
       trainee_type: {}
     });

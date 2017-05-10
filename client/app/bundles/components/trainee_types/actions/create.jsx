@@ -29,8 +29,7 @@ export default class Create extends React.Component {
       headers: {'Accept': 'application/json'}
     })
     .then(response => {
-      $('.modalEdit').modal('hide');
-      this.props.handleAfterCreated(response);
+      this.props.handleAfterCreated(response.data.trainee_type);
     })
     .catch(error => {
       console.log(error);

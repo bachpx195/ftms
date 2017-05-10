@@ -2,7 +2,6 @@ import axios from 'axios';
 import Form from './templates/form';
 import React from 'react';
 import TraineeTypeLists from './trainee_types';
-import * as routes from 'config/routes';
 
 export default class TraineeTypeBox extends React.Component {
   constructor(props) {
@@ -36,7 +35,6 @@ export default class TraineeTypeBox extends React.Component {
               <div className='row'>
                 <div className='col-md-8 col-md-offset-2'>
                   <Form
-                    url={routes.trainee_types_url()}
                     handleAfterCreated={this.handleAfterCreated.bind(this)} />
                 </div>
               </div>
@@ -52,8 +50,7 @@ export default class TraineeTypeBox extends React.Component {
     );
   }
 
-  handleAfterCreated(response) {
-    let trainee_type = response.data.trainee_type;
+  handleAfterCreated(trainee_type) {
     this.state.trainee_types.push(trainee_type);
     this.setState({
       trainee_types: this.state.trainee_types,
