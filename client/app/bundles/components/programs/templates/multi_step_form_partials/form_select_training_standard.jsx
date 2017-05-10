@@ -27,7 +27,7 @@ export default class SelectTraningStandard extends React.Component {
       training_standards: nextProps.program_detail.training_standards
     });
   }
-  
+
   render() {
     let training_standard_preview = '';
     if (this.state.current_item) {
@@ -37,7 +37,7 @@ export default class SelectTraningStandard extends React.Component {
           start_date={this.state.start_date} />
       );
     }
-    
+
     return (
       <fieldset>
         <div className='nht-course-date'>
