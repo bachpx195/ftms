@@ -124,15 +124,27 @@ export default class SelectTraningStandard extends React.Component {
     let value = event.target.value
     let training_standard = this.state.training_standards
       .find(result => result.id == value);
-    Object.assign(this.state.course, {training_standard_id: training_standard.id});
+    let end_date = new Date(this.state.course.start_date);
+    Object.assign(this.state.course, {training_standard_id: training_standard.id,
+    });
+    if (!this.state.course.end_date) {
+      end_date.setDate(end_date.getDate() + Math.floor(45/2)*2);
+      this.state.course.end_date = end_date.toISOString().slice(0,10);
+    }
+    this.setState({
+      course: this.state.course,
+      current_item: training_standard
+    });
     this.props.afterInputFormTrainingStandard(this.state.course, training_standard);
   }
 
   handleChangeTime(event) {
     let attribute = event.target.name;
     Object.assign(this.state.course, {[attribute]: event.target.value});
-    this.setState({ course: this.state.course });
-    this.props.afterInputFormTrainingStandard(this.state.course);
+    this.setState({
+      course: this.state.course,
+    });
+    this.props.afterInputFormTrainingStandard(this.state.course, this.state.current_item);
   }
 
   componentWillReceiveProps(nextProps) {
