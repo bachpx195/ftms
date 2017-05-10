@@ -70,18 +70,20 @@ export default class Sidebar extends React.Component {
     }
   }
 
-  renderUrlOrganization() {
-    if (localStorage.current_user !== undefined && 
-      localStorage.organizations !== undefined) {
-      let url = '#';
-      let organizations = JSON.parse(localStorage.organizations);
-      return url = ($.isNumeric(organizations)) ? routes.organizations_url() : 
-        routes.organization_url(organizations.id);
-    }
-  }
-
   render () {
-    let owner_organization = JSON.parse(localStorage.owner_organization);
+    let url = '#';
+    let owner_id_organization = null;
+    let organizations = JSON.parse(localStorage.organizations);
+    if (organizations !== null) {
+      if (organizations.length == 1) {
+        url = routes.organization_url(organizations[0].id);
+        owner_id_organization = organizations[0].owner.id;
+      } else if (organizations.length > 1) {
+        url = routes.organizations_url();
+        owner_id_organization = organizations[0].owner.id;
+      }
+    }
+
     return (
       <aside className='main-sidebar'>
         <section className='sidebar'>
@@ -104,26 +106,18 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
+            <Permit action='organizations'>
+              <li className='header'>{I18n.t('sidebar.main_nav')}</li>
+            </Permit>
             <OrganizationPolicy permit={[{action: ['ownerById'], 
-              target: 'children', data: {id: 1}}]}>
+              target: 'children', data: {id: owner_id_organization}}]}>
               <li data-page='organizations'>
-                <a href={this.renderUrlOrganization()} onClick={this.onClick.bind(this)}>
+                <a href={url} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-universal-access'></i>
                   <span>{I18n.t('sidebar.organizations')}</span>
                 </a>
               </li>
             </OrganizationPolicy>
-            <Permit action='organizations'>
-              <li className='header'>{I18n.t('sidebar.main_nav')}</li>
-            </Permit>
-            <Permit action='organizations'>
-              <li data-page='organizations'>
-                <a href={ORGANIZATIONS_URL} onClick={this.onClick.bind(this)}>
-                  <i className='fa fa-universal-access'></i>
-                  <span>{I18n.t('sidebar.organizations')}</span>
-                </a>
-              </li>
-            </Permit>
             <Permit action='programs'>
               <li data-page='courses'>
                 <a href={COURSES_URL} onClick={this.onClick.bind(this)}>
@@ -326,7 +320,6 @@ export default class Sidebar extends React.Component {
       localStorage.setItem('statistic_menu', 'showed');
     }
   }
-
 
   componentDidMount(){
     let page = localStorage.getItem('page');

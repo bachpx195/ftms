@@ -10,8 +10,7 @@ class SessionsController < Devise::SessionsController
     message = t "devise.sessions.signed_in"
     cookies["current_user_id"] = current_user.id
     render json: {message: message, current_user: current_user, 
-      profile: current_user.profile, organizations: load_organizations, 
-      owner_organization: 1}
+      profile: current_user.profile, organizations: load_organizations}
   end
 
   def failure
@@ -28,12 +27,7 @@ class SessionsController < Devise::SessionsController
 
   private
   def load_organizations
-    if current_user.organizations.length == 1
-      current_user.organizations.first
-    elsif current_user.organizations.length > 1
-      current_user.organizations.length
-    else
-      false
-    end
+    @organizations = Serializers::Programs::OrganizationsSerializer
+      .new(object: current_user.organizations).serializer
   end
 end
