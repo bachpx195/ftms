@@ -11,6 +11,8 @@ export default class ModalCourse extends React.Component {
         <div className='modal-dialog modal-lg clearfix'>
           <div className='modal-content'>
             <div className='modal-header'>
+            <button type='button' className='close' data-dismiss='modal'
+              aria-label='Close'><span aria-hidden='true'>&times;</span></button>
               <h4 className='modal-title'>
                 {I18n.t('programs.modals.create_course')}
               </h4>

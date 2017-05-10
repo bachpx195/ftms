@@ -85,7 +85,7 @@ export default class TrainingStandardPreview extends React.Component {
       end_date = this.props.course.end_date;
     } else {
       end_date = new Date(start_date);
-      end_date.setDate(end_date.getDate() + Math.floor(45/2)*2);
+      end_date.setDate(end_date.getDate() + total_time + Math.floor(total_time/5)*2);
     }
     return (
       <div className='col-sm-12 msform-subject-timeline course-form'
