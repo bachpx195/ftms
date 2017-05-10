@@ -125,6 +125,7 @@ export default class SubjectManagerShowBox extends React.Component {
           ownerable_type={ownerable_type}
           subject={this.props.subject}
           type={this.state.type}
+          subject={this.props.subject}
           handleAfterCreatedTasks={this.handleAfterCreatedTasks.bind(this)}
         />
 

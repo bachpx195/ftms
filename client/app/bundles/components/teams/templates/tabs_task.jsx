@@ -2,12 +2,15 @@ import BlockTasks from '../../subjects/block_tasks';
 import Documents from './documents';
 import ModalPreviewDocument from '../../shareds/modal_preview_document';
 import React from 'react';
+import ModalCreateTasks from '../../subjects/managers/templates/modal_create_tasks';
 
 export default class TabsTask extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabs_group_focus: props.tabs_group_focus
+      tabs_group_focus: props.tabs_group_focus,
+      type: '',
+      meta_types: props.meta_types
     }
   }
 
@@ -66,7 +69,8 @@ export default class TabsTask extends React.Component {
               title={I18n.t('subjects.titles.assignments')}
               handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-              type='assignments'/>
+              type='assignments'
+              handleChooseType={this.handleChooseType.bind(this)} />
           </div>
         </div>
         <div id='tab-surveys' className='tab-pane fade'>
@@ -76,7 +80,8 @@ export default class TabsTask extends React.Component {
               title={I18n.t('subjects.titles.surveys')}
               handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-              type='surveys'/>
+              type='surveys'
+              handleChooseType={this.handleChooseType.bind(this)} />
           </div>
         </div>
         <div id='tab-test-rules' className='tab-pane fade'>
@@ -86,23 +91,38 @@ export default class TabsTask extends React.Component {
               title={I18n.t('subjects.titles.tests')}
               handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-              type='test_rules'/>
+              type='test_rules'
+              handleChooseType={this.handleChooseType.bind(this)} />
           </div>
         </div>
         <div id='tab-projects' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
-              location="team"
+              location='team'
               tasks={this.props.subject_detail.tasks.projects}
               title={I18n.t('subjects.titles.tests')}
               handleChooseType={this.props.handleChooseType}
               handleAfterDeleteTask={this.props.handleAfterDeleteTask}
-              type='projects'/>
+              type='projects'
+              handleChooseType={this.handleChooseType.bind(this)} />
           </div>
         </div>
         <div className='clearfix'></div>
+        <ModalCreateTasks
+          meta_types={this.state.meta_types}
+          subject_detail={this.props.subject_detail}
+          ownerable_id={this.props.subject_detail.course_subject.id}
+          ownerable_type='CourseSubject'
+          subject={this.props.subject}
+          type={this.state.type}
+          handleAfterCreatedTasks={this.props.handleAfterCreatedTasks}
+        />
       </div>
     );
+  }
+
+  handleChooseType(type) {
+    this.setState({type: type});
   }
 
   renderSidebar() {

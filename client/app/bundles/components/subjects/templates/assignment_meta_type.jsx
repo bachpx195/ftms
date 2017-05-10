@@ -5,17 +5,18 @@ import * as routes from 'config/routes';
 export default class AssignmentMetaType extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       meta_types: props.meta_types || [],
       name: '',
-      meta_types_checked: props.meta_types_checked || []
+      meta_types_checked: props.meta_types_checked || [],
+      subject: props.subject
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      meta_types_checked: nextProps.meta_types_checked
+      meta_types_checked: nextProps.meta_types_checked,
+      subject: nextProps.subject
     })
   }
 
@@ -100,7 +101,7 @@ export default class AssignmentMetaType extends React.Component {
 
   handleCreateMetaty(event) {
     event.preventDefault();
-    let subject_id = this.props.subject ? this.props.subject.id : '';
+    let subject_id = this.state.subject ? this.state.subject.id : '';
     axios.post(routes.meta_types_url() + '.json', {
       subject_id: subject_id,
       meta_type: {

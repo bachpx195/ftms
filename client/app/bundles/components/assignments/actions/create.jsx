@@ -13,7 +13,8 @@ export default class Create extends React.Component {
       },
       type: props.type || '',
       meta_types_checked: props.meta_types_checked || [],
-      meta_types: props.meta_types || []
+      meta_types: props.meta_types || [],
+      subject: props.subject
     }
   }
 
@@ -21,7 +22,8 @@ export default class Create extends React.Component {
     this.setState({
       type: nextProps.type || '',
       meta_types: nextProps.meta_types || [],
-      meta_types_checked: nextProps.meta_types_checked || []
+      meta_types_checked: nextProps.meta_types_checked || [],
+      subject: nextProps.subject
     })
   }
 
@@ -61,7 +63,6 @@ export default class Create extends React.Component {
               permit_create_meta_type={this.props.permit_create_meta_type}
               subject={this.props.subject}
               meta_types={this.state.meta_types}
-              subject={this.props.subject}
               meta_types_checked={this.state.meta_types_checked}
               handleAfterCreated={this.handleAfterCreated.bind(this)}
               handleAfterChecked={this.handleAfterChecked.bind(this)}
@@ -108,19 +109,19 @@ export default class Create extends React.Component {
     event.preventDefault();
     axios.post(this.props.url, {
       meta_types_checked: this.state.meta_types_checked,
-      task: {
+      targetable: {
         name: this.refs.nameField.value,
-        content: this.refs.contentField.value,
-        ownerable_id: this.props.ownerable_id,
-        ownerable_type: this.props.ownerable_type,
-        type: this.props.type
-      }, authenticity_token: ReactOnRails.authenticityToken()
+        content: this.refs.contentField.value
+      },
+      ownerable_id: this.props.ownerable_id,
+      ownerable_type: this.props.ownerable_type,
+      type: this.props.type,
+      authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)
       .then(response => {
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
-        this.props.handleAfterCreatedAssignment(this.state.meta_types,
-          response.data.target);
+        this.props.handleAfterCreatedAssignment(response.data.target);
       })
       .catch(error => console.log(error));
   }

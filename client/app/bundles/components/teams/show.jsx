@@ -31,7 +31,7 @@ export default class TeamsShowBox extends React.Component {
       document_preview: {},
       subject_detail: props.team_detail,
       type: '',
-      meta_types: []
+      meta_types: props.meta_types
     }
   }
 
