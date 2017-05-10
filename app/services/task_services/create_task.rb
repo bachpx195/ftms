@@ -13,9 +13,9 @@ class TaskServices::CreateTask
     task = class_eval(@type.classify).new params
     task.creator_id = @current_user.id
     if task.save
-      static_task = StaticTask.create targetable_id: task.id, 
-        targetable_type: @type, ownerable_id: @ownerable_id, 
-        ownerable_type: @ownerable_id
+      static_task = StaticTask.create targetable_id: task.id,
+        targetable_type: @type, ownerable_id: @ownerable_id,
+        ownerable_type: @ownerable_type
     else
       false
     end

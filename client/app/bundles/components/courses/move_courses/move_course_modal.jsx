@@ -172,7 +172,7 @@ export default class ModalChangeCourse extends React.Component {
         course_checked: target.value
       });
     } else {
-      axios.get(routes.move_course_url(this.state.course.id) + ".json")
+      axios.get(routes.move_course_url(target.value) + ".json")
         .then(response => {
           this.setState({
             target_subjects: response.data.subjects,

@@ -20,7 +20,7 @@ class UserSubject < ApplicationRecord
   has_many :dynamic_test_rules, through: :static_tasks, source: :targetable,
     source_type: TestRule.name
 
-  enum status: [:init, :in_progress, :finished, :reject]
+  enum status: [:init, :in_progress, :finished, :rejected]
 
   %w(assignments projects surveys test_rules).each do |task|
     define_method task do

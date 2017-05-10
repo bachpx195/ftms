@@ -103,7 +103,7 @@ en:
       init: Init
       finished: Finished
       in_progress: In progress
-      reject: Reject
+      rejected: Rejected
     days: " days"
     start_date: "Start date: "
     buttons:
