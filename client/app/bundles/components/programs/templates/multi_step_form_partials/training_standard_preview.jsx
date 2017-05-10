@@ -1,26 +1,117 @@
 import React from 'react';
 
 export default class TrainingStandardPreview extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      start_date: props.start_date
+    };
+  }
+
+  componentDidMount() {
+    this.props.afterRenderTimeline();
+  }
+
+  componentDidUpdate() {
+    this.props.afterRenderTimeline();
+  }
+
   render() {
-    let render_task = null;
-    render_task = (
-      <div>
-        <strong>{this.props.current_item.name}</strong><br/>
-        <span>{this.props.current_item.description}
-        </span><br/>
-      </div>
-    )
+    let render_current_item = null;
+    let total_time = 0;
+    if (this.props.current_item != '') {
+      this.props.current_item.subjects.map(subject => {
+        total_time += parseInt(subject.during_time);
+      });
+      render_current_item = (
+        <div id='program-intern' className='clearfix'>
+          <div className='container msform-relative'>
+            {this.renderTimelineContent()}
+          </div>
+        </div>
+      );
+    }
     return (
-      <div className='col-md-6'>
-        <div className='panel panel-default'>
-          <div className='panel-heading'>
-            {I18n.t('training_standards.preview')}
+      <div>
+        <section className='msform-program-progress'>
+          {render_current_item}
+        </section>
+        <h4>
+          {I18n.t('programs.multi_step_form.total_working_day')}
+          {total_time}
+        </h4>
+      </div>
+    );
+  }
+
+  renderTimeLineItems() {
+    let orientation = 'down';
+    return this.props.current_item.subjects.map(subject => {
+      let day = I18n.t('training_standards.subject_preview.day');
+      let time = parseInt(subject.during_time);
+      if (time > 1 || time == 0) {
+        day = I18n.t('training_standards.subject_preview.days');
+      }
+      orientation = orientation == 'down' ? 'up' : 'down';
+      return (
+        <div key={subject.id} className={`col-sm-3 timeline-block ${orientation}`}
+          data-col={subject.during_time}>
+          <div className='timeline-content'>
+            <div className='timeline-heading'>
+              <div className='img'>
+                <img src={subject.image.url} className='img-circle' />
+              </div>
+            </div>
+            <div className='timeline-body'>
+              <h3 className='title'>{subject.name}</h3>
+              <h4 className='subject-duration'>
+                {subject.during_time + day}
+              </h4>
+            </div>
           </div>
-          <div className='panel-body'>
-            {render_task}
+        </div>
+      );
+    });
+  }
+
+  renderTimelineContent() {
+    let total_time = 7;
+    this.props.current_item.subjects.map(subject => {
+      total_time += parseInt(subject.during_time);
+    });
+    let time = new Date(this.props.start_date)
+    return (
+      <div className='col-sm-12 msform-subject-timeline course-form'
+        data-total-col={total_time}>
+        <div className='event1Bubble'>
+          <div className='eventTime'>
+            <div className='Day'>
+              {this.renderFormatTime(time)}
+            </div>
           </div>
+          <div className='eventTitle'>{I18n.t('courses.start_date')}</div>
+        </div>
+        {this.renderTimeLineItems()}
+        <div className='event2Bubble'>
+          <div className='eventTime'>
+            <div className='DayDigit'>{I18n.t('programs.multi_step_form.day_digit')}
+            </div>
+            <div className='Day'>
+               {I18n.t('programs.multi_step_form.day')}
+              <div className='MonthYear'>{I18n.t('programs.multi_step_form.month')}
+              </div>
+            </div>
+          </div>
+          <div className='eventTitle'></div>
         </div>
       </div>
     );
+  }
+
+  renderFormatTime(time) {
+    if (time != null) {
+      return I18n.l('date.formats.default', time);
+    }
+    return null;
   }
 }

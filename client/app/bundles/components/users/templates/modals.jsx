@@ -1,8 +1,8 @@
 import React from 'react';
-import ModalUniversity from 'components/universities/templates/modal';
-import ModalTrainee from 'components/trainee_types/templates/modal';
-import ModalLanguage from 'components/languages/templates/modal';
-import ModalStage from 'components/stages/templates/modal_edit';
+import ModalUniversity from '../../universities/templates/modal';
+import ModalTrainee from '../..//trainee_types/templates/modal';
+import ModalLanguage from '../../languages/templates/modal';
+import ModalStage from '../../stages/templates/modal_edit';
 
 export default class Modals extends React.Component {
   constructor(props) {

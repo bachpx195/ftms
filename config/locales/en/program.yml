@@ -42,3 +42,16 @@ en:
     user_panel:
       title: "Create User"
       user_numbers: "Number of Users: "
+    multi_step_form:
+      course_info: "Course Info"
+      select_training_standard: "Select Training Standard"
+      assign_owner: "Assign Owner"
+      total_working_day: "Total working day"
+      day_digit: "17"
+      day: "Thurday"
+      month: "April 2020"
+    button:
+      cancel: "Cancel"
+      previous: "Previous"
+      next: "Next"
+      submit: "Submit"

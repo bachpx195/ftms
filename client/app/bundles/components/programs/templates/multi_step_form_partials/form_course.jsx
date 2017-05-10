@@ -13,24 +13,24 @@ export default class FormCourse extends React.Component {
     super(props);
     this.state = {
       program_detail: {},
-      course: {},
+      course: props.course,
       image: {},
       changeImage: false,
-      errors: null
     };
   }
 
   render() {
     let image = '';
-    if (this.state.image) {
-      if (this.state.image.url) {
+    if (this.state.course.image) {
+      if (this.state.course.image.url) {
         image = <img src={this.state.image.url} />;
-      } else if (this.state.image.preview) {
-        image = <img src={this.state.image.preview} />;
+      } else if (this.state.course.image.preview) {
+        image = <img src={this.state.course.image.preview} />;
       }
     }
+
     return (
-      <div>
+      <fieldset>
         <div className='form-group'>
           <div className='dropzone'>
             <div className='form-group'>
@@ -51,8 +51,10 @@ export default class FormCourse extends React.Component {
           </div>
         </div>
         <div className='form-group'>
-          <select className='form-control' name='language_id'
-            onChange={this.handleChange.bind(this)}>
+          <select className='form-control select' name='language_id'
+            onChange={this.handleChange.bind(this)}
+            value={this.state.course.language_id || ''}
+            >
             <option value=''>{I18n.t('courses.select_languages')}</option>
             {this.renderOptions(this.state.program_detail.languages)}
           </select>
@@ -60,43 +62,47 @@ export default class FormCourse extends React.Component {
         <div className='form-group'>
           <input type='text' placeholder={I18n.t('courses.headers.name')}
             onChange={this.handleChange.bind(this)}
-            className='form-control' name='name' />
+            className='form-control' name='name'
+            value={this.state.course.name}
+            />
         </div>
         <div className='form-group'>
           <input type='text' placeholder={I18n.t('courses.headers.description')}
             onChange={this.handleChange.bind(this)}
-            className='form-control' name='description' />
+            className='form-control' name='description'
+            value={this.state.course.description}/>
         </div>
         <div className='form-group'>
           <input type='hidden' onChange={this.handleChange.bind(this)}
             value={this.props.program.id} name='program_id' />
         </div>
-        <div className='nht-course-date'>
-          <div className='col-sm-6 course-start-date'>
-            <label>{I18n.t('courses.start_date')}</label>
-            <input type='date' onChange={this.handleChange.bind(this)}
-              name='start_date' className='form-control'/>
-          </div>
-
-          <div className='col-sm-6 course-end-date'>
-            <label>{I18n.t('courses.end_date')}</label>
-            <input type='date' onChange={this.handleChange.bind(this)}
-              name='end_date' className='form-control' />
-          </div>
+        <div className='text-center col-md-12'>
+          <input type='button' name='cancel' className='cancel action-button'
+            value={I18n.t('programs.button.cancel')}
+            onClick={this.props.onCancelForm}/>
+          <input type='button' name='next' className='next action-button'
+            value={I18n.t('programs.button.next')}
+            onClick={this.props.onClickNext}/>
         </div>
-        <br/>
-      </div>
+      </fieldset>
     );
   }
 
   renderOptions(objects) {
     if (objects) {
       return objects.map(object => {
-        return <option key={object.id}
-          value={object.id}>{object.name}</option>;
+        return <option key={object.id} value={object.id}>
+            {object.name}
+          </option>;
       });
     }
     return null;
+  }
+
+  onClickOption(event) {
+    this.setState({
+      languages_id: event.target.value
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -105,7 +111,8 @@ export default class FormCourse extends React.Component {
       changeImage: false,
       errors: null,
       all_roles: nextProps.all_roles,
-      owners: nextProps.owners
+      owners: nextProps.owners,
+      course: nextProps.course
     });
   }
 
@@ -115,6 +122,7 @@ export default class FormCourse extends React.Component {
     this.setState({
       course: this.state.course
     });
+    this.props.afterInputFormCourse(this.state.course, this.state.image)
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -122,6 +130,7 @@ export default class FormCourse extends React.Component {
       image: acceptedFiles[0],
       changeImage: true
     });
+    this.props.afterInputFormCourse(this.state.course, this.state.image)
   }
 
   onOpenClick() {

@@ -69,7 +69,6 @@ export function onCancelForm(event) {
   let $form = $(target).closest('form');
   first_fs = $('fieldset', $form).first();
   current_fs = $(target).closest('fieldset');
-
   $('fieldset', $form).each(function() {
     $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index($(this)))
       .removeClass('active').removeClass('highlighted');
@@ -77,7 +76,6 @@ export function onCancelForm(event) {
       'transform': 'scale(1)'});
     $(this).hide();
   });
-
   $('.multi-step-progress-bar li', $form).eq($('fieldset', $form).index(first_fs))
     .addClass('active').addClass('highlighted');
   first_fs.show();
