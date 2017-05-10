@@ -138,7 +138,7 @@ export default class TeamsShowBox extends React.Component {
       user: user,
       user_index: user_index
     })
-    $('.modal-assign').modal();
+    $('.modal-assign-member').modal();
   }
 
 

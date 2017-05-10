@@ -16,7 +16,7 @@ class Serializers::Profiles::UserSubjectsSerializer <
   def tasks
     tasks = []
     DynamicTask.where(ownerable: object.course_subject,
-      user_id: object.user_id).each do |task|
+      objectable_id: object.user_id, objectable_type: "User").each do |task|
       tasks << Serializers::Profiles::TasksSerializer.new(object: task).serializer
     end
     tasks
