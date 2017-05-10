@@ -73,7 +73,6 @@ export default class Sidebar extends React.Component {
   renderUrlOrganization() {
     if (localStorage.current_user !== undefined && 
       localStorage.organizations !== undefined) {
-      let current_user = JSON.parse(localStorage.current_user);
       let url = '#';
       let organizations = JSON.parse(localStorage.organizations);
       return url = ($.isNumeric(organizations)) ? routes.organizations_url() : 
@@ -106,7 +105,7 @@ export default class Sidebar extends React.Component {
               </li>
             </Permit>
             <OrganizationPolicy permit={[{action: ['ownerById'], 
-              target: 'children', data: {id: owner_organization.id}}]}>
+              target: 'children', data: {id: 1}}]}>
               <li data-page='organizations'>
                 <a href={this.renderUrlOrganization()} onClick={this.onClick.bind(this)}>
                   <i className='fa fa-universal-access'></i>
