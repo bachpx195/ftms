@@ -3,6 +3,7 @@ import Permit from 'policy/sidebar_policy';
 import CustomPolicy from 'policy/course_policy';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
+import OrganizationPolicy from 'policy/organization_policy';
 
 const LANGUAGES_URL = routes.languages_url();
 const ORGANIZATIONS_URL = routes.organizations_url();
@@ -69,7 +70,19 @@ export default class Sidebar extends React.Component {
     }
   }
 
+  renderUrlOrganization() {
+    if (localStorage.current_user !== undefined && 
+      localStorage.organizations !== undefined) {
+      let current_user = JSON.parse(localStorage.current_user);
+      let url = '#';
+      let organizations = JSON.parse(localStorage.organizations);
+      return url = ($.isNumeric(organizations)) ? routes.organizations_url() : 
+        routes.organization_url(organizations.id);
+    }
+  }
+
   render () {
+    let owner_organization = JSON.parse(localStorage.owner_organization);
     return (
       <aside className='main-sidebar'>
         <section className='sidebar'>
@@ -92,6 +105,15 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </Permit>
+            <OrganizationPolicy permit={[{action: ['ownerById'], 
+              target: 'children', data: {id: owner_organization.id}}]}>
+              <li data-page='organizations'>
+                <a href={this.renderUrlOrganization()} onClick={this.onClick.bind(this)}>
+                  <i className='fa fa-universal-access'></i>
+                  <span>{I18n.t('sidebar.organizations')}</span>
+                </a>
+              </li>
+            </OrganizationPolicy>
             <Permit action='organizations'>
               <li className='header'>{I18n.t('sidebar.main_nav')}</li>
             </Permit>

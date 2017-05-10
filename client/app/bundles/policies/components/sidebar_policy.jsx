@@ -11,9 +11,11 @@ export default class Permit extends BasePolicy {
     for(var policy of this.ALLOW_FUNCTIONS) {
       policies.push(policy['controller'])
     }
-
-    if($.inArray(this.props.action, policies) >= 0)
-      return this.props.children;
+    var checkCustom = true;
+    var checkController =  $.inArray(this.props.action, policies) >= 0;
+    if (this.props.custom) checkCustom = this.helperPolicy.isAllowCustomFunction(
+      this.props.custom, {data: this.props.data});
+    if (checkController && checkCustom) return this.props['children']
     else return null;
   }
 }

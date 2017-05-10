@@ -101,7 +101,7 @@ export function organizations_url() {
 }
 
 export function organization_url(id) {
-  return organizations_url() + '/' + id; 'organization'
+  return organizations_url() + '/' + id;
 }
 
 //program

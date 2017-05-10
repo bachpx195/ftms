@@ -9,7 +9,9 @@ class SessionsController < Devise::SessionsController
     yield resource if block_given?
     message = t "devise.sessions.signed_in"
     cookies["current_user_id"] = current_user.id
-    render json: {message: message, current_user: current_user, profile: current_user.profile}
+    render json: {message: message, current_user: current_user, 
+      profile: current_user.profile, organizations: load_organizations, 
+      owner_organization: load_organizations.owner}
   end
 
   def failure
@@ -21,6 +23,17 @@ class SessionsController < Devise::SessionsController
           status: :unprocessable_entity
       end
       format.html{redirect_to "/users/sessions/new"}
+    end
+  end
+
+  private
+  def load_organizations
+    if current_user.organizations.length == 1
+      current_user.organizations.first
+    elsif current_user.organizations.length > 1
+      current_user.organizations.length
+    else
+      false
     end
   end
 end
