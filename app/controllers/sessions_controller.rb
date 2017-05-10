@@ -11,7 +11,7 @@ class SessionsController < Devise::SessionsController
     cookies["current_user_id"] = current_user.id
     render json: {message: message, current_user: current_user, 
       profile: current_user.profile, organizations: load_organizations, 
-      owner_organization: load_organizations.owner}
+      owner_organization: 1}
   end
 
   def failure
