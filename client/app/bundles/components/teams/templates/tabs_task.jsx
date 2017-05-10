@@ -65,6 +65,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-assignments' className='tab-pane fade in active'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.props.subject_detail.course_subject}
               tasks={this.props.subject_detail.tasks.assignments}
               title={I18n.t('subjects.titles.assignments')}
               handleChooseType={this.props.handleChooseType}
@@ -76,6 +77,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-surveys' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.props.subject_detail.course_subject}
               tasks={this.props.subject_detail.tasks.surveys}
               title={I18n.t('subjects.titles.surveys')}
               handleChooseType={this.props.handleChooseType}
@@ -87,6 +89,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-test-rules' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.props.subject_detail.course_subject}
               tasks={this.props.subject_detail.tasks.test_rules}
               title={I18n.t('subjects.titles.tests')}
               handleChooseType={this.props.handleChooseType}
@@ -98,6 +101,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-projects' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.props.subject_detail.course_subject}
               location='team'
               tasks={this.props.subject_detail.tasks.projects}
               title={I18n.t('subjects.titles.tests')}

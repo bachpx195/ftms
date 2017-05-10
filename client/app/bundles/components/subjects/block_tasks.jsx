@@ -94,6 +94,8 @@ export default class BlockTasks extends React.Component{
   }
 
   _renderActionCreate(type) {
+    if (this.props.course_subject.status == 'finished') return null;
+
     let button_create = '';
     if (this.props.location == 'course_subject' && type == 'projects') {
       button_create = '';
@@ -115,7 +117,6 @@ export default class BlockTasks extends React.Component{
         ) : ('')}
       </div>
     );
-
   }
 
   handleClickCreateTask(event) {
