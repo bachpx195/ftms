@@ -66,6 +66,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-assignments' className='tab-pane fade in active'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.state.subject_detail.course_subject}
               course={this.props.course}
               tasks={tasks.assignments}
               title={I18n.t('subjects.titles.assignments')}
@@ -77,6 +78,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-surveys' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.state.subject_detail.course_subject}
               course={this.props.course}
               tasks={tasks.surveys}
               title={I18n.t('subjects.titles.surveys')}
@@ -88,6 +90,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-test-rules' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.state.subject_detail.course_subject}
               course={this.props.course}
               tasks={tasks.test_rules}
               title={I18n.t('subjects.titles.tests')}
@@ -100,6 +103,7 @@ export default class TabsTask extends React.Component {
         <div id='tab-projects' className='tab-pane fade'>
           <div className='clearfix'>
             <BlockTasks
+              course_subject={this.state.subject_detail.course_subject}
               course={this.props.course}
               location='course_subject'
               tasks={this.state.subject_detail.projects}

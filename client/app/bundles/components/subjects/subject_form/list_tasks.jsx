@@ -64,6 +64,18 @@ export default class ListTasks extends React.Component {
       }
     ];
 
+    let buttonCreateTask = null;
+    if (this.props.subject_detail.course_subject.status != 'finished') {
+      buttonCreateTask = (
+        <div className='text-center'>
+          <button type='button' className='btn btn-primary'
+            onClick={this.handleSubmitCreateTask.bind(this)}>
+            {I18n.t("assignments.create_static_task")}
+          </button>
+        </div>
+      );
+    }
+
     return(
       <div className='panel-task'>
         <div className='list-task'>
@@ -73,12 +85,7 @@ export default class ListTasks extends React.Component {
             defaultFilterMethod={react_table_ultis.defaultFilter}
           />
         </div>
-        <div className='text-center'>
-          <button type='button' className='btn btn-primary'
-            onClick={this.handleSubmitCreateTask.bind(this)}>
-            {I18n.t("assignments.create_static_task")}
-          </button>
-        </div>
+        {buttonCreateTask}
       </div>
     );
   }
