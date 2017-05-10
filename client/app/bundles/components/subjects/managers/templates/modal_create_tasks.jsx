@@ -1,7 +1,7 @@
-import React from 'react';
-import * as app_constants from 'constants/app_constants';
 import FromCreateAssignment from '../../../assignments/actions/create';
 import FormCreateSurvey from '../../../surveys/actions/create';
+import React from 'react';
+import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
 
 export default class ModalCreateTasks extends React.Component {
@@ -77,8 +77,6 @@ export default class ModalCreateTasks extends React.Component {
         type='Survey'
         handleAfterCreatedSurvey={this.handleAfterCreatedTasks.bind(this)}
       />
-    } else if (type == "test_rules") {
-      return ('')
     } else {
       return null;
     }

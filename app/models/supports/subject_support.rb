@@ -117,4 +117,14 @@ class Supports::SubjectSupport
     @course.members.include? @current_user if @course
     @course_subject.course.members.include? @current_user if @course_subject
   end
+
+  def categories
+    Serializers::Categories::CategoriesSerializer
+      .new(object: Category.all).serializer
+  end
+
+  def questions
+    Serializers::Categories::QuestionsSerializer
+      .new(object: Question.all).serializer
+  end
 end

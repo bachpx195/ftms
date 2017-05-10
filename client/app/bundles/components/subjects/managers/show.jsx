@@ -9,6 +9,7 @@ import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumb/show';
 import SubjectManagerInfo from  './templates/subject_manager_info';
 import SubjectPolicy from 'policy/subject_policy';
+import ModalTestRule from '../../test_rules/templates/modal_testrule';
 
 const SUBJECT_TASKS_URL = routes.subject_tasks_url();
 
@@ -30,6 +31,9 @@ export default class SubjectManagerShowBox extends React.Component {
       documents: props.subject_detail.documents,
       document_preview: {},
       type: '',
+      categories: props.categories,
+      questions: props.questions,
+      test_rule: {categories: [], questions: []}
     }
   }
 
@@ -136,6 +140,16 @@ export default class SubjectManagerShowBox extends React.Component {
           ownerable_type={ownerable_type}
           handleAfterAssignTask={this.handleAfterAssignTask.bind(this)}
         />
+
+        <ModalTestRule
+          test_rule={this.state.test_rule}
+          afterCreateTestRule={this.handleAfterCreatedTasks.bind(this)}
+          categories={this.props.categories}
+          questions={this.props.questions}
+          url={SUBJECT_TASKS_URL}
+          subject_detail={this.state.subject_detail}
+          ownerable_type='CourseSubject'
+          ownerable_id={this.state.subject_detail.course_subject.id} />
       </div>
     );
   }

@@ -121,7 +121,8 @@ export default class BlockTasks extends React.Component{
 
   handleClickCreateTask(event) {
     this.props.handleChooseType(this.props.type);
-    $('.modal-create-tasks').modal();
+    (this.props.type == 'test_rules') ? $('.modalForm').modal() : $(
+      '.modal-create-tasks').modal();
   }
 
   handleClickAssignTask(event) {
