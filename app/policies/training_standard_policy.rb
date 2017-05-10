@@ -1,18 +1,22 @@
 class TrainingStandardPolicy < ApplicationPolicy
+  def index?
+    is_owner_organization? || super
+  end
+
   def create?
-    is_creator_organization? || (super && belong_to_organization?)
+    is_owner_organization? || (super && belong_to_organization?)
   end
 
   def show?
-    is_creator_organization? || (super && has_function?)
+    is_owner_organization? || (super && has_function?)
   end
 
   def update?
-     is_creator_organization? || (super && has_function?)
+     is_owner_organization? || (super && has_function?)
   end
 
   def destroy?
-     is_creator_organization? || (super && has_function?)
+     is_owner_organization? || (super && has_function?)
   end
 
   private
@@ -26,7 +30,11 @@ class TrainingStandardPolicy < ApplicationPolicy
   end
 
   def is_owner_organization?
-    record[:training_standard].organization.owner == @user
+    if record[:training_standard]
+      record[:training_standard].organization.owner == @user
+    else
+      record[:organization].owner == @user
+    end
   end
 
   def is_creator_training_standard?

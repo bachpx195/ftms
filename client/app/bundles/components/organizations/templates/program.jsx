@@ -44,7 +44,7 @@ export default class Program extends React.Component{
           <div className="function col-xs-6">
             <div className="list-function hidden">
               <ProgramPolicy permit={[
-                {action: ['ownerById'], data: {id: this.state.program.owner_id}},
+                {action: ['ownerById'], data: {id: this.state.organization.owner.id}},
                 {action: ['update', 'creator'], data: this.state.organization},
                 {action: ['update', 'creator'], data: this.state.program},
                 {action: ['update', 'belongById'],
@@ -56,7 +56,7 @@ export default class Program extends React.Component{
                   onClick={this.afterClickEdit.bind(this)}></i>
               </ProgramPolicy>
               <ProgramPolicy permit={[
-                {action: ['ownerById'], data: {id: this.state.program.owner_id}},
+                {action: ['ownerById'], data: {id: this.state.organization.owner.id}},
                 {action: ['destroy', 'creator'],  data: this.state.organization},
                 {action: ['destroy', 'creator'],  data: this.state.program},
                 {action: ['destroy', 'belongById'],

@@ -16,7 +16,7 @@ export default class Clone extends React.Component {
     $('.modal-clone-training-standard').modal();
   }
 
-  onSubmitClone(organization) {
+  onSubmitClone(organization_id) {
     if (confirm(I18n.t('data.confirm_clone'))) {
       let clone_url = routes.clone_url();
       axios({
@@ -25,15 +25,15 @@ export default class Clone extends React.Component {
         data: {
           clone:{
             training_standard_id: this.state.training_standard.id,
-            organization_id: organization.id
+            organization_id: organization_id
           },
           authenticity_token: ReactOnRails.authenticityToken()
         },
         headers: {'Accept': 'application/json'}
       }).then(response => {
         let new_training_standard = response.data.training_standard;
-        let training_standard_url = routes.organization_training_standard_url(
-          organization.id, new_training_standard.id);
+        let training_standard_url = routes
+          .training_standard_url(new_training_standard.id);
         window.location.href =  training_standard_url;
       }).catch(error => {
         this.setState({errors: error.response.data.errors});
@@ -46,6 +46,7 @@ export default class Clone extends React.Component {
       <span>
         <ModalCloneTrainingStandard
           training_standard={this.state.training_standard}
+          cloneable_organizations={this.props.cloneable_organizations}
           onSubmitClone={this.onSubmitClone.bind(this)} />
         <button type='button' className='btn btn-success header-button'
           onClick={this.onClone.bind(this)}>

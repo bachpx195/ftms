@@ -30,6 +30,7 @@ export default class TrainingStandardShow extends React.Component {
       selected_subjects: props.selected_subjects,
       remain_subjects: props.remain_subjects,
       standard_organizations: props.standard_organizations,
+      cloneable_organizations: props.cloneable_organizations,
       subjects: [],
     }
   }
@@ -40,6 +41,7 @@ export default class TrainingStandardShow extends React.Component {
         <Header evaluation_template={this.state.evaluation_template}
           training_standard={this.state.training_standard}
           organization={this.props.organization}
+          cloneable_organizations={this.state.cloneable_organizations}
           standard_organizations={this.state.standard_organizations} />
         <div className='nav-tabs-custom'>
           <ul className='nav nav-tabs nav-user'>

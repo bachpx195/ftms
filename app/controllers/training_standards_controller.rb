@@ -71,7 +71,7 @@ class TrainingStandardsController < ApplicationController
 
   def load_supports
     @training_standard_supports = Supports::TrainingStandardSupport
-      .new params: params
+      .new params: params, current_user: current_user
   end
 
   def find_training_standard

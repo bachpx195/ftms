@@ -1,6 +1,7 @@
 class Supports::TrainingStandardSupport
   def initialize args = {}
     @params = args[:params]
+    @current_user = args[:current_user]
     @is_shared = args[:params][:is_shared]
   end
 
@@ -58,5 +59,18 @@ class Supports::TrainingStandardSupport
   def evaluation_template
     Serializers::TrainingStandards::EvaluationTemplateSerializer
       .new(object: training_standard.evaluation_template).serializer
+  end
+
+  def cloneable_organizations
+    @cloneable_organizations = Array.new
+    if training_standard.publiced? || training_standard.organization
+      .owner == @current_user
+      @cloneable_organizations = @current_user.organizations
+        .where.not id: training_standard.organization_id
+    else
+      @cloneable_organizations = training_standard.shared_organizations
+        .where owner: @current_user
+    end
+    @cloneable_organizations
   end
 end
