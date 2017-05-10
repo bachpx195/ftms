@@ -18,11 +18,14 @@ export default class SelectTraningStandard extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.current_item) {
+      this.showEndDate(nextProps.course.start_date, nextProps.current_item)
+    }
     this.setState({
       program_detail: nextProps.program_detail,
       errors: null,
       owners: nextProps.owners,
-      course: nextProps.course,
+      course: this.state.course,
       current_item: nextProps.current_item,
       training_standards: nextProps.program_detail.training_standards
     });
@@ -124,13 +127,8 @@ export default class SelectTraningStandard extends React.Component {
     let value = event.target.value
     let training_standard = this.state.training_standards
       .find(result => result.id == value);
-    let end_date = new Date(this.state.course.start_date);
-    Object.assign(this.state.course, {training_standard_id: training_standard.id,
-    });
-    if (!this.state.course.end_date) {
-      end_date.setDate(end_date.getDate() + Math.floor(45/2)*2);
-      this.state.course.end_date = end_date.toISOString().slice(0,10);
-    }
+    Object.assign(this.state.course, {training_standard_id: training_standard.id});
+    this.showEndDate(this.state.course.start_date, training_standard);
     this.setState({
       course: this.state.course,
       current_item: training_standard
@@ -147,14 +145,17 @@ export default class SelectTraningStandard extends React.Component {
     this.props.afterInputFormTrainingStandard(this.state.course, this.state.current_item);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      program_detail: nextProps.program_detail,
-      errors: null,
-      all_roles: nextProps.all_roles,
-      owners: nextProps.owners,
-      course: nextProps.course,
-      current_item: nextProps.current_item
+  showEndDate(start_date, training_standard) {
+    let total_time = 0;
+    training_standard.subjects.map(subject => {
+      total_time += parseInt(subject.during_time);
     });
+    if (start_date) { 
+      if (!this.state.course.end_date) {
+        let end_date = new Date(start_date);
+        end_date.setDate(end_date.getDate() + total_time + Math.floor(total_time/5)*2);
+        this.state.course.end_date = end_date.toISOString().slice(0,10);
+      }
+    }
   }
 }
