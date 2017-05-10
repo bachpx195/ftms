@@ -12,11 +12,22 @@ export default class FormCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      program_detail: {},
+      program_detail: props.program_detail,
       course: props.course,
       image: {},
       changeImage: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      program_detail: nextProps.program_detail,
+      changeImage: false,
+      errors: null,
+      all_roles: nextProps.all_roles,
+      owners: nextProps.owners,
+      course: nextProps.course
+    });
   }
 
   render() {
@@ -103,17 +114,6 @@ export default class FormCourse extends React.Component {
     this.setState({
       languages_id: event.target.value
     })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      program_detail: nextProps.program_detail,
-      changeImage: false,
-      errors: null,
-      all_roles: nextProps.all_roles,
-      owners: nextProps.owners,
-      course: nextProps.course
-    });
   }
 
   handleChange(event) {

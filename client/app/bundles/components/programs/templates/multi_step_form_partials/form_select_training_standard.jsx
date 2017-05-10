@@ -34,7 +34,7 @@ export default class SelectTraningStandard extends React.Component {
       training_standard_preview = (
         <TrainingStandardPreview current_item={this.state.current_item}
           afterRenderTimeline={this.props.afterRenderTimeline}
-          start_date={this.state.start_date} />
+          course={this.state.course} />
       );
     }
 

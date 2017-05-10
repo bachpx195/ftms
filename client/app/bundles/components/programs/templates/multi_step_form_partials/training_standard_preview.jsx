@@ -79,14 +79,16 @@ export default class TrainingStandardPreview extends React.Component {
     this.props.current_item.subjects.map(subject => {
       total_time += parseInt(subject.during_time);
     });
-    let time = new Date(this.props.start_date)
+    let start_date = new Date(this.props.course.start_date);
+    let end_date = new Date(start_date);
+    end_date.setDate(end_date.getDate() + Math.floor(45/2)*2);
     return (
       <div className='col-sm-12 msform-subject-timeline course-form'
         data-total-col={total_time}>
         <div className='event1Bubble'>
           <div className='eventTime'>
             <div className='Day'>
-              {this.renderFormatTime(time)}
+              {this.renderFormatTime(start_date)}
             </div>
           </div>
           <div className='eventTitle'>{I18n.t('courses.start_date')}</div>
@@ -94,15 +96,11 @@ export default class TrainingStandardPreview extends React.Component {
         {this.renderTimeLineItems()}
         <div className='event2Bubble'>
           <div className='eventTime'>
-            <div className='DayDigit'>{I18n.t('programs.multi_step_form.day_digit')}
-            </div>
             <div className='Day'>
-               {I18n.t('programs.multi_step_form.day')}
-              <div className='MonthYear'>{I18n.t('programs.multi_step_form.month')}
-              </div>
+              {this.renderFormatTime(end_date)}
             </div>
           </div>
-          <div className='eventTitle'></div>
+          <div className='eventTitle'>{I18n.t('courses.end_date')}</div>
         </div>
       </div>
     );

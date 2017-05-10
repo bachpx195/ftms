@@ -12,7 +12,7 @@ export default class ModalCourse extends React.Component {
           <div className='modal-content'>
             <div className='modal-header'>
               <h4 className='modal-title'>
-                {I18n.t('training_standards.modals.create')}
+                {I18n.t('programs.modals.create_course')}
               </h4>
             </div>
             <form className='multi-step-form row'>
