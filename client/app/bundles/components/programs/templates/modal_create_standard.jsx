@@ -19,7 +19,8 @@ export default class ModalCreateStandard extends React.Component {
   }
 
   render() {
-    let standard_name, class_policy = '';
+    let standard_name = '';
+    let class_policy = <i className='fa fa-globe'></i>;
     if (this.state.training_standard) {
       if (this.state.training_standard.policy != '') {
         class_policy = <i className='fa fa-globe'></i>;
@@ -41,7 +42,6 @@ export default class ModalCreateStandard extends React.Component {
               </button>
               <h4 className='modal-title'>
                 {class_policy}&nbsp;
-                {I18n.t('training_standards.modals.create')}:&nbsp;
                 {standard_name}
               </h4>
             </div>

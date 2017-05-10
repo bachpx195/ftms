@@ -90,29 +90,13 @@ export default class AssignSubjectStep extends React.Component {
   }
 
   render() {
-    let standard_info = '';
-    if (this.props.training_standard) {
-      standard_info = <div className='col-md-12'>
-        <div className='col-md-6'>
-          <h4>
-            {I18n.t('training_standards.multi_step_form.standard_name')}
-            {this.props.training_standard.name}
-          </h4>
-        </div>
-        <div className='col-md-6'>
-          <h4>
-            {I18n.t('training_standards.multi_step_form.policy')}
-            {this.props.training_standard.policy || POLICIES[0].id}
-          </h4>
-        </div>
-      </div>
-    }
     return (
       <fieldset>
-        {standard_info}
-        <input className='form-control search_form' autoComplete='off'
-          placeholder={I18n.t('subjects.search')}
-          onChange={this.filterSubjects.bind(this)}/>
+        <div className='form-group'>
+          <input className='form-control search_form' autoComplete='off'
+            placeholder={I18n.t('subjects.search')}
+            onChange={this.filterSubjects.bind(this)}/>
+        </div>
         <div className='panel panel-primary'>
           <div className='panel-body'>
             <SubjectLists
