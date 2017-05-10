@@ -24,9 +24,7 @@ export default class ModalEdit extends React.Component {
                 <span aria-hidden='true'>&times;</span>
               </button>
               <h4 className='modal-title'>
-                {class_policy}&nbsp;
-                {I18n.t('training_standards.modals.header_edit')}:&nbsp;
-                {this.props.training_standard.name || ''}
+                {class_policy}&nbsp;{this.props.training_standard.name || ''}
               </h4>
             </div>
             <form className='multi-step-form row'>

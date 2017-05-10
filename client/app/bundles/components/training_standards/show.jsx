@@ -1,9 +1,10 @@
 import axios from 'axios';
-import ModalAssign from './templates/modal_assign';
+import EvaluationTemplateTab from './templates/show_partials/evaluation_template_tab';
+import Header from './templates/header';
 import ModalEdit from './templates/modal_edit';
-import ModalEvaluation from './templates/modal_evaluation';
 import React from 'react';
-import Subjects from './subjects';
+import Subjects from './templates/show_partials/subjects';
+import TrainingStandardInfoTab from './templates/show_partials/training_standard_info_tab';
 import * as routes from 'config/routes';
 
 export default class TrainingStandardShow extends React.Component {
@@ -35,15 +36,37 @@ export default class TrainingStandardShow extends React.Component {
 
   render() {
     return(
-      <div>
-        <Subjects selected_subjects={this.state.selected_subjects}
+      <div className='box box-success box-standard-subjects'>
+        <Header evaluation_template={this.state.evaluation_template}
           training_standard={this.state.training_standard}
-          afterRejectSubject={this.afterRejectSubject.bind(this)}
-          subject_url={routes.subjects_url()}
-          standard_subject_url={routes.standard_subjects_url()}
-          evaluation_template={this.state.evaluation_template}
           organization={this.props.organization}
           standard_organizations={this.state.standard_organizations} />
+        <div className='nav-tabs-custom'>
+          <ul className='nav nav-tabs nav-user'>
+            <li className='active'>
+              <a href='#training_standard_info' data-toggle='tab'>
+                {I18n.t('training_standards.nav_tabs.training_standard_info')}
+              </a>
+            </li>
+            <li>
+              <a href='#assigned_subject' data-toggle='tab'>
+                {I18n.t('training_standards.nav_tabs.assigned_subjects')}
+              </a>
+            </li>
+            <li>
+              <a href='#evaluation_template' data-toggle='tab'>
+                {I18n.t('training_standards.nav_tabs.evaluation_template')}
+              </a>
+            </li>
+          </ul>
+          <div className='tab-content'>
+            <TrainingStandardInfoTab
+              training_standard={this.state.training_standard}/>
+            <Subjects selected_subjects={this.state.selected_subjects}/>
+            <EvaluationTemplateTab
+              evaluation_template={this.state.evaluation_template}/>
+          </div>
+        </div>
 
         <ModalEdit
           remain_subjects={this.state.remain_subjects}

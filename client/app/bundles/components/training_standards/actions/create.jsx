@@ -40,9 +40,7 @@ export default class Create extends React.Component {
                 <span aria-hidden='true'>&times;</span>
               </button>
               <h4 className='modal-title'>
-                {class_policy}&nbsp;
-                {I18n.t('training_standards.modals.create')}:&nbsp;
-                {standard_name}
+                {class_policy}&nbsp;{standard_name}
               </h4>
             </div>
             <form className='multi-step-form row'>

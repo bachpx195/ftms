@@ -6,7 +6,7 @@ export default class PanelTrainingResults extends React.Component {
     return (
       <div className='panel panel-info'>
         <div className='panel-body list-evaluation-standards'>
-          <div className='evaluation-item-container evaluation-item-container'>
+          <div className='evaluation-item-container'>
             <table className='table table-hover table-striped table-responsive'>
               <thead>
                 <tr>
