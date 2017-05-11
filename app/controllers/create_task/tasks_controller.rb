@@ -8,7 +8,7 @@ class CreateTask::TasksController < ApplicationController
       ownerable_type: params[:ownerable_type],
       meta_types_checked: params[:meta_types_checked],
       current_user: current_user).perform
-    unless @task.save
+    unless @task
       render json: {message: flash_message("not_created")},
         status: :unprocessable_entity
     end

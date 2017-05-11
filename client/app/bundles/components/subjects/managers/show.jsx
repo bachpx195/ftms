@@ -148,7 +148,7 @@ export default class SubjectManagerShowBox extends React.Component {
           questions={this.props.questions}
           url={SUBJECT_TASKS_URL}
           subject_detail={this.state.subject_detail}
-          ownerable_type='CourseSubject'
+          ownerable_type={ownerable_type}
           ownerable_id={ownerable_id} />
       </div>
     );
