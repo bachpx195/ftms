@@ -1,6 +1,6 @@
 class SubjectPolicy < ApplicationPolicy
   def index?
-    (super && belongs_to_organization?) || is_owner_organization?
+    (super && belongs_to_organization?) || is_owner_organization? || is_course_manager?
   end
 
   def create?
@@ -12,8 +12,7 @@ class SubjectPolicy < ApplicationPolicy
     (super &&
       (@user.organizations.include?(record[:subject].organization) ||
       record[:subject].organization.creator == @user ||
-      record[:course_subject].course.user_courses.pluck(:user_id)
-        .include?(@user.id) if record[:course_subject]
+      is_course_manager? || is_creator_course?
       )
     )
   end
@@ -38,9 +37,7 @@ class SubjectPolicy < ApplicationPolicy
   def has_function?
     @user.organizations.include?(record[:subject].organization) ||
       (record[:subject].organization.creator == @user) ||
-      check_creator_subject? ||
-      record[:course_subject].course.course_managers.pluck(:user_id)
-        .include?(@user.id)
+      check_creator_subject?
   end
 
   def check_creator_subject?
@@ -49,5 +46,14 @@ class SubjectPolicy < ApplicationPolicy
 
   def check_owner?
     record[:subject].organization.owner == @user
+  end
+
+  def is_course_manager?
+    record[:course_subject].course.user_courses.pluck(:user_id)
+      .include?(@user.id) if record[:course_subject]
+  end
+
+  def is_creator_course?
+    record[:course_subject].course.owner == @user if record[:course_subject]
   end
 end

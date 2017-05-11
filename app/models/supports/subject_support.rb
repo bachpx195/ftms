@@ -19,7 +19,7 @@ class Supports::SubjectSupport
   %w(surveys assignments test_rules).each do |task|
     define_method "#{task}_not_in_static_task" do
       if @course.present?
-        organization.send(task).where.not id: @course_subject.send("static_#{task}")
+        @subject.send(task).where.not id: @course_subject.send("static_#{task}")
       else
         organization.send(task).where.not id: @subject.send(task)
       end
