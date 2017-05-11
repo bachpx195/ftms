@@ -77,6 +77,7 @@ export default class ProgramsShowBox extends React.Component {
               owners={this.state.owners}
             />
             <FilterTrainingStandard
+              organization={this.state.organization}
               training_standards={this.state.training_standards}
               handleAfterClickCreateCourse={this.handleAfterClickCreateCourse.bind(this)}
               handleAfterSelectTrainingStandard={this.handleAfterSelectTrainingStandard.bind(this)}

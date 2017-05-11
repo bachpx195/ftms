@@ -1,4 +1,6 @@
 <%= react_component "ProjectBox",
   props: {project: @project_supports.project_serializer,
-  organization: @project_supports.organization,
-  requirements: @project_supports.requirements}, prerender: false %>
+  organization: @project_supports.organization_of_project,
+  requirements: @project_supports.requirements,
+  ids_of_course_manager: @project_supports.ids_of_course_manager},
+  prerender: false %>

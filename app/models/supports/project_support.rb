@@ -1,6 +1,7 @@
 class Supports::ProjectSupport
   def initialize args = {}
     @params = args[:params]
+    @current_user = args[:current_user]
   end
 
   %w(projects requirements).each do |method|
@@ -18,7 +19,7 @@ class Supports::ProjectSupport
       unless instance_variable_get "@#{method}"
         instance_variable_set "@#{method}",
           Serializers::Projects::ProjectsSerializer.new(object: variable,
-            scope: {supports: self}).serializer
+            scope: {supports: self, current_user: @current_user}).serializer
       end
       instance_variable_get "@#{method}"
     end
@@ -34,5 +35,14 @@ class Supports::ProjectSupport
 
   def organization
     @organization = Organization.find_by id: @params[:organization_id]
+  end
+
+  def organization_of_project
+    @organization_of_project ||= project.organization
+  end
+
+  def ids_of_course_manager
+    @ids_of_course_manager ||=
+      project.course_subject.course.course_managers.pluck :user_id
   end
 end
