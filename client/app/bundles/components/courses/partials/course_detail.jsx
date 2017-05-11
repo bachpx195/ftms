@@ -17,6 +17,22 @@ export default class CourseDetail extends React.Component {
   }
 
   render() {
+    let list_buttons = null;
+    if (this.props.course.status != 'finished') {
+      list_buttons = (
+        <div>
+          <span className='btn glyphicon glyphicon-list pull-right'
+            onClick={this.clickButtonList.bind(this)}></span>
+          <MenuCourse url={routes.course_url(this.state.course.id)}
+            course={this.state.course}
+            courseListPermit={this.props.courseListPermit}
+            handleAfterEdit={this.handleAfterUpdate.bind(this)}
+            program={this.props.program}
+            handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)}
+          />
+        </div>
+      );
+    }
     let course = this.state.course;
     let link_creator = null;
     let creator_name = '';
@@ -68,17 +84,7 @@ export default class CourseDetail extends React.Component {
 
         <div className='col-md-5'>
           <CoursePolicy permit={this.props.courseListPermit}>
-            <div>
-              <span className="btn glyphicon glyphicon-list pull-right"
-                onClick={this.clickButtonList.bind(this)}></span>
-              <MenuCourse url={routes.course_url(this.state.course.id)}
-                course={this.state.course}
-                courseListPermit={this.props.courseListPermit}
-                handleAfterEdit={this.handleAfterUpdate.bind(this)}
-                program={this.props.program}
-                handleAfterChangeStatus={this.handleAfterChangeStatus.bind(this)}
-              />
-            </div>
+            {list_buttons}
           </CoursePolicy>
         </div>
       </div>

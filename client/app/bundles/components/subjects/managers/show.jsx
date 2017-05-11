@@ -82,7 +82,8 @@ export default class SubjectManagerShowBox extends React.Component {
             <div className='box box-primary'>
 
               <div className='box-header with-border'>
-                <SubjectManagerInfo subject_detail={this.state.subject_detail}/>
+                <SubjectManagerInfo subject_detail={this.state.subject_detail}
+                  course={this.props.course} />
               </div>
             </div>
 
@@ -106,8 +107,9 @@ export default class SubjectManagerShowBox extends React.Component {
             />
 
           </div>
-          <div className="col-md-3">
+          <div className='col-md-3'>
             <Documents
+              course={this.props.course}
               document_type={'Subject'}
               documents={this.state.documents}
               documentable={this.props.subject}

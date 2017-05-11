@@ -22,27 +22,33 @@ export default class Documents extends React.Component{
   }
 
   render() {
+    let upload_document = (
+      <div className='pull-right'>
+        <button type='button' className='btn btn-default'
+          onClick={this.handleUploadDocument.bind(this)}
+          title={I18n.t('documents.select_document')}>
+          <i className='fa fa-upload'></i>
+        </button>
+        <form encType='multipart/form-data'>
+          <div className='hidden'>
+            <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
+              ref='dropzoneDocumentsField'
+              multiple={false}
+              accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
+          </div>
+        </form>
+      </div>
+    );
+    if (this.props.course && this.props.course.status == 'finished') {
+      upload_document = null;
+    }
     return (
       <div className='box box-primary'>
         <div className='box-header with-border box-header-gray'>
           <h3 className='label box-title'>
-            {I18n.t("documents.title")}
+            {I18n.t('documents.title')}
           </h3>
-          <div className="pull-right">
-            <button type="button" className="btn btn-default"
-              onClick={this.handleUploadDocument.bind(this)}
-              title={I18n.t("documents.select_document")}>
-              <i className="fa fa-upload"></i>
-            </button>
-            <form encType="multipart/form-data">
-              <div className='hidden'>
-                <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
-                  ref='dropzoneDocumentsField'
-                  multiple={false}
-                  accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
-              </div>
-            </form>
-          </div>
+          {upload_document}
         </div>
         <div className='box-body'>
           <ul className='document-list clearfix'>
@@ -110,7 +116,7 @@ export default class Documents extends React.Component{
           <button
             onClick={this.handlerAfterClickPreviewDocument.bind(this, document)}
             className='pull-right btn btn-info btn-xs'>
-            {I18n.t("buttons.preview")}
+            {I18n.t('buttons.preview')}
           </button>
         </div>
       </li>

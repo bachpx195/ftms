@@ -27,7 +27,8 @@ export default class Subjects extends React.Component {
         return (
           <div className='start-subject col-md-2'>
             <ButtonChangeStatuses
-              object_type="CourseSubject"
+              course={this.props.course}
+              object_type='CourseSubject'
               object_id={this.state.subject_detail.course_subject.id}
               course_subject_id={this.state.subject_detail.course_subject.id}
               status={this.state.status}

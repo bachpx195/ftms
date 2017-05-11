@@ -43,6 +43,17 @@ export default class CourseShow extends React.Component {
   }
 
   render() {
+    let add_tasks_button = null;
+    if (this.props.course.status != 'finished') {
+      add_tasks_button = (
+        <button className='btn add-task'
+          title={I18n.t('courses.title_add_task')}
+          onClick={this.addTask.bind(this)}>
+          <i className='fa fa-plus' aria-hidden='true'></i>
+          {I18n.t('courses.add_task_for_course')}
+        </button>
+      );
+    }
     let member_ids = this.props.member_ids;
     const courseListPermit =[
       {action: ['course_manager'], target: 'children',
@@ -66,12 +77,7 @@ export default class CourseShow extends React.Component {
           />
 
           <CoursePolicy permit={courseListPermit} >
-            <button className='btn add-task'
-              title={I18n.t('courses.title_add_task')}
-              onClick={this.addTask.bind(this)}>
-              <i className='fa fa-plus' aria-hidden='true'></i>
-              {I18n.t('courses.add_task_for_course')}
-            </button>
+            {add_tasks_button}
           </CoursePolicy>
 
           <button className='btn add-task btn-preview'

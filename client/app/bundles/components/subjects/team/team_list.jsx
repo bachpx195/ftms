@@ -41,6 +41,16 @@ export default class TeamList extends React.Component {
   }
 
   render() {
+    let button_create_team = null;
+    if (this.props.course.status != 'finished') {
+      button_create_team = (
+        <button type='button' className='btn btn-primary'
+          onClick={this.onCreateTeam.bind(this)}>
+          <i className='fa fa-plus'></i>
+          &nbsp;{I18n.t('subjects.create_team')}
+        </button>
+      );
+    }
     var owner_id = this.state.owner_id;
     return(
       <div className='list-container'>
@@ -53,11 +63,7 @@ export default class TeamList extends React.Component {
         >
           <div>
             <div className='col-md-12 text-right margin-bottom-10px'>
-              <button type='button' className='btn btn-primary'
-                onClick={this.onCreateTeam.bind(this)}>
-                <i className='fa fa-plus'></i>
-                &nbsp;{I18n.t('subjects.create_team')}
-              </button>
+              {button_create_team}
             </div>
             {this.renderTeamList()}
           </div>

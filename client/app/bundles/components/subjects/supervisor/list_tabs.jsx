@@ -90,6 +90,7 @@ export default class ListTabs extends React.Component {
         this.state.subject_detail.user_subjects[this.state.user_index]) {
         panelUserTask = (
           <ModalTask
+            course={this.props.course}
             task={this.state.subject_detail.course_subject_task}
             user_tasks={this.state.subject_detail
               .user_subjects[this.state.user_index].user_course_task}
