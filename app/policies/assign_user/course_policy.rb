@@ -1,5 +1,4 @@
 class AssignUser::CoursePolicy < ApplicationPolicy
-
   def update?
     (super && belong_to_organization?) || is_organization_owner? ||
       is_program_creator? || is_course_manager?
@@ -7,7 +6,7 @@ class AssignUser::CoursePolicy < ApplicationPolicy
 
   private
   def is_organization_owner?
-    record[:course].program.organization == @user
+    record[:course].program.organization.owner == @user
   end
 
   def is_program_creator?

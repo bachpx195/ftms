@@ -6,6 +6,9 @@ import Item from './item';
 import TaskPreview from '../templates/task_preview';
 import ModalCreateSurvey from '../../surveys/templates/modal_create_survey';
 import ModalTestRule from '../../test_rules/templates/modal_testrule';
+
+require('../assets/course.scss');
+
 const TASKS_URL = routes.assign_tasks_url();
 
 const arr_option = ['choose', 'survey', 'testing'];
@@ -51,7 +54,7 @@ export default class ModalTask extends React.Component {
       remain_item = I18n.t('courses.survey_remain_course');
       tasks = this.renderTask(selected, remain_item);
       form = (
-        <ModalCreateSurvey 
+        <ModalCreateSurvey
           ownerable_type={this.props.ownerable_type}
           ownerable_id={this.props.ownerable_id}
           meta_types={this.props.meta_types}
@@ -107,6 +110,7 @@ export default class ModalTask extends React.Component {
                 {form}
               </div>
               {task_preview}
+              <div className="clearfix"></div>
             </div>
             <div className='modal-footer'>
               <button onClick={this.onClickAddItem.bind(this)}
@@ -148,7 +152,7 @@ export default class ModalTask extends React.Component {
             {this.renderSelectedItems()}
           </ul>
         </div>
-        <div className='panel panel-default'>
+        <div className='panel panel-default td-list-task'>
           <div className='panel-heading'>
             <strong>{title_remain_items}</strong>
           </div>

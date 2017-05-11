@@ -135,7 +135,7 @@ class UsersController < ApplicationController
   end
 
   def authorize_request
-    authorize_with_multiple page_params.merge(user: @user_supports.user),
+    authorize_with_multiple page_params.merge(organization: @user_supports.organization),
       UserPolicy
   end
 end
