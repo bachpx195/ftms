@@ -82,8 +82,10 @@ export default class SubjectDetail extends React.Component {
                       {I18n.t('subjects.assignments.total_task',
                         {total: this.state.assigments_of_user_subjects.length})}
                     </span>
-                    <PublicPolicy permit={[{action: ['setUserTeam'], target: 'children',
-                      data: {course_subject_teams: course_subject_teams}}]}>
+                    <PublicPolicy permit={[
+                      {action: ['ownerById'], data: {id: this.state.subject_detail.organization.user_id}},
+                      {action: ['setUserTeam'], data: {course_subject_teams: course_subject_teams}}
+                    ]}>
                       <button type='button' className='pull-right btn btn-info'
                         onClick={this.handleButtonCreateAssignment.bind(this)}>
                         {I18n.t('subjects.trainee.create_assignments')}

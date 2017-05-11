@@ -73,8 +73,8 @@ export default class Sidebar extends React.Component {
   render () {
     let url = '#';
     let owner_id_organization = null;
-    let organizations = JSON.parse(localStorage.organizations);
-    if (organizations !== null) {
+    if (localStorage.organizations != undefined) {
+      let organizations = JSON.parse(localStorage.organizations);
       if (organizations.length == 1) {
         url = routes.organization_url(organizations[0].id);
         owner_id_organization = organizations[0].owner.id;
