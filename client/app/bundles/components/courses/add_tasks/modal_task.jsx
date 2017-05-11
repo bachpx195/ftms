@@ -72,8 +72,8 @@ export default class ModalTask extends React.Component {
           categories={this.props.categories}
           questions={this.props.questions}
           url={routes.subject_tasks_url()}
-          course = {this.props.course}
-          ownerable_type={this.props.ownerable_type} />
+          ownerable_type={this.props.ownerable_type}
+          ownerable_id={this.props.course.id} />
       )
     } else {
       title = '';
