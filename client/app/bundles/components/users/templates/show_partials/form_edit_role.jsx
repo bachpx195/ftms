@@ -14,7 +14,8 @@ export default class FormEditRole extends React.Component {
     this.state = {
       current_roles: props.current_roles,
       all_roles: props.all_roles,
-      functions: props.functions
+      functions: props.functions,
+      page_index: props.page_index
     }
   }
 
@@ -32,7 +33,8 @@ export default class FormEditRole extends React.Component {
     this.setState({
       current_roles: nextProps.current_roles,
       all_roles: nextProps.all_roles,
-      functions: data
+      functions: data,
+      page_index: nextProps.page_index
     })
   }
 
@@ -79,11 +81,13 @@ export default class FormEditRole extends React.Component {
         <FunctionBox user_id={this.props.user_id}
           data={this.state.functions}
           check_all='none'
-          dataChange={this.dataChange.bind(this)}/>
-        <div className="form-group">
-          <div className="text-right">
-            <button onClick={this.handleSubmit.bind(this)} className="btn btn-primary">
-              {I18n.t("users.buttons.save")}
+          dataChange={this.dataChange.bind(this)}
+          page_index={this.state.page_index} />
+        <div className='form-group'>
+          <div className='text-right'>
+            <button onClick={this.handleSubmit.bind(this)}
+              className='btn btn-primary'>
+              {I18n.t('users.buttons.save')}
             </button>
           </div>
         </div>
@@ -91,8 +95,12 @@ export default class FormEditRole extends React.Component {
     )
   }
 
-  dataChange(functions, check_all){
-    this.setState({functions: functions, check_all: check_all})
+  dataChange(functions, check_all, page_index = 0){
+    this.setState({
+      functions: functions,
+      check_all: check_all,
+      page_index: page_index
+    });
   }
 
   handleSubmit(event) {
@@ -119,7 +127,7 @@ export default class FormEditRole extends React.Component {
 
   updateUserFunction(current_roles, user_id){
     axios.patch(routes.change_role_user_url(this.props.user_id) + '.json', {
-      update_show: "update_show",
+      update_show: 'update_show',
       roles: current_roles,
       authenticity_token: ReactOnRails.authenticityToken()
     }, app_constants.AXIOS_CONFIG)

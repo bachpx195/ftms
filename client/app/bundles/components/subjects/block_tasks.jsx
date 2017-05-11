@@ -34,7 +34,10 @@ export default class BlockTasks extends React.Component{
         header: I18n.t('subjects.headers.name'),
         accessor: 'name',
         render: row => {
-          return <a href={routes.task_url(row.row.task_id)}>{row.value}</a>;
+          if (this.props.course) {
+            return <a href={routes.task_url(row.row.task_id)}>{row.value}</a>;
+          }
+          return row.value;
         }
       },
       {
@@ -101,17 +104,17 @@ export default class BlockTasks extends React.Component{
       button_create = '';
     } else {
       button_create =
-      <button className='btn btn-primary pull-right'
+      <button className='btn btn-primary'
         onClick={this.handleClickCreateTask.bind(this)}>
         {I18n.t('subjects.create.' + type)}
       </button>
     }
 
     return (
-      <div className='action-create-task clearfix'>
+      <div className='action-create-task text-right clearfix'>
         {button_create}
-        {type != 'projects' ? (
-          <button className='btn btn-primary pull-right'
+        {type != 'projects' && this.props.course_subject ? (
+          <button className='btn btn-primary'
             onClick={this.handleClickAssignTask.bind(this)}>
             {I18n.t('subjects.assigns.' + type)}</button>
         ) : ('')}

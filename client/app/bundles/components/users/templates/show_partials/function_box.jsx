@@ -12,7 +12,7 @@ export default class FunctionBox extends React.Component {
       check_all: props.check_all,
       functions: props.data,
       user_id: props.user_id,
-      page_index: 0
+      page_index: props.page_index
     }
   }
 
@@ -21,7 +21,7 @@ export default class FunctionBox extends React.Component {
       functions: nextProps.data,
       user_id: nextProps.user_id,
       check_all: nextProps.check_all,
-      page_index: 0
+      page_index: nextProps.page_index
     });
   }
 
@@ -102,7 +102,7 @@ export default class FunctionBox extends React.Component {
 
   handleCheckbox(index, checked){
     this.updateStateFunctions(index, checked);
-    this.props.dataChange(this.state.functions, 'none');
+    this.props.dataChange(this.state.functions, 'none', this.state.page_index);
   }
 
   onPageChange(page_index) {

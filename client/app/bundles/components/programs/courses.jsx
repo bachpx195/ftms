@@ -95,13 +95,13 @@ export default class CourseLists extends React.Component {
       {
         header: I18n.t('programs.start_date'),
         id: 'start_date',
-        accessor: d => I18n.l('date.formats.default', d.start_date),
+        accessor: d => this.formatDate(d.start_date),
         style: {textAlign: 'right'}
       },
       {
         header: I18n.t('programs.end_date'),
         id: 'end_date',
-        accessor: d => I18n.l('date.formats.default', d.end_date),
+        accessor: d => this.formatDate(d.end_date),
         style: {textAlign: 'right'}
       },
     ];
@@ -136,6 +136,11 @@ export default class CourseLists extends React.Component {
         </div>
       </div>
     );
+  }
+
+  formatDate(date) {
+    if (date) return I18n.l('date.formats.default', date);
+    return null;
   }
 
   checkImage(event){
