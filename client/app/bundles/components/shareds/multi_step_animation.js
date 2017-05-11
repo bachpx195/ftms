@@ -23,7 +23,7 @@ export function onNextStep(event) {
       });
       next_fs.css({'left': left, 'opacity': opacity, 'position': 'relative'});
     },
-    duration: 800,
+    duration: 0,
     complete: function(){
       current_fs.hide();
       animating = false;
@@ -55,7 +55,7 @@ export function onPreviousStep(event) {
   		previous_fs.css({'transform': 'scale(' + scale +')', 'opacity': opacity,
         'position': 'relative'});
   	},
-  	duration: 800,
+  	duration: 0,
   	complete: function() {
   		current_fs.hide();
   		animating = false;
@@ -84,6 +84,7 @@ export function onCancelForm(event) {
 
   $('.modalCreateTrainingStandard').modal('hide');
   $('.modal-edit').modal('hide');
+  $('.modal-create-standards').modal('hide');
 }
 
 

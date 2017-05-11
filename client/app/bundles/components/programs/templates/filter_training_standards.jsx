@@ -4,8 +4,21 @@ import TrainingStandardPolicy from 'policy/training_standard_policy'
 
 export default class FilterTrainingStandards extends React.Component {
   render() {
+    let btn_create_course = '';
+    if (this.props.training_standards) {
+      btn_create_course = <CoursePolicy permit={[
+        {action: ['ownerById'], data: {id: this.props.organization.user_id}},
+        {action: ['create']}
+      ]}>
+        <button className='btn btn-info' onClick={this.handleCreateCourse.bind(this)}>
+          <i className='fa fa-plus'></i>
+          &nbsp;{I18n.t('courses.create_course')}
+        </button>
+      </CoursePolicy>;
+    }
+
     return (
-      <div className='col-md-6 program-control'>
+      <div className='col-md-6 program-control training-standard-program'>
         <div className='box box-primary box-float clearfix'>
           <div className='col-md-12 program-control'>
             <fieldset>
@@ -14,30 +27,22 @@ export default class FilterTrainingStandards extends React.Component {
                   <strong>{I18n.t('programs.sort')}</strong>
                 </h4>
               </div>
-              <select className="form-control"
+              <select className='form-control'
                 onChange={this.handleSelectChange.bind(this)}>
-                <option key="0" value="0">
+                <option key='0' value='0'>
                   {I18n.t('training_standards.titles.all')}
                 </option>
                 {this.renderOptionTrainingStandard()}
               </select>
             </fieldset>
-            <CoursePolicy permit={[
-              {action: ['ownerById'], data: {id: this.props.organization.user_id}},
-              {action: ['create']}
-            ]}>
-              <button className='btn btn-info' onClick={this.handleCreateCourse.bind(this)}>
-                <i className="fa fa-plus"></i>
-                &nbsp;{I18n.t('courses.create_course')}
-              </button>
-            </CoursePolicy>
+            {btn_create_course}
             <TrainingStandardPolicy permit={[
               {action: ['ownerById'], data: {id: this.props.organization.user_id}},
               {action: ['create']}
             ]}>
               <button className='btn btn-info' onClick={this.handleCreateStandard.bind(this)}>
-                <i className="fa fa-plus"></i>
-                &nbsp;{I18n.t("training_standards.create")}
+                <i className='fa fa-plus'></i>
+                &nbsp;{I18n.t('training_standards.create')}
               </button>
             </TrainingStandardPolicy>
           </div>

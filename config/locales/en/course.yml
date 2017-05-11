@@ -39,6 +39,7 @@ en:
     courses: "Courses"
     select_languages: "Select language"
     select_programs: "Select program"
+    select_owner: "Select owner"
     select_training_standard: "Select training standard"
     select_image: "Select image"
     select_document: "Select document"
@@ -130,3 +131,6 @@ en:
     evaluation_standards_list: "Evaluation Standards List"
     assignment_notice: "You have to finished %{count_assignment} assignments"
     obligatory: "Obligatory"
+    errors:
+      blank_name: "Name cannot be blank"
+      no_owner: "Owner must be selected"

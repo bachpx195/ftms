@@ -21,7 +21,9 @@ export default class MultiStepForm extends React.Component {
       },
       current_item: '',
       selected_role: '',
-      owner_name: ''
+      owner_name: '',
+      managers: [],
+      members: [],
     }
   }
   render() {
@@ -48,13 +50,17 @@ export default class MultiStepForm extends React.Component {
           />
         <FormAssignOwner handleSubmit={this.handleSubmit.bind(this)}
           course={this.state.course}
+          program_detail={this.props.program_detail}
           selected_role={this.state.selected_role}
-          all_roles={this.props.all_roles}
-          owners={this.props.owners}
+          all_roles={this.props.all_roles} members={this.state.members}
+          owners={this.props.owners} managers={this.state.managers}
           owner_name={this.state.owner_name}
           onCancelForm={step_animations.onCancelForm}
           onClickPrevious={step_animations.onPreviousStep}
-          afterInputFormAssignOwner = {this.afterInputFormAssignOwner.bind(this)}
+          afterInputFormAssignOwner={this.afterInputFormAssignOwner.bind(this)}
+          handleAssignMembers={this.handleAssignMembers.bind(this)}
+          handleAssignManagers={this.handleAssignManagers.bind(this)}
+          handleOwnerChange={this.handleOwnerChange.bind(this)}
           />
       </div>
     );
@@ -83,20 +89,55 @@ export default class MultiStepForm extends React.Component {
     })
   }
 
+  handleAssignMembers(members) {
+    this.setState({
+      members: members,
+    });
+  }
+
+  handleAssignManagers(managers) {
+    this.setState({
+      managers: managers,
+    })
+  }
+
+  handleOwnerChange(owner_id) {
+    Object.assign(this.state.course, {owner_id: owner_id});
+    this.setState({
+      course: this.state.course,
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     let formData = new FormData();
     let course = this.state.course;
     course.language_id = parseInt(course.language_id);
     course.owner_id = parseInt(course.owner_id);
-    formData.append('course[image]', course.image);
-    formData.append('course[language_id]', course.language_id);
-    formData.append('course[name]', course.name);
-    formData.append('course[start_date]', course.start_date);
-    formData.append('course[end_date]', course.end_date);
-    formData.append('course[training_standard_id]', course.training_standard_id);
-    formData.append('course[owner_id]', course.owner_id);
-    formData.append('course[description]', course.description);
+    for (let key of Object.keys(course)) {
+      formData.append('course[' + key + ']', this.state.course[key]);
+    }
+
+
+    this.state.managers.map((user, index) => {
+      for (let key of Object.keys(this.state.managers)) {
+        formData.append('course[user_courses_attributes][' +  index + '][user_id]',
+          user.id);
+        formData.append('course[user_courses_attributes][' + index + '][type]',
+          'CourseManager');
+      }
+    });
+
+    this.state.members.map((user, index) => {
+      for (let key of Object.keys(this.state.managers)) {
+        formData.append('course[user_courses_attributes][' +  index + '][user_id]',
+          user.id);
+        formData.append('course[user_courses_attributes][' + index + '][type]',
+          'CourseMember');
+      }
+    });
+
+
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let target = event.target;
     axios({
@@ -114,11 +155,9 @@ export default class MultiStepForm extends React.Component {
           name: '', description: '', image: '',  language_id: '',
           start_date: '', end_date: '', owner_id: '', training_standard_id: '',
         },
-        current_item: '',
-        selected_role: '',
-        owner_name: ''
+        current_item: '', selected_role: '', owner_name: '',
+        managers: [], members: [],
       });
-
     })
     .catch(error => {
       this.setState({errors: error.response.data.errors});

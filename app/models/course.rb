@@ -7,7 +7,7 @@ class Course < ApplicationRecord
     :type, :_destroy]]
   ATTRIBUTE_PARAMS = [:name, :image, :description, :status, :start_date,
     :language_id, :program_id, :end_date, :training_standard_id, :owner_id,
-    :documents]
+    :documents, user_courses_attributes: [:id, :user_id, :type, :_destroy]]
 
   UPDATE_PARAMS = [:name, :image, :description, :status, :start_date,
     :end_date, :documents]
@@ -58,7 +58,8 @@ class Course < ApplicationRecord
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :exams, dependent: :destroy
 
-  accepts_nested_attributes_for :user_courses, allow_destroy: true
+  accepts_nested_attributes_for :user_courses, allow_destroy: true,
+    reject_if: proc{|attributes| attributes[:user_id].blank?}
 
   validates :name, presence: true
   validates :training_standard, presence: true

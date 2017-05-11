@@ -11,10 +11,12 @@ export default class ListUsers extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     let filter = $('#filter-' + this.props.className).val();
-    let users = nextProps.users.filter(user => {
-      return user.name.toLowerCase().includes(filter.toLowerCase());
-    });
-    this.setState({users: this.state.users});
+    let users = [];
+    if (nextProps.users) {
+      users = nextProps.users.filter(user => {
+        return user.name.toLowerCase().includes(filter.toLowerCase());
+      });
+    }
     this.setState({
       users: users,
       checked_users: nextProps.checkedUsers
@@ -23,19 +25,19 @@ export default class ListUsers extends React.Component {
 
   render() {
     return (
-      <div className="panel panel-info">
-        <div className="panel-heading text-center">
+      <div className='panel panel-info'>
+        <div className='panel-heading text-center'>
           {this.props.title}
         </div>
-        <div className="panel-body">
-          <input className="form-control search_form"
+        <div className='panel-body'>
+          <input className='form-control search_form'
             id={`filter-${this.props.className}`}
             placeholder={I18n.t('courses.search_user')}
-            autoComplete="off" onChange={this.filterUsers.bind(this)} />
+            autoComplete='off' onChange={this.filterUsers.bind(this)} />
           <div className={`list-group ${this.props.className}`}>
             {this.renderUsers()}
           </div>
-          <div className="panel-footer count-member">
+          <div className='panel-footer count-member'>
             {I18n.t('courses.labels.records',
               {count: this.state.users.length})}
           </div>
