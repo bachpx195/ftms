@@ -12,8 +12,8 @@ class CreateTask::TasksController < ApplicationController
       render json: {message: flash_message("not_created")},
         status: :unprocessable_entity
     end
-    target = @task.attributes.merge task_id: @task.id
-    render json: {message: flash_message("created"), target: @task.targetable}
+    target = @task.targetable.attributes.merge task_id: @task.id
+    render json: {message: flash_message("created"), target: target}
   end
 
   private

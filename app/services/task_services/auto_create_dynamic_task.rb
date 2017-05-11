@@ -6,7 +6,7 @@ class TaskServices::AutoCreateDynamicTask
   end
 
   def perform
-    if @ownerable.class.name == "Course" && @ownerable.in_progress?
+    if @ownerable.is_a?(Course) && @ownerable.in_progress?
       @ownerable.course_members.each do |ownerable_member|
         @ownerable.static_tasks.each do |static_task|
           dynamic_task = DynamicTask.new targetable: static_task,
