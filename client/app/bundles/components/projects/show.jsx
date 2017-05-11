@@ -7,6 +7,7 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import RenderTextButton from './templates/render_text_button';
 import Requirements from '../requirements/requirements';
+import RequirementPolicy from 'policy/requirement_policy';
 
 export default class ProjectBox extends React.Component {
   constructor(props) {
@@ -59,14 +60,26 @@ export default class ProjectBox extends React.Component {
               {form}
               <div className='clearfix'></div>
               <div className='add-requirement col-md-3'>
-                <button type='button' className='btn btn-primary'
-                  onClick={this.handleAddRequirement.bind(this)}>
-                  <i className='fa fa-plus'></i>
-                  &nbsp;{I18n.t('projects.add_requirement')}</button>
+                <RequirementPolicy permit={[
+                  {action: ['ownerById'], data: {ids: this.state.organization.user_id}},
+                  {action: ['ownerByIds'], data: {ids: this.props.ids_of_course_manager}},
+                  {action: ['create', 'memberOfTeam'], data: {
+                    teams_of_project: this.state.project.teams_of_project,
+                    teams_of_current_user: this.state.project.teams_of_current_user}}
+                ]}>
+                  <button type='button' className='btn btn-primary'
+                    onClick={this.handleAddRequirement.bind(this)}>
+                    <i className='fa fa-plus'></i>
+                    &nbsp;{I18n.t('projects.add_requirement')}</button>
+                </RequirementPolicy>
                 <div className='clearfix'></div>
               </div>
             </div>
-              <Requirements requirements={this.state.requirements}
+              <Requirements 
+                ids_of_course_manager={this.props.ids_of_course_manager}
+                project={this.state.project}
+                organization={this.state.organization}
+                requirements={this.state.requirements}
                 requirement={this.state.requirement}
                 handleOnClickEdit={this.handleOnClickEdit.bind(this)} />
           </div>

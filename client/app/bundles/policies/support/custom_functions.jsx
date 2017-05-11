@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export const CustomFunction = {
   creator: (data) => {
     if (!data.creator_id) return false;
@@ -77,5 +78,18 @@ export const CustomFunction = {
   correctUser: (data) => {
     var current_user = $.parseJSON(localStorage.current_user);
     return current_user.id == data.id
+  },
+  memberOfTeam: (data) => {
+    var teams_of_project_ids = _.map(data.teams_of_project,
+      item => item.id
+    );
+    var result = false;
+    for(var team of data.current_user_teams){
+      if($.inArray(team.id, teams_of_project_ids) >=0){
+        result = true;
+        break;
+      }
+    }
+    return result;
   }
 }

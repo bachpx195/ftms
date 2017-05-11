@@ -64,7 +64,11 @@ export default class Requirements extends React.Component {
   renderRequirementLists() {
     if (this.state.showRequirement) {
       return (
-        <RequirementGriddle requirements={this.state.requirements}
+        <RequirementGriddle 
+          ids_of_course_manager={this.props.ids_of_course_manager}
+          project={this.props.project}
+          organization={this.props.organization}
+          requirements={this.state.requirements}
           handleOnClickEdit={this.handleOnClickEdit.bind(this)} />
       );
     } else {

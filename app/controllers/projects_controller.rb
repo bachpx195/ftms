@@ -76,7 +76,8 @@ class ProjectsController < ApplicationController
   end
 
   def load_supports
-    @project_supports = Supports::ProjectSupport.new params: params
+    @project_supports = Supports::ProjectSupport.new params: params,
+      current_user: current_user
   end
 
   def find_project

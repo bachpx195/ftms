@@ -22,13 +22,19 @@ export default class FilterTrainingStandards extends React.Component {
                 {this.renderOptionTrainingStandard()}
               </select>
             </fieldset>
-            <CoursePolicy permit={[{action: ['create']}]}>
+            <CoursePolicy permit={[
+              {action: ['ownerById'], data: {id: this.props.organization.user_id}},
+              {action: ['create']}
+            ]}>
               <button className='btn btn-info' onClick={this.handleCreateCourse.bind(this)}>
                 <i className="fa fa-plus"></i>
                 &nbsp;{I18n.t('courses.create_course')}
               </button>
             </CoursePolicy>
-            <TrainingStandardPolicy permit={[{action: ['create']}]}>
+            <TrainingStandardPolicy permit={[
+              {action: ['ownerById'], data: {id: this.props.organization.user_id}},
+              {action: ['create']}
+            ]}>
               <button className='btn btn-info' onClick={this.handleCreateStandard.bind(this)}>
                 <i className="fa fa-plus"></i>
                 &nbsp;{I18n.t("training_standards.create")}
