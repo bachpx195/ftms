@@ -16,13 +16,25 @@ class TaskServices::CreateTask
       static_task = StaticTask.create targetable_id: task.id,
         targetable_type: @type, ownerable_id: @ownerable_id,
         ownerable_type: @ownerable_type
+      if static_task.save
+        subject = Subject.find_by id: @ownerable_id
+        subject.course_subjects.each do |course_subject|
+          s_task = StaticTask.create targetable_id: task.id,
+            targetable_type: @type, ownerable: course_subject
+          unless s_task.save
+            false
+          end
+        end
+        static_task
+      else
+        false
+      end
     else
       false
     end
   end
 
   private
-
   def add_meta_type
     if @meta_types_checked
       @meta_types_checked.map do |meta_type_checked|
