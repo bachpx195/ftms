@@ -1,6 +1,6 @@
 class SubjectPolicy < ApplicationPolicy
   def index?
-    (super && has_function?) || is_owner_organization?
+    (super && belongs_to_organization?) || is_owner_organization?
   end
 
   def show?
@@ -25,6 +25,10 @@ class SubjectPolicy < ApplicationPolicy
   private
   def is_owner_organization?
     record[:organization].owner == @user
+  end
+
+  def belongs_to_organization?
+    record[:organization].users.include? @user
   end
 
   def has_function?
