@@ -45,7 +45,6 @@ export default class ModalEvaluateMember extends React.Component {
     let evaluation_standards = nextProps.evaluation_standards
     let training_result = this.getStandard(standard_points, evaluation_standards,
       total_point, failed);
-
     this.setState({
       evaluation_standards: nextProps.evaluation_standards,
       evaluation_template: nextProps.evaluation_template,
@@ -213,7 +212,7 @@ export default class ModalEvaluateMember extends React.Component {
           return total_point >= result.min_point &&
             total_point <= result.max_point
         }
-      );
+      ) || {};
     }
     return training_result;
   }

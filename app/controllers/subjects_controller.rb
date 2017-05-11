@@ -94,7 +94,7 @@ class SubjectsController < ApplicationController
 
   def authorize_request
     authorize_with_multiple page_params.merge(subject: @subject,
-      course_subject: @course_subject), SubjectPolicy
+      course_subject: @course_subject, organization: @organization), SubjectPolicy
   end
 
   def find_course_subject

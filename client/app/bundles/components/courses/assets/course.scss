@@ -176,3 +176,26 @@ $c-blue: #4caf50;
   color: $c-white !important;
   padding: 5px 10px;
 }
+
+.modal-task-course {
+  overflow: hidden !important;
+
+  .modal-body {
+    .list-group {
+      max-height: 44vh;
+      overflow-y: auto;
+    }
+  }
+
+  .task-preview .panel-default {
+    height: 60vh;
+  }
+
+  .modal-dialog {
+    margin: 20px auto !important;
+  }
+
+  .modal-footer {
+    padding: 10px 15px !important;
+  }
+}
