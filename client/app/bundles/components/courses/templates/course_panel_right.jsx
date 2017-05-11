@@ -27,6 +27,7 @@ export default class CoursePanelRight extends React.Component {
         />
 
         <Documents
+          course={this.state.course}
           courseListPermit={this.props.courseListPermit}
           documents={this.state.documents}
           onDocumentsDrop={this.props.onDocumentsDrop}

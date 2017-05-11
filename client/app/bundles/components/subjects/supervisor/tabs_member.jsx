@@ -50,7 +50,9 @@ export default class TabsMember extends React.Component {
       <div className='tab-content'>
         <div id='tab-team-list' className='tab-pane fade in active'>
           <div className='col-md-12'>
-            <TeamList course_subject={this.state.subject_detail.course_subject}
+            <TeamList
+              course={this.props.course}
+              course_subject={this.state.subject_detail.course_subject}
               course_subject_teams={this.state.course_subject_teams}
               handleAfterCreatedTeam={this.handleAfterCreatedTeam.bind(this)}
               unassigned_user_subjects={this.state.subject_detail

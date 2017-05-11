@@ -147,6 +147,7 @@ export default class ListTabs extends React.Component {
       >
         <div className='flex-container'>
           <TabsTask
+            course={this.props.course}
             tabs_group_focus={this.state.tabs_group_focus}
             subject_detail={this.props.subject_detail}
             subject={this.props.subject_detail.subject_detail}

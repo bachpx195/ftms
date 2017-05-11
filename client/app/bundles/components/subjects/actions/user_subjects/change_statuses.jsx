@@ -25,6 +25,7 @@ export default class ChangeStatuses extends React.Component {
 
   render() {
     const RenderButton = () => {
+      if (this.props.course.status == 'finished') return null;
       if (this.state.status == 'init') {
         return (
           <button type='button' className='btn btn-primary'

@@ -63,9 +63,9 @@ export default class ListTasks extends React.Component {
         width: 50
       }
     ];
-
     let buttonCreateTask = null;
-    if (this.props.subject_detail.course_subject.status != 'finished') {
+    if (this.props.subject_detail.course_subject.status != 'finished' &&
+      this.props.course.status != 'finished') {
       buttonCreateTask = (
         <div className='text-center'>
           <button type='button' className='btn btn-primary'

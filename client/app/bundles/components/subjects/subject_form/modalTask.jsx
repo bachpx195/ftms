@@ -37,6 +37,7 @@ export default class ModalTask extends React.Component{
     user_task = (
       <div className='panel-project panel-body'>
         <ListTasks task={list_available_tasks} type={this.state.type}
+          course={this.props.course}
           afterChoose={this.afterChoose.bind(this)}
           ownerable_id={this.props.ownerable_id}
           ownerable_type={this.props.ownerable_type}

@@ -8,7 +8,8 @@ export default class Documents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      documents: props.documents
+      documents: props.documents,
+      course: props.course,
     }
   }
 
@@ -35,7 +36,7 @@ export default class Documents extends React.Component {
           <button
             onClick={this.clickPreviewDocument.bind(this, document)}
             className='pull-right btn btn-info btn-xs'>
-            {I18n.t("buttons.preview")}
+            {I18n.t('buttons.preview')}
           </button>
         </div>
       </li>
@@ -43,29 +44,35 @@ export default class Documents extends React.Component {
   }
 
   render() {
+    let button_upload_document = null;
+    if (this.props.course.status != 'finished') {
+      button_upload_document = (
+        <div className='pull-right'>
+          <button type='button' className='btn btn-default'
+            onClick={this.handleUploadDocument.bind(this)}
+            title={I18n.t('documents.select_document')}>
+            <i className='fa fa-upload'></i>
+          </button>
+          <form encType='multipart/form-data'>
+            <div className='hidden'>
+              <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
+                ref='dropzoneDocumentsField'
+                multiple={false}
+                accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
+            </div>
+          </form>
+        </div>
+      );
+    }
     return (
       <div className='info-panel clearfix'>
         <div className='box box-primary'>
           <div className='box-header with-border box-header-gray'>
             <h3 className='label box-title'>
-              {I18n.t("documents.title")}
+              {I18n.t('documents.title')}
             </h3>
             <CoursePolicy permit={this.props.courseListPermit} >
-              <div className="pull-right">
-                <button type="button" className="btn btn-default"
-                  onClick={this.handleUploadDocument.bind(this)}
-                  title={I18n.t("documents.select_document")}>
-                  <i className="fa fa-upload"></i>
-                </button>
-                <form encType="multipart/form-data">
-                  <div className='hidden'>
-                    <Dropzone onDrop={this.onDocumentsDrop.bind(this)}
-                      ref='dropzoneDocumentsField'
-                      multiple={false}
-                      accept={app_constants.ACCEPT_DOCUMENT_TYPES} />
-                  </div>
-                </form>
-              </div>
+              {button_upload_document}
             </CoursePolicy>
           </div>
           <div className='box-body'>
