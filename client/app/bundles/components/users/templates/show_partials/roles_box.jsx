@@ -13,7 +13,8 @@ export default class RolesBox extends React.Component {
       user: [],
       roles: [],
       all_roles: [],
-      functions: []
+      functions: [],
+      page_index: 0
     }
   }
 
@@ -56,6 +57,7 @@ export default class RolesBox extends React.Component {
             <div className='modal-body user-roles'>
               <FormEditRole all_roles={this.state.all_roles}
                 functions={this.state.functions}
+                page_index={this.state.page_index}
                 current_roles={this.state.roles} user_id={this.state.user.id}
                 handleAfterSaved={this.handleAfterUpdated.bind(this)}/>
             </div>
@@ -87,13 +89,16 @@ export default class RolesBox extends React.Component {
         {controller: 'update_all_roles', action: ['update']},
         {controller: 'users', action: ['update', 'correctUser'], data: {id: this.props.user.id}}
       ]}>
-        <div className='text-center roles-box'>
-          <span>
-            <strong>{I18n.t('users.roles.name')}: </strong>
-            {this.renderRole()}
-          </span>
-          <div className='btn btn-primary' onClick={this.handleEdit.bind(this)}>
-            {I18n.t('users.buttons.edit_role')}
+        <div className='roles-box'>
+          <div className='text-center'>
+            <span>
+              <strong>{I18n.t('users.roles.name')}: </strong>
+              {this.renderRole()}
+            </span>
+            <div className='btn btn-primary'
+              onClick={this.handleEdit.bind(this)}>
+              {I18n.t('users.buttons.edit_role')}
+            </div>
           </div>
           {this.renderModal()}
         </div>
@@ -104,6 +109,7 @@ export default class RolesBox extends React.Component {
   handleEdit() {
     let $target = $(event.target);
     $target.blur();
+    this.setState({page_index: 0});
     $('#modalRole').modal();
     this.fetchRoles();
   }
