@@ -46,7 +46,7 @@ en:
     multi_step_form:
       course_info: "Course Info"
       select_training_standard: "Select Training Standard"
-      assign_owner: "Assign Owner"
+      assign_owner: "Assign Owner and Members"
       total_working_day: "Total working day"
       day_digit: "17"
       day: "Thurday"
@@ -56,3 +56,4 @@ en:
       previous: "Previous"
       next: "Next"
       submit: "Submit"
+      skip_and_submit: "Skip and Submit"

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
+import Errors from '../../../shareds/errors';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import * as app_constants from 'constants/app_constants';
@@ -42,6 +43,7 @@ export default class FormCourse extends React.Component {
 
     return (
       <fieldset>
+        <Errors errors={this.state.errors} />
         <div className='form-group'>
           <div className='dropzone'>
             <div className='form-group'>
@@ -93,10 +95,20 @@ export default class FormCourse extends React.Component {
             onClick={this.props.onCancelForm}/>
           <input type='button' name='next' className='next action-button'
             value={I18n.t('programs.button.next')}
-            onClick={this.props.onClickNext}/>
+            onClick={this.handleClickNext.bind(this)}/>
         </div>
       </fieldset>
     );
+  }
+
+  handleClickNext(event) {
+    if (this.state.course.name == '') {
+      this.setState({
+        errors: I18n.t('courses.errors.blank_name'),
+      });
+    } else {
+      this.props.onClickNext(event);
+    }
   }
 
   renderOptions(objects) {
@@ -130,7 +142,7 @@ export default class FormCourse extends React.Component {
       image: acceptedFiles[0],
       changeImage: true
     });
-    this.props.afterInputFormCourse(this.state.course, this.state.image)
+    this.props.afterInputFormCourse(this.state.course, acceptedFiles[0])
   }
 
   onOpenClick() {

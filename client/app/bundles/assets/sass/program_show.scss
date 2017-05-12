@@ -1,5 +1,6 @@
 $white: #fff;
 $black: #000;
+$green: #27ae60;
 $td-card-course-inner-color: #c31500;
 $box-shadow: #dfdfdf;
 $td-course-description-p-color: #989898;
@@ -12,6 +13,7 @@ $course-container-scrollbar-thumb: #bcb8b8;
 $course-container-scrollbar-track-shadow: rgba(0, 0, 0, .3);
 $list-manager-background: #f4f8fa;
 $list-manager-border: #dbe3e7;
+$teal: #008080;
 
 .td-padding-top {
   padding-top: 50px;
@@ -74,11 +76,11 @@ $list-manager-border: #dbe3e7;
 
     li {
       float: left;
+      left: calc(50% - 18px);
       list-style: none;
       position: absolute;
       right: -10px;
       top: -20px;
-      left: calc(50% - 18px);
     }
 
     .td-course-manager-avatar {
@@ -183,8 +185,8 @@ $list-manager-border: #dbe3e7;
 
 .view-members {
   bottom: 1%;
-  position: absolute;
   left: 35%;
+  position: absolute;
 }
 
 .user-list {
@@ -259,7 +261,6 @@ p {
 
 .course-container::-webkit-scrollbar-track {
   background-color: $course-container-background;
-  -webkit-box-shadow: inset 0 0 6px $course-container-scrollbar-track-shadow;
 }
 
 .course-container::-webkit-scrollbar {
@@ -271,7 +272,7 @@ p {
   background-color: $course-container-scrollbar-thumb;
 }
 
-.program-control {
+.training-standard-program {
   fieldset {
     margin-bottom: 10px;
   }
@@ -327,10 +328,10 @@ li {
       color: $white;
       cursor: pointer;
       height: 36px;
+      line-height: 36px;
       position: absolute;
       width: 36px;
       z-index: -1;
-      line-height: 36px;
     }
   }
 }
@@ -392,4 +393,54 @@ li {
 
 .dialog-course {
   width: 60%;
+}
+
+.ms-modal-assign-member {
+  .panel-body {
+    padding: 0;
+  }
+
+  .panel-info {
+    margin-bottom: 10px;
+  }
+
+  .assign-managers,
+  .reject-users,
+  .assign-members {
+    margin: 50px auto !important;
+    margin-bottom: 15px;
+    min-width: 50px;
+  }
+
+  .check-icon {
+    left: -5px;
+  }
+
+  .list-users {
+    height: 46vh;
+    overflow-y: auto;
+  }
+
+  .list-managers {
+    height: 17vh;
+    overflow-y: auto;
+  }
+
+  .list-members {
+    height: 17vh;
+    overflow-y: auto;
+  }
+
+  .list-group {
+    margin-bottom: 0;
+  }
+
+  .count-member {
+    text-align: right;
+  }
+
+  .panel-heading {
+    background-color: $teal;
+    color: $white;
+  }
 }

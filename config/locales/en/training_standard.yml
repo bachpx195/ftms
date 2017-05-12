@@ -47,7 +47,7 @@ en:
     preview: "Training standards preview"
     list_training_standards: "List training standards"
     errors:
-      blank_name: "Name cannot be blank !"
+      blank_name: "Name cannot be blank"
     nav_tabs:
       training_standard_info: "Training Standard Info"
       assigned_subjects: "Assigned Subjects"
