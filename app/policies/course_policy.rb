@@ -32,7 +32,11 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def is_owner_organization?
-    record[:program].organization.owner == @user
+    if record[:course]
+      record[:course].program.organization.owner == @user
+    else
+      record[:program].organization.owner == @user
+    end
   end
 
   def is_creator_owner_course?

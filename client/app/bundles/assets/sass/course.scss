@@ -40,16 +40,17 @@ $user-subject-border-status-reject: #757575;
   padding: 14px 0;
   position: relative;
 
-  .preview-course-btn {
-    position: absolute;
-    top: 0;
-  }
-
   .btn-preview {
     background-color: $show-course-subject-blue-sky;
     color: $show-course-subject-white;
     font-size: 23px;
-    margin-top: 4px;
+    padding: 2px 12px;
+  }
+
+  .preview-course-btn {
+    right: 0;
+    position: absolute;
+    top: 0;
   }
 }
 
@@ -159,23 +160,37 @@ $user-subject-border-status-reject: #757575;
 .course-header {
   display: block;
   font-size: 13px;
-  margin-left: 20px;
   margin: 10px;
-}
-
-.course-header .header-title {
-  color: $orange;
-  font-size: 200%;
-  font-weight: 700;
-  margin-right: 10px;
+  margin-left: 20px;
 }
 
 .course-header {
+  width: 100%;
+
+  .header-title {
+    color: $orange;
+    display: inline-block;
+    font-size: 27px;
+    font-weight: 700;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  .courses-detail-status {
+    display: inline-block;
+    height: 30px;
+    position: relative;
+    width: 130px;
+  }
+
   .label-status {
     border-radius: 3px;
     color: $show-course-subject-white;
     font-weight: bold;
-    padding: 5px 5px 3px 5px;
+    padding: 5px 5px 3px;
+    position: absolute;
+    right: 50px;
+    top: 7px;
   }
 
   .status-init {
@@ -184,8 +199,6 @@ $user-subject-border-status-reject: #757575;
 
   .status-in_progress {
     background-color: $user-subject-border-status-in-progress;
-    bottom: 60px;
-    position: absolute;
   }
 
   .status-finished {
@@ -440,11 +453,16 @@ $btn-danger-xs: #dd4b39;
   border-color: $btn-danger-xs;
 }
 
+.ts-item-detail {
+  font-size: 17px;
+}
+
 .ts-subjects-list,
 .ts-evaluation-standard-list {
   border-right: 1px solid $silver;
-  height: 70vh;
+  height: 45vh;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .modal-training-standard .modal-dialog {
@@ -455,6 +473,7 @@ $btn-danger-xs: #dd4b39;
 .ts-evaluation-standard-list .list-group-item {
   border-radius: 8px;
   margin: 5px;
+  cursor: pointer;
 }
 
 .menu-right-user-course {

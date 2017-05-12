@@ -129,8 +129,12 @@ en:
     training_standard: "Training Standard"
     subjects-list: "Subjects List"
     evaluation_standards_list: "Evaluation Standards List"
-    assignment_notice: "You have to finished %{count_assignment} assignments"
+    assignment_notice: "You have to finished %{count_assignment} tasks"
     obligatory: "Obligatory"
+    preview:
+      item_detail: "Detail"
+      item_name: "Name: "
+      item_content: "Content: "
     errors:
       blank_name: " cannot be blank"
       must_be_selected: " must be selected"

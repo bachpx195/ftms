@@ -25,7 +25,7 @@ export default class FormCourse extends React.Component {
     this.setState({
       program_detail: nextProps.program_detail,
       changeImage: false,
-      errors: {},
+      errors: null,
       all_roles: nextProps.all_roles,
       owners: nextProps.owners,
       course: nextProps.course

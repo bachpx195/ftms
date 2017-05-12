@@ -102,8 +102,8 @@ export default class ModalAssignMember extends React.Component {
   }
 
   _rendernotification(notifications) {
-    return notifications.map(notification => {
-      return (<li>
+    return notifications.map((notification, index) => {
+      return (<li key={index}>
         <span className="label label-danger">{notification}</span>
       </li>);
     });
