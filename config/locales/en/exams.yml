@@ -8,6 +8,7 @@ en:
       created_at: "Created at"
       spent_time: "Spent time"
       score: "Score"
+      status: "Status"
     buttons:
       finish: "Finish"
     time_remaining: "Time remaining:"

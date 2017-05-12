@@ -9,18 +9,20 @@ export default class Document extends React.Component {
       document_url.substring(document_url.lastIndexOf('/') + 1) : '';
     return (
       <li className='document-item' key={document.id}>
-        <span className='direct-document'>
-          <a href={document_url} title={document_name} className='document-name'
-            download={document_name} target='_blank'>
-            {document_name}
-          </a>
-        </span>
-        <div className='pull-right preview-document-button'>
-          <button
-            onClick={this.handlerAfterClickPreviewDocument.bind(this, document)}
-            className='pull-right btn btn-info btn-xs'>
-            {I18n.t("buttons.preview")}
-          </button>
+        <div className='row'>
+          <div className='col-md-7'>
+            <a href={document_url} title={document_name} className='document-name'
+              download={document_name} target='_blank'>
+              {document_name}
+            </a>
+          </div>
+          <div className='col-md-5'>
+            <button
+              onClick={this.handlerAfterClickPreviewDocument.bind(this, document)}
+              className='pull-right btn btn-info btn-xs'>
+              {I18n.t("buttons.preview")}
+            </button>
+          </div>
         </div>
       </li>
     );
