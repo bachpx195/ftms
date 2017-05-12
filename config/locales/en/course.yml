@@ -134,3 +134,4 @@ en:
     errors:
       blank_name: " cannot be blank"
       must_be_selected: " must be selected"
+      joined_course: " joined course "
