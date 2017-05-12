@@ -27,7 +27,7 @@ class Serializers::Courses::CourseDetailSerializer <
 
   def unassigned_users
     Serializers::Courses::CourseMembersSerializer
-      .new(object: supports.unassigned_users).serializer
+      .new(object: supports.unassigned_users, scope: {course: object}).serializer
   end
 
   def training_standards

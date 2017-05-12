@@ -15,7 +15,8 @@ export default class ModalAssignMember extends React.Component {
       members: props.members,
       checked_users: [],
       checked_managers: [],
-      checked_members: []
+      checked_members: [],
+      notifications: []
     };
   }
 
@@ -43,6 +44,11 @@ export default class ModalAssignMember extends React.Component {
             </h4>
           </div>
           <div className="modal-body">
+            <div className="col-md-12 text-center notifications">
+              <ul className="notification">
+                {this._rendernotification(this.state.notifications)}
+              </ul>
+            </div>
             <div className="row">
               <div className="col-md-5">
                 <ListUsers title={I18n.t('courses.labels.list_users')}
@@ -93,6 +99,14 @@ export default class ModalAssignMember extends React.Component {
         </div>
       </div>
     </div>);
+  }
+
+  _rendernotification(notifications) {
+    return notifications.map(notification => {
+      return (<li>
+        <span className="label label-danger">{notification}</span>
+      </li>);
+    });
   }
 
   handleClickUser(user, checked) {
@@ -159,11 +173,27 @@ export default class ModalAssignMember extends React.Component {
   }
 
   assignMembers() {
-    let members = this.state.members.concat(this.state.checked_users);
+    let notifications = [];
+    let checked_users = []
+    this.state.checked_users.map((user, index) => {
+      if (user.other_courses.length > 0) {
+        notifications.push(user.name + I18n.t("courses.errors.joined_course") +
+          user.other_courses[0].name);
+      } else {
+        checked_users.push(user);
+      }
+    })
+    $('.notifications').show();
+    setTimeout(function() {
+      $('.notifications').fadeOut();
+    }, 2000);
+
+    let members = this.state.members.concat(checked_users);
     let unassigned_users = this.state.unassigned_users.filter(_user => {
-      return this.state.checked_users.indexOf(_user) < 0;
+      return checked_users.indexOf(_user) < 0;
     });
     this.setState({
+       notifications: notifications,
       checked_users: [],
       members: members,
       unassigned_users: unassigned_users
