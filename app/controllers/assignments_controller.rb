@@ -34,7 +34,7 @@ class AssignmentsController < ApplicationController
 
   private
   def assignment_params
-    params.require(:task).permit Assignment::ATTRIBUTE_PARAMS
+    params.require(:targetable).permit Assignment::ATTRIBUTE_PARAMS
   end
 
   def find_assignment
@@ -66,7 +66,7 @@ class AssignmentsController < ApplicationController
 
   def create_tasks_for_team
     static_task = create_static_task_assignment
-    params_task = params[:task]
+    params_task = params
     create_tasks_for_team = AssignmentServices::CreateTaskAssignment
       .new static_task: static_task, ownerable_id: params_task[:ownerable_id],
       user_team: @user_team, current_user: current_user,
@@ -82,7 +82,7 @@ class AssignmentsController < ApplicationController
   end
 
   def create_static_task_assignment
-    params_task = params[:task]
+    params_task = params
     static_task = AssignmentServices::CreateStaticTaskAssignment
       .new ownerable_id: params_task[:ownerable_id], assignment: @assignment,
       ownerable_type: params_task[:ownerable_type]
@@ -91,7 +91,7 @@ class AssignmentsController < ApplicationController
 
   def find_user_team
     @assignment = Assignment.new assignment_params
-    @user_team = CourseSubject.find_by(id: params[:task][:ownerable_id])
+    @user_team = Team.find_by(id: params[:ownerable_id])
       .user_subjects.find_by user: current_user
     unless @user_team
       respond_to do |format|

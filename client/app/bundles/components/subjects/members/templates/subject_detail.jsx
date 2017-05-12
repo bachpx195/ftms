@@ -133,6 +133,7 @@ export default class SubjectDetail extends React.Component {
       let index_static_task = this.state.static_task_assignment.findIndex(
         static_task => static_task.targetable_id == assignment.id)
 
+      if (index_static_task < 0) return null;
       this.state.user_dynamic_course_subjects.map(dynamic_task => {
         if (dynamic_task.targetable_id ==
           this.state.static_task_assignment[index_static_task].id) {

@@ -28,7 +28,7 @@ export default class MetaTasks extends React.Component {
       {
         header: I18n.t('tasks.headers.sent_at'),
         id: 'sent_at',
-        accessor: d => I18n.l('time.formats.default', value),
+        accessor: d => I18n.l('time.formats.default', d.value),
         style: {textAlign: 'right'},
         width: 250
       }
