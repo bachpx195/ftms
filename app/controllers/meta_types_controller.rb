@@ -32,12 +32,13 @@ class MetaTypesController < ApplicationController
   end
 
   def policy
-    policy = @subject.organization.managers.include? current_user
+    policy = [@subject.organization.managers, @subject.organization.owner]
+      .include? current_user
     unless policy
       respond_to do |format|
         format.json do
           render json: {message: I18n.t("subjects.permit_create_meta_types_fails")},
-            status: :not_found
+            status: :forbidden
         end
       end
     end

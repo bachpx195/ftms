@@ -99,7 +99,7 @@ export default class BlockTasks extends React.Component{
   _renderActionCreate(type) {
     if (this.props.course_subject &&
       this.props.course_subject.status == 'finished' ||
-      this.props.course.status == 'finished') return null;
+      this.props.course && this.props.course.status == 'finished') return null;
 
     let button_create = '';
     if (this.props.location == 'course_subject' && type == 'projects') {

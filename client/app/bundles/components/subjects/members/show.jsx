@@ -45,8 +45,8 @@ export default class SubjectTraineeShowBox extends React.Component {
         />
 
         <ModalCreateAssignment
-          ownerable_id={this.state.subject_detail.course_subject.id}
-          ownerable_type={"CourseSubject"}
+          ownerable_id={4}
+          ownerable_type="Team"
           subject_detail={this.props.subject_detail}
           url={routes.assignments_url()}
           handleAfterCreatedAssignment={this.handleAfterCreatedAssignment.bind(this)}

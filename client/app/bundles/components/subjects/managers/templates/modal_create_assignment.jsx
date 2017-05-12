@@ -46,10 +46,9 @@ export default class ModalCreateAssignment extends React.Component {
       </div>
     );
   }
-  handleAfterCreatedAssignment(meta_types, target) {
+  handleAfterCreatedAssignment(target) {
     this.setState({
-      meta_types_checked: [],
-      meta_types: meta_types
+      meta_types_checked: []
     });
     $('.modal-create-assignments').modal('hide');
     this.props.handleAfterCreatedAssignment(target);

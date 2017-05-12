@@ -156,6 +156,7 @@ export default class MultiStepForm extends React.Component {
       });
     })
     .catch(error => {
+      console.log(error)
       this.setState({errors: error.response.data.errors});
     });
   }
