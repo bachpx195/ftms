@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Modal from './modal';
 import React from 'react';
 import SubjectPolicy from 'policy/subject_policy';
@@ -6,34 +5,13 @@ import Team from './team';
 import * as routes from 'config/routes';
 
 export default class TeamList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      course_subject_teams: props.course_subject_teams,
-      course_subject: props.course_subject,
-      unassigned_user_subjects: props.unassigned_user_subjects,
-      owner_id: props.owner_id,
-      team: {},
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      course_subject_teams: nextProps.course_subject_teams,
-      course_subject: nextProps.course_subject,
-      unassigned_user_subjects: nextProps.unassigned_user_subjects,
-      owner_id: nextProps.owner_id,
-    });
-  }
-
   renderTeamList(){
-    return this.state.course_subject_teams.map(team => {
+    return this.props.course_subject_teams.map(team => {
       return (
         <div key={team.id} className='col-md-12'>
-          <Team
+          <Team course={this.props.course}
             team={team} user_subjects={team.user_subjects}
-            course_subject={this.state.course_subject}
+            course_subject={this.props.course_subject}
           />
         </div>
       );
@@ -42,7 +20,8 @@ export default class TeamList extends React.Component {
 
   render() {
     let button_create_team = null;
-    if (this.props.course.status != 'finished') {
+    if (this.props.course.status != 'finished' &&
+      this.props.course_subject.status != 'finished') {
       button_create_team = (
         <button type='button' className='btn btn-primary'
           onClick={this.onCreateTeam.bind(this)}>
@@ -51,7 +30,7 @@ export default class TeamList extends React.Component {
         </button>
       );
     }
-    var owner_id = this.state.owner_id;
+    var owner_id = this.props.owner_id;
     return(
       <div className='list-container'>
         <SubjectPolicy
@@ -77,15 +56,12 @@ export default class TeamList extends React.Component {
     let teams_url = routes.teams_url();
     return (
       <Modal url={teams_url} handleAfterSaved={this.handleAfterCreated.bind(this)}
-        unassigned_user_subjects={this.state.unassigned_user_subjects}
+        unassigned_user_subjects={this.props.unassigned_user_subjects}
         course_subject={this.props.course_subject} />
     );
   }
 
   onCreateTeam() {
-    this.setState({
-      team: {},
-    });
     $('.modalTeam').modal();
   }
 
