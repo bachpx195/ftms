@@ -19,7 +19,6 @@ class Organization < ApplicationRecord
   has_many :surveys, dependent: :destroy
   has_many :assignments, dependent: :destroy
   has_many :subjects, dependent: :destroy
-  has_many :projects, dependent: :destroy
   has_many :test_rules, dependent: :destroy
   has_many :moving_histories, dependent: :destroy
   has_many :documents, as: :documentable, dependent: :destroy

@@ -5,13 +5,17 @@ import axios from 'axios';
 import Errors from '../../shareds/errors';
 import RenderOptions from './render_options'
 import _ from 'lodash';
+import * as app_constants from 'constants/app_constants'
 
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      project: props.project || {},
+      task: {
+        name: '',
+        description: '',
+      },
       organization: props.organization,
       errors: null,
     };
@@ -20,25 +24,32 @@ export default class Form extends React.Component {
   render() {
     return (
       <div className='col-md-8 col-md-offset-2'>
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit.bind(this)} 
+          className='form-horizontal'>
           <Errors errors={this.state.errors} />
+          <div className='form-group'>
+            <div className='col-md-12'>
+              <input type='text' placeholder={I18n.t('projects.headers.name')}
+                className='form-control' name='name' ref='nameField'
+                onChange={this.handleChange.bind(this)} />
+            </div>
+          </div>
 
           <div className='form-group'>
-            <input type='text' placeholder={I18n.t('projects.headers.name')}
-              value={this.state.project.name || ''}
-              onChange={this.handleChange.bind(this)}
-              className='form-control' name='name' />
+            <div className='col-md-12'>
+              <input type='text' placeholder={I18n.t('projects.headers.description')}
+                className='form-control' name='description' ref='contentField'
+                onChange={this.handleChange.bind(this)} />
+            </div>
           </div>
+
           <div className='form-group'>
-            <input type='text' onChange={this.handleChange.bind(this)}
-              placeholder={I18n.t('projects.headers.description')}
-              value={this.state.project.description || ''}
-              className='form-control' name='description' />
-          </div>
-          <div className='form-group'>
-            <div className='text-right'>
+            <div className='col-md-12 text-center'>
               <button type='submit' className='btn btn-primary'
-                disabled={!this.formValid()}>{I18n.t('buttons.save')}</button>
+                disabled={!this.formValid()}
+                onClick={this.handleSubmit.bind(this)}>
+                {I18n.t('buttons.create_task')}
+              </button>
             </div>
           </div>
         </form>
@@ -46,53 +57,36 @@ export default class Form extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      project: nextProps.project,
-      organization: nextProps.organization,
-      errors: null,
-    });
-  }
-
   handleChange(event) {
     let attribute = event.target.name;
-    Object.assign(this.state.project, {[attribute]: event.target.value});
+    Object.assign(this.state.task, {[attribute]: event.target.value})
     this.setState({
-      project: this.state.project
+      task: this.state.task
     });
   }
 
   formValid() {
-    return this.state.project.name != undefined;
+    return this.state.task.name != '';
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    let project = _.omit(this.state.project, 'errors');
-    let formData = new FormData();
-    formData.append('project[name]', this.state.project.name);
-    formData.append('project[description]', this.state.project.description);
-    formData.append('project[organization_id]', this.state.organization.id);
-    formData.append('project[ownerable_id]', this.props.team.id);
-    formData.append('project[ownerable_type]', 'Team');
-    formData.append('project[course_subject_id]', this.props.team.course_subject_id);
-    formData.append('authenticity_token', ReactOnRails.authenticityToken());
-    let method = this.state.project.id ? 'PUT' : 'POST';
-    axios({
-      url: this.props.url + '.json',
-      method: method,
-      data: formData,
-    })
-    .then(response => {
-      $('.modal-create').modal('hide');
-      this.props.handleAfterActionProject(response.data.project, 'projects');
-      this.setState({
-        project: {},
-        errors: null,
-      });
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    axios.post(this.props.url, {
+      targetable: {
+        name: this.state.task.name,
+        description: this.state.task.description,
+        course_subject_id: this.props.course_subject_id
+      }, authenticity_token: ReactOnRails.authenticityToken(),
+        ownerable_id: this.props.ownerable_id,
+        ownerable_type: this.props.ownerable_type,
+        type: this.props.type
+    }, app_constants.AXIOS_CONFIG)
+      .then(response => {
+        this.refs.nameField.value = '';
+        this.refs.contentField.value = '';
+        this.props.handleAfterCreatedProject(response.data.target, 
+          this.props.type);
+      })
+      .catch(error => console.log(error));
   }
 }
