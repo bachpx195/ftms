@@ -24,6 +24,7 @@ export const USERS_PATH = 'users';
 export const NEW_PATH = 'new';
 export const EDIT_PATH = 'edit';
 export const MOVE_USERS_PATH = 'move/users';
+export const USER_STATUSES_PATH = 'user_statuses';
 
 //Course
 export const MY_COURSES_PATH = 'courses';

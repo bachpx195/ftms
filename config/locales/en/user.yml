@@ -10,6 +10,9 @@ en:
     change_role: "Change user roles"
     edit_info_user: "Edit User Info"
     edit: "Enter text..."
+    modal:
+      header_create: "Creating Status"
+      create: "Enter status..."
     profile_detail:
       organization: "Organization"
       program: "Program"

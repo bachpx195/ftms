@@ -9,6 +9,7 @@ en:
     parent_name: "Parent Name: "
     modals:
       header_edit: "Program"
+      header_create: "Create Program"
       create_course: "Create Course"
     create_sub: "Create Sub Program"
     create: "Create Program"

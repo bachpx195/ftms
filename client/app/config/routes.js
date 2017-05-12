@@ -196,6 +196,10 @@ export function universities_url() {
   return APP_URL + app_constants.UNIVERSITIES_PATH;
 }
 
+export function user_statuses_url() {
+  return APP_URL + app_constants.USER_STATUSES_PATH;
+}
+
 export function university_url(id) {
   return universities_url() + '/' + id;
 }
