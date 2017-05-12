@@ -1,5 +1,9 @@
 class ProgramPolicy < ApplicationPolicy
 
+  def create?
+    is_owner_organization? || (super && has_function?)
+  end
+
   def show?
     is_owner_organization? || (super && has_function?)
   end
@@ -18,7 +22,11 @@ class ProgramPolicy < ApplicationPolicy
   end
 
   def is_owner_organization?
-    record[:program].organization.owner == @user
+    if record[:program]
+      record[:program].organization.owner == @user
+    else
+      record[:organization].owner == @user
+    end
   end
 
   def belong_to_organization?
