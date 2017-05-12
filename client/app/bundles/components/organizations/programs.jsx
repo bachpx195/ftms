@@ -31,6 +31,7 @@ export default class Programs extends React.Component {
       <div className="box-programs">
         <div className="form-create">
           <ProgramPolicy permit={[
+            {action: ['ownerById'], data: {id: this.state.organization.owner.id}},
             {action: ['create']}
           ]}>
             <FormProgram
