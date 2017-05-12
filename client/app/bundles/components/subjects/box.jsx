@@ -36,7 +36,10 @@ export default class SubjectBox extends React.Component {
               <div className='row'>
                 <div className='col-md-8'>
                   <SubjectPolicy
-                    permit={[{action: ['create'], target: 'children'}]} >
+                    permit={[
+                      {action: ['ownerById'], data: {id: this.props.organization.user_id}},
+                      {action: ['create'], target: 'children'}
+                    ]} >
                     <button type="button" className="btn btn-info create-subject"
                       onClick={this.handleCreateSubject.bind(this)}>
                       <i className="fa fa-plus"></i> {I18n.t('subjects.buttons.create')}
@@ -52,6 +55,7 @@ export default class SubjectBox extends React.Component {
             <div className='box-footer'>
               <SubjectPolicy
                   permit={[
+                    {action: ['ownerById'], data: {id: this.props.organization.user_id}},
                     {action: ['create'], target: 'children'},
                     {action: ['index'], target: 'children'},
                   ]}>
