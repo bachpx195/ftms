@@ -8,12 +8,13 @@ class CreateTask::TasksController < ApplicationController
       ownerable_type: params[:ownerable_type],
       meta_types_checked: params[:meta_types_checked],
       current_user: current_user).perform
-    unless @task
+    if @task
+      target = @task.targetable.attributes.merge task_id: @task.id
+      render json: {message: flash_message("created"), target: target}
+    else
       render json: {message: flash_message("not_created")},
         status: :unprocessable_entity
     end
-    target = @task.targetable.attributes.merge task_id: @task.id
-    render json: {message: flash_message("created"), target: target}
   end
 
   private

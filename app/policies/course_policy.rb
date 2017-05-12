@@ -1,5 +1,9 @@
 class CoursePolicy < ApplicationPolicy
 
+  def index?
+    check_index?
+  end
+
   def create?
     is_owner_organization? || is_creator_program? ||
       (super && belongs_to_organization)
@@ -7,7 +11,7 @@ class CoursePolicy < ApplicationPolicy
 
   def show?
     is_owner_organization? || is_creator_owner_course? ||
-      is_creator_program? || is_course_manager? ||
+      belongs_to_course? || is_creator_program? ||
       (super && belongs_to_organization?)
   end
 
@@ -43,7 +47,13 @@ class CoursePolicy < ApplicationPolicy
     record[:course].creator == @user || record[:course].owner == @user
   end
 
-  def is_course_manager?
-    record[:course].course_managers.pluck(:user_id).include? @user.id
+  def belongs_to_course?
+    record[:course].user_courses.pluck(:user_id).include? @user.id
+  end
+
+  def check_index?
+    record[:courses].each do |course|
+      true if course.program.organization.owner == @user
+    end
   end
 end

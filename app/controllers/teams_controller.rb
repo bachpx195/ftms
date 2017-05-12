@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :load_supports
   before_action :find_team, only: :show
+  before_action :authorize_request
 
   def create
     respond_to do |format|
@@ -42,5 +43,10 @@ class TeamsController < ApplicationController
         end
       end
     end
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(team: @team_supports.team,
+      course: @team_supports.course_subject.course), TeamPolicy
   end
 end
