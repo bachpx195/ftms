@@ -16,12 +16,14 @@ export default class FullForm extends React.Component {
         ready_for_project: '', contract_date: '', naitei_company: '',
         university_id: '', graduation: '', language_id: '', trainee_type_id: '',
         user_status_id: '', working_day: 0, program_id: '', staff_code: '',
-        division: '', join_div_date: '', stage_id: '1'
+        division: '', join_div_date: '', stage_id: '1',
       }, errors: null,
       universities: props.universities,
       languages: props.languages,
       trainee_types: props.trainee_types,
-      stages: props.stages
+      stages: props.stages,
+      programs: props.organization_programs,
+      statuses: props.user_statuses
     }
   }
 
@@ -74,7 +76,8 @@ export default class FullForm extends React.Component {
           {this.renderOptions(this.props.organization_programs)}
         </select>
         <div className='input-group-btn'>
-          <button type='button' className='btn btn-box-tool'>
+          <button type='button' className='btn btn-default custom-button'
+            onClick={this.handleAdd.bind(this, 'programs')}>
             <i className='fa fa-plus'></i>
           </button>
         </div>
@@ -134,19 +137,12 @@ export default class FullForm extends React.Component {
               <div className='col-md-4'>
                 <div className='form-group'>
                   <label>{I18n.t('users.profile_detail.trainer')}</label>
-                  <div className='input-group'>
-                    <select className='form-control' name='trainer_id'
-                      onChange={this.handleUserChange.bind(this)}
-                      value={this.state.user.trainer_id || ''}>
-                      <option value=''>-- {I18n.t('users.form_select.select_trainer')}</option>
-                      {this.renderOptions(this.props.trainers)}
-                    </select>
-                    <div className='input-group-btn'>
-                      <button type='button' className='btn btn-box-tool'>
-                        <i className='fa fa-plus'></i>
-                      </button>
-                    </div>
-                  </div>
+                  <select className='form-control' name='trainer_id'
+                    onChange={this.handleUserChange.bind(this)}
+                    value={this.state.user.trainer_id || ''}>
+                    <option value=''>-- {I18n.t('users.form_select.select_trainer')}</option>
+                    {this.renderOptions(this.props.trainers)}
+                  </select>
                 </div>
                 <div className='form-group'>
                   <label htmlFor='password-confirmation'>
@@ -219,7 +215,7 @@ export default class FullForm extends React.Component {
                       {this.renderOptions(this.state.universities)}
                     </select>
                   <div className='input-group-btn'>
-                    <button type='button' className='btn btn-box-tool'
+                    <button type='button' className='btn btn-default custom-button'
                       onClick={this.handleAdd.bind(this, 'universities')}>
                       <i className='fa fa-plus'></i>
                     </button>
@@ -263,7 +259,7 @@ export default class FullForm extends React.Component {
                       {this.renderOptions(this.props.stages)}
                     </select>
                     <div className='input-group-btn'>
-                      <button type='button' className='btn btn-box-tool'
+                      <button type='button' className='btn btn-default custom-button'
                         onClick={this.handleAdd.bind(this, 'stages')}>
                         <i className='fa fa-plus'></i>
                       </button>
@@ -289,7 +285,7 @@ export default class FullForm extends React.Component {
                       {this.renderOptions(this.props.trainee_types)}
                     </select>
                     <div className='input-group-btn'>
-                      <button type='button' className='btn btn-box-tool'
+                      <button type='button' className='btn btn-default custom-button'
                         onClick={this.handleAdd.bind(this, 'trainee_types')}>
                         <i className='fa fa-plus'></i>
                       </button>
@@ -344,7 +340,7 @@ export default class FullForm extends React.Component {
                       {this.renderOptions(this.props.languages)}
                     </select>
                     <div className='input-group-btn'>
-                      <button type='button' className='btn btn-box-tool'
+                      <button type='button' className='btn btn-default custom-button'
                         onClick={this.handleAdd.bind(this, 'languages')}>
                         <i className='fa fa-plus'></i>
                       </button>
@@ -366,7 +362,8 @@ export default class FullForm extends React.Component {
                       {this.renderOptions(this.props.user_statuses)}
                     </select>
                     <div className='input-group-btn'>
-                      <button type='button' className='btn btn-box-tool'>
+                      <button type='button' className='btn btn-default custom-button'
+                        onClick={this.handleAdd.bind(this, 'statuses')}>
                         <i className='fa fa-plus'></i>
                       </button>
                     </div>
@@ -403,7 +400,9 @@ export default class FullForm extends React.Component {
             </div>
           </div>
         </form>
-        <Modals handleAfterCreated={this.handleAfterCreated.bind(this)} />
+        <Modals
+          handleAfterCreated={this.handleAfterCreated.bind(this)}
+          organization={this.props.organization} />
       </div>
     )
   }

@@ -97,6 +97,8 @@ Rails.application.routes.draw do
 
   resources :teams
 
+  resources :user_statuses, only: :create
+
   resources :assignments, only: [:show, :create]
   resources :dynamic_tasks, only: [:update]
 
