@@ -25,6 +25,8 @@ class CoursesController < ApplicationController
     respond_to do |format|
       if @course.save
         static_task = TaskServices::AutoCreateTask.new(course: @course).perform
+        CourseServices::InitializeUserSubject.new(course: @course,
+          user_courses: course_params[:user_courses_attributes]).perform
         format.html{redirect_to :back}
         format.json do
           @course[:image] = {url: @course.image.url}

@@ -17,6 +17,7 @@ export default class FormCourse extends React.Component {
       course: props.course,
       image: {},
       changeImage: false,
+      errors: null,
     };
   }
 
@@ -24,7 +25,7 @@ export default class FormCourse extends React.Component {
     this.setState({
       program_detail: nextProps.program_detail,
       changeImage: false,
-      errors: null,
+      errors: {},
       all_roles: nextProps.all_roles,
       owners: nextProps.owners,
       course: nextProps.course
@@ -102,9 +103,17 @@ export default class FormCourse extends React.Component {
   }
 
   handleClickNext(event) {
+    let current_errors = [];
     if (this.state.course.name == '') {
+      current_errors['name'] = [I18n.t('courses.errors.blank_name')];
+    }
+    if (this.state.course.language_id == '') {
+      current_errors['language'] = [I18n.t('courses.errors.must_be_selected')];
+    }
+
+    if (Object.keys(current_errors).length > 0) {
       this.setState({
-        errors: I18n.t('courses.errors.blank_name'),
+        errors: current_errors,
       });
     } else {
       this.props.onClickNext(event);

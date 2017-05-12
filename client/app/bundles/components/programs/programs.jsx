@@ -149,7 +149,7 @@ export default class ProgramLists extends React.Component {
     return (
       <div>
         <div className="col-md-12">
-          <button className="btn btn-info"
+          <button className="btn btn-info hidden"
             onClick={this.handleAssignProgram.bind(this)}>
             {I18n.t('buttons.assign_program')}
           </button>

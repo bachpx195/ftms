@@ -98,7 +98,7 @@ export default class MultiStepForm extends React.Component {
   handleAssignManagers(managers) {
     this.setState({
       managers: managers,
-    })
+    });
   }
 
   handleOwnerChange(owner_id) {
@@ -117,26 +117,22 @@ export default class MultiStepForm extends React.Component {
     for (let key of Object.keys(course)) {
       formData.append('course[' + key + ']', this.state.course[key]);
     }
+    let index = 0;
+    for(let user of this.state.managers) {
+      formData.append('course[user_courses_attributes][' + index +
+        '][user_id]', user.id);
+      formData.append('course[user_courses_attributes][' + index +
+        '][type]', 'CourseManager');
+      index++;
+    }
 
-
-    this.state.managers.map((user, index) => {
-      for (let key of Object.keys(this.state.managers)) {
-        formData.append('course[user_courses_attributes][' +  index + '][user_id]',
-          user.id);
-        formData.append('course[user_courses_attributes][' + index + '][type]',
-          'CourseManager');
-      }
-    });
-
-    this.state.members.map((user, index) => {
-      for (let key of Object.keys(this.state.managers)) {
-        formData.append('course[user_courses_attributes][' +  index + '][user_id]',
-          user.id);
-        formData.append('course[user_courses_attributes][' + index + '][type]',
-          'CourseMember');
-      }
-    });
-
+    for(let user of this.state.members) {
+      formData.append('course[user_courses_attributes][' + index +
+        '][user_id]', user.id);
+      formData.append('course[user_courses_attributes][' + index +
+        '][type]', 'CourseMember');
+      index++;
+    }
 
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     let target = event.target;

@@ -80,12 +80,6 @@ export default class CourseShow extends React.Component {
             {add_tasks_button}
           </CoursePolicy>
 
-          <button className='btn add-task btn-preview'
-            title={I18n.t('courses.title_preview')}
-            onClick={this.preview.bind(this)}>
-            <i className='fa fa-eye'></i>
-            {I18n.t('courses.preview')}
-          </button>
           <ModalTrainingStandard course={this.state.course}/>
           <Subjects
             subjects={this.state.subjects}
@@ -277,9 +271,5 @@ export default class CourseShow extends React.Component {
     this.setState({
       course: this.state.course
     });
-  }
-
-  preview() {
-    $('.modal-training-standard').modal();
   }
 }
