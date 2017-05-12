@@ -66,6 +66,13 @@ export default class CourseDetail extends React.Component {
             <span className={'label-status status-' + this.state.course.status}>
               {I18n.t(`courses.${this.state.course.status}`)}
             </span>
+            <span className='preview-course-btn'>
+              <button className='btn btn-preview'
+                title={I18n.t('courses.title_preview')}
+                onClick={this.preview.bind(this)}>
+                <i className='fa fa-eye'></i>
+              </button>
+            </span>
             <div className='show-creator'>
               {link_creator}
               <h3 className='label box-title'>
@@ -101,6 +108,10 @@ export default class CourseDetail extends React.Component {
     if ($('.td-course-edit-delete').find('.finish-button')) {
       $('.td-course-edit-delete').css('margin-left','0%');
     }
+  }
+
+  preview() {
+    $('.modal-training-standard').modal();
   }
 
   handleAfterUpdate(new_course) {

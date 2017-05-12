@@ -39,6 +39,18 @@ $user-subject-border-status-reject: #757575;
   margin-top: 15px;
   padding: 14px 0;
   position: relative;
+
+  .preview-course-btn {
+    position: absolute;
+    top: 0;
+  }
+
+  .btn-preview {
+    background-color: $show-course-subject-blue-sky;
+    color: $show-course-subject-white;
+    font-size: 23px;
+    margin-top: 4px;
+  }
 }
 
 .course-subject .modal-content {

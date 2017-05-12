@@ -132,5 +132,5 @@ en:
     assignment_notice: "You have to finished %{count_assignment} assignments"
     obligatory: "Obligatory"
     errors:
-      blank_name: "Name cannot be blank"
-      no_owner: "Owner must be selected"
+      blank_name: " cannot be blank"
+      must_be_selected: " must be selected"
