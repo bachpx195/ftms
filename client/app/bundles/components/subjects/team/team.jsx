@@ -57,9 +57,10 @@ export default class Team extends React.Component {
       if ((not_finished > -1) && (not_started > -1)) {
         return (
           <ButtonChangeStatuses
+            course={this.props.course}
             object_type="Team"
             object_id={this.state.team.id}
-            course_subject_id={this.props.course_subject.id} />
+            course_subject={this.props.course_subject} />
         );
       } else {
         return null;

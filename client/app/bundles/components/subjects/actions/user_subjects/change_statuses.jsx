@@ -3,30 +3,11 @@ import React from 'react';
 import * as routes from 'config/routes';
 
 export default class ChangeStatuses extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      object_type: props.object_type,
-      object_id: props.object_id,
-      course_subject_id: props.course_subject_id,
-      status: props.status
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      object_type: nextProps.object_type,
-      object_id: nextProps.object_id,
-      course_subject_id: nextProps.course_subject_id,
-      status: nextProps.status
-    })
-  }
-
   render() {
     const RenderButton = () => {
-      if (this.props.course.status == 'finished') return null;
-      if (this.state.status == 'init') {
+      if (this.props.course.status == 'finished' ||
+        this.props.course_subject.status == 'finished') return null;
+      if (this.props.status == 'init') {
         return (
           <button type='button' className='btn btn-primary'
             onClick={this.submitMultipleUserStatus.bind(this, "in_progress")}>
@@ -52,10 +33,10 @@ export default class ChangeStatuses extends React.Component {
   submitMultipleUserStatus(status, event) {
     let formData = new FormData();
     let url = routes.change_status_user_subject_url();
-    formData.append('object_type', this.state.object_type);
-    formData.append('object_id', this.state.object_id);
+    formData.append('object_type', this.props.object_type);
+    formData.append('object_id', this.props.object_id);
     formData.append('user_subject[status]', status);
-    formData.append('course_subject_id', this.state.course_subject_id);
+    formData.append('course_subject_id', this.props.course_subject.id);
     formData.append('authenticity_token', ReactOnRails.authenticityToken());
     axios({
       url: url + '.json',

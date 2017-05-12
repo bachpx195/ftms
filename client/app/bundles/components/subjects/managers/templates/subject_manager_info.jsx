@@ -30,7 +30,7 @@ export default class Subjects extends React.Component {
               course={this.props.course}
               object_type='CourseSubject'
               object_id={this.state.subject_detail.course_subject.id}
-              course_subject_id={this.state.subject_detail.course_subject.id}
+              course_subject={this.state.subject_detail.course_subject}
               status={this.state.status}
             />
           </div>

@@ -1,5 +1,5 @@
 class ProgramsController < ApplicationController
-  before_action :find_organization, except: :show
+  before_action :find_organization, except: [:show, :update, :destroy]
   before_action :find_program, except: [:index, :new, :create]
   before_action :authorize_request
 
@@ -87,8 +87,9 @@ class ProgramsController < ApplicationController
       format.json do
         if @program.deleted?
           @message = flash_message "deleted"
-          @programs = @organization.programs
-          render json: {message: @message, program: @program}
+          programs = Serializers::Organizations::ProgramSerializer
+            .new(object: @program.organization.programs).serializer
+          render json: {message: @message, programs: programs}
         else
           render json: {message: flash_message("not_deleted")},
             status: :unprocessable_entity

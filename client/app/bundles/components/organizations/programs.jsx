@@ -96,11 +96,8 @@ export default class Programs extends React.Component {
   }
 
   handleAfterDeleted(response) {
-    let program = response.data.program;
-    let index = this.state.programs.findIndex(item => item.id == program.id);
-    this.state.programs.splice(index, 1);
     this.setState({
-      programs: this.state.programs
+      programs: response.data.programs
     })
   }
 
