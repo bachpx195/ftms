@@ -3,6 +3,10 @@ class SubjectPolicy < ApplicationPolicy
     (super && belongs_to_organization?) || is_owner_organization?
   end
 
+  def create?
+    (super && belongs_to_organization?) || is_owner_organization?
+  end
+
   def show?
     check_owner? || check_creator_subject? ||
     (super &&
