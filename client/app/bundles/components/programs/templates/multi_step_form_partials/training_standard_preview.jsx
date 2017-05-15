@@ -38,7 +38,7 @@ export default class TrainingStandardPreview extends React.Component {
         </section>
         <h4>
           {I18n.t('programs.multi_step_form.total_working_day')}
-          {total_time}
+          &nbsp;{total_time}
         </h4>
       </div>
     );

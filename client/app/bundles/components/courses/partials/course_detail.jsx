@@ -63,15 +63,17 @@ export default class CourseDetail extends React.Component {
             <span className='header-title'>
               {this.state.course.name}
             </span>
-            <span className={'label-status status-' + this.state.course.status}>
-              {I18n.t(`courses.${this.state.course.status}`)}
-            </span>
-            <span className='preview-course-btn'>
-              <button className='btn btn-preview'
-                title={I18n.t('courses.title_preview')}
-                onClick={this.preview.bind(this)}>
-                <i className='fa fa-eye'></i>
-              </button>
+            <span className='courses-detail-status'>
+              <span className={'label-status status-' + this.state.course.status}>
+                {I18n.t(`courses.${this.state.course.status}`)}
+              </span>
+              <span className='preview-course-btn'>
+                <button className='btn btn-preview'
+                  title={I18n.t('courses.title_preview')}
+                  onClick={this.preview.bind(this)}>
+                  <i className='fa fa-eye'></i>
+                </button>
+              </span>
             </span>
             <div className='show-creator'>
               {link_creator}

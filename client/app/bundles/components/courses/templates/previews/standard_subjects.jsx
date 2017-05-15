@@ -13,7 +13,10 @@ export default class StandardSubjects extends React.Component {
 
   renderStandardSubjects() {
     return this.props.subjects.map((subject, index) => {
-      return <SubjectItem key={subject.id} index={index} subject={subject} />;
+      return <SubjectItem
+        handleSubjectDetails={this.props.handleSubjectDetails}
+        handleTaskDetails={this.props.handleTaskDetails}
+        key={subject.id} index={index} subject={subject} />;
     })
   }
 }
