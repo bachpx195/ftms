@@ -127,6 +127,6 @@ class CoursesController < ApplicationController
 
   def authorize_request
     authorize_with_multiple page_params.merge(course: @course,
-      program: @program), CoursePolicy
+      program: @program, courses: current_user.courses), CoursePolicy
   end
 end
