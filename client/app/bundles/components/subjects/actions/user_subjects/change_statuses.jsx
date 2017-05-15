@@ -5,7 +5,7 @@ import * as routes from 'config/routes';
 export default class ChangeStatuses extends React.Component {
   render() {
     const RenderButton = () => {
-      if (this.props.course.status == 'finished' ||
+      if (this.props.course.status != 'in_progress' ||
         this.props.course_subject.status == 'finished') return null;
       if (this.props.status == 'init') {
         return (

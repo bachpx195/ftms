@@ -57,6 +57,12 @@ export default class Exams extends React.Component {
         width: 75
       },
       {
+        header: I18n.t('exams.headers.status'),
+        accessor: 'status',
+        style: {textAlign: 'right'},
+        width: 75
+      },
+      {
         header: '',
         id: 'view',
         accessor: d => {
