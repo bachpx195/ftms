@@ -161,7 +161,8 @@ export default class ListTabs extends React.Component {
             handleAfterDeleteTask={this.props.handleAfterDeleteTask}
             handleChooseType={this.props.handleChooseType}
             changeTabsGroupFocus={this.changeTabsGroupFocus.bind(this)}
-            handleAfterCreatedTasks={this.handleAfterCreatedTasks.bind(this)} />
+            handleAfterCreatedTasks={this.handleAfterCreatedTasks.bind(this)}
+            team={this.props.team} />
 
           <TabsMember
             tabs_group_focus={this.state.tabs_group_focus}

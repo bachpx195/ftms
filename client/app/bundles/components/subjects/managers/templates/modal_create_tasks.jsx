@@ -1,5 +1,6 @@
 import FromCreateAssignment from '../../../assignments/actions/create';
 import FormCreateSurvey from '../../../surveys/actions/create';
+import FormCreateProject from '../../../projects/templates/form';
 import React from 'react';
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
@@ -77,6 +78,15 @@ export default class ModalCreateTasks extends React.Component {
         type='Survey'
         handleAfterCreatedSurvey={this.handleAfterCreatedTasks.bind(this)}
       />
+    } else if (type == 'projects') {
+      return <FormCreateProject
+        organization={this.props.organization}
+        url={url} 
+        ownerable_type={this.state.ownerable_type}
+        ownerable_id={this.props.team.id}
+        type='Project'
+        handleAfterCreatedProject={this.handleAfterCreatedTasks.bind(this)}
+        course_subject_id={this.props.subject_detail.course_subject.id}/>
     } else {
       return null;
     }

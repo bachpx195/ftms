@@ -60,6 +60,18 @@ export default class TabsTask extends React.Component {
   }
 
   renderContents() {
+    let ownerable_id, ownerable_type, tasks = '';
+    if (this.props.team) {
+      ownerable_type = 'Team';
+      ownerable_id = this.props.team.id;
+    } else if (this.props.course) {
+      ownerable_type = 'CourseSubject';
+      ownerable_id = this.state.subject_detail.course_subject.id;
+    } else {
+      ownerable_type = 'Subject';
+      ownerable_id = this.props.subject.id;
+    }
+
     return (
       <div className='tab-content'>
         <div id='tab-assignments' className='tab-pane fade in active'>
@@ -119,11 +131,12 @@ export default class TabsTask extends React.Component {
         <ModalCreateTasks
           meta_types={this.state.meta_types}
           subject_detail={this.props.subject_detail}
-          ownerable_id={this.props.subject_detail.course_subject.id}
-          ownerable_type='CourseSubject'
+          ownerable_id={ownerable_id}
+          ownerable_type={ownerable_type}
           subject={this.props.subject}
           type={this.state.type}
           handleAfterCreatedTasks={this.props.handleAfterCreatedTasks}
+          team={this.props.team}
         />
       </div>
     );
