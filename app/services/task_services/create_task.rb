@@ -13,22 +13,7 @@ class TaskServices::CreateTask
     task = class_eval(@type.classify).new params
     task.creator_id = @current_user.id
     if task.save
-      static_task = StaticTask.create targetable_id: task.id,
-        targetable_type: @type, ownerable_id: @ownerable_id,
-        ownerable_type: @ownerable_type
-      if static_task.save
-        subject = Subject.find_by id: @ownerable_id
-        subject.course_subjects.each do |course_subject|
-          s_task = StaticTask.create targetable_id: task.id,
-            targetable_type: @type, ownerable: course_subject
-          unless s_task.save
-            false
-          end
-        end
-        static_task
-      else
-        false
-      end
+      create_static_task task
     else
       false
     end
@@ -41,6 +26,17 @@ class TaskServices::CreateTask
         meta_type = MetaType.find_by id: meta_type_checked[:id]
         @targetable.meta_types << meta_type
       end
+    end
+  end
+
+  def create_static_task task
+    ownerable = @ownerable_type.classify.constantize.find_by id: @ownerable_id
+    static_tasks = if @ownerable_type == "CourseSubject"
+      CourseSubjectServices::CreateTask.new(targetable: task,
+        ownerable: ownerable).perform if ownerable
+    else
+      SubjectServices::CreateTask.new(targetable: task,
+        ownerable: ownerable).perform if ownerable
     end
   end
 end

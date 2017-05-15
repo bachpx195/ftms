@@ -21,11 +21,9 @@ export default class SubjectManagerShowBox extends React.Component {
       training_standard: props.training_standard,
       evaluation_template: props.evaluation_template,
       evaluation_standards: props.evaluation_standards,
-      organizations: props.organizations,
       course_subject_teams: props.subject_detail.course_subject_teams,
       subject_detail: props.subject_detail,
       member_evaluations: props.member_evaluations,
-      member_ids: props.member_ids,
       user_index: 0,
       meta_types: props.meta_types,
       documents: props.subject_detail.documents,
@@ -38,33 +36,14 @@ export default class SubjectManagerShowBox extends React.Component {
   }
 
   render() {
-    let user = null;
+    let user, ownerable_id, ownerable_type, tasks, remain_tasks = '';
     if (this.props.course) {
       user = this.state.subject_detail.user_subjects[this.state.user_index];
-    }
-
-    let ownerable_id, ownerable_type, tasks, remain_tasks = '';
-    let breadcumb;
-    if (this.props.course) {
       ownerable_type = 'CourseSubject';
       ownerable_id = this.state.subject_detail.course_subject.id;
-      breadcumb = (
-        <ShowBreadCrumb
-          course={this.props.course}
-          program={this.state.subject_detail.program}
-          organization={this.state.subject_detail.organization}
-          subject={this.props.subject_detail}
-        />
-      )
     } else {
       ownerable_type = 'Subject';
       ownerable_id = this.props.subject.id;
-      breadcumb = (
-        <ShowBreadCrumb
-          organization={this.state.subject_detail.organization}
-          subject={this.props.subject_detail}
-        />
-      )
     }
     tasks = this.state.subject_detail.tasks;
     remain_tasks = this.state.subject_detail.remain_tasks;
@@ -80,7 +59,6 @@ export default class SubjectManagerShowBox extends React.Component {
         <div className='row'>
           <div className='col-md-9 content-list'>
             <div className='box box-primary'>
-
               <div className='box-header with-border'>
                 <SubjectManagerInfo subject_detail={this.state.subject_detail}
                   course={this.props.course} />
@@ -90,13 +68,14 @@ export default class SubjectManagerShowBox extends React.Component {
             <ListTabs
               type={this.state.type}
               subject_detail={this.state.subject_detail}
-              course={this.props.course} user={user}
+              course={this.props.course}
+              user={user}
               user_index={this.state.user_index}
               course_subject_teams={this.state.course_subject_teams}
               subject={this.props.subject}
-              training_standard={this.props.training_standard}
-              evaluation_template={this.props.evaluation_template}
-              evaluation_standards={this.props.evaluation_standards}
+              training_standard={this.state.training_standard}
+              evaluation_template={this.state.evaluation_template}
+              evaluation_standards={this.state.evaluation_standards}
               member_evaluations={this.state.member_evaluations}
               handleChooseType={this.handleChooseType.bind(this)}
               afterCreateTask={this.afterCreateTask.bind(this)}
@@ -110,7 +89,7 @@ export default class SubjectManagerShowBox extends React.Component {
           <div className='col-md-3'>
             <Documents
               course={this.props.course}
-              document_type={'Subject'}
+              document_type='Subject'
               documents={this.state.documents}
               documentable={this.props.subject}
               handleDocumentUploaded={this.handleDocumentUploaded.bind(this)}
@@ -146,8 +125,8 @@ export default class SubjectManagerShowBox extends React.Component {
         <ModalTestRule
           test_rule={this.state.test_rule}
           afterCreateTestRule={this.handleAfterCreatedTasks.bind(this)}
-          categories={this.props.categories}
-          questions={this.props.questions}
+          categories={this.state.categories}
+          questions={this.state.questions}
           url={SUBJECT_TASKS_URL}
           subject_detail={this.state.subject_detail}
           ownerable_type={ownerable_type}

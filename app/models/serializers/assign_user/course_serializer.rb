@@ -14,7 +14,7 @@ class Serializers::AssignUser::CourseSerializer <
   end
 
   def unassigned_users
-    Serializers::Users::UsersSerializer
-      .new(object: @course_supports.unassigned_users).serializer
+    Serializers::Courses::CourseMembersSerializer
+      .new(object: @course_supports.unassigned_users, scope: {course: object}).serializer
   end
 end

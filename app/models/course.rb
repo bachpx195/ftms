@@ -33,7 +33,8 @@ class Course < ApplicationRecord
   has_many :course_members, dependent: :destroy
   has_many :certificates, dependent: :destroy
   has_many :managers, through: :course_managers, source: :user
-  has_many :members, -> {course_members_not_rejected},
+  has_many :members, through: :course_members, source: :user
+  has_many :members_not_reject, -> {course_members_not_rejected},
     through: :course_members, source: :user
   has_many :static_tasks, as: :ownerable,
     class_name: StaticTask.name, dependent: :destroy

@@ -11,11 +11,11 @@ class Supports::CourseSupport
   end
 
   def members
-    @members ||= @course.members.uniq
+    @members ||= @course.members_not_reject.uniq
   end
 
   def unassigned_users
-    @unassigned_users ||= (program.users - managers - members).uniq
+    @unassigned_users ||= (program.users - managers - @course.members).uniq
   end
 
   def languages
