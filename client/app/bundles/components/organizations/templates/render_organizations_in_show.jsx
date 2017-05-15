@@ -10,8 +10,6 @@ export default class OrganizationLists extends React.Component{
     this.state = {
       organization: props.organization,
       programs: props.programs,
-      index: null,
-      name: null,
       parent: false
     }
   }

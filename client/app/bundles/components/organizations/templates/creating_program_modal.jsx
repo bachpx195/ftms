@@ -19,7 +19,6 @@ export default class CreatingProgramModal extends React.Component {
             <div className='modal-body'>
               <FormCreateProgram
                 organization={this.props.organization}
-                program={this.props.program}
                 handleAfterCreated={this.props.handleAfterCreated} />
             </div>
           </div>

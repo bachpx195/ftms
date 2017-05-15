@@ -11,9 +11,6 @@ export default class ManagerOrganizations extends React.Component {
     this.state = {
       parent: null,
       organizations: organizations,
-      organization: {
-        name: ''
-      }
     };
   }
 
