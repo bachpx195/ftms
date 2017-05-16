@@ -127,7 +127,7 @@ export default class OrganizationShow extends React.Component {
               </div>
               <br/>
               <div className='member-title'>
-                <i className='fa fa-list-ul' aria-hidden='true'></i>
+                <i className='fa fa-book' aria-hidden='true'></i>
                 <strong>
                   <a href={routes.organization_subjects_url(
                     this.state.organization.id)}>

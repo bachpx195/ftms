@@ -34,12 +34,16 @@ export default class QuestionsObject extends React.Component {
         if(item._destroy == 1 || item.isHidden) return '';
         return (
           <li key={index} className={className}>
-            <div data-index={index} onClick={this.handleShowQuestion.bind(this)}
-              className='list-node'>
-              {item.info.content}
+            <div className='row'>
+              <div data-index={index} onClick={this.handleShowQuestion.bind(this)}
+                className='col-md-10 list-node'>
+                {item.info.content}
+              </div>
+              <div className='col-md-2'>
+                <i data-index={index} onClick={this.handleRemoveQuestion.bind(this)}
+                   className='icon-remove glyphicon glyphicon-remove'></i>
+              </div>
             </div>
-            <i data-index={index} onClick={this.handleRemoveQuestion.bind(this)}
-               className='icon-remove glyphicon glyphicon-remove'></i>
           </li>
         );
       });
