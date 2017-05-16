@@ -5,7 +5,8 @@ import * as react_table_ultis from 'shared/react-table/ultis';
 export default class TrainingStandardInfoTab extends React.Component {
   render() {
     return (
-      <div className='tab-pane active clearfix' id='training_standard_info'>
+      <div className='tab-pane active clearfix table-training-standards'
+        id='training_standard_info'>
         <table>
           <tbody>
             <tr>

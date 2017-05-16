@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Errors from '../../../shareds/errors';
+import Errors from 'shared/errors';
 import PanelEvaluationStandards from '../panel_evaluation_standards';
 import PanelTrainingResults from '../panel_training_results';
 import React from 'react';

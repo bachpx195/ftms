@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import * as routes from 'config/routes';
 
-export default class Create extends React.Component {
+export default class Update extends React.Component {
   render() {
     return (
       <button className='btn btn-primary'

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import Errors from '../../shareds/errors';
+import Errors from 'shared/errors';
 import RenderOptions from './render_options'
 import _ from 'lodash';
 import * as app_constants from 'constants/app_constants'
@@ -24,7 +24,7 @@ export default class Form extends React.Component {
   render() {
     return (
       <div className='col-md-8 col-md-offset-2'>
-        <form onSubmit={this.handleSubmit.bind(this)} 
+        <form onSubmit={this.handleSubmit.bind(this)}
           className='form-horizontal'>
           <Errors errors={this.state.errors} />
           <div className='form-group'>
@@ -84,7 +84,7 @@ export default class Form extends React.Component {
       .then(response => {
         this.refs.nameField.value = '';
         this.refs.contentField.value = '';
-        this.props.handleAfterCreatedProject(response.data.target, 
+        this.props.handleAfterCreatedProject(response.data.target,
           this.props.type);
       })
       .catch(error => console.log(error));

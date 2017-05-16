@@ -1,9 +1,9 @@
 import * as react_table_ultis from 'shared/react-table/ultis';
-import Checkbox from '../shareds/checkbox';
+import Checkbox from 'shared/checkbox';
 import css from 'assets/sass/react-table.scss';
 import React from 'react';
 import ReactTable from 'react-table';
-import SelectSell from '../shareds/select_cell';
+import SelectSell from 'shared/select_cell';
 
 export default class RoleFunctions extends React.Component {
   constructor(props) {

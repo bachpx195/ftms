@@ -1,9 +1,9 @@
 import * as routes from 'config/routes';
 import axios from 'axios';
-import Documents from '../../shareds/documents/documents';
+import Documents from 'shared/documents/documents';
 import ListTabs from '../supervisor/list_tabs';
 import ModalAssignTask from './templates/modal_assign_task';
-import ModalPreviewDocument from '../../shareds/modal_preview_document';
+import ModalPreviewDocument from 'shared/modal_preview_document';
 import ModalCreateTasks from './templates/modal_create_tasks';
 import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumb/show';

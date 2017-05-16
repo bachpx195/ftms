@@ -1,6 +1,6 @@
 import axios from 'axios';
 import CheckRoleBox from './check_role_box';
-import Errors from '../../../shareds/errors';
+import Errors from 'shared/errors';
 import FunctionBox from './function_box';
 import lodash from 'lodash';
 import React from 'react';

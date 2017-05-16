@@ -1,11 +1,11 @@
 import axios from 'axios';
-import Documents from '../shareds/documents/documents';
+import Documents from 'shared/documents/documents';
 import ListTabs from './list_tabs';
 import ModalAssignTask from '../subjects/managers/templates/modal_assign_task';
 import ModalCreateAssignment from '../subjects/managers/templates/modal_create_assignment';
 import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumb/show';
-import ModalPreviewDocument from '../shareds/modal_preview_document';
+import ModalPreviewDocument from 'shared/modal_preview_document';
 import TeamDetail from './templates/team_detail';
 import ModalCreateProject from '../projects/templates/modal';
 import * as app_constants from 'constants/app_constants';

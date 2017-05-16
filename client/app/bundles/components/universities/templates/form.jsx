@@ -1,12 +1,12 @@
-import React from 'react';
 import _ from 'lodash';
 import axios from 'axios';
-import Dropzone from 'react-dropzone';
-import ReactOnRails from 'react-on-rails';
 import Create from '../actions/create';
+import Dropzone from 'react-dropzone';
+import Errors from 'shared/errors';
+import React from 'react';
+import ReactOnRails from 'react-on-rails';
 import Update from '../actions/update';
 
-import Errors from '../../shareds/errors';
 
 export default class Form extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
-import Errors from '../shareds/errors';
+import Errors from 'shared/errors';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import _ from 'lodash';

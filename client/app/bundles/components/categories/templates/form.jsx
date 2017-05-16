@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Create from '../actions/create';
-import Errors from '../../shareds/errors';
+import Errors from 'shared/errors';
 import React from 'react';
 import Update from '../actions/update';
 

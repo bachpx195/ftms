@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { NewLayout } from '../shareds/griddles/new_layout';
+import { NewLayout } from 'shared/griddles/new_layout';
 
 export default class UserLists extends React.Component {
 

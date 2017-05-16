@@ -8,11 +8,17 @@ import TrainingStandardPolicy from 'policy/training_standard_policy';
 export default class TrainingStandards extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...props};
+    this.state = {
+      training_standards: props.training_standards,
+      organization: props.organization,
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({...nextProps});
+    this.setState({
+      training_standards: nextProps.training_standards,
+      organization: nextProps.organization,
+    });
   }
 
   render() {

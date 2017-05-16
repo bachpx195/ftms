@@ -1,9 +1,9 @@
+import _ from 'lodash';
+import axios from 'axios';
+import Errors from 'shared/errors';
+import ListUnassignedUserSubject from './list_unassigned_user_subject';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import axios from 'axios';
-import Errors from '../../shareds/errors';
-import ListUnassignedUserSubject from './list_unassigned_user_subject';
-import _ from 'lodash';
 
 export default class Form extends React.Component {
   constructor(props) {

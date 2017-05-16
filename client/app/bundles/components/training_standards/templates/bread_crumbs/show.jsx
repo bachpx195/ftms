@@ -5,7 +5,7 @@ import * as routes from 'config/routes';
 
 const APP_NAME = app_constants.APP_NAME;
 
-export default class ShowBreadCrumd extends React.Component {
+export default class ShowBreadCrumb extends React.Component {
   render() {
     return (
       <div className='col-md-12'>
@@ -25,26 +25,18 @@ export default class ShowBreadCrumd extends React.Component {
                 label: this.props.organization.name,
               },
               {
-                path: routes.organization_programs_url(
-                  this.props.organization.id),
-                label: I18n.t('breadcrumbs.programs'),
+                path: routes.organization_training_standards_url(this.props.organization.id),
+                label: I18n.t('breadcrumbs.training_standards'),
               },
               {
-                path: routes.organization_program_url(
-                  this.props.organization.id, this.props.program.id),
-                label: this.props.program.name,
-              },
-              {
-                path: routes.courses_url(),
-                label: I18n.t('breadcrumbs.courses'),
-              },
-              {
-                path: routes.course_url(this.props.course.id),
-                label: this.props.course.name,
+                path: routes.organization_training_standard_url(this.props.organization.id,
+                 this.props.training_standard.id),
+                label: this.props.training_standard.name,
               }
             ]
           }
-          others={this.props.others}
+          separatorChar={' > '}
+          others={this.props.other_training_standards}
         />
       </div>
     );

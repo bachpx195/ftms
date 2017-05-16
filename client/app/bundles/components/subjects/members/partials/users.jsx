@@ -2,7 +2,7 @@ import CoursePolicy from 'policy/course_policy';
 import Managers from './managers';
 import Members from './members';
 import React from 'react';
-import ModalPreviewDocument from '../../../shareds/modal_preview_document';
+import ModalPreviewDocument from 'shared/modal_preview_document';
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ export default class Users extends React.Component {
               </div>
               <Members members={this.state.members} />
             </div>
-            
+
           </div>
         </div>
       </div>

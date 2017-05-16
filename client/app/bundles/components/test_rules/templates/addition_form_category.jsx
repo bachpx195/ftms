@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import * as react_table_ultis from 'shared/react-table/ultis';
 import CategoryPreview from './category_preview';
-import Checkbox from '../../shareds/checkbox';
+import Checkbox from 'shared/checkbox';
 import css from 'assets/sass/react-table.scss';
 import {FunctionsHelper} from '../helper/functions';
 import QuestionPreview from './question_preview';
 import React from 'react';
 import ReactTable from 'react-table';
-import SelectSell from '../../shareds/select_cell';
+import SelectSell from 'shared/select_cell';
 
 export default class AdditionFormCategory extends React.Component {
   constructor(props) {

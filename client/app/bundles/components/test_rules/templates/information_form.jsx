@@ -1,4 +1,4 @@
-import Errors from '../../shareds/errors';
+import Errors from 'shared/errors';
 import React from 'react';
 
 export default class Form extends React.Component {

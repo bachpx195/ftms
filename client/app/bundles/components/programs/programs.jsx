@@ -4,7 +4,7 @@ import ModalCreateSubProgram from './templates/modal_create_sub_program';
 import ModalAssignProgram from './templates/modal_assign_program';
 import React from 'react';
 import UnAssign from './actions/unassign';
-import { NewLayout } from '../shareds/griddles/new_layout';
+import { NewLayout } from 'shared/griddles/new_layout';
 import * as table_constants from 'constants/griddle_table_constants';
 import * as routes from 'config/routes';
 import ProgramPolicy from 'policy/program_policy';

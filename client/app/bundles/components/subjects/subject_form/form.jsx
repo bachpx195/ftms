@@ -1,9 +1,9 @@
+import _ from 'lodash';
+import axios from 'axios';
+import Dropzone from 'react-dropzone';
+import Errors from 'shared/errors';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
-import Errors from '../../shareds/errors';
-import _ from 'lodash';
 
 export default class Form extends React.Component {
   constructor(props) {
