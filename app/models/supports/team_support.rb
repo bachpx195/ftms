@@ -4,7 +4,11 @@ class Supports::TeamSupport
   end
 
   def course_subject
-    @course_subject ||= @team.course_subject
+    @course_subject = if team.present?
+      team.course_subject
+    else
+      CourseSubject.find_by id: @params[:team][:course_subject_id]
+    end
   end
 
   def team

@@ -9,6 +9,8 @@ class TeamsController < ApplicationController
         team = Team.new team_params
         if team.save
           team.user_subject_ids = params[:user_subject_ids]
+          TeamServices::CreateStaticTask.new(team: team,
+            course_subject: @team_supports.course_subject).perform
           render json: {
             team: Serializers::Teams::CreateTeamsSerializer
               .new(object: team).serializer
@@ -47,6 +49,6 @@ class TeamsController < ApplicationController
 
   def authorize_request
     authorize_with_multiple page_params.merge(team: @team_supports.team,
-      course: @team_supports.course_subject.course), TeamPolicy
+      course: @team_supports.course), TeamPolicy
   end
 end
