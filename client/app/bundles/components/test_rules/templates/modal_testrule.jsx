@@ -183,10 +183,14 @@ export default class Modal extends React.Component {
       headers: {'Accept': 'application/json'}
     })
       .then(response => {
+        let data = response.data.target;
+        if (response.data.target == undefined) {
+          data = response.data.test_rule;
+        }
         if (this.props.test_rule['id'] != undefined) {
-          this.props.handleAfterUpdated(response.data.test_rule)
+          this.props.handleAfterUpdated(data)
         } else {
-          this.props.afterCreateTestRule(response.data.target, 'test_rules');
+          this.props.afterCreateTestRule(data, 'test_rules');
         }
         $('.modalForm').modal('hide');
       })

@@ -21,7 +21,6 @@ export default class OrganizationShow extends React.Component {
       organization: props.organization,
       programs: props.programs,
       all_roles: props.all_roles,
-      user: props.user,
       documents: props.documents,
       document_preview: {},
       other_organizations: props.other_organizations
@@ -203,7 +202,6 @@ export default class OrganizationShow extends React.Component {
 
         <ModalAssignOwner
           organization={this.state.organization}
-          all_roles={this.state.all_roles}
           handleOwnerAssigned={this.handleOwnerAssigned.bind(this)}
         />
       </div>

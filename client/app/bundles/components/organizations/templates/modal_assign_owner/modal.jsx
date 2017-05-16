@@ -9,9 +9,7 @@ export default class ModalAssignOwner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url_programs: this.props.url_programs,
       organization: this.props.organization,
-      all_roles: this.props.all_roles,
       owners: this.props.organization.users,
       user_checked: {},
     };
@@ -20,7 +18,6 @@ export default class ModalAssignOwner extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       organization: nextProps.organization,
-      all_roles: nextProps.all_roles
     });
   }
 

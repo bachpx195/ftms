@@ -66,7 +66,7 @@ export default class FormOrganization extends React.Component {
   handleAfterCreated(response) {
     let organization = response.data.organization;
       let ORGANIZATION_URL = this.props.url + '/' + organization.id
-      window.location.href =  ORGANIZATION_URL;
+      window.location.href = ORGANIZATION_URL;
     this.refs.nameField.value = '';
   }
 }
