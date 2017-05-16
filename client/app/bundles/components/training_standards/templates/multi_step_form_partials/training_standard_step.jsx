@@ -1,4 +1,4 @@
-import Errors from '../../../shareds/errors';
+import Errors from 'shared/errors';
 import React from 'react';
 import ReactOnRails from 'react-on-rails';
 import * as app_constants from 'constants/app_constants';

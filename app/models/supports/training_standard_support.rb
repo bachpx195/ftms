@@ -31,6 +31,11 @@ class Supports::TrainingStandardSupport
     end
   end
 
+  def other_training_standards
+    @other_training_standards ||= organization.training_standards -
+      [training_standard]
+  end
+
   def subjects
     @subjects ||= @organization.subjects.select :id, :name, :image,
       :description, :during_time

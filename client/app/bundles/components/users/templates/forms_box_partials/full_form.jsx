@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactOnRails from 'react-on-rails';
 import axios from 'axios';
-import Errors from '../../../shareds/errors';
 import Create from '../../actions/create';
+import Errors from 'shared/errors';
 import Update from '../../actions/update';
 import Modals from '../modals';
+import React from 'react';
+import ReactOnRails from 'react-on-rails';
 
 export default class FullForm extends React.Component {
   constructor(props) {
@@ -436,4 +436,3 @@ export default class FullForm extends React.Component {
     $('.modal-' + this.state.type).modal('hide');
   }
 }
-

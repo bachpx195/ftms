@@ -4,7 +4,7 @@ import Documents from '../partials/documents';
 import ModalAssignMember from '../modal_assign_member/modal';
 import ModalChangeCourse from '../move_courses/move_course_modal';
 import ModalEvaluateMember from '../modal_evaluate_member/modal';
-import ModalPreviewDocument from '../../shareds/modal_preview_document';
+import ModalPreviewDocument from 'shared/modal_preview_document';
 
 export default class CoursePanelRight extends React.Component {
   constructor(props) {

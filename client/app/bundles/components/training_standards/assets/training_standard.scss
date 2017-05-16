@@ -117,6 +117,7 @@ $bg-now: #004165;
 }
 
 .box.box-standard-subjects {
+  margin-top: 5%;
   padding: 0 15px;
 }
 
@@ -656,5 +657,11 @@ $bg-now: #004165;
     .subject-duration {
       color: $subject-duration-color;
     }
+  }
+}
+
+.table-training-standards {
+  table {
+    width: 100%;
   }
 }

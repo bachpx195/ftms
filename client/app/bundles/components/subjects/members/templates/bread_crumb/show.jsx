@@ -1,6 +1,6 @@
 import * as app_constants from 'constants/app_constants';
 import * as routes from 'config/routes';
-import Breadcrumb from '../../../../shareds/bread_crumb/bread_crumb';
+import Breadcrumb from 'shared/bread_crumb/bread_crumb';
 import React from 'react';
 
 const APP_NAME = app_constants.APP_NAME;

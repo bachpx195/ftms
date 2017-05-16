@@ -5,7 +5,7 @@ import axios from 'axios';
 import Create from '../actions/create';
 import Update from '../actions/update';
 
-import Errors from '../../shareds/errors';
+import Errors from 'shared/errors';
 
 import _ from 'lodash';
 

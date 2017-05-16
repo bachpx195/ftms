@@ -1,6 +1,6 @@
 import BlockTasks from '../../subjects/block_tasks';
 import Documents from './documents';
-import ModalPreviewDocument from '../../shareds/modal_preview_document';
+import ModalPreviewDocument from 'shared/modal_preview_document';
 import React from 'react';
 import ModalCreateTasks from '../../subjects/managers/templates/modal_create_tasks';
 
