@@ -8,6 +8,7 @@ import OrganizationLists from './templates/render_organizations_in_show';
 import React from 'react';
 import ShowBreadCrumb from './templates/bread_crumbs/show';
 import TitleOrganization from './templates/title_organization';
+import OrganizationPolicy from 'policy/organization_policy';
 
 import * as routes from 'config/routes';
 
@@ -83,10 +84,14 @@ export default class OrganizationShow extends React.Component {
                 <div className='block-trainer'>
                   {this.renderOwner(owner)}
                 </div>
-                <a href='#'
-                  onClick={this.handleAssignOwnerModal.bind(this)} >
-                  {I18n.t('organizations.assign_owner')}
-                </a>
+                <OrganizationPolicy permit={[{action: ['ownerById'],
+                  target: 'children', data: {id: owner.id}}]}
+                >
+                  <a href='#'
+                    onClick={this.handleAssignOwnerModal.bind(this)} >
+                    {I18n.t('organizations.assign_owner')}
+                  </a>
+                </OrganizationPolicy>
               </div>
               <br />
               <div className='member-title'>

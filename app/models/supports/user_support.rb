@@ -15,8 +15,10 @@ class Supports::UserSupport
     @organization ||=
       if program
         program.organization
-      else
+      elsif @params[:organization_id]
         Organization.find_by id: @params[:organization_id]
+      else
+        @user.profile.organization
       end
   end
 

@@ -8,9 +8,14 @@ class UserPolicy < ApplicationPolicy
     (super && belong_to_organization?) || is_owner_organization?
   end
 
-  def edit?
+  def show?
+    is_owner_organization? || (super && belong_to_organization?) ||
+      @user == record[:user]
+  end
+
+  def update?
     (super && belong_to_organization?) || is_owner_organization? ||
-      @user == current_user
+      @user == record[:user]
   end
 
   private
