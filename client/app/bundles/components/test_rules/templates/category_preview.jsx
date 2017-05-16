@@ -29,22 +29,22 @@ export default class CategoryPreview extends React.Component {
         </div>
         <div className='form-group'>
           <div className='row'>
-            <div className="col-md-4 col-xs-4">
-              <label htmlFor='easy'>
+            <div className="col-md-4 col-xs-4 custom-size">
+              <label className='custom-size' htmlFor='easy'>
                 {I18n.t('test_rules.form.easy')}
               </label>
               <input id='easy' type='number' value={this.state.easy} name='easy'
                 onChange={this.handleChangeInput.bind(this)} className='form-control'/>
             </div>
-            <div className="col-md-4 col-xs-4">
-              <label htmlFor='normal'>
+            <div className="col-md-4 col-xs-4 custom-size">
+              <label className='custom-size' htmlFor='normal'>
                 {I18n.t('test_rules.form.normal')}
               </label>
               <input id='normal' type='number' value={this.state.normal} name='normal'
                 onChange={this.handleChangeInput.bind(this)} className='form-control'/>
             </div>
-            <div className="col-md-4 col-xs-4">
-              <label htmlFor='hard'>
+            <div className="col-md-4 col-xs-4 custom-size">
+              <label className='custom-size' htmlFor='hard'>
                 {I18n.t('test_rules.form.hard')}
               </label>
               <input id='hard' type='number' value={this.state.hard} name='hard'
