@@ -174,7 +174,7 @@ export default class ModalAssignMember extends React.Component {
 
   assignMembers() {
     let notifications = [];
-    let checked_users = []
+    let checked_users = [];
     this.state.checked_users.map((user, index) => {
       if (user.other_courses.length > 0) {
         notifications.push(user.name + I18n.t("courses.errors.joined_course") +
@@ -239,6 +239,7 @@ export default class ModalAssignMember extends React.Component {
       return this.props.members
         .findIndex(_user => _user.id == user.id) < 0;
     });
+
     for(let user of members) {
       if(user.user_course) {
         formData.append('course[user_courses_attributes][' + index + '][id]',

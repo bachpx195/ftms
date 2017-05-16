@@ -25,24 +25,14 @@
 <% else %>
   <%= react_component "SubjectManagerShowBox",
     props: {
-      member_ids: @subject_supports.member_ids,
       subject: @subject,
-      assigments: @subject_supports.user_assigmnent,
-      user_course: @user_course,
-      current_user: current_user,
-      course_subject: @course_subject ? @course_subject : nil,
-      user_dynamic_course_subjects: @subject_supports.user_dynamic_course_subjects,
-      static_task_assignment: @subject_supports.user_static_task,
-      static_test_rules: @subject_supports.static_test_rules,
       training_standard: @subject_supports.training_standard,
       evaluation_template: @subject_supports.evaluation_template,
       evaluation_standards: @subject_supports.evaluation_standards,
       member_evaluations: @subject_supports.member_evaluations,
       subject_detail: @subject_supports.subject_detail,
       course: @subject_supports.course,
-      organizations: @subject_supports.organizations,
       meta_types: @subject_supports.meta_types,
-      permit_create_meta_type: true,
       categories: @subject_supports.categories,
       questions: @subject_supports.questions
     }, prerender: false
