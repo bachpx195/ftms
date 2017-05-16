@@ -1,6 +1,6 @@
 class ChangeRole::UsersController < ApplicationController
   before_action :find_user
-  before_action :namespace_authorize
+  before_action :authorize_request
 
   def show
     @user_supports = Supports::UserSupport.new
@@ -73,5 +73,10 @@ class ChangeRole::UsersController < ApplicationController
 
   def user_function_params
     params.require(:functions).permit User::ATTRIBUTES_FUNCTION_PARAMS
+  end
+
+  def authorize_request
+    authorize_with_multiple page_params.merge(
+      organization: @user.profile.organization), ChangeRole::UserPolicy
   end
 end
